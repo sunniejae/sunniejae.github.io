@@ -148,7 +148,7 @@ body {
 
 /* TASKBAR FOOTER */
 .taskbar {
-  position: fixed;
+  position: static;
   bottom: 0;
   left: 0;
   width: 100vw;
