@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background: #1a111e;
+  background: #130d16;
   font-family: 'Comic Sans MS', 'Comic Sans', cursive, Arial, sans-serif;
   color: #faf8fc;
   overflow-x: hidden;
@@ -9,8 +9,8 @@ body {
 /* TOP SECTION */
 .top-section {
   position: relative;
-  width: 100vw;
-  height: 520px;
+  width: 1920 px;
+  height: 384px;
   min-height: 350px;
   overflow: hidden;
   display: flex;
@@ -34,8 +34,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100%;
+  width: 1920px;
+  height: 80%;
   padding-top: 40px;
   padding-bottom: 40px;
 }
