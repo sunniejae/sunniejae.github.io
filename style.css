@@ -1,4 +1,4 @@
-/* Reset + Base Styles */
+/* Reset and base */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,78 +6,76 @@
 }
 
 body, html {
-  width: 100%;
   height: 100%;
   font-family: 'Tahoma', sans-serif;
   background-color: #dbe6f4;
   color: #000;
 }
 
-/* Notebook Background */
+/* Notebook Section with background image */
 .notebook-section {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background-image: url('https://imgur.com/ThL4Puh.png');
-  background-size: cover;
+  height: 700px; /* Adjust this to fit your design */
+  background-image: url('https://i.imgur.com/ThL4Puh.png');
+  background-repeat: no-repeat;
   background-position: center;
-  z-index: -1;
+  background-size: contain;
+  margin-bottom: 40px;
 }
 
-/* Desktop Layout */
+/* Desktop container */
 .desktop {
-  position: relative;
-  width: 100%;
-  height: 100%;
   padding: 40px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  background-color: #130d16; /* Windows XP style dark background */
+  min-height: 400px; /* adjust as needed */
 }
 
-/* Icon Grid */
+/* Icon grid with columns */
 .icon-grid {
   display: flex;
   gap: 100px;
 }
 
-/* Column of Icons */
+/* Columns */
 .column {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-/* Individual Icon */
+/* Individual icon styling */
 .icon {
-  width: 80px;               /* fixed width */
-  text-align: center;        /* center label under icon */
+  width: 80px;
+  text-align: center;
   cursor: pointer;
+  color: white;
+  user-select: none;
+  text-decoration: none; /* for <a> elements */
 }
 
 .icon img {
   width: 64px;
   height: 64px;
-  display: block;
-  margin: 0 auto 6px;       /* center image and add bottom space */
+  margin-bottom: 6px;
   image-rendering: pixelated;
+  filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
 }
 
+/* Label under icon */
 .icon span {
   font-size: 12px;
-  color: #000;
-  text-shadow: 1px 1px #fff;
+  text-shadow: 1px 1px 2px #000;
   display: block;
-  word-wrap: break-word;
-  user-select: none;        /* prevent text selection */
-}
-
-.icon span {
-  font-size: 12px;
-  color: #000;
-  text-shadow: 1px 1px #fff;
-  display: block;
+  color: white;
   word-break: break-word;
+}
+
+/* Hover effect for icons (including <a> links) */
+.icon:hover {
+  filter: drop-shadow(0 0 8px cyan);
+  transform: scale(1.1);
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
