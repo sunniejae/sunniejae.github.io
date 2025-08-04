@@ -6,51 +6,72 @@ body {
   overflow-x: hidden;
 }
 
-.banner {
+/* TOP SECTION */
+.top-section {
   position: relative;
   width: 100vw;
-  height: 340px;
+  height: 520px;
+  min-height: 350px;
   overflow: hidden;
-  background: #1a111e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .banner-bg {
-  width: 100%;
-  height: 340px;
-  object-fit: cover;
-  display: block;
-}
-.banner-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 0; left: 0;
+  width: 100vw;
   height: 100%;
-  text-align: center;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.top-overlay {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  pointer-events: none;
+  justify-content: center;
+  width: 100vw;
+  height: 100%;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
+
 .header-text {
-  width: 60vw;
+  width: 58vw;
   max-width: 520px;
-  margin-bottom: 10px;
-  pointer-events: auto;
+  min-width: 240px;
+  margin: 0 auto 8px auto;
+  display: block;
 }
+
+.sunniejae-below {
+  display: block;
+  width: 38vw;
+  max-width: 340px;
+  min-width: 180px;
+  margin: 0 auto 18px auto;
+}
+
 .header-sub {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  gap: 12px;
-  margin-bottom: 32px;
-  pointer-events: auto;
+  gap: 14px;
+  margin-top: 0;
 }
+
 .header-dreamers,
 .header-and,
 .header-divas {
   height: 64px;
   max-width: 220px;
+  width: auto;
+  display: block;
 }
 .header-and {
   height: 36px;
@@ -58,6 +79,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* NOTEBOOK SECTION */
 .notebook-section {
   display: flex;
   justify-content: center;
@@ -71,6 +93,7 @@ body {
   box-shadow: 0 8px 32px 0 rgba(66,0,143,0.18);
 }
 
+/* SIDEBAR NAVIGATION */
 .sidebar {
   position: fixed;
   top: 390px;
@@ -137,6 +160,7 @@ body {
   margin: 0 auto 2px auto;
 }
 
+/* TASKBAR FOOTER */
 .taskbar {
   position: fixed;
   bottom: 0;
@@ -162,6 +186,34 @@ body {
     width: 26px;
     height: 26px;
     margin-right: 7px;
+  }
+}
+@media (max-width: 700px) {
+  .top-section {
+    height: 340px;
+    min-height: 200px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .header-text {
+    width: 80vw;
+    max-width: 320px;
+    min-width: 120px;
+  }
+  .sunniejae-below {
+    width: 55vw;
+    max-width: 220px;
+    min-width: 80px;
+    margin-bottom: 12px;
+  }
+  .header-dreamers,
+  .header-divas {
+    height: 40px;
+    max-width: 90px;
+  }
+  .header-and {
+    height: 24px;
+    margin-bottom: 4px;
   }
 }
 @media (max-width: 600px) {
