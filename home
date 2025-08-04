@@ -3,29 +3,176 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sunnie Jae | Digital Artist</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Sunnie Jae</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #0f0a12;
+      font-family: 'Press Start 2P', monospace;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding-top: 2rem;
+    }
+
+    header img {
+      max-width: 90%;
+      height: auto;
+    }
+
+    .notebook-section {
+      position: relative;
+      background: url('https://i.imgur.com/YOUR_NOTEBOOK_IMAGE.jpg') no-repeat center center;
+      background-size: cover;
+      margin: 2rem auto;
+      max-width: 600px;
+      padding: 3rem 2rem;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .notebook-section .overlay {
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+    }
+
+    .desktop-section {
+      background-color: #130d16;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 2rem auto;
+      display: flex;
+      gap: 4rem;
+      justify-content: flex-start;
+      border-radius: 12px;
+    }
+
+    .desktop-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .desktop-icon {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      user-select: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .desktop-icon img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.7));
+    }
+
+    .desktop-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 8px cyan;
+      color: cyan;
+    }
+
+    .icon-placeholder {
+      width: 64px;
+      height: 64px;
+      background-color: #333;
+      border: 2px dashed #888;
+      border-radius: 8px;
+    }
+
+    footer {
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      background-color: #0f0a12;
+      color: #bbb;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Sunnie Jae</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <img src="https://i.imgur.com/YOUR_HEADER_IMAGE.jpg" alt="Sunnie Jae header" />
   </header>
 
-  <main>
-    <h2>Welcome to My Portfolio</h2>
-    <p>I’m a digital artist, designer, and storyteller. Here’s some of my work:</p>
-    <img src="images/art1.jpg" alt="Artwork 1" />
-    <img src="images/art2.jpg" alt="Artwork 2" />
-  </main>
+  <section class="notebook-section">
+    <div class="overlay">
+      <p><strong>29 YEAR OLD GRAPHIC DESIGN HOBBYIST</strong></p>
+      <p>with a passion for making people smile.</p>
+      <p>when I’m not on my laptop, at least one of my three cats is peering over my shoulder.</p>
+      <p>my work is often colorful and obscured, telling a story regardless of medium...</p>
+      <p>thanks for stopping by. hang around for a while!</p>
+    </div>
+  </section>
+
+  <section class="desktop-section">
+    <!-- Column 1: Recycle Bin + Folders -->
+    <div class="desktop-column">
+      <button class="desktop-icon">
+        <div class="icon-placeholder"></div>
+        <span>Recycle Bin</span>
+      </button>
+      <button class="desktop-icon">
+        <img src="https://imgur.com/XRXG5tA.png" alt="Fanfic Drafts" />
+        <span>Fanfic Drafts</span>
+      </button>
+      <button class="desktop-icon">
+        <img src="https://imgur.com/XRXG5tA.png" alt="Images" />
+        <span>Images</span>
+      </button>
+      <button class="desktop-icon">
+        <img src="https://imgur.com/XRXG5tA.png" alt="Videos" />
+        <span>Videos</span>
+      </button>
+      <button class="desktop-icon">
+        <img src="https://imgur.com/XRXG5tA.png" alt="Downloads" />
+        <span>Downloads</span>
+      </button>
+      <button class="desktop-icon">
+        <img src="https://imgur.com/XRXG5tA.png" alt="Summer 2005" />
+        <span>Summer 2005</span>
+      </button>
+      <button class="desktop-icon">
+        <img src="https://imgur.com/XRXG5tA.png" alt="Games" />
+        <span>Games</span>
+      </button>
+    </div>
+
+    <!-- Column 2: Apps -->
+    <div class="desktop-column">
+      <button class="desktop-icon">
+        <img src="https://imgur.com/Bh4p6mj.png" alt="YouTube" />
+        <span>YouTube</span>
+      </button>
+      <button class="desktop-icon">
+        <img src="https://imgur.com/MhKNywk.png" alt="TikTok" />
+        <span>TikTok</span>
+      </button>
+    </div>
+  </section>
 
   <footer>
-    <p>© 2025 Sunnie Jae</p>
+    <p>i believe in REINVENTION</p>
+    <p>without losing yourself in the process</p>
   </footer>
 </body>
 </html>
