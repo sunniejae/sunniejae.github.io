@@ -1,15 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
   margin: 0;
   background: #130d16;
-  font-family: 'Comic Sans MS', 'Comic Sans', cursive, Arial, sans-serif;
+  font-family: 'Press Start 2P', 'Comic Sans MS', 'Comic Sans', cursive, Arial, sans-serif;
   color: #faf8fc;
   overflow-x: hidden;
 }
 
-/* TOP SECTION */
 .top-section {
   position: relative;
-  width: 1920 px;
+  width: 100vw;
   height: 384px;
   min-height: 350px;
   overflow: hidden;
@@ -52,6 +53,20 @@ body {
   margin-top: 0;
 }
 
+.header-dreamers,
+.header-and,
+.header-divas {
+  height: 64px;
+  max-width: 220px;
+  width: auto;
+  display: block;
+}
+.header-and {
+  height: 36px;
+  align-self: flex-end;
+  margin-bottom: 10px;
+}
+
 /* NOTEBOOK SECTION */
 .notebook-section {
   display: flex;
@@ -69,9 +84,8 @@ body {
 /* SIDEBAR NAVIGATION */
 .sidebar {
   position: static;
-  top: 390px;
   left: 75px;
-  width: 142px;
+  width: 260px;
   min-height: 450px;
   display: flex;
   flex-direction: column;
@@ -79,68 +93,71 @@ body {
   z-index: 10;
   background: transparent;
 }
+
 .sidebar-inner {
   display: flex;
   flex-direction: row;
-  gap: 18px; /* space between columns */
+  gap: 18px;
 }
 
 .folders-list,
 .social-list {
   list-style: none;
-  padding: 20;
+  padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 18px;
 }
 
-.social-list li a img {
-  border: 2px solid #34dae1;
-  background: transparent;
-}
-.sidebar nav ul {
-  list-style: none;
-  padding: 50px;
-  margin: 50px;
-}
-.sidebar nav ul li {
+.folders-list li, .social-list li {
   display: flex;
-  align-items: center;
-  margin: 12px 0;
+  justify-content: center;
 }
-.sidebar nav ul li a {
+
+.folders-list li a, .social-list li a {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  color: #faf8fc;
   text-decoration: none;
-  font-size: 1rem;
-  padding: 2px 8px;
-  border-radius: 8px;
+  color: #faf8fc;
+  font-size: 0.8rem;
   transition: background 0.2s, color 0.2s;
+  padding: 6px 4px;
+  border-radius: 8px;
 }
-.sidebar nav ul li a:hover {
+.folders-list li a:hover, .social-list li a:hover {
   background: #ff68b5;
   color: #42008f;
 }
 
-.sidebar nav ul li img {
+/* Folder and social icon images */
+.folders-list li img, .social-list li img {
   width: 35px;
   height: 35px;
-  margin-right: 9px;
+  margin: 0 0 6px 0; /* Add space below image */
   border-radius: 6px;
   border: 2px solid #d2baff;
   background: #f6e5f9;
   object-fit: contain;
 }
-.sidebar nav ul li a[href*="youtube"] img {
-  background: transparent;
-  border: 2px solid #418ede;
-}
-.sidebar nav ul li a[href*="tiktok"] img {
-  background: transparent;
+
+.social-list li img {
   border: 2px solid #34dae1;
+  background: #faf8fc;
 }
+
+/* Label below icon */
+.folder-label {
+  display: block;
+  font-size: 0.8em;
+  margin-top: 2px;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+}
+
+/* Recycle Bin */
 .recycle-bin {
   margin-top: 30px;
   text-align: center;
@@ -156,8 +173,6 @@ body {
 /* TASKBAR FOOTER */
 .taskbar {
   position: static;
-  bottom: 0;
-  left: 0;
   width: 100vw;
   z-index: 100;
 }
@@ -172,13 +187,11 @@ body {
 /* Responsive Design */
 @media (max-width: 900px) {
   .sidebar {
-    top: 200px;
-    width: 94px;
+    width: 160px;
   }
-  .sidebar nav ul li img {
-    width: 26px;
-    height: 26px;
-    margin-right: 7px;
+  .folders-list li img, .social-list li img {
+    width: 28px;
+    height: 28px;
   }
 }
 @media (max-width: 700px) {
@@ -210,33 +223,22 @@ body {
   }
 }
 @media (max-width: 600px) {
-  .banner {
-    height: 180px;
-  }
-  .banner-bg {
-    height: 180px;
-  }
-  .notebook-img {
-    width: 97vw;
-    max-width: 97vw;
+  .sidebar-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
   .sidebar {
-    position: static;
-    display: flex;
-    flex-direction: row;
     width: 100vw;
     min-height: unset;
     justify-content: center;
     background: #1a111ecc;
   }
-  .sidebar nav ul {
-    display: flex;
+  .folders-list,
+  .social-list {
     flex-direction: row;
-    flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
-  }
-  .sidebar nav ul li {
-    margin: 8px 6px;
   }
   .taskbar-img {
     height: 38px;
