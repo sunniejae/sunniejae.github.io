@@ -1,108 +1,73 @@
-/* Global Styles */
-body {
-  background-color: #0f0a12;
-  font-family: 'Press Start 2P', monospace;
-  color: white;
+/* Reset + Base Styles */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Header */
-header {
-  text-align: center;
-  padding-top: 2rem;
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Tahoma', sans-serif;
+  background-color: #dbe6f4;
+  color: #000;
 }
 
-header img {
-  max-width: 90%;
-  height: auto;
-}
-
-/* Notebook Section */
+/* Notebook Background */
 .notebook-section {
-  position: relative;
-  background: url('https://i.imgur.com/YOUR_NOTEBOOK_IMAGE.jpg') no-repeat center center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://i.imgur.com/ThL4Puh.png');
   background-size: cover;
-  margin: 2rem auto;
-  max-width: 600px;
-  padding: 3rem 2rem;
-  color: #fff;
-  font-weight: bold;
-  font-size: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  background-position: center;
+  z-index: -1;
 }
 
-.notebook-section .overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 1rem 1.5rem;
-  border-radius: 10px;
-}
-
-/* Desktop Section */
-.desktop-section {
-  background-color: #130d16;
-  padding: 2rem;
-  max-width: 1000px;
-  margin: 2rem auto;
+/* Desktop Layout */
+.desktop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
   display: flex;
-  gap: 4rem;
   justify-content: flex-start;
-  border-radius: 12px;
+  align-items: flex-start;
 }
 
-/* Columns for Icons */
-.desktop-column {
+/* Icon Grid */
+.icon-grid {
+  display: flex;
+  gap: 100px;
+}
+
+/* Column of Icons */
+.column {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 30px;
 }
 
-/* Desktop Icon Style */
-.desktop-icon {
-  background: transparent;
-  border: none;
+/* Individual Icon */
+.icon {
+  width: 80px;
+  text-align: center;
   cursor: pointer;
-  text-align: center;
-  color: white;
-  font-family: 'Press Start 2P', monospace;
-  font-size: 0.6rem;
-  width: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  user-select: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.desktop-icon img {
+.icon img {
   width: 64px;
   height: 64px;
-  object-fit: contain;
-  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.7));
+  margin-bottom: 4px;
+  image-rendering: pixelated;
 }
 
-.desktop-icon:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 8px cyan;
-  color: cyan;
-}
-
-/* Recycle Bin Placeholder */
-.icon-placeholder {
-  width: 64px;
-  height: 64px;
-  background-color: #333;
-  border: 2px dashed #888;
-  border-radius: 8px;
-}
-
-/* Footer */
-footer {
-  padding: 1rem;
-  text-align: center;
-  font-size: 0.8rem;
-  background-color: #0f0a12;
-  color: #bbb;
+.icon span {
+  font-size: 12px;
+  color: #000;
+  text-shadow: 1px 1px #fff;
+  display: block;
+  word-break: break-word;
 }
