@@ -35,7 +35,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 1920px;
-  height: 80%;
+  height: 100%;
   padding-top: 40px;
   padding-bottom: 40px;
 }
@@ -63,20 +63,6 @@ body {
   align-items: flex-end;
   gap: 14px;
   margin-top: 0;
-}
-
-.header-dreamers,
-.header-and,
-.header-divas {
-  height: 64px;
-  max-width: 220px;
-  width: auto;
-  display: block;
-}
-.header-and {
-  height: 36px;
-  align-self: flex-end;
-  margin-bottom: 10px;
 }
 
 /* NOTEBOOK SECTION */
@@ -108,8 +94,8 @@ body {
 }
 .sidebar nav ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: 50px;
+  margin: 50px;
 }
 .sidebar nav ul li {
   display: flex;
