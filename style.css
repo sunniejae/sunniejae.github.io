@@ -97,7 +97,7 @@ body {
 
 .social-list li a img {
   border: 2px solid #34dae1;
-  background: #faf8fc;
+  background: transparent;
 }
 .sidebar nav ul {
   list-style: none;
@@ -138,7 +138,7 @@ body {
   border: 2px solid #418ede;
 }
 .sidebar nav ul li a[href*="tiktok"] img {
-  background: #faf8fc;
+  background: transparent;
   border: 2px solid #34dae1;
 }
 .recycle-bin {
