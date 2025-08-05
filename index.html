@@ -2,35 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sunnie Jae - Folder Links</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>3-Section Layout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #130d16;
+      color: white;
+    }
+
+    /* Section 1: Title Banner */
+    .section-title {
+      width: 100%;
+      height: 100vh;
+      background-image: url('https://imgur.com/qhUEs9u.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Section 2: Notebook */
+    .section-notebook {
+      background-color: #130d16;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .notebook-image {
+      max-width: 95vw;
+      width: 1000px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(66, 0, 143, 0.18);
+    }
+
+    /* Section 3: Computer with Pinterest */
+    .section-computer {
+      background-color: #130d16;
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .computer-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1536px;
+      height: auto;
+    }
+
+    .computer-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .pinterest-embed {
+      position: absolute;
+      top: 222px;
+      left: 127px;
+      width: 651px;
+      height: 762px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .pinterest-embed > * {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
 </head>
 <body>
-  <div class="folder-container">
-    <div class="folder">
-      <a href="https://cozyquartz.tumblr.com" target="_blank">
-        <img src="https://i.imgur.com/VaE0QRo.png" alt="Tumblr Folder">
-        <p>Tumblr</p>
-      </a>
+
+  <!-- SECTION 1: TITLE -->
+  <section class="section-title"></section>
+
+  <!-- SECTION 2: NOTEBOOK -->
+  <section class="section-notebook">
+    <img src="https://imgur.com/WTTivaf.png" alt="Notebook Overlay" class="notebook-image">
+  </section>
+
+  <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
+  <section class="section-computer">
+    <div class="computer-wrapper">
+      <img src="https://imgur.com/RGtkuJc.png" alt="Computer Background" class="computer-image">
+      <div class="pinterest-embed">
+        <a
+          data-pin-do="embedBoard"
+          data-pin-board-width="651"
+          data-pin-scale-height="762"
+          data-pin-scale-width="80"
+          href="https://www.pinterest.com/pasteliume/mine/">
+        </a>
+      </div>
     </div>
-    <div class="folder">
-      <a href="https://www.tiktok.com/@jaymeow3172" target="_blank">
-        <img src="https://i.imgur.com/VaE0QRo.png" alt="TikTok Folder">
-        <p>TikTok</p>
-      </a>
-    </div>
-    <div class="folder">
-      <a href="https://www.youtube.com/@jaymeow3172" target="_blank">
-        <img src="https://i.imgur.com/VaE0QRo.png" alt="YouTube Folder">
-        <p>YouTube</p>
-      </a>
-    </div>
-    <div class="folder">
-      <a href="https://imgur.com/ThL4Puh.png" target="_blank">
-        <img src="https://i.imgur.com/VaE0QRo.png" alt="Notebook Folder">
-        <p>Notebook</p>
-      </a>
-    </div>
-  </div>
+  </section>
+
+  <!-- Pinterest JS -->
+  <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+
 </body>
 </html>
