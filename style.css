@@ -160,7 +160,7 @@ body {
 
 .taskbar {
   position: static;
-  width: 100vw;
+  width: 100%;
   z-index: 100;
 }
 .taskbar-img {
@@ -214,6 +214,6 @@ body {
     justify-content: center;
   }
   .taskbar-img {
-    height: 38px;
+    height: 60px;
   }
 }
