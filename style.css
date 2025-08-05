@@ -19,7 +19,7 @@ body {
 }
 
 .folder img {
-  width: 120px;
+  width: 64px;
   height: auto;
   transition: transform 0.3s ease;
 }
