@@ -8,9 +8,11 @@ body {
   overflow-x: hidden;
 }
 
+/* HEADER SECTION */
 .top-section {
-  position: fixed;
-  width: 1920px;
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
   height: 768px;
   min-height: 768px;
   overflow: hidden;
@@ -21,7 +23,8 @@ body {
 
 .banner-bg {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100%;
   object-fit: cover;
@@ -84,10 +87,11 @@ body {
   display: block;
 }
 
-/* computer SECTION */
+/* EMBED BACKGROUND - PINTEREST */
 .embed-bg-pinterest {
   position: relative;
-  width: 1536px;
+  width: 100%;
+  max-width: 1536px;
   height: 1299px;
   background-image: url('https://imgur.com/RGtkuJc.png');
   background-size: cover;
@@ -99,19 +103,16 @@ body {
 }
 
 .embed-board-wrapper {
-  /* Padding from each side as requested */
   position: absolute;
   top: 222px;
   left: 127px;
   width: 651px;
   height: 762px;
-  /* No background or overlay */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Optional: make sure the Pinterest embed doesn't overflow */
 .embed-board-wrapper > * {
   max-width: 100%;
   max-height: 100%;
@@ -119,7 +120,7 @@ body {
 
 /* SIDEBAR NAVIGATION */
 .sidebar {
-  position: static;
+  position: relative;
   left: 250px;
   width: 260px;
   min-height: 450px;
@@ -139,19 +140,21 @@ body {
 .folders-list,
 .social-list {
   list-style: none;
-  padding: 50;
+  padding: 50px;
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.folders-list li, .social-list li {
+.folders-list li,
+.social-list li {
   display: flex;
   justify-content: center;
 }
 
-.folders-list li a, .social-list li a {
+.folders-list li a,
+.social-list li a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -162,20 +165,30 @@ body {
   padding: 6px 4px;
   border-radius: 8px;
 }
-.folders-list li a:hover, .social-list li a:hover {
+
+.folders-list li a:hover,
+.social-list li a:hover {
   background: #ff68b5;
   color: #42008f;
 }
 
+.folders-list li a:hover img,
+.social-list li a:hover img {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+
 /* Folder and social icon images */
-.folders-list li img, .social-list li img {
+.folders-list li img,
+.social-list li img {
   width: 35px;
   height: 35px;
-  margin: 0 0 6px 0; /* Add space below image */
+  margin: 0 0 6px 0;
   border-radius: 6px;
   border: 2px solid #d2baff;
   background: #f6e5f9;
   object-fit: contain;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .social-list li img {
@@ -206,9 +219,8 @@ body {
   margin: 0 auto 2px auto;
 }
 
-/* TASKBAR FOOTER */
+/* FOOTER TASKBAR */
 .taskbar {
-  position: static;
   width: 100vw;
   z-index: 100;
 }
@@ -220,16 +232,18 @@ body {
   object-fit: cover;
 }
 
-/* Responsive Design */
+/* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
   .sidebar {
     width: 160px;
   }
-  .folders-list li img, .social-list li img {
+  .folders-list li img,
+  .social-list li img {
     width: 28px;
     height: 28px;
   }
 }
+
 @media (max-width: 700px) {
   .top-section {
     height: 340px;
@@ -258,6 +272,7 @@ body {
     margin-bottom: 4px;
   }
 }
+
 @media (max-width: 600px) {
   .sidebar-inner {
     flex-direction: column;
