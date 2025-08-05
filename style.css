@@ -1,297 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
 body {
   margin: 0;
-  background: #130d16;
-  font-family: 'Press Start 2P', 'Comic Sans MS', 'Comic Sans', cursive, Arial, sans-serif;
-  color: #faf8fc;
-  overflow-x: hidden;
-}
-
-/* HEADER SECTION */
-.top-section {
-  position: relative;
-  width: 100%;
-  max-width: 1920px;
-  height: 768px;
-  min-height: 768px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.banner-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.header-text {
-  width: 58vw;
-  max-width: 520px;
-  min-width: 240px;
-  margin: 0 auto 8px auto;
-  display: block;
-}
-
-.sunniejae-below {
-  display: block;
-  width: 38vw;
-  max-width: 340px;
-  min-width: 180px;
-  margin: 0 auto 18px auto;
-}
-
-.header-sub {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 14px;
-  margin-top: 0;
-}
-
-.header-dreamers,
-.header-and,
-.header-divas {
-  height: 64px;
-  max-width: 220px;
-  width: auto;
-  display: block;
-}
-.header-and {
-  height: 36px;
-  align-self: flex-end;
-  margin-bottom: 10px;
-}
-
-/* NOTEBOOK SECTION */
-.notebook-section {
+  padding: 0;
+  background-color: #faf8fc; /* white */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   justify-content: center;
-  margin-top: 30px;
-}
-.notebook-img {
-  width: 1000px;
-  height: 2015px;
-  max-width: 95vw;
-  max-height: 90vh;
-  border-radius: 15px;
-  box-shadow: 0 8px 32px 0 rgba(66,0,143,0.18);
-  object-fit: contain;
-  display: block;
 }
 
-/* EMBED BACKGROUND - PINTEREST */
-.embed-bg-pinterest {
-  position: relative;
-  width: 100%;
-  max-width: 1536px;
-  height: 1299px;
-  background-image: url('https://imgur.com/RGtkuJc.png');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  overflow: hidden;
+.wrapper {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.embed-board-wrapper {
-  position: absolute;
-  top: 222px;
-  left: 127px;
-  width: 651px;
-  height: 762px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+header {
+  margin-top: 40px;
+  transform: scale(0.75);
+  transform-origin: top center;
 }
 
-.embed-board-wrapper > * {
+.header-img {
   max-width: 100%;
-  max-height: 100%;
+  height: auto;
 }
 
-/* SIDEBAR NAVIGATION */
-.sidebar {
-  position: relative;
-  left: 250px;
-  width: 260px;
-  min-height: 450px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  z-index: 10;
-  background: transparent;
-}
-
-.sidebar-inner {
-  display: flex;
-  flex-direction: row;
-  gap: 18px;
-}
-
-.folders-list,
-.social-list {
-  list-style: none;
-  padding: 50px;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.folders-list li,
-.social-list li {
-  display: flex;
-  justify-content: center;
-}
-
-.folders-list li a,
-.social-list li a {
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-decoration: none;
-  color: #faf8fc;
-  font-size: 0.8rem;
-  transition: background 0.2s, color 0.2s;
-  padding: 6px 4px;
-  border-radius: 8px;
 }
 
-.folders-list li a:hover,
-.social-list li a:hover {
-  background: #ff68b5;
+.computer {
+  position: relative;
+  margin: 40px 0;
+  transform: scale(0.75);
+  transform-origin: top center;
+}
+
+.computer-img {
+  width: 100%;
+  height: auto;
+}
+
+.folders {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.folder {
+  text-align: center;
   color: #42008f;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-.folders-list li a:hover img,
-.social-list li a:hover img {
-  filter: brightness(1.2);
-  transform: scale(1.05);
-}
-
-/* Folder and social icon images */
-.folders-list li img,
-.social-list li img {
-  width: 35px;
-  height: 35px;
-  margin: 0 0 6px 0;
-  border-radius: 6px;
-  border: 2px solid #d2baff;
-  background: #f6e5f9;
-  object-fit: contain;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.social-list li img {
-  border: 2px solid #34dae1;
-  background: #faf8fc;
-}
-
-/* Label below icon */
-.folder-label {
+.folder img {
+  width: 80px;
+  height: auto;
   display: block;
-  font-size: 0.8em;
-  margin-top: 2px;
-  text-align: center;
-  line-height: 1.1;
-  letter-spacing: 0.03em;
+  margin: 0 auto 10px;
 }
 
-/* Recycle Bin */
-.recycle-bin {
-  margin-top: 30px;
-  text-align: center;
-  color: #faf8fc;
-  font-size: 0.95rem;
+.folder p {
+  font-size: 1rem;
+  color: #42008f; /* darkest accent */
+  margin: 0;
 }
-.recycle-bin img {
-  width: 40px;
+
+.notebook img {
+  width: 3125px;
+  height: auto;
+  max-width: 100%;
+  margin: 40px auto;
   display: block;
-  margin: 0 auto 2px auto;
 }
 
-/* FOOTER TASKBAR */
-.taskbar {
-  width: 100vw;
-  z-index: 100;
-}
-.taskbar-img {
-  width: 100vw;
-  max-width: 100vw;
-  display: block;
-  height: 60px;
-  object-fit: cover;
-}
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
-  .sidebar {
-    width: 160px;
-  }
-  .folders-list li img,
-  .social-list li img {
-    width: 28px;
-    height: 28px;
-  }
-}
-
-@media (max-width: 700px) {
-  .top-section {
-    height: 340px;
-    min-height: 200px;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  .header-text {
-    width: 80vw;
-    max-width: 320px;
-    min-width: 120px;
-  }
-  .sunniejae-below {
-    width: 55vw;
-    max-width: 220px;
-    min-width: 80px;
-    margin-bottom: 12px;
-  }
-  .header-dreamers,
-  .header-divas {
-    height: 40px;
-    max-width: 90px;
-  }
-  .header-and {
-    height: 24px;
-    margin-bottom: 4px;
-  }
-}
-
-@media (max-width: 600px) {
-  .sidebar-inner {
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
-  .sidebar {
-    width: 100vw;
-    min-height: unset;
-    justify-content: center;
-    background: #1a111ecc;
-  }
-  .folders-list,
-  .social-list {
-    flex-direction: row;
-    gap: 10px;
-    justify-content: center;
-  }
-  .taskbar-img {
-    height: 38px;
-  }
+/* Color references for easy theming */
+:root {
+  --primary: #d2baff;
+  --secondary: #ff68b5;
+  --white: #faf8fc;
+  --lightest-accent: #f6e5f9;
+  --darkest-accent: #42008f;
+  --blue1: #42008f;
+  --blue2: #34dae1;
+  --blue3: #418ede;
+  --secondary-purple: #9f76ca;
+  --secondary-pink: #ffaee0;
 }
