@@ -74,11 +74,14 @@ body {
   margin-top: 30px;
 }
 .notebook-img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
+  width: 1000px;
+  height: 2015px;
+  max-width: 95vw;
+  max-height: 90vh;
   border-radius: 15px;
   box-shadow: 0 8px 32px 0 rgba(66,0,143,0.18);
+  object-fit: contain;
+  display: block;
 }
 
 /* computer SECTION */
