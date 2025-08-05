@@ -9,10 +9,10 @@ body {
 }
 
 .top-section {
-  position: relative;
+  position: fixed;
   width: 1920px;
-  height: 384px;
-  min-height: 350px;
+  height: 768px;
+  min-height: 768px;
   overflow: hidden;
   display: flex;
   align-items: center;
