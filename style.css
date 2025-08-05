@@ -89,7 +89,7 @@ body {
   position: relative;
   width: 1536px;
   height: 1299px;
-  background-image: urlhttps://imgur.com/RGtkuJc.png;
+  background-image: url('https://imgur.com/RGtkuJc.png');
   background-size: cover;
   background-position: center;
   display: flex;
