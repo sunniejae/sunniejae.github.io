@@ -102,7 +102,9 @@ body {
 
 /* EMBED BACKGROUND - PINTEREST */
 .embed-bg-pinterest {
-  position: relative;
+   position: absolute;
+  top: 0;
+  left: 2500;
   width: 100%;
   max-width: 1536px;
   height: 1299px;
