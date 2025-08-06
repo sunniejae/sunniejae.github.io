@@ -1,112 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sunnie Jae Creates</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreativeY2K Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
 </head>
 <body>
-  <!-- ADD THIS HEADER CODE HERE -->
-  <header class="header">
-    <nav class="nav-container">
-      <a href="#" class="logo">
-        <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae Creates Logo">
-      </a>
-      
-      <ul class="nav-menu" id="navMenu">
-        <li class="nav-item">
-          <a href="#home" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="#contact" class="nav-link">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a href="#about" class="nav-link">About</a>
-        </li>
-        <li class="nav-item">
-          <a href="#shop" class="nav-link">Shop</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#portfolio" class="nav-link dropdown-toggle">Portfolio</a>
-          <div class="dropdown-menu">
-            <a href="#graphic-design" class="dropdown-item">Graphic Design</a>
-            <a href="#digital-art" class="dropdown-item">Digital Art</a>
-            <a href="#videos" class="dropdown-item">Videos</a>
-            <a href="#writing" class="dropdown-item">Writing</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a href="#studio-ken" class="nav-link">Studio Ken</a>
-        </li>
-      </ul>
+    <!-- Cursor Trail Container -->
+    <div id="cursor-trail"></div>
 
-      <div class="mobile-toggle" id="mobileToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </nav>
-  </header>
-  <!-- MAIN CONTENT -->
-  <div class="main-content">
-    <!-- SECTION 1: TITLE -->
-    <section class="section-title"></section>
-
-    <!-- SECTION 2: NOTEBOOK -->
-    <section class="section-notebook">
-      <img src="https://imgur.com/ThL4Puh.png" alt="Notebook Overlay" class="notebook-image">
-    </section>
-    
-    <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
-    <section class="section-computer">
-      <div class="computer-wrapper">
-        <img
-          src="https://i.imgur.com/RGtkuJc.png"
-          alt="Computer Background"
-          class="computer-image"
-        />
-        <div class="pinterest-embed">
-          <a
-            data-pin-do="embedBoard"
-            data-pin-board-width="651"
-            data-pin-scale-height="762"
-            data-pin-scale-width="80"
-            href="https://www.pinterest.com/pasteliume/mine/"
-          ></a>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <nav class="nav-menu">
+                <a href="#home" class="nav-item">Home</a>
+                <a href="#contact" class="nav-item">Contact</a>
+                <a href="#about" class="nav-item">About</a>
+                <a href="#shop" class="nav-item">Shop</a>
+                
+                <!-- Portfolio Dropdown -->
+                <div class="dropdown">
+                    <button class="nav-item dropdown-btn">
+                        Portfolio
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#digital-art">Digital Art</a>
+                        <a href="#photography">Photography</a>
+                        <a href="#web-design">Web Design</a>
+                        <a href="#illustrations">Illustrations</a>
+                        <a href="#3d-models">3D Models</a>
+                        <a href="#animations">Animations</a>
+                    </div>
+                </div>
+                
+                <a href="#studio" class="nav-item">Studio Ken</a>
+            </nav>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" placeholder="Search..." class="search-input">
+                <span class="search-icon">🔍</span>
+            </div>
         </div>
-      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <!-- Background image is set via CSS -->
     </section>
 
-    <!-- SECTION 4: FOLDERS AND SOCIAL ICONS -->
-    <section class="section-folders">
-      <div class="folders-column">
-        <ul class="folders-list">
-          <li><a href="fanfic.html"><img src="https://imgur.com/XRXG5tA.png" alt="Fanfic Drafts Folder"><span class="folder-label">fanfic drafts</span></a></li>
-          <li><a href="videos.html"><img src="https://imgur.com/XRXG5tA.png" alt="Videos Folder"><span class="folder-label">videos</span></a></li>
-          <li><a href="games.html"><img src="https://imgur.com/XRXG5tA.png" alt="Games Folder"><span class="folder-label">games</span></a></li>
-          <li><a href="summer2005.html"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 2005 Folder"><span class="folder-label">summer 2005</span></a></li>
-          <li><a href="photos.html"><img src="https://imgur.com/XRXG5tA.png" alt="Photos Folder"><span class="folder-label">photos</span></a></li>
-          <li><a href="downloads.html"><img src="https://imgur.com/XRXG5tA.png" alt="Downloads Folder"><span class="folder-label">downloads</span></a></li>
-        </ul>
-      </div>
-      <div class="social-column">
-        <ul class="social-list">
-          <li><a href="youtube.html"><img src="https://imgur.com/Bh4p6mj.png" alt="YouTube Icon"><span class="folder-label">youtube</span></a></li>
-          <li><a href="tiktok.html"><img src="https://imgur.com/MhKNywk.png" alt="TikTok Icon"><span class="folder-label">tiktok</span></a></li>
-        </ul>
-      </div>
+    <!-- Notebook Section -->
+    <section class="notebook-section">
+        <img src="https://i.imgur.com/yf3WNpp.png" alt="Notebook" class="notebook-image">
     </section>
-  </div>
 
-  <!-- FOOTER / TASKBAR -->
-  <footer class="taskbar">
-    <img src="https://imgur.com/2ib4HA9.png" alt="Footer Taskbar" class="taskbar-img">
-  </footer>
+    <!-- Decorative Image Section -->
+    <section class="decorative-section">
+        <img src="https://i.imgur.com/2ib4HA9.png" alt="Decorative" class="decorative-image">
+    </section>
 
-  <!-- Pinterest JS -->
-  <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+    <!-- Pinterest Computer Section -->
+    <section class="pinterest-section">
+        <div class="computer-container">
+            <img src="https://i.imgur.com/RGtkuJc.png" alt="Computer Background" class="computer-image">
+            <div class="pinterest-embed">
+                <a data-pin-do="embedBoard"
+                   data-pin-board-width="379"
+                   data-pin-scale-height="451"
+                   data-pin-scale-width="100"
+                   href="https://www.pinterest.com/pasteliume/mine/"></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Icon Grid Section -->
+    <section class="icon-grid-section">
+        <div class="icon-container">
+            <!-- Column 1 - Folder Icons -->
+            <div class="icon-column">
+                <div class="icon-item">
+                    <img src="https://i.imgur.com/XRXG5tA.png" alt="Fanfic Drafts" class="icon-image">
+                    <p class="icon-label">Fanfic Drafts</p>
+                </div>
+                <div class="icon-item">
+                    <img src="https://i.imgur.com/XRXG5tA.png" alt="Videos" class="icon-image">
+                    <p class="icon-label">Videos</p>
+                </div>
+                <div class="icon-item">
+                    <img src="https://i.imgur.com/XRXG5tA.png" alt="Games" class="icon-image">
+                    <p class="icon-label">Games</p>
+                </div>
+                <div class="icon-item">
+                    <img src="https://i.imgur.com/XRXG5tA.png" alt="Photos" class="icon-image">
+                    <p class="icon-label">Photos</p>
+                </div>
+                <div class="icon-item">
+                    <img src="https://i.imgur.com/XRXG5tA.png" alt="Downloads" class="icon-image">
+                    <p class="icon-label">Downloads</p>
+                </div>
+            </div>
+            
+            <!-- Column 2 - Social Media Icons -->
+            <div class="icon-column">
+                <div class="icon-item">
+                    <img src="https://i.imgur.com/Bh4p6mj.png" alt="YouTube" class="icon-image">
+                    <p class="icon-label">YouTube</p>
+                </div>
+                <div class="icon-item">
+                    <img src="https://i.imgur.com/MhKNywk.png" alt="TikTok" class="icon-image">
+                    <p class="icon-label">TikTok</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Footer background image is set via CSS -->
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
