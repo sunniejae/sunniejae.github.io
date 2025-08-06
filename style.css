@@ -252,7 +252,7 @@ body {
 
 @media (max-width: 600px) {
   .taskbar-img {
-    height: 50px;
+    height: 60px;
   }
   
   .folders-list li img,
