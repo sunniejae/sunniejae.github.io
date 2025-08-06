@@ -4,29 +4,76 @@
   <meta charset="UTF-8">
   <title>Sunnie Jae Creates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    @media (max-width: 700px) {
+      .section-title {
+        height: 60vh;
+        min-height: 400px;
+      }
+      
+      .section-notebook,
+      .section-computer,
+      .section-folders {
+        padding: 30px 10px 30px 20px;
+      }
+      
+      .notebook-image {
+        max-width: 90%;
+      }
+      
+      .folders-list li img,
+      .social-list li img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .folder-label {
+        font-size: 0.6em;
+        max-width: 60px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .taskbar-img {
+        height: 50px;
+      }
+      
+      .folders-list li img,
+      .social-list li img {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .folder-label {
+        font-size: 0.55em;
+      }
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Press Start 2P', 'Comic Sans MS', 'Comic Sans', cursive, Arial, sans-serif;
       background-color: #130d16;
-      color: white;
+      color: #faf8fc;
+      overflow-x: hidden;
     }
-.main-content {
-  padding-left: 280px;
-}
+
+    .main-content {
+      transition: padding-left 0.3s ease;
+    }
 
     /* Section 1: Title Banner */
     .section-title {
       width: 100%;
       height: 100vh;
-      background-image: url('https://imgur.com/qhUEs9u.png');
+      background-image: url('https://imgur.com/yf3WNpp.png');
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
     }
 
     /* Section 2: Notebook */
@@ -35,12 +82,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 60px 0;
+      padding: 60px 20px;
     }
 
     .notebook-image {
-      max-width: 100%;
-      width: 1000px;
+      width: 100%;
+      max-width: 1000px;
       height: auto;
       border-radius: 15px;
       box-shadow: 0 8px 32px rgba(66, 0, 143, 0.18);
@@ -54,7 +101,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 60px 0;
+      padding: 60px 20px;
     }
 
     .computer-wrapper {
@@ -86,48 +133,269 @@
       max-width: 100%;
       max-height: 100%;
     }
+
+    .pinterest-embed > a {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Section 4: Folders and Social Icons */
+    .section-folders {
+      background-color: #130d16;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 60px 20px 60px 100px;
+      gap: 40px;
+    }
+
+    .folders-column,
+    .social-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .folders-list,
+    .social-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .folders-list li,
+    .social-list li {
+      display: flex;
+      justify-content: center;
+    }
+
+    .folders-list li a,
+    .social-list li a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #faf8fc;
+      font-size: 0.7rem;
+      transition: all 0.3s ease;
+      padding: 8px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .folders-list li a:hover,
+    .social-list li a:hover {
+      background: #ff68b5;
+      color: #42008f;
+      transform: translateY(-2px);
+    }
+
+    .folders-list li img,
+    .social-list li img {
+      width: 64px;
+      height: 64px;
+      margin: 0 0 8px 0;
+      border-radius: 8px;
+      border: 2px solid #d2baff;
+      background: #f6e5f9;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .social-list li img {
+      border: 2px solid #34dae1;
+      background: #faf8fc;
+    }
+
+    .folders-list li a:hover img,
+    .social-list li a:hover img {
+      transform: scale(1.1);
+    }
+
+    .folder-label {
+      display: block;
+      font-size: 0.7em;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      max-width: 80px;
+      word-wrap: break-word;
+    }
+
+    /* FOOTER / TASKBAR */
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    .taskbar-img {
+      width: 100%;
+      height: 60px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .main-content {
+        padding-left: 220px;
+      }
+      
+      .sidebar {
+        width: 200px;
+      }
+      
+      .folders-list li img,
+      .social-list li img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .main-content {
+        padding-left: 0;
+        padding-bottom: 80px;
+      }
+      
+      .sidebar {
+        position: fixed;
+        bottom: 60px;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background: rgba(26, 17, 30, 0.98);
+        padding: 15px;
+        justify-content: center;
+      }
+      
+      .sidebar-inner {
+        flex-direction: row;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .folders-list,
+      .social-list {
+        flex-direction: row;
+        gap: 15px;
+      }
+      
+      .folders-list li img,
+      .social-list li img {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .folder-label {
+        font-size: 0.6em;
+        max-width: 60px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .section-title {
+        height: 60vh;
+        min-height: 400px;
+      }
+      
+      .section-notebook,
+      .section-computer {
+        padding: 30px 10px;
+      }
+      
+      .notebook-image {
+        max-width: 90%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .sidebar {
+        padding: 10px;
+      }
+      
+      .sidebar-inner {
+        gap: 10px;
+      }
+      
+      .folders-list,
+      .social-list {
+        gap: 8px;
+      }
+      
+      .folders-list li img,
+      .social-list li img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .folder-label {
+        font-size: 0.5em;
+      }
+      
+      .taskbar-img {
+        height: 50px;
+      }
+    }
+
+    /* Loading animation for Pinterest embed */
+    .pinterest-embed::before {
+      content: "Loading Pinterest...";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #666;
+      font-size: 0.8rem;
+      z-index: -1;
+    }
   </style>
 </head>
 <body>
+  <!-- SIDEBAR NAVIGATION - REMOVED -->
 
-  <!-- SECTION 1: TITLE -->
-  <section class="section-title"></section>
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <!-- SECTION 1: TITLE -->
+    <section class="section-title"></section>
 
-  <!-- SECTION 2: NOTEBOOK -->
-  <div class="notebook-wrapper">
-  <img src="https://imgur.com/WTTivaf.png" alt="Notebook Overlay" class="notebook-overlay">
-</div>
-  
-  <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
-  <section class="section-computer">
-  <div class="computer-wrapper">
-    <img
-      src="https://i.imgur.com/RGtkuJc.png"
-      alt="Computer Background"
-      class="computer-image"
-    />
-    <div class="pinterest-embed">
-      <a
-        data-pin-do="embedBoard"
-        data-pin-board-width="651"
-        data-pin-scale-height="762"
-        data-pin-scale-width="80"
-        href="https://www.pinterest.com/pasteliume/mine/"
-      ></a>
-    </div>
-  </div>
-</section>
+    <!-- SECTION 2: NOTEBOOK -->
+    <section class="section-notebook">
+      <img src="https://imgur.com/ThL4Puh.png" alt="Notebook Overlay" class="notebook-image">
+    </section>
+    
+    <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
+    <section class="section-computer">
+      <div class="computer-wrapper">
+        <img
+          src="https://i.imgur.com/RGtkuJc.png"
+          alt="Computer Background"
+          class="computer-image"
+        />
+        <div class="pinterest-embed">
+          <a
+            data-pin-do="embedBoard"
+            data-pin-board-width="651"
+            data-pin-scale-height="762"
+            data-pin-scale-width="80"
+            href="https://www.pinterest.com/pasteliume/mine/"
+          ></a>
+        </div>
+      </div>
+    </section>
 
-  </section>
-
-  <!-- Pinterest JS -->
-  <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
-
-  /* Section 3: Computer Folders and Footer */
-<!-- SIDEBAR NAVIGATION -->
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-      <nav>
+    <!-- SECTION 4: FOLDERS AND SOCIAL ICONS -->
+    <section class="section-folders">
+      <div class="folders-column">
         <ul class="folders-list">
           <li><a href="fanfic.html"><img src="https://imgur.com/XRXG5tA.png" alt="Fanfic Drafts Folder"><span class="folder-label">fanfic drafts</span></a></li>
           <li><a href="videos.html"><img src="https://imgur.com/XRXG5tA.png" alt="Videos Folder"><span class="folder-label">videos</span></a></li>
@@ -135,19 +403,23 @@
           <li><a href="summer2005.html"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 2005 Folder"><span class="folder-label">summer 2005</span></a></li>
           <li><a href="photos.html"><img src="https://imgur.com/XRXG5tA.png" alt="Photos Folder"><span class="folder-label">photos</span></a></li>
           <li><a href="downloads.html"><img src="https://imgur.com/XRXG5tA.png" alt="Downloads Folder"><span class="folder-label">downloads</span></a></li>
-          <li><a href="downloads.html"><img src="https://imgur.com/QlTglF8.png" alt="Recycle Bin Icon"><span class="folder-label">trash</span></a></li>
         </ul>
-      </nav>
-      <ul class="social-list">
-        <li><a href="youtube.html"><img src="https://imgur.com/Bh4p6mj.png" alt="YouTube Icon"><span class="folder-label">youtube</span></a></li>
-        <li><a href="tiktok.html"><img src="https://imgur.com/MhKNywk.png" alt="TikTok Icon"><span class="folder-label">tiktok</span></a></li>
-      </ul>
-    </div>
-  </aside>
+      </div>
+      <div class="social-column">
+        <ul class="social-list">
+          <li><a href="youtube.html"><img src="https://imgur.com/Bh4p6mj.png" alt="YouTube Icon"><span class="folder-label">youtube</span></a></li>
+          <li><a href="tiktok.html"><img src="https://imgur.com/MhKNywk.png" alt="TikTok Icon"><span class="folder-label">tiktok</span></a></li>
+        </ul>
+      </div>
+    </section>
+  </div>
 
   <!-- FOOTER / TASKBAR -->
   <footer class="taskbar">
     <img src="https://imgur.com/2ib4HA9.png" alt="Footer Taskbar" class="taskbar-img">
   </footer>
+
+  <!-- Pinterest JS -->
+  <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 </body>
 </html>
