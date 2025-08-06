@@ -19,12 +19,13 @@ body {
 
 /* Section 1: Title Banner */
 .section-title {
-  width: 100%;
-  height: 100vh;
+  width: 1920px;
+  height: 768px;
   background-image: url('https://imgur.com/yf3WNpp.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  margin: 0 auto;
 }
 
 /* Section 2: Notebook */
@@ -37,8 +38,8 @@ body {
 }
 
 .notebook-image {
-  width: 100%;
-  max-width: 1000px;
+  width: 75%;
+  max-width: 750px;
   height: auto;
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(66, 0, 143, 0.18);
@@ -58,7 +59,7 @@ body {
 .computer-wrapper {
   position: relative;
   width: 100%;
-  max-width: 2200px;
+  max-width: 1525px;
   height: auto;
 }
 
@@ -107,7 +108,7 @@ body {
 .social-column {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 40px;
   align-items: center;
 }
 
@@ -118,7 +119,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 40px;
   align-items: center;
 }
 
@@ -151,18 +152,18 @@ body {
 
 .folders-list li img,
 .social-list li img {
-  width: 64px;
-  height: 64px;
-  margin: 0 0 8px 0;
-  border-radius: 8px;
-  border: 2px solid #d2baff;
+  width: 192px;
+  height: 192px;
+  margin: 0 0 24px 0;
+  border-radius: 24px;
+  border: 6px solid #d2baff;
   background: #f6e5f9;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
 .social-list li img {
-  border: 2px solid #34dae1;
+  border: 6px solid #34dae1;
   background: #faf8fc;
 }
 
@@ -173,10 +174,10 @@ body {
 
 .folder-label {
   display: block;
-  font-size: 0.7em;
-  line-height: 1.2;
+  font-size: 1.1em;
+  line-height: 1.3;
   letter-spacing: 0.02em;
-  max-width: 80px;
+  max-width: 200px;
   word-wrap: break-word;
 }
 
@@ -223,8 +224,8 @@ body {
 
 @media (max-width: 700px) {
   .section-title {
-    height: 60vh;
-    min-height: 400px;
+    width: 100%;
+    height: 400px;
   }
   
   .section-notebook,
@@ -239,13 +240,13 @@ body {
   
   .folders-list li img,
   .social-list li img {
-    width: 50px;
-    height: 50px;
+    width: 120px;
+    height: 120px;
   }
   
   .folder-label {
-    font-size: 0.6em;
-    max-width: 60px;
+    font-size: 0.8em;
+    max-width: 120px;
   }
 }
 
@@ -256,12 +257,12 @@ body {
   
   .folders-list li img,
   .social-list li img {
-    width: 45px;
-    height: 45px;
+    width: 100px;
+    height: 100px;
   }
   
   .folder-label {
-    font-size: 0.55em;
+    font-size: 0.7em;
   }
 }
 
