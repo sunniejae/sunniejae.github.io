@@ -52,13 +52,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
+  padding: 60px 20px 120px 20px;
 }
 
 .computer-wrapper {
   position: relative;
   width: 100%;
-  max-width: 1536px;
+  max-width: 2200px;
   height: auto;
 }
 
@@ -78,6 +78,8 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transform: scale(1.5);
+  transform-origin: center;
 }
 
 .pinterest-embed > * {
@@ -97,7 +99,7 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 60px 20px 60px 100px;
+  padding: 60px 20px 120px 100px;
   gap: 40px;
 }
 
@@ -188,10 +190,11 @@ body {
 }
 
 .taskbar-img {
-  width: 100%;
+  width: 100vw;
   height: 60px;
   object-fit: cover;
   display: block;
+  margin: 0;
 }
 
 /* Responsive Design */
