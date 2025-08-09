@@ -5,9 +5,9 @@
   <title>Sunnie Jae Creates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap');
 
     * {
       margin: 0;
@@ -16,11 +16,12 @@
     }
 
     body {
-      font-family: 'Press Start 2P', 'Comic Sans MS', 'Comic Sans', cursive, Arial, sans-serif;
-      background-color: #130d16;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #130d16;
       color: #faf8fc;
       overflow-x: hidden;
-      padding-top: 160px; /* Account for fixed header - doubled */
+      padding-top: 100px;
+      line-height: 1.6;
     }
 
     /* HEADER NAVIGATION STYLES */
@@ -30,47 +31,69 @@
       left: 0;
       width: 100%;
       background: rgba(19, 13, 22, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 4px solid #42008f;
+      backdrop-filter: blur(20px);
+      border-bottom: 2px solid rgba(159, 118, 202, 0.3);
       z-index: 1000;
-      padding: 20px 0;
+      padding: 15px 0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .nav-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 2400px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
     }
 
     .logo img {
-      height: 80px;
+      height: 50px;
       width: auto;
+      border-radius: 2px;
+      box-shadow: 0 4px 16px rgba(255, 104, 181, 0.2);
+    }
+
+    .logo-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.2rem;
+      color: #ff68b5;
+      text-shadow: 0 0 10px rgba(255, 104, 181, 0.5);
     }
 
     .nav-menu {
       display: flex;
       list-style: none;
-      gap: 60px;
+      gap: 30px;
       align-items: center;
     }
 
     .nav-link {
-      color: #faf8fc;
+      color: #f6e6f9;
       text-decoration: none;
-      font-size: 2rem;
-      padding: 20px 32px;
-      border-radius: 16px;
-      transition: all 0.3s ease;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 12px 20px;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
+      background: rgba(246, 230, 249, 0.05);
+      border: 1px solid rgba(246, 230, 249, 0.1);
     }
 
     .nav-link:hover {
       background: #ff68b5;
-      color: #42008f;
+      color: #130d16;
       transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 104, 181, 0.4);
+      border-color: transparent;
     }
 
     /* Dropdown styles */
@@ -80,18 +103,20 @@
 
     .dropdown-menu {
       position: absolute;
-      top: 100%;
+      top: calc(100% + 10px);
       left: 0;
       background: rgba(19, 13, 22, 0.95);
-      backdrop-filter: blur(10px);
-      border: 4px solid #42008f;
-      border-radius: 16px;
-      min-width: 300px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(246, 230, 249, 0.1);
+      border-radius: 4px;
+      min-width: 220px;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1001;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      padding: 8px;
     }
 
     .dropdown:hover .dropdown-menu {
@@ -102,18 +127,20 @@
 
     .dropdown-item {
       display: block;
-      color: #faf8fc;
+      color: #f6e6f9;
       text-decoration: none;
-      padding: 24px 36px;
-      font-size: 1.8rem;
-      border-radius: 12px;
-      margin: 10px;
-      transition: all 0.3s ease;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      border-radius: 2px;
+      margin: 2px 0;
+      transition: all 0.2s ease;
+      font-weight: 400;
     }
 
     .dropdown-item:hover {
-      background: #34dae1;
-      color: #130d16;
+      background: rgba(65, 142, 222, 0.15);
+      color: #418ede;
+      transform: translateX(5px);
     }
 
     /* Mobile toggle */
@@ -121,77 +148,105 @@
       display: none;
       flex-direction: column;
       cursor: pointer;
-      gap: 8px;
+      gap: 4px;
+      padding: 8px;
     }
 
     .mobile-toggle span {
-      width: 50px;
-      height: 6px;
-      background: #faf8fc;
+      width: 25px;
+      height: 3px;
+      background: #f6e6f9;
+      border-radius: 0px;
       transition: all 0.3s ease;
     }
 
     .main-content {
-      transition: padding-left 0.3s ease;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
     }
 
     /* Section 1: Title Banner */
     .section-title {
       width: 100%;
-      max-width: 1920px;
-      height: 768px;
+      height: 500px;
       background-image: url('https://imgur.com/yf3WNpp.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      margin: 0 auto;
+      border-radius: 4px;
+      margin: 30px 0;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 174, 224, 0.08);
+      border-radius: 4px;
     }
 
     /* Section 2: Notebook */
     .section-notebook {
-      background-color: #130d16;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 120px 40px;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .section-notebook h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.8rem;
+      color: #ff68b5;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(255, 104, 181, 0.5);
     }
 
     .notebook-image {
-      width: 75%;
-      max-width: 1500px;
+      width: 90%;
+      max-width: 800px;
       height: auto;
-      border-radius: 30px;
-      box-shadow: 0 16px 64px rgba(66, 0, 143, 0.18);
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(159, 118, 202, 0.3);
       transition: transform 0.3s ease;
     }
 
     .notebook-image:hover {
-      transform: scale(1.02);
+      transform: scale(1.02) rotateZ(1deg);
     }
 
     /* Section 3: Computer with Pinterest */
     .section-computer {
-      background-color: #130d16;
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 60px 20px 120px 20px;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .section-computer h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.8rem;
+      color: #418ede;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(65, 142, 222, 0.5);
     }
 
     .computer-wrapper {
       position: relative;
       width: 100%;
-      max-width: 1525px;
+      max-width: 900px;
       height: auto;
+      margin: 0 auto;
     }
 
     .computer-image {
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 15px;
+      border-radius: 4px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
     }
 
     .pinterest-embed {
@@ -204,7 +259,8 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border-radius: 8px;
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.1);
     }
 
     .pinterest-embed > * {
@@ -220,89 +276,74 @@
 
     /* Section 4: Folders and Social Icons */
     .section-folders {
-      background-color: #130d16;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 60px 20px 120px 100px;
-      gap: 40px;
+      padding: 60px 0 120px 0;
     }
 
-    .folders-column,
-    .social-column {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      align-items: center;
+    .section-folders h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.8rem;
+      color: #d2baff;
+      margin-bottom: 40px;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(210, 186, 255, 0.5);
     }
 
-    .folders-list,
-    .social-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      align-items: center;
+    .folders-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .folders-list li,
-    .social-list li {
-      display: flex;
-      justify-content: center;
-    }
-
-    .folders-list li a,
-    .social-list li a {
+    .folder-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-decoration: none;
       color: #faf8fc;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      padding: 12px;
-      border-radius: 12px;
-      text-align: center;
+      padding: 20px;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(246, 230, 249, 0.05);
+      border: 1px solid rgba(246, 230, 249, 0.1);
+      backdrop-filter: blur(10px);
     }
 
-    .folders-list li a:hover,
-    .social-list li a:hover {
-      background: #ff68b5;
-      color: #42008f;
-      transform: translateY(-2px);
+    .folder-item:hover {
+      transform: translateY(-8px) scale(1.05);
+      background: rgba(255, 174, 224, 0.15);
+      border-color: rgba(255, 174, 224, 0.3);
+      box-shadow: 0 15px 40px rgba(255, 174, 224, 0.2);
     }
 
-    .folders-list li img,
-    .social-list li img {
-      width: 192px;
-      height: 192px;
-      margin: 0 0 24px 0;
-      border-radius: 24px;
-      border: 6px solid #d2baff;
-      background: #f6e5f9;
-      object-fit: contain;
+    .social-item:hover {
+      background: rgba(52, 218, 225, 0.15);
+      border-color: rgba(52, 218, 225, 0.3);
+      box-shadow: 0 15px 40px rgba(52, 218, 225, 0.2);
+    }
+
+    .folder-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 2px;
+      margin-bottom: 15px;
       transition: transform 0.3s ease;
+      object-fit: contain;
+      background: rgba(246, 230, 249, 0.1);
+      padding: 10px;
     }
 
-    .social-list li img {
-      border: 6px solid #34dae1;
-      background: #faf8fc;
-    }
-
-    .folders-list li a:hover img,
-    .social-list li a:hover img {
-      transform: scale(1.1);
+    .folder-item:hover img {
+      transform: scale(1.1) rotateZ(5deg);
     }
 
     .folder-label {
-      display: block;
-      font-size: 1.3em;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
       line-height: 1.4;
-      letter-spacing: 0.02em;
-      max-width: 200px;
-      word-wrap: break-word;
+      letter-spacing: 0.5px;
     }
 
     /* FOOTER / TASKBAR */
@@ -312,26 +353,62 @@
       left: 0;
       width: 100%;
       z-index: 999;
+      background: rgba(19, 13, 22, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(246, 230, 249, 0.1);
+      height: 60px;
     }
 
-    .taskbar-img {
-      width: 100vw;
-      height: 60px;
-      object-fit: cover;
-      display: block;
-      margin: 0;
+    .taskbar-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .taskbar-image {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
     }
 
     /* Loading animation for Pinterest embed */
     .pinterest-embed::before {
-      content: "Loading Pinterest...";
+      content: "Loading Live Feed...";
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #666;
-      font-size: 0.8rem;
+      color: #9f76ca;
+      font-size: 0.9rem;
       z-index: -1;
+      font-weight: 300;
+    }
+
+    /* Enhanced Visual Effects */
+    .glow {
+      position: relative;
+    }
+
+    .glow::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: #ffaee0;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .glow:hover::before {
+      opacity: 0.3;
     }
 
     /* Responsive Design */
@@ -342,12 +419,13 @@
         top: 100%;
         left: 0;
         width: 100%;
-        background: rgba(19, 13, 22, 0.95);
-        backdrop-filter: blur(10px);
-        border-top: 2px solid #42008f;
+        background: rgba(19, 13, 22, 0.98);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(246, 230, 249, 0.1);
         flex-direction: column;
         padding: 20px;
-        gap: 15px;
+        gap: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       }
 
       .nav-menu.active {
@@ -366,113 +444,146 @@
         box-shadow: none;
         border: none;
         background: transparent;
-        margin-left: 20px;
+        margin-left: 0;
+        margin-top: 10px;
+      }
+
+      .main-content {
+        padding: 0 20px;
+      }
+
+      .nav-container {
+        padding: 0 20px;
       }
     }
 
-    @media (max-width: 900px) {
-      .section-folders {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 30px;
-        padding-left: 50px;
-      }
-      
-      .folders-column,
-      .social-column {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 15px;
-      }
-      
-      .folders-list,
-      .social-list {
-        flex-direction: row;
-        gap: 15px;
-      }
-    }
-
-    @media (max-width: 700px) {
+    @media (max-width: 768px) {
       body {
-        padding-top: 60px;
+        padding-top: 80px;
       }
 
       .section-title {
-        height: 400px;
+        height: 300px;
+        margin: 20px 0;
       }
-      
-      .section-notebook,
-      .section-computer,
-      .section-folders {
-        padding: 30px 10px 30px 20px;
+
+      .section-notebook h2,
+      .section-computer h2,
+      .section-folders h2 {
+        font-size: 1.2rem;
       }
-      
-      .notebook-image {
-        max-width: 90%;
+
+      .folders-container {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 20px;
       }
-      
-      .folders-list li img,
-      .social-list li img {
-        width: 120px;
-        height: 120px;
+
+      .folder-item {
+        padding: 15px;
       }
-      
+
+      .folder-item img {
+        width: 60px;
+        height: 60px;
+      }
+
       .folder-label {
-        font-size: 1.1em;
-        max-width: 120px;
+        font-size: 0.8rem;
       }
 
       .pinterest-embed {
         position: static;
         width: 100%;
-        height: 400px;
+        height: 300px;
         margin: 20px 0;
+        border-radius: 15px;
       }
 
       .computer-image {
         margin-bottom: 20px;
       }
-    }
 
-    @media (max-width: 600px) {
-      .taskbar-img {
+      .taskbar {
         height: 50px;
       }
-      
-      .folders-list li img,
-      .social-list li img {
-        width: 100px;
-        height: 100px;
+
+      .taskbar-image {
+        height: 40px;
       }
-      
-      .folder-label {
-        font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 0 15px;
       }
 
       .nav-container {
-        padding: 0 10px;
+        padding: 0 15px;
+      }
+
+      .logo-text {
+        font-size: 0.8rem;
       }
 
       .logo img {
-        height: 30px;
+        height: 35px;
+      }
+
+      .folders-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .taskbar-content {
+        padding: 0 15px;
+      }
+
+      .taskbar {
+        height: 45px;
+      }
+
+      .taskbar-image {
+        height: 35px;
       }
     }
 
-    /* Smooth scrolling */
+    /* Smooth scrolling and animations */
     html {
       scroll-behavior: smooth;
     }
 
-    /* Add some glow effects for that Y2K aesthetic */
-    .nav-link:hover,
-    .folders-list li a:hover,
-    .social-list li a:hover {
-      box-shadow: 0 0 20px rgba(255, 104, 181, 0.4);
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .dropdown-item:hover {
-      box-shadow: 0 0 15px rgba(52, 218, 225, 0.4);
+    .section-notebook,
+    .section-computer,
+    .section-folders {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(246, 230, 249, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #ff68b5, #418ede);
+      border-radius: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #ffaee0, #34dae1);
     }
   </style>
 </head>
@@ -480,8 +591,9 @@
   <!-- HEADER -->
   <header class="header">
     <nav class="nav-container">
-      <a href="#" class="logo">
+      <a href="#" class="logo glow">
         <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae Creates Logo">
+        <span class="logo-text">Sunnie Jae</span>
       </a>
       
       <ul class="nav-menu" id="navMenu">
@@ -498,7 +610,7 @@
           <a href="#shop" class="nav-link">Shop</a>
         </li>
         <li class="nav-item dropdown">
-          <a href="#portfolio" class="nav-link dropdown-toggle">Portfolio</a>
+          <a href="#portfolio" class="nav-link dropdown-toggle">Portfolio ▼</a>
           <div class="dropdown-menu">
             <a href="#graphic-design" class="dropdown-item">Graphic Design</a>
             <a href="#digital-art" class="dropdown-item">Digital Art</a>
@@ -522,20 +634,22 @@
   <!-- MAIN CONTENT -->
   <div class="main-content">
     <!-- SECTION 1: TITLE -->
-    <section class="section-title" id="home"></section>
+    <section class="section-title glow" id="home"></section>
 
     <!-- SECTION 2: NOTEBOOK -->
     <section class="section-notebook">
-      <img src="https://imgur.com/ThL4Puh.png" alt="Notebook Overlay" class="notebook-image">
+      <h2>Creative Journal</h2>
+      <img src="https://imgur.com/ThL4Puh.png" alt="Creative Notebook" class="notebook-image glow">
     </section>
     
     <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
     <section class="section-computer">
+      <h2>Live Inspiration Feed</h2>
       <div class="computer-wrapper">
         <img
           src="https://i.imgur.com/RGtkuJc.png"
-          alt="Computer Background"
-          class="computer-image"
+          alt="Computer Setup"
+          class="computer-image glow"
         />
         <div class="pinterest-embed">
           <a
@@ -551,28 +665,56 @@
 
     <!-- SECTION 4: FOLDERS AND SOCIAL ICONS -->
     <section class="section-folders" id="portfolio">
-      <div class="folders-column">
-        <ul class="folders-list">
-          <li><a href="fanfic.html"><img src="https://imgur.com/XRXG5tA.png" alt="Fanfic Drafts Folder"><span class="folder-label">fanfic drafts</span></a></li>
-          <li><a href="videos.html"><img src="https://imgur.com/XRXG5tA.png" alt="Videos Folder"><span class="folder-label">videos</span></a></li>
-          <li><a href="games.html"><img src="https://imgur.com/XRXG5tA.png" alt="Games Folder"><span class="folder-label">games</span></a></li>
-          <li><a href="summer2005.html"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 2005 Folder"><span class="folder-label">summer 2005</span></a></li>
-          <li><a href="photos.html"><img src="https://imgur.com/XRXG5tA.png" alt="Photos Folder"><span class="folder-label">photos</span></a></li>
-          <li><a href="downloads.html"><img src="https://imgur.com/XRXG5tA.png" alt="Downloads Folder"><span class="folder-label">downloads</span></a></li>
-        </ul>
-      </div>
-      <div class="social-column">
-        <ul class="social-list">
-          <li><a href="youtube.html"><img src="https://imgur.com/Bh4p6mj.png" alt="YouTube Icon"><span class="folder-label">youtube</span></a></li>
-          <li><a href="tiktok.html"><img src="https://imgur.com/MhKNywk.png" alt="TikTok Icon"><span class="folder-label">tiktok</span></a></li>
-        </ul>
+      <h2>Explore My Work</h2>
+      <div class="folders-container">
+        <a href="fanfic.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Fanfiction">
+          <span class="folder-label">Fanfic Drafts</span>
+        </a>
+        
+        <a href="videos.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Videos">
+          <span class="folder-label">Videos</span>
+        </a>
+        
+        <a href="games.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Games">
+          <span class="folder-label">Games</span>
+        </a>
+        
+        <a href="summer2005.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Summer 2005">
+          <span class="folder-label">Summer 2005</span>
+        </a>
+        
+        <a href="photos.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Photos">
+          <span class="folder-label">Photos</span>
+        </a>
+        
+        <a href="downloads.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Downloads">
+          <span class="folder-label">Downloads</span>
+        </a>
+        
+        <a href="youtube.html" class="folder-item social-item glow">
+          <img src="https://imgur.com/Bh4p6mj.png" alt="YouTube">
+          <span class="folder-label">YouTube</span>
+        </a>
+        
+        <a href="tiktok.html" class="folder-item social-item glow">
+          <img src="https://imgur.com/MhKNywk.png" alt="TikTok">
+          <span class="folder-label">TikTok</span>
+        </a>
       </div>
     </section>
   </div>
 
   <!-- FOOTER / TASKBAR -->
   <footer class="taskbar">
-    <img src="https://imgur.com/2ib4HA9.png" alt="Footer Taskbar" class="taskbar-img">
+    <div class="taskbar-content">
+      <img src="https://imgur.com/CZWdUJM.png" alt="Footer Logo" class="taskbar-image">
+    </div>
   </footer>
 
   <!-- Pinterest JS -->
@@ -610,6 +752,25 @@
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
       });
+    });
+
+    // Smooth reveal animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationDelay = '0.2s';
+          entry.target.style.animationFillMode = 'forwards';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.section-notebook, .section-computer, .section-folders').forEach(section => {
+      observer.observe(section);
     });
   </script>
 </body>
