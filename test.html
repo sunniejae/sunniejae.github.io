@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunnie Jae Creates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Press Start 2P', 'Comic Sans MS', 'Comic Sans', cursive, Arial, sans-serif;
+      background-color: #130d16;
+      color: #faf8fc;
+      overflow-x: hidden;
+      padding-top: 160px; /* Account for fixed header - doubled */
+    }
+
+    /* HEADER NAVIGATION STYLES */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(19, 13, 22, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 4px solid #42008f;
+      z-index: 1000;
+      padding: 20px 0;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 2400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: #faf8fc;
+      text-decoration: none;
+      font-size: 2rem;
+      padding: 20px 32px;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      background: #ff68b5;
+      color: #42008f;
+      transform: translateY(-2px);
+    }
+
+    /* Dropdown styles */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(19, 13, 22, 0.95);
+      backdrop-filter: blur(10px);
+      border: 4px solid #42008f;
+      border-radius: 16px;
+      min-width: 300px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      color: #faf8fc;
+      text-decoration: none;
+      padding: 24px 36px;
+      font-size: 1.8rem;
+      border-radius: 12px;
+      margin: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background: #34dae1;
+      color: #130d16;
+    }
+
+    /* Mobile toggle */
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 8px;
+    }
+
+    .mobile-toggle span {
+      width: 50px;
+      height: 6px;
+      background: #faf8fc;
+      transition: all 0.3s ease;
+    }
+
+    .main-content {
+      transition: padding-left 0.3s ease;
+    }
+
+    /* Section 1: Title Banner */
+    .section-title {
+      width: 100%;
+      max-width: 1920px;
+      height: 768px;
+      background-image: url('https://imgur.com/yf3WNpp.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0 auto;
+    }
+
+    /* Section 2: Notebook */
+    .section-notebook {
+      background-color: #130d16;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 120px 40px;
+    }
+
+    .notebook-image {
+      width: 75%;
+      max-width: 1500px;
+      height: auto;
+      border-radius: 30px;
+      box-shadow: 0 16px 64px rgba(66, 0, 143, 0.18);
+      transition: transform 0.3s ease;
+    }
+
+    .notebook-image:hover {
+      transform: scale(1.02);
+    }
+
+    /* Section 3: Computer with Pinterest */
+    .section-computer {
+      background-color: #130d16;
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 120px 40px 240px 40px;
+    }
+
+    .computer-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 3050px;
+      height: auto;
+    }
+
+    .computer-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 30px;
+    }
+
+    .pinterest-embed {
+      position: absolute;
+      top: 14.5%;
+      left: 8.3%;
+      width: 42.7%;
+      height: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .pinterest-embed > * {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .pinterest-embed > a {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Section 4: Folders and Social Icons */
+    .section-folders {
+      background-color: #130d16;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 120px 40px 240px 200px;
+      gap: 80px;
+    }
+
+    .folders-column,
+    .social-column {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .folders-list,
+    .social-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .folders-list li,
+    .social-list li {
+      display: flex;
+      justify-content: center;
+    }
+
+    .folders-list li a,
+    .social-list li a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #faf8fc;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .folders-list li a:hover,
+    .social-list li a:hover {
+      background: #ff68b5;
+      color: #42008f;
+      transform: translateY(-2px);
+    }
+
+    .folders-list li img,
+    .social-list li img {
+      width: 192px;
+      height: 192px;
+      margin: 0 0 24px 0;
+      border-radius: 24px;
+      border: 6px solid #d2baff;
+      background: #f6e5f9;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .social-list li img {
+      border: 6px solid #34dae1;
+      background: #faf8fc;
+    }
+
+    .folders-list li a:hover img,
+    .social-list li a:hover img {
+      transform: scale(1.1);
+    }
+
+    .folder-label {
+      display: block;
+      font-size: 1.3em;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+      max-width: 200px;
+      word-wrap: break-word;
+    }
+
+    /* FOOTER / TASKBAR */
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    .taskbar-img {
+      width: 100vw;
+      height: 60px;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+    }
+
+    /* Loading animation for Pinterest embed */
+    .pinterest-embed::before {
+      content: "Loading Pinterest...";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #666;
+      font-size: 0.8rem;
+      z-index: -1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(19, 13, 22, 0.95);
+        backdrop-filter: blur(10px);
+        border-top: 2px solid #42008f;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+
+      .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        margin-left: 20px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .section-folders {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+        padding-left: 50px;
+      }
+      
+      .folders-column,
+      .social-column {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 15px;
+      }
+      
+      .folders-list,
+      .social-list {
+        flex-direction: row;
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding-top: 60px;
+      }
+
+      .section-title {
+        height: 400px;
+      }
+      
+      .section-notebook,
+      .section-computer,
+      .section-folders {
+        padding: 30px 10px 30px 20px;
+      }
+      
+      .notebook-image {
+        max-width: 90%;
+      }
+      
+      .folders-list li img,
+      .social-list li img {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .folder-label {
+        font-size: 1.1em;
+        max-width: 120px;
+      }
+
+      .pinterest-embed {
+        position: static;
+        width: 100%;
+        height: 400px;
+        margin: 20px 0;
+      }
+
+      .computer-image {
+        margin-bottom: 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .taskbar-img {
+        height: 50px;
+      }
+      
+      .folders-list li img,
+      .social-list li img {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .folder-label {
+        font-size: 1rem;
+      }
+
+      .nav-container {
+        padding: 0 10px;
+      }
+
+      .logo img {
+        height: 30px;
+      }
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Add some glow effects for that Y2K aesthetic */
+    .nav-link:hover,
+    .folders-list li a:hover,
+    .social-list li a:hover {
+      box-shadow: 0 0 20px rgba(255, 104, 181, 0.4);
+    }
+
+    .dropdown-item:hover {
+      box-shadow: 0 0 15px rgba(52, 218, 225, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="#" class="logo">
+        <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae Creates Logo">
+      </a>
+      
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item">
+          <a href="#home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#contact" class="nav-link">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a href="#about" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="#shop" class="nav-link">Shop</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#portfolio" class="nav-link dropdown-toggle">Portfolio</a>
+          <div class="dropdown-menu">
+            <a href="#graphic-design" class="dropdown-item">Graphic Design</a>
+            <a href="#digital-art" class="dropdown-item">Digital Art</a>
+            <a href="#videos" class="dropdown-item">Videos</a>
+            <a href="#writing" class="dropdown-item">Writing</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#studio-ken" class="nav-link">Studio Ken</a>
+        </li>
+      </ul>
+
+      <div class="mobile-toggle" id="mobileToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <!-- SECTION 1: TITLE -->
+    <section class="section-title" id="home"></section>
+
+    <!-- SECTION 2: NOTEBOOK -->
+    <section class="section-notebook">
+      <img src="https://imgur.com/ThL4Puh.png" alt="Notebook Overlay" class="notebook-image">
+    </section>
+    
+    <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
+    <section class="section-computer">
+      <div class="computer-wrapper">
+        <img
+          src="https://i.imgur.com/RGtkuJc.png"
+          alt="Computer Background"
+          class="computer-image"
+        />
+        <div class="pinterest-embed">
+          <a
+            data-pin-do="embedBoard"
+            data-pin-board-width="651"
+            data-pin-scale-height="762"
+            data-pin-scale-width="80"
+            href="https://www.pinterest.com/pasteliume/mine/"
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: FOLDERS AND SOCIAL ICONS -->
+    <section class="section-folders" id="portfolio">
+      <div class="folders-column">
+        <ul class="folders-list">
+          <li><a href="fanfic.html"><img src="https://imgur.com/XRXG5tA.png" alt="Fanfic Drafts Folder"><span class="folder-label">fanfic drafts</span></a></li>
+          <li><a href="videos.html"><img src="https://imgur.com/XRXG5tA.png" alt="Videos Folder"><span class="folder-label">videos</span></a></li>
+          <li><a href="games.html"><img src="https://imgur.com/XRXG5tA.png" alt="Games Folder"><span class="folder-label">games</span></a></li>
+          <li><a href="summer2005.html"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 2005 Folder"><span class="folder-label">summer 2005</span></a></li>
+          <li><a href="photos.html"><img src="https://imgur.com/XRXG5tA.png" alt="Photos Folder"><span class="folder-label">photos</span></a></li>
+          <li><a href="downloads.html"><img src="https://imgur.com/XRXG5tA.png" alt="Downloads Folder"><span class="folder-label">downloads</span></a></li>
+        </ul>
+      </div>
+      <div class="social-column">
+        <ul class="social-list">
+          <li><a href="youtube.html"><img src="https://imgur.com/Bh4p6mj.png" alt="YouTube Icon"><span class="folder-label">youtube</span></a></li>
+          <li><a href="tiktok.html"><img src="https://imgur.com/MhKNywk.png" alt="TikTok Icon"><span class="folder-label">tiktok</span></a></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER / TASKBAR -->
+  <footer class="taskbar">
+    <img src="https://imgur.com/2ib4HA9.png" alt="Footer Taskbar" class="taskbar-img">
+  </footer>
+
+  <!-- Pinterest JS -->
+  <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+  
+  <!-- Mobile Navigation Toggle -->
+  <script>
+    document.getElementById('mobileToggle').addEventListener('click', function() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+      
+      // Animate hamburger menu
+      const spans = this.getElementsByTagName('span');
+      if (navMenu.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const navMenu = document.getElementById('navMenu');
+        const mobileToggle = document.getElementById('mobileToggle');
+        navMenu.classList.remove('active');
+        
+        // Reset hamburger menu
+        const spans = mobileToggle.getElementsByTagName('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
