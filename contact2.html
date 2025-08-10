@@ -659,7 +659,7 @@
     <!-- Profile Card -->
     <div class="ios-card profile-card">
       <div class="profile-pic-container">
-        <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae" class="profile-pic-large">
+        <img src="https://imgur.com/5fjM6QN" alt="Sunnie Jae" class="profile-pic-large">
         <div class="online-indicator"></div>
       </div>
       <div class="profile-name">Jayme Squire</div>
@@ -813,4 +813,214 @@
       }
 
       setupNetworkStatus() {
-        const
+        const networkStatus = document.getElementById('networkStatus');
+        
+        const updateNetworkStatus = () => {
+          if (navigator.onLine) {
+            networkStatus.textContent = '✓ Online';
+            networkStatus.className = 'network-status online';
+            setTimeout(() => {
+              networkStatus.style.display = 'none';
+            }, 2000);
+          } else {
+            networkStatus.textContent = '⚠ Offline - Form unavailable';
+            networkStatus.className = 'network-status offline';
+          }
+        };
+
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+      }
+
+      handleBlur(e) {
+        if (e.target.matches('input, textarea')) {
+          this.validateField(e.target);
+        }
+      }
+
+      handleInput(e) {
+        if (e.target.matches('input, textarea')) {
+          this.clearFieldError(e.target);
+        }
+      }
+
+      validateField(field) {
+        const fieldName = field.name;
+        const value = field.value.trim();
+        let isValid = true;
+        let errorMessage = '';
+
+        this.clearFieldError(field);
+
+        switch (fieldName) {
+          case 'name':
+            if (!value) {
+              errorMessage = 'Please enter your name';
+              isValid = false;
+            } else if (value.length < 2) {
+              errorMessage = 'Name must be at least 2 characters';
+              isValid = false;
+            } else if (value.length > 50) {
+              errorMessage = 'Name must be less than 50 characters';
+              isValid = false;
+            }
+            break;
+
+          case 'email':
+            if (!value) {
+              errorMessage = 'Please enter your email address';
+              isValid = false;
+            } else if (!this.isValidEmail(value)) {
+              errorMessage = 'Please enter a valid email address';
+              isValid = false;
+            }
+            break;
+
+          case 'subject':
+            if (value.length > 100) {
+              errorMessage = 'Subject must be less than 100 characters';
+              isValid = false;
+            }
+            break;
+
+          case 'message':
+            if (!value) {
+              errorMessage = 'Please enter your message';
+              isValid = false;
+            } else if (value.length < 10) {
+              errorMessage = 'Message must be at least 10 characters';
+              isValid = false;
+            } else if (value.length > 500) {
+              errorMessage = 'Message must be less than 500 characters';
+              isValid = false;
+            }
+            break;
+        }
+
+        if (!isValid) {
+          this.showFieldError(field, errorMessage);
+          this.errors[fieldName] = errorMessage;
+        } else {
+          delete this.errors[fieldName];
+        }
+
+        return isValid;
+      }
+
+      isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      showFieldError(field, message) {
+        field.classList.add('error');
+        const errorElement = document.getElementById(field.name + 'Error');
+        if (errorElement) {
+          errorElement.textContent = message;
+          errorElement.classList.add('show');
+        }
+      }
+
+      clearFieldError(field) {
+        field.classList.remove('error');
+        const errorElement = document.getElementById(field.name + 'Error');
+        if (errorElement) {
+          errorElement.textContent = '';
+          errorElement.classList.remove('show');
+        }
+      }
+
+      validateForm() {
+        const fields = this.form.querySelectorAll('input[required], textarea[required], input[type="email"]');
+        let isValid = true;
+
+        fields.forEach(field => {
+          if (!this.validateField(field)) {
+            isValid = false;
+          }
+        });
+
+        return isValid;
+      }
+
+      showSuccess() {
+        const successMessage = document.getElementById('successMessage');
+        successMessage.classList.add('show');
+        
+        setTimeout(() => {
+          successMessage.classList.remove('show');
+        }, 5000);
+      }
+
+      showLoading() {
+        const loading = document.getElementById('loadingMessage');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        loading.classList.add('show');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+      }
+
+      hideLoading() {
+        const loading = document.getElementById('loadingMessage');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        loading.classList.remove('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message ✨';
+      }
+
+      async handleSubmit(e) {
+        e.preventDefault();
+        
+        if (!this.validateForm()) {
+          return;
+        }
+
+        if (!navigator.onLine) {
+          alert('You are currently offline. Please check your internet connection and try again.');
+          return;
+        }
+
+        this.showLoading();
+
+        try {
+          await this.simulateFormSubmission();
+          this.showSuccess();
+          this.form.reset();
+          this.updateCharCounters();
+        } catch (error) {
+          console.error('Form submission error:', error);
+          alert('Sorry, there was an error sending your message. Please try again.');
+        } finally {
+          this.hideLoading();
+        }
+      }
+
+      updateCharCounters() {
+        const subjectField = document.getElementById('subject');
+        const messageField = document.getElementById('message');
+        const subjectCounter = document.getElementById('subjectCounter');
+        const messageCounter = document.getElementById('messageCounter');
+
+        if (subjectField && subjectCounter) {
+          this.updateCharCounter(subjectField, subjectCounter, 100);
+        }
+        if (messageField && messageCounter) {
+          this.updateCharCounter(messageField, messageCounter, 500);
+        }
+      }
+
+      async simulateFormSubmission() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({ success: true });
+          }, 2000);
+        });
+      }
+    }
+
+    // Initialize form handler when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      new iOS6FormHandler('contactForm');
+    });
