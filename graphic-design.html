@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunnie Jae | Graphic Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #faf8fc 0%, #f6e6f9 100%);
+            min-height: 100vh;
+            color: #130d16;
+        }
+
+        .container {
+            max-width: 935px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(19, 13, 22, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d2baff, #ff68b5, #34dae1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #fff;
+            box-shadow: 0 8px 25px rgba(159, 118, 202, 0.3);
+            overflow: hidden;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info h1 {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 15px;
+            color: #130d16;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #130d16;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #9f76ca;
+        }
+
+        .bio {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #130d16;
+            max-width: 300px;
+        }
+
+        .bio strong {
+            color: #9f76ca;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            background: linear-gradient(135deg, rgba(210, 186, 255, 0.9), rgba(255, 104, 181, 0.9));
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .overlay-text {
+            opacity: 1;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+        }
+
+        /* Different background patterns for gallery items */
+        .gallery-item:nth-child(1) {
+            background: linear-gradient(135deg, #d2baff, #ff68b5);
+        }
+
+        .gallery-item:nth-child(2) {
+            background: linear-gradient(45deg, #34dae1, #418ede);
+        }
+
+        .gallery-item:nth-child(3) {
+            background: linear-gradient(225deg, #ffaee0, #ff68b5);
+        }
+
+        .gallery-item:nth-child(4) {
+            background: linear-gradient(315deg, #9f76ca, #d2baff);
+        }
+
+        .gallery-item:nth-child(5) {
+            background: radial-gradient(circle, #ff68b5, #9f76ca);
+        }
+
+        .gallery-item:nth-child(6) {
+            background: linear-gradient(90deg, #34dae1, #418ede, #d2baff);
+        }
+
+        .gallery-item:nth-child(7) {
+            background: linear-gradient(180deg, #ffaee0, #f6e6f9);
+        }
+
+        .gallery-item:nth-child(8) {
+            background: conic-gradient(from 45deg, #d2baff, #ff68b5, #34dae1, #d2baff);
+        }
+
+        .gallery-item:nth-child(9) {
+            background: linear-gradient(135deg, #418ede, #9f76ca);
+        }
+
+        /* Design elements within each gallery item */
+        .design-element {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .gallery-item:nth-child(1) .design-element::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        .gallery-item:nth-child(2) .design-element::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            transform: rotate(45deg);
+        }
+
+        .gallery-item:nth-child(3) .design-element::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .gallery-item:nth-child(4) .design-element::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 0 rgba(255, 255, 255, 0.9), 0 30px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .gallery-item:nth-child(5) .design-element::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .gallery-item:nth-child(6) .design-element::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+        }
+
+        .gallery-item:nth-child(7) .design-element::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            border-right: transparent;
+            border-bottom: transparent;
+            transform: rotate(45deg);
+        }
+
+        .gallery-item:nth-child(8) .design-element::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            box-shadow: 20px 0 0 rgba(255, 255, 255, 0.7), -20px 0 0 rgba(255, 255, 255, 0.7);
+        }
+
+        .gallery-item:nth-child(9) .design-element::after {
+            content: '';
+            width: 70px;
+            height: 70px;
+            border: 6px solid rgba(255, 255, 255, 0.9);
+            border-top: 6px solid transparent;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .profile-pic {
+                width: 120px;
+                height: 120px;
+                font-size: 36px;
+            }
+
+            .stats {
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .gallery-grid {
+                gap: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-section">
+                <div class="profile-pic">
+                    <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae Logo">
+                </div>
+                <div class="profile-info">
+                    <h1>sunniejae.creates</h1>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">1,234</div>
+                            <div class="stat-label">posts</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">45.6K</div>
+                            <div class="stat-label">followers</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">890</div>
+                            <div class="stat-label">following</div>
+                        </div>
+                    </div>
+                    <div class="bio">
+                        <strong>Sunnie Jae</strong><br>
+                        ✨ art, design, and storytelling<br>
+                        💫 for dreamers & divas
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Conceptual<br>Logo Designs</div>
+            </div>
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Digital<br>Illustration</div>
+            </div>
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Department Logo<br>Collection</div>
+            </div>
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Typography<br>Exploration</div>
+            </div>
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Poster<br>Series</div>
+            </div>
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Sticker<br>Designs</div>
+            </div>
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Product<br>Designs</div>
+            </div>
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Email Campaign<br>Graphics</div>
+            </div>
+            <div class="gallery-item">
+                <div class="design-element"></div>
+                <div class="overlay-text">Print<br>Designs</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
