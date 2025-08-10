@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunnie Jae | Shop </title>
+    <title>Shop - Creative Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -22,6 +22,9 @@
             --teal: #34dae1;
             --blue: #418ede;
             --purple-mid: #9f76ca;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray-dark: #666666;
         }
 
         body {
@@ -29,6 +32,146 @@
             background: linear-gradient(135deg, var(--cream) 0%, var(--soft-lavender) 50%, var(--primary-purple) 100%);
             min-height: 100vh;
             color: var(--dark);
+        }
+
+        /* Header Navigation */
+        .top-nav {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(159, 118, 202, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--hot-pink), var(--purple-mid), var(--teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 25px 20px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--hot-pink);
+            border-bottom: 3px solid var(--hot-pink);
+            background: linear-gradient(to bottom, transparent 0%, rgba(255, 104, 181, 0.05) 100%);
+        }
+
+        .nav-links a.active {
+            color: var(--purple-mid);
+            border-bottom: 3px solid var(--purple-mid);
+            background: linear-gradient(to bottom, transparent 0%, rgba(159, 118, 202, 0.08) 100%);
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-dark);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .nav-icon:hover {
+            background: var(--gray-light);
+            color: var(--hot-pink);
+            transform: scale(1.1);
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            background: var(--gray-light);
+            color: var(--hot-pink);
+            padding-left: 30px;
         }
 
         .container {
@@ -255,14 +398,86 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .header h1 { font-size: 2rem; }
-            .shop-grid { grid-template-columns: 1fr; gap: 20px; }
-            .product-card { padding: 20px; }
-            .btn { padding: 10px 20px; margin: 5px; }
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header h1 { 
+                font-size: 2rem; 
+            }
+            
+            .shop-grid { 
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+            }
+            
+            .product-card { 
+                padding: 20px; 
+            }
+            
+            .btn { 
+                padding: 10px 20px; 
+                margin: 5px; 
+            }
+
+            .nav-container {
+                padding: 0 15px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Header -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="https://sunniejae.github.io" class="logo">SunnieJae</a>
+            
+            <ul class="nav-links">
+                <li><a href="https://sunniejae.github.io/index.html">Home</a></li>
+                <li><a href="https://sunniejae.github.io/about2.html">About</a></li>
+                <li><a href="https://sunniejae.github.io/portfolio.html">Portfolio</a></li>
+                <li><a href="https://sunniejae.github.io/studio-ken.html">Studio Ken</a></li>
+                <li><a href="#" class="active">Shop</a></li>
+                <li><a href="https://sunniejae.github.io/contact2.html">Contact</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <div class="nav-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="nav-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav">
+            <ul>
+                <li><a href="https://sunniejae.github.io/index.html">Home</a></li>
+                <li><a href="https://sunniejae.github.io/about2.html">About</a></li>
+                <li><a href="https://sunniejae.github.io/portfolio.html">Portfolio</a></li>
+                <li><a href="https://sunniejae.github.io/studio-ken.html">Studio Ken</a></li>
+                <li><a href="#" class="active">Shop</a></li>
+                <li><a href="https://sunniejae.github.io/contact2.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Floating decorative elements -->
     <div class="floating-icon"><i class="fas fa-heart"></i></div>
     <div class="floating-icon"><i class="fas fa-star"></i></div>
@@ -328,6 +543,20 @@
     </div>
 
     <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn i');
+            
+            mobileNav.classList.toggle('active');
+            
+            if (mobileNav.classList.contains('active')) {
+                menuBtn.className = 'fas fa-times';
+            } else {
+                menuBtn.className = 'fas fa-bars';
+            }
+        }
+
         // Add some interactive sparkle effects
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.product-card');
@@ -348,6 +577,18 @@
                         sparkle.style.animationDuration = '2s';
                     });
                 });
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const mobileNav = document.getElementById('mobileNav');
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                const navContainer = document.querySelector('.nav-container');
+                
+                if (!navContainer.contains(event.target) && mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                    document.querySelector('.mobile-menu-btn i').className = 'fas fa-bars';
+                }
             });
         });
     </script>
