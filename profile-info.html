@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunnie Jae Creates - Facebook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tahoma', Arial, sans-serif;
+      font-size: 11px;
+      background: #faf8fc;
+      color: #130d16;
+      line-height: 1.28;
+    }
+
+    /* Facebook Header Bar */
+    .facebook-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 82px;
+      background: #418ede;
+      border-bottom: 1px solid #34dae1;
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(19,13,22,0.2);
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 15px;
+      justify-content: space-between;
+    }
+
+    .facebook-logo {
+      color: #faf8fc;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .search-box {
+      background: #9f76ca;
+      border: 1px solid #faf8fc;
+      padding: 3px 6px;
+      color: #faf8fc;
+      font-size: 11px;
+      border-radius: 2px;
+      width: 300px;
+    }
+
+    .search-box::placeholder {
+      color: #f6e6f9;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header-nav a {
+      color: #faf8fc;
+      text-decoration: none;
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+
+    .header-nav a:hover {
+      background: rgba(250,248,252,0.1);
+      border-radius: 2px;
+    }
+
+    /* Main Content Area */
+    .main-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-top: 100px;
+      display: flex;
+      gap: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    /* Left Sidebar */
+    .left-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      background: #faf8fc;
+      border: 1px solid #d2baff;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 2px;
+      border: 1px solid #d2baff;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: #ff68b5;
+      text-decoration: none;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .profile-links {
+      list-style: none;
+      font-size: 11px;
+    }
+
+    .profile-links li {
+      margin-bottom: 3px;
+    }
+
+    .profile-links a {
+      color: #9f76ca;
+      text-decoration: none;
+    }
+
+    .profile-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      background: #faf8fc;
+      border: 1px solid #d2baff;
+    }
+
+    /* Profile Header */
+    .profile-header {
+      background: #faf8fc;
+      padding: 10px;
+      border-bottom: 1px solid #d2baff;
+    }
+
+    .cover-photo {
+      width: 100%;
+      height: 180px;
+      background-image: url('https://imgur.com/yf3WNpp.png');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid #d2baff;
+      margin-bottom: 10px;
+    }
+
+    .profile-main {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .profile-pic-large {
+      width: 125px;
+      height: 125px;
+      border: 3px solid #faf8fc;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(19,13,22,0.3);
+    }
+
+    .profile-details h1 {
+      font-size: 24px;
+      color: #ff68b5;
+      font-weight: normal;
+      margin-bottom: 5px;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .profile-tabs {
+      background: #f6e6f9;
+      border-bottom: 1px solid #d2baff;
+      padding: 0;
+      margin: 0;
+    }
+
+    .profile-tabs ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .profile-tabs li {
+      border-right: 1px solid #d2baff;
+    }
+
+    .profile-tabs a {
+      display: block;
+      padding: 8px 15px;
+      color: #9f76ca;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: bold;
+      background: #f6e6f9;
+    }
+
+    .profile-tabs a.active,
+    .profile-tabs a:hover {
+      background: #faf8fc;
+      color: #130d16;
+    }
+
+    /* Info Content */
+    .info-content {
+      padding: 15px;
+    }
+
+    .info-section {
+      background: #faf8fc;
+      border: 1px solid #d2baff;
+      margin-bottom: 15px;
+      border-radius: 3px;
+    }
+
+    .section-header {
+      background: linear-gradient(135deg, #ff68b5, #ffaee0);
+      color: #faf8fc;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: bold;
+      border-bottom: 1px solid #d2baff;
+    }
+
+    .section-content {
+      padding: 12px 15px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .section-content h3 {
+      color: #9f76ca;
+      font-size: 14px;
+      margin-bottom: 8px;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .section-content h4 {
+      color: #ff68b5;
+      font-size: 12px;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+    }
+
+    .project-title {
+      color: #418ede;
+      font-weight: bold;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .project-description {
+      margin-left: 10px;
+      font-style: italic;
+      color: #130d16;
+      margin-bottom: 8px;
+    }
+
+    .work-entry {
+      background: #f6e6f9;
+      border: 1px solid #d2baff;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 2px;
+    }
+
+    .work-title {
+      color: #ff68b5;
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .work-dates {
+      color: #9f76ca;
+      font-size: 10px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .responsibility-list {
+      margin: 8px 0;
+    }
+
+    .responsibility-list li {
+      margin-bottom: 5px;
+      list-style: none;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .responsibility-list li:before {
+      content: "•";
+      color: #ff68b5;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .design-integration {
+      background: rgba(52, 218, 225, 0.1);
+      padding: 6px 8px;
+      margin: 5px 0;
+      border-left: 3px solid #34dae1;
+      font-size: 11px;
+      font-style: italic;
+    }
+
+    .education-box {
+      background: #f6e6f9;
+      border: 1px solid #d2baff;
+      padding: 12px;
+      border-radius: 2px;
+    }
+
+    .degree {
+      color: #418ede;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .institution {
+      color: #9f76ca;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .quirky-note {
+      background: #ffaee0;
+      color: #130d16;
+      padding: 8px 10px;
+      border-radius: 15px;
+      font-size: 11px;
+      margin: 10px 0;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Right Sidebar */
+    .right-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-box {
+      background: #faf8fc;
+      border: 1px solid #d2baff;
+      margin-bottom: 10px;
+    }
+
+    .sidebar-header {
+      background: #f6e6f9;
+      padding: 6px 8px;
+      border-bottom: 1px solid #d2baff;
+      font-size: 11px;
+      font-weight: bold;
+      color: #130d16;
+    }
+
+    .sidebar-content {
+      padding: 8px;
+    }
+
+    .friends-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .friend-pic {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #d2baff;
+      border-radius: 2px;
+    }
+
+    .app-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px;
+      color: #9f76ca;
+      text-decoration: none;
+      font-size: 11px;
+    }
+
+    .app-link:hover {
+      background: #f6e6f9;
+    }
+
+    .app-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      
+      .left-sidebar,
+      .right-sidebar {
+        width: 100%;
+        order: 2;
+      }
+      
+      .main-content {
+        order: 1;
+      }
+      
+      .search-box {
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Facebook Header -->
+  <div class="facebook-header">
+    <div class="header-content">
+      <a href="#" class="facebook-logo">facebook</a>
+      <input type="text" class="search-box" placeholder="Search">
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="#">Profile</a>
+        <a href="studio-ken.html">Friends</a>
+        <a href="contact.html">Inbox</a>
+        <a href="#">Settings</a>
+        <a href="#">Logout</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+      <div class="profile-info">
+        <img src="https://imgur.com/5fjM6QN.png" alt="Profile" class="profile-pic">
+        <a href="#" class="profile-name">Sunnie Jae</a>
+        <ul class="profile-links">
+          <li><a href="#">Edit My Profile</a></li>
+          <li><a href="#">Account Settings</a></li>
+          <li><a href="#">Privacy Settings</a></li>
+        </ul>
+      </div>
+      
+      <div class="profile-info">
+        <div class="sidebar-header">Albums</div>
+        <div class="sidebar-content">
+          <a href="#" class="app-link">
+            <img src="https://imgur.com/XRXG5tA.png" alt="Photos" class="app-icon">
+            Summer 2009
+          </a>
+          <a href="#" class="app-link">
+            <img src="https://imgur.com/Bh4p6mj.png" alt="Videos XD" class="app-icon">
+            Videos XD
+          </a>
+          <a href="#" class="app-link">
+            <img src="https://imgur.com/MhKNywk.png" alt="Games" class="app-icon">
+            Musical!1!!
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="cover-photo"></div>
+        <div class="profile-main">
+          <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae" class="profile-pic-large">
+          <div class="profile-details">
+            <h1>Jayme Squire</h1>
+            <div>Creative Designer & Content Creator</div>
+            <div>CEO of Sunnie Jae Creates</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Tabs -->
+      <div class="profile-tabs">
+        <ul>
+          <li><a href="wall.html">Wall</a></li>
+          <li><a href="#" class="active">Info</a></li>
+          <li><a href="digital-art.html">Photos</a></li>
+          <li><a href="videos.html">Videos</a></li>
+          <li><a href="writing.html">Notes</a></li>
+        </ul>
+      </div>
+
+      <!-- Info Content -->
+      <div class="info-content">
+        <!-- Unprofessional Resume -->
+        <div class="info-section">
+          <div class="section-header">
+            jack of all trades.. unprofessional resume
+          </div>
+          <div class="section-content">
+            <p>When you get Sunnie Jae, you get options. I'm a creative by nature; I take every chance to take an idea and make an experience.</p>
+            
+            <h4>Writing</h4>
+            <p>I've been writing longer than anything. Language is my first love. (Sorry, Ken) If you have a short story you'd like to commission, that would be swell.</p>
+            
+            <h4>Current Projects</h4>
+            <p>My inspiration always has a story, so my current passion has been the intersection of digital/graphic art and writing. I'm currently working on two WebComics:</p>
+            
+            <div class="project-title">16 (Sixteen)</div>
+            <div class="project-description">follows the college lives of 16 psych 101 students<br>
+            the concept comes from the MBTI archetypes. each main character is inspired by MBTI stereotypes</div>
+            
+            <div class="project-title">Not Just Another Werewolf Romance</div>
+            <div class="project-description">starts as a serialized novel<br>
+            chapters will be published on my blog<br>
+            follows four young adults navigating romance, friendship, and the supernatural<br>
+            recommended for readers who like enemies to lovers, friends to lovers, soulmates, and bisexual main characters.</div>
+            
+            <h4>Video Content</h4>
+            <p>I'm also always editing videos. My content ranges from viral cat tiktoks to department announcements for my 9-5 Desk Job.</p>
+            
+            <p>I've been vlogging since I was 13 (it's almost all been scrubbed, don't worry). It's become something close to a public journal for me. My job is not naturally creative, but I've found a way to incorporate my hobby into my day-to-day.</p>
+            
+            <div class="quirky-note">you can find me in the kpop-sphere making video compilations of favorite performances. you can find me on tiktok going viral for my cat being ornery. (ꈍᴗꈍ)♡</div>
+          </div>
+        </div>
+
+        <!-- Professional Resume -->
+        <div class="info-section">
+          <div class="section-header">
+            ...but a master of none - professional resume
+          </div>
+          <div class="section-content">
+            <h3>Recent Work History</h3>
+            
+            <div class="work-entry">
+              <div class="work-title">Senior Supervisor, Sales Operations</div>
+              <div class="work-dates">Oct 2022 – Present</div>
+              
+              <h4>Responsibilities:</h4>
+              <ul class="responsibility-list">
+                <li>Spearheaded the creation and implementation of a text line for the department</li>
+                <li>Meeting with superiors with ideas for policies & procedures</li>
+                <li>Communicating these policies and procedures using comprehensive Microsoft Sharepoint pages</li>
+                <li>Building out the shift schedule</li>
+                <li>Recognizing agents that would succeed in the specialized text team, and training them</li>
+              </ul>
+              
+              <div class="design-integration">
+                <strong>How I Integrated Design:</strong> Every communication has a graphic heading. I created a thought out color palette for the site, and used those primary colors for all imagery across the Sharepoint site.
+              </div>
+              
+              <ul class="responsibility-list">
+                <li>Created and led department competitions and incentives, contributing to employee engagement and culture</li>
+                <li>Communicated across departments to solidify timelines</li>
+                <li>Created four competitions and one raffle system to run through our busiest season</li>
+              </ul>
+              
+              <div class="design-integration">
+                <strong>How I integrated Design:</strong> I "branded" each competition to create physical and atmospheric consistency. Each competition had a logo, a color palette, and visual graphics for all activities.
+              </div>
+              
+              <ul class="responsibility-list">
+                <li>Managed up to 15 agents at a time</li>
+                <li>Consistent one-to-one communication and coaching</li>
+                <li>Delegating important projects and over-seeing their completion</li>
+                <li>Detail focused quality review</li>
+                <li>Running meetings for trainings, competition proposals, management huddles, and more</li>
+              </ul>
+              
+              <div class="design-integration">
+                <strong>How I Integrated Design:</strong> All organization was color coded by agent to create visual consistency across platforms. From excel sheets to calendar tags, I was able to easily recognize the context based on color.
+              </div>
+              
+              <ul class="responsibility-list">
+                <li>Supported department level branded projects through self-taught design, leveraging tools like Canva, Capcut, and SharePoint to create internal collateral and visual content</li>
+              </ul>
+            </div>
+            
+            <h3>Education</h3>
+            <div class="education-box">
+              <div class="degree">Associate of Arts, studying English Education</div>
+              <div class="institution">Brigham Young University- Idaho Campus</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="right-sidebar">
+      <div class="sidebar-box">
+        <div class="sidebar-header">Friends (Random)</div>
+        <div class="sidebar-content">
+          <div class="friends-list">
+            <img src="https://imgur.com/5fjM6QN.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/5fjM6QN.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/5fjM6QN.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/5fjM6QN.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/5fjM6QN.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/5fjM6QN.png" alt="Friend" class="friend-pic">
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">Sponsored</div>
+        <div class="sidebar-content">
+          <div style="font-size: 11px; color: #130d16;">
+            Creative Tools for Artists<br>
+            <small>Get 50% off premium merchandise</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">Birthdays</div>
+        <div class="sidebar-content">
+          <div style="font-size: 11px;">
+            🎂 <strong>3 friends</strong> have birthdays today
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
