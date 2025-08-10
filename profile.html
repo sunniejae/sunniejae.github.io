@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sunnie Jae Creates - Contact</title>
+  <title>Sunnie Jae Creates | Fakebook </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
   <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
@@ -335,187 +335,6 @@
       opacity: 0.7;
     }
 
-    /* Contact Form Styles */
-    .contact-form-container {
-      background: #f6e6f9;
-      border: 2px solid #d2baff;
-      border-radius: 6px;
-      margin: 15px 0;
-      overflow: hidden;
-    }
-
-    .form-header {
-      background: linear-gradient(135deg, #ff68b5, #ffaee0);
-      padding: 12px 15px;
-      color: #faf8fc;
-      font-size: 13px;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    .form-content {
-      padding: 15px;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 4px;
-      font-weight: bold;
-      font-size: 11px;
-      color: #130d16;
-    }
-
-    .required {
-      color: #ff68b5;
-    }
-
-    .form-group input[type="text"],
-    .form-group input[type="email"],
-    .form-group textarea {
-      width: 100%;
-      padding: 6px 10px;
-      border: 2px solid #d2baff;
-      border-radius: 4px;
-      font-size: 11px;
-      font-family: 'Tahoma', Arial, sans-serif;
-      background: #faf8fc;
-      color: #130d16;
-      transition: all 0.2s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #9f76ca;
-      background: #faf8fc;
-      box-shadow: 0 0 6px rgba(159, 118, 202, 0.3);
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    .submit-btn {
-      background: linear-gradient(135deg, #418ede, #34dae1);
-      color: #faf8fc;
-      border: none;
-      padding: 8px 20px;
-      font-size: 11px;
-      font-weight: bold;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      margin-top: 5px;
-    }
-
-    .submit-btn:hover {
-      background: linear-gradient(135deg, #34dae1, #418ede);
-      transform: translateY(-1px);
-      box-shadow: 0 2px 6px rgba(65, 142, 222, 0.3);
-    }
-
-    .submit-btn:disabled {
-      background: #d2baff;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    /* Error Handling Styles */
-    .error {
-      border-color: #ff68b5 !important;
-      background-color: #fff5f8 !important;
-      box-shadow: 0 0 4px rgba(255, 104, 181, 0.3) !important;
-    }
-
-    .error-message {
-      color: #ff68b5;
-      font-size: 10px;
-      margin-top: 3px;
-      display: none;
-      font-weight: bold;
-    }
-
-    .error-message.show {
-      display: block;
-    }
-
-    .success-message {
-      background: linear-gradient(135deg, #34dae1, #418ede);
-      color: #faf8fc;
-      padding: 10px 15px;
-      border-radius: 4px;
-      margin-bottom: 15px;
-      font-size: 11px;
-      font-weight: bold;
-      display: none;
-      text-align: center;
-    }
-
-    .success-message.show {
-      display: block;
-    }
-
-    .loading {
-      display: none;
-      color: #9f76ca;
-      font-size: 10px;
-      margin-top: 5px;
-      font-weight: bold;
-    }
-
-    .loading.show {
-      display: block;
-    }
-
-    .error-summary {
-      background: #ffaee0;
-      border: 2px solid #ff68b5;
-      color: #130d16;
-      padding: 12px 15px;
-      border-radius: 4px;
-      margin-bottom: 15px;
-      font-size: 11px;
-      display: none;
-    }
-
-    .error-summary.show {
-      display: block;
-    }
-
-    .error-summary ul {
-      margin: 5px 0 0 15px;
-      padding: 0;
-    }
-
-    .error-summary li {
-      margin-bottom: 3px;
-      font-weight: bold;
-    }
-
-    /* Character Counter */
-    .char-counter {
-      font-size: 10px;
-      color: #9f76ca;
-      text-align: right;
-      margin-top: 2px;
-    }
-
-    .char-counter.warning {
-      color: #ffaee0;
-      font-weight: bold;
-    }
-
-    .char-counter.error {
-      color: #ff68b5;
-      font-weight: bold;
-    }
-
     /* Network Status */
     .network-status {
       position: fixed;
@@ -717,56 +536,7 @@
             </div>
           </div>
           <div class="post-content">
-            Want to get in touch? Fill out the form below and I'll get back to you ASAP! 💌
-            
-            <!-- Contact Form -->
-            <div class="contact-form-container">
-              <div class="form-header">
-                📧 Get in Touch with Sunnie Jae Creates
-              </div>
-              
-              <div class="form-content">
-                <div class="success-message" id="successMessage">
-                  ✨ Message sent successfully! I'll get back to you super soon! ✨
-                </div>
-
-                <div class="error-summary" id="errorSummary">
-                  <strong>Oops! Please fix these issues:</strong>
-                  <ul id="errorList"></ul>
-                </div>
-
-                <form id="contactForm" novalidate>
-                  <div class="form-group">
-                    <label for="name">Your Name <span class="required">*</span></label>
-                    <input type="text" id="name" name="name" required placeholder="What should I call you?">
-                    <div class="error-message" id="nameError"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="email">Email Address <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
-                    <div class="error-message" id="emailError"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" maxlength="100" placeholder="What's this about?">
-                    <div class="char-counter" id="subjectCounter">0/100 characters</div>
-                    <div class="error-message" id="subjectError"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="message">Your Message <span class="required">*</span></label>
-                    <textarea id="message" name="message" required maxlength="500" placeholder="Tell me about your project, collaboration ideas, or just say hi! :)"></textarea>
-                    <div class="char-counter" id="messageCounter">0/500 characters</div>
-                    <div class="error-message" id="messageError"></div>
-                  </div>
-
-                  <button type="submit" class="submit-btn" id="submitBtn">
-                    Send Message ✨
-                  </button>
-                  <div class="loading" id="loadingMessage">Sending your message...</div>
-                </form>
+            is craving the beach...
               </div>
             </div>
           </div>
@@ -778,7 +548,7 @@
           <div class="comments-section">
             <div class="comment">
               <a href="#" class="comment-author">Emma L</a>
-              <span class="comment-text">Love the new contact form! So cute and easy to use 😍</span>
+              <span class="comment-text">missing u! 😍</span>
               <span class="comment-time">3 hours ago</span>
             </div>
           </div>
