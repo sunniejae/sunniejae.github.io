@@ -278,4 +278,118 @@
     /* Right arrow */
     .list-arrow {
       margin-left: auto;
-     
+      width: 14px;
+      height: 14px;
+      border-right: 2px solid #130d16;
+      border-bottom: 2px solid #130d16;
+      transform: rotate(-45deg);
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    /* Remove arrow on disabled or email */
+    .no-arrow {
+      border: none;
+      opacity: 0;
+    }
+
+    /* Email clickable */
+    .email-link {
+      text-decoration: none;
+      color: #130d16;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* iOS 6 Footer */
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 13px;
+      color: #130d16;
+      opacity: 0.5;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <div class="status-left">
+      <div>9:41 AM</div>
+    </div>
+    <div class="status-right">
+      <div>100%</div>
+      <div class="battery-icon"></div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <div class="nav-bar">
+    <a href="javascript:history.back()" class="nav-button nav-back">Contacts</a>
+    <div class="nav-title">Sunnie Jae</div>
+    <a href="mailto:sunniejae.creates@gmail.com" class="nav-button nav-action">Edit</a>
+  </div>
+
+  <main class="main-container" role="main">
+    <!-- Profile Card -->
+    <section class="ios-card profile-card" aria-label="Profile information for Sunnie Jae">
+      <div class="profile-pic-container">
+        <img
+          src="https://imgur.com/5fjM6QN.png"
+          alt="Profile picture of Sunnie Jae"
+          class="profile-pic-large"
+          width="120"
+          height="120"
+        />
+        <span class="online-indicator" aria-label="Online status indicator"></span>
+      </div>
+      <h1 class="profile-name">Sunnie Jae</h1>
+      <p class="profile-title">Creator & Artist</p>
+      <p class="profile-company">sunniejae.creates@gmail.com</p>
+    </section>
+
+    <!-- Contact List -->
+    <section class="ios-card ios-list" aria-label="Contact information">
+      <div
+        class="ios-list-item"
+        role="button"
+        tabindex="0"
+        onclick="window.open('https://mail.google.com/mail/?view=cm&fs=1&to=sunniejae.creates@gmail.com&su=Hello%20Sunnie%20Jae', '_blank')"
+        onkeypress="if(event.key === 'Enter' || event.key === ' ') { this.click(); }"
+        aria-label="Email sunniejae.creates@gmail.com"
+      >
+        <div class="list-icon" aria-hidden="true">@</div>
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=sunniejae.creates@gmail.com&su=Hello%20Sunnie%20Jae"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="email-link"
+          tabindex="-1"
+        >
+          Email
+        </a>
+        <div class="list-arrow"></div>
+      </div>
+
+      <div class="ios-list-item" aria-disabled="true" tabindex="-1" style="color: #999; cursor: default;">
+        <div class="list-icon" aria-hidden="true">🏠</div>
+        Address
+        <div class="no-arrow"></div>
+      </div>
+
+      <div class="ios-list-item" aria-disabled="true" tabindex="-1" style="color: #999; cursor: default;">
+        <div class="list-icon" aria-hidden="true">📞</div>
+        Phone
+        <div class="no-arrow"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" aria-label="Footer">
+    © 2025 Sunnie Jae Creates
+  </footer>
+</body>
+</html>
