@@ -1,596 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - Creative Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* Icon styling */
+.nav-icon {
+  font-size: 1.3rem;
+  color: #666666; /* softer dark gray */
+  transition: color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
 
-        :root {
-            --primary-purple: #d2baff;
-            --hot-pink: #ff68b5;
-            --soft-lavender: #f6e6f9;
-            --pink-light: #ffaee0;
-            --cream: #faf8fc;
-            --dark: #130d16;
-            --teal: #34dae1;
-            --blue: #418ede;
-            --purple-mid: #9f76ca;
-            --white: #ffffff;
-            --gray-light: #f5f5f5;
-            --gray-dark: #666666;
-        }
+.nav-icon:hover {
+  color: var(--hot-pink); /* your accent pink */
+  transform: scale(1.1);
+}
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, var(--cream) 0%, var(--soft-lavender) 50%, var(--primary-purple) 100%);
-            min-height: 100vh;
-            color: var(--dark);
-        }
+/* Remove sparkles for clean look */
+.sparkle {
+  display: none;
+}
 
-        /* Header Navigation */
-        .top-nav {
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(159, 118, 202, 0.1);
-        }
+/* Product Card base */
+.product-card {
+  background: var(--white);
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(159, 118, 202, 0.1);
+  border: 1px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            height: 70px;
-        }
+/* Hover effect */
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(159, 118, 202, 0.25);
+  border-color: var(--hot-pink);
+}
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--hot-pink), var(--purple-mid), var(--teal));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
+/* Product card headings */
+.product-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: var(--purple-mid);
+  font-weight: 600;
+  position: relative;
+}
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            align-items: center;
-            gap: 0;
-        }
+/* Underline on product titles */
+.product-card h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: var(--hot-pink);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
 
-        .nav-links li {
-            position: relative;
-        }
+.product-card:hover h2::after {
+  width: 60px;
+}
 
-        .nav-links a {
-            display: block;
-            padding: 25px 20px;
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-        }
+/* Buttons - clean flat with subtle gradients */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  margin: 8px 6px;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+}
 
-        .nav-links a:hover {
-            color: var(--hot-pink);
-            border-bottom: 3px solid var(--hot-pink);
-            background: linear-gradient(to bottom, transparent 0%, rgba(255, 104, 181, 0.05) 100%);
-        }
+.btn-primary {
+  background: var(--hot-pink);
+  color: white;
+  box-shadow: 0 6px 15px rgba(255, 104, 181, 0.3);
+}
 
-        .nav-links a.active {
-            color: var(--purple-mid);
-            border-bottom: 3px solid var(--purple-mid);
-            background: linear-gradient(to bottom, transparent 0%, rgba(159, 118, 202, 0.08) 100%);
-        }
+.btn-primary:hover {
+  background: var(--pink-light);
+  box-shadow: 0 8px 25px rgba(255, 104, 181, 0.5);
+}
 
-        .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+.btn-secondary {
+  background: var(--teal);
+  color: white;
+  box-shadow: 0 6px 15px rgba(52, 218, 225, 0.3);
+}
 
-        .nav-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-dark);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
+.btn-secondary:hover {
+  background: #2bbac9;
+  box-shadow: 0 8px 25px rgba(52, 218, 225, 0.5);
+}
 
-        .nav-icon:hover {
-            background: var(--gray-light);
-            color: var(--hot-pink);
-            transform: scale(1.1);
-        }
+.btn-accent {
+  background: var(--primary-purple);
+  color: var(--dark);
+  box-shadow: 0 6px 15px rgba(210, 186, 255, 0.3);
+}
 
-        /* Mobile Navigation */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
-        }
+.btn-accent:hover {
+  background: #cbb0ff;
+  box-shadow: 0 8px 25px rgba(210, 186, 255, 0.5);
+}
 
-        .mobile-nav {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            z-index: 999;
-        }
-
-        .mobile-nav.active {
-            display: block;
-        }
-
-        .mobile-nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .mobile-nav a {
-            display: block;
-            padding: 15px 20px;
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid var(--gray-light);
-            transition: all 0.3s ease;
-        }
-
-        .mobile-nav a:hover {
-            background: var(--gray-light);
-            color: var(--hot-pink);
-            padding-left: 30px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 0;
-        }
-
-        .header h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--hot-pink), var(--purple-mid), var(--teal));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            color: var(--purple-mid);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Shop Grid */
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        /* Product Cards */
-        .product-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(255, 104, 181, 0.15);
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--primary-purple), var(--hot-pink), var(--teal));
-            z-index: -1;
-            border-radius: 20px;
-            padding: 2px;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(255, 104, 181, 0.25);
-        }
-
-        .product-card h2 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--purple-mid);
-            position: relative;
-        }
-
-        .product-card h2::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--hot-pink), var(--teal));
-            border-radius: 3px;
-        }
-
-        .product-card p {
-            color: var(--dark);
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            margin: 8px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--hot-pink), var(--purple-mid));
-            color: white;
-            box-shadow: 0 8px 20px rgba(255, 104, 181, 0.3);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(45deg, var(--teal), var(--blue));
-            color: white;
-            box-shadow: 0 8px 20px rgba(52, 218, 225, 0.3);
-        }
-
-        .btn-accent {
-            background: linear-gradient(45deg, var(--primary-purple), var(--pink-light));
-            color: var(--dark);
-            box-shadow: 0 8px 20px rgba(210, 186, 255, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        /* Special Sections */
-        .featured-section {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 25px;
-            padding: 40px;
-            margin: 40px 0;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(159, 118, 202, 0.15);
-            border: 3px solid transparent;
-            background-clip: padding-box;
-            position: relative;
-        }
-
-        .featured-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, var(--primary-purple), var(--hot-pink), var(--teal), var(--blue));
-            z-index: -1;
-            border-radius: 25px;
-            padding: 3px;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-        }
-
-        .redbubble-embed {
-            background: var(--cream);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .redbubble-embed iframe {
-            border-radius: 10px;
-        }
-
-        /* Decorative Elements */
-        .sparkle {
-            position: absolute;
-            color: var(--hot-pink);
-            animation: sparkle 2s infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1) rotate(180deg); }
-        }
-
-        .floating-icon {
-            position: fixed;
-            font-size: 2rem;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        .floating-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; color: var(--hot-pink); }
-        .floating-icon:nth-child(2) { top: 20%; right: 10%; animation-delay: 2s; color: var(--teal); }
-        .floating-icon:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; color: var(--purple-mid); }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .header h1 { 
-                font-size: 2rem; 
-            }
-            
-            .shop-grid { 
-                grid-template-columns: 1fr; 
-                gap: 20px; 
-            }
-            
-            .product-card { 
-                padding: 20px; 
-            }
-            
-            .btn { 
-                padding: 10px 20px; 
-                margin: 5px; 
-            }
-
-            .nav-container {
-                padding: 0 15px;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation Header -->
-    <nav class="top-nav">
-        <div class="nav-container">
-            <a href="https://sunniejae.github.io" class="logo">SunnieJae</a>
-            
-            <ul class="nav-links">
-                <li><a href="https://sunniejae.github.io/index.html">Home</a></li>
-                <li><a href="https://sunniejae.github.io/profile-info.html">About</a></li>
-                <li><a href="https://sunniejae.github.io/portfolio.html">Portfolio</a></li>
-                <li><a href="https://sunniejae.github.io/studio-ken.html">Studio Ken</a></li>
-                <li><a href="#" class="active">Shop</a></li>
-                <li><a href="https://sunniejae.github.io/contact.html">Contact</a></li>
-            </ul>
-
-            <div class="nav-icons">
-                <div class="nav-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="nav-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <div class="nav-icon">
-                    <i class="fas fa-shopping-bag"></i>
-                </div>
-            </div>
-
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-
-        <div class="mobile-nav" id="mobileNav">
-            <ul>
-                <li><a href="https://sunniejae.github.io/index.html">Home</a></li>
-                <li><a href="https://sunniejae.github.io/profile-info.html">About</a></li>
-                <li><a href="https://sunniejae.github.io/portfolio.html">Portfolio</a></li>
-                <li><a href="https://sunniejae.github.io/studio-ken.html">Studio Ken</a></li>
-                <li><a href="#" class="active">Shop</a></li>
-                <li><a href="https://sunniejae.github.io/contact.html">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Floating decorative elements -->
-    <div class="floating-icon"><i class="fas fa-heart"></i></div>
-    <div class="floating-icon"><i class="fas fa-star"></i></div>
-    <div class="floating-icon"><i class="fas fa-sparkles"></i></div>
-
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>✨ Creative Shop ✨</h1>
-            <p>Discover unique designs, books, and curated finds - all in one fabulous place!</p>
-        </div>
-
-        <!-- Shop Grid -->
-        <div class="shop-grid">
-            <!-- Apparel & Gifts Card -->
-            <div class="product-card">
-                <div class="sparkle" style="top: 10px; right: 20px;"><i class="fas fa-star"></i></div>
-                <h2><strong>Apparel & Gifts</strong></h2>
-                <p>Purchase designs on anything from notebooks to shower curtains to stickers... all with my art!</p>
-                <p><em>Kinda cool, right?</em></p>
-                <a href="https://www.redbubble.com/people/ratqueenjaymeow/explore?asc=u&page=1&sortOrder=recent" class="btn btn-primary">
-                    <i class="fas fa-shopping-bag"></i> Shop Redbubble
-                </a>
-            </div>
-
-            <!-- Hardcopy Prints Card -->
-            <div class="product-card">
-                <div class="sparkle" style="top: 15px; left: 20px;"><i class="fas fa-heart"></i></div>
-                <h2>Hardcopy Prints</h2>
-                <p>I'm (technically?) a published author! Purchase from my bookstore, or read for free online</p>
-                <a class="btn btn-secondary" href="http://www.wattpad.com/user/lisataylorwrites" target="_blank">
-                    <i class="fas fa-book-open"></i> Free to Read
-                </a>
-                <a href="https://www.amazon.com/stores/Lisa-Taylor/author/B0BLF45YYF?ref=ap_rdr&isDramIntegrated=true&shoppingPortalEnabled=true" class="btn btn-primary">
-                    <i class="fab fa-amazon"></i> Amazon Bookstore
-                </a>
-            </div>
-
-            <!-- Amazon Affiliate Card -->
-            <div class="product-card">
-                <div class="sparkle" style="top: 10px; right: 15px;"><i class="fas fa-sparkles"></i></div>
-                <h2 style="color: #9f76ca;">Amazon Affiliate Storefront</h2>
-                <p>I also have these; my designs and other things I like</p>
-                <a class="btn btn-accent" href="http://www.amazon.com/shop/influencer-daddf231?ref=ac_inf_tb_vh" target="_blank">
-                    <i class="fas fa-store"></i> Influencer Storefront
-                </a>
-                <a href="https://www.amazon.com/shop/influencer-daddf231/list/289HTFNOY1ZES?ref_=aip_sf_list_spv_ons_mixed_d" class="btn btn-primary">
-                    <i class="fas fa-palette"></i> Personal Designs
-                </a>
-            </div>
-        </div>
-
-        <!-- Featured Redbubble Section -->
-        <div class="featured-section">
-            <h2><span style="font-size: 1.8rem;"><strong>✨ Redbubble Feed ✨</strong></span></h2>
-            <p style="margin-bottom: 20px; color: var(--purple-mid);">Check out my latest creations!</p>
-            
-            <div class="redbubble-embed">
-                <script type="text/javascript" src="https://www.redbubble.com/assets/external_portfolio.js"></script>
-                <iframe src="https://www.redbubble.com/people/ratqueenjaymeow/external-portfolio?count=4" width="100%" height="529" frameborder="0" scrolling="no" allowtransparency="true" style="max-width: 506px; border-radius: 10px;"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const menuBtn = document.querySelector('.mobile-menu-btn i');
-            
-            mobileNav.classList.toggle('active');
-            
-            if (mobileNav.classList.contains('active')) {
-                menuBtn.className = 'fas fa-times';
-            } else {
-                menuBtn.className = 'fas fa-bars';
-            }
-        }
-
-        // Add some interactive sparkle effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.product-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    // Add extra sparkle on hover
-                    const sparkles = this.querySelectorAll('.sparkle');
-                    sparkles.forEach(sparkle => {
-                        sparkle.style.animationDuration = '0.5s';
-                    });
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    // Reset sparkle animation
-                    const sparkles = this.querySelectorAll('.sparkle');
-                    sparkles.forEach(sparkle => {
-                        sparkle.style.animationDuration = '2s';
-                    });
-                });
-            });
-
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(event) {
-                const mobileNav = document.getElementById('mobileNav');
-                const menuBtn = document.querySelector('.mobile-menu-btn');
-                const navContainer = document.querySelector('.nav-container');
-                
-                if (!navContainer.contains(event.target) && mobileNav.classList.contains('active')) {
-                    mobileNav.classList.remove('active');
-                    document.querySelector('.mobile-menu-btn i').className = 'fas fa-bars';
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+/* Remove floating icons for minimal style */
+.floating-icon {
+  display: none;
+}
