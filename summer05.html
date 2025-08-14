@@ -1,1 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Scrapbook Page</title>
+    <style>
+        :root {
+            --primary-purple: #d2baff;
+            --hot-pink: #ff68b5;
+            --soft-lavender: #f6e6f9;
+            --pink-light: #ffaee0;
+            --cream: #faf8fc;
+            --dark: #130d16;
+            --teal: #34dae1;
+            --blue: #418ede;
+            --purple-mid: #9f76ca;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray-dark: #666666;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(45deg, var(--cream), var(--soft-lavender));
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Paper texture background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, var(--soft-lavender) 1px, transparent 1px),
+                radial-gradient(circle at 40% 40%, var(--primary-purple) 1px, transparent 1px),
+                radial-gradient(circle at 80% 80%, var(--pink-light) 1px, transparent 1px);
+            background-size: 50px 50px, 30px 30px, 40px 40px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .scrapbook-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--cream);
+            border-radius: 15px;
+            box-shadow: 
+                0 10px 30px rgba(19, 13, 22, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            padding: 60px 40px;
+            position: relative;
+            transform: rotate(-0.5deg);
+        }
+
+        /* Decorative corners */
+        .corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--hot-pink);
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+        }
+
+        .corner.top-left {
+            top: 0;
+            left: 0;
+            border-radius: 15px 0 0 0;
+        }
+
+        .corner.top-right {
+            top: 0;
+            right: 0;
+            transform: rotate(90deg);
+            border-radius: 0 15px 0 0;
+        }
+
+        .corner.bottom-left {
+            bottom: 0;
+            left: 0;
+            transform: rotate(-90deg);
+            border-radius: 0 0 0 15px;
+        }
+
+        .corner.bottom-right {
+            bottom: 0;
+            right: 0;
+            transform: rotate(180deg);
+            border-radius: 0 0 15px 0;
+        }
+
+        /* Photo frame */
+        .photo-frame {
+            position: relative;
+            max-width: 500px;
+            margin: 40px auto;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 
+                0 8px 25px rgba(19, 13, 22, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transform: rotate(2deg);
+            border: 3px solid var(--primary-purple);
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, var(--hot-pink), var(--teal), var(--primary-purple));
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        .photo {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Washi tape decorations */
+        .washi-tape {
+            position: absolute;
+            height: 25px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--teal),
+                var(--teal) 10px,
+                var(--blue) 10px,
+                var(--blue) 20px
+            );
+            opacity: 0.8;
+            border-radius: 2px;
+        }
+
+        .tape-1 {
+            top: 20px;
+            left: -10px;
+            width: 100px;
+            transform: rotate(-15deg);
+        }
+
+        .tape-2 {
+            top: 30px;
+            right: -15px;
+            width: 120px;
+            transform: rotate(20deg);
+            background: repeating-linear-gradient(
+                45deg,
+                var(--hot-pink),
+                var(--hot-pink) 8px,
+                var(--pink-light) 8px,
+                var(--pink-light) 16px
+            );
+        }
+
+        .tape-3 {
+            bottom: 40px;
+            left: 20px;
+            width: 80px;
+            transform: rotate(-25deg);
+            background: repeating-linear-gradient(
+                45deg,
+                var(--primary-purple),
+                var(--primary-purple) 12px,
+                var(--purple-mid) 12px,
+                var(--purple-mid) 24px
+            );
+        }
+
+        /* Title area */
+        .title-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(19, 13, 22, 0.1);
+            font-family: 'Brush Script MT', cursive;
+            transform: rotate(-1deg);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--purple-mid);
+            font-style: italic;
+        }
+
+        /* Decorative elements */
+        .doodle {
+            position: absolute;
+            color: var(--hot-pink);
+            font-size: 2rem;
+            opacity: 0.6;
+        }
+
+        .heart-1 {
+            top: 120px;
+            left: 80px;
+            transform: rotate(-20deg);
+        }
+
+        .heart-2 {
+            top: 200px;
+            right: 60px;
+            color: var(--teal);
+            transform: rotate(15deg);
+        }
+
+        .star {
+            bottom: 150px;
+            left: 50px;
+            color: var(--blue);
+            font-size: 1.5rem;
+            transform: rotate(30deg);
+        }
+
+        /* Memory strips */
+        .memory-strips {
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%) rotate(-90deg);
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            opacity: 0.7;
+        }
+
+        .memory-strips-right {
+            right: -20px;
+            left: auto;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        /* Polaroid style corners */
+        .photo-corners {
+            position: absolute;
+        }
+
+        .corner-triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .corner-triangle.tl {
+            top: -3px;
+            left: -3px;
+            border-width: 15px 15px 0 0;
+            border-color: var(--dark) transparent transparent transparent;
+        }
+
+        .corner-triangle.tr {
+            top: -3px;
+            right: -3px;
+            border-width: 0 15px 15px 0;
+            border-color: transparent var(--dark) transparent transparent;
+        }
+
+        .corner-triangle.bl {
+            bottom: -3px;
+            left: -3px;
+            border-width: 0 0 15px 15px;
+            border-color: transparent transparent var(--dark) transparent;
+        }
+
+        .corner-triangle.br {
+            bottom: -3px;
+            right: -3px;
+            border-width: 15px 0 0 15px;
+            border-color: transparent transparent transparent var(--dark);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .scrapbook-container {
+                padding: 40px 20px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .photo-frame {
+                max-width: 90%;
+            }
+            
+            .memory-strips {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scrapbook-container">
+        <!-- Decorative corners -->
+        <div class="corner top-left"></div>
+        <div class="corner top-right"></div>
+        <div class="corner bottom-left"></div>
+        <div class="corner bottom-right"></div>
+
+        <!-- Title section -->
+        <div class="title-section">
+            <h1 class="title">Summer 2005</h1>
+            <p class="subtitle">Seattle & Bountiful Memories</p>
+        </div>
+
+        <!-- Photo frame -->
+        <div class="photo-frame">
+            <img src="https://imgur.com/LQdvGxo.png" alt="Scrapbook Memory" class="photo">
+            
+            <!-- Photo corners -->
+            <div class="photo-corners">
+                <div class="corner-triangle tl"></div>
+                <div class="corner-triangle tr"></div>
+                <div class="corner-triangle bl"></div>
+                <div class="corner-triangle br"></div>
+            </div>
+        </div>
+
+        <!-- Washi tape decorations -->
+        <div class="washi-tape tape-1"></div>
+        <div class="washi-tape tape-2"></div>
+        <div class="washi-tape tape-3"></div>
+
+        <!-- Decorative doodles -->
+        <div class="doodle heart-1">♡</div>
+        <div class="doodle heart-2">♡</div>
+        <div class="doodle star">★</div>
+
+        <!-- Memory strips -->
+        <div class="memory-strips">
+            ✧✧
+        </div>
+        <div class="memory-strips memory-strips-right">
+            ✧✧
+        </div>
+    </div>
+</body>
+</html>
