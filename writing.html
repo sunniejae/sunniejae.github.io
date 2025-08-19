@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sunnie jae writes</title>
+    <title>SUNNIEJAE</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Comfortaa:wght@300;400;700&family=Indie+Flower&display=swap');
@@ -435,6 +435,90 @@
             color: #ff68b5;
             opacity: 0.8;
         }
+        
+        /* RSS Widget Styling */
+        .rss-widget-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(19, 13, 22, 0.4);
+            border-radius: 15px;
+            border: 1px solid rgba(159, 118, 202, 0.2);
+        }
+        
+        #retainable-rss-embed {
+            font-family: 'Comfortaa', sans-serif !important;
+        }
+        
+        #retainable-rss-embed .rss-item {
+            background: rgba(19, 13, 22, 0.6) !important;
+            border: 1px solid rgba(159, 118, 202, 0.3) !important;
+            border-radius: 10px !important;
+            margin: 15px 0 !important;
+            padding: 20px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        #retainable-rss-embed .rss-item:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 10px 25px rgba(19, 13, 22, 0.5) !important;
+            border-color: rgba(255, 104, 181, 0.5) !important;
+        }
+        
+        #retainable-rss-embed .rss-item h3 {
+            color: #d2baff !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 1.3rem !important;
+            margin-bottom: 10px !important;
+            text-shadow: 0 0 10px rgba(210, 186, 255, 0.3) !important;
+        }
+        
+        #retainable-rss-embed .rss-item h3 a {
+            color: #d2baff !important;
+            text-decoration: none !important;
+        }
+        
+        #retainable-rss-embed .rss-item h3 a:hover {
+            color: #ff68b5 !important;
+            text-shadow: 0 0 15px rgba(255, 104, 181, 0.6) !important;
+        }
+        
+        #retainable-rss-embed .rss-item p {
+            color: #9f76ca !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.9rem !important;
+            line-height: 1.6 !important;
+            margin-bottom: 15px !important;
+        }
+        
+        #retainable-rss-embed .rss-item .rss-btn {
+            background: linear-gradient(135deg, #9f76ca, #418ede) !important;
+            color: #faf8fc !important;
+            border: none !important;
+            padding: 8px 16px !important;
+            border-radius: 20px !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.8rem !important;
+            font-weight: 600 !important;
+            text-transform: lowercase !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            display: inline-block !important;
+        }
+        
+        #retainable-rss-embed .rss-item .rss-btn:hover {
+            background: linear-gradient(135deg, #ff68b5, #9f76ca) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 15px rgba(159, 118, 202, 0.4) !important;
+        }
+        
+        #retainable-rss-embed .rss-date {
+            color: #418ede !important;
+            font-family: 'Comfortaa', sans-serif !important;
+            font-size: 0.7rem !important;
+            opacity: 0.8 !important;
+            margin-bottom: 10px !important;
+        }
             .title {
                 font-size: 2.5rem;
             }
@@ -472,38 +556,146 @@
                 <a href="profile-info.html" class="nav-link">about</a>
                 <a href="contact.html" class="nav-link">contact</a>
                 <a href="shop.html" class="nav-link">shop</a>
-                <a href="#portfolio" class="nav-link">portfolio</a>
+                <a href="portfolio.html" class="nav-link">portfolio</a>
                 <a href="studio-ken.html" class="nav-link">studio ken</a>
             </nav>
             
-            <h1 class="title">sunnie jae creates</h1>
+            <h1 class="title">SUNNIEJAE</h1>
             <p class="subtitle">✧･ﾟ: *✧･ﾟ:* art, design, and storytelling for dreamers & divas *:･ﾟ✧*:･ﾟ✧</p>
             <div class="aesthetic-line"></div>
         </div>
         
         <div class="aesthetic-quotes">
-            <p class="quote">“let me live, love, and say it well in good sentences”
-― Sylvia Plath, The Unabridged Journals of Sylvia Plath </p>
-            <div class="divider">♡</div>
-            <p class="quote">"life is in creation"</p>
+            <p class="quote">"let me live, love, and say it well in good sentences"</p>
         </div>
         
         <div class="gallery-container">
-            <h2 class="gallery-title">✧ my medium blog ✧</h2>
+            <h2 class="gallery-title">✧ things i typed lately✧</h2>
+            
+            <!-- RSS Feed Widget -->
+            <div class="rss-widget-container">
+                <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
+                <div id="retainable-rss-embed" 
+                     data-rss="https://medium.com/feed/@sunniejae.creates"
+                     data-maxcols="2" 
+                     data-layout="grid" 
+                     data-poststyle="inline" 
+                     data-readmore="read more" 
+                     data-buttonclass="rss-btn" 
+                     data-offset="-100">
+                </div>
+            </div>
             
             <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
-                <i class="fas fa-external-link-alt"></i> visit my medium blog
-                <br><small>things i've typed</small>
+                <i class="fas fa-external-link-alt"></i> visit my full medium blog
+                <br><small>for dreamers & divas</small>
             </a>
             
             <div style="text-align: center; margin: 20px 0;">
                 <p style="color: #9f76ca; font-style: italic;">
-                    welcome to the intersection of beauty and chaos
+                    dive into a world of creativity, thoughts, and moody musings
                 </p>
                 <p style="color: #418ede; font-size: 0.9rem; margin-top: 10px;">
-            too old to be so angsty
+                    ♡ follow for more dreamy diva creations♡
                 </p>
             </div>
+        </div>
+        
+        <!-- Tumblr-style Feed Section -->
+        <div class="tumblr-feed">
+            <h2 class="feed-title">✧ recent posts ✧</h2>
+            
+            <!-- Photo Post Template -->
+            <div class="post photo-post">
+                <div class="post-image">
+                    [image placeholder]<br>
+                    <small>image placeholder</small>
+                </div>
+                <div class="post-caption">
+                    caption placeholder
+                </div>
+                <div class="post-tags">
+                    <span class="tag">#tag</span>
+                    <span class="tag">#tag</span>
+                    <span class="tag">#tag</span>
+                    <span class="tag">#tag</span>
+                </div>
+                <div class="post-meta">2 hours ago • 47 notes</div>
+            </div>
+            
+            <!-- Text Post Template -->
+            <div class="post text-post">
+                <div class="text-post-content">
+                    "couldn't wait to turn fifteen then you blink and it's been ten years"
+                </div>
+                <div class="post-tags">
+                    <span class="tag">#nostalgia</span>
+                    <span class="tag">#time</span>
+                    <span class="tag">#growing up</span>
+                    <span class="tag">#feelings</span>
+                </div>
+                <div class="post-meta">5 hours ago • 234 notes</div>
+            </div>
+            
+            <!-- Quote Post Template -->
+            <div class="post quote-post">
+                <div class="quote-text">"let me live, love, and say it well in good sentences"</div>
+                <div class="quote-source">— sylvia plath</div>
+                <div class="post-tags">
+                    <span class="tag">#quotes</span>
+                    <span class="tag">#sylvia plath</span>
+                    <span class="tag">#poetry</span>
+                    <span class="tag">#words</span>
+                </div>
+                <div class="post-meta">1 day ago • 189 notes</div>
+            </div>
+            
+            <!-- Another Photo Post Template -->
+            <div class="post photo-post">
+                <div class="post-image">
+                    [image placeholder]<br>
+                    <small>image placeholder</small>
+                </div>
+                <div class="post-caption">
+                    caption placeholder
+                </div>
+                <div class="post-tags">
+                    <span class="tag">#tag</span>
+                    <span class="tag">#tag</span>
+                    <span class="tag">#tag</span>
+                    <span class="tag">#tag</span>
+                </div>
+                <div class="post-meta">2 days ago • 72 notes</div>
+            </div>
+            
+            <!-- Text Post Template 2 -->
+            <div class="post text-post">
+                <div class="text-post-content">
+                    "maybe memory is all the home you get"
+                </div>
+                <div class="post-tags">
+                    <span class="tag">#memory</span>
+                    <span class="tag">#home</span>
+                    <span class="tag">#melancholy</span>
+                    <span class="tag">#deep thoughts</span>
+                </div>
+                <div class="post-meta">3 days ago • 167 notes</div>
+            </div>
+            
+            <!-- Additional Text Post -->
+            <div class="post text-post">
+                <div class="text-post-content">
+                    "i cant remember her yet she lives inside me"
+                </div>
+                <div class="post-tags">
+                    <span class="tag">#loss</span>
+                    <span class="tag">#memory</span>
+                    <span class="tag">#haunting</span>
+                    <span class="tag">#emotions</span>
+                </div>
+                <div class="post-meta">4 days ago • 201 notes</div>
+            </div>
+            
         </div>
         
         <div class="social-icons">
@@ -523,8 +715,8 @@
         
         <div class="footer">
             <p class="footer-text">
-                made with ♡ and chaos<br>
-                © 2025 sunniejae ✧
+               i only exist for as long as my words can be read<br>
+                © 2025 Sunnie Jae
             </p>
         </div>
     </div>
