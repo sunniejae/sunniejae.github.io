@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sunnie jae writes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Comfortaa:wght@300;400;700&family=Indie+Flower&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #130d16 0%, #2a1a2e 25%, #1a1a2e 50%, #130d16 75%, #0f0a12 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            font-family: 'Comfortaa', sans-serif;
+            color: #d2baff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background: #9f76ca;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: twinkle 4s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.3); }
+            100% { opacity: 0.6; transform: scale(0.8); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 2s ease;
+        }
+        
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 20px 0 30px 0;
+            padding: 15px 0;
+        }
+        
+        .nav-link {
+            color: #9f76ca;
+            text-decoration: none;
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            text-transform: lowercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(19, 13, 22, 0.3);
+            border: 1px solid rgba(159, 118, 202, 0.2);
+        }
+        
+        .nav-link:hover {
+            color: #ff68b5;
+            text-shadow: 0 0 10px rgba(255, 104, 181, 0.6);
+            background: rgba(19, 13, 22, 0.6);
+            border-color: rgba(255, 104, 181, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff68b5, #9f76ca);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(255, 104, 181, 0.6)) drop-shadow(0 0 40px rgba(210, 186, 255, 0.4));
+            animation: float 3s ease-in-out infinite alternate;
+            transform: rotate(-1deg);
+        }
+        
+        @keyframes float {
+            0% { transform: rotate(-1deg) translateY(0px); }
+            100% { transform: rotate(1deg) translateY(-10px); }
+        }
+        
+        .title {
+            font-family: 'Creepster', cursive;
+            font-size: 3.5rem;
+            color: #d2baff;
+            text-shadow: 0 0 15px #9f76ca, 0 0 30px rgba(159, 118, 202, 0.3);
+            margin-bottom: 10px;
+            transform: rotate(-2deg);
+        }
+        
+        .subtitle {
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.5rem;
+            color: #ff68b5;
+            text-shadow: 2px 2px 8px rgba(19, 13, 22, 0.9);
+            margin-bottom: 20px;
+        }
+        
+        .aesthetic-line {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #9f76ca, #418ede, transparent);
+            margin: 20px 0;
+            animation: pulse 3s infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        .gallery-container {
+            background: rgba(19, 13, 22, 0.6);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(159, 118, 202, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(19, 13, 22, 0.8);
+            animation: fadeInUp 2s ease 0.5s both;
+        }
+        
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gallery-title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 2rem;
+            color: #d2baff;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(159, 118, 202, 0.5);
+        }
+        
+        .blog-link {
+            display: block;
+            background: linear-gradient(135deg, #130d16, #2a1a2e);
+            color: #d2baff;
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 2px solid #9f76ca;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .blog-link:hover::before {
+            left: 100%;
+        }
+        
+        .blog-link:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 10px 25px rgba(159, 118, 202, 0.6);
+            border-color: #ff68b5;
+            background: linear-gradient(135deg, #1a1a2e, #130d16);
+        }
+        
+        .aesthetic-quotes {
+            text-align: center;
+            margin: 30px 0;
+            animation: fadeIn 3s ease 1s both;
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .quote {
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.3rem;
+            color: #9f76ca;
+            margin: 15px 0;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(19, 13, 22, 0.9);
+        }
+        
+        .divider {
+            text-align: center;
+            font-size: 2rem;
+            color: #418ede;
+            margin: 20px 0;
+            animation: rotate 6s linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .social-icons {
+            text-align: center;
+            margin: 40px 0;
+            animation: fadeInUp 2s ease 1.5s both;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            margin: 0 15px;
+            color: #9f76ca;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            color: #ff68b5;
+            transform: scale(1.3) rotate(15deg);
+            text-shadow: 0 0 15px rgba(255, 104, 181, 0.7);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(19, 13, 22, 0.8);
+            border-radius: 15px;
+            animation: fadeIn 3s ease 2s both;
+            border: 1px solid rgba(159, 118, 202, 0.3);
+        }
+        
+        .footer-text {
+            color: #9f76ca;
+            font-size: 0.9rem;
+            font-family: 'Indie Flower', cursive;
+        }
+        
+        .tumblr-feed {
+            margin: 50px 0;
+            animation: fadeInUp 2s ease 1s both;
+        }
+        
+        .feed-title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 2rem;
+            color: #d2baff;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(159, 118, 202, 0.5);
+        }
+        
+        .post {
+            background: rgba(19, 13, 22, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(159, 118, 202, 0.3);
+            border-radius: 15px;
+            margin: 30px 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease both;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(19, 13, 22, 0.6);
+            border-color: rgba(255, 104, 181, 0.5);
+        }
+        
+        .post:nth-child(even) {
+            transform: rotate(0.5deg);
+        }
+        
+        .post:nth-child(odd) {
+            transform: rotate(-0.5deg);
+        }
+        
+        .post:hover:nth-child(even) {
+            transform: rotate(0.5deg) translateY(-5px);
+        }
+        
+        .post:hover:nth-child(odd) {
+            transform: rotate(-0.5deg) translateY(-5px);
+        }
+        
+        .photo-post {
+            position: relative;
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #2a1a2e, #130d16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9f76ca;
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(159, 118, 202, 0.2);
+        }
+        
+        .post-caption {
+            padding: 20px;
+            font-family: 'Comfortaa', sans-serif;
+            color: #d2baff;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .text-post {
+            padding: 25px;
+        }
+        
+        .text-post-content {
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.3rem;
+            color: #9f76ca;
+            line-height: 1.5;
+            text-align: center;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(19, 13, 22, 0.8);
+        }
+        
+        .post-tags {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(159, 118, 202, 0.2);
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 0.8rem;
+            color: #418ede;
+        }
+        
+        .tag {
+            color: #418ede;
+            margin-right: 10px;
+            opacity: 0.8;
+        }
+        
+        .tag:hover {
+            opacity: 1;
+            color: #ff68b5;
+        }
+        
+        .post-meta {
+            padding: 10px 20px;
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 0.7rem;
+            color: #9f76ca;
+            opacity: 0.7;
+            text-align: right;
+        }
+        
+        .quote-post {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(159, 118, 202, 0.1), rgba(65, 142, 222, 0.1));
+        }
+        
+        .quote-text {
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.8rem;
+            color: #d2baff;
+            margin-bottom: 15px;
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(210, 186, 255, 0.3);
+        }
+        
+        .quote-source {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1rem;
+            color: #ff68b5;
+            opacity: 0.8;
+        }
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .gallery-container {
+                padding: 20px;
+                margin: 20px 0;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+                margin: 15px 0 25px 0;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="header">
+            <img src="https://imgur.com/5fjM6QN.png" alt="sunniejae creates logo" class="logo">
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">home</a>
+                <a href="profile-info.html" class="nav-link">about</a>
+                <a href="contact.html" class="nav-link">contact</a>
+                <a href="shop.html" class="nav-link">shop</a>
+                <a href="#portfolio" class="nav-link">portfolio</a>
+                <a href="studio-ken.html" class="nav-link">studio ken</a>
+            </nav>
+            
+            <h1 class="title">sunnie jae creates</h1>
+            <p class="subtitle">✧･ﾟ: *✧･ﾟ:* art, design, and storytelling for dreamers & divas *:･ﾟ✧*:･ﾟ✧</p>
+            <div class="aesthetic-line"></div>
+        </div>
+        
+        <div class="aesthetic-quotes">
+            <p class="quote">“let me live, love, and say it well in good sentences”
+― Sylvia Plath, The Unabridged Journals of Sylvia Plath </p>
+            <div class="divider">♡</div>
+            <p class="quote">"life is in creation"</p>
+        </div>
+        
+        <div class="gallery-container">
+            <h2 class="gallery-title">✧ my medium blog ✧</h2>
+            
+            <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> visit my medium blog
+                <br><small>things i've typed</small>
+            </a>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <p style="color: #9f76ca; font-style: italic;">
+                    welcome to the intersection of beauty and chaos
+                </p>
+                <p style="color: #418ede; font-size: 0.9rem; margin-top: 10px;">
+            too old to be so angsty
+                </p>
+            </div>
+        </div>
+        
+        <div class="social-icons">
+            <a href="https://medium.com/@sunniejae.creates" class="social-icon" target="_blank" title="Medium">
+                <i class="fab fa-medium"></i>
+            </a>
+            <a href="https://sunnie-jae.tumblr.com" class="social-icon" title="Tumblr">
+                <i class="fab fa-tumblr"></i>
+            </a>
+            <a href="https://instagram.com/sunniejae.creates" class="social-icon" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.pinterest.com/sunniejaecreates/" class="social-icon" title="Pinterest">
+                <i class="fab fa-pinterest"></i>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p class="footer-text">
+                made with ♡ and chaos<br>
+                © 2025 sunniejae ✧
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 50;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // Random size
+                const size = Math.random() * 8 + 4;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // Random animation delay
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Sparkle effect on mouse move
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() < 0.1) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.width = '4px';
+                sparkle.style.height = '4px';
+                sparkle.style.background = '#ff68b5';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '999';
+                sparkle.style.animation = 'twinkle 1s ease-out forwards';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        });
+        
+        // Initialize stars when page loads
+        createStars();
+    </script>
+</body>
+</html>
