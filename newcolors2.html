@@ -19,7 +19,7 @@
 
 body, html {
   width:100vw; height:100vh;
-  background: linear-gradient(135deg,#1a0d1f,#2a1a2f);
+  background: url('https://imgur.com/mreYQcF.png') center/cover no-repeat;
   font-family: 'Tahoma', sans-serif;
   color:#000;
   overflow:hidden;
@@ -104,6 +104,7 @@ body, html {
 
 .taskbar-time { font-size:0.6rem; color:#000; margin-left:auto; }
 
+/* ===== Taskbar Icons ===== */
 .icon-button {
   width:28px; height:28px;
   display:flex; align-items:center; justify-content:center;
@@ -153,7 +154,7 @@ body, html {
 .folder-icon img { width:32px; height:32px; object-fit:contain; }
 .folder-label { font-size:0.6rem; color:#000; text-align:center; }
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media(max-width:768px){
   .folder{width:60px;height:70px;}
   .folder-icon{width:36px;height:36px;}
@@ -200,55 +201,45 @@ body, html {
   </div>
 
   <!-- Pinterest Window -->
-  <div class="window" id="pinterestWindow" style="top:300px; left:100px; width:400px; height:400px;">
+  <div class="window" id="pinterestWindow" style="top:280px; left:50px; width:550px; height:550px;">
     <div class="window-header">
-      <span>Pinterest Feed</span>
+      <span>Pinterest</span>
       <div class="window-controls">
         <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
         <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
       </div>
     </div>
     <div class="window-content" style="padding:0;">
-      <iframe src="https://www.pinterest.com/pin/99360735500167749/embed/" style="width:100%; height:100%; border:none;"></iframe>
+      <iframe src="https://www.pinterest.com/YOURUSERNAME/boards/embed/" style="width:100%; height:100%; border:none;" allowtransparency="true"></iframe>
     </div>
   </div>
 
   <!-- Notebook Window -->
-  <div class="window" id="notebookWindow" style="top:300px; left:550px; width:300px; height:300px;">
+  <div class="window" id="imageWindow" style="top:280px; left:650px; width:550px; height:550px;">
     <div class="window-header">
       <span>Notebook</span>
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <textarea style="width:100%;height:100%;border:none;resize:none;"></textarea>
-    </div>
-  </div>
-
-  <!-- Blank Image Window -->
-  <div class="window" id="imageWindow" style="top:650px; left:100px; width:550px; height:550px;">
-    <div class="window-header">
-      <span>Image Window</span>
       <div class="window-controls">
         <div class="window-btn" onclick="minimizeWindow('imageWindow')">_</div>
         <div class="window-btn" onclick="closeWindow('imageWindow')">×</div>
       </div>
     </div>
-    <div class="window-content" style="display:flex; justify-content:center; align-items:center;">
-      <img src="" alt="Your Image" style="width:550px; height:550px; object-fit:cover;">
+    <div class="window-content" style="display:flex;align-items:center;justify-content:center;">
+      <img id="customImage" src="https://imgur.com/GrbDrVZ.png" alt="Notebook" style="max-width:100%; max-height:100%;">
     </div>
   </div>
 
   <!-- Taskbar -->
   <div class="taskbar">
+    <!-- Start Button -->
     <button class="start-button" onclick="toggleStartMenu()">☰</button>
+
+    <!-- Icons -->
     <div class="taskbar-items">
       <div class="icon-button" title="Search"><img src="https://imgur.com/HDV7ZqL.png" alt="Search"></div>
       <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/7KkDjkT.png" alt="Browser"></div>
       <div class="icon-button" title="Settings"><img src="https://imgur.com/8T1tGdL.png" alt="Settings"></div>
     </div>
+
     <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
   </div>
 
