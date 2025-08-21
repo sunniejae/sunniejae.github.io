@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunnie Jae-Fakebook Wall</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Y2K Bratz/Barbie Dream Palette */
+      --purple: #9a9ad4;               /* Primary color */
+      --pink: #ff66cc;                 /* Bright Y2K pink */
+      --cyan: #02d1ca;                 /* Electric cyan */
+      --magenta: #da70d6;              /* Soft magenta */
+      --dark-purple: #8b008b;          /* Rich purple */
+      --pale-pink: #ffb3e6;            /* Light pastel pink */
+      --lilac: #dda0dd;                /* Soft lilac */
+      --white: #ffffff;                /* Pure white */
+      --light-gray: #e6e6fa;           /* Lavender-tinted light */
+      --gray: #663399;                 /* Medium purple-gray */
+      --silver: #c0c0c0;               /* Metallic silver */
+      --dark-gray: #4b0082;            /* Dark purple-gray */
+      --black: #1a0d1f;                /* Deep purple-black */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tahoma', Arial, sans-serif;
+      font-size: 11px;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.28;
+    }
+
+    /* Facebook Header Bar */
+    .facebook-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 82px;
+      background: var(--purple);
+      border-bottom: 1px solid var(--cyan);
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.2);
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 15px;
+      justify-content: space-between;
+    }
+
+    .facebook-logo {
+      color: var(--white);
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .search-box {
+      background: var(--dark-purple);
+      border: 1px solid var(--white);
+      padding: 3px 6px;
+      color: var(--white);
+      font-size: 11px;
+      border-radius: 2px;
+      width: 300px;
+    }
+
+    .search-box::placeholder {
+      color: var(--light-gray);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header-nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+
+    .header-nav a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+    }
+
+    /* Main Content Area */
+    .main-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-top: 100px;
+      display: flex;
+      gap: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    /* Left Sidebar */
+    .left-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 2px;
+      border: 1px solid var(--pale-pink);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--pink);
+      text-decoration: none;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .profile-links {
+      list-style: none;
+      font-size: 11px;
+    }
+
+    .profile-links li {
+      margin-bottom: 3px;
+    }
+
+    .profile-links a {
+      color: var(--dark-purple);
+      text-decoration: none;
+    }
+
+    .profile-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
+    }
+
+    /* Profile Header */
+    .profile-header {
+      background: var(--white);
+      padding: 10px;
+      border-bottom: 1px solid var(--pale-pink);
+    }
+
+    .cover-photo {
+      width: 100%;
+      height: 180px;
+      background-image: url('https://imgur.com/7BJknIY.png');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--pale-pink);
+      margin-bottom: 10px;
+    }
+
+    .profile-main {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .profile-pic-large {
+      width: 125px;
+      height: 125px;
+      border: 3px solid var(--white);
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.3);
+    }
+
+    .profile-details h1 {
+      font-size: 24px;
+      color: var(--pink);
+      font-weight: normal;
+      margin-bottom: 5px;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .profile-tabs {
+      background: var(--light-gray);
+      border-bottom: 1px solid var(--pale-pink);
+      padding: 0;
+      margin: 0;
+    }
+
+    .profile-tabs ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .profile-tabs li {
+      border-right: 1px solid var(--pale-pink);
+    }
+
+    .profile-tabs a {
+      display: block;
+      padding: 8px 15px;
+      color: var(--dark-purple);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: bold;
+      background: var(--light-gray);
+    }
+
+    .profile-tabs a.active,
+    .profile-tabs a:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    /* Wall Posts */
+    .wall-content {
+      padding: 10px;
+    }
+
+    .status-update {
+      background: var(--light-gray);
+      border: 1px solid var(--pale-pink);
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 2px;
+    }
+
+    .post {
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
+      margin-bottom: 8px;
+      border-radius: 2px;
+    }
+
+    .post-header {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--pale-pink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .post-profile-pic {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--pale-pink);
+      border-radius: 2px;
+    }
+
+    .post-info {
+      flex: 1;
+    }
+
+    .post-author {
+      color: var(--dark-purple);
+      font-weight: bold;
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .post-time {
+      color: var(--black);
+      font-size: 10px;
+      margin-left: 5px;
+      opacity: 0.7;
+    }
+
+    .post-content {
+      padding: 10px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .post-image {
+      width: 100%;
+      border-top: 1px solid var(--pale-pink);
+      display: block;
+    }
+
+    .post-actions {
+      padding: 6px 10px;
+      border-top: 1px solid var(--pale-pink);
+      background: var(--light-gray);
+      display: flex;
+      gap: 10px;
+    }
+
+    .post-action {
+      color: var(--dark-purple);
+      text-decoration: none;
+      font-size: 10px;
+      padding: 2px 4px;
+    }
+
+    .post-action:hover {
+      text-decoration: underline;
+    }
+
+    .comments-section {
+      background: var(--light-gray);
+      border-top: 1px solid var(--pale-pink);
+      padding: 8px 10px;
+    }
+
+    .comment {
+      margin-bottom: 6px;
+      font-size: 11px;
+    }
+
+    .comment-author {
+      color: var(--dark-purple);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .comment-text {
+      color: var(--black);
+    }
+
+    .comment-time {
+      color: var(--black);
+      font-size: 10px;
+      margin-left: 8px;
+      opacity: 0.7;
+    }
+
+    /* Right Sidebar */
+    .right-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-box {
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
+      margin-bottom: 10px;
+    }
+
+    .sidebar-header {
+      background: var(--light-gray);
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--pale-pink);
+      font-size: 11px;
+      font-weight: bold;
+      color: var(--black);
+    }
+
+    .sidebar-content {
+      padding: 8px;
+    }
+
+    .friends-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .friend-pic {
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--pale-pink);
+      border-radius: 2px;
+    }
+
+    .app-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px;
+      color: var(--dark-purple);
+      text-decoration: none;
+      font-size: 11px;
+    }
+
+    .app-link:hover {
+      background: var(--light-gray);
+    }
+
+    .app-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Status Update Textarea */
+    .status-update textarea {
+      width: 100%;
+      margin-top: 5px;
+      padding: 5px;
+      border: 1px solid var(--pale-pink);
+      font-size: 11px;
+      background: var(--white);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      
+      .left-sidebar,
+      .right-sidebar {
+        width: 100%;
+        order: 2;
+      }
+      
+      .main-content {
+        order: 1;
+      }
+      
+      .search-box {
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Facebook Header -->
+  <div class="facebook-header">
+    <div class="header-content">
+      <a href="#" class="facebook-logo">fakebook</a>
+      <input type="text" class="search-box" placeholder="Search">
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="profile-info.html">Profile</a>
+        <a href="studio-ken.html">Friends</a>
+        <a href="contact.html">Inbox</a>
+        <a href="#">Settings</a>
+        <a href="javascript:history.back()" class="nav-button nav-back">Logout</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+      <div class="profile-info">
+        <img src="https://imgur.com/5fjM6QN.png" alt="Profile" class="profile-pic">
+        <a href="#" class="profile-name">Sunnie Jae</a>
+        <ul class="profile-links">
+          <li><a href="#">Edit My Profile</a></li>
+          <li><a href="#">Account Settings</a></li>
+          <li><a href="#">Privacy Settings</a></li>
+        </ul>
+      </div>
+      
+      <div class="profile-info">
+        <div class="sidebar-header">Albums</div>
+        <div class="sidebar-content">
+          <a href="#" class="app-link">
+            <img src="https://imgur.com/5WZhwSa.png" alt="Photos" class="app-icon">
+            Summer 2009
+          </a>
+          <a href="videos.html" class="app-link">
+            <img src="https://imgur.com/5WZhwSa.png" alt="Videos XD" class="app-icon">
+            Videos XD
+          </a>
+          <a href="#" class="app-link">
+            <img src="https://imgur.com/5WZhwSa.png" alt="Games" class="app-icon">
+            Musical!1!!
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="cover-photo"></div>
+        <div class="profile-main">
+          <img src="https://imgur.com/f3PHZ3I.png" alt="Sunnie Jae" class="profile-pic-large">
+          <div class="profile-details">
+            <h1>Jayme Squire</h1>
+            <div>Creative Designer & Content Creator</div>
+            <div>CEO of Sunnie Jae Creates</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Tabs -->
+      <div class="profile-tabs">
+        <ul>
+          <li><a href="#" class="active">Wall</a></li>
+          <li><a href="profile-info.html">Info</a></li>
+          <li><a href="digital-art.html">Photos</a></li>
+          <li><a href="videos.html">Videos</a></li>
+          <li><a href="shop.html">Shop</a></li>
+        </ul>
+      </div>
+
+      <!-- Wall Content -->
+      <div class="wall-content">
+        <!-- Status Update Box -->
+        <div class="status-update">
+          <strong>What's on your mind?</strong>
+          <textarea rows="2" placeholder="Share something..."></textarea>
+        </div>
+
+        <!-- Wall Posts -->
+        <div class="post">
+          <div class="post-header">
+            <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">2 hours ago</span>
+            </div>
+          </div>
+          <div class="post-content">
+            is feeling creative ;P
+          </div>
+          <img src="https://imgur.com/dLQsl6b.png" alt="Collage Post" class="post-image">
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author"> Katie M </a>
+              <span class="comment-text">ommggggg :DDD </span>
+              <span class="comment-time">1 hour ago</span>
+            </div>
+            <div class="comment">
+              <a href="#" class="comment-author"> Andie Pandie A </a>
+              <span class="comment-text">Love your creative process posts!</span>
+              <span class="comment-time">45 minutes ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="post">
+          <div class="post-header">
+            <img src="https://imgur.com/f3PHZ3I.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">5 hours ago</span>
+            </div>
+          </div>
+          <div class="post-content">
+            Thanks for all the support on my latest projects! You guys are amazing! 💖
+          </div>
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author">Emma L</a>
+              <span class="comment-text">your work always brightens my day!</span>
+              <span class="comment-time">3 hours ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="post">
+          <div class="post-header">
+            <img src="https://imgur.com/f3PHZ3I.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">1 day ago</span>
+            </div>
+          </div>
+          <div class="post-content">
+            feeling DERP and AWK lately.. comment for a tbh
+          </div>
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author">Alex G</a>
+              <span class="comment-text">tbh i think ur supper talented</span>
+              <span class="comment-time">18 hours ago</span>
+            </div>
+            <div class="comment">
+              <a href="#" class="comment-author">Jenny C</a>
+              <span class="comment-text">why didnt you tag me in any summer pics...</span>
+              <span class="comment-time">16 hours ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="post">
+          <div class="post-header">
+            <img src="https://imgur.com/f3PHZ3I.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">2 days ago</span>
+            </div>
+          </div>
+          <div class="post-content">
+            New YouTube video coming soon! Subscribe plssss
+          </div>
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author">Taylor B</a>
+              <span class="comment-text">Subscribed to your YouTube! Can't wait for the new video</span>
+              <span class="comment-time">1 day ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="right-sidebar">
+      <div class="sidebar-box">
+        <div class="sidebar-header">Friends (Random)</div>
+        <div class="sidebar-content">
+          <div class="friends-list">
+            <img src="https://imgur.com/48OZg40.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/FerQdt8.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/22Q9q4Q.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/U7lmcq2.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/22Q9q4Q.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/bnWCa9J.png" alt="Friend" class="friend-pic">
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">Sponsored</div>
+        <div class="sidebar-content">
+          <div style="font-size: 11px; color: var(--black);">
+            Products for Sale<br>
+            <small>shop Sunnie Jae Creates on the shop tab!</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">Birthdays</div>
+        <div class="sidebar-content">
+          <div style="font-size: 11px;">
+            🎂 <strong>3 friends</strong> have birthdays today
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
