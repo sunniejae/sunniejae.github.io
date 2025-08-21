@@ -7,22 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary-blue: #0a3d62;
-  --secondary-blue: #1e5aa8;
-  --white: #ffffff;
-  --light-gray: #c0c0c0;
+  --primary: #9a9ad4;
+  --secondary: #c13886;
+  --accent: #00c9c2;
+  --light-gray: #e6e6e6;
   --dark-gray: #404040;
-  --highlight: #0078d7;
+  --white: #ffffff;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body, html {
-  width: 100vw; height: 100vh;
+  width:100vw; height:100vh;
   background: linear-gradient(135deg,#1a0d1f,#2a1a2f);
   font-family: 'Tahoma', sans-serif;
-  color: #000;
-  overflow: hidden;
+  color:#000;
+  overflow:hidden;
 }
 
 .desktop { position: relative; width:100%; height:100%; }
@@ -33,7 +33,7 @@ body, html {
   background: var(--light-gray);
   border: 2px solid #fff;
   box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
-  z-index: 10;
+  z-index: 100;
   display: block;
   min-width: 200px;
   border-radius:2px;
@@ -41,7 +41,7 @@ body, html {
 .window.minimized { display:none; }
 
 .window-header {
-  background: linear-gradient(to bottom, var(--primary-blue), var(--secondary-blue));
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
   color: var(--white);
   padding: 6px 10px;
   font-weight: bold;
@@ -60,7 +60,7 @@ body, html {
 .window-btn {
   width:18px; height:18px;
   border:2px outset #fff;
-  background: var(--light-gray);
+  background: var(--accent);
   font-weight:bold;
   display:flex; align-items:center; justify-content:center;
   font-size:0.6rem;
@@ -76,12 +76,12 @@ body, html {
   width:100%; height:40px;
   background: var(--light-gray);
   border-top:2px solid #fff;
-  display:flex; align-items:center; padding:0 10px;
+  display:flex; align-items:center; padding:0 5px;
   box-shadow: inset 0 1px 0 #fff,0 -2px 4px rgba(0,0,0,0.3);
   z-index:1000;
 }
 .start-button {
-  background: linear-gradient(to bottom, var(--primary-blue), var(--secondary-blue));
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
   color:#fff;
   border:2px outset #fff;
   padding:5px 12px;
@@ -90,50 +90,69 @@ body, html {
 }
 .start-button:hover { border:2px inset #fff; }
 
-.taskbar-items { display:flex; gap:5px; margin-left:10px; flex:1; }
+.taskbar-items { display:flex; gap:5px; margin-left:5px; flex:1; align-items:center; }
 .taskbar-item {
-  background: var(--secondary-blue);
+  background: var(--primary);
   color:#fff;
-  border:1px outset var(--secondary-blue);
+  border:1px outset var(--primary);
   padding:4px 8px;
   font-size:0.6rem;
   cursor:pointer;
 }
-.taskbar-item:hover { border:1px inset var(--secondary-blue); }
-.taskbar-item.active { background:#404080; border:1px inset #404080; }
+.taskbar-item:hover { border:1px inset var(--primary); }
+.taskbar-item.active { background: var(--secondary); border:1px inset var(--secondary); }
 
 .taskbar-time { font-size:0.6rem; color:#000; margin-left:auto; }
+
+/* ===== Taskbar Icons ===== */
+.icon-button {
+  width:28px; height:28px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 3px;
+  border:2px outset #fff;
+  background: var(--primary);
+  cursor:pointer;
+}
+.icon-button:hover { border:2px inset #fff; }
+.icon-button img { width:18px; height:18px; }
+
+/* ===== Start Menu ===== */
+.start-menu {
+  position: fixed; bottom:40px; left:0;
+  background: var(--light-gray);
+  border:2px solid #fff;
+  display:none;
+  flex-direction:column;
+  z-index:2000;
+  padding:5px 0;
+  width:180px;
+  box-shadow:4px 4px 6px rgba(0,0,0,0.4);
+}
+.start-menu a {
+  padding:5px 10px;
+  font-size:0.6rem;
+  color:#000;
+  text-decoration:none;
+  display:block;
+}
+.start-menu a:hover { background: var(--accent); color:#fff; }
 
 /* ===== Desktop Folders ===== */
 .folder {
   position:absolute; width:80px; height:90px;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   cursor:pointer; user-select:none;
+  z-index: 10;
 }
-.folder:hover { transform:scale(1.05); box-shadow:0 0 6px rgba(255,255,255,0.6); }
+.folder:hover { transform:scale(1.05); box-shadow:0 0 6px var(--accent); }
 .folder-icon {
   width:48px; height:48px;
   display:flex; align-items:center; justify-content:center;
-  margin-bottom:5px; border:2px outset #fff; background:var(--highlight);
+  margin-bottom:5px; border:2px outset #fff; background:var(--primary);
   border-radius:2px;
 }
 .folder-icon img { width:32px; height:32px; object-fit:contain; }
 .folder-label { font-size:0.6rem; color:#000; text-align:center; }
-
-/* ===== Specific Window Content Styles ===== */
-.title-banner { width:100%; height:200px; background-image:url('https://imgur.com/n6km6m0.png'); background-size:cover; background-position:center; border:2px inset #fff; border-radius:2px; }
-.notebook-image, .computer-image { width:100%; border:3px outset #fff; border-radius:2px; display:block; margin:0 auto; }
-.notebook-image:hover, .computer-image:hover { border:3px inset #fff; }
-
-.pinterest-embed {
-  position:absolute; top:15%; left:10%; width:40%; height:50%; overflow:hidden;
-  border-radius:2px; background:#ccc;
-}
-.pinterest-embed::before {
-  content:"Loading Live Feed...";
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  color:#0078d7; font-size:0.7rem; font-weight:300; z-index:-1;
-}
 
 /* Responsive */
 @media(max-width:768px){
@@ -149,54 +168,6 @@ body, html {
 
 <div class="desktop">
 
-  <!-- Title Window -->
-  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px;">
-    <div class="window-header">
-      <span>✨ Sunnie Jae Creates</span>
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <div class="title-banner"></div>
-    </div>
-  </div>
-
-  <!-- Notebook Window -->
-  <div class="window" id="notebookWindow" style="top:200px; left:200px; width:500px;">
-    <div class="window-header">
-      <span>📝 Creative Notebook</span>
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <h2>...brattitude loading...</h2>
-      <img src="https://imgur.com/VuoO3dN.png" alt="Creative Notebook" class="notebook-image">
-    </div>
-  </div>
-
-  <!-- Computer Window -->
-  <div class="window" id="computerWindow" style="top:100px; left:400px; width:600px;">
-    <div class="window-header">
-      <span>💻 Live Content Updates</span>
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('computerWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('computerWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <div class="computer-wrapper">
-        <img src="https://imgur.com/jzSsYHB.png" alt="Computer Setup" class="computer-image" />
-        <div class="pinterest-embed">
-          <a data-pin-do="embedBoard" data-pin-board-width="651" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Desktop Folders -->
   <div class="folder documents" style="top:80px; left:50px;" onclick="openFolder('Documents')">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Documents"></div>
@@ -210,23 +181,53 @@ body, html {
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Photos"></div>
     <div class="folder-label">Photos</div>
   </div>
+  <div class="folder summer05" style="top:180px; left:150px;" onclick="location.href='summer05.html'">
+    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 05"></div>
+    <div class="folder-label">Summer '05</div>
+  </div>
+
+  <!-- Title Window -->
+  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px;">
+    <div class="window-header">
+      <span>✨ Sunnie Jae Creates</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="title-banner" style="width:100%; height:200px; background-image:url('https://imgur.com/n6km6m0.png'); background-size:cover; background-position:center; border:2px inset #fff; border-radius:2px;"></div>
+    </div>
+  </div>
 
   <!-- Taskbar -->
   <div class="taskbar">
-    <button class="start-button" onclick="showStartMenu()">START</button>
-    <div class="taskbar-items" id="taskbarItems">
-      <div class="taskbar-item active" onclick="focusWindow('titleWindow')">Sunnie Jae</div>
-      <div class="taskbar-item" onclick="focusWindow('notebookWindow')">Notebook</div>
-      <div class="taskbar-item" onclick="focusWindow('computerWindow')">Computer</div>
+    <!-- Start Button -->
+    <button class="start-button" onclick="toggleStartMenu()">☰</button>
+
+    <!-- Icons -->
+    <div class="taskbar-items">
+      <div class="icon-button" title="Search"><img src="https://imgur.com/HDV7ZqL.png" alt="Search"></div>
+      <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/7KkDjkT.png" alt="Browser"></div>
+      <div class="icon-button" title="Settings"><img src="https://imgur.com/8T1tGdL.png" alt="Settings"></div>
     </div>
+
     <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
+  </div>
+
+  <!-- Start Menu -->
+  <div class="start-menu" id="startMenu">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+    <a href="#" onclick="history.back()">Shut Down</a>
+    <a href="studio-ken.html">Studio Ken</a>
+    <a href="profile-info.html">About</a>
   </div>
 
 </div>
 
-<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 <script>
-let draggedWindow = null; let offset={x:0,y:0}; let highestZ=10;
+let draggedWindow=null; let offset={x:0,y:0}; let highestZ=200;
 function makeDraggable(el){
   const header=el.querySelector('.window-header');
   header.addEventListener('mousedown',startDrag);
@@ -250,7 +251,6 @@ function makeDraggable(el){
   }
   function stopDrag(){ draggedWindow=null; document.removeEventListener('mousemove',drag); document.removeEventListener('mouseup',stopDrag); }
 }
-
 document.querySelectorAll('.window').forEach(makeDraggable);
 
 function closeWindow(id){ document.getElementById(id).style.display='none'; }
@@ -260,11 +260,13 @@ function focusWindow(id){
   if(win.classList.contains('minimized')) win.classList.remove('minimized');
   win.style.zIndex=++highestZ;
 }
-function openFolder(name){
-  alert(`Opening ${name}...`);
+function openFolder(name){ alert(`Opening ${name}...`); }
+
+function toggleStartMenu(){
+  const menu=document.getElementById('startMenu');
+  menu.style.display=menu.style.display==='flex'?'none':'flex';
 }
 
-function showStartMenu(){ openFolder('Start Menu'); }
 function updateTime(){ document.getElementById('taskbarTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
 setInterval(updateTime,1000); updateTime();
 </script>
