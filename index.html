@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Sunnie Jae Creates</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -15,13 +15,20 @@
       box-sizing: border-box;
     }
 
+    html {
+      font-size: 16px; /* Explicit base font size */
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #130d16;
-      color: #faf8fc;
+      background: #442269;
+      color: #89e6e0;
       overflow-x: hidden;
       padding-top: 100px;
       line-height: 1.6;
+      min-height: 100vh;
+      font-size: 1rem; /* Explicit body font size */
     }
 
     /* HEADER NAVIGATION STYLES */
@@ -30,21 +37,23 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(19, 13, 22, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 2px solid rgba(159, 118, 202, 0.3);
+      background: #007e8f;
+      border-bottom: 3px solid #02d1ca;
+      border-top: 1px solid #89e6e0;
       z-index: 1000;
       padding: 15px 0;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: inset 0 1px 0 #89e6e0, 0 3px 6px rgba(0, 0, 0, 0.4);
+      min-height: 80px;
     }
 
     .nav-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
+      max-width: 1400px; /* Increased max width */
       margin: 0 auto;
       padding: 0 30px;
+      width: 100%;
     }
 
     .logo {
@@ -52,20 +61,23 @@
       align-items: center;
       gap: 15px;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .logo img {
       height: 50px;
       width: auto;
-      border-radius: 2px;
-      box-shadow: 0 4px 16px rgba(255, 104, 181, 0.2);
+      border-radius: 0px;
+      border: 2px solid #89e6e0;
+      box-shadow: inset 1px 1px 0 #02d1ca, 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .logo-text {
       font-family: 'Press Start 2P', monospace;
       font-size: 1.2rem;
-      color: #ff68b5;
-      text-shadow: 0 0 10px rgba(255, 104, 181, 0.5);
+      color: #ff66cc;
+      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #442269;
+      white-space: nowrap;
     }
 
     .nav-menu {
@@ -73,27 +85,31 @@
       list-style: none;
       gap: 30px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .nav-link {
-      color: #f6e6f9;
+      color: #89e6e0;
       text-decoration: none;
       font-size: 1rem;
       font-weight: 500;
-      padding: 12px 20px;
-      border-radius: 4px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 8px 16px;
+      border-radius: 0px;
+      transition: all 0.15s ease;
       position: relative;
-      background: rgba(246, 230, 249, 0.05);
-      border: 1px solid rgba(246, 230, 249, 0.1);
+      background: #9a9ad4;
+      border: 2px outset #9a9ad4;
+      white-space: nowrap;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      margin: 2px;
     }
 
     .nav-link:hover {
-      background: #ff68b5;
-      color: #130d16;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 104, 181, 0.4);
-      border-color: transparent;
+      background: #c73e8d;
+      color: #89e6e0;
+      transform: none;
+      border: 2px inset #c73e8d;
+      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
 
     /* Dropdown styles */
@@ -103,20 +119,19 @@
 
     .dropdown-menu {
       position: absolute;
-      top: calc(100% + 10px);
+      top: calc(100% + 5px);
       left: 0;
-      background: rgba(19, 13, 22, 0.95);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(246, 230, 249, 0.1);
-      border-radius: 4px;
+      background: #007e8f;
+      border: 2px outset #007e8f;
+      border-radius: 0px;
       min-width: 220px;
       opacity: 0;
       visibility: hidden;
-      transform: translateY(-10px);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(-5px);
+      transition: all 0.15s ease;
       z-index: 1001;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      padding: 8px;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+      padding: 4px;
     }
 
     .dropdown:hover .dropdown-menu {
@@ -127,20 +142,23 @@
 
     .dropdown-item {
       display: block;
-      color: #f6e6f9;
+      color: #89e6e0;
       text-decoration: none;
-      padding: 12px 16px;
+      padding: 6px 12px;
       font-size: 0.9rem;
-      border-radius: 2px;
-      margin: 2px 0;
-      transition: all 0.2s ease;
+      border-radius: 0px;
+      margin: 1px;
+      transition: all 0.1s ease;
       font-weight: 400;
+      background: transparent;
+      border: 1px solid transparent;
     }
 
     .dropdown-item:hover {
-      background: rgba(65, 142, 222, 0.15);
-      color: #418ede;
-      transform: translateX(5px);
+      background: #02d1ca;
+      color: #442269;
+      transform: none;
+      border: 1px outset #02d1ca;
     }
 
     /* Mobile toggle */
@@ -155,30 +173,58 @@
     .mobile-toggle span {
       width: 25px;
       height: 3px;
-      background: #f6e6f9;
+      background: #89e6e0;
       border-radius: 0px;
       transition: all 0.3s ease;
     }
 
     .main-content {
-      max-width: 1200px;
+      max-width: 1400px; /* Increased max width */
       margin: 0 auto;
       padding: 0 30px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 30px;
     }
 
+    /* Left sidebar for folders */
+    .sidebar {
+      position: sticky;
+      top: 120px;
+      height: fit-content;
+      padding: 20px 0;
+    }
+
+    .sidebar h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.8rem;
+      color: #9a9ad4;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 1px 1px 0 #442269, 2px 2px 0 #007e8f, 3px 3px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Main content area */
+    .content-area {
+      display: flex;
+      flex-direction: column;
+    }
     /* Section 1: Title Banner */
     .section-title {
       width: 100%;
-      height: 500px;
-      background-image: url('https://imgur.com/Lm3rLQN.png');
+      height: 400px;
+      background-image: url('https://imgur.com/n6km6m0.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      border-radius: 4px;
-      margin: 30px 0;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border-radius: 0px;
+      margin: 20px 0;
+      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), 2px 2px 8px rgba(0, 0, 0, 0.4);
       position: relative;
       overflow: hidden;
+      min-height: 350px;
+      border: 2px inset #9a9ad4;
     }
 
     .section-title::before {
@@ -188,49 +234,56 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(255, 174, 224, 0.08);
-      border-radius: 4px;
+      background: rgba(199, 62, 141, 0.1);
+      border-radius: 0px;
     }
 
     /* Section 2: Notebook */
     .section-notebook {
-      padding: 60px 0;
+      padding: 40px 0;
       text-align: center;
+      width: 100%;
     }
 
     .section-notebook h2 {
       font-family: 'Press Start 2P', monospace;
-      font-size: 1.8rem;
-      color: #ff68b5;
-      margin-bottom: 30px;
-      text-shadow: 0 0 10px rgba(255, 104, 181, 0.5);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: #ff66cc;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #442269, 3px 3px 6px rgba(0, 0, 0, 0.5);
     }
 
     .notebook-image {
       width: 90%;
       max-width: 800px;
       height: auto;
-      border-radius: 4px;
-      box-shadow: 0 20px 60px rgba(159, 118, 202, 0.3);
-      transition: transform 0.3s ease;
+      border-radius: 0px;
+      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2), 3px 3px 8px rgba(0, 0, 0, 0.4);
+      transition: transform 0.1s ease;
+      display: block;
+      margin: 0 auto;
+      border: 3px outset #8f0fc8;
     }
 
     .notebook-image:hover {
-      transform: scale(1.02) rotateZ(1deg);
+      transform: none;
+      border: 3px inset #8f0fc8;
+      box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.3);
     }
 
     /* Section 3: Computer with Pinterest */
     .section-computer {
-      padding: 60px 0;
+      padding: 40px 0;
       text-align: center;
+      width: 100%;
     }
 
     .section-computer h2 {
       font-family: 'Press Start 2P', monospace;
-      font-size: 1.8rem;
-      color: #418ede;
-      margin-bottom: 30px;
-      text-shadow: 0 0 10px rgba(65, 142, 222, 0.5);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: #02d1ca;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 0 #007e8f, 2px 2px 0 #442269, 3px 3px 6px rgba(0, 0, 0, 0.5);
     }
 
     .computer-wrapper {
@@ -245,8 +298,9 @@
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 4px;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+      border-radius: 0px;
+      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2), 3px 3px 8px rgba(0, 0, 0, 0.4);
+      border: 3px outset #007e8f;
     }
 
     .pinterest-embed {
@@ -259,8 +313,8 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border-radius: 2px;
-      background: rgba(0, 0, 0, 0.1);
+      border-radius: 0px;
+      background: #6e0b41;
     }
 
     .pinterest-embed > * {
@@ -274,76 +328,71 @@
       display: block;
     }
 
-    /* Section 4: Folders and Social Icons */
-    .section-folders {
-      padding: 60px 0 120px 0;
-    }
-
-    .section-folders h2 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 1.8rem;
-      color: #d2baff;
-      margin-bottom: 40px;
-      text-align: center;
-      text-shadow: 0 0 10px rgba(210, 186, 255, 0.5);
-    }
-
+    /* Folders Sidebar */
     .folders-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 30px;
-      max-width: 800px;
-      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
     }
 
     .folder-item {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       text-decoration: none;
-      color: #faf8fc;
-      padding: 20px;
-      border-radius: 4px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background: rgba(246, 230, 249, 0.05);
-      border: 1px solid rgba(246, 230, 249, 0.1);
-      backdrop-filter: blur(10px);
+      color: #89e6e0;
+      padding: 8px 12px;
+      border-radius: 0px;
+      transition: all 0.1s ease;
+      background: #9a9ad4;
+      border: 2px outset #9a9ad4;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      margin: 1px 0;
+      width: 100%;
     }
 
     .folder-item:hover {
-      transform: translateY(-8px) scale(1.05);
-      background: rgba(255, 174, 224, 0.15);
-      border-color: rgba(255, 174, 224, 0.3);
-      box-shadow: 0 15px 40px rgba(255, 174, 224, 0.2);
+      transform: none;
+      background: #ff66cc;
+      border: 2px inset #ff66cc;
+      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .social-item:hover {
-      background: rgba(52, 218, 225, 0.15);
-      border-color: rgba(52, 218, 225, 0.3);
-      box-shadow: 0 15px 40px rgba(52, 218, 225, 0.2);
+      background: #02d1ca;
+      border: 2px inset #02d1ca;
+      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+      color: #442269;
     }
 
     .folder-item img {
-      width: 80px;
-      height: 80px;
-      border-radius: 2px;
-      margin-bottom: 15px;
-      transition: transform 0.3s ease;
+      width: 24px;
+      height: 24px;
+      border-radius: 0px;
+      margin-right: 12px;
+      transition: transform 0.1s ease;
       object-fit: contain;
-      background: rgba(246, 230, 249, 0.1);
-      padding: 10px;
+      background: #89e6e0;
+      padding: 4px;
+      border: 1px outset #89e6e0;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
     }
 
     .folder-item:hover img {
-      transform: scale(1.1) rotateZ(5deg);
+      transform: none;
+      border: 1px inset #89e6e0;
+      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
 
     .folder-label {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      text-align: center;
-      line-height: 1.4;
-      letter-spacing: 0.5px;
+      text-align: left;
+      line-height: 1.2;
+      letter-spacing: 0.3px;
+      flex-grow: 1;
     }
 
     /* FOOTER / TASKBAR */
@@ -353,14 +402,15 @@
       left: 0;
       width: 100%;
       z-index: 999;
-      background: rgba(19, 13, 22, 0.95);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(246, 230, 249, 0.1);
+      background: #007e8f;
+      border-top: 2px solid #02d1ca;
+      border-bottom: 1px solid #442269;
       height: 60px;
+      box-shadow: inset 0 1px 0 #89e6e0, 0 -2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .taskbar-content {
-      max-width: 1200px;
+      max-width: 1400px; /* Increased max width */
       margin: 0 auto;
       padding: 0 30px;
       display: flex;
@@ -382,7 +432,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #9f76ca;
+      color: #9a9ad4;
       font-size: 0.9rem;
       z-index: -1;
       font-weight: 300;
@@ -396,15 +446,20 @@
     .glow::before {
       content: '';
       position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: #ffaee0;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      background: #ff66cc;
       border-radius: inherit;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.1s ease;
       z-index: -1;
+      border: 1px solid #02d1ca;
+    }
+
+    .glow:hover::before {
+      opacity: 1;
     }
 
     .glow:hover::before {
@@ -412,20 +467,73 @@
     }
 
     /* Responsive Design */
+    @media (max-width: 1200px) {
+      .nav-container,
+      .main-content,
+      .taskbar-content {
+        max-width: 100%;
+        padding: 0 25px;
+      }
+      
+      .main-content {
+        grid-template-columns: 180px 1fr;
+        gap: 20px;
+      }
+    }
+
     @media (max-width: 1024px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .sidebar {
+        position: static;
+        order: -1;
+      }
+      
+      .sidebar h2 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+      
+      .folders-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+      }
+      
+      .folder-item {
+        flex-direction: column;
+        padding: 10px;
+        text-align: center;
+      }
+      
+      .folder-item img {
+        width: 32px;
+        height: 32px;
+        margin-right: 0;
+        margin-bottom: 8px;
+      }
+      
+      .folder-label {
+        text-align: center;
+        font-size: 0.75rem;
+      }
+
       .nav-menu {
         display: none;
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        background: rgba(19, 13, 22, 0.98);
-        backdrop-filter: blur(20px);
-        border-top: 1px solid rgba(246, 230, 249, 0.1);
+        background: #007e8f;
+        border-top: 2px solid #02d1ca;
+        border-bottom: 2px solid #442269;
         flex-direction: column;
-        padding: 20px;
-        gap: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        gap: 5px;
+        box-shadow: inset 0 1px 0 #89e6e0, 0 4px 8px rgba(0, 0, 0, 0.4);
       }
 
       .nav-menu.active {
@@ -448,12 +556,8 @@
         margin-top: 10px;
       }
 
-      .main-content {
-        padding: 0 20px;
-      }
-
-      .nav-container {
-        padding: 0 20px;
+      .folders-container {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       }
     }
 
@@ -463,44 +567,20 @@
       }
 
       .section-title {
-        height: 300px;
-        margin: 20px 0;
-      }
-
-      .section-notebook h2,
-      .section-computer h2,
-      .section-folders h2 {
-        font-size: 1.2rem;
-      }
-
-      .folders-container {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 20px;
-      }
-
-      .folder-item {
-        padding: 15px;
-      }
-
-      .folder-item img {
-        width: 60px;
-        height: 60px;
-      }
-
-      .folder-label {
-        font-size: 0.8rem;
+        height: 250px;
+        margin: 15px 0;
       }
 
       .pinterest-embed {
         position: static;
         width: 100%;
-        height: 300px;
-        margin: 20px 0;
-        border-radius: 15px;
+        height: 250px;
+        margin: 15px 0;
+        border-radius: 0px;
       }
 
       .computer-image {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
       }
 
       .taskbar {
@@ -509,6 +589,14 @@
 
       .taskbar-image {
         height: 40px;
+      }
+
+      .main-content {
+        padding: 0 20px;
+      }
+
+      .nav-container {
+        padding: 0 20px;
       }
     }
 
@@ -522,15 +610,16 @@
       }
 
       .logo-text {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
       }
 
       .logo img {
-        height: 35px;
+        height: 40px;
       }
 
       .folders-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
       }
 
       .taskbar-content {
@@ -546,11 +635,16 @@
       }
     }
 
-    /* Smooth scrolling and animations */
-    html {
-      scroll-behavior: smooth;
+    /* Force minimum sizes to prevent shrinking */
+    @media (min-width: 1400px) {
+      .nav-container,
+      .main-content,
+      .taskbar-content {
+        max-width: 1400px;
+      }
     }
 
+    /* Smooth scrolling and animations */
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -570,20 +664,35 @@
 
     /* Custom scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 16px;
     }
 
     ::-webkit-scrollbar-track {
-      background: rgba(246, 230, 249, 0.1);
+      background: #9a9ad4;
+      border: 1px inset #9a9ad4;
     }
 
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(45deg, #ff68b5, #418ede);
-      border-radius: 2px;
+      background: #c73e8d;
+      border: 2px outset #c73e8d;
+      border-radius: 0px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(45deg, #ffaee0, #34dae1);
+      background: #8f0fc8;
+      border: 2px inset #8f0fc8;
+    }
+
+    ::-webkit-scrollbar-button {
+      background: #02d1ca;
+      border: 1px outset #02d1ca;
+      height: 16px;
+    }
+
+    ::-webkit-scrollbar-button:hover {
+      background: #007e8f;
+      border: 1px inset #007e8f;
+    }deg, #ff66cc, #89e6e0);
     }
   </style>
 </head>
@@ -633,39 +742,9 @@
 
   <!-- MAIN CONTENT -->
   <div class="main-content">
-    <!-- SECTION 1: TITLE -->
-    <section class="section-title glow" id="home"></section>
-
-    <!-- SECTION 2: NOTEBOOK -->
-    <section class="section-notebook">
-      <h2>...brattitude loading...</h2>
-      <img src="https://imgur.com/VuoO3dN.png" alt="Creative Notebook" class="notebook-image glow">
-    </section>
-    
-    <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
-    <section class="section-computer">
-      <h2>Follow Along: Live Content Updates</h2>
-      <div class="computer-wrapper">
-        <img
-          src="https://imgur.com/jzSsYHB.png"
-          alt="Computer Setup"
-          class="computer-image glow"
-        />
-        <div class="pinterest-embed">
-          <a
-            data-pin-do="embedBoard"
-            data-pin-board-width="651"
-            data-pin-scale-height="762"
-            data-pin-scale-width="80"
-            href="https://www.pinterest.com/pasteliume/mine/"
-          ></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 4: FOLDERS AND SOCIAL ICONS -->
-    <section class="section-folders" id="portfolio">
-      <h2>Desktop Folders</h2>
+    <!-- SIDEBAR WITH FOLDERS -->
+    <div class="sidebar">
+      <h2>Desktop</h2>
       <div class="folders-container">
         <a href="writing.html" class="folder-item glow">
           <img src="https://imgur.com/XRXG5tA.png" alt="Fanfiction">
@@ -707,7 +786,40 @@
           <span class="folder-label">TikTok</span>
         </a>
       </div>
-    </section>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="content-area">
+      <!-- SECTION 1: TITLE -->
+      <section class="section-title glow" id="home"></section>
+
+      <!-- SECTION 2: NOTEBOOK -->
+      <section class="section-notebook">
+        <h2>...brattitude loading...</h2>
+        <img src="https://imgur.com/VuoO3dN.png" alt="Creative Notebook" class="notebook-image glow">
+      </section>
+      
+      <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
+      <section class="section-computer">
+        <h2>Follow Along: Live Content Updates</h2>
+        <div class="computer-wrapper">
+          <img
+            src="https://imgur.com/jzSsYHB.png"
+            alt="Computer Setup"
+            class="computer-image glow"
+          />
+          <div class="pinterest-embed">
+            <a
+              data-pin-do="embedBoard"
+              data-pin-board-width="651"
+              data-pin-scale-height="762"
+              data-pin-scale-width="80"
+              href="https://www.pinterest.com/pasteliume/mine/"
+            ></a>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 
   <!-- FOOTER / TASKBAR -->
@@ -772,6 +884,11 @@
     document.querySelectorAll('.section-notebook, .section-computer, .section-folders').forEach(section => {
       observer.observe(section);
     });
+
+    // Debug zoom detection
+    console.log('Browser zoom level:', Math.round(window.devicePixelRatio * 100) + '%');
+    console.log('Viewport width:', window.innerWidth);
+    console.log('Screen width:', screen.width);
   </script>
 </body>
 </html>
