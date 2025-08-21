@@ -3,214 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Shop</title>
+<title>Sunnie Jae Shop Desktop</title>
 <style>
-:root {
-    /* Primary Colors */
+  /* ===== ROOT PALETTE ===== */
+  :root {
     --primary-purple: #9a9ad4;
     --primary-pink: #c13886;
     --primary-blue: #00c9c2;
-
-    /* Supporting Palette */
-    --lavender-mist: #bcb7f0;
-    --hot-pink: #e55c9d;
-    --soft-lavender: #e4e0f8;
-    --pink-light: #f0a8c9;
-    --cream: #faf8fc;
-    --dark: #130d16;
-    --teal: #02d1ca;
+    --lavender-mist: #f6e6f9;
+    --cloud-gray: #faf8fc;
+    --dark-gray: #130d16;
+    --white: #ffffff;
     --gray-light: #f5f5f5;
     --gray-dark: #666666;
-    --white: #ffffff;
-}
+  }
 
-/* Global Styles */
-body {
+  /* ===== GLOBAL STYLES ===== */
+  html, body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--cream);
-    color: var(--dark);
-}
+    padding: 0;
+    background: var(--cloud-gray);
+    font-family: 'Press Start 2P', monospace;
+    color: var(--dark-gray);
+    overflow-x: hidden;
+  }
 
-/* Header Menu */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--primary-purple);
-    padding: 1rem 2rem;
+  /* ===== DRAGGABLE WINDOW STYLES ===== */
+  .window {
+    position: absolute;
+    background: var(--white);
+    border: 2px solid var(--primary-blue);
+    border-radius: 4px;
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.4);
+    cursor: grab;
+    user-select: none;
+  }
+
+  .window-header {
+    background: var(--primary-blue);
     color: var(--white);
-}
-
-.header .logo {
+    padding: 6px 10px;
     font-weight: bold;
-    font-size: 1.5rem;
-}
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--primary-purple);
+    cursor: grab;
+  }
 
-.header nav a {
-    color: var(--white);
-    text-decoration: none;
-    margin-left: 1.5rem;
-    font-weight: 500;
-}
+  .window-content {
+    padding: 10px;
+  }
 
-.header nav a:hover {
-    color: var(--primary-pink);
-}
-
-/* Hero Section */
-.hero {
-    position: relative;
-    height: 500px;
-    background: linear-gradient(to bottom, var(--primary-blue), var(--primary-purple));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--white);
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 3rem;
-}
-
-/* Notebook Section */
-.notebook-section {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 2rem;
-    background: linear-gradient(to bottom, var(--lavender-mist) 0%, var(--gray-light) 100%);
-    gap: 2rem;
-    justify-content: center;
-}
-
-.notebook-section img {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 0.5rem;
-}
-
-.notebook-section .horizontal {
-    width: 100%;
-    max-width: 1920px;
-    height: 384px;
-    object-fit: cover;
-}
-
-.notebook-section .vertical {
+  /* ===== NOTEBOOK STATIC BACKGROUND ===== */
+  .notebook-background {
+    position: absolute;
+    top: 100px;
+    left: 50px;
     width: 397px;
     height: 800px;
-    object-fit: cover;
-}
+    background-image: url('https://i.imgur.com/ThL4Puh.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid var(--gray-dark);
+    z-index: 1;
+  }
 
-/* Shop Grid */
-.shop-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-    background-color: var(--cream);
-}
+  /* ===== HEADER IMAGE ===== */
+  .header-image {
+    width: 1920px;
+    height: 384px;
+    background-image: url('https://i.imgur.com/qhUEs9u.png');
+    background-size: cover;
+    background-position: center;
+  }
 
-.shop-item {
-    background-color: var(--white);
-    border: 1px solid var(--gray-light);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    transition: transform 0.2s;
-}
+  /* ===== PINTEREST EMBED ===== */
+  .pinterest-embed::before {
+    content: "Loading Live Feed...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--gray-dark);
+    font-size: 0.9rem;
+    z-index: -1;
+    font-weight: 300;
+  }
 
-.shop-item:hover {
-    transform: scale(1.03);
-}
-
-.shop-item img {
-    width: 100%;
-    display: block;
-}
-
-.shop-item h3 {
-    margin: 1rem;
-    color: var(--primary-purple);
-}
-
-.shop-item p {
-    margin: 0 1rem 1rem;
-    color: var(--dark);
-}
-
-/* Footer */
-.footer {
-    padding: 2rem;
-    background-color: var(--primary-purple);
-    color: var(--white);
+  .section-computer {
+    padding: 60px 0;
     text-align: center;
-}
+  }
 
-.footer a {
-    color: var(--primary-pink);
-    text-decoration: none;
-    margin: 0 0.5rem;
-}
-
-.footer a:hover {
+  .section-computer h2 {
+    font-size: 1.8rem;
     color: var(--primary-blue);
-}
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(0,201,194,0.5);
+  }
+
+  .computer-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .computer-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+  }
+
+  .pinterest-embed {
+    position: absolute;
+    top: 14.5%;
+    left: 8.3%;
+    width: 42.7%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.1);
+  }
+
+  .pinterest-embed > * {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .pinterest-embed > a {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
+
+  /* ===== FOLDERS ===== */
+  .folder {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-purple);
+    border: 2px solid var(--primary-blue);
+    border-radius: 6px;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    text-align: center;
+    cursor: grab;
+    position: absolute;
+  }
+
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<div class="header">
-    <div class="logo">Sunnie Jae</div>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Shop</a>
-        <a href="#">Gallery</a>
-        <a href="#">Contact</a>
-    </nav>
-</div>
+  <!-- NOTEBOOK STATIC BACKGROUND -->
+  <div class="notebook-background"></div>
 
-<!-- Hero Section -->
-<div class="hero">
-    <h1>Welcome to Sunnie Jae Shop</h1>
-</div>
+  <!-- HEADER IMAGE WINDOW -->
+  <div class="window" style="top:50px; left:100px; width:960px;">
+    <div class="window-header">Header Title</div>
+    <div class="window-content header-image"></div>
+  </div>
 
-<!-- Notebook Section -->
-<div class="notebook-section">
-    <img src="horizontal-image.jpg" alt="Notebook Horizontal" class="horizontal">
-    <img src="vertical-image.jpg" alt="Notebook Vertical" class="vertical">
-</div>
+  <!-- PINTEREST EMBED WINDOW -->
+  <div class="window" style="top:500px; left:120px; width:600px; height:400px;">
+    <div class="window-header">Pinterest Feed</div>
+    <div class="window-content pinterest-embed">
+      <a href="#">Pinterest Embed Here</a>
+    </div>
+  </div>
 
-<!-- Shop Grid -->
-<div class="shop-grid">
-    <div class="shop-item">
-        <img src="product1.jpg" alt="Product 1">
-        <h3>Product 1</h3>
-        <p>$25.00</p>
-    </div>
-    <div class="shop-item">
-        <img src="product2.jpg" alt="Product 2">
-        <h3>Product 2</h3>
-        <p>$30.00</p>
-    </div>
-    <div class="shop-item">
-        <img src="product3.jpg" alt="Product 3">
-        <h3>Product 3</h3>
-        <p>$20.00</p>
-    </div>
-    <div class="shop-item">
-        <img src="product4.jpg" alt="Product 4">
-        <h3>Product 4</h3>
-        <p>$28.00</p>
-    </div>
-</div>
+  <!-- FOLDERS -->
+  <div class="folder" style="top:100px; left:1500px;">Downloads</div>
+  <div class="folder" style="top:200px; left:1500px;">Documents</div>
+  <div class="folder" style="top:300px; left:1500px;">Photos</div>
+  <div class="folder" style="top:400px; left:1500px;">Videos</div>
+  <div class="folder" style="top:500px; left:1500px;">Internet Explorer</div>
 
-<!-- Footer -->
-<div class="footer">
-    &copy; 2025 Sunnie Jae. 
-    <a href="#">Privacy</a> | 
-    <a href="#">Terms</a>
-</div>
+<script>
+  /* ===== DRAG FUNCTION ===== */
+  function dragElement(elmnt) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    const header = elmnt.querySelector(".window-header") || elmnt;
+    header.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+      elmnt.style.zIndex = 9999;
+    }
+
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+      elmnt.style.zIndex = 1;
+    }
+  }
+
+  /* ===== FOLDER SNAP BACK ===== */
+  document.querySelectorAll(".window, .folder").forEach(el => dragElement(el));
+</script>
 
 </body>
 </html>
