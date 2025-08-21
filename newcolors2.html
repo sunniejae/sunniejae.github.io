@@ -1,172 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sunnie Jae Creates</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
-  <style>
-    :root {
-      --purple: #9a9ad4;
-      --pink: #ff66cc;
-      --cyan: #02d1ca;
-      --magenta: #da70d6;
-      --dark-purple: #8b008b;
-      --lavender-mist: #e6e6fa;
-      --cloud-gray: #dcdcdc;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunnie Jae Shop</title>
+<style>
+:root {
+    /* Primary Colors */
+    --primary-purple: #9a9ad4;
+    --primary-pink: #c13886;
+    --primary-blue: #00c9c2;
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+    /* Supporting Palette */
+    --lavender-mist: #bcb7f0;
+    --hot-pink: #e55c9d;
+    --soft-lavender: #e4e0f8;
+    --pink-light: #f0a8c9;
+    --cream: #faf8fc;
+    --dark: #130d16;
+    --teal: #02d1ca;
+    --gray-light: #f5f5f5;
+    --gray-dark: #666666;
+    --white: #ffffff;
+}
 
-    body {
-      background: linear-gradient(
-        to bottom,
-        rgba(230, 230, 250, 0.2) 0%,
-        rgba(220, 220, 220, 0.05) 100%
-      );
-      color: var(--dark-purple);
-      text-align: center;
-      line-height: 1.6;
-    }
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--cream);
+    color: var(--dark);
+}
 
-    header {
-      padding: 1.5rem;
-      background: var(--purple);
-      color: white;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+/* Header Menu */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-purple);
+    padding: 1rem 2rem;
+    color: var(--white);
+}
 
-    header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
+.header .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
 
-    nav {
-      margin-top: 0.5rem;
-    }
+.header nav a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 500;
+}
 
-    nav a {
-      margin: 0 1rem;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
+.header nav a:hover {
+    color: var(--primary-pink);
+}
 
-    nav a:hover {
-      color: var(--pink);
-    }
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 500px;
+    background: linear-gradient(to bottom, var(--primary-blue), var(--primary-purple));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    text-align: center;
+}
 
-    .hero {
-      padding: 5rem 2rem;
-      background: linear-gradient(135deg, var(--pink), var(--magenta), var(--cyan));
-      color: white;
-      border-radius: 0 0 3rem 3rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
+.hero h1 {
+    font-size: 3rem;
+}
 
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
+/* Notebook Section */
+.notebook-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2rem;
+    background: linear-gradient(to bottom, var(--lavender-mist) 0%, var(--gray-light) 100%);
+    gap: 2rem;
+    justify-content: center;
+}
 
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
+.notebook-section img {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+}
 
-    section {
-      padding: 4rem 2rem;
-    }
+.notebook-section .horizontal {
+    width: 100%;
+    max-width: 1920px;
+    height: 384px;
+    object-fit: cover;
+}
 
-    section h3 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: var(--dark-purple);
-    }
+.notebook-section .vertical {
+    width: 397px;
+    height: 800px;
+    object-fit: cover;
+}
 
-    .about {
-      max-width: 800px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-    }
+/* Shop Grid */
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    background-color: var(--cream);
+}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
+.shop-item {
+    background-color: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
 
-    .card {
-      background: white;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.shop-item:hover {
+    transform: scale(1.03);
+}
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
+.shop-item img {
+    width: 100%;
+    display: block;
+}
 
-    footer {
-      background: var(--purple);
-      padding: 2rem;
-      color: white;
-      margin-top: 3rem;
-    }
+.shop-item h3 {
+    margin: 1rem;
+    color: var(--primary-purple);
+}
 
-    footer p {
-      font-size: 0.9rem;
-    }
-  </style>
+.shop-item p {
+    margin: 0 1rem 1rem;
+    color: var(--dark);
+}
+
+/* Footer */
+.footer {
+    padding: 2rem;
+    background-color: var(--primary-purple);
+    color: var(--white);
+    text-align: center;
+}
+
+.footer a {
+    color: var(--primary-pink);
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+.footer a:hover {
+    color: var(--primary-blue);
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Sunnie Jae Creates</h1>
+
+<!-- Header -->
+<div class="header">
+    <div class="logo">Sunnie Jae</div>
     <nav>
-      <a href="#about">About</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#contact">Contact</a>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">Gallery</a>
+        <a href="#">Contact</a>
     </nav>
-  </header>
+</div>
 
-  <section class="hero">
-    <h2>Design. Story. Style.</h2>
-    <p>Welcome to the creative universe of Sunnie Jae — where Y2K vibes, bold colors, and dreamy storytelling collide in art, design, and media.</p>
-  </section>
+<!-- Hero Section -->
+<div class="hero">
+    <h1>Welcome to Sunnie Jae Shop</h1>
+</div>
 
-  <section id="about">
-    <h3>About Me</h3>
-    <p class="about">
-      I’m Sunnie Jae — an artist, designer, and storyteller with a love for everything pastel, digital, and nostalgic.
-      My work blends Y2K-inspired graphics, playful layouts, and a touch of dreamy surrealism.
-    </p>
-  </section>
+<!-- Notebook Section -->
+<div class="notebook-section">
+    <img src="horizontal-image.jpg" alt="Notebook Horizontal" class="horizontal">
+    <img src="vertical-image.jpg" alt="Notebook Vertical" class="vertical">
+</div>
 
-  <section id="gallery">
-    <h3>Featured Work</h3>
-    <div class="gallery">
-      <div class="card">🎨 Digital Art</div>
-      <div class="card">✨ Web Design</div>
-      <div class="card">🎥 Video Editing</div>
-      <div class="card">📷 Photography</div>
+<!-- Shop Grid -->
+<div class="shop-grid">
+    <div class="shop-item">
+        <img src="product1.jpg" alt="Product 1">
+        <h3>Product 1</h3>
+        <p>$25.00</p>
     </div>
-  </section>
+    <div class="shop-item">
+        <img src="product2.jpg" alt="Product 2">
+        <h3>Product 2</h3>
+        <p>$30.00</p>
+    </div>
+    <div class="shop-item">
+        <img src="product3.jpg" alt="Product 3">
+        <h3>Product 3</h3>
+        <p>$20.00</p>
+    </div>
+    <div class="shop-item">
+        <img src="product4.jpg" alt="Product 4">
+        <h3>Product 4</h3>
+        <p>$28.00</p>
+    </div>
+</div>
 
-  <footer id="contact">
-    <p>© 2025 Sunnie Jae Creates | Made with 💜 + ☀️</p>
-  </footer>
+<!-- Footer -->
+<div class="footer">
+    &copy; 2025 Sunnie Jae. 
+    <a href="#">Privacy</a> | 
+    <a href="#">Terms</a>
+</div>
+
 </body>
 </html>
