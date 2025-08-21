@@ -10,322 +10,456 @@
     rel="stylesheet"
   />
   <style>
-    :root {
-      --primary-purple: #442269;
-      --hot-pink: #ff66cc;
-      --soft-lavender: #9a9ad4;
-      --pink-light: #c73e8d;
-      --cream: #89e6e0;
-      --dark: #6e0b41;
-      --teal: #02d1ca;
-      --blue: #007e8f;
-      --purple-mid: #8f0fc8;
-      --white: #ffffff;
-      --gray-light: #f5f5f5;
-      --gray-dark: #666666;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  body {
+    font-family: 'Tahoma', Arial, sans-serif;
+    font-size: 22px;
+    background: #89e6e0;
+    color: #442269;
+    line-height: 1.28;
+  }
 
-    body {
-      font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-      font-size: 14px;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(212, 186, 255, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(52, 218, 225, 0.2) 0%, transparent 50%),
-        linear-gradient(135deg, var(--cream) 0%, var(--soft-lavender) 100%);
-      background-attachment: fixed;
-      color: var(--dark);
-      line-height: 1.4;
-      min-height: 100vh;
-    }
+  /* Facebook Header Bar */
+  .facebook-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 82px;
+    background: #007e8f;
+    border-bottom: 1px solid #02d1ca;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(68,34,105,0.2);
+  }
 
-    /* iOS 6 Status Bar */
-    .status-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 44px;
-      background: linear-gradient(to bottom, var(--blue) 0%, var(--teal) 100%);
-      border-bottom: 1px solid rgba(19, 13, 22, 0.2);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 15px;
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.3) inset,
-        0 1px 3px rgba(19, 13, 22, 0.3);
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--white);
-      text-shadow: 0 -1px 0 rgba(19, 13, 22, 0.3);
-    }
+  .header-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 15px;
+    justify-content: space-between;
+  }
 
-    .status-left {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+  .facebook-logo {
+    color: #89e6e0;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', sans-serif;
+  }
 
-    .status-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+  .search-box {
+    background: #8f0fc8;
+    border: 1px solid #89e6e0;
+    padding: 3px 6px;
+    color: #89e6e0;
+    font-size: 13px;
+    border-radius: 2px;
+    width: 300px;
+  }
 
-    .battery-icon {
-      width: 24px;
-      height: 12px;
-      border: 1px solid var(--white);
-      border-radius: 2px;
-      position: relative;
-      background: linear-gradient(to right, var(--teal) 0%, var(--blue) 100%);
-    }
+  .search-box::placeholder {
+    color: #9a9ad4;
+  }
 
-    .battery-icon::after {
-      content: '';
-      position: absolute;
-      right: -3px;
-      top: 3px;
-      width: 2px;
-      height: 6px;
-      background: var(--white);
-      border-radius: 0 1px 1px 0;
-    }
+  .header-nav {
+    display: flex;
+    gap: 15px;
+  }
 
-    /* iOS 6 Navigation Bar */
-    .nav-bar {
-      position: fixed;
-      top: 44px;
-      left: 0;
-      width: 100%;
-      height: 44px;
-      background: linear-gradient(to bottom, rgba(143, 15, 200, 0.95) 0%, rgba(142, 11, 65, 0.95) 100%);
-      border-bottom: 1px solid rgba(19, 13, 22, 0.3);
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.2) inset,
-        0 1px 3px rgba(19, 13, 22, 0.3);
-    }
+  .header-nav a {
+    color: #89e6e0;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 4px 8px;
+  }
 
-    .nav-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--white);
-      text-shadow: 0 -1px 0 rgba(19, 13, 22, 0.5);
-    }
+  .header-nav a:hover {
+    background: rgba(137,230,224,0.1);
+    border-radius: 2px;
+  }
 
-    .nav-button {
-      position: absolute;
-      height: 30px;
-      padding: 0 12px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 6px;
-      color: var(--white);
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      text-shadow: 0 -1px 0 rgba(19, 13, 22, 0.5);
-      box-shadow:
-        0 1px 2px rgba(19, 13, 22, 0.3),
-        0 1px 0 rgba(255, 255, 255, 0.2) inset;
-      transition: all 0.1s ease;
-    }
+  /* Main Content Area */
+  .main-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 100px;
+    display: flex;
+    gap: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
-    .nav-button:hover {
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
-    }
+  /* Left Sidebar */
+  .left-sidebar {
+    width: 180px;
+    flex-shrink: 0;
+  }
 
-    .nav-button:active {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
-      box-shadow:
-        0 1px 2px rgba(19, 13, 22, 0.5) inset,
-        0 1px 0 rgba(255, 255, 255, 0.1);
-    }
+  .profile-info {
+    background: #89e6e0;
+    border: 1px solid #442269;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
 
-    .nav-back {
-      left: 15px;
-    }
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 2px;
+    border: 1px solid #442269;
+    display: block;
+    margin-bottom: 8px;
+  }
 
-    .nav-action {
-      right: 15px;
-    }
+  .profile-name {
+    font-size: 13px;
+    font-weight: bold;
+    color: #c73e8d;
+    text-decoration: none;
+    margin-bottom: 5px;
+    display: block;
+  }
 
-    /* Main Container */
+  .profile-links {
+    list-style: none;
+    font-size: 13px;
+  }
+
+  .profile-links li {
+    margin-bottom: 3px;
+  }
+
+  .profile-links a {
+    color: #8f0fc8;
+    text-decoration: none;
+  }
+
+  .profile-links a:hover {
+    text-decoration: underline;
+  }
+
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    background: #89e6e0;
+    border: 1px solid #442269;
+  }
+
+  /* Profile Header */
+  .profile-header {
+    background: #89e6e0;
+    padding: 10px;
+    border-bottom: 1px solid #442269;
+  }
+
+  .cover-photo {
+    width: 100%;
+    height: 180px;
+    background-image: url('https://imgur.com/7BJknIY.png');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #442269;
+    margin-bottom: 10px;
+  }
+
+  .profile-main {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .profile-pic-large {
+    width: 125px;
+    height: 125px;
+    border: 3px solid #89e6e0;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(68,34,105,0.3);
+  }
+
+  .profile-details h1 {
+    font-size: 24px;
+    color: #c73e8d;
+    font-weight: normal;
+    margin-bottom: 5px;
+    font-family: 'Trebuchet MS', sans-serif;
+  }
+
+  .profile-tabs {
+    background: #9a9ad4;
+    border-bottom: 1px solid #442269;
+    padding: 0;
+    margin: 0;
+  }
+
+  .profile-tabs ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  .profile-tabs li {
+    border-right: 1px solid #442269;
+  }
+
+  .profile-tabs a {
+    display: block;
+    padding: 8px 15px;
+    color: #8f0fc8;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    background: #9a9ad4;
+  }
+
+  .profile-tabs a.active,
+  .profile-tabs a:hover {
+    background: #89e6e0;
+    color: #442269;
+  }
+
+  /* Info Content */
+  .info-content {
+    padding: 15px;
+  }
+
+  .info-section {
+    background: #89e6e0;
+    border: 1px solid #442269;
+    margin-bottom: 15px;
+    border-radius: 3px;
+  }
+
+  .section-header {
+    background: linear-gradient(135deg, #c73e8d, #ffa66c);
+    color: #89e6e0;
+    padding: 8px 12px;
+    font-size: 32px;
+    font-weight: bold;
+    border-bottom: 1px solid #442269;
+  }
+
+  .section-content {
+    padding: 12px 15px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .section-content h3 {
+    color: #8f0fc8;
+    font-size: 26px;
+    margin-bottom: 8px;
+    font-family: 'Trebuchet MS', sans-serif;
+  }
+
+  .section-content h4 {
+    color: #c73e8d;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+  }
+
+  .project-title {
+    color: #007e8f;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .project-description {
+    margin-left: 10px;
+    font-style: italic;
+    color: #442269;
+    margin-bottom: 8px;
+  }
+
+  .work-entry {
+    background: #9a9ad4;
+    border: 1px solid #442269;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+  }
+
+  .work-title {
+    color: #c73e8d;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .work-dates {
+    color: #8f0fc8;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .responsibility-list {
+    margin: 8px 0;
+  }
+
+  .responsibility-list li {
+    margin-bottom: 5px;
+    list-style: none;
+    position: relative;
+    padding-left: 12px;
+  }
+
+  .responsibility-list li:before {
+    content: "•";
+    color: #c73e8d;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+  }
+
+  .responsibility-list ul {
+    margin: 5px 0 8px 15px;
+    padding: 0;
+  }
+
+  .responsibility-list ul li {
+    margin-bottom: 3px;
+    padding-left: 15px;
+    font-size: 14px;
+  }
+
+  .responsibility-list ul li:before {
+    content: "◦";
+    color: #8f0fc8;
+    font-weight: normal;
+    left: 0;
+  }
+
+  .design-integration {
+    background: rgba(2,209,202,0.1);
+    padding: 6px 8px;
+    margin: 5px 0;
+    border-left: 3px solid #02d1ca;
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  .education-box {
+    background: #9a9ad4;
+    border: 1px solid #442269;
+    padding: 12px;
+    border-radius: 2px;
+  }
+
+  .degree {
+    color: #007e8f;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .institution {
+    color: #8f0fc8;
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  .quirky-note {
+    background: #ffa66c;
+    color: #442269;
+    padding: 8px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+    margin: 10px 0;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Right Sidebar */
+  .right-sidebar {
+    width: 180px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-box {
+    background: #89e6e0;
+    border: 1px solid #442269;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-header {
+    background: #9a9ad4;
+    padding: 6px 8px;
+    border-bottom: 1px solid #442269;
+    font-size: 13px;
+    font-weight: bold;
+    color: #442269;
+  }
+
+  .sidebar-content {
+    padding: 8px;
+  }
+
+  .friends-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  .friend-pic {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #442269;
+    border-radius: 2px;
+  }
+
+  .app-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;
+    color: #8f0fc8;
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .app-link:hover {
+    background: #9a9ad4;
+  }
+
+  .app-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
     .main-container {
-      padding-top: 100px;
-      padding-bottom: 20px;
-      max-width: 375px;
-      margin: 0 auto;
-      background: transparent;
+      flex-direction: column;
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
-    /* iOS 6 Card Style */
-    .ios-card {
-      background: linear-gradient(to bottom, var(--cream) 0%, var(--soft-lavender) 100%);
-      margin: 10px 15px;
-      border-radius: 12px;
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.8) inset,
-        0 1px 3px rgba(19, 13, 22, 0.2),
-        0 0 0 1px rgba(19, 13, 22, 0.1);
-      overflow: hidden;
-    }
-
-    /* Profile Card */
-    .profile-card {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .profile-pic-container {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 15px;
-    }
-
-    .profile-pic-large {
-      width: 120px;
-      height: 120px;
-      border-radius: 60px;
-      border: 3px solid var(--white);
-      box-shadow:
-        0 2px 8px rgba(19, 13, 22, 0.3),
-        0 0 0 1px rgba(19, 13, 22, 0.1);
-    }
-
-    .online-indicator {
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      width: 16px;
-      height: 16px;
-      background: linear-gradient(to bottom, var(--teal) 0%, var(--blue) 100%);
-      border: 2px solid var(--white);
-      border-radius: 50%;
-      box-shadow: 0 1px 2px rgba(19, 13, 22, 0.3);
-    }
-
-    .profile-name {
-      font-size: 24px;
-      font-weight: 300;
-      color: var(--dark);
-      margin-bottom: 5px;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
-    }
-
-    .profile-title {
-      font-size: 14px;
-      color: var(--purple-mid);
-      font-weight: 500;
-      margin-bottom: 3px;
-    }
-
-    .profile-company {
-      font-size: 12px;
-      color: var(--dark);
-      opacity: 0.7;
-    }
-
-    /* iOS 6 List Style */
-    .ios-list {
-      background: linear-gradient(to bottom, var(--cream) 0%, var(--soft-lavender) 100%);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.8) inset,
-        0 1px 3px rgba(19, 13, 22, 0.2);
-    }
-
-    /* Each list item */
-    .ios-list-item {
-      border-bottom: 1px solid rgba(19, 13, 22, 0.1);
-      padding: 12px 15px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: background 0.1s ease;
-      cursor: pointer;
-      user-select: none;
-      color: var(--dark);
-      font-size: 16px;
-    }
-
-    .ios-list-item:last-child {
-      border-bottom: none;
-    }
-
-    .ios-list-item:hover {
-      background: rgba(143, 15, 200, 0.1);
-    }
-
-    /* Icons on left */
-    .list-icon {
-      width: 28px;
-      height: 28px;
-      background: linear-gradient(to bottom, var(--blue) 0%, var(--teal) 100%);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.3) inset,
-        0 1px 2px rgba(19, 13, 22, 0.3);
-      flex-shrink: 0;
-    }
-
-    /* Right arrow */
-    .list-arrow {
-      margin-left: auto;
-      width: 14px;
-      height: 14px;
-      border-right: 2px solid var(--dark);
-      border-bottom: 2px solid var(--dark);
-      transform: rotate(-45deg);
-      opacity: 0.4;
-      flex-shrink: 0;
-    }
-
-    /* Remove arrow on disabled or email */
-    .no-arrow {
-      border: none;
-      opacity: 0;
-    }
-
-    /* Email clickable */
-    .email-link {
-      text-decoration: none;
-      color: var(--dark);
-      display: flex;
-      align-items: center;
+    .left-sidebar,
+    .right-sidebar {
       width: 100%;
+      order: 2;
     }
 
-    /* iOS 6 Footer */
-    .footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--dark);
-      opacity: 0.5;
-      font-weight: 600;
+    .main-content {
+      order: 1;
     }
-  </style>
+
+    .search-box {
+      width: 200px;
+    }
+  }
+</style>
+
 </head>
 <body>
   <!-- Status Bar -->
