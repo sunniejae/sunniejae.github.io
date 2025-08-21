@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retro Win2005 — Sunnie Jae Palette</title>
+  <style>
+    /* ---------------------
+       Sunnie Jae Palette
+       --------------------- */
+    :root {
+      --violet: #753a90;   /* deep violet */
+      --rose: #9f2865;     /* wine rose */
+      --steel: #609fb7;    /* XP-ish blue */
+      --pink: #fd5ab5;     /* bright pink */
+      --amethyst: #c631f3; /* neon violet */
+      --mint: #7cf6f5;     /* minty cyan */
+      --candy: #ff83f7;    /* candy pink */
+      --lilac: #d2baff;    /* soft lilac */
+      --ice: #c8ffff;      /* icy aqua */
+
+      --ink: #121017;      /* near-black */
+      --paper: #faf8ff;    /* off-white */
+
+      --shadow: rgba(18,16,23,0.25);
+      --shadow-strong: rgba(18,16,23,0.4);
+    }
+
+    /* Global reset & typography reminiscent of Windows XP/Tahoma */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Tahoma, Verdana, Segoe UI, system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 70% -10%, var(--ice), transparent 70%),
+        radial-gradient(900px 500px at -10% 0%, var(--lilac), transparent 60%),
+        linear-gradient(180deg, var(--paper), #ffffff);
+      color: var(--ink);
+      overflow: hidden; /* classic desktop vibe */
+    }
+
+    /* Desktop area */
+    .desktop {
+      position: relative;
+      width: 100%;
+      height: calc(100% - 44px); /* minus taskbar */
+      padding: 16px;
+    }
+
+    /* Window styling: XP Luna-esque with a palette twist */
+    .window {
+      position: absolute;
+      min-width: 320px;
+      max-width: min(720px, 90vw);
+      background: #fff;
+      border: 1px solid #7aa2cd; /* bluish border */
+      border-radius: 6px; /* subtle round, XP-ish */
+      box-shadow: 0 8px 24px var(--shadow), 0 2px 0 #fff inset;
+      overflow: hidden;
+    }
+
+    .titlebar {
+      position: relative;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px 0 10px;
+      color: #fff;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      background: linear-gradient(180deg, var(--steel), var(--violet));
+    }
+
+    .titlebar .title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .titlebar .title .bubble {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: linear-gradient(180deg, var(--mint), var(--ice));
+      box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 0 0 1px rgba(0,0,0,0.1);
+    }
+
+    .window-controls { display: flex; gap: 6px; }
+
+    .btn {
+      width: 18px; height: 18px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: linear-gradient(180deg, #ffffff, var(--lilac));
+      box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 1px 0 rgba(0,0,0,0.04);
+      display: grid; place-items: center;
+      cursor: pointer;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn:hover { filter: saturate(1.2) contrast(1.05); }
+
+    .btn.min { background: linear-gradient(180deg, #ffffff, var(--mint)); }
+    .btn.max { background: linear-gradient(180deg, #ffffff, var(--pink)); }
+    .btn.close { background: linear-gradient(180deg, #ffffff, var(--rose)); }
+
+    .btn svg { width: 10px; height: 10px; opacity: 0.9; }
+
+    .window-toolbar {
+      background: linear-gradient(180deg, #ffffff, #f2f0fa);
+      border-bottom: 1px solid #e4e0f4;
+      padding: 6px 8px;
+      display: flex; gap: 12px; align-items: center;
+      font-size: 12px;
+    }
+
+    .tool {
+      border: 1px solid #d6d0ec;
+      background: linear-gradient(180deg, #ffffff, #f7f3ff);
+      border-radius: 4px;
+      padding: 4px 8px;
+      box-shadow: 0 1px 0 #fff inset;
+      cursor: pointer;
+    }
+    .tool:hover { border-color: var(--lilac); box-shadow: 0 0 0 2px rgba(210,186,255,0.25) inset; }
+
+    .content {
+      padding: 14px 14px 16px;
+      background: linear-gradient(180deg, #ffffff, #fcfbff 40%, #ffffff);
+      color: var(--ink);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .content h1 {
+      font-size: 18px; margin: 0 0 8px 0;
+      color: var(--violet);
+      text-shadow: 0 1px 0 #fff;
+    }
+
+    .content .callout {
+      border: 1px solid #e0d8ff;
+      background: linear-gradient(180deg, #ffffff, #f7f0ff);
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 1px 0 #fff inset;
+    }
+
+    .content .cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid #b08bf6;
+      background: linear-gradient(180deg, var(--lilac), #efe6ff);
+      color: #3a2b5a;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none; font-weight: 700;
+      box-shadow: 0 1px 0 #fff inset, 0 3px 10px var(--shadow);
+    }
+    .cta:hover { filter: saturate(1.1); }
+    .cta:active { transform: translateY(1px); }
+
+    /* XP-style sidebar inside window */
+    .pane {
+      display: grid; grid-template-columns: 220px 1fr; gap: 12px;
+    }
+
+    .sidebar {
+      border: 1px solid #c6d7eb;
+      background: linear-gradient(180deg, #f4fbff, #e7f7ff);
+      border-radius: 6px;
+      padding: 10px;
+      box-shadow: 0 1px 0 #fff inset;
+    }
+
+    .sidebar h3 {
+      margin: 0 0 6px 0; font-size: 12px; font-weight: 700; color: #2b4b77;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    .sidebar .link {
+      display: block; font-size: 13px; text-decoration: none; color: #123456;
+      padding: 6px 8px; border-radius: 4px;
+    }
+
+    .sidebar .link:hover { background: #eaf4ff; }
+
+    /* Taskbar */
+    .taskbar {
+      position: fixed; left: 0; right: 0; bottom: 0; height: 44px;
+      background: linear-gradient(180deg, var(--steel), #3b77ab);
+      border-top: 1px solid rgba(0,0,0,0.12);
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 10px;
+      box-shadow: 0 -4px 20px var(--shadow-strong);
+    }
+
+    .start {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(180deg, var(--mint), #b7f9ff);
+      color: #143f45; border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 6px; font-weight: 700; padding: 6px 12px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset;
+      cursor: pointer;
+    }
+
+    .task {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: linear-gradient(180deg, #ffffff, #eef5ff);
+      padding: 6px 12px; border-radius: 6px; color: #2b4b77;
+    }
+
+    /* Simple draggable behavior */
+    .draggable { cursor: move; }
+
+    /* Palette swatches */
+    .swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px; }
+    .swatch { height: 36px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.15); box-shadow: 0 1px 0 #fff inset; }
+    .swatch[data-color="violet"]{ background: var(--violet); }
+    .swatch[data-color="rose"]{ background: var(--rose); }
+    .swatch[data-color="steel"]{ background: var(--steel); }
+    .swatch[data-color="pink"]{ background: var(--pink); }
+    .swatch[data-color="amethyst"]{ background: var(--amethyst); }
+    .swatch[data-color="mint"]{ background: var(--mint); }
+    .swatch[data-color="candy"]{ background: var(--candy); }
+    .swatch[data-color="lilac"]{ background: var(--lilac); }
+    .swatch[data-color="ice"]{ background: var(--ice); }
+    .swatch[data-color="ink"]{ background: var(--ink); }
+    .swatch[data-color="paper"]{ background: var(--paper); }
+
+    @media (max-width: 760px){
+      .pane { grid-template-columns: 1fr; }
+      .window { left: 8px !important; right: 8px; width: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="desktop" id="desktop">
+    <!-- Window 1 -->
+    <div class="window" id="win-about" style="top: 32px; left: 28px;">
+      <div class="titlebar draggable">
+        <div class="title"><span class="bubble"></span> About this Theme</div>
+        <div class="window-controls">
+          <div class="btn min" title="Minimize"> 
+            <svg viewBox="0 0 10 10"><rect x="2" y="5" width="6" height="1" /></svg>
+          </div>
+          <div class="btn max" title="Maximize">
+            <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" fill="none" stroke="black" stroke-width="1"/></svg>
+          </div>
+          <div class="btn close" title="Close">
+            <svg viewBox="0 0 10 10"><path d="M2 2 L8 8 M8 2 L2 8" stroke="black" stroke-width="1.2"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="window-toolbar">
+        <button class="tool">File</button>
+        <button class="tool">Edit</button>
+        <button class="tool">View</button>
+        <button class="tool">Help</button>
+      </div>
+      <div class="content">
+        <div class="pane">
+          <div class="sidebar">
+            <h3>Tasks</h3>
+            <a class="link" href="#">Change Appearance</a>
+            <a class="link" href="#">Set as Default</a>
+            <a class="link" href="#">Open Palette</a>
+            <h3 style="margin-top:10px">Places</h3>
+            <a class="link" href="#">Desktop</a>
+            <a class="link" href="#">Documents</a>
+            <a class="link" href="#">Downloads</a>
+          </div>
+          <div>
+            <h1>Retro Windows (circa 2005) with Sunnie Jae Colors</h1>
+            <p>This mock desktop uses your palette to re-interpret the classic Luna visual style. Title bars blend <strong>--steel</strong> to <strong>--violet</strong>, with candy accents for controls.</p>
+            <div class="callout">
+              <p><strong>Palette quick view:</strong></p>
+              <div class="swatches">
+                <div class="swatch" data-color="violet" title="#753a90"></div>
+                <div class="swatch" data-color="rose" title="#9f2865"></div>
+                <div class="swatch" data-color="steel" title="#609fb7"></div>
+                <div class="swatch" data-color="pink" title="#fd5ab5"></div>
+                <div class="swatch" data-color="amethyst" title="#c631f3"></div>
+                <div class="swatch" data-color="mint" title="#7cf6f5"></div>
+                <div class="swatch" data-color="candy" title="#ff83f7"></div>
+                <div class="swatch" data-color="lilac" title="#d2baff"></div>
+                <div class="swatch" data-color="ice" title="#c8ffff"></div>
+                <div class="swatch" data-color="ink" title="#121017"></div>
+                <div class="swatch" data-color="paper" title="#faf8ff"></div>
+              </div>
+            </div>
+            <p style="margin-top:10px">Try dragging the window by its title bar for a nostalgic feel.</p>
+            <a class="cta" href="#">Open Theme Settings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 2 -->
+    <div class="window" id="win-explorer" style="top: 220px; left: 340px;">
+      <div class="titlebar draggable">
+        <div class="title"><span class="bubble"></span> My Palette Explorer</div>
+        <div class="window-controls">
+          <div class="btn min" title="Minimize"> 
+            <svg viewBox="0 0 10 10"><rect x="2" y="5" width="6" height="1" /></svg>
+          </div>
+          <div class="btn max" title="Maximize">
+            <svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" fill="none" stroke="black" stroke-width="1"/></svg>
+          </div>
+          <div class="btn close" title="Close">
+            <svg viewBox="0 0 10 10"><path d="M2 2 L8 8 M8 2 L2 8" stroke="black" stroke-width="1.2"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="window-toolbar">
+        <button class="tool">Organize</button>
+        <button class="tool">View</button>
+        <button class="tool">Tools</button>
+      </div>
+      <div class="content">
+        <p>Folders styled with beveled edges and subtle gradients.</p>
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
+          <div style="background:linear-gradient(180deg,#fff,#f8f4ff); border:1px solid #d7cfff; border-radius:8px; padding:10px; box-shadow:0 1px 0 #fff inset;">
+            <div style="width:42px;height:34px;border-radius:4px;background:linear-gradient(180deg,var(--lilac),#efe6ff);border:1px solid #b08bf6;box-shadow:0 1px 0 #fff inset;"></div>
+            <div style="font-size:12px;margin-top:6px;">Projects</div>
+          </div>
+          <div style="background:linear-gradient(180deg,#fff,#f0fdff); border:1px solid #bbeef2; border-radius:8px; padding:10px; box-shadow:0 1px 0 #fff inset;">
+            <div style="width:42px;height:34px;border-radius:4px;background:linear-gradient(180deg,var(--mint),#e8ffff);border:1px solid #78e4e6;box-shadow:0 1px 0 #fff inset;"></div>
+            <div style="font-size:12px;margin-top:6px;">Assets</div>
+          </div>
+          <div style="background:linear-gradient(180deg,#fff,#fff0fb); border:1px solid #ffc7f4; border-radius:8px; padding:10px; box-shadow:0 1px 0 #fff inset;">
+            <div style="width:42px;height:34px;border-radius:4px;background:linear-gradient(180deg,var(--pink),#ffe6f8);border:1px solid #ff9fe0;box-shadow:0 1px 0 #fff inset;"></div>
+            <div style="font-size:12px;margin-top:6px;">Design</div>
+          </div>
+          <div style="background:linear-gradient(180deg,#fff,#f4f8ff); border:1px solid #c2d8f0; border-radius:8px; padding:10px; box-shadow:0 1px 0 #fff inset;">
+            <div style="width:42px;height:34px;border-radius:4px;background:linear-gradient(180deg,var(--steel),#e8f3ff);border:1px solid #86b7df;box-shadow:0 1px 0 #fff inset;"></div>
+            <div style="font-size:12px;margin-top:6px;">Archive</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar">
+    <div class="start">★ Start</div>
+    <div class="task">About this Theme</div>
+    <div class="task">My Palette Explorer</div>
+  </div>
+
+  <script>
+    // Basic drag handling for windows (click-drag on titlebar)
+    const windows = document.querySelectorAll('.window');
+
+    windows.forEach(win => {
+      const bar = win.querySelector('.titlebar');
+      let offsetX = 0, offsetY = 0, dragging = false;
+
+      bar.addEventListener('mousedown', (e) => {
+        dragging = true;
+        const rect = win.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        win.style.zIndex = parseInt(Date.now() / 1000);
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if(!dragging) return;
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+        // Keep within desktop bounds
+        const desktop = document.getElementById('desktop').getBoundingClientRect();
+        const maxX = desktop.width - win.offsetWidth - 8;
+        const maxY = desktop.height - win.offsetHeight - 8;
+        win.style.left = Math.max(8, Math.min(x, maxX)) + 'px';
+        win.style.top  = Math.max(8, Math.min(y, maxY)) + 'px';
+      });
+
+      document.addEventListener('mouseup', () => dragging = false);
+    });
+  </script>
+</body>
+</html>
