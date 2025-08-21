@@ -7,6 +7,23 @@
   <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
   <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      /* Y2K Bratz/Barbie Dream Palette */
+      --purple: #9a9ad4;               /* Primary color */
+      --pink: #ff66cc;                 /* Bright Y2K pink */
+      --cyan: #02d1ca;                 /* Electric cyan */
+      --magenta: #da70d6;              /* Soft magenta */
+      --dark-purple: #8b008b;          /* Rich purple */
+      --pale-pink: #ffb3e6;            /* Light pastel pink */
+      --lilac: #dda0dd;                /* Soft lilac */
+      --white: #ffffff;                /* Pure white */
+      --light-gray: #e6e6fa;           /* Lavender-tinted light */
+      --gray: #663399;                 /* Medium purple-gray */
+      --silver: #c0c0c0;               /* Metallic silver */
+      --dark-gray: #4b0082;            /* Dark purple-gray */
+      --black: #1a0d1f;                /* Deep purple-black */
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -16,8 +33,8 @@
     body {
       font-family: 'Tahoma', Arial, sans-serif;
       font-size: 11px;
-      background: #faf8fc;
-      color: #130d16;
+      background: var(--white);
+      color: var(--black);
       line-height: 1.28;
     }
 
@@ -28,10 +45,10 @@
       left: 0;
       width: 100%;
       height: 82px;
-      background: #418ede;
-      border-bottom: 1px solid #34dae1;
+      background: var(--purple);
+      border-bottom: 1px solid var(--cyan);
       z-index: 1000;
-      box-shadow: 0 1px 3px rgba(19,13,22,0.2);
+      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.2);
     }
 
     .header-content {
@@ -45,7 +62,7 @@
     }
 
     .facebook-logo {
-      color: #faf8fc;
+      color: var(--white);
       font-size: 16px;
       font-weight: bold;
       text-decoration: none;
@@ -53,17 +70,17 @@
     }
 
     .search-box {
-      background: #9f76ca;
-      border: 1px solid #faf8fc;
+      background: var(--dark-purple);
+      border: 1px solid var(--white);
       padding: 3px 6px;
-      color: #faf8fc;
+      color: var(--white);
       font-size: 11px;
       border-radius: 2px;
       width: 300px;
     }
 
     .search-box::placeholder {
-      color: #f6e6f9;
+      color: var(--light-gray);
     }
 
     .header-nav {
@@ -72,14 +89,14 @@
     }
 
     .header-nav a {
-      color: #faf8fc;
+      color: var(--white);
       text-decoration: none;
       font-size: 11px;
       padding: 4px 8px;
     }
 
     .header-nav a:hover {
-      background: rgba(250,248,252,0.1);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 2px;
     }
 
@@ -101,8 +118,8 @@
     }
 
     .profile-info {
-      background: #faf8fc;
-      border: 1px solid #d2baff;
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
       margin-bottom: 10px;
       padding: 8px;
     }
@@ -111,7 +128,7 @@
       width: 50px;
       height: 50px;
       border-radius: 2px;
-      border: 1px solid #d2baff;
+      border: 1px solid var(--pale-pink);
       display: block;
       margin-bottom: 8px;
     }
@@ -119,7 +136,7 @@
     .profile-name {
       font-size: 13px;
       font-weight: bold;
-      color: #ff68b5;
+      color: var(--pink);
       text-decoration: none;
       margin-bottom: 5px;
       display: block;
@@ -135,7 +152,7 @@
     }
 
     .profile-links a {
-      color: #9f76ca;
+      color: var(--dark-purple);
       text-decoration: none;
     }
 
@@ -146,15 +163,15 @@
     /* Main Content */
     .main-content {
       flex: 1;
-      background: #faf8fc;
-      border: 1px solid #d2baff;
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
     }
 
     /* Profile Header */
     .profile-header {
-      background: #faf8fc;
+      background: var(--white);
       padding: 10px;
-      border-bottom: 1px solid #d2baff;
+      border-bottom: 1px solid var(--pale-pink);
     }
 
     .cover-photo {
@@ -163,7 +180,7 @@
       background-image: url('https://imgur.com/7BJknIY.png');
       background-size: cover;
       background-position: center;
-      border: 1px solid #d2baff;
+      border: 1px solid var(--pale-pink);
       margin-bottom: 10px;
     }
 
@@ -176,22 +193,22 @@
     .profile-pic-large {
       width: 125px;
       height: 125px;
-      border: 3px solid #faf8fc;
+      border: 3px solid var(--white);
       border-radius: 2px;
-      box-shadow: 0 1px 3px rgba(19,13,22,0.3);
+      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.3);
     }
 
     .profile-details h1 {
       font-size: 24px;
-      color: #ff68b5;
+      color: var(--pink);
       font-weight: normal;
       margin-bottom: 5px;
       font-family: 'Trebuchet MS', sans-serif;
     }
 
     .profile-tabs {
-      background: #f6e6f9;
-      border-bottom: 1px solid #d2baff;
+      background: var(--light-gray);
+      border-bottom: 1px solid var(--pale-pink);
       padding: 0;
       margin: 0;
     }
@@ -204,23 +221,23 @@
     }
 
     .profile-tabs li {
-      border-right: 1px solid #d2baff;
+      border-right: 1px solid var(--pale-pink);
     }
 
     .profile-tabs a {
       display: block;
       padding: 8px 15px;
-      color: #9f76ca;
+      color: var(--dark-purple);
       text-decoration: none;
       font-size: 11px;
       font-weight: bold;
-      background: #f6e6f9;
+      background: var(--light-gray);
     }
 
     .profile-tabs a.active,
     .profile-tabs a:hover {
-      background: #faf8fc;
-      color: #130d16;
+      background: var(--white);
+      color: var(--black);
     }
 
     /* Wall Posts */
@@ -229,23 +246,23 @@
     }
 
     .status-update {
-      background: #f6e6f9;
-      border: 1px solid #d2baff;
+      background: var(--light-gray);
+      border: 1px solid var(--pale-pink);
       padding: 8px;
       margin-bottom: 10px;
       border-radius: 2px;
     }
 
     .post {
-      background: #faf8fc;
-      border: 1px solid #d2baff;
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
       margin-bottom: 8px;
       border-radius: 2px;
     }
 
     .post-header {
       padding: 8px 10px;
-      border-bottom: 1px solid #d2baff;
+      border-bottom: 1px solid var(--pale-pink);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -254,7 +271,7 @@
     .post-profile-pic {
       width: 32px;
       height: 32px;
-      border: 1px solid #d2baff;
+      border: 1px solid var(--pale-pink);
       border-radius: 2px;
     }
 
@@ -263,14 +280,14 @@
     }
 
     .post-author {
-      color: #9f76ca;
+      color: var(--dark-purple);
       font-weight: bold;
       font-size: 11px;
       text-decoration: none;
     }
 
     .post-time {
-      color: #130d16;
+      color: var(--black);
       font-size: 10px;
       margin-left: 5px;
       opacity: 0.7;
@@ -284,20 +301,20 @@
 
     .post-image {
       width: 100%;
-      border-top: 1px solid #d2baff;
+      border-top: 1px solid var(--pale-pink);
       display: block;
     }
 
     .post-actions {
       padding: 6px 10px;
-      border-top: 1px solid #d2baff;
-      background: #f6e6f9;
+      border-top: 1px solid var(--pale-pink);
+      background: var(--light-gray);
       display: flex;
       gap: 10px;
     }
 
     .post-action {
-      color: #9f76ca;
+      color: var(--dark-purple);
       text-decoration: none;
       font-size: 10px;
       padding: 2px 4px;
@@ -308,8 +325,8 @@
     }
 
     .comments-section {
-      background: #f6e6f9;
-      border-top: 1px solid #d2baff;
+      background: var(--light-gray);
+      border-top: 1px solid var(--pale-pink);
       padding: 8px 10px;
     }
 
@@ -319,17 +336,17 @@
     }
 
     .comment-author {
-      color: #9f76ca;
+      color: var(--dark-purple);
       font-weight: bold;
       text-decoration: none;
     }
 
     .comment-text {
-      color: #130d16;
+      color: var(--black);
     }
 
     .comment-time {
-      color: #130d16;
+      color: var(--black);
       font-size: 10px;
       margin-left: 8px;
       opacity: 0.7;
@@ -342,18 +359,18 @@
     }
 
     .sidebar-box {
-      background: #faf8fc;
-      border: 1px solid #d2baff;
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
       margin-bottom: 10px;
     }
 
     .sidebar-header {
-      background: #f6e6f9;
+      background: var(--light-gray);
       padding: 6px 8px;
-      border-bottom: 1px solid #d2baff;
+      border-bottom: 1px solid var(--pale-pink);
       font-size: 11px;
       font-weight: bold;
-      color: #130d16;
+      color: var(--black);
     }
 
     .sidebar-content {
@@ -369,7 +386,7 @@
     .friend-pic {
       width: 50px;
       height: 50px;
-      border: 1px solid #d2baff;
+      border: 1px solid var(--pale-pink);
       border-radius: 2px;
     }
 
@@ -378,18 +395,28 @@
       align-items: center;
       gap: 8px;
       padding: 5px;
-      color: #9f76ca;
+      color: var(--dark-purple);
       text-decoration: none;
       font-size: 11px;
     }
 
     .app-link:hover {
-      background: #f6e6f9;
+      background: var(--light-gray);
     }
 
     .app-icon {
       width: 16px;
       height: 16px;
+    }
+
+    /* Status Update Textarea */
+    .status-update textarea {
+      width: 100%;
+      margin-top: 5px;
+      padding: 5px;
+      border: 1px solid var(--pale-pink);
+      font-size: 11px;
+      background: var(--white);
     }
 
     /* Responsive */
@@ -496,7 +523,7 @@
         <!-- Status Update Box -->
         <div class="status-update">
           <strong>What's on your mind?</strong>
-          <textarea style="width: 100%; margin-top: 5px; padding: 5px; border: 1px solid #d2baff; font-size: 11px; background: #faf8fc;" rows="2" placeholder="Share something..."></textarea>
+          <textarea rows="2" placeholder="Share something..."></textarea>
         </div>
 
         <!-- Wall Posts -->
@@ -632,7 +659,7 @@
       <div class="sidebar-box">
         <div class="sidebar-header">Sponsored</div>
         <div class="sidebar-content">
-          <div style="font-size: 11px; color: #130d16;">
+          <div style="font-size: 11px; color: var(--black);">
             Products for Sale<br>
             <small>shop Sunnie Jae Creates on the shop tab!</small>
           </div>
