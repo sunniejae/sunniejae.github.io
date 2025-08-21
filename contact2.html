@@ -10,6 +10,20 @@
     rel="stylesheet"
   />
   <style>
+    :root {
+      --royal-night: #442269;      /* deep, rich purple */
+      --berry-crush: #6e0b41;      /* bold, hot pink/magenta */
+      --ocean-teal: #007e8f;       /* vibrant teal */
+      --fuchsia-flare: #c73e8d;    /* bright pink-purple */
+      --violet-glow: #8f0fc8;      /* luminous purple */
+      --aqua-dream: #02d1ca;       /* bright cyan-turquoise */
+      --bubblegum-pink: #ff66cc;   /* soft, playful pink */
+      --lavender-mist: #9a9ad4;    /* pale blue-purple */
+      --minty-wave: #89e6e0;       /* soft aqua-teal */
+      --snow-white: #ffffff;       /* pure white */
+      --cloud-gray: #f5f5f5;       /* light gray */
+      --smoke-gray: #666666;       /* dark gray */
+    }
   
     * {
       margin: 0;
@@ -21,11 +35,11 @@
       font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
       font-size: 14px;
       background: 
-        radial-gradient(circle at 20% 80%, rgba(212, 186, 255, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(52, 218, 225, 0.2) 0%, transparent 50%),
-        linear-gradient(135deg, #faf8fc 0%, #ede6f9 100%);
+        radial-gradient(circle at 20% 80%, rgba(255, 102, 204, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(2, 209, 202, 0.2) 0%, transparent 50%),
+        linear-gradient(135deg, var(--snow-white) 0%, var(--cloud-gray) 100%);
       background-attachment: fixed;
-      color: #130d16;
+      color: var(--royal-night);
       line-height: 1.4;
       min-height: 100vh;
     }
@@ -37,8 +51,8 @@
       left: 0;
       width: 100%;
       height: 44px;
-      background: linear-gradient(to bottom, #418ede 0%, #34dae1 100%);
-      border-bottom: 1px solid rgba(19, 13, 22, 0.2);
+      background: linear-gradient(to bottom, var(--ocean-teal) 0%, var(--aqua-dream) 100%);
+      border-bottom: 1px solid rgba(68, 34, 105, 0.2);
       z-index: 1000;
       display: flex;
       align-items: center;
@@ -46,11 +60,11 @@
       padding: 0 15px;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.3) inset,
-        0 1px 3px rgba(19, 13, 22, 0.3);
+        0 1px 3px rgba(68, 34, 105, 0.3);
       font-size: 12px;
       font-weight: 600;
-      color: #faf8fc;
-      text-shadow: 0 -1px 0 rgba(19, 13, 22, 0.3);
+      color: var(--snow-white);
+      text-shadow: 0 -1px 0 rgba(68, 34, 105, 0.3);
     }
 
     .status-left {
@@ -68,10 +82,10 @@
     .battery-icon {
       width: 24px;
       height: 12px;
-      border: 1px solid #faf8fc;
+      border: 1px solid var(--snow-white);
       border-radius: 2px;
       position: relative;
-      background: linear-gradient(to right, #34dae1 0%, #418ede 100%);
+      background: linear-gradient(to right, var(--aqua-dream) 0%, var(--berry-crush) 100%);
     }
 
     .battery-icon::after {
@@ -81,7 +95,7 @@
       top: 3px;
       width: 2px;
       height: 6px;
-      background: #faf8fc;
+      background: var(--snow-white);
       border-radius: 0 1px 1px 0;
     }
 
@@ -92,22 +106,22 @@
       left: 0;
       width: 100%;
       height: 44px;
-      background: linear-gradient(to bottom, rgba(159, 118, 202, 0.95) 0%, rgba(130, 95, 172, 0.95) 100%);
-      border-bottom: 1px solid rgba(19, 13, 22, 0.3);
+      background: linear-gradient(to bottom, rgba(199, 62, 141, 0.95) 0%, rgba(143, 15, 200, 0.95) 100%);
+      border-bottom: 1px solid rgba(68, 34, 105, 0.3);
       z-index: 999;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.2) inset,
-        0 1px 3px rgba(19, 13, 22, 0.3);
+        0 1px 3px rgba(68, 34, 105, 0.3);
     }
 
     .nav-title {
       font-size: 18px;
       font-weight: 600;
-      color: #faf8fc;
-      text-shadow: 0 -1px 0 rgba(19, 13, 22, 0.5);
+      color: var(--snow-white);
+      text-shadow: 0 -1px 0 rgba(68, 34, 105, 0.5);
     }
 
     .nav-button {
@@ -117,15 +131,15 @@
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 6px;
-      color: #faf8fc;
+      color: var(--snow-white);
       text-decoration: none;
       font-size: 12px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      text-shadow: 0 -1px 0 rgba(19, 13, 22, 0.5);
+      text-shadow: 0 -1px 0 rgba(68, 34, 105, 0.5);
       box-shadow:
-        0 1px 2px rgba(19, 13, 22, 0.3),
+        0 1px 2px rgba(68, 34, 105, 0.3),
         0 1px 0 rgba(255, 255, 255, 0.2) inset;
       transition: all 0.1s ease;
     }
@@ -137,7 +151,7 @@
     .nav-button:active {
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
       box-shadow:
-        0 1px 2px rgba(19, 13, 22, 0.5) inset,
+        0 1px 2px rgba(68, 34, 105, 0.5) inset,
         0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
@@ -160,13 +174,13 @@
 
     /* iOS 6 Card Style */
     .ios-card {
-      background: linear-gradient(to bottom, #faf8fc 0%, #ede6f9 100%);
+      background: linear-gradient(to bottom, var(--snow-white) 0%, var(--cloud-gray) 100%);
       margin: 10px 15px;
       border-radius: 12px;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.8) inset,
-        0 1px 3px rgba(19, 13, 22, 0.2),
-        0 0 0 1px rgba(19, 13, 22, 0.1);
+        0 1px 3px rgba(68, 34, 105, 0.2),
+        0 0 0 1px rgba(68, 34, 105, 0.1);
       overflow: hidden;
     }
 
@@ -186,10 +200,10 @@
       width: 120px;
       height: 120px;
       border-radius: 60px;
-      border: 3px solid #faf8fc;
+      border: 3px solid var(--snow-white);
       box-shadow:
-        0 2px 8px rgba(19, 13, 22, 0.3),
-        0 0 0 1px rgba(19, 13, 22, 0.1);
+        0 2px 8px rgba(68, 34, 105, 0.3),
+        0 0 0 1px rgba(68, 34, 105, 0.1);
     }
 
     .online-indicator {
@@ -198,46 +212,46 @@
       right: 5px;
       width: 16px;
       height: 16px;
-      background: linear-gradient(to bottom, #34dae1 0%, #418ede 100%);
-      border: 2px solid #faf8fc;
+      background: (--ocean-teal);
+      border: 2px solid var(--snow-white);
       border-radius: 50%;
-      box-shadow: 0 1px 2px rgba(19, 13, 22, 0.3);
+      box-shadow: 0 1px 2px rgba(68, 34, 105, 0.3);
     }
 
     .profile-name {
       font-size: 24px;
       font-weight: 300;
-      color: #130d16;
+      color: var(--royal-night);
       margin-bottom: 5px;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
     }
 
     .profile-title {
       font-size: 14px;
-      color: #8f0fc8;
+      color: var(--violet-glow);
       font-weight: 500;
       margin-bottom: 3px;
     }
 
     .profile-company {
       font-size: 12px;
-      color: #130d16;
+      color: var(--royal-night);
       opacity: 0.7;
     }
 
     /* iOS 6 List Style */
     .ios-list {
-      background: linear-gradient(to bottom, #faf8fc 0%, #ede6f9 100%);
+      background: linear-gradient(to bottom, var(--snow-white) 0%, var(--cloud-gray) 100%);
       border-radius: 12px;
       overflow: hidden;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.8) inset,
-        0 1px 3px rgba(19, 13, 22, 0.2);
+        0 1px 3px rgba(68, 34, 105, 0.2);
     }
 
     /* Each list item */
     .ios-list-item {
-      border-bottom: 1px solid rgba(19, 13, 22, 0.1);
+      border-bottom: 1px solid rgba(68, 34, 105, 0.1);
       padding: 12px 15px;
       display: flex;
       align-items: center;
@@ -245,7 +259,7 @@
       transition: background 0.1s ease;
       cursor: pointer;
       user-select: none;
-      color: #130d16;
+      color: var(--royal-night);
       font-size: 16px;
     }
 
@@ -254,24 +268,24 @@
     }
 
     .ios-list-item:hover {
-      background: rgba(159, 118, 202, 0.1);
+      background: rgba(199, 62, 141, 0.1);
     }
 
     /* Icons on left */
     .list-icon {
       width: 28px;
       height: 28px;
-      background: linear-gradient(to bottom, #418ede 0%, #34dae1 100%);
+      background: linear-gradient(to bottom, var(--bubblegum-pink) 0%, var(--lavender-mist) 100%);
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #faf8fc;
+      color: var(--snow-white);
       font-weight: bold;
       font-size: 18px;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.3) inset,
-        0 1px 2px rgba(19, 13, 22, 0.3);
+        0 1px 2px rgba(68, 34, 105, 0.3);
       flex-shrink: 0;
     }
 
@@ -280,8 +294,8 @@
       margin-left: auto;
       width: 14px;
       height: 14px;
-      border-right: 2px solid #130d16;
-      border-bottom: 2px solid #130d16;
+      border-right: 2px solid var(--royal-night);
+      border-bottom: 2px solid var(--royal-night);
       transform: rotate(-45deg);
       opacity: 0.4;
       flex-shrink: 0;
@@ -296,7 +310,7 @@
     /* Email clickable */
     .email-link {
       text-decoration: none;
-      color: #130d16;
+      color: var(--royal-night);
       display: flex;
       align-items: center;
       width: 100%;
@@ -307,7 +321,7 @@
       margin-top: 40px;
       text-align: center;
       font-size: 13px;
-      color: #130d16;
+      color: var(--royal-night);
       opacity: 0.5;
       font-weight: 600;
     }
