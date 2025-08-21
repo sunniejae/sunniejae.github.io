@@ -11,20 +11,22 @@
   />
   <style>
     :root {
-      --royal-night: #442269;      /* deep, rich purple */
-      --berry-crush: #6e0b41;      /* bold, hot pink/magenta */
-      --ocean-teal: #007e8f;       /* vibrant teal */
-      --fuchsia-flare: #c73e8d;    /* bright pink-purple */
-      --violet-glow: #8f0fc8;      /* luminous purple */
-      --aqua-dream: #02d1ca;       /* bright cyan-turquoise */
-      --bubblegum-pink: #ff66cc;   /* soft, playful pink */
-      --lavender-mist: #9a9ad4;    /* pale blue-purple */
-      --minty-wave: #89e6e0;       /* soft aqua-teal */
-      --snow-white: #ffffff;       /* pure white */
-      --cloud-gray: #f5f5f5;       /* light gray */
-      --smoke-gray: #666666;       /* dark gray */
+      /* Y2K Bratz/Barbie Dream Palette */
+      --purple: #9a9ad4;               /* Primary color */
+      --pink: #ff66cc;                 /* Bright Y2K pink */
+      --cyan: #02d1ca;                 /* Electric cyan */
+      --magenta: #da70d6;              /* Soft magenta */
+      --dark-purple: #8b008b;          /* Rich purple */
+      --pale-pink: #ffb3e6;            /* Light pastel pink */
+      --lilac: #dda0dd;                /* Soft lilac */
+      --white: #ffffff;                /* Pure white */
+      --light-gray: #e6e6fa;           /* Lavender-tinted light */
+      --gray: #663399;                 /* Medium purple-gray */
+      --silver: #c0c0c0;               /* Metallic silver */
+      --dark-gray: #4b0082;            /* Dark purple-gray */
+      --black: #1a0d1f;                /* Deep purple-black */
     }
-  
+
     * {
       margin: 0;
       padding: 0;
@@ -36,10 +38,10 @@
       font-size: 14px;
       background: 
         radial-gradient(circle at 20% 80%, rgba(255, 102, 204, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(2, 209, 202, 0.2) 0%, transparent 50%),
-        linear-gradient(135deg, var(--snow-white) 0%, var(--cloud-gray) 100%);
+        radial-gradient(circle at 80% 20%, rgba(2, 209, 202, 0.15) 0%, transparent 50%),
+        linear-gradient(135deg, var(--white) 0%, var(--light-gray) 100%);
       background-attachment: fixed;
-      color: var(--royal-night);
+      color: var(--black);
       line-height: 1.4;
       min-height: 100vh;
     }
@@ -51,8 +53,8 @@
       left: 0;
       width: 100%;
       height: 44px;
-      background: linear-gradient(to bottom, var(--ocean-teal) 0%, var(--aqua-dream) 100%);
-      border-bottom: 1px solid rgba(68, 34, 105, 0.2);
+      background: linear-gradient(to bottom, var(--cyan) 0%, var(--purple) 100%);
+      border-bottom: 1px solid rgba(26, 13, 31, 0.2);
       z-index: 1000;
       display: flex;
       align-items: center;
@@ -60,11 +62,11 @@
       padding: 0 15px;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.3) inset,
-        0 1px 3px rgba(68, 34, 105, 0.3);
+        0 1px 3px rgba(26, 13, 31, 0.3);
       font-size: 12px;
       font-weight: 600;
-      color: var(--snow-white);
-      text-shadow: 0 -1px 0 rgba(68, 34, 105, 0.3);
+      color: var(--white);
+      text-shadow: 0 -1px 0 rgba(26, 13, 31, 0.3);
     }
 
     .status-left {
@@ -82,10 +84,10 @@
     .battery-icon {
       width: 24px;
       height: 12px;
-      border: 1px solid var(--snow-white);
+      border: 1px solid var(--white);
       border-radius: 2px;
       position: relative;
-      background: linear-gradient(to right, var(--berry-crush) 0%, var(--snow-white) 100%);
+      background: linear-gradient(to right, var(--pink) 0%, var(--magenta) 100%);
     }
 
     .battery-icon::after {
@@ -95,7 +97,7 @@
       top: 3px;
       width: 2px;
       height: 6px;
-      background: var(--snow-white);
+      background: var(--white);
       border-radius: 0 1px 1px 0;
     }
 
@@ -106,41 +108,41 @@
       left: 0;
       width: 100%;
       height: 44px;
-      background: linear-gradient(to bottom, rgba(199, 62, 141, 0.95) 0%, rgba(143, 15, 200, 0.95) 100%);
-      border-bottom: 1px solid rgba(68, 34, 105, 0.3);
+      background: linear-gradient(to bottom, rgba(154, 154, 212, 0.95) 0%, rgba(139, 0, 139, 0.95) 100%);
+      border-bottom: 1px solid rgba(26, 13, 31, 0.3);
       z-index: 999;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.2) inset,
-        0 1px 3px rgba(68, 34, 105, 0.3);
+        0 1px 3px rgba(26, 13, 31, 0.3);
     }
 
     .nav-title {
       font-size: 18px;
       font-weight: 600;
-      color: var(--snow-white);
-      text-shadow: 0 -1px 0 rgba(68, 34, 105, 0.5);
+      color: var(--white);
+      text-shadow: 0 -1px 0 rgba(26, 13, 31, 0.5);
     }
 
     .nav-button {
       position: absolute;
       height: 30px;
       padding: 0 12px;
-      background: linear-gradient(to bottom, rgba(rgba(154, 154, 212, 0.2) 0%) 0%, rgba(255, 255, 255, 0.05) 100%);
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 6px;
-      color: var(--snow-white);
+      color: var(--white);
       text-decoration: none;
       font-size: 12px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      text-shadow: 0 -1px 0 rgba(68, 34, 105, 0.5);
+      text-shadow: 0 -1px 0 rgba(26, 13, 31, 0.5);
       box-shadow:
-        0 1px 2px rgba(68, 34, 105, 0.3),
-        0 1px 0 rgba(245, 245, 245, 0.05) inset;
+        0 1px 2px rgba(26, 13, 31, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.2) inset;
       transition: all 0.1s ease;
     }
 
@@ -151,7 +153,7 @@
     .nav-button:active {
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
       box-shadow:
-        0 1px 2px rgba(68, 34, 105, 0.5) inset,
+        0 1px 2px rgba(26, 13, 31, 0.5) inset,
         0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
@@ -174,13 +176,13 @@
 
     /* iOS 6 Card Style */
     .ios-card {
-      background: linear-gradient(to bottom, var(--snow-white) 0%, var(--cloud-gray) 100%);
+      background: linear-gradient(to bottom, var(--white) 0%, var(--light-gray) 100%);
       margin: 10px 15px;
       border-radius: 12px;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.8) inset,
-        0 1px 3px rgba(68, 34, 105, 0.2),
-        0 0 0 1px rgba(68, 34, 105, 0.1);
+        0 1px 3px rgba(26, 13, 31, 0.2),
+        0 0 0 1px rgba(26, 13, 31, 0.1);
       overflow: hidden;
     }
 
@@ -200,10 +202,10 @@
       width: 120px;
       height: 120px;
       border-radius: 60px;
-      border: 3px solid var(--snow-white);
+      border: 3px solid var(--white);
       box-shadow:
-        0 2px 8px rgba(68, 34, 105, 0.3),
-        0 0 0 1px rgba(68, 34, 105, 0.1);
+        0 2px 8px rgba(26, 13, 31, 0.3),
+        0 0 0 1px rgba(26, 13, 31, 0.1);
     }
 
     .online-indicator {
@@ -212,46 +214,46 @@
       right: 5px;
       width: 16px;
       height: 16px;
-      background: (--ocean-teal);
-      border: 2px solid var(--snow-white);
+      background: linear-gradient(to bottom, var(--cyan) 0%, var(--purple) 100%);
+      border: 2px solid var(--white);
       border-radius: 50%;
-      box-shadow: 0 1px 2px rgba(68, 34, 105, 0.3);
+      box-shadow: 0 1px 2px rgba(26, 13, 31, 0.3);
     }
 
     .profile-name {
       font-size: 24px;
       font-weight: 300;
-      color: var(--royal-night);
+      color: var(--black);
       margin-bottom: 5px;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
     }
 
     .profile-title {
       font-size: 14px;
-      color: var(--violet-glow);
+      color: var(--dark-purple);
       font-weight: 500;
       margin-bottom: 3px;
     }
 
     .profile-company {
       font-size: 12px;
-      color: var(--royal-night);
+      color: var(--black);
       opacity: 0.7;
     }
 
     /* iOS 6 List Style */
     .ios-list {
-      background: linear-gradient(to bottom, var(--snow-white) 0%, var(--cloud-gray) 100%);
+      background: linear-gradient(to bottom, var(--white) 0%, var(--light-gray) 100%);
       border-radius: 12px;
       overflow: hidden;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.8) inset,
-        0 1px 3px rgba(68, 34, 105, 0.2);
+        0 1px 3px rgba(26, 13, 31, 0.2);
     }
 
     /* Each list item */
     .ios-list-item {
-      border-bottom: 1px solid rgba(68, 34, 105, 0.1);
+      border-bottom: 1px solid rgba(26, 13, 31, 0.1);
       padding: 12px 15px;
       display: flex;
       align-items: center;
@@ -259,7 +261,7 @@
       transition: background 0.1s ease;
       cursor: pointer;
       user-select: none;
-      color: var(--royal-night);
+      color: var(--black);
       font-size: 16px;
     }
 
@@ -268,24 +270,24 @@
     }
 
     .ios-list-item:hover {
-      background: rgba(199, 62, 141, 0.1);
+      background: rgba(255, 102, 204, 0.15);
     }
 
     /* Icons on left */
     .list-icon {
       width: 28px;
       height: 28px;
-      background: linear-gradient(to bottom, var(--minty-wave) 0%, var(--lavender-mist) 100%);
+      background: linear-gradient(to bottom, var(--pink) 0%, var(--magenta) 100%);
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--snow-white);
+      color: var(--white);
       font-weight: bold;
       font-size: 18px;
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.3) inset,
-        0 1px 2px rgba(68, 34, 105, 0.3);
+        0 1px 2px rgba(26, 13, 31, 0.3);
       flex-shrink: 0;
     }
 
@@ -294,8 +296,8 @@
       margin-left: auto;
       width: 14px;
       height: 14px;
-      border-right: 2px solid var(--royal-night);
-      border-bottom: 2px solid var(--royal-night);
+      border-right: 2px solid var(--black);
+      border-bottom: 2px solid var(--black);
       transform: rotate(-45deg);
       opacity: 0.4;
       flex-shrink: 0;
@@ -310,7 +312,7 @@
     /* Email clickable */
     .email-link {
       text-decoration: none;
-      color: var(--royal-night);
+      color: var(--black);
       display: flex;
       align-items: center;
       width: 100%;
@@ -321,7 +323,7 @@
       margin-top: 40px;
       text-align: center;
       font-size: 13px;
-      color: var(--royal-night);
+      color: var(--black);
       opacity: 0.5;
       font-weight: 600;
     }
