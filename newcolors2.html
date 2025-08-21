@@ -3,265 +3,266 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Interactive Desktop</title>
+<title>Sunnie Jae 2005 Desktop</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary-purple: #9a9ad4;
-  --primary-pink: #c13886;
-  --primary-blue: #00c9c2;
-  --lavender-mist: #e6e0f8;
-  --cloud-gray: #f5f5f5;
-  --soft-teal: #02d1ca;
-  --hot-pink: #ff66cc;
-  --dark-indigo: #442269;
-  --deep-magenta: #6e0b41;
-  --teal: #007e8f;
-  --shadow: rgba(0,0,0,0.2);
+  --primary: #9a9ad4;
+  --secondary: #c13886;
+  --accent: #00c9c2;
+  --light-gray: #e6e6e6;
+  --dark-gray: #404040;
+  --white: #ffffff;
 }
 
-body {
-  margin: 0;
-  font-family: 'Verdana', sans-serif;
-  background: var(--cloud-gray);
-  overflow-x: hidden;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body, html {
+  width:100vw; height:100vh;
+  background: linear-gradient(135deg,#1a0d1f,#2a1a2f);
+  font-family: 'Tahoma', sans-serif;
+  color:#000;
+  overflow:hidden;
 }
 
-/* ===== DRAGGABLE WINDOW STYLING ===== */
+.desktop { position: relative; width:100%; height:100%; }
+
+/* ===== Windows ===== */
 .window {
   position: absolute;
-  border: 2px solid var(--primary-purple);
-  background: var(--lavender-mist);
-  border-radius: 6px;
-  box-shadow: 0 10px 20px var(--shadow);
-  cursor: move;
+  background: var(--light-gray);
+  border: 2px solid #fff;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
   z-index: 10;
+  display: block;
+  min-width: 200px;
+  border-radius:2px;
 }
+.window.minimized { display:none; }
 
 .window-header {
-  background: var(--primary-blue);
-  color: white;
-  padding: 5px 10px;
-  font-family: 'Press Start 2P', monospace;
-  font-size: 0.9rem;
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  color: var(--white);
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 0.7rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  cursor: move;
+  text-shadow:1px 1px #000;
 }
 
-.window-header .close-btn {
-  cursor: pointer;
-  background: var(--primary-pink);
-  border: none;
-  color: white;
-  font-weight: bold;
-  padding: 0 5px;
-  border-radius: 2px;
+.window-controls {
+  display: flex; gap:3px;
 }
 
-/* ===== FOLDER ICONS ===== */
+.window-btn {
+  width:18px; height:18px;
+  border:2px outset #fff;
+  background: var(--accent);
+  font-weight:bold;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.6rem;
+  cursor:pointer;
+}
+.window-btn:hover { border:2px inset #fff; }
+
+.window-content { padding:10px; overflow:auto; max-height: calc(100vh - 100px); background:#e6e6e6; }
+
+/* ===== Taskbar ===== */
+.taskbar {
+  position: fixed; bottom:0; left:0;
+  width:100%; height:40px;
+  background: var(--light-gray);
+  border-top:2px solid #fff;
+  display:flex; align-items:center; padding:0 10px;
+  box-shadow: inset 0 1px 0 #fff,0 -2px 4px rgba(0,0,0,0.3);
+  z-index:1000;
+}
+.start-button {
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  color:#fff;
+  border:2px outset #fff;
+  padding:5px 12px;
+  font-size:0.6rem;
+  cursor:pointer;
+}
+.start-button:hover { border:2px inset #fff; }
+
+.taskbar-items { display:flex; gap:5px; margin-left:10px; flex:1; }
+.taskbar-item {
+  background: var(--primary);
+  color:#fff;
+  border:1px outset var(--primary);
+  padding:4px 8px;
+  font-size:0.6rem;
+  cursor:pointer;
+}
+.taskbar-item:hover { border:1px inset var(--primary); }
+.taskbar-item.active { background: var(--secondary); border:1px inset var(--secondary); }
+
+.taskbar-time { font-size:0.6rem; color:#000; margin-left:auto; }
+
+/* ===== Desktop Folders ===== */
 .folder {
-  position: absolute;
-  width: 80px;
-  text-align: center;
-  font-family: 'Verdana', sans-serif;
-  cursor: grab;
+  position:absolute; width:80px; height:90px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  cursor:pointer; user-select:none;
 }
+.folder:hover { transform:scale(1.05); box-shadow:0 0 6px var(--accent); }
+.folder-icon {
+  width:48px; height:48px;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:5px; border:2px outset #fff; background:var(--primary);
+  border-radius:2px;
+}
+.folder-icon img { width:32px; height:32px; object-fit:contain; }
+.folder-label { font-size:0.6rem; color:#000; text-align:center; }
 
-.folder img {
-  width: 64px;
-  height: 64px;
-}
-
-.folder p {
-  margin: 4px 0 0 0;
-  font-size: 0.75rem;
-  color: var(--primary-purple);
-}
-
-/* ===== HEADER IMAGE ===== */
-.header-window {
-  width: 600px;
-  height: 120px;
-}
-
-.header-window img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
-}
-
-/* ===== NOTEBOOK IMAGE ===== */
-.notebook {
-  position: absolute;
-  top: 150px;
-  left: 20px;
-  width: 397px;
-  height: 800px;
-  background: url('notebook.png') no-repeat;
-  background-size: cover;
-}
-
-/* ===== COMPUTER SECTION ===== */
-.section-computer {
-  position: absolute;
-  top: 100px;
-  left: 500px;
-  width: 900px;
-  height: 600px;
-}
-
-.computer-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.computer-image {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
+/* ===== Specific Window Content Styles ===== */
+.title-banner { width:100%; height:200px; background-image:url('https://imgur.com/n6km6m0.png'); background-size:cover; background-position:center; border:2px inset #fff; border-radius:2px; }
+.notebook-image, .computer-image { width:100%; border:3px outset #fff; border-radius:2px; display:block; margin:0 auto; }
+.notebook-image:hover, .computer-image:hover { border:3px inset #fff; }
 
 .pinterest-embed {
-  position: absolute;
-  top: 14.5%;
-  left: 8.3%;
-  width: 42.7%;
-  height: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 2px;
-  background: rgba(0, 0, 0, 0.1);
+  position:absolute; top:15%; left:10%; width:40%; height:50%; overflow:hidden;
+  border-radius:2px; background:#ccc;
 }
-
 .pinterest-embed::before {
-  content: "Loading Live Feed...";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #666;
-  font-size: 0.9rem;
-  font-weight: 300;
-  z-index: -1;
+  content:"Loading Live Feed...";
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  color:var(--secondary); font-size:0.7rem; font-weight:300; z-index:-1;
 }
 
-.pinterest-embed > * {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.pinterest-embed > a {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
+/* Responsive */
+@media(max-width:768px){
+  .folder{width:60px;height:70px;}
+  .folder-icon{width:36px;height:36px;}
+  .folder-icon img{width:24px;height:24px;}
+  .folder-label{font-size:0.5rem;}
+  .window{max-width:90vw; max-height:80vh;}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER IMAGE WINDOW -->
-<div class="window header-window" style="top:20px; left:50px;">
-  <div class="window-header">
-    <span>Header</span>
-    <button class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">X</button>
-  </div>
-  <img src="header.png" alt="Header Image">
-</div>
+<div class="desktop">
 
-<!-- NOTEBOOK BACKGROUND -->
-<div class="notebook"></div>
-
-<!-- COMPUTER SECTION WITH PINTEREST EMBED -->
-<div class="window section-computer" style="top:150px; left:500px;">
-  <div class="window-header">
-    <span>Computer</span>
-    <button class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">X</button>
-  </div>
-  <div class="computer-wrapper">
-    <img src="computer.png" alt="Computer" class="computer-image">
-    <div class="pinterest-embed">
-      <a href="https://www.pinterest.com" target="_blank"></a>
+  <!-- Title Window -->
+  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px;">
+    <div class="window-header">
+      <span>✨ Sunnie Jae Creates</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="title-banner"></div>
     </div>
   </div>
+
+  <!-- Notebook Window -->
+  <div class="window" id="notebookWindow" style="top:200px; left:200px; width:500px;">
+    <div class="window-header">
+      <span>📝 Creative Notebook</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <h2>...brattitude loading...</h2>
+      <img src="https://imgur.com/VuoO3dN.png" alt="Creative Notebook" class="notebook-image">
+    </div>
+  </div>
+
+  <!-- Computer Window -->
+  <div class="window" id="computerWindow" style="top:100px; left:400px; width:600px;">
+    <div class="window-header">
+      <span>💻 Live Content Updates</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('computerWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('computerWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="computer-wrapper">
+        <img src="https://imgur.com/jzSsYHB.png" alt="Computer Setup" class="computer-image" />
+        <div class="pinterest-embed">
+          <a data-pin-do="embedBoard" data-pin-board-width="651" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop Folders -->
+  <div class="folder documents" style="top:80px; left:50px;" onclick="openFolder('Documents')">
+    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Documents"></div>
+    <div class="folder-label">Documents</div>
+  </div>
+  <div class="folder videos" style="top:80px; left:150px;" onclick="openFolder('Videos')">
+    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Videos"></div>
+    <div class="folder-label">Videos</div>
+  </div>
+  <div class="folder photos" style="top:180px; left:50px;" onclick="openFolder('Photos')">
+    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Photos"></div>
+    <div class="folder-label">Photos</div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar">
+    <button class="start-button" onclick="showStartMenu()">START</button>
+    <div class="taskbar-items" id="taskbarItems">
+      <div class="taskbar-item active" onclick="focusWindow('titleWindow')">Sunnie Jae</div>
+      <div class="taskbar-item" onclick="focusWindow('notebookWindow')">Notebook</div>
+      <div class="taskbar-item" onclick="focusWindow('computerWindow')">Computer</div>
+    </div>
+    <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
+  </div>
+
 </div>
 
-<!-- FOLDERS -->
-<div class="folder" style="top:20px; left:50px;" onclick="window.open('graphic-design.html','_blank')">
-  <img src="downloads.png" alt="Downloads">
-  <p>Downloads</p>
-</div>
-
-<div class="folder" style="top:20px; left:150px;" onclick="window.open('writing.html','_blank')">
-  <img src="documents.png" alt="Documents">
-  <p>Documents</p>
-</div>
-
-<div class="folder" style="top:20px; left:250px;" onclick="window.open('digital-art.html','_blank')">
-  <img src="photos.png" alt="Photos">
-  <p>Photos</p>
-</div>
-
-<div class="folder" style="top:20px; left:350px;" onclick="window.open('videos.html','_blank')">
-  <img src="videos.png" alt="Videos">
-  <p>Videos</p>
-</div>
-
-<div class="folder" style="top:20px; left:450px;" onclick="window.open('social-profiles.html','_blank')">
-  <img src="internet-explorer.png" alt="Internet Explorer">
-  <p>Internet</p>
-</div>
-
+<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 <script>
-// DRAGGABLE WINDOWS AND FOLDERS
-const draggables = document.querySelectorAll('.window, .folder');
-
-draggables.forEach(el => {
-  el.onmousedown = function(e) {
-    let shiftX = e.clientX - el.getBoundingClientRect().left;
-    let shiftY = e.clientY - el.getBoundingClientRect().top;
-
-    el.style.zIndex = 1000;
-
-    function moveAt(pageX, pageY) {
-      el.style.left = pageX - shiftX + 'px';
-      el.style.top = pageY - shiftY + 'px';
-    }
-
-    function onMouseMove(e) {
-      moveAt(e.pageX, e.pageY);
-    }
-
-    document.addEventListener('mousemove', onMouseMove);
-
-    el.onmouseup = function() {
-      document.removeEventListener('mousemove', onMouseMove);
-      el.onmouseup = null;
-
-      // Snap-back for folders
-      if (el.classList.contains('folder')) {
-        el.style.left = el.dataset.originLeft;
-        el.style.top = el.dataset.originTop;
-      }
-    };
-  };
-
-  el.ondragstart = function() {
-    return false;
-  };
-
-  // store origin positions
-  if (el.classList.contains('folder')) {
-    el.dataset.originLeft = el.style.left;
-    el.dataset.originTop = el.style.top;
+let draggedWindow=null; let offset={x:0,y:0}; let highestZ=10;
+function makeDraggable(el){
+  const header=el.querySelector('.window-header');
+  header.addEventListener('mousedown',startDrag);
+  function startDrag(e){
+    if(e.target.classList.contains('window-btn')) return;
+    draggedWindow=el;
+    const rect=el.getBoundingClientRect();
+    offset.x=e.clientX-rect.left; offset.y=e.clientY-rect.top;
+    el.style.zIndex=++highestZ;
+    document.addEventListener('mousemove',drag);
+    document.addEventListener('mouseup',stopDrag);
   }
-});
-</script>
+  function drag(e){
+    if(!draggedWindow) return;
+    let x=e.clientX-offset.x;
+    let y=e.clientY-offset.y;
+    const maxX=window.innerWidth-el.offsetWidth;
+    const maxY=window.innerHeight-el.offsetHeight-40;
+    draggedWindow.style.left=Math.max(0,Math.min(x,maxX))+'px';
+    draggedWindow.style.top=Math.max(0,Math.min(y,maxY))+'px';
+  }
+  function stopDrag(){ draggedWindow=null; document.removeEventListener('mousemove',drag); document.removeEventListener('mouseup',stopDrag); }
+}
+document.querySelectorAll('.window').forEach(makeDraggable);
 
+function closeWindow(id){ document.getElementById(id).style.display='none'; }
+function minimizeWindow(id){ document.getElementById(id).classList.add('minimized'); }
+function focusWindow(id){
+  const win=document.getElementById(id);
+  if(win.classList.contains('minimized')) win.classList.remove('minimized');
+  win.style.zIndex=++highestZ;
+}
+function openFolder(name){ alert(`Opening ${name}...`); }
+function showStartMenu(){ openFolder('Start Menu'); }
+function updateTime(){ document.getElementById('taskbarTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
+setInterval(updateTime,1000); updateTime();
+</script>
 </body>
 </html>
