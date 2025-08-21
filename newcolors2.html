@@ -6,119 +6,68 @@
 <title>Sunnie Jae Desktop</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-  /* ===== Color Palette ===== */
-  :root {
-    --primary: #F7C8E0; /* soft pink */
-    --secondary: #B0A0FF; /* pastel purple */
-    --accent: #5C3D9C; /* violet ink */
-    --background: #FAF8FC; /* main background */
-    --text: #2B2B2B; /* dark text */
-    --window-bg: #E0E0E0; /* window background */
-    --folder-bg: #FFF0F5; /* folder background */
-    --folder-hover: #FFD1F2; /* folder hover */
-    --header-bg: #C8B0FF;
-    --header-hover: #A890FF;
-    --shadow: rgba(0,0,0,0.15);
-  }
-
+  /* Reset and base styles */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--background);
-    color: var(--text);
+    font-family: 'Press Start 2P', monospace;
+    background: #FAF8FC;
+    color: #333;
     overflow-x: hidden;
   }
-
-  /* ===== HEADER MENU ===== */
+  
+  /* HEADER MENU (Windows 2005 style) */
   header {
-    background: var(--header-bg);
-    padding: 10px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 4px var(--shadow);
+    background: #E0E0E0;
+    height: 40px;
+    padding: 0 10px;
+    border-bottom: 2px solid #C0C0C0;
   }
-
-  header .logo {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1rem;
-    color: var(--text);
-  }
-
-  nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav ul li {
-    margin-left: 15px;
-  }
-
-  nav ul li button {
-    font-family: 'Segoe UI', sans-serif;
-    background: var(--header-bg);
-    border: 1px solid #aaa;
+  header .menu-item {
+    margin-right: 20px;
     padding: 5px 10px;
+    background: #D8D8D8;
+    border: 1px solid #A0A0A0;
     border-radius: 2px;
     cursor: pointer;
-    transition: all 0.2s;
+    user-select: none;
+  }
+  header .menu-item:hover {
+    background: #B0C4DE;
   }
 
-  nav ul li button:hover {
-    background: var(--header-hover);
-    box-shadow: 0 2px 5px var(--shadow);
-  }
-
-  /* ===== DESKTOP LAYOUT ===== */
+  /* DESKTOP FOLDERS */
   .desktop {
     display: flex;
     padding: 20px;
+    flex-wrap: wrap;
   }
-
-  /* Folders on left */
-  .folders {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
   .folder {
-    background: var(--folder-bg);
-    padding: 15px;
+    width: 80px;
+    height: 100px;
+    margin: 10px;
     text-align: center;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px var(--shadow);
     cursor: pointer;
-    transition: all 0.2s;
   }
-
-  .folder:hover {
-    background: var(--folder-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px var(--shadow);
-  }
-
   .folder img {
-    width: 50px;
+    width: 64px;
+    height: 64px;
     display: block;
-    margin: 0 auto 5px auto;
+    margin: 0 auto 5px;
+  }
+  .folder span {
+    display: block;
+    font-size: 0.7rem;
+    color: #333;
+    word-wrap: break-word;
   }
 
-  /* Main Content */
-  .main-content {
-    flex: 1;
-    padding-left: 20px;
-  }
-
-  /* Section 4: Computer + Pinterest Embed */
+  /* SECTION 3: COMPUTER + PINTEREST EMBED */
   .section-computer {
     padding: 60px 0;
     text-align: center;
   }
-
   .section-computer h2 {
     font-family: 'Press Start 2P', monospace;
     font-size: 1.8rem;
@@ -126,7 +75,6 @@
     margin-bottom: 30px;
     text-shadow: 0 0 10px rgba(65, 142, 222, 0.5);
   }
-
   .computer-wrapper {
     position: relative;
     width: 100%;
@@ -134,7 +82,6 @@
     height: auto;
     margin: 0 auto;
   }
-
   .computer-image {
     width: 100%;
     height: auto;
@@ -142,7 +89,6 @@
     border-radius: 4px;
     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
   }
-
   .pinterest-embed {
     position: absolute;
     top: 14.5%;
@@ -156,86 +102,142 @@
     border-radius: 2px;
     background: rgba(0, 0, 0, 0.1);
   }
-
   .pinterest-embed > * {
     max-width: 100%;
     max-height: 100%;
   }
-
   .pinterest-embed > a {
     width: 100% !important;
     height: 100% !important;
     display: block;
   }
 
+  /* DRAGGABLE WINDOW */
+  .window {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    width: 397px;
+    height: 800px;
+    background: #E8E8E8;
+    border: 2px solid #A0A0A0;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    cursor: grab;
+  }
+  .window-header {
+    background: #D0D0D0;
+    padding: 5px 10px;
+    border-bottom: 2px solid #A0A0A0;
+    cursor: grab;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .window-header span {
+    font-size: 0.75rem;
+  }
+  .window-header button {
+    background: #C0C0C0;
+    border: 1px solid #808080;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  .window-content {
+    flex: 1;
+    overflow: hidden;
+  }
+  .window-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 </style>
 </head>
 <body>
 
 <!-- HEADER MENU -->
 <header>
-  <div class="logo">Sunnie Jae</div>
-  <nav>
-    <ul>
-      <li><button>File</button></li>
-      <li><button>Edit</button></li>
-      <li><button>View</button></li>
-      <li><button>Help</button></li>
-    </ul>
-  </nav>
+  <div class="menu-item">File</div>
+  <div class="menu-item">Edit</div>
+  <div class="menu-item">View</div>
+  <div class="menu-item">Help</div>
 </header>
 
-<!-- DESKTOP AREA -->
+<!-- DESKTOP FOLDERS -->
 <div class="desktop">
-
-  <!-- FOLDERS COLUMN -->
-  <div class="folders">
-    <div class="folder">
-      <img src="https://img.icons8.com/ios-filled/50/5C3D9C/folder-invoices.png" alt="Folder 1"/>
-      Work
-    </div>
-    <div class="folder">
-      <img src="https://img.icons8.com/ios-filled/50/5C3D9C/folder-invoices.png" alt="Folder 2"/>
-      Projects
-    </div>
-    <div class="folder">
-      <img src="https://img.icons8.com/ios-filled/50/5C3D9C/folder-invoices.png" alt="Folder 3"/>
-      Art
-    </div>
-    <div class="folder">
-      <img src="https://img.icons8.com/ios-filled/50/5C3D9C/folder-invoices.png" alt="Folder 4"/>
-      Music
-    </div>
+  <div class="folder">
+    <img src="https://img.icons8.com/color/64/folder-invoices--v1.png" alt="Folder 1">
+    <span>Art</span>
   </div>
-
-  <!-- MAIN CONTENT -->
-  <div class="main-content">
-    <!-- SECTION 4: COMPUTER + PINTEREST EMBED -->
-    <section class="section-computer">
-      <h2>Follow Along: Live Content Updates</h2>
-      <div class="computer-wrapper">
-        <img
-          src="https://imgur.com/jzSsYHB.png"
-          alt="Computer Setup"
-          class="computer-image glow"
-        />
-        <div class="pinterest-embed">
-          <a
-            data-pin-do="embedBoard"
-            data-pin-board-width="651"
-            data-pin-scale-height="762"
-            data-pin-scale-width="80"
-            href="https://www.pinterest.com/pasteliume/mine/"
-          ></a>
-        </div>
-      </div>
-    </section>
+  <div class="folder">
+    <img src="https://img.icons8.com/color/64/folder-invoices--v1.png" alt="Folder 2">
+    <span>Projects</span>
   </div>
-
+  <div class="folder">
+    <img src="https://img.icons8.com/color/64/folder-invoices--v1.png" alt="Folder 3">
+    <span>Music</span>
+  </div>
 </div>
 
-<!-- Pinterest Script -->
-<script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+<!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
+<section class="section-computer">
+  <h2>Follow Along: Live Content Updates</h2>
+  <div class="computer-wrapper">
+    <img
+      src="https://imgur.com/jzSsYHB.png"
+      alt="Computer Setup"
+      class="computer-image glow"
+    />
+    <div class="pinterest-embed">
+      <a
+        data-pin-do="embedBoard"
+        data-pin-board-width="651"
+        data-pin-scale-height="762"
+        data-pin-scale-width="80"
+        href="https://www.pinterest.com/pasteliume/mine/"
+      ></a>
+    </div>
+  </div>
+</section>
 
+<!-- DRAGGABLE WINDOW -->
+<div class="window" id="dragWindow">
+  <div class="window-header" id="dragHandle">
+    <span>My Image</span>
+    <button onclick="document.getElementById('dragWindow').style.display='none'">X</button>
+  </div>
+  <div class="window-content">
+    <img src="https://imgur.com/your-image.png" alt="Window Content">
+  </div>
+</div>
+
+<script>
+  // DRAG FUNCTIONALITY
+  const dragWindow = document.getElementById('dragWindow');
+  const dragHandle = document.getElementById('dragHandle');
+  let offsetX, offsetY, isDragging = false;
+
+  dragHandle.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - dragWindow.offsetLeft;
+    offsetY = e.clientY - dragWindow.offsetTop;
+    dragWindow.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    dragWindow.style.left = `${e.clientX - offsetX}px`;
+    dragWindow.style.top = `${e.clientY - offsetY}px`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    dragWindow.style.cursor = 'grab';
+  });
+</script>
 </body>
 </html>
