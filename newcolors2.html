@@ -33,7 +33,7 @@ body, html {
   background: var(--light-gray);
   border: 2px solid #fff;
   box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
-  z-index: 10;
+  z-index: 100;
   display: block;
   min-width: 200px;
   border-radius:2px;
@@ -104,7 +104,6 @@ body, html {
 
 .taskbar-time { font-size:0.6rem; color:#000; margin-left:auto; }
 
-/* ===== Taskbar Icons ===== */
 .icon-button {
   width:28px; height:28px;
   display:flex; align-items:center; justify-content:center;
@@ -142,6 +141,7 @@ body, html {
   position:absolute; width:80px; height:90px;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   cursor:pointer; user-select:none;
+  z-index: 10;
 }
 .folder:hover { transform:scale(1.05); box-shadow:0 0 6px var(--accent); }
 .folder-icon {
@@ -167,20 +167,6 @@ body, html {
 
 <div class="desktop">
 
-  <!-- Title Window -->
-  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px;">
-    <div class="window-header">
-      <span>✨ Sunnie Jae Creates</span>
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <div class="title-banner" style="width:100%; height:200px; background-image:url('https://imgur.com/n6km6m0.png'); background-size:cover; background-position:center; border:2px inset #fff; border-radius:2px;"></div>
-    </div>
-  </div>
-
   <!-- Desktop Folders -->
   <div class="folder documents" style="top:80px; left:50px;" onclick="openFolder('Documents')">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Documents"></div>
@@ -199,18 +185,70 @@ body, html {
     <div class="folder-label">Summer '05</div>
   </div>
 
+  <!-- Title Window -->
+  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px;">
+    <div class="window-header">
+      <span>✨ Sunnie Jae Creates</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="title-banner" style="width:100%; height:200px; background-image:url('https://imgur.com/n6km6m0.png'); background-size:cover; background-position:center; border:2px inset #fff; border-radius:2px;"></div>
+    </div>
+  </div>
+
+  <!-- Pinterest Window -->
+  <div class="window" id="pinterestWindow" style="top:300px; left:100px; width:400px; height:400px;">
+    <div class="window-header">
+      <span>Pinterest Feed</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="padding:0;">
+      <iframe src="https://www.pinterest.com/pin/99360735500167749/embed/" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+  </div>
+
+  <!-- Notebook Window -->
+  <div class="window" id="notebookWindow" style="top:300px; left:550px; width:300px; height:300px;">
+    <div class="window-header">
+      <span>Notebook</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <textarea style="width:100%;height:100%;border:none;resize:none;"></textarea>
+    </div>
+  </div>
+
+  <!-- Blank Image Window -->
+  <div class="window" id="imageWindow" style="top:650px; left:100px; width:550px; height:550px;">
+    <div class="window-header">
+      <span>Image Window</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('imageWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('imageWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="display:flex; justify-content:center; align-items:center;">
+      <img src="" alt="Your Image" style="width:550px; height:550px; object-fit:cover;">
+    </div>
+  </div>
+
   <!-- Taskbar -->
   <div class="taskbar">
-    <!-- Start Button -->
     <button class="start-button" onclick="toggleStartMenu()">☰</button>
-
-    <!-- Icons -->
     <div class="taskbar-items">
       <div class="icon-button" title="Search"><img src="https://imgur.com/HDV7ZqL.png" alt="Search"></div>
       <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/7KkDjkT.png" alt="Browser"></div>
       <div class="icon-button" title="Settings"><img src="https://imgur.com/8T1tGdL.png" alt="Settings"></div>
     </div>
-
     <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
   </div>
 
@@ -226,7 +264,7 @@ body, html {
 </div>
 
 <script>
-let draggedWindow=null; let offset={x:0,y:0}; let highestZ=10;
+let draggedWindow=null; let offset={x:0,y:0}; let highestZ=200;
 function makeDraggable(el){
   const header=el.querySelector('.window-header');
   header.addEventListener('mousedown',startDrag);
