@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sunnie Jae - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    /* Color Palette */
+    :root {
+      --deep-purple: #442269;
+      --maroon: #6e0b41;
+      --teal: #007e8f;
+      --magenta: #c73e8d;
+      --violet: #8f0fc8;
+      --cyan: #02d1ca;
+      --pink: #ff66cc;
+      --lavender: #d2baff;
+      --mint: #89e6e0;
+      --black: #000000;
+      --white: #ffffff;
+      --gray-bg: #f0f0f5;
+    }
+
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', monospace;
+      background-color: var(--gray-bg);
+      color: var(--black);
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--black);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* MENU */
+    nav {
+      background: linear-gradient(90deg, var(--deep-purple), var(--maroon));
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      color: var(--white);
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    nav ul li a:hover {
+      color: var(--pink);
+    }
+
+    /* Dropdown */
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 35px;
+      left: 0;
+      background: var(--lavender);
+      padding: 10px;
+      border-radius: 4px;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    nav ul li:hover ul {
+      display: flex;
+    }
+
+    nav ul li ul li a {
+      color: var(--black);
+    }
+
+    /* SECTION 1: Hero Image */
+    .section-hero img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* SECTION 2: Notebook Style */
+    .section-notebook {
+      background: url('https://i.imgur.com/yourNotebookImage.png') repeat;
+      padding: 60px 20px;
+      font-size: 1rem;
+      color: var(--deep-purple);
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* SECTION 3: Brattitude Loading */
+    .section-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+    }
+
+    .window {
+      border: 3px solid var(--teal);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+      background: var(--mint);
+      box-shadow: 5px 5px var(--lavender);
+    }
+
+    /* SECTION 4: Computer + Pinterest */
+    .section-computer {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .section-computer h2 {
+      color: var(--teal);
+      text-shadow: 0 0 10px rgba(0, 126, 143, 0.5);
+    }
+
+    .computer-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .computer-image {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+    }
+
+    .pinterest-embed {
+      position: absolute;
+      top: 14.5%;
+      left: 8.3%;
+      width: 42.7%;
+      height: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .pinterest-embed > * {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .pinterest-embed > a {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* SECTION 5: Desktop Folders */
+    .section-desktop {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 60px 20px;
+      gap: 40px;
+    }
+
+    .folder {
+      width: 100px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .folder img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 5px;
+    }
+
+    .folder span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--deep-purple);
+    }
+
+    /* SECTION 6: Footer */
+    .footer {
+      width: 100%;
+      height: 100px;
+      background: var(--lavender);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--black);
+    }
+
+    /* Retro glow effect for computer image */
+    .glow {
+      box-shadow: 0 0 15px var(--cyan), 0 0 30px var(--pink);
+    }
+
+    /* Responsive */
+    @media(max-width: 768px){
+      nav ul {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .section-desktop {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MENU -->
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+      <li>
+        <a href="#">Portfolio</a>
+        <ul>
+          <li><a href="#">Graphic Design</a></li>
+          <li><a href="#">Digital Art</a></li>
+          <li><a href="#">Writing</a></li>
+          <li><a href="#">Videos</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">Studio Ken</a></li>
+    </ul>
+  </nav>
+
+  <!-- SECTION 1: Hero Image -->
+  <section class="section-hero">
+    <img src="https://i.imgur.com/yourHeroImage.png" alt="Hero Image">
+  </section>
+
+  <!-- SECTION 2: Notebook -->
+  <section class="section-notebook">
+    <p>
+      Dear Diary, today I made this super cool website that looks like Windows in 2005! 
+      It's full of colors, folders, and fun stuff I want to show everyone. I can't wait for 
+      my friends to explore my portfolio, shop, and studio links. It's going to be epic!
+    </p>
+  </section>
+
+  <!-- SECTION 3: Brattitude Loading -->
+  <section class="section-loading">
+    <div class="window">Brattitude Loading...</div>
+  </section>
+
+  <!-- SECTION 4: Computer + Pinterest Embed -->
+  <section class="section-computer">
+    <h2>Follow Along: Live Content Updates</h2>
+    <div class="computer-wrapper">
+      <img
+        src="https://imgur.com/jzSsYHB.png"
+        alt="Computer Setup"
+        class="computer-image glow"
+      />
+      <div class="pinterest-embed">
+        <a
+          data-pin-do="embedBoard"
+          data-pin-board-width="651"
+          data-pin-scale-height="762"
+          data-pin-scale-width="80"
+          href="https://www.pinterest.com/pasteliume/mine/"
+        ></a>
+      </div>
+    </div>
+  </section>
+  <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+
+  <!-- SECTION 5: Desktop Folders -->
+  <section class="section-desktop">
+    <div class="folder">
+      <img src="https://i.imgur.com/folderIcon.png" alt="Documents">
+      <span>Documents</span>
+    </div>
+    <div class="folder">
+      <img src="https://i.imgur.com/folderIcon.png" alt="Photos">
+      <span>Photos</span>
+    </div>
+    <div class="folder">
+      <img src="https://i.imgur.com/folderIcon.png" alt="Videos">
+      <span>Videos</span>
+    </div>
+    <div class="folder">
+      <img src="https://i.imgur.com/folderIcon.png" alt="Summer 2005">
+      <span>Summer 2005</span>
+    </div>
+    <div class="folder">
+      <img src="https://i.imgur.com/youtubeIcon.png" alt="YouTube">
+      <span>YouTube</span>
+    </div>
+    <div class="folder">
+      <img src="https://i.imgur.com/tiktokIcon.png" alt="TikTok">
+      <span>TikTok</span>
+    </div>
+  </section>
+
+  <!-- SECTION 6: Footer -->
+  <footer class="footer">
+    <img src="https://i.imgur.com/footerMockup.png" alt="Footer Image">
+  </footer>
+
+</body>
+</html>
