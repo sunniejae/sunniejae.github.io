@@ -1,168 +1,172 @@
-<style>
-  :root {
-    /* 🌈 Core Brand Colors */
-    --primary-purple: #9a9ad4;
-    --primary-pink:   #c13886;
-    --primary-blue:   #00c9c2;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunnie Jae Creates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <style>
+    :root {
+      --purple: #9a9ad4;
+      --pink: #ff66cc;
+      --cyan: #02d1ca;
+      --magenta: #da70d6;
+      --dark-purple: #8b008b;
+      --lavender-mist: #e6e6fa;
+      --cloud-gray: #dcdcdc;
+    }
 
-    /* ✨ Variants */
-    --purple-light: #c7c4e6;
-    --purple-dark:  #6c6aa1;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-    --pink-light:   #e57ab1;
-    --pink-dark:    #8f2a62;
+    body {
+      background: linear-gradient(
+        to bottom,
+        rgba(230, 230, 250, 0.2) 0%,
+        rgba(220, 220, 220, 0.05) 100%
+      );
+      color: var(--dark-purple);
+      text-align: center;
+      line-height: 1.6;
+    }
 
-    --blue-light:   #66e4de;
-    --blue-dark:    #008b86;
+    header {
+      padding: 1.5rem;
+      background: var(--purple);
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-    /* ⚪ Neutrals */
-    --white: #faf8fc;
-    --gray-light: #e5e5f0;
-    --gray-mid:   #b3b3c6;
-    --gray-dark:  #4d4d66;
-    --black: #1a1a24;
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
 
-    /* 💿 Metallic Accents */
-    --silver: #d6d6eb;
-    --chrome: #b0b0c0;
-  }
+    nav {
+      margin-top: 0.5rem;
+    }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
 
-  body {
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--black);
-    color: var(--blue-light);
-    padding-top: 100px;
-    line-height: 1.6;
-    min-height: 100vh;
-    font-size: 1rem;
-  }
+    nav a:hover {
+      color: var(--pink);
+    }
 
-  /* HEADER */
-  .header {
-    background: var(--primary-blue);
-    border-bottom: 3px solid var(--blue-dark);
-    border-top: 1px solid var(--blue-dark);
-    box-shadow: inset 0 1px 0 var(--blue-light), 0 3px 6px rgba(0,0,0,0.4);
-  }
+    .hero {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, var(--pink), var(--magenta), var(--cyan));
+      color: white;
+      border-radius: 0 0 3rem 3rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
 
-  .logo-text {
-    color: var(--primary-purple);
-  }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
 
-  .nav-link {
-    background: var(--primary-purple);
-    border: 2px outset var(--primary-purple);
-    color: var(--black);
-  }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
 
-  .nav-link:hover {
-    background: var(--primary-pink);
-    border: 2px inset var(--primary-pink);
-    color: var(--black);
-  }
+    section {
+      padding: 4rem 2rem;
+    }
 
-  .dropdown-menu {
-    background: var(--blue-dark);
-    border: 2px outset var(--blue-dark);
-  }
+    section h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark-purple);
+    }
 
-  .dropdown-item {
-    color: var(--black);
-  }
+    .about {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
 
-  .dropdown-item:hover {
-    background: var(--primary-purple);
-    border: 1px outset var(--primary-blue);
-  }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
 
-  /* Sidebar */
-  .sidebar h2 {
-    color: var(--primary-purple);
-    text-shadow: 1px 1px 0 var(--black), 2px 2px 0 var(--blue-dark), 3px 3px 6px rgba(0,0,0,0.5);
-  }
+    .card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-  .folder-item {
-    background: var(--primary-purple);
-    border: 2px outset var(--primary-purple);
-    color: var(--black);
-  }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
 
-  .folder-item:hover {
-    background: var(--primary-pink);
-    border: 2px inset var(--primary-pink);
-    color: var(--black);
-  }
+    footer {
+      background: var(--purple);
+      padding: 2rem;
+      color: white;
+      margin-top: 3rem;
+    }
 
-  .social-item:hover {
-    background: var(--primary-blue);
-    border: 2px inset var(--primary-blue);
-    color: var(--black);
-  }
+    footer p {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sunnie Jae Creates</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  /* Notebook Section */
-  .section-notebook h2 {
-    color: var(--primary-pink);
-    text-shadow: 1px 1px 0 var(--pink-dark), 2px 2px 0 var(--primary-purple), 3px 3px 6px rgba(0,0,0,0.5);
-  }
+  <section class="hero">
+    <h2>Design. Story. Style.</h2>
+    <p>Welcome to the creative universe of Sunnie Jae — where Y2K vibes, bold colors, and dreamy storytelling collide in art, design, and media.</p>
+  </section>
 
-  .notebook-image {
-    border: 3px outset var(--purple-dark);
-  }
-  .notebook-image:hover {
-    border: 3px inset var(--purple-dark);
-  }
+  <section id="about">
+    <h3>About Me</h3>
+    <p class="about">
+      I’m Sunnie Jae — an artist, designer, and storyteller with a love for everything pastel, digital, and nostalgic.
+      My work blends Y2K-inspired graphics, playful layouts, and a touch of dreamy surrealism.
+    </p>
+  </section>
 
-  /* Computer Section */
-  .section-computer h2 {
-    color: var(--white);
-    text-shadow: 1px 1px 0 var(--blue-dark), 2px 2px 0 var(--primary-purple), 3px 3px 6px rgba(0,0,0,0.5);
-  }
+  <section id="gallery">
+    <h3>Featured Work</h3>
+    <div class="gallery">
+      <div class="card">🎨 Digital Art</div>
+      <div class="card">✨ Web Design</div>
+      <div class="card">🎥 Video Editing</div>
+      <div class="card">📷 Photography</div>
+    </div>
+  </section>
 
-  .computer-image {
-    border: 3px outset var(--blue-dark);
-  }
-
-  .pinterest-embed {
-    background: var(--pink-dark);
-  }
-
-  /* Footer */
-  .taskbar {
-    background: var(--blue-dark);
-    border-top: 2px solid var(--primary-blue);
-    border-bottom: 1px solid var(--primary-purple);
-    box-shadow: inset 0 1px 0 var(--blue-light), 0 -2px 4px rgba(0,0,0,0.3);
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar-track {
-    background: var(--primary-purple);
-    border: 1px inset var(--primary-purple);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--primary-pink);
-    border: 2px outset var(--primary-pink);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--purple-dark);
-    border: 2px inset var(--purple-dark);
-  }
-
-  ::-webkit-scrollbar-button {
-    background: var(--primary-blue);
-    border: 1px outset var(--primary-blue);
-  }
-
-  ::-webkit-scrollbar-button:hover {
-    background: var(--blue-dark);
-    border: 1px inset var(--blue-dark);
-  }
-</style>
+  <footer id="contact">
+    <p>© 2025 Sunnie Jae Creates | Made with 💜 + ☀️</p>
+  </footer>
+</body>
+</html>
