@@ -1,168 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunnie Jae Interactive Desktop</title>
 <style>
-  :root {
-    /* 🌈 Core Brand Colors */
-    --primary-purple: #9a9ad4;
-    --primary-pink:   #c13886;
-    --primary-blue:   #00c9c2;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-    /* ✨ Variants */
-    --purple-light: #c7c4e6;
-    --purple-dark:  #6c6aa1;
+:root {
+  --primary-purple: #9a9ad4;
+  --primary-pink: #c13886;
+  --primary-blue: #00c9c2;
+  --lavender-mist: #e6e0f8;
+  --cloud-gray: #f5f5f5;
+  --soft-teal: #02d1ca;
+  --hot-pink: #ff66cc;
+  --dark-indigo: #442269;
+  --deep-magenta: #6e0b41;
+  --teal: #007e8f;
+  --shadow: rgba(0,0,0,0.2);
+}
 
-    --pink-light:   #e57ab1;
-    --pink-dark:    #8f2a62;
+body {
+  margin: 0;
+  font-family: 'Verdana', sans-serif;
+  background: var(--cloud-gray);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
 
-    --blue-light:   #66e4de;
-    --blue-dark:    #008b86;
+/* ===== DRAGGABLE WINDOW STYLING ===== */
+.window {
+  position: absolute;
+  border: 2px solid var(--primary-purple);
+  background: var(--lavender-mist);
+  border-radius: 6px;
+  box-shadow: 0 10px 20px var(--shadow);
+  cursor: move;
+  z-index: 10;
+  min-width: 200px;
+  min-height: 100px;
+}
 
-    /* ⚪ Neutrals */
-    --white: #faf8fc;
-    --gray-light: #e5e5f0;
-    --gray-mid:   #b3b3c6;
-    --gray-dark:  #4d4d66;
-    --black: #1a1a24;
+.window-header {
+  background: var(--primary-blue);
+  color: white;
+  padding: 8px 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  cursor: move;
+}
 
-    /* 💿 Metallic Accents */
-    --silver: #d6d6eb;
-    --chrome: #b0b0c0;
+.window-content {
+  padding: 10px;
+  cursor: default;
+}
+
+.window-header .close-btn {
+  cursor: pointer;
+  background: var(--primary-pink);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+}
+
+.window-header .close-btn:hover {
+  background: var(--deep-magenta);
+}
+
+/* ===== FOLDER ICONS ===== */
+.folder {
+  position: absolute;
+  width: 80px;
+  text-align: center;
+  font-family: 'Verdana', sans-serif;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.folder:hover {
+  transform: scale(1.05);
+}
+
+.folder-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--primary-purple);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.folder-icon::before {
+  content: "📁";
+  font-size: 2rem;
+  color: white;
+}
+
+.folder p {
+  margin: 8px 0 0 0;
+  font-size: 0.75rem;
+  color: var(--dark-indigo);
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+/* ===== HEADER IMAGE ===== */
+.header-window {
+  width: 600px;
+  height: 200px;
+}
+
+.header-placeholder {
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(45deg, var(--primary-purple), var(--primary-pink));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 4px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ===== NOTEBOOK IMAGE ===== */
+.notebook {
+  position: absolute;
+  top: 280px;
+  left: 20px;
+  width: 400px;
+  height: 500px;
+  background: linear-gradient(45deg, #fff, #f9f9f9);
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  padding: 20px;
+  z-index: 1;
+}
+
+.notebook::before {
+  content: "📝 Notebook";
+  display: block;
+  font-size: 1.2rem;
+  color: var(--dark-indigo);
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.notebook::after {
+  content: "This is where your notes and ideas would appear...";
+  display: block;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* ===== COMPUTER SECTION ===== */
+.section-computer {
+  width: 600px;
+  height: 400px;
+}
+
+.computer-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #333, #555);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.computer-placeholder {
+  width: 80%;
+  height: 70%;
+  background: #222;
+  border-radius: 4px;
+  border: 3px solid #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-blue);
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* ===== DESKTOP TASKBAR ===== */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: var(--primary-purple);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.start-button {
+  background: var(--primary-pink);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.start-button:hover {
+  background: var(--deep-magenta);
+}
+
+.time-display {
+  margin-left: auto;
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .window {
+    max-width: 90vw;
+    max-height: 80vh;
   }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  
+  .folder {
+    width: 60px;
   }
-
-  body {
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--black);
-    color: var(--blue-light);
-    padding-top: 100px;
-    line-height: 1.6;
-    min-height: 100vh;
-    font-size: 1rem;
+  
+  .folder-icon {
+    width: 48px;
+    height: 48px;
   }
-
-  /* HEADER */
-  .header {
-    background: var(--primary-blue);
-    border-bottom: 3px solid var(--blue-dark);
-    border-top: 1px solid var(--blue-dark);
-    box-shadow: inset 0 1px 0 var(--blue-light), 0 3px 6px rgba(0,0,0,0.4);
+  
+  .folder-icon::before {
+    font-size: 1.5rem;
   }
-
-  .logo-text {
-    color: var(--primary-purple);
-  }
-
-  .nav-link {
-    background: var(--primary-purple);
-    border: 2px outset var(--primary-purple);
-    color: var(--black);
-  }
-
-  .nav-link:hover {
-    background: var(--primary-pink);
-    border: 2px inset var(--primary-pink);
-    color: var(--black);
-  }
-
-  .dropdown-menu {
-    background: var(--blue-dark);
-    border: 2px outset var(--blue-dark);
-  }
-
-  .dropdown-item {
-    color: var(--black);
-  }
-
-  .dropdown-item:hover {
-    background: var(--primary-purple);
-    border: 1px outset var(--primary-blue);
-  }
-
-  /* Sidebar */
-  .sidebar h2 {
-    color: var(--primary-purple);
-    text-shadow: 1px 1px 0 var(--black), 2px 2px 0 var(--blue-dark), 3px 3px 6px rgba(0,0,0,0.5);
-  }
-
-  .folder-item {
-    background: var(--primary-purple);
-    border: 2px outset var(--primary-purple);
-    color: var(--black);
-  }
-
-  .folder-item:hover {
-    background: var(--primary-pink);
-    border: 2px inset var(--primary-pink);
-    color: var(--black);
-  }
-
-  .social-item:hover {
-    background: var(--primary-blue);
-    border: 2px inset var(--primary-blue);
-    color: var(--black);
-  }
-
-  /* Notebook Section */
-  .section-notebook h2 {
-    color: var(--primary-pink);
-    text-shadow: 1px 1px 0 var(--pink-dark), 2px 2px 0 var(--primary-purple), 3px 3px 6px rgba(0,0,0,0.5);
-  }
-
-  .notebook-image {
-    border: 3px outset var(--purple-dark);
-  }
-  .notebook-image:hover {
-    border: 3px inset var(--purple-dark);
-  }
-
-  /* Computer Section */
-  .section-computer h2 {
-    color: var(--white);
-    text-shadow: 1px 1px 0 var(--blue-dark), 2px 2px 0 var(--primary-purple), 3px 3px 6px rgba(0,0,0,0.5);
-  }
-
-  .computer-image {
-    border: 3px outset var(--blue-dark);
-  }
-
-  .pinterest-embed {
-    background: var(--pink-dark);
-  }
-
-  /* Footer */
-  .taskbar {
-    background: var(--blue-dark);
-    border-top: 2px solid var(--primary-blue);
-    border-bottom: 1px solid var(--primary-purple);
-    box-shadow: inset 0 1px 0 var(--blue-light), 0 -2px 4px rgba(0,0,0,0.3);
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar-track {
-    background: var(--primary-purple);
-    border: 1px inset var(--primary-purple);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--primary-pink);
-    border: 2px outset var(--primary-pink);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--purple-dark);
-    border: 2px inset var(--purple-dark);
-  }
-
-  ::-webkit-scrollbar-button {
-    background: var(--primary-blue);
-    border: 1px outset var(--primary-blue);
-  }
-
-  ::-webkit-scrollbar-button:hover {
-    background: var(--blue-dark);
-    border: 1px inset var(--blue-dark);
-  }
+}
 </style>
+</head>
+<body>
+
+<!-- HEADER IMAGE WINDOW -->
+<div class="window header-window" style="top:20px; left:50px;">
+  <div class="window-header">
+    <span>Sunnie Jae Header</span>
+    <button class="close-btn" onclick="closeWindow(this)">×</button>
+  </div>
+  <div class="window-content">
+    <div class="header-placeholder">
+      ✨ Sunnie Jae Portfolio ✨
+    </div>
+  </div>
+</div>
+
+<!-- NOTEBOOK BACKGROUND -->
+<div class="notebook"></div>
+
+<!-- COMPUTER SECTION -->
+<div class="window section-computer" style="top:150px; left:500px;">
+  <div class="window-header">
+    <span>Desktop Computer</span>
+    <button class="close-btn" onclick="closeWindow(this)">×</button>
+  </div>
+  <div class="window-content">
+    <div class="computer-wrapper">
+      <div class="computer-placeholder">
+        💻 Interactive Desktop
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOLDERS -->
+<div class="folder" style="top:20px; left:50px;" onclick="openFolder('Downloads')">
+  <div class="folder-icon" style="background: var(--primary-blue);"></div>
+  <p>Downloads</p>
+</div>
+
+<div class="folder" style="top:20px; left:150px;" onclick="openFolder('Documents')">
+  <div class="folder-icon" style="background: var(--primary-pink);"></div>
+  <p>Documents</p>
+</div>
+
+<div class="folder" style="top:20px; left:250px;" onclick="openFolder('Photos')">
+  <div class="folder-icon" style="background: var(--soft-teal);">
+    <div style="color: white; font-size: 2rem;">🖼️</div>
+  </div>
+  <p>Photos</p>
+</div>
+
+<div class="folder" style="top:20px; left:350px;" onclick="openFolder('Videos')">
+  <div class="folder-icon" style="background: var(--hot-pink);">
+    <div style="color: white; font-size: 2rem;">🎥</div>
+  </div>
+  <p>Videos</p>
+</div>
+
+<div class="folder" style="top:20px; left:450px;" onclick="openFolder('Internet')">
+  <div class="folder-icon" style="background: var(--teal);">
+    <div style="color: white; font-size: 2rem;">🌐</div>
+  </div>
+  <p>Internet</p>
+</div>
+
+<!-- TASKBAR -->
+<div class="taskbar">
+  <button class="start-button" onclick="showStartMenu()">START</button>
+  <div class="time-display" id="timeDisplay">12:00 PM</div>
+</div>
+
+<script>
+// DRAGGABLE WINDOWS AND FOLDERS
+let draggedElement = null;
+let offset = { x: 0, y: 0 };
+
+function makeDraggable(element) {
+  const header = element.querySelector('.window-header');
+  const dragHandle = header || element;
+  
+  dragHandle.addEventListener('mousedown', startDrag);
+  
+  function startDrag(e) {
+    if (e.target.classList.contains('close-btn')) return;
+    
+    draggedElement = element;
+    const rect = element.getBoundingClientRect();
+    offset.x = e.clientX - rect.left;
+    offset.y = e.clientY - rect.top;
+    
+    element.style.zIndex = 1000;
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+    e.preventDefault();
+  }
+  
+  function drag(e) {
+    if (!draggedElement) return;
+    
+    const x = e.clientX - offset.x;
+    const y = e.clientY - offset.y;
+    
+    // Keep within viewport bounds
+    const maxX = window.innerWidth - draggedElement.offsetWidth;
+    const maxY = window.innerHeight - draggedElement.offsetHeight - 40; // Account for taskbar
+    
+    draggedElement.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
+    draggedElement.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+  }
+  
+  function stopDrag() {
+    draggedElement = null;
+    document.removeEventListener('mousemove', drag);
+    document.removeEventListener('mouseup', stopDrag);
+  }
+}
+
+// Initialize draggable elements
+document.querySelectorAll('.window, .folder').forEach(makeDraggable);
+
+// WINDOW MANAGEMENT
+function closeWindow(button) {
+  const window = button.closest('.window');
+  window.style.display = 'none';
+}
+
+// FOLDER FUNCTIONALITY
+function openFolder(folderName) {
+  const content = getFolderContent(folderName);
+  createWindow(`📁 ${folderName}`, content, 400, 300);
+}
+
+function getFolderContent(folderName) {
+  const contents = {
+    'Downloads': '<p>🔽 Recent Downloads:</p><ul><li>project_files.zip</li><li>portfolio_images.rar</li><li>music_collection.mp3</li></ul>',
+    'Documents': '<p>📄 Document Files:</p><ul><li>resume.docx</li><li>portfolio.pdf</li><li>notes.txt</li></ul>',
+    'Photos': '<p>📸 Image Gallery:</p><ul><li>vacation_2024/</li><li>portraits/</li><li>artwork/</li></ul>',
+    'Videos': '<p>🎬 Video Files:</p><ul><li>projects/</li><li>tutorials/</li><li>memories/</li></ul>',
+    'Internet': '<p>🌐 Bookmarks:</p><ul><li><a href="#" onclick="alert(\'Opening portfolio site...\')">Portfolio Website</a></li><li><a href="#" onclick="alert(\'Opening social media...\')">Social Media</a></li></ul>'
+  };
+  return contents[folderName] || '<p>Empty folder</p>';
+}
+
+function createWindow(title, content, width = 400, height = 300) {
+  const windowId = 'window_' + Date.now();
+  const windowHTML = `
+    <div class="window" id="${windowId}" style="width:${width}px; height:${height}px; top:100px; left:200px;">
+      <div class="window-header">
+        <span>${title}</span>
+        <button class="close-btn" onclick="closeWindow(this)">×</button>
+      </div>
+      <div class="window-content">
+        ${content}
+      </div>
+    </div>
+  `;
+  
+  document.body.insertAdjacentHTML('beforeend', windowHTML);
+  const newWindow = document.getElementById(windowId);
+  makeDraggable(newWindow);
+}
+
+// START MENU
+function showStartMenu() {
+  const startMenuContent = `
+    <div style="padding: 20px;">
+      <h3 style="margin-top: 0; color: var(--dark-indigo);">🚀 Quick Launch</h3>
+      <button onclick="openFolder('Documents')" style="display: block; width: 100%; margin: 5px 0; padding: 10px; border: none; background: var(--primary-blue); color: white; border-radius: 4px; cursor: pointer;">📄 Documents</button>
+      <button onclick="openFolder('Photos')" style="display: block; width: 100%; margin: 5px 0; padding: 10px; border: none; background: var(--soft-teal); color: white; border-radius: 4px; cursor: pointer;">📸 Photos</button>
+      <button onclick="openFolder('Internet')" style="display: block; width: 100%; margin: 5px 0; padding: 10px; border: none; background: var(--teal); color: white; border-radius: 4px; cursor: pointer;">🌐 Internet</button>
+      <hr style="margin: 15px 0; border: 1px solid #ddd;">
+      <button onclick="alert('System info would appear here')" style="display: block; width: 100%; margin: 5px 0; padding: 10px; border: none; background: var(--primary-purple); color: white; border-radius: 4px; cursor: pointer;">ℹ️ About</button>
+    </div>
+  `;
+  createWindow('🏠 Start Menu', startMenuContent, 250, 300);
+}
+
+// TIME DISPLAY
+function updateTime() {
+  const now = new Date();
+  const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('timeDisplay').textContent = timeString;
+}
+
+setInterval(updateTime, 1000);
+updateTime();
+
+// PREVENT DEFAULT DRAG BEHAVIOR
+document.addEventListener('dragstart', e => e.preventDefault());
+</script>
+
+</body>
+</html>
