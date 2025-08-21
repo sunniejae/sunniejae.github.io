@@ -1,568 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shop Sunnie Jae</title>
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
-  />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    /* Root Colors */
+    /* Root Color Palette */
     :root {
-      --primary-purple: #d2baff;
-      --hot-pink: #ff68b5;
-      --soft-lavender: #f6e6f9;
-      --pink-light: #ffaee0;
-      --cream: #faf8fc;
-      --dark: #130d16;
-      --teal: #34dae1;
-      --blue: #418ede;
-      --purple-mid: #9f76ca;
-      --white: #ffffff;
-      --gray-light: #f5f5f5;
-      --gray-dark: #666666;
+      --purple: #9a9ad4;              
+      --pink: #ff66cc;                 
+      --cyan: #02d1ca;                 
+      --magenta: #da70d6;              
+      --dark-purple: #8b008b;          
+      --pale-pink: #ffb3e6;            
+      --lilac: #dda0dd;                
+      --white: #ffffff;                
+      --light-gray: #e6e6fa;           
+      --gray: #663399;                 
+      --silver: #c0c0c0;               
+      --dark-gray: #4b0082;            
+      --black: #1a0d1f;                
     }
 
-    /* Reset */
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(
-        135deg,
-        var(--soft-lavender) 0%,
-        var(--purple-mid) 50%,
-        var(--dark) 100%
-      );
-      min-height: 100vh;
-      color: var(--dark);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      font-family: 'Roboto', sans-serif;
+      background: var(--lilac);
+      color: var(--dark-purple);
     }
 
-    /* Header Navigation */
-    .top-nav {
-      background: var(--white);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid rgba(159, 118, 202, 0.1);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
+    header {
+      background: var(--purple);
+      color: var(--white);
+      padding: 1rem 2rem;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
-      height: 70px;
+      align-items: center;
     }
 
-    .logo {
+    header h1 {
       font-size: 1.8rem;
-      font-weight: bold;
-      background: linear-gradient(
-        45deg,
-        var(--hot-pink),
-        var(--purple-mid),
-        var(--teal)
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    }
+
+    nav a {
+      color: var(--white);
       text-decoration: none;
-      letter-spacing: -0.5px;
-      user-select: none;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      align-items: center;
-      gap: 0;
-    }
-
-    .nav-links li {
-      position: relative;
-    }
-
-    .nav-links a {
-      display: block;
-      padding: 25px 20px;
-      text-decoration: none;
-      color: var(--dark);
+      margin-left: 1.5rem;
       font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      border-bottom: 3px solid transparent;
+      transition: color 0.3s;
     }
 
-    .nav-links a:hover {
-      color: var(--hot-pink);
-      border-bottom: 3px solid var(--hot-pink);
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(255, 104, 181, 0.05) 100%
-      );
+    nav a:hover {
+      color: var(--magenta);
     }
 
-    .nav-links a.active {
-      color: var(--purple-mid);
-      border-bottom: 3px solid var(--purple-mid);
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(159, 118, 202, 0.08) 100%
-      );
-    }
-
-    .nav-icons {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .nav-icon {
-      font-size: 1.3rem;
-      color: var(--gray-dark);
-      transition: color 0.3s ease, transform 0.2s ease;
-      cursor: pointer;
-    }
-
-    .nav-icon:hover {
-      color: var(--hot-pink);
-      transform: scale(1.1);
-    }
-
-    /* Mobile Navigation */
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--dark);
-      cursor: pointer;
-    }
-
-    .mobile-nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--white);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      z-index: 999;
-    }
-
-    .mobile-nav.active {
-      display: block;
-    }
-
-    .mobile-nav ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .mobile-nav a {
-      display: block;
-      padding: 15px 20px;
-      color: var(--dark);
-      text-decoration: none;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--gray-light);
-      transition: all 0.3s ease;
-    }
-
-    .mobile-nav a:hover {
-      background: var(--gray-light);
-      color: var(--hot-pink);
-      padding-left: 30px;
-    }
-
-    /* Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* Header */
-    .header {
+    .hero {
+      background: var(--black);
+      color: var(--white);
       text-align: center;
-      margin-bottom: 40px;
-      padding: 40px 0;
+      padding: 6rem 2rem;
     }
 
-    .header h1 {
-      font-size: 3rem;
-      font-weight: bold;
-      background: linear-gradient(
-        45deg,
-        var(--hot-pink),
-        var(--purple-mid),
-        var(--teal)
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      user-select: none;
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
 
-    .header p {
+    .hero p {
       font-size: 1.2rem;
-      color: var(--purple-mid);
-      max-width: 600px;
-      margin: 0 auto;
     }
 
-    /* Shop Grid */
-    .shop-grid {
+    .section-products {
+      padding: 4rem 2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
     }
 
-    /* Product Cards */
     .product-card {
       background: var(--white);
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(159, 118, 202, 0.1);
-      border: 1px solid transparent;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      position: relative;
+      border-radius: 8px;
       overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
     }
 
     .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(159, 118, 202, 0.25);
-      border-color: var(--hot-pink);
+      transform: translateY(-5px);
     }
 
-    .product-card h2 {
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-      color: var(--purple-mid);
-      font-weight: 600;
-      position: relative;
-      user-select: none;
-    }
-
-    .product-card h2::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 3px;
-      background: var(--hot-pink);
-      border-radius: 3px;
-      transition: width 0.3s ease;
-    }
-
-    .product-card:hover h2::after {
-      width: 60px;
-    }
-
-    .product-card p {
-      color: var(--dark);
-      margin-bottom: 25px;
-      line-height: 1.5;
-      user-select: none;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      padding: 12px 28px;
-      margin: 8px 6px;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      border: none;
-      user-select: none;
-    }
-
-    .btn-primary {
-      background: var(--hot-pink);
-      color: white;
-      box-shadow: 0 6px 15px rgba(255, 104, 181, 0.3);
-    }
-
-    .btn-primary:hover {
-      background: var(--pink-light);
-      box-shadow: 0 8px 25px rgba(255, 104, 181, 0.5);
-    }
-
-    .btn-secondary {
-      background: var(--teal);
-      color: white;
-      box-shadow: 0 6px 15px rgba(52, 218, 225, 0.3);
-    }
-
-    .btn-secondary:hover {
-      background: #2bbac9;
-      box-shadow: 0 8px 25px rgba(52, 218, 225, 0.5);
-    }
-
-    .btn-accent {
-      background: var(--primary-purple);
-      color: var(--dark);
-      box-shadow: 0 6px 15px rgba(210, 186, 255, 0.3);
-    }
-
-    .btn-accent:hover {
-      background: #cbb0ff;
-      box-shadow: 0 8px 25px rgba(210, 186, 255, 0.5);
-    }
-
-    /* Featured Section */
-    .featured-section {
-      background: var(--white);
-      border-radius: 15px;
-      padding: 40px 30px;
-      margin: 40px 0;
-      text-align: center;
-      box-shadow: 0 6px 25px rgba(159, 118, 202, 0.15);
-      border: 1px solid transparent;
-      transition: border-color 0.3s ease;
-      user-select: none;
-    }
-
-    .featured-section:hover {
-      border-color: var(--hot-pink);
-    }
-
-    .featured-section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      color: var(--purple-mid);
-      font-weight: 600;
-    }
-
-    .featured-section p {
-      margin-bottom: 20px;
-      color: var(--purple-mid);
-      font-size: 1.1rem;
-    }
-
-    .redbubble-embed {
-      background: var(--cream);
-      border-radius: 15px;
-      padding: 20px;
-      margin: 20px auto 0;
-      box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.05);
-      max-width: 520px;
-    }
-
-    .redbubble-embed iframe {
-      border-radius: 10px;
+    .product-card img {
       width: 100%;
-      height: 529px;
-      border: none;
+      display: block;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
+    .product-info {
+      padding: 1rem;
+    }
 
-      .mobile-menu-btn {
-        display: block;
-      }
+    .product-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark-purple);
+    }
 
-      .header h1 {
-        font-size: 2.2rem;
-      }
+    .product-info p {
+      font-size: 0.95rem;
+      color: var(--dark-gray);
+      margin-bottom: 0.5rem;
+    }
 
-      .shop-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
+    .product-info span {
+      font-weight: 700;
+      color: var(--pink);
+    }
 
-      .product-card {
-        padding: 20px;
-      }
+    footer {
+      background: var(--purple);
+      color: var(--white);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
 
-      .btn {
-        padding: 10px 22px;
-        margin: 6px 4px;
-      }
-
-      .nav-container {
-        padding: 0 15px;
-      }
-
-      .logo {
-        font-size: 1.5rem;
-      }
+    footer a {
+      color: var(--magenta);
+      text-decoration: none;
+      margin: 0 0.5rem;
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Header -->
-  <nav class="top-nav">
-    <div class="nav-container">
-      <a href="https://sunniejae.github.io" class="logo">SunnieJae</a>
 
-      <ul class="nav-links">
-        <li><a href="https://sunniejae.github.io/index.html">Home</a></li>
-        <li><a href="https://sunniejae.github.io/profile-info.html">About</a></li>
-        <li><a href="https://sunniejae.github.io/portfolio.html">Portfolio</a></li>
-        <li><a href="https://sunniejae.github.io/studio-ken.html">Studio Ken</a></li>
-        <li><a href="#" class="active">Shop</a></li>
-        <li><a href="https://sunniejae.github.io/contact.html">Contact</a></li>
-      </ul>
+  <header>
+    <h1>Sunnie Jae</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">New Arrivals</a>
+      <a href="#">Collections</a>
+      <a href="#">Sale</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-      <div class="nav-icons">
-        <div class="nav-icon" title="Search">
-          <i class="fas fa-search"></i>
-        </div>
-        <div class="nav-icon" title="Wishlist">
-          <i class="fas fa-heart"></i>
-        </div>
-        <div class="nav-icon" title="Bag">
-          <i class="fas fa-shopping-bag"></i>
-        </div>
-      </div>
+  <section class="hero">
+    <h2>Shop Sunnie Jae</h2>
+    <p>buy my art or read my books</p>
+  </section>
 
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-
-    <div class="mobile-nav" id="mobileNav">
-      <ul>
-        <li><a href="https://sunniejae.github.io/index.html">Home</a></li>
-        <li><a href="https://sunniejae.github.io/profile-info.html">About</a></li>
-        <li><a href="https://sunniejae.github.io/portfolio.html">Portfolio</a></li>
-        <li><a href="https://sunniejae.github.io/studio-ken.html">Studio Ken</a></li>
-        <li><a href="#" class="active">Shop</a></li>
-        <li><a href="https://sunniejae.github.io/contact.html">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h1>✨ Creative Shop ✨</h1>
-      <p>
-        Discover unique designs, books, and curated finds - all in one fabulous
-        place!
-      </p>
-    </div>
-
-    <!-- Shop Grid -->
-    <div class="shop-grid">
-      <!-- Apparel & Gifts Card -->
-      <div class="product-card">
-        <h2><strong>Apparel & Gifts</strong></h2>
-        <p>
-          Purchase designs on anything from notebooks to shower curtains to
-          stickers... all with my art!
-        </p>
-        <p><em>Kinda cool, right?</em></p>
-        <a
-          href="https://www.redbubble.com/people/ratqueenjaymeow/explore?asc=u&page=1&sortOrder=recent"
-          class="btn btn-primary"
-          target="_blank"
-          rel="noopener"
-          ><i class="fas fa-shopping-bag"></i> Shop Redbubble</a
-        >
-      </div>
-
-      <!-- Hardcopy Prints Card -->
-      <div class="product-card">
-        <h2>Hardcopy Prints</h2>
-        <p>I'm (technically?) a published author! Purchase from my bookstore, or read for free online</p>
-        <a
-          class="btn btn-secondary"
-          href="http://www.wattpad.com/user/lisataylorwrites"
-          target="_blank"
-          rel="noopener"
-          ><i class="fas fa-book-open"></i> Free to Read</a
-        >
-        <a
-          href="https://www.amazon.com/stores/Lisa-Taylor/author/B0BLF45YYF?ref=ap_rdr&isDramIntegrated=true&shoppingPortalEnabled=true"
-          class="btn btn-primary"
-          target="_blank"
-          rel="noopener"
-          ><i class="fab fa-amazon"></i> Amazon Bookstore</a
-        >
-      </div>
-
-      <!-- Amazon Affiliate Card -->
-      <div class="product-card">
-        <h2 style="color: var(--purple-mid);">Amazon Affiliate Storefront</h2>
-        <p>I also have these; my designs and other things I like</p>
-        <a
-          class="btn btn-accent"
-          href="http://www.amazon.com/shop/influencer-daddf231?ref=ac_inf_tb_vh"
-          target="_blank"
-          rel="noopener"
-          ><i class="fas fa-store"></i> Influencer Storefront</a
-        >
-        <a
-          href="https://www.amazon.com/shop/influencer-daddf231/list/289HTFNOY1ZES?ref_=aip_sf_list_spv_ons_mixed_d"
-          class="btn btn-primary"
-          target="_blank"
-          rel="noopener"
-          ><i class="fas fa-palette"></i> Personal Designs</a
-        >
+  <section class="section-products">
+    <div class="product-card">
+      <img src="https://imgur.com/5fjM6QN.png" alt="Product 1">
+      <div class="product-info">
+        <h3>Product</h3>
+        <p>****info placeholder</p>
+        <span>$Price</span>
       </div>
     </div>
-
-    <!-- Featured Redbubble Section -->
-    <div class="featured-section">
-      <h2><strong>✨ Redbubble Feed ✨</strong></h2>
-      <p>Check out my latest creations!</p>
-
-      <div class="redbubble-embed">
-        <script
-          type="text/javascript"
-          src="https://www.redbubble.com/assets/external_portfolio.js"
-        ></script>
-        <iframe
-          src="https://www.redbubble.com/people/sunniejae/external-portfolio?count=6"
-          allowtransparency="true"
-          scrolling=yes"
-        ></iframe>
+    <div class="product-card">
+      <img src="https://imgur.com/5fjM6QN.png" alt="Product 2">
+      <div class="product-info">
+        <h3>Product</h3>
+        <p>****info placeholder</p>
+        <span>$Price</span>
       </div>
     </div>
-  </div>
+    <div class="product-card">
+      <img src="https://imgur.com/5fjM6QN.png" alt="Product 3">
+      <div class="product-info">
+        <h3>Product</h3>
+        <p>****info placeholder</p>
+        <span>$Price</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="https://imgur.com/5fjM6QN.png" alt="Product 4">
+      <div class="product-info">
+        <h3>Product</h3>
+        <p>****info placeholder</p>
+        <span>$Price</span>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    // Mobile menu toggle
-    function toggleMobileMenu() {
-      const mobileNav = document.getElementById('mobileNav');
-      mobileNav.classList.toggle('active');
-    }
-  </script>
+  <footer>
+    <p>&copy; 2025 Pasteliume Shop. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
