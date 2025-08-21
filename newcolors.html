@@ -50,7 +50,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1400px; 
+      max-width: 1400px; /* Increased max width */
       margin: 0 auto;
       padding: 0 30px;
       width: 100%;
@@ -222,7 +222,7 @@
 
     .section-notebook h2 {
       font-family: 'Press Start 2P', monospace;
-      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-size: clamp(1.2rem, 3vw, 1.8rem); /* Responsive font size */
       color: #ff66cc;
       margin-bottom: 30px;
       text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #442269, 3px 3px 6px rgba(0, 0, 0, 0.5);
@@ -255,7 +255,7 @@
 
     .section-computer h2 {
       font-family: 'Press Start 2P', monospace;
-      font-size: clamp(1.2rem, 3vw, 1.8rem); 
+      font-size: clamp(1.2rem, 3vw, 1.8rem); /* Responsive font size */
       color: #02d1ca;
       margin-bottom: 30px;
       text-shadow: 1px 1px 0 #007e8f, 2px 2px 0 #442269, 3px 3px 6px rgba(0, 0, 0, 0.5);
@@ -290,7 +290,6 @@
       overflow: hidden;
       border-radius: 0px;
       background: #6e0b41;
-      border: 2px inset #6e0b41;
     }
 
     .pinterest-embed > * {
@@ -321,9 +320,9 @@
 
     .folders-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Increased minimum size */
       gap: 30px;
-      max-width: 1000px; 
+      max-width: 1000px; /* Increased max width */
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -339,7 +338,7 @@
       transition: all 0.1s ease;
       background: #9a9ad4;
       border: 2px outset #9a9ad4;
-      min-height: 140px; 
+      min-height: 140px; /* Minimum height */
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       margin: 2px;
     }
@@ -378,7 +377,7 @@
     }
 
     .folder-label {
-      font-size: 0.95rem; 
+      font-size: 0.95rem; /* Slightly larger font */
       font-weight: 500;
       text-align: center;
       line-height: 1.4;
@@ -390,7 +389,7 @@
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 95%;
+      width: 100%;
       z-index: 999;
       background: #007e8f;
       border-top: 2px solid #02d1ca;
@@ -400,7 +399,7 @@
     }
 
     .taskbar-content {
-      max-width: 1400px; 
+      max-width: 1400px; /* Increased max width */
       margin: 0 auto;
       padding: 0 30px;
       display: flex;
@@ -519,11 +518,11 @@
 
       .folders-container {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 20px;
+        gap: 15px;
       }
 
       .folder-item {
-        padding: 15px;
+        padding: 12px;
         min-height: 120px;
       }
 
@@ -541,7 +540,8 @@
         width: 100%;
         height: 300px;
         margin: 20px 0;
-        border-radius: 15px;
+        border-radius: 0px;
+        border: 2px inset #6e0b41;
       }
 
       .computer-image {
