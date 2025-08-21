@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunnie Jae Creates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #130d16;
+      color: #b63881;
+      overflow-x: hidden;
+      padding-top: 100px;
+      line-height: 1.6;
+    }
+
+    /* HEADER NAVIGATION STYLES */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(19, 13, 22, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 2px solid rgba(159, 118, 202, 0.3);
+      z-index: 1000;
+      padding: 15px 0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+      border-radius: 2px;
+      box-shadow: 0 4px 16px rgba(255, 104, 181, 0.2);
+    }
+
+    .logo-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.2rem;
+      color: #ff66cc;
+      text-shadow: 0 0 10px rgba(255, 104, 181, 0.5);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: #ff66cc;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 12px 20px;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      background: rgba(246, 230, 249, 0.05);
+      border: 1px solid rgba(246, 230, 249, 0.1);
+    }
+
+    .nav-link:hover {
+      background: #ff66cc;
+      color: #130d16;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 104, 181, 0.4);
+      border-color: transparent;
+    }
+
+    /* Dropdown styles */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      background: rgba(19, 13, 22, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(246, 230, 249, 0.1);
+      border-radius: 4px;
+      min-width: 220px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1001;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      padding: 8px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      color: #ff66cc;
+      text-decoration: none;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      border-radius: 2px;
+      margin: 2px 0;
+      transition: all 0.2s ease;
+      font-weight: 400;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(65, 142, 222, 0.15);
+      color: #1e1688;
+      transform: translateX(5px);
+    }
+
+    /* Mobile toggle */
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+      padding: 8px;
+    }
+
+    .mobile-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #ff66cc;
+      border-radius: 0px;
+      transition: all 0.3s ease;
+    }
+
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* Section 1: Title Banner */
+    .section-title {
+      width: 100%;
+      height: 500px;
+      background-image: url('https://imgur.com/Lm3rLQN.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 4px;
+      margin: 30px 0;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 174, 224, 0.08);
+      border-radius: 4px;
+    }
+
+    /* Section 2: Notebook */
+    .section-notebook {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .section-notebook h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.8rem;
+      color: #ff66cc;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(255, 104, 181, 0.5);
+    }
+
+    .notebook-image {
+      width: 90%;
+      max-width: 800px;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(159, 118, 202, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .notebook-image:hover {
+      transform: scale(1.02) rotateZ(1deg);
+    }
+
+    /* Section 3: Computer with Pinterest */
+    .section-computer {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .section-computer h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.8rem;
+      color: #1e1688;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(65, 142, 222, 0.5);
+    }
+
+    .computer-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .computer-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+    }
+
+    .pinterest-embed {
+      position: absolute;
+      top: 14.5%;
+      left: 8.3%;
+      width: 42.7%;
+      height: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .pinterest-embed > * {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .pinterest-embed > a {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Section 4: Folders and Social Icons */
+    .section-folders {
+      padding: 60px 0 120px 0;
+    }
+
+    .section-folders h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.8rem;
+      color: #9a9ad4;
+      margin-bottom: 40px;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(210, 186, 255, 0.5);
+    }
+
+    .folders-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .folder-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #b63881;
+      padding: 20px;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(246, 230, 249, 0.05);
+      border: 1px solid rgba(246, 230, 249, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .folder-item:hover {
+      transform: translateY(-8px) scale(1.05);
+      background: rgba(255, 174, 224, 0.15);
+      border-color: rgba(255, 174, 224, 0.3);
+      box-shadow: 0 15px 40px rgba(255, 174, 224, 0.2);
+    }
+
+    .social-item:hover {
+      background: rgba(52, 218, 225, 0.15);
+      border-color: rgba(52, 218, 225, 0.3);
+      box-shadow: 0 15px 40px rgba(52, 218, 225, 0.2);
+    }
+
+    .folder-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 2px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+      object-fit: contain;
+      background: rgba(246, 230, 249, 0.1);
+      padding: 10px;
+    }
+
+    .folder-item:hover img {
+      transform: scale(1.1) rotateZ(5deg);
+    }
+
+    .folder-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
+    }
+
+    /* FOOTER / TASKBAR */
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      background: rgba(19, 13, 22, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(246, 230, 249, 0.1);
+      height: 60px;
+    }
+
+    .taskbar-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .taskbar-image {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* Loading animation for Pinterest embed */
+    .pinterest-embed::before {
+      content: "Loading Live Feed...";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #9f76ca;
+      font-size: 0.9rem;
+      z-index: -1;
+      font-weight: 300;
+    }
+
+    /* Enhanced Visual Effects */
+    .glow {
+      position: relative;
+    }
+
+    .glow::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: #ffaee0;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .glow:hover::before {
+      opacity: 0.3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(19, 13, 22, 0.98);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(246, 230, 249, 0.1);
+        flex-direction: column;
+        padding: 20px;
+        gap: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+
+      .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        margin-left: 0;
+        margin-top: 10px;
+      }
+
+      .main-content {
+        padding: 0 20px;
+      }
+
+      .nav-container {
+        padding: 0 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 80px;
+      }
+
+      .section-title {
+        height: 300px;
+        margin: 20px 0;
+      }
+
+      .section-notebook h2,
+      .section-computer h2,
+      .section-folders h2 {
+        font-size: 1.2rem;
+      }
+
+      .folders-container {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 20px;
+      }
+
+      .folder-item {
+        padding: 15px;
+      }
+
+      .folder-item img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .folder-label {
+        font-size: 0.8rem;
+      }
+
+      .pinterest-embed {
+        position: static;
+        width: 100%;
+        height: 300px;
+        margin: 20px 0;
+        border-radius: 15px;
+      }
+
+      .computer-image {
+        margin-bottom: 20px;
+      }
+
+      .taskbar {
+        height: 50px;
+      }
+
+      .taskbar-image {
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 0 15px;
+      }
+
+      .nav-container {
+        padding: 0 15px;
+      }
+
+      .logo-text {
+        font-size: 0.8rem;
+      }
+
+      .logo img {
+        height: 35px;
+      }
+
+      .folders-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .taskbar-content {
+        padding: 0 15px;
+      }
+
+      .taskbar {
+        height: 45px;
+      }
+
+      .taskbar-image {
+        height: 35px;
+      }
+    }
+
+    /* Smooth scrolling and animations */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-notebook,
+    .section-computer,
+    .section-folders {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(246, 230, 249, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #ff66cc, #1e1688);
+      border-radius: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #1e1688, #ff66cc);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="#" class="logo glow">
+        <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae Creates Logo">
+        <span class="logo-text">Sunnie Jae</span>
+      </a>
+      
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item">
+          <a href="#home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="contact.html" class="nav-link">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a href="profile-info.html" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="shop.html" class="nav-link">Shop</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#portfolio" class="nav-link dropdown-toggle">Portfolio ▼</a>
+          <div class="dropdown-menu">
+            <a href="graphic-design.html" class="dropdown-item">Graphic Design</a>
+            <a href="digital-art.html" class="dropdown-item">Digital Art</a>
+            <a href="videos.html" class="dropdown-item">Videos</a>
+            <a href="writing.html" class="dropdown-item">Writing</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="studio-ken.html" class="nav-link">Studio Ken</a>
+        </li>
+      </ul>
+
+      <div class="mobile-toggle" id="mobileToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <!-- SECTION 1: TITLE -->
+    <section class="section-title glow" id="home"></section>
+
+    <!-- SECTION 2: NOTEBOOK -->
+    <section class="section-notebook">
+      <h2>...brattitude loading...</h2>
+      <img src="https://imgur.com/VuoO3dN.png" alt="Creative Notebook" class="notebook-image glow">
+    </section>
+    
+    <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
+    <section class="section-computer">
+      <h2>Follow Along: Live Content Updates</h2>
+      <div class="computer-wrapper">
+        <img
+          src="https://imgur.com/jzSsYHB.png"
+          alt="Computer Setup"
+          class="computer-image glow"
+        />
+        <div class="pinterest-embed">
+          <a
+            data-pin-do="embedBoard"
+            data-pin-board-width="651"
+            data-pin-scale-height="762"
+            data-pin-scale-width="80"
+            href="https://www.pinterest.com/pasteliume/mine/"
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: FOLDERS AND SOCIAL ICONS -->
+    <section class="section-folders" id="portfolio">
+      <h2>Desktop Folders</h2>
+      <div class="folders-container">
+        <a href="writing.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Fanfiction">
+          <span class="folder-label">Documents</span>
+        </a>
+        
+        <a href="videos.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Videos">
+          <span class="folder-label">Videos</span>
+        </a>
+        
+        <a href="games.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Games">
+          <span class="folder-label">Games</span>
+        </a>
+        
+        <a href="summer05.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Summer 2005">
+          <span class="folder-label">Summer 2005</span>
+        </a>
+        
+        <a href="photos.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Photos">
+          <span class="folder-label">Photos</span>
+        </a>
+        
+        <a href="downloads.html" class="folder-item glow">
+          <img src="https://imgur.com/XRXG5tA.png" alt="Downloads">
+          <span class="folder-label">Downloads</span>
+        </a>
+        
+        <a href="youtube.html" class="folder-item social-item glow">
+          <img src="https://imgur.com/Bh4p6mj.png" alt="YouTube">
+          <span class="folder-label">YouTube</span>
+        </a>
+        
+        <a href="tiktok.html" class="folder-item social-item glow">
+          <img src="https://imgur.com/MhKNywk.png" alt="TikTok">
+          <span class="folder-label">TikTok</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER / TASKBAR -->
+  <footer class="taskbar">
+    <div class="taskbar-content">
+      <img src="https://imgur.com/CZWdUJM.png" alt="Footer Logo" class="taskbar-image">
+    </div>
+  </footer>
+
+  <!-- Pinterest JS -->
+  <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+  
+  <!-- Mobile Navigation Toggle -->
+  <script>
+    document.getElementById('mobileToggle').addEventListener('click', function() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+      
+      // Animate hamburger menu
+      const spans = this.getElementsByTagName('span');
+      if (navMenu.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const navMenu = document.getElementById('navMenu');
+        const mobileToggle = document.getElementById('mobileToggle');
+        navMenu.classList.remove('active');
+        
+        // Reset hamburger menu
+        const spans = mobileToggle.getElementsByTagName('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      });
+    });
+
+    // Smooth reveal animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationDelay = '0.2s';
+          entry.target.style.animationFillMode = 'forwards';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.section-notebook, .section-computer, .section-folders').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
