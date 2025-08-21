@@ -6,456 +6,473 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
   <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: 'Tahoma', Arial, sans-serif;
-    font-size: 22px;
-    background: #ffffff;
-    color: #442269;
-    line-height: 1.28;
-  }
-
-  /* Facebook Header Bar */
-  .facebook-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 82px;
-    background: #007e8f;
-    border-bottom: 1px solid #02d1ca;
-    z-index: 1000;
-    box-shadow: 0 1px 3px rgba(68,34,105,0.2);
-  }
-
-  .header-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 0 15px;
-    justify-content: space-between;
-  }
-
-  .facebook-logo {
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    font-family: 'Trebuchet MS', sans-serif;
-  }
-
-  .search-box {
-    background: #89e6e0;
-    border: 1px solid #ffffff;
-    padding: 3px 6px;
-    color: #ffffff;
-    font-size: 13px;
-    border-radius: 2px;
-    width: 300px;
-  }
-
-  .search-box::placeholder {
-    color: #89e6e0;
-  }
-
-  .header-nav {
-    display: flex;
-    gap: 15px;
-  }
-
-  .header-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 13px;
-    padding: 4px 8px;
-  }
-
-  .header-nav a:hover {
-    background: rgba(255,255,255,0.1);
-    border-radius: 2px;
-  }
-
-  /* Main Content Area */
-  .main-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding-top: 100px;
-    display: flex;
-    gap: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  /* Left Sidebar */
-  .left-sidebar {
-    width: 180px;
-    flex-shrink: 0;
-  }
-
-  .profile-info {
-    background: #ffffff;
-    border: 1px solid #442269;
-    margin-bottom: 10px;
-    padding: 8px;
-  }
-
-  .profile-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 2px;
-    border: 1px solid #442269;
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  .profile-name {
-    font-size: 13px;
-    font-weight: bold;
-    color: #c73e8d;
-    text-decoration: none;
-    margin-bottom: 5px;
-    display: block;
-  }
-
-  .profile-links {
-    list-style: none;
-    font-size: 13px;
-  }
-
-  .profile-links li {
-    margin-bottom: 3px;
-  }
-
-  .profile-links a {
-    color: #8f0fc8;
-    text-decoration: none;
-  }
-
-  .profile-links a:hover {
-    text-decoration: underline;
-  }
-
-  /* Main Content */
-  .main-content {
-    flex: 1;
-    background: #ffffff;
-    border: 1px solid #442269;
-  }
-
-  /* Profile Header */
-  .profile-header {
-    background: #ffffff;
-    padding: 10px;
-    border-bottom: 1px solid #442269;
-  }
-
-  .cover-photo {
-    width: 100%;
-    height: 180px;
-    background-image: url('https://imgur.com/7BJknIY.png');
-    background-size: cover;
-    background-position: center;
-    border: 1px solid #442269;
-    margin-bottom: 10px;
-  }
-
-  .profile-main {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-  .profile-pic-large {
-    width: 125px;
-    height: 125px;
-    border: 3px solid #ffffff;
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(68,34,105,0.3);
-  }
-
-  .profile-details h1 {
-    font-size: 24px;
-    color: #c73e8d;
-    font-weight: normal;
-    margin-bottom: 5px;
-    font-family: 'Trebuchet MS', sans-serif;
-  }
-
-  .profile-tabs {
-    background: #9a9ad4;
-    border-bottom: 1px solid #442269;
-    padding: 0;
-    margin: 0;
-  }
-
-  .profile-tabs ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-
-  .profile-tabs li {
-    border-right: 1px solid #442269;
-  }
-
-  .profile-tabs a {
-    display: block;
-    padding: 8px 15px;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: bold;
-    background: #9a9ad4;
-  }
-
-  .profile-tabs a.active,
-  .profile-tabs a:hover {
-    background: #c73e8d;
-    color: #ffffff;
-  }
-
-  /* Info Content */
-  .info-content {
-    padding: 15px;
-  }
-
-  .info-section {
-    background: #ffffff;
-    border: 1px solid #442269;
-    margin-bottom: 15px;
-    border-radius: 3px;
-  }
-
-  .section-header {
-    background: #c73e8d;
-    color: #ffffff;
-    padding: 8px 12px;
-    font-size: 32px;
-    font-weight: bold;
-    border-bottom: 1px solid #442269;
-  }
-
-  .section-content {
-    padding: 12px 15px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  .section-content h3 {
-    color: #8f0fc8;
-    font-size: 26px;
-    margin-bottom: 8px;
-    font-family: 'Trebuchet MS', sans-serif;
-  }
-
-  .section-content h4 {
-    color: #c73e8d;
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px 0 5px 0;
-  }
-
-  .project-title {
-    color: #007e8f;
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 10px;
-  }
-
-  .project-description {
-    margin-left: 10px;
-    font-style: italic;
-    color: #442269;
-    margin-bottom: 8px;
-  }
-
-  .work-entry {
-    background: #ffffff;
-    border: 1px solid #442269;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 2px;
-  }
-
-  .work-title {
-    color: #c73e8d;
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 5px;
-  }
-
-  .work-dates {
-    color: #8f0fc8;
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-
-  .responsibility-list {
-    margin: 8px 0;
-  }
-
-  .responsibility-list li {
-    margin-bottom: 5px;
-    list-style: none;
-    position: relative;
-    padding-left: 12px;
-  }
-
-  .responsibility-list li:before {
-    content: "•";
-    color: #c73e8d;
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-  }
-
-  .responsibility-list ul {
-    margin: 5px 0 8px 15px;
-    padding: 0;
-  }
-
-  .responsibility-list ul li {
-    margin-bottom: 3px;
-    padding-left: 15px;
-    font-size: 14px;
-  }
-
-  .responsibility-list ul li:before {
-    content: "◦";
-    color: #c73e8d;
-    font-weight: normal;
-    left: 0;
-  }
-
-  .design-integration {
-    background: rgba(2,209,202,0.1);
-    padding: 6px 8px;
-    margin: 5px 0;
-    border-left: 3px solid #02d1ca;
-    font-size: 14px;
-    font-style: italic;
-  }
-
-  .education-box {
-    background: #ffffff;
-    border: 1px solid #442269;
-    padding: 12px;
-    border-radius: 2px;
-  }
-
-  .degree {
-    color: #007e8f;
-    font-weight: bold;
-    font-size: 13px;
-  }
-
-  .institution {
-    color: #8f0fc8;
-    font-size: 12px;
-    margin-top: 3px;
-  }
-
-  .quirky-note {
-    background: #ffa66c;
-    color: #442269;
-    padding: 8px 10px;
-    border-radius: 15px;
-    font-size: 13px;
-    margin: 10px 0;
-    text-align: center;
-    font-style: italic;
-  }
-
-  /* Right Sidebar */
-  .right-sidebar {
-    width: 180px;
-    flex-shrink: 0;
-  }
-
-  .sidebar-box {
-    background: #ffffff;
-    border: 1px solid #442269;
-    margin-bottom: 10px;
-  }
-
-  .sidebar-header {
-    background: #9a9ad4;
-    padding: 6px 8px;
-    border-bottom: 1px solid #442269;
-    font-size: 13px;
-    font-weight: bold;
-    color: #442269;
-  }
-
-  .sidebar-content {
-    padding: 8px;
-  }
-
-  .friends-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
-  }
-
-  .friend-pic {
-    width: 50px;
-    height: 50px;
-    border: 1px solid #442269;
-    border-radius: 2px;
-  }
-
-  .app-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px;
-    color: #8f0fc8;
-    text-decoration: none;
-    font-size: 13px;
-  }
-
-  .app-link:hover {
-    background: #02d1ca;
-  }
-
-  .app-icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .main-container {
-      flex-direction: column;
-      padding-left: 10px;
-      padding-right: 10px;
+  <style>
+    :root {
+      /* Y2K Bratz/Barbie Dream Palette */
+      --purple: #9a9ad4;               /* Primary color */
+      --pink: #ff66cc;                 /* Bright Y2K pink */
+      --cyan: #02d1ca;                 /* Electric cyan */
+      --magenta: #da70d6;              /* Soft magenta */
+      --dark-purple: #8b008b;          /* Rich purple */
+      --pale-pink: #ffb3e6;            /* Light pastel pink */
+      --lilac: #dda0dd;                /* Soft lilac */
+      --white: #ffffff;                /* Pure white */
+      --light-gray: #e6e6fa;           /* Lavender-tinted light */
+      --gray: #663399;                 /* Medium purple-gray */
+      --silver: #c0c0c0;               /* Metallic silver */
+      --dark-gray: #4b0082;            /* Dark purple-gray */
+      --black: #1a0d1f;                /* Deep purple-black */
     }
 
-    .left-sidebar,
-    .right-sidebar {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tahoma', Arial, sans-serif;
+      font-size: 11px;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.28;
+    }
+
+    /* Facebook Header Bar */
+    .facebook-header {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      order: 2;
+      height: 82px;
+      background: var(--purple);
+      border-bottom: 1px solid var(--cyan);
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.2);
     }
 
-    .main-content {
-      order: 1;
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 15px;
+      justify-content: space-between;
+    }
+
+    .facebook-logo {
+      color: var(--white);
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      font-family: 'Trebuchet MS', sans-serif;
     }
 
     .search-box {
-      width: 200px;
+      background: var(--dark-purple);
+      border: 1px solid var(--white);
+      padding: 3px 6px;
+      color: var(--white);
+      font-size: 11px;
+      border-radius: 2px;
+      width: 300px;
     }
-  }
-</style>
+
+    .search-box::placeholder {
+      color: var(--light-gray);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header-nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+
+    .header-nav a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+    }
+
+    /* Main Content Area */
+    .main-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-top: 100px;
+      display: flex;
+      gap: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    /* Left Sidebar */
+    .left-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 2px;
+      border: 1px solid var(--pale-pink);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--pink);
+      text-decoration: none;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .profile-links {
+      list-style: none;
+      font-size: 13px;
+    }
+
+    .profile-links li {
+      margin-bottom: 3px;
+    }
+
+    .profile-links a {
+      color: var(--dark-purple);
+      text-decoration: none;
+    }
+
+    .profile-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
+    }
+
+    /* Profile Header */
+    .profile-header {
+      background: var(--white);
+      padding: 10px;
+      border-bottom: 1px solid var(--pale-pink);
+    }
+
+    .cover-photo {
+      width: 100%;
+      height: 180px;
+      background-image: url('https://imgur.com/7BJknIY.png');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--pale-pink);
+      margin-bottom: 10px;
+    }
+
+    .profile-main {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .profile-pic-large {
+      width: 125px;
+      height: 125px;
+      border: 3px solid var(--white);
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.3);
+    }
+
+    .profile-details h1 {
+      font-size: 24px;
+      color: var(--pink);
+      font-weight: normal;
+      margin-bottom: 5px;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .profile-tabs {
+      background: var(--light-gray);
+      border-bottom: 1px solid var(--pale-pink);
+      padding: 0;
+      margin: 0;
+    }
+
+    .profile-tabs ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .profile-tabs li {
+      border-right: 1px solid var(--pale-pink);
+    }
+
+    .profile-tabs a {
+      display: block;
+      padding: 8px 15px;
+      color: var(--dark-purple);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+      background: var(--light-gray);
+    }
+
+    .profile-tabs a.active,
+    .profile-tabs a:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    /* Info Content */
+    .info-content {
+      padding: 15px;
+    }
+
+    .info-section {
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
+      margin-bottom: 15px;
+      border-radius: 3px;
+    }
+
+    .section-header {
+      background: linear-gradient(135deg, var(--pink), var(--pale-pink));
+      color: var(--white);
+      padding: 8px 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid var(--pale-pink);
+    }
+
+    .section-content {
+      padding: 12px 15px;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .section-content h3 {
+      color: var(--dark-purple);
+      font-size: 13px;
+      margin-bottom: 8px;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .section-content h4 {
+      color: var(--pink);
+      font-size: 12px;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+    }
+
+    .project-title {
+      color: var(--purple);
+      font-weight: bold;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .project-description {
+      margin-left: 10px;
+      font-style: italic;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .work-entry {
+      background: var(--light-gray);
+      border: 1px solid var(--pale-pink);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 2px;
+    }
+
+    .work-title {
+      color: var(--pink);
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .work-dates {
+      color: var(--dark-purple);
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .responsibility-list {
+      margin: 8px 0;
+    }
+
+    .responsibility-list li {
+      margin-bottom: 5px;
+      list-style: none;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .responsibility-list li:before {
+      content: "•";
+      color: var(--pink);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .responsibility-list ul {
+      margin: 5px 0 8px 15px;
+      padding: 0;
+    }
+
+    .responsibility-list ul li {
+      margin-bottom: 3px;
+      padding-left: 15px;
+      font-size: 11px;
+    }
+
+    .responsibility-list ul li:before {
+      content: "◦";
+      color: var(--dark-purple);
+      font-weight: normal;
+      left: 0;
+    }
+
+    .design-integration {
+      background: rgba(2, 209, 202, 0.1);
+      padding: 6px 8px;
+      margin: 5px 0;
+      border-left: 3px solid var(--cyan);
+      font-size: 11px;
+      font-style: italic;
+    }
+
+    .education-box {
+      background: var(--light-gray);
+      border: 1px solid var(--pale-pink);
+      padding: 12px;
+      border-radius: 2px;
+    }
+
+    .degree {
+      color: var(--purple);
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    .institution {
+      color: var(--dark-purple);
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .quirky-note {
+      background: var(--pale-pink);
+      color: var(--black);
+      padding: 8px 10px;
+      border-radius: 15px;
+      font-size: 11px;
+      margin: 10px 0;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Right Sidebar */
+    .right-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-box {
+      background: var(--white);
+      border: 1px solid var(--pale-pink);
+      margin-bottom: 10px;
+    }
+
+    .sidebar-header {
+      background: var(--light-gray);
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--pale-pink);
+      font-size: 11px;
+      font-weight: bold;
+      color: var(--black);
+    }
+
+    .sidebar-content {
+      padding: 8px;
+    }
+
+    .friends-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .friend-pic {
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--pale-pink);
+      border-radius: 2px;
+    }
+
+    .app-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px;
+      color: var(--dark-purple);
+      text-decoration: none;
+      font-size: 11px;
+    }
+
+    .app-link:hover {
+      background: var(--light-gray);
+    }
+
+    .app-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      
+      .left-sidebar,
+      .right-sidebar {
+        width: 100%;
+        order: 2;
+      }
+      
+      .main-content {
+        order: 1;
+      }
+      
+      .search-box {
+        width: 200px;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Facebook Header -->
@@ -464,12 +481,12 @@
       <a href="#" class="facebook-logo">fakebook</a>
       <input type="text" class="search-box" placeholder="Search">
       <nav class="header-nav">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#shop">Shop</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#studio-ken">Studio Ken</a>
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="studio-ken.html">Friends</a>
+        <a href="contact.html">Inbox</a>
+        <a href="#info-section">Settings</a>
+        <a href="index.html">Logout</a>
       </nav>
     </div>
   </div>
@@ -488,31 +505,19 @@
       </div>
       
       <div class="profile-info">
-        <div class="sidebar-header">Folders</div>
+        <div class="sidebar-header">Albums</div>
         <div class="sidebar-content">
           <a href="#" class="app-link">
-            <img src="https://imgur.com/5WZhwSa.png" alt="Documents" class="app-icon">
-            Documents
-          </a>
-          <a href="#" class="app-link">
             <img src="https://imgur.com/5WZhwSa.png" alt="Photos" class="app-icon">
-            Photos
+            Summer 2009
           </a>
           <a href="#" class="app-link">
-            <img src="https://imgur.com/5WZhwSa.png" alt="Summer '05" class="app-icon">
-            Summer '05
+            <img src="https://imgur.com/5WZhwSa.png" alt="Videos XD" class="app-icon">
+            Videos XD
           </a>
           <a href="#" class="app-link">
-            <img src="https://imgur.com/5WZhwSa.png" alt="Videos" class="app-icon">
-            Videos
-          </a>
-          <a href="#" class="app-link">
-            <img src="https://imgur.com/5WZhwSa.png" alt="Downloads" class="app-icon">
-            Downloads
-          </a>
-          <a href="#" class="app-link">
-            <img src="https://imgur.com/5WZhwSa.png" alt="Recycling Bin" class="app-icon">
-            Recycling Bin
+            <img src="https://imgur.com/5WZhwSa.png" alt="Games" class="app-icon">
+            Musical!1!!
           </a>
         </div>
       </div>
@@ -609,8 +614,10 @@
                 <li>Supported department-level branded projects through self-taught design, leveraging tools like Canva, Capcut, and SharePoint to create internal collateral and visual content</li>
               </ul>
             </div>
+          </div>
+        </div>
        
-            <!-- Unprofessional Resume -->
+        <!-- Unprofessional Resume -->
         <div class="info-section">
           <div class="section-header">
             Unprofessional Resume
@@ -642,7 +649,13 @@
             <div class="quirky-note">you can find me in the kpop-sphere making video compilations of favorite performances. you can find me on tiktok going viral for my cat being ornery. (ꈍᴗꈍ)♡</div>
           </div>
         </div>
-  
+
+        <!-- Education Section -->
+        <div class="info-section">
+          <div class="section-header">
+            Education
+          </div>
+          <div class="section-content">
             <h3>Education</h3>
             <div class="education-box">
               <div class="degree">Associate of Arts, studying English Education</div>
@@ -672,7 +685,7 @@
       <div class="sidebar-box">
         <div class="sidebar-header">Sponsored</div>
         <div class="sidebar-content">
-          <div style="font-size: 13px; color: #130d16;">
+          <div style="font-size: 11px; color: var(--black);">
             Shop Stickers & Apparel <br>
             <small>Get Sunnie Jae Creations in the Shop tab</small>
           </div>
@@ -682,7 +695,7 @@
       <div class="sidebar-box">
         <div class="sidebar-header">Birthdays</div>
         <div class="sidebar-content">
-          <div style="font-size: 13px;">
+          <div style="font-size: 11px;">
             🎂 <strong>3 friends</strong> have birthdays today
           </div>
         </div>
