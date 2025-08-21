@@ -3,241 +3,309 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Desktop</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<title>Pasteliume Desktop</title>
 <style>
-  /* Reset and base styles */
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Press Start 2P', monospace;
-    background: #FAF8FC;
-    color: #333;
-    overflow-x: hidden;
-  }
-  
-  /* HEADER MENU (Windows 2005 style) */
-  header {
-    display: flex;
-    align-items: center;
-    background: #E0E0E0;
-    height: 40px;
-    padding: 0 10px;
-    border-bottom: 2px solid #C0C0C0;
-  }
-  header .menu-item {
-    margin-right: 20px;
-    padding: 5px 10px;
-    background: #D8D8D8;
-    border: 1px solid #A0A0A0;
-    border-radius: 2px;
-    cursor: pointer;
-    user-select: none;
-  }
-  header .menu-item:hover {
-    background: #B0C4DE;
-  }
+/* Root palette */
+:root {
+  --purple-dark: #442269;
+  --magenta-dark: #6e0b41;
+  --teal-dark: #007e8f;
+  --pink-bright: #c73e8d;
+  --purple-bright: #8f0fc8;
+  --teal-light: #02d1ca;
+  --pink-light: #ff66cc;
+  --lavender: #9a9ad4;
+  --cyan-light: #89e6e0;
+  --white: #ffffff;
+  --black: #130d16;
+  --gray-dark: #666666;
+}
 
-  /* DESKTOP FOLDERS */
-  .desktop {
-    display: flex;
-    padding: 20px;
-    flex-wrap: wrap;
-  }
-  .folder {
-    width: 80px;
-    height: 100px;
-    margin: 10px;
-    text-align: center;
-    cursor: pointer;
-  }
-  .folder img {
-    width: 64px;
-    height: 64px;
-    display: block;
-    margin: 0 auto 5px;
-  }
-  .folder span {
-    display: block;
-    font-size: 0.7rem;
-    color: #333;
-    word-wrap: break-word;
-  }
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
 
-  /* SECTION 3: COMPUTER + PINTEREST EMBED */
-  .section-computer {
-    padding: 60px 0;
-    text-align: center;
-  }
-  .section-computer h2 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.8rem;
-    color: #418ede;
-    margin-bottom: 30px;
-    text-shadow: 0 0 10px rgba(65, 142, 222, 0.5);
-  }
-  .computer-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    height: auto;
-    margin: 0 auto;
-  }
-  .computer-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 4px;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
-  }
-  .pinterest-embed {
-    position: absolute;
-    top: 14.5%;
-    left: 8.3%;
-    width: 42.7%;
-    height: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 2px;
-    background: rgba(0, 0, 0, 0.1);
-  }
-  .pinterest-embed > * {
-    max-width: 100%;
-    max-height: 100%;
-  }
-  .pinterest-embed > a {
-    width: 100% !important;
-    height: 100% !important;
-    display: block;
-  }
+/* Body */
+body {
+  background-color: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+}
 
-  /* DRAGGABLE WINDOW */
-  .window {
-    position: absolute;
-    top: 100px;
-    left: 50px;
-    width: 397px;
-    height: 800px;
-    background: #E8E8E8;
-    border: 2px solid #A0A0A0;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
-    cursor: grab;
-  }
-  .window-header {
-    background: #D0D0D0;
-    padding: 5px 10px;
-    border-bottom: 2px solid #A0A0A0;
-    cursor: grab;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .window-header span {
-    font-size: 0.75rem;
-  }
-  .window-header button {
-    background: #C0C0C0;
-    border: 1px solid #808080;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  .window-content {
-    flex: 1;
-    overflow: hidden;
-  }
-  .window-content img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+/* Header Menu (Windows 2005 style) */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--purple-dark);
+  padding: 5px 15px;
+  border-bottom: 2px solid var(--magenta-dark);
+  font-family: 'Tahoma', sans-serif;
+}
+
+header .logo {
+  color: var(--pink-light);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+header nav a {
+  color: var(--white);
+  text-decoration: none;
+  margin-left: 15px;
+  font-size: 0.9rem;
+}
+
+header nav a:hover {
+  color: var(--pink-bright);
+}
+
+/* Desktop folders */
+.folders {
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.folder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: var(--lavender);
+}
+
+.folder img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 5px;
+}
+
+/* Sections */
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: var(--cyan-light);
+  text-shadow: 0 0 10px var(--cyan-light);
+}
+
+/* Notebook section */
+.section-notebook {
+  background-color: var(--purple-dark);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.notebook-image {
+  width: 80%;
+  max-width: 600px;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Computer + Pinterest section */
+.section-computer {
+  padding: 60px 20px;
+}
+
+.computer-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.computer-image {
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+}
+
+.pinterest-embed {
+  position: absolute;
+  top: 14.5%;
+  left: 8.3%;
+  width: 42.7%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(0,0,0,0.1);
+}
+
+.pinterest-embed > * {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.pinterest-embed > a {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Draggable window */
+.draggable-window {
+  position: absolute;
+  top: 150px;
+  left: 300px;
+  width: 400px;
+  height: 820px;
+  background: var(--purple-bright);
+  border: 2px solid var(--pink-bright);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: grab;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.draggable-window img {
+  width: 100%;
+  height: auto;
+}
+
+/* Window header */
+.window-header {
+  background: var(--magenta-dark);
+  padding: 5px 10px;
+  cursor: move;
+  color: var(--white);
+  font-family: 'Tahoma', sans-serif;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.window-header .close-btn {
+  background: var(--pink-light);
+  border: none;
+  padding: 2px 6px;
+  cursor: pointer;
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+/* Footer (optional) */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--lavender);
+  font-size: 0.8rem;
+}
+
+/* Draggable JS */
 </style>
 </head>
 <body>
 
-<!-- HEADER MENU -->
 <header>
-  <div class="menu-item">File</div>
-  <div class="menu-item">Edit</div>
-  <div class="menu-item">View</div>
-  <div class="menu-item">Help</div>
+  <div class="logo">Pasteliume</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Gallery</a>
+    <a href="#">Contact</a>
+  </nav>
 </header>
 
-<!-- DESKTOP FOLDERS -->
-<div class="desktop">
+<div class="folders">
   <div class="folder">
-    <img src="https://img.icons8.com/color/64/folder-invoices--v1.png" alt="Folder 1">
+    <img src="https://img.icons8.com/fluency/48/folder-invoices.png" alt="Folder 1">
     <span>Art</span>
   </div>
   <div class="folder">
-    <img src="https://img.icons8.com/color/64/folder-invoices--v1.png" alt="Folder 2">
+    <img src="https://img.icons8.com/fluency/48/folder-invoices.png" alt="Folder 2">
     <span>Projects</span>
   </div>
   <div class="folder">
-    <img src="https://img.icons8.com/color/64/folder-invoices--v1.png" alt="Folder 3">
+    <img src="https://img.icons8.com/fluency/48/folder-invoices.png" alt="Folder 3">
     <span>Music</span>
   </div>
 </div>
 
-<!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
+<section class="section-notebook">
+  <h2>My Notebook</h2>
+  <img class="notebook-image" src="https://imgur.com/ThL4Puh.png" alt="Notebook">
+</section>
+
 <section class="section-computer">
   <h2>Follow Along: Live Content Updates</h2>
   <div class="computer-wrapper">
-    <img
-      src="https://imgur.com/jzSsYHB.png"
-      alt="Computer Setup"
-      class="computer-image glow"
-    />
+    <img src="https://imgur.com/jzSsYHB.png" alt="Computer Setup" class="computer-image">
     <div class="pinterest-embed">
-      <a
-        data-pin-do="embedBoard"
-        data-pin-board-width="651"
-        data-pin-scale-height="762"
-        data-pin-scale-width="80"
-        href="https://www.pinterest.com/pasteliume/mine/"
-      ></a>
+      <a data-pin-do="embedBoard" data-pin-board-width="651" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
     </div>
   </div>
 </section>
 
-<!-- DRAGGABLE WINDOW -->
-<div class="window" id="dragWindow">
-  <div class="window-header" id="dragHandle">
-    <span>My Image</span>
-    <button onclick="document.getElementById('dragWindow').style.display='none'">X</button>
+<div class="draggable-window" id="dragWindow">
+  <div class="window-header">
+    <span>Image Window</span>
+    <button class="close-btn" onclick="document.getElementById('dragWindow').style.display='none'">X</button>
   </div>
-  <div class="window-content">
-    <img src="https://imgur.com/your-image.png" alt="Window Content">
-  </div>
+  <img src="https://via.placeholder.com/397x800" alt="Draggable Image">
 </div>
 
+<footer>
+  &copy; 2025 Pasteliume
+</footer>
+
 <script>
-  // DRAG FUNCTIONALITY
-  const dragWindow = document.getElementById('dragWindow');
-  const dragHandle = document.getElementById('dragHandle');
-  let offsetX, offsetY, isDragging = false;
+// Draggable window
+const dragItem = document.getElementById("dragWindow");
+let active = false;
+let currentX, currentY, initialX, initialY;
+let xOffset = 0;
+let yOffset = 0;
 
-  dragHandle.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    offsetX = e.clientX - dragWindow.offsetLeft;
-    offsetY = e.clientY - dragWindow.offsetTop;
-    dragWindow.style.cursor = 'grabbing';
-  });
+const header = dragItem.querySelector(".window-header");
 
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    dragWindow.style.left = `${e.clientX - offsetX}px`;
-    dragWindow.style.top = `${e.clientY - offsetY}px`;
-  });
+header.addEventListener("mousedown", dragStart);
+document.addEventListener("mouseup", dragEnd);
+document.addEventListener("mousemove", drag);
 
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-    dragWindow.style.cursor = 'grab';
-  });
+function dragStart(e) {
+  active = true;
+  initialX = e.clientX - xOffset;
+  initialY = e.clientY - yOffset;
+  dragItem.style.cursor = "grabbing";
+}
+
+function dragEnd(e) {
+  active = false;
+  xOffset = currentX;
+  yOffset = currentY;
+  dragItem.style.cursor = "grab";
+}
+
+function drag(e) {
+  if (!active) return;
+  e.preventDefault();
+  currentX = e.clientX - initialX;
+  currentY = e.clientY - initialY;
+  setTranslate(currentX, currentY, dragItem);
+}
+
+function setTranslate(xPos, yPos, el) {
+  el.style.transform = `translate(${xPos}px, ${yPos}px)`;
+}
 </script>
+
 </body>
 </html>
