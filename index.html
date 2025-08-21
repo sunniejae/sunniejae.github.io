@@ -7,888 +7,319 @@
   <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* COLOR PALETTE */
+    :root {
+      --purple: #9a9ad4;
+      --pink: #ff66cc;
+      --cyan: #02d1ca;
+      --magenta: #da70d6;
+      --dark-purple: #8b008b;
+      --pale-pink: #ffb3e6;
+      --lilac: #dda0dd;
+      --white: #ffffff;
+      --light-gray: #e6e6fa;
+      --gray: #663399;
+      --silver: #c0c0c0;
+      --dark-gray: #4b0082;
+      --black: #1a0d1f;
     }
 
-    html {
-      font-size: 16px; /* Explicit base font size */
-      scroll-behavior: smooth;
-    }
-
+    /* GLOBAL STYLES */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { font-size:16px; scroll-behavior:smooth; }
     body {
-      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #442269;
-      color: #89e6e0;
-      overflow-x: hidden;
-      padding-top: 100px;
-      line-height: 1.6;
-      min-height: 100vh;
-      font-size: 1rem; /* Explicit body font size */
+      font-family:'Inter','Segoe UI',Tahoma,Verdana,sans-serif;
+      background: var(--black);
+      color: var(--cyan);
+      overflow-x:hidden;
+      padding-top:100px;
+      line-height:1.6;
+      min-height:100vh;
+      font-size:1rem;
     }
 
-    /* HEADER NAVIGATION STYLES */
+    a { text-decoration:none; }
+
+    /* HEADER */
     .header {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #007e8f;
-      border-bottom: 3px solid #02d1ca;
-      border-top: 1px solid #89e6e0;
-      z-index: 1000;
-      padding: 15px 0;
-      box-shadow: inset 0 1px 0 #89e6e0, 0 3px 6px rgba(0, 0, 0, 0.4);
-      min-height: 80px;
+      top:0; left:0; width:100%;
+      background: var(--purple);
+      border-bottom: 3px solid var(--cyan);
+      border-top: 1px solid var(--cyan);
+      z-index:1000;
+      padding:15px 0;
+      box-shadow: inset 0 1px 0 var(--cyan), 0 3px 6px rgba(0,0,0,0.4);
     }
 
     .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1400px; /* Increased max width */
-      margin: 0 auto;
-      padding: 0 30px;
-      width: 100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      max-width:1400px;
+      margin:0 auto;
+      padding:0 30px;
+      width:100%;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-
+    .logo { display:flex; align-items:center; gap:15px; flex-shrink:0; }
     .logo img {
-      height: 50px;
-      width: auto;
-      border-radius: 0px;
-      border: 2px solid #89e6e0;
-      box-shadow: inset 1px 1px 0 #02d1ca, 2px 2px 4px rgba(0, 0, 0, 0.5);
+      height:50px; width:auto;
+      border:2px solid var(--cyan);
+      box-shadow: inset 1px 1px 0 var(--cyan), 2px 2px 4px rgba(0,0,0,0.5);
     }
-
     .logo-text {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 1.2rem;
-      color: #ff66cc;
-      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #442269;
-      white-space: nowrap;
+      font-family:'Press Start 2P', monospace;
+      font-size:1.2rem;
+      color: var(--pink);
+      text-shadow: 1px 1px 0 var(--dark-purple), 2px 2px 0 var(--black);
+      white-space:nowrap;
     }
 
     .nav-menu {
-      display: flex;
-      list-style: none;
-      gap: 30px;
-      align-items: center;
-      flex-wrap: wrap;
+      display:flex;
+      list-style:none;
+      gap:30px;
+      align-items:center;
+      flex-wrap:wrap;
     }
 
     .nav-link {
-      color: #89e6e0;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 500;
-      padding: 8px 16px;
-      border-radius: 0px;
+      color: var(--cyan);
+      font-size:1rem;
+      font-weight:500;
+      padding:8px 16px;
+      background: var(--purple);
+      border:2px outset var(--purple);
+      border-radius:0;
+      box-shadow:1px 1px 2px rgba(0,0,0,0.3);
       transition: all 0.15s ease;
-      position: relative;
-      background: #9a9ad4;
-      border: 2px outset #9a9ad4;
-      white-space: nowrap;
-      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-      margin: 2px;
     }
 
     .nav-link:hover {
-      background: #c73e8d;
-      color: #89e6e0;
-      transform: none;
-      border: 2px inset #c73e8d;
-      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
+      background: var(--pink);
+      color: var(--cyan);
+      border:2px inset var(--pink);
+      box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
     }
 
-    /* Dropdown styles */
-    .dropdown {
-      position: relative;
-    }
-
+    .dropdown { position: relative; }
     .dropdown-menu {
-      position: absolute;
-      top: calc(100% + 5px);
-      left: 0;
-      background: #007e8f;
-      border: 2px outset #007e8f;
-      border-radius: 0px;
-      min-width: 220px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-5px);
+      position:absolute;
+      top:calc(100% + 5px); left:0;
+      background: var(--purple);
+      border:2px outset var(--purple);
+      min-width:220px;
+      opacity:0; visibility:hidden;
+      transform:translateY(-5px);
       transition: all 0.15s ease;
-      z-index: 1001;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
-      padding: 4px;
+      padding:4px;
+      z-index:1001;
     }
-
     .dropdown:hover .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+      opacity:1; visibility:visible; transform:translateY(0);
     }
-
     .dropdown-item {
-      display: block;
-      color: #89e6e0;
-      text-decoration: none;
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      border-radius: 0px;
-      margin: 1px;
-      transition: all 0.1s ease;
-      font-weight: 400;
-      background: transparent;
-      border: 1px solid transparent;
+      display:block;
+      color: var(--cyan);
+      padding:6px 12px;
+      font-size:0.9rem;
+      font-weight:400;
+      margin:1px;
+      transition:all 0.1s ease;
+      background:transparent;
+      border:1px solid transparent;
     }
-
     .dropdown-item:hover {
-      background: #02d1ca;
-      color: #442269;
-      transform: none;
-      border: 1px outset #02d1ca;
+      background: var(--cyan);
+      color: var(--black);
+      border:1px outset var(--cyan);
     }
 
-    /* Mobile toggle */
+    /* MOBILE TOGGLE */
     .mobile-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 4px;
-      padding: 8px;
+      display:none;
+      flex-direction:column;
+      cursor:pointer;
+      gap:4px;
+      padding:8px;
     }
-
     .mobile-toggle span {
-      width: 25px;
-      height: 3px;
-      background: #89e6e0;
-      border-radius: 0px;
+      width:25px; height:3px;
+      background: var(--cyan);
       transition: all 0.3s ease;
     }
 
-    .main-content {
-      max-width: 1400px; /* Increased max width */
-      margin: 0 auto;
-      padding: 0 30px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 30px;
-    }
+    /* MAIN CONTENT */
+    .main-content { max-width:1400px; margin:0 auto; padding:0 30px; display:grid; grid-template-columns:200px 1fr; gap:30px; }
 
-    /* Left sidebar for folders */
-    .sidebar {
-      position: sticky;
-      top: 120px;
-      height: fit-content;
-      padding: 20px 0;
-    }
-
+    .sidebar { position:sticky; top:120px; height:fit-content; padding:20px 0; }
     .sidebar h2 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.8rem;
-      color: #9a9ad4;
-      margin-bottom: 20px;
-      text-align: center;
-      text-shadow: 1px 1px 0 #442269, 2px 2px 0 #007e8f, 3px 3px 6px rgba(0, 0, 0, 0.5);
+      font-family:'Press Start 2P', monospace;
+      font-size:0.8rem;
+      color: var(--purple);
+      margin-bottom:20px;
+      text-align:center;
+      text-shadow: 1px 1px 0 var(--black), 2px 2px 0 var(--cyan);
     }
 
-    /* Main content area */
-    .content-area {
-      display: flex;
-      flex-direction: column;
+    .folders-container { display:flex; flex-direction:column; gap:15px; }
+    .folder-item {
+      display:flex; align-items:center;
+      padding:8px 12px;
+      background: var(--purple);
+      border:2px outset var(--purple);
+      color: var(--cyan);
+      transition:all 0.1s ease;
+      box-shadow:1px 1px 2px rgba(0,0,0,0.3);
     }
-    /* Section 1: Title Banner */
+    .folder-item img { width:24px; height:24px; margin-right:12px; object-fit:contain; background: var(--cyan); padding:4px; border:1px outset var(--cyan); }
+    .folder-item:hover { background: var(--pink); border:2px inset var(--pink); box-shadow:inset 2px 2px 4px rgba(0,0,0,0.3); }
+
+    .folder-label { font-size:0.8rem; font-weight:500; line-height:1.2; }
+
+    .content-area { display:flex; flex-direction:column; }
+
+    /* SECTIONS */
     .section-title {
-      width: 100%;
-      height: 400px;
-      background-image: url('https://imgur.com/n6km6m0.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: 0px;
-      margin: 20px 0;
-      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), 2px 2px 8px rgba(0, 0, 0, 0.4);
-      position: relative;
-      overflow: hidden;
-      min-height: 350px;
-      border: 2px inset #9a9ad4;
+      width:100%; height:400px;
+      background-image:url('https://imgur.com/n6km6m0.png');
+      background-size:cover; background-position:center;
+      border:2px inset var(--purple);
+      margin:20px 0;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3), 2px 2px 8px rgba(0,0,0,0.4);
     }
 
-    .section-title::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(199, 62, 141, 0.1);
-      border-radius: 0px;
-    }
+    .section-notebook, .section-computer { padding:40px 0; text-align:center; }
+    .section-notebook h2 { font-family:'Press Start 2P', monospace; font-size:clamp(1rem,2.5vw,1.4rem); color: var(--pink); margin-bottom:25px; text-shadow: 1px 1px 0 var(--dark-purple), 2px 2px 0 var(--black); }
+    .section-computer h2 { font-family:'Press Start 2P', monospace; font-size:clamp(1rem,2.5vw,1.4rem); color: var(--cyan); margin-bottom:25px; text-shadow:1px 1px 0 var(--purple), 2px 2px 0 var(--black); }
 
-    /* Section 2: Notebook */
-    .section-notebook {
-      padding: 40px 0;
-      text-align: center;
-      width: 100%;
-    }
+    .notebook-image, .computer-image { max-width:100%; height:auto; border:3px outset var(--dark-purple); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2),3px 3px 8px rgba(0,0,0,0.4); transition:all 0.2s ease; }
 
-    .section-notebook h2 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      color: #ff66cc;
-      margin-bottom: 25px;
-      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #442269, 3px 3px 6px rgba(0, 0, 0, 0.5);
-    }
+    .notebook-image:hover, .computer-image:hover { border:3px inset var(--dark-purple); box-shadow: inset 3px 3px 6px rgba(0,0,0,0.3); }
 
-    .notebook-image {
-      width: 90%;
-      max-width: 800px;
-      height: auto;
-      border-radius: 0px;
-      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2), 3px 3px 8px rgba(0, 0, 0, 0.4);
-      transition: transform 0.1s ease;
-      display: block;
-      margin: 0 auto;
-      border: 3px outset #8f0fc8;
-    }
-
-    .notebook-image:hover {
-      transform: none;
-      border: 3px inset #8f0fc8;
-      box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Section 3: Computer with Pinterest */
-    .section-computer {
-      padding: 40px 0;
-      text-align: center;
-      width: 100%;
-    }
-
-    .section-computer h2 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      color: #02d1ca;
-      margin-bottom: 25px;
-      text-shadow: 1px 1px 0 #007e8f, 2px 2px 0 #442269, 3px 3px 6px rgba(0, 0, 0, 0.5);
-    }
-
-    .computer-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      height: auto;
-      margin: 0 auto;
-    }
-
-    .computer-image {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 0px;
-      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2), 3px 3px 8px rgba(0, 0, 0, 0.4);
-      border: 3px outset #007e8f;
-    }
+    .computer-wrapper { position:relative; max-width:900px; margin:0 auto; }
 
     .pinterest-embed {
-      position: absolute;
-      top: 14.5%;
-      left: 8.3%;
-      width: 42.7%;
-      height: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border-radius: 0px;
-      background: #6e0b41;
+      position:absolute; top:14.5%; left:8.3%;
+      width:42.7%; height:50%;
+      background: var(--magenta);
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
     }
+    .pinterest-embed > * { max-width:100%; max-height:100%; display:block; }
 
-    .pinterest-embed > * {
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    .pinterest-embed > a {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
-    }
-
-    /* Folders Sidebar */
-    .folders-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      width: 100%;
-    }
-
-    .folder-item {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      text-decoration: none;
-      color: #89e6e0;
-      padding: 8px 12px;
-      border-radius: 0px;
-      transition: all 0.1s ease;
-      background: #9a9ad4;
-      border: 2px outset #9a9ad4;
-      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-      margin: 1px 0;
-      width: 100%;
-    }
-
-    .folder-item:hover {
-      transform: none;
-      background: #ff66cc;
-      border: 2px inset #ff66cc;
-      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .social-item:hover {
-      background: #02d1ca;
-      border: 2px inset #02d1ca;
-      box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
-      color: #442269;
-    }
-
-    .folder-item img {
-      width: 24px;
-      height: 24px;
-      border-radius: 0px;
-      margin-right: 12px;
-      transition: transform 0.1s ease;
-      object-fit: contain;
-      background: #89e6e0;
-      padding: 4px;
-      border: 1px outset #89e6e0;
-      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-      flex-shrink: 0;
-    }
-
-    .folder-item:hover img {
-      transform: none;
-      border: 1px inset #89e6e0;
-      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
-    }
-
-    .folder-label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-align: left;
-      line-height: 1.2;
-      letter-spacing: 0.3px;
-      flex-grow: 1;
-    }
-
-    /* FOOTER / TASKBAR */
+    /* TASKBAR */
     .taskbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      z-index: 999;
-      background: #007e8f;
-      border-top: 2px solid #02d1ca;
-      border-bottom: 1px solid #442269;
-      height: 60px;
-      box-shadow: inset 0 1px 0 #89e6e0, 0 -2px 4px rgba(0, 0, 0, 0.3);
+      position:fixed; bottom:0; left:0; width:100%;
+      background: var(--purple);
+      border-top:2px solid var(--cyan); height:60px;
+      box-shadow: inset 0 1px 0 var(--cyan), 0 -2px 4px rgba(0,0,0,0.3);
+    }
+    .taskbar-content { max-width:1400px; margin:0 auto; padding:0 30px; display:flex; justify-content:center; align-items:center; height:100%; }
+    .taskbar-image { height:50px; width:auto; }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width:1024px) {
+      .main-content { grid-template-columns:1fr; gap:20px; }
+      .sidebar { position:static; order:-1; }
+      .folders-container { grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); display:grid; gap:10px; }
+      .folder-item { flex-direction:column; text-align:center; }
+      .folder-item img { width:32px; height:32px; margin:0 0 8px 0; }
+      .folder-label { text-align:center; font-size:0.75rem; }
+      .nav-menu { display:none; flex-direction:column; width:100%; background: var(--purple); }
+      .nav-menu.active { display:flex; }
+      .mobile-toggle { display:flex; }
     }
 
-    .taskbar-content {
-      max-width: 1400px; /* Increased max width */
-      margin: 0 auto;
-      padding: 0 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-    }
-
-    .taskbar-image {
-      height: 50px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    /* Loading animation for Pinterest embed */
-    .pinterest-embed::before {
-      content: "Loading Live Feed...";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #9a9ad4;
-      font-size: 0.9rem;
-      z-index: -1;
-      font-weight: 300;
-    }
-
-    /* Enhanced Visual Effects */
-    .glow {
-      position: relative;
-    }
-
-    .glow::before {
-      content: '';
-      position: absolute;
-      top: -1px;
-      left: -1px;
-      right: -1px;
-      bottom: -1px;
-      background: #ff66cc;
-      border-radius: inherit;
-      opacity: 0;
-      transition: opacity 0.1s ease;
-      z-index: -1;
-      border: 1px solid #02d1ca;
-    }
-
-    .glow:hover::before {
-      opacity: 1;
-    }
-
-    .glow:hover::before {
-      opacity: 0.3;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1200px) {
-      .nav-container,
-      .main-content,
-      .taskbar-content {
-        max-width: 100%;
-        padding: 0 25px;
-      }
-      
-      .main-content {
-        grid-template-columns: 180px 1fr;
-        gap: 20px;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .main-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      
-      .sidebar {
-        position: static;
-        order: -1;
-      }
-      
-      .sidebar h2 {
-        font-size: 1rem;
-        margin-bottom: 15px;
-      }
-      
-      .folders-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 10px;
-      }
-      
-      .folder-item {
-        flex-direction: column;
-        padding: 10px;
-        text-align: center;
-      }
-      
-      .folder-item img {
-        width: 32px;
-        height: 32px;
-        margin-right: 0;
-        margin-bottom: 8px;
-      }
-      
-      .folder-label {
-        text-align: center;
-        font-size: 0.75rem;
-      }
-
-      .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #007e8f;
-        border-top: 2px solid #02d1ca;
-        border-bottom: 2px solid #442269;
-        flex-direction: column;
-        padding: 10px;
-        gap: 5px;
-        box-shadow: inset 0 1px 0 #89e6e0, 0 4px 8px rgba(0, 0, 0, 0.4);
-      }
-
-      .nav-menu.active {
-        display: flex;
-      }
-
-      .mobile-toggle {
-        display: flex;
-      }
-
-      .dropdown-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        box-shadow: none;
-        border: none;
-        background: transparent;
-        margin-left: 0;
-        margin-top: 10px;
-      }
-
-      .folders-container {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding-top: 80px;
-      }
-
-      .section-title {
-        height: 250px;
-        margin: 15px 0;
-      }
-
-      .pinterest-embed {
-        position: static;
-        width: 100%;
-        height: 250px;
-        margin: 15px 0;
-        border-radius: 0px;
-      }
-
-      .computer-image {
-        margin-bottom: 15px;
-      }
-
-      .taskbar {
-        height: 50px;
-      }
-
-      .taskbar-image {
-        height: 40px;
-      }
-
-      .main-content {
-        padding: 0 20px;
-      }
-
-      .nav-container {
-        padding: 0 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .main-content {
-        padding: 0 15px;
-      }
-
-      .nav-container {
-        padding: 0 15px;
-      }
-
-      .logo-text {
-        font-size: 0.9rem;
-      }
-
-      .logo img {
-        height: 40px;
-      }
-
-      .folders-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-      }
-
-      .taskbar-content {
-        padding: 0 15px;
-      }
-
-      .taskbar {
-        height: 45px;
-      }
-
-      .taskbar-image {
-        height: 35px;
-      }
-    }
-
-    /* Force minimum sizes to prevent shrinking */
-    @media (min-width: 1400px) {
-      .nav-container,
-      .main-content,
-      .taskbar-content {
-        max-width: 1400px;
-      }
-    }
-
-    /* Smooth scrolling and animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .section-notebook,
-    .section-computer,
-    .section-folders {
-      animation: fadeInUp 0.8s ease-out;
-    }
-
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 16px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #9a9ad4;
-      border: 1px inset #9a9ad4;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #c73e8d;
-      border: 2px outset #c73e8d;
-      border-radius: 0px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #8f0fc8;
-      border: 2px inset #8f0fc8;
-    }
-
-    ::-webkit-scrollbar-button {
-      background: #02d1ca;
-      border: 1px outset #02d1ca;
-      height: 16px;
-    }
-
-    ::-webkit-scrollbar-button:hover {
-      background: #007e8f;
-      border: 1px inset #007e8f;
-    }deg, #ff66cc, #89e6e0);
+    @media (max-width:768px) {
+      .section-title { height:250px; }
+      .pinterest-embed { position:static; width:100%; height:250px; margin:15px 0; }
+      .computer-wrapper { max-width:100%; }
     }
   </style>
 </head>
 <body>
-  <!-- HEADER -->
+
   <header class="header">
-    <nav class="nav-container">
-      <a href="#" class="logo glow">
-        <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae Creates Logo">
-        <span class="logo-text">Sunnie Jae</span>
-      </a>
-      
-      <ul class="nav-menu" id="navMenu">
-        <li class="nav-item">
-          <a href="#home" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="contact.html" class="nav-link">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a href="profile-info.html" class="nav-link">About</a>
-        </li>
-        <li class="nav-item">
-          <a href="shop.html" class="nav-link">Shop</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#portfolio" class="nav-link dropdown-toggle">Portfolio ▼</a>
-          <div class="dropdown-menu">
-            <a href="graphic-design.html" class="dropdown-item">Graphic Design</a>
-            <a href="digital-art.html" class="dropdown-item">Digital Art</a>
-            <a href="videos.html" class="dropdown-item">Videos</a>
-            <a href="writing.html" class="dropdown-item">Writing</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a href="studio-ken.html" class="nav-link">Studio Ken</a>
-        </li>
-      </ul>
-
-      <div class="mobile-toggle" id="mobileToggle">
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae Logo">
+        <span class="logo-text">SUNNIE JAE CREATES</span>
       </div>
-    </nav>
-  </header>
-
-  <!-- MAIN CONTENT -->
-  <div class="main-content">
-    <!-- SIDEBAR WITH FOLDERS -->
-    <div class="sidebar">
-      <h2>Desktop</h2>
-      <div class="folders-container">
-        <a href="writing.html" class="folder-item glow">
-          <img src="https://imgur.com/XRXG5tA.png" alt="Fanfiction">
-          <span class="folder-label">Documents</span>
-        </a>
-        
-        <a href="videos.html" class="folder-item glow">
-          <img src="https://imgur.com/XRXG5tA.png" alt="Videos">
-          <span class="folder-label">Videos</span>
-        </a>
-        
-        <a href="games.html" class="folder-item glow">
-          <img src="https://imgur.com/XRXG5tA.png" alt="Games">
-          <span class="folder-label">Games</span>
-        </a>
-        
-        <a href="summer05.html" class="folder-item glow">
-          <img src="https://imgur.com/XRXG5tA.png" alt="Summer 2005">
-          <span class="folder-label">Summer 2005</span>
-        </a>
-        
-        <a href="photos.html" class="folder-item glow">
-          <img src="https://imgur.com/XRXG5tA.png" alt="Photos">
-          <span class="folder-label">Photos</span>
-        </a>
-        
-        <a href="downloads.html" class="folder-item glow">
-          <img src="https://imgur.com/XRXG5tA.png" alt="Downloads">
-          <span class="folder-label">Downloads</span>
-        </a>
-        
-        <a href="youtube.html" class="folder-item social-item glow">
-          <img src="https://imgur.com/Bh4p6mj.png" alt="YouTube">
-          <span class="folder-label">YouTube</span>
-        </a>
-        
-        <a href="tiktok.html" class="folder-item social-item glow">
-          <img src="https://imgur.com/MhKNywk.png" alt="TikTok">
-          <span class="folder-label">TikTok</span>
-        </a>
+      <ul class="nav-menu">
+        <li><a href="#" class="nav-link">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="nav-link">Projects</a>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="dropdown-item">Notebook</a></li>
+            <li><a href="#" class="dropdown-item">Computer</a></li>
+            <li><a href="#" class="dropdown-item">Music</a></li>
+          </ul>
+        </li>
+        <li><a href="#" class="nav-link">About</a></li>
+        <li><a href="#" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="mobile-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
+  </header>
 
-    <!-- MAIN CONTENT AREA -->
-    <div class="content-area">
-      <!-- SECTION 1: TITLE -->
-      <section class="section-title glow" id="home"></section>
+  <main class="main-content">
+    <aside class="sidebar">
+      <h2>Folders</h2>
+      <div class="folders-container">
+        <div class="folder-item">
+          <img src="https://imgur.com/6UVuvOp.png" alt="Notebook">
+          <span class="folder-label">Notebook</span>
+        </div>
+        <div class="folder-item">
+          <img src="https://imgur.com/4kg93iD.png" alt="Computer">
+          <span class="folder-label">Computer</span>
+        </div>
+        <div class="folder-item">
+          <img src="https://imgur.com/Avc3R1Y.png" alt="Music">
+          <span class="folder-label">Music</span>
+        </div>
+      </div>
+    </aside>
 
-      <!-- SECTION 2: NOTEBOOK -->
-      <section class="section-notebook">
-        <h2>...brattitude loading...</h2>
-        <img src="https://imgur.com/VuoO3dN.png" alt="Creative Notebook" class="notebook-image glow">
-      </section>
-      
-      <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
-      <section class="section-computer">
-        <h2>Follow Along: Live Content Updates</h2>
+    <section class="content-area">
+      <div class="section-title"></div>
+
+      <div class="section-notebook">
+        <h2>Notebook</h2>
+        <img src="https://imgur.com/n6km6m0.png" alt="Notebook" class="notebook-image">
+      </div>
+
+      <div class="section-computer">
+        <h2>Computer</h2>
         <div class="computer-wrapper">
-          <img
-            src="https://imgur.com/jzSsYHB.png"
-            alt="Computer Setup"
-            class="computer-image glow"
-          />
+          <img src="https://imgur.com/n6km6m0.png" alt="Computer" class="computer-image">
           <div class="pinterest-embed">
-            <a
-              data-pin-do="embedBoard"
-              data-pin-board-width="651"
-              data-pin-scale-height="762"
-              data-pin-scale-width="80"
-              href="https://www.pinterest.com/pasteliume/mine/"
-            ></a>
+            <!-- Pinterest Embed Placeholder -->
+            <span>Pinterest Content</span>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
+
+  <div class="taskbar">
+    <div class="taskbar-content">
+      <img src="https://imgur.com/5fjM6QN.png" alt="Taskbar Logo" class="taskbar-image">
     </div>
   </div>
 
-  <!-- FOOTER / TASKBAR -->
-  <footer class="taskbar">
-    <div class="taskbar-content">
-      <img src="https://imgur.com/CZWdUJM.png" alt="Footer Logo" class="taskbar-image">
-    </div>
-  </footer>
-
-  <!-- Pinterest JS -->
-  <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
-  
-  <!-- Mobile Navigation Toggle -->
   <script>
-    document.getElementById('mobileToggle').addEventListener('click', function() {
-      const navMenu = document.getElementById('navMenu');
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    mobileToggle.addEventListener('click', () => {
       navMenu.classList.toggle('active');
-      
-      // Animate hamburger menu
-      const spans = this.getElementsByTagName('span');
-      if (navMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-      } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-      }
     });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        const navMenu = document.getElementById('navMenu');
-        const mobileToggle = document.getElementById('mobileToggle');
-        navMenu.classList.remove('active');
-        
-        // Reset hamburger menu
-        const spans = mobileToggle.getElementsByTagName('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-      });
-    });
-
-    // Smooth reveal animations on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationDelay = '0.2s';
-          entry.target.style.animationFillMode = 'forwards';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.section-notebook, .section-computer, .section-folders').forEach(section => {
-      observer.observe(section);
-    });
-
-    // Debug zoom detection
-    console.log('Browser zoom level:', Math.round(window.devicePixelRatio * 100) + '%');
-    console.log('Viewport width:', window.innerWidth);
-    console.log('Screen width:', screen.width);
   </script>
+
 </body>
 </html>
