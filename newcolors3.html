@@ -2,119 +2,315 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sunnie Jae Creates - 2005 Desktop</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="https://imgur.com/5fjM6QN.png">
+<title>Sunnie Jae 2005 Desktop</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ==== RESET / BASE ==== */
-* {margin:0; padding:0; box-sizing:border-box;}
-body {
-  font-family:'Segoe UI', Tahoma, sans-serif;
-  background:url('https://imgur.com/mreYQcF.png') center/cover no-repeat;
+:root {
+  --primary: #9a9ad4;
+  --secondary: #c13886;
+  --accent: #00c9c2;
+  --light-gray: #e6e6e6;
+  --dark-gray: #404040;
+  --white: #ffffff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body, html {
+  width:100vw; height:100vh;
+  background: url('https://imgur.com/mreYQcF.png') center/cover no-repeat;
+  font-family: 'Tahoma', sans-serif;
   color:#000;
-  overflow-x:hidden;
-  min-height:100vh;
-}
-/* ==== WINDOW STYLES ==== */
-.window {
-  position:absolute;
-  border:2px outset #9a9ad4;
-  background:#fff;
-  box-shadow:2px 2px 8px rgba(0,0,0,0.5);
-  resize:both;
   overflow:hidden;
-  display:flex;
-  flex-direction:column;
 }
+
+.desktop { position: relative; width:100%; height:100%; }
+
+/* ===== Windows ===== */
+.window {
+  position: absolute;
+  background: var(--light-gray);
+  border: 2px solid #fff;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+  z-index: 100;
+  display: block;
+  min-width: 200px;
+  border-radius:2px;
+}
+.window.minimized { display:none; }
+
 .window-header {
-  background:linear-gradient(to bottom, #9a9ad4, #c13886);
-  color:#fff;
-  padding:5px 10px;
-  font-weight:bold;
-  display:flex;
-  justify-content:space-between;
-  cursor:move;
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  color: var(--white);
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  text-shadow:1px 1px #000;
 }
-.window-controls div {
-  width:20px; height:20px;
-  text-align:center; line-height:18px;
+
+.window-controls {
+  display: flex; gap:3px;
+}
+
+.window-btn {
+  width:18px; height:18px;
   border:2px outset #fff;
-  background:#c13886;
+  background: var(--accent);
+  font-weight:bold;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.6rem;
   cursor:pointer;
 }
-.window-controls div:hover {border:2px inset #fff;}
-.window-content {flex:1; padding:20px; overflow:auto; display:flex; justify-content:center; align-items:center;}
-.window-content iframe, .window-content img {
-  width:100%; height:100%;
-  object-fit:contain;
-  border:none;
-}
+.window-btn:hover { border:2px inset #fff; }
 
-/* ==== TASKBAR ==== */
+.window-content { padding:10px; overflow:auto; max-height: calc(100vh - 100px); background:#e6e6e6; }
+
+/* ===== Taskbar ===== */
 .taskbar {
-  position:fixed; bottom:0; left:0;
-  width:100%; height:50px;
-  background:#00c9c2; border-top:2px outset #9a9ad4;
-  display:flex; align-items:center; justify-content:start; padding:0 10px; gap:5px;
+  position: fixed; bottom:0; left:0;
+  width:100%; height:40px;
+  background: var(--light-gray);
+  border-top:2px solid #fff;
+  display:flex; align-items:center; padding:0 5px;
+  box-shadow: inset 0 1px 0 #fff,0 -2px 4px rgba(0,0,0,0.3);
+  z-index:1000;
 }
-.taskbar button, .taskbar .start-menu {padding:5px 10px; border:2px outset #9a9ad4; background:#9a9ad4; cursor:pointer;}
-.taskbar button:hover, .taskbar .start-menu:hover {border:2px inset #9a9ad4;}
+.start-button {
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  color:#fff;
+  border:2px outset #fff;
+  padding:5px 12px;
+  font-size:0.6rem;
+  cursor:pointer;
+}
+.start-button:hover { border:2px inset #fff; }
 
-/* ==== START MENU ==== */
-.start-dropdown {
-  position:absolute;
-  bottom:50px; left:0;
-  display:none; flex-direction:column;
-  background:#00c9c2; border:2px outset #9a9ad4;
-  min-width:150px;
+.taskbar-items { display:flex; gap:5px; margin-left:5px; flex:1; align-items:center; }
+.taskbar-item {
+  background: var(--primary);
+  color:#fff;
+  border:1px outset var(--primary);
+  padding:4px 8px;
+  font-size:0.6rem;
+  cursor:pointer;
 }
-.start-dropdown a {
-  padding:5px 10px; text-decoration:none; color:#000;
-  border-bottom:1px solid #c13886;
-}
-.start-dropdown a:hover {background:#c13886; color:#fff;}
+.taskbar-item:hover { border:1px inset var(--primary); }
+.taskbar-item.active { background: var(--secondary); border:1px inset var(--secondary); }
 
-/* ==== DRAGGING SCRIPT ==== */
+.taskbar-time { font-size:0.6rem; color:#000; margin-left:auto; }
+
+/* ===== Taskbar Icons ===== */
+.icon-button {
+  width:28px; height:28px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 3px;
+  border:2px outset #fff;
+  background: var(--primary);
+  cursor:pointer;
+}
+.icon-button:hover { border:2px inset #fff; }
+.icon-button img { width:18px; height:18px; }
+
+/* ===== Start Menu ===== */
+.start-menu {
+  position: fixed; bottom:40px; left:0;
+  background: var(--light-gray);
+  border:2px solid #fff;
+  display:none;
+  flex-direction:column;
+  z-index:2000;
+  padding:5px 0;
+  width:180px;
+  box-shadow:4px 4px 6px rgba(0,0,0,0.4);
+}
+.start-menu a {
+  padding:5px 10px;
+  font-size:0.6rem;
+  color:#000;
+  text-decoration:none;
+  display:block;
+}
+.start-menu a:hover { background: var(--accent); color:#fff; }
+
+/* ===== Desktop Folders ===== */
+.folder {
+  position:absolute; width:80px; height:90px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  cursor:pointer; user-select:none;
+  z-index: 10;
+}
+.folder:hover { transform:scale(1.05); box-shadow:0 0 6px var(--accent); }
+.folder-icon {
+  width:48px; height:48px;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:5px; border:2px outset #fff; background:var(--primary);
+  border-radius:2px;
+}
+.folder-icon img { width:32px; height:32px; object-fit:contain; }
+.folder-label { font-size:0.6rem; color:#000; text-align:center; }
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .folder{width:60px;height:70px;}
+  .folder-icon{width:36px;height:36px;}
+  .folder-icon img{width:24px;height:24px;}
+  .folder-label{font-size:0.5rem;}
+  .window{max-width:90vw; max-height:80vh;}
+}
 </style>
 </head>
 <body>
-<!-- FOLDERS ON DESKTOP -->
-<div class="window" style="top:50px; left:50px; width:300px; height:400px;">
-  <div class="window-header"><span>Summer '05</span><div class="window-controls"><div onclick="this.parentElement.parentElement.style.display='none'">×</div></div></div>
-  <div class="window-content"><a href="summer05.html">Open Summer '05 Folder</a></div>
-</div>
 
-<!-- NOTEBOOK IMAGE WINDOW -->
-<div class="window" style="top:50px; left:400px; width:550px; height:550px;">
-  <div class="window-header"><span>Notebook</span><div class="window-controls"><div onclick="this.parentElement.parentElement.style.display='none'">×</div></div></div>
-  <div class="window-content">
-    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook">
+<div class="desktop">
+
+  <!-- Desktop Folders -->
+  <div class="folder documents" style="top:80px; left:50px;" onclick="openFolder('Documents')">
+    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Documents"></div>
+    <div class="folder-label">Documents</div>
   </div>
-</div>
-
-<!-- PINTEREST EMBED WINDOW -->
-<div class="window" style="top:50px; left:1000px; width:400px; height:600px;">
-  <div class="window-header"><span>Pinterest Feed</span><div class="window-controls"><div onclick="this.parentElement.parentElement.style.display='none'">×</div></div></div>
-  <div class="window-content">
-    <iframe src="https://www.pinterest.com/pin/board_embed/?board=pasteliume/mine/" style="border:none;"></iframe>
+  <div class="folder videos" style="top:80px; left:150px;" onclick="openFolder('Videos')">
+    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Videos"></div>
+    <div class="folder-label">Videos</div>
   </div>
-</div>
+  <div class="folder photos" style="top:180px; left:50px;" onclick="openFolder('Photos')">
+    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Photos"></div>
+    <div class="folder-label">Photos</div>
+  </div>
+  <div class="folder summer05" style="top:180px; left:150px;" onclick="location.href='summer05.html'">
+    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 05"></div>
+    <div class="folder-label">Summer '05</div>
+  </div>
 
-<!-- TASKBAR -->
-<div class="taskbar">
-  <button class="start-menu" onclick="document.querySelector('.start-dropdown').style.display=document.querySelector('.start-dropdown').style.display==='flex'?'none':'flex';">☰ Start</button>
-  <button onclick="alert('Search placeholder')">🔍 Search</button>
-  <button onclick="location.href='social-media.html'">🌐 Browser</button>
-  <button onclick="alert('Settings placeholder')">⚙️</button>
+  <!-- Title Window -->
+  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px;">
+    <div class="window-header">
+      <span>✨ Sunnie Jae Creates</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="title-banner" style="width:100%; height:200px; background-image:url('https://imgur.com/n6km6m0.png'); background-size:cover; background-position:center; border:2px inset #fff; border-radius:2px;"></div>
+    </div>
+  </div>
 
-  <div class="start-dropdown">
+  <!-- Pinterest Window -->
+  <div class="window" id="pinterestWindow" style="top:280px; left:50px; width:550px; height:550px;">
+    <div class="window-header">
+      <span>Pinterest</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="padding:0;">
+      <iframe src="https://www.pinterest.com/YOURUSERNAME/boards/embed/" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+  </div>
+
+  <!-- Notebook Window -->
+  <div class="window" id="imageWindow" style="top:280px; left:650px; width:550px; height:550px;">
+    <div class="window-header">
+      <span>Notebook</span>
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('imageWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('imageWindow')">×</div>
+      </div>
+    </div>
+    <div class="window-content" style="display:flex;align-items:center;justify-content:center;">
+      <img id="customImage" src="https://imgur.com/GrbDrVZ.png" alt="Notebook" style="max-width:100%; max-height:100%;">
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar">
+    <!-- Start Button -->
+    <button class="start-button" onclick="toggleStartMenu()">☰</button>
+
+    <!-- Icons -->
+    <div class="taskbar-items">
+      <div class="icon-button" title="Search"><img src="https://imgur.com/HDV7ZqL.png" alt="Search"></div>
+      <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/7KkDjkT.png" alt="Browser"></div>
+      <div class="icon-button" title="Settings"><img src="https://imgur.com/8T1tGdL.png" alt="Settings"></div>
+    </div>
+
+    <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
+  </div>
+
+  <!-- Start Menu -->
+  <div class="start-menu" id="startMenu">
     <a href="portfolio.html">Portfolio</a>
     <a href="contact.html">Contact</a>
-    <a href="#" onclick="alert('Shutting down');">Shut Down</a>
+    <a href="#" onclick="shutdownConfirm()">Shut Down</a>
     <a href="studio-ken.html">Studio Ken</a>
     <a href="profile-info.html">About</a>
   </div>
+
 </div>
+
+<script>
+let draggedWindow=null; let offset={x:0,y:0}; let highestZ=200;
+function makeDraggable(el){
+  const header=el.querySelector('.window-header');
+  header.addEventListener('mousedown',startDrag);
+  function startDrag(e){
+    if(e.target.classList.contains('window-btn')) return;
+    draggedWindow=el;
+    const rect=el.getBoundingClientRect();
+    offset.x=e.clientX-rect.left; offset.y=e.clientY-rect.top;
+    el.style.zIndex=++highestZ;
+    document.addEventListener('mousemove',drag);
+    document.addEventListener('mouseup',stopDrag);
+  }
+  function drag(e){
+    if(!draggedWindow) return;
+    let x=e.clientX-offset.x;
+    let y=e.clientY-offset.y;
+    const maxX=window.innerWidth-el.offsetWidth;
+    const maxY=window.innerHeight-el.offsetHeight-40;
+    draggedWindow.style.left=Math.max(0,Math.min(x,maxX))+'px';
+    draggedWindow.style.top=Math.max(0,Math.min(y,maxY))+'px';
+  }
+  function stopDrag(){ draggedWindow=null; document.removeEventListener('mousemove',drag); document.removeEventListener('mouseup',stopDrag); }
+}
+document.querySelectorAll('.window').forEach(makeDraggable);
+
+function closeWindow(id){ document.getElementById(id).style.display='none'; }
+function minimizeWindow(id){ document.getElementById(id).classList.add('minimized'); }
+function focusWindow(id){
+  const win=document.getElementById(id);
+  if(win.classList.contains('minimized')) win.classList.remove('minimized');
+  win.style.zIndex=++highestZ;
+}
+function openFolder(name){ alert(`Opening ${name}...`); }
+
+function toggleStartMenu(){
+  const menu=document.getElementById('startMenu');
+  menu.style.display=menu.style.display==='flex'?'none':'flex';
+}
+
+function updateTime(){ document.getElementById('taskbarTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
+setInterval(updateTime,1000); updateTime();
+
+function shutdownConfirm(){
+  const confirmShutdown=document.createElement('div');
+  confirmShutdown.style.position='fixed';
+  confirmShutdown.style.top='50%';
+  confirmShutdown.style.left='50%';
+  confirmShutdown.style.transform='translate(-50%,-50%)';
+  confirmShutdown.style.background='#fff';
+  confirmShutdown.style.border='2px solid #000';
+  confirmShutdown.style.padding='20px';
+  confirmShutdown.style.zIndex=3000;
+  confirmShutdown.innerHTML="<p>Are you sure you want to shut down?</p><button onclick='window.history.back()'>Confirm</button>";
+  document.body.appendChild(confirmShutdown);
+}
+</script>
 </body>
 </html>
-<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
