@@ -6,295 +6,298 @@
 <title>Sunnie Jae Desktop</title>
 <link rel="icon" href="https://imgur.com/wHDx7cE.png">
 <style>
-  :root {
-    --primary-purple: #9a9ad4;
-    --primary-pink: #ff66cc;
-    --primary-cyan: #02d1ca;
-    --header-gray-start: #d0d0d0;
-    --header-gray-end: #a0a0a0;
-    --taskbar-h: 50px;
-    --window-border: 3px solid #007e8f;
-  }
+:root {
+  --primary: #9a9ad4;
+  --secondary: #c13886;
+  --accent: #00c9c2;
+  --dark-purple: #3f3d7a;
+  --darker-cyan: #00a8a3;
+  --light-pink: #ffb3d6;
+  --silver: #f0f0f5;
+  --gray: #bfbfdc;
+  --dark-gray: #404040;
+  --white: #ffffff;
+  --black: #000010;
+  --taskbar-h: 50px;
+  --window-border: 3px solid var(--primary);
+}
 
-  body {
-    margin: 0;
-    font-family: Tahoma, sans-serif;
-    background: url('https://imgur.com/4D0ZDvV.pnng') no-repeat center center fixed;
-    background-size: cover;
-    overflow-x: hidden;
-  }
+body {
+  margin: 0;
+  font-family: Tahoma, sans-serif;
+  background: var(--silver);
+  color: var(--dark-gray);
+}
 
-  /* Desktop folders */
-  .desktop-folder {
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 0.8rem;
-    color: #000;
-  }
+/* Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--taskbar-h);
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+.taskbar button, .folder {
+  margin-right: 8px;
+  background: var(--light-pink);
+  border: 1px solid var(--dark-gray);
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--dark-gray);
+}
+.folder {
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  padding: 2px 4px;
+  background: var(--white);
+  border: 1px solid var(--gray);
+}
 
-  .desktop-folder img {
-    width: 64px;
-    height: 64px;
-    display: block;
-    margin: 0 auto;
-  }
+/* Windows */
+.window {
+  position: absolute;
+  border: var(--window-border);
+  background: var(--white);
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  z-index: 100;
+  overflow: hidden;
+}
+.window-header {
+  background: linear-gradient(to bottom, var(--dark-purple), var(--primary));
+  color: var(--white);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move;
+}
+.window-header .buttons {
+  display: flex;
+  gap: 4px;
+}
+.window-header .buttons span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  line-height: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--white);
+}
+.close-btn { color: var(--secondary); }
+.minimize-btn { color: var(--accent); }
+.maximize-btn { color: var(--darker-cyan); }
+.window-content {
+  padding: 5px;
+  overflow: auto;
+  background: var(--silver);
+}
 
-  /* Taskbar */
-  .taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: var(--taskbar-h);
-    background: var(--primary-purple);
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    box-sizing: border-box;
-    z-index: 1000;
-  }
+/* Start menu */
+#startMenu {
+  position: fixed;
+  bottom: var(--taskbar-h);
+  left: 0;
+  background: var(--white);
+  border: 1px solid var(--dark-gray);
+  display: none;
+  flex-direction: column;
+  width: 180px;
+  z-index: 2000;
+}
+#startMenu a {
+  padding: 6px 12px;
+  text-decoration: none;
+  color: var(--dark-gray);
+  display: block;
+}
+#startMenu a:hover { background: var(--light-pink); }
+.submenu { display: none; padding-left: 10px; }
 
-  .taskbar button {
-    margin-right: 8px;
-    background: #eee;
-    border: 1px solid #666;
-    padding: 2px 6px;
-    cursor: pointer;
-    font-size: 0.8rem;
-  }
-
-  /* Windows */
-  .window {
-    position: absolute;
-    border: var(--window-border);
-    background: #fff;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    z-index: 100;
-    overflow: hidden;
-  }
-
-  .window-header {
-    background: linear-gradient(to bottom, var(--header-gray-start), var(--header-gray-end));
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: move;
-  }
-
-  .window-header .buttons {
-    display: flex;
-    gap: 4px;
-  }
-
-  .window-header .buttons span {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    text-align: center;
-    line-height: 16px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  .close-btn { color: var(--primary-pink); }
-  .minimize-btn { color: var(--primary-cyan); }
-  .maximize-btn { color: var(--primary-purple); }
-
-  .window-content {
-    padding: 5px;
-    overflow: auto;
-    background: #fff;
-  }
-
-  /* Header window */
-  #headerWindow img {
-    width: 100%;
-    height: auto;
-  }
-
-  /* Notebook window */
-  #notebookWindow img {
-    width: 100%;
-    display: block;
-  }
-
-  /* Pinterest window */
-  #pinterestWindow iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  /* Player window */
-  #playerWindow audio {
-    width: 100%;
-  }
-
-  /* Footer clock */
-  .footer-clock {
-    position: fixed;
-    bottom: var(--taskbar-h);
-    right: 10px;
-    font-size: 0.9rem;
-    color: #fff;
-    font-family: Tahoma, sans-serif;
-    z-index: 1000;
-  }
+/* Footer Clock */
+#clock {
+  font-family: Tahoma;
+  background: rgba(255,255,255,0.5);
+  padding: 2px 6px;
+  color: var(--dark-gray);
+}
 </style>
 </head>
 <body>
 
-<!-- Desktop Folders -->
-<div class="desktop-folder" style="top:50px; left:50px;" onclick="location.href='shop.html'">
-  <img src="https://imgur.com/6cZyYVx.png" alt="Downloads">
-  Downloads
-</div>
-<div class="desktop-folder" style="top:50px; left:160px;" onclick="location.href='writing.html'">
-  <img src="https://imgur.com/6cZyYVx.png" alt="Documents">
-  Documents
-</div>
-<div class="desktop-folder" style="top:50px; left:270px;" onclick="location.href='graphic-design.html'">
-  <img src="https://imgur.com/6cZyYVx.png" alt="Photos">
-  Photos
-</div>
-<div class="desktop-folder" style="top:50px; left:380px;" onclick="location.href='videos.html'">
-  <img src="https://imgur.com/6cZyYVx.png" alt="Videos">
-  Videos
-</div>
-<div class="desktop-folder" style="top:50px; left:490px;" onclick="location.href='social-media.html'">
-  <img src="https://imgur.com/6cZyYVx.png" alt="Internet Explorer">
-  Internet Explorer
-</div>
-<div class="desktop-folder" style="top:50px; left:600px;" onclick="location.href='summer05.html'">
-  <img src="https://imgur.com/6cZyYVx.png" alt="Summer 2005">
-  Summer 2005
-</div>
+<!-- Folders -->
+<div class="folder" style="top:60px; left:40px;" onclick="location.href='shop.html'">Downloads</div>
+<div class="folder" style="top:60px; left:140px;" onclick="location.href='writing.html'">Documents</div>
+<div class="folder" style="top:60px; left:240px;" onclick="location.href='graphic-design.html'">Photos</div>
+<div class="folder" style="top:60px; left:340px;" onclick="location.href='videos.html'">Videos</div>
+<div class="folder" style="top:60px; left:440px;" onclick="location.href='social-media.html'">Internet Explorer</div>
+<div class="folder" style="top:140px; left:40px;" onclick="location.href='summer05.html'">Summer 2005</div>
 
 <!-- Windows -->
-<div class="window" id="headerWindow" style="top:40px; left:100px; width:720px; z-index:300;">
+<div class="window" id="headerWindow" style="top:40px; left:60px; width:960px; z-index:300;">
   <div class="window-header">
     <span>Header</span>
     <div class="buttons">
       <span class="minimize-btn" onclick="toggleWindow('headerWindow')">_</span>
       <span class="maximize-btn">■</span>
-      <span class="close-btn" onclick="toggleWindow('headerWindow')">×</span>
+      <span class="close-btn" onclick="closeWindow('headerWindow')">×</span>
     </div>
   </div>
   <div class="window-content">
-    <img src="https://imgur.com/Dok5RmF.png" alt="Header Image">
+    <img src="https://imgur.com/Dok5RmF.png" alt="Header Image" style="width:100%;">
   </div>
 </div>
 
-<div class="window" id="notebookWindow" style="top:120px; left:900px; width:500px; height:1000px; z-index:200;">
+<div class="window" id="notebookWindow" style="top:120px; left:600px; width:500px; height:1000px; z-index:200;">
   <div class="window-header">
     <span>Notebook</span>
     <div class="buttons">
       <span class="minimize-btn" onclick="toggleWindow('notebookWindow')">_</span>
       <span class="maximize-btn">■</span>
-      <span class="close-btn" onclick="toggleWindow('notebookWindow')">×</span>
+      <span class="close-btn" onclick="closeWindow('notebookWindow')">×</span>
     </div>
   </div>
-  <div class="window-content" style="height:950px;">
-    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook Image">
+  <div class="window-content" style="height:950px; overflow-y:auto;">
+    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook Image" style="width:100%;">
   </div>
 </div>
 
-<div class="window" id="pinterestWindow" style="top:220px; left:500px; width:900px; height:600px; z-index:100;">
-  <div class="window-header">
-    <span>Pinterest Board</span>
-    <div class="buttons">
-      <span class="minimize-btn" onclick="toggleWindow('pinterestWindow')">_</span>
-      <span class="maximize-btn">■</span>
-      <span class="close-btn" onclick="toggleWindow('pinterestWindow')">×</span>
-    </div>
-  </div>
-  <div class="window-content">
-    <a data-pin-do="embedBoard" data-pin-board-width="900" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
-  </div>
-</div>
-
-<div class="window" id="playerWindow" style="top:400px; left:200px; width:300px; height:80px; z-index:150;">
+<div class="window" id="playerWindow" style="top:400px; left:800px; width:300px; height:80px; z-index:150;">
   <div class="window-header">
     <span>Music Player</span>
     <div class="buttons">
       <span class="minimize-btn" onclick="toggleWindow('playerWindow')">_</span>
       <span class="maximize-btn">■</span>
-      <span class="close-btn" onclick="toggleWindow('playerWindow')">×</span>
+      <span class="close-btn" onclick="closeWindow('playerWindow')">×</span>
     </div>
   </div>
   <div class="window-content">
     <audio controls>
       <source src="your-audio-file.mp3" type="audio/mpeg">
-      Peaches & Queens Original Music
+      Music Player
     </audio>
   </div>
 </div>
 
 <!-- Taskbar -->
-<div class="taskbar" id="taskbar"></div>
+<div class="taskbar" id="taskbar">
+  <button class="start-menu-button" onclick="toggleStartMenu()">Start</button>
+</div>
+
+<!-- Start menu -->
+<div id="startMenu">
+  <a href="#">Files ▸</a>
+  <div class="submenu">
+    <a href="graphic-design.html">Graphic Design</a>
+    <a href="digital-art.html">Digital Art</a>
+    <a href="videos.html">Videos</a>
+    <a href="writing.html">Writing</a>
+  </div>
+  <a href="profile-info.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="shop.html">Shop</a>
+  <a href="studio-ken.html">Studio Ken</a>
+  <a href="#" onclick="shutdown()">Shut Down</a>
+</div>
 
 <!-- Footer Clock -->
-<div class="footer-clock" id="footerClock"></div>
-
-<!-- Pinterest JS -->
-<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+<div style="position:fixed; bottom:var(--taskbar-h); right:10px;">
+  <span id="clock"></span>
+</div>
 
 <script>
-  let topZ = 300;
+// Drag windows
+let topZ = 300;
+function makeDraggable(el){
+  const header = el.querySelector('.window-header');
+  let offsetX=0, offsetY=0, mouseX=0, mouseY=0;
+  header.onmousedown = dragMouseDown;
+  function dragMouseDown(e){
+    e.preventDefault();
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  }
+  function elementDrag(e){
+    e.preventDefault();
+    offsetX = mouseX - e.clientX;
+    offsetY = mouseY - e.clientY;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    el.style.top = (el.offsetTop - offsetY) + "px";
+    el.style.left = (el.offsetLeft - offsetX) + "px";
+    el.style.zIndex = ++topZ;
+  }
+  function closeDragElement(){
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+document.querySelectorAll('.window').forEach(w => makeDraggable(w));
 
-  function toggleWindow(id) {
-    const w = document.getElementById(id);
-    if (w.style.display === "none") {
-      w.style.display = "block";
-      w.style.zIndex = ++topZ;
-      addTaskbarButton(id);
-    } else {
-      w.style.display = "none";
-      removeTaskbarButton(id);
+// Taskbar buttons
+const taskbar = document.getElementById('taskbar');
+const windowsList = document.querySelectorAll('.window');
+let windowButtons = {};
+windowsList.forEach(win => {
+  const id = win.id;
+  const btn = document.createElement('button');
+  btn.innerText = win.querySelector('.window-header span').innerText;
+  btn.onclick = () => { toggleWindow(id); };
+  taskbar.appendChild(btn);
+  windowButtons[id] = btn;
+});
+function toggleWindow(id){
+  const w = document.getElementById(id);
+  if(w.style.display === "none"){ w.style.display="block"; w.style.zIndex=++topZ; }
+  else { w.style.display="none"; }
+}
+function closeWindow(id){
+  const w = document.getElementById(id);
+  w.style.display = "none";
+  windowButtons[id].remove();
+  delete windowButtons[id];
+}
+
+// Start menu
+function toggleStartMenu(){
+  const sm = document.getElementById('startMenu');
+  sm.style.display = sm.style.display==='flex'?'none':'flex';
+}
+document.querySelectorAll('#startMenu a').forEach(a=>{
+  a.onclick=(e)=>{
+    if(a.nextElementSibling && a.nextElementSibling.classList.contains('submenu')){
+      e.preventDefault();
+      a.nextElementSibling.style.display = a.nextElementSibling.style.display==='block'?'none':'block';
     }
   }
+});
 
-  function addTaskbarButton(id) {
-    const taskbar = document.getElementById('taskbar');
-    if (!document.getElementById('taskBtn_' + id)) {
-      const btn = document.createElement('button');
-      btn.id = 'taskBtn_' + id;
-      btn.innerText = document.getElementById(id).querySelector('.window-header span').innerText;
-      btn.onclick = () => toggleWindow(id);
-      taskbar.appendChild(btn);
-    }
-  }
+// Shutdown
+function shutdown(){
+  if(confirm("Are you sure you want to shut down?")) window.history.back();
+}
 
-  function removeTaskbarButton(id) {
-    const btn = document.getElementById('taskBtn_' + id);
-    if (btn) btn.remove();
-  }
-
-  // Bring window to front on click
-  const windows = document.querySelectorAll('.window');
-  windows.forEach(w => {
-    w.addEventListener('mousedown', () => {
-      w.style.zIndex = ++topZ;
-      addTaskbarButton(w.id);
-    });
-  });
-
-  // Footer Clock
-  function updateClock() {
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    document.getElementById('footerClock').innerText = `${hours}:${minutes} ${ampm} (2006)`;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
+// Clock stuck at 2006
+function updateClock(){
+  const now = new Date();
+  const hh = now.getHours()%12||12;
+  const mm = now.getMinutes().toString().padStart(2,'0');
+  const ampm = now.getHours()>=12?'PM':'AM';
+  document.getElementById('clock').innerText = hh+':'+mm+' '+ampm+' (2006)';
+}
+setInterval(updateClock,1000);
+updateClock();
 </script>
-
 </body>
 </html>
