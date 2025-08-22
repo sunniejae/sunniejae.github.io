@@ -1,5 +1,170 @@
-<!-- Windows (header, notebook, Pinterest) with z-index stacking -->
-<div class="window" id="headerWindow" style="top:50px; left:200px; display:block; z-index:1;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windows XP Style Desktop</title>
+<link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+
+<style>
+:root {
+  --primary-purple: #9a9ad4;
+  --primary-pink: #ff66cc;
+  --cyan: #02d1ca;
+  --dark-purple: #442269;
+  --magenta: #c73e8d;
+  --secondary-purple: #8f0fc8;
+  --light-cyan: #89e6e0;
+  --teal: #007e8f;
+  --background: #d0d0d0;
+  --window-header-start: #e0e0e0;
+  --window-header-end: #a0a0a0;
+}
+
+body {
+  margin:0;
+  padding:0;
+  background: url('https://imgur.com/mreYQcF.png') no-repeat center center fixed;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.desktop-icon {
+  width: 80px;
+  text-align: center;
+  margin: 10px;
+  cursor: pointer;
+  display: inline-block;
+}
+.desktop-icon img {
+  width: 64px;
+  height: 64px;
+}
+.desktop-icon span {
+  display: block;
+  color: white;
+  font-size: 12px;
+}
+
+.window {
+  width: 600px;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+  position: absolute;
+  user-select: none;
+}
+
+.window-header {
+  background: linear-gradient(to bottom, var(--window-header-start), var(--window-header-end));
+  color: black;
+  padding: 5px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.window-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.window-btn {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 18px;
+  font-weight: bold;
+  border: 1px solid #888;
+  cursor: pointer;
+  user-select: none;
+}
+.window-btn.minimize { background: var(--cyan); color: white;}
+.window-btn.maximize { background: var(--primary-purple); color: white;}
+.window-btn.close { background: var(--primary-pink); color: white;}
+
+.window-content {
+  padding: 10px;
+}
+
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  color: white;
+}
+
+.taskbar button, .start-menu a {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background: var(--primary-purple);
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.start-menu {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  background: #333;
+  color: white;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #000;
+}
+
+.start-menu a:hover {
+  background: var(--cyan);
+}
+
+.audio-player {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.pinterest-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Desktop icons -->
+<div class="desktop-icon">
+  <a href="shop.html"><img src="https://imgur.com/64icon.png" alt="Downloads"><span>Downloads</span></a>
+</div>
+<div class="desktop-icon">
+  <a href="writing.html"><img src="https://imgur.com/64icon.png" alt="Documents"><span>Documents</span></a>
+</div>
+<div class="desktop-icon">
+  <a href="graphic-design.html"><img src="https://imgur.com/64icon.png" alt="Photos"><span>Photos</span></a>
+</div>
+<div class="desktop-icon">
+  <a href="videos.html"><img src="https://imgur.com/64icon.png" alt="Videos"><span>Videos</span></a>
+</div>
+<div class="desktop-icon">
+  <a href="social-media.html"><img src="https://imgur.com/64icon.png" alt="Internet Explorer"><span>IE</span></a>
+</div>
+<div class="desktop-icon">
+  <a href="summer05.html"><img src="https://imgur.com/64icon.png" alt="Summer '05"><span>Summer '05</span></a>
+</div>
+
+<!-- Header Window -->
+<div class="window" id="headerWindow" style="top:50px; left:50px; z-index:1;">
   <div class="window-header" onmousedown="bringToFront('headerWindow')">
     Header
     <div class="window-controls">
@@ -9,11 +174,12 @@
     </div>
   </div>
   <div class="window-content">
-    <img src="https://imgur.com/fG62t37.png" alt="Header Image"/>
+    <img src="https://imgur.com/fG62t37.png" alt="Header" style="width:100%;">
   </div>
 </div>
 
-<div class="window" id="notebookWindow" style="top:100px; left:750px; display:block; z-index:2;">
+<!-- Notebook Window -->
+<div class="window" id="notebookWindow" style="top:100px; left:700px; z-index:2;">
   <div class="window-header" onmousedown="bringToFront('notebookWindow')">
     Notebook
     <div class="window-controls">
@@ -23,11 +189,12 @@
     </div>
   </div>
   <div class="window-content">
-    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook"/>
+    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook" style="width:100%; height:auto;">
   </div>
 </div>
 
-<div class="window" id="pinterestWindow" style="top:200px; left:1300px; display:block; z-index:3;">
+<!-- Pinterest Window -->
+<div class="window" id="pinterestWindow" style="top:150px; left:1350px; z-index:3;">
   <div class="window-header" onmousedown="bringToFront('pinterestWindow')">
     Pinterest
     <div class="window-controls">
@@ -36,15 +203,83 @@
       <div class="window-btn close" onclick="closeWindow('pinterestWindow')">×</div>
     </div>
   </div>
-  <div class="window-content">
+  <div class="window-content" style="height:400px;">
     <a data-pin-do="embedBoard" data-pin-board-width="600" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
   </div>
 </div>
 
+<!-- Audio Player Window -->
+<div class="window" id="audioWindow" style="top:600px; left:50px; z-index:4;">
+  <div class="window-header" onmousedown="bringToFront('audioWindow')">
+    Audio Player
+    <div class="window-controls">
+      <div class="window-btn minimize" onclick="minimize('audioWindow')">_</div>
+      <div class="window-btn maximize">■</div>
+      <div class="window-btn close" onclick="closeWindow('audioWindow')">×</div>
+    </div>
+  </div>
+  <div class="window-content">
+    <audio class="audio-player" controls>
+      <source src="your-audio-file.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
+<!-- Taskbar -->
+<div class="taskbar">
+  <button id="startBtn">Start</button>
+  <input type="text" placeholder="Search..." style="flex:1; margin-left:10px; padding:5px;">
+  <button>Settings</button>
+</div>
+
+<!-- Start Menu -->
+<div class="start-menu" id="startMenu">
+  <a href="portfolio.html">Portfolio</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" onclick="window.history.back();">Shut Down</a>
+  <a href="studio-ken.html">Studio Ken</a>
+  <a href="profile-info.html">About</a>
+</div>
+
+<!-- Scripts -->
+<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 <script>
-let topZ = 3; // current highest z-index
+// Z-index stacking
+let topZ = 4;
 function bringToFront(id){
-    topZ++;
-    document.getElementById(id).style.zIndex = topZ;
+  topZ++;
+  document.getElementById(id).style.zIndex = topZ;
+}
+
+// Window controls
+function minimize(id){ document.getElementById(id).style.display='none'; }
+function closeWindow(id){ document.getElementById(id).style.display='none'; }
+
+// Draggable
+const windows = document.querySelectorAll('.window');
+windows.forEach(win => {
+  const header = win.querySelector('.window-header');
+  header.onmousedown = function(e){
+    bringToFront(win.id);
+    let offsetX = e.clientX - win.offsetLeft;
+    let offsetY = e.clientY - win.offsetTop;
+    function move(e){
+      win.style.left = e.clientX - offsetX + 'px';
+      win.style.top = e.clientY - offsetY + 'px';
+    }
+    function stop(){ document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', stop); }
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', stop);
+  }
+});
+
+// Start menu toggle
+document.getElementById('startBtn').onclick = function(){
+  const menu = document.getElementById('startMenu');
+  menu.style.display = (menu.style.display==='flex')?'none':'flex';
 }
 </script>
+
+</body>
+</html>
