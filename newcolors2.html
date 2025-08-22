@@ -5,29 +5,95 @@
   <title>Sunnie Jae Creates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="https://imgur.com/wHDx7cE.png">
-
   <style>
     :root {
-      --cyan: #02d1ca;
       --purple: #9a9ad4;
       --pink: #ff66cc;
-      --deep-pink: #c73e8d;
-      --deep-purple: #442269;
-      --background: #89e6e0;
-      --taskbar: #6e0b41;
-      --gray-light: #dcdcdc;
-      --gray-dark: #a0a0a0;
+      --cyan: #02d1ca;
+      --magenta: #c73e8d;
+      --dark-purple: #442269;
+      --teal: #007e8f;
+      --deep-pink: #6e0b41;
+      --light-gray: #e0e0e0;
+      --medium-gray: #c0c0c0;
     }
 
     body {
       margin: 0;
-      padding: 0;
+      font-family: "Trebuchet MS", sans-serif;
       background: url("https://imgur.com/4D0ZDvV.png") no-repeat center center fixed;
       background-size: cover;
-      font-family: Tahoma, sans-serif;
-      color: white;
-      height: 100vh;
       overflow: hidden;
+    }
+
+    /* Window styles */
+    .window {
+      position: absolute;
+      background: white;
+      border: 2px solid var(--dark-purple);
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      z-index: 5;
+    }
+
+    .window-header {
+      background: linear-gradient(to bottom, var(--light-gray), var(--medium-gray));
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: move;
+      user-select: none;
+    }
+
+    .window-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+    }
+
+    .window-buttons {
+      display: flex;
+      gap: 4px;
+    }
+
+    .window-buttons span {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .btn-minimize { background: var(--cyan); }
+    .btn-maximize { background: var(--purple); }
+    .btn-close { background: var(--pink); }
+
+    .window-content {
+      flex: 1;
+      background: white;
+      overflow: auto;
+      text-align: center;
+    }
+
+    /* Window sizes */
+    #headerWindow { top: 50px; left: 50px; width: 720px; height: 288px; }
+    #notebookWindow { top: 370px; left: 80px; width: 500px; height: 1000px; }
+    #pinterestWindow { top: 100px; left: 820px; width: 750px; height: 500px; }
+
+    #notebookWindow .window-content {
+      overflow-y: scroll;
+    }
+
+    #notebookWindow img {
+      width: 1000px;
+      height: auto;
     }
 
     /* Taskbar */
@@ -35,146 +101,95 @@
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 100%;
-      height: 48px;
-      background: var(--taskbar);
+      right: 0;
+      height: 50px;
+      background: var(--dark-purple);
       display: flex;
       align-items: center;
       padding: 0 10px;
-      box-sizing: border-box;
+      color: white;
+      z-index: 1000;
     }
 
-    .taskbar button {
-      background: var(--gray-dark);
+    .start-button {
+      background: var(--purple);
+      border: none;
       color: white;
-      border: 1px solid black;
+      padding: 5px 10px;
+      margin-right: 10px;
+      cursor: pointer;
       border-radius: 3px;
-      padding: 4px 8px;
-      margin-right: 6px;
-      font-size: 13px;
+    }
+
+    .taskbar-icons img {
+      height: 32px;
+      margin-right: 8px;
       cursor: pointer;
     }
 
-    .taskbar button:hover {
-      background: var(--gray-light);
-      color: black;
+    .taskbar-windows {
+      margin-left: auto;
+      display: flex;
+      gap: 5px;
     }
 
-    /* Desktop windows */
-    .window {
-      position: absolute;
-      background: white;
-      border: 2px solid var(--deep-purple);
-      box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+    .taskbar-windows button {
+      background: var(--medium-gray);
+      border: 1px solid var(--light-gray);
+      padding: 2px 8px;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    /* Start menu */
+    .start-menu {
+      position: fixed;
+      bottom: 50px;
+      left: 10px;
+      width: 200px;
+      background: var(--medium-gray);
+      border: 2px solid var(--dark-purple);
       display: none;
       flex-direction: column;
-      z-index: 10;
+      z-index: 1001;
     }
 
-    .window-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(to bottom, var(--gray-light), var(--gray-dark));
+    .start-menu a {
+      padding: 8px;
+      text-decoration: none;
       color: black;
-      padding: 4px 8px;
-      font-size: 14px;
-      cursor: grab;
-    }
-
-    .window-controls {
-      display: flex;
-      gap: 4px;
-    }
-
-    .window-controls button {
-      width: 22px;
-      height: 22px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      color: white;
-    }
-
-    .btn-min { background: var(--cyan); }
-    .btn-max { background: var(--purple); }
-    .btn-close { background: var(--pink); }
-
-    .window-content {
-      background: white;
-      flex-grow: 1;
-      overflow: auto;
-    }
-
-    /* Specific window sizes */
-    #headerWindow {
-      width: 720px;
-      height: 288px;
-      top: 40px;
-      left: 40px;
-    }
-
-    #headerWindow img {
-      width: 100%;
-      height: auto;
       display: block;
     }
 
-    #notebookWindow {
-      width: 500px;
-      height: 1000px;
-      top: 100px;
-      left: 200px;
-    }
-
-    #notebookWindow img {
-      width: 100%;
-      height: auto;
-    }
-
-    #pinterestWindow {
-      width: 900px;
-      height: 600px;
-      top: 160px;
-      left: 120px;
-    }
-
-    .pinterest-embed {
-      width: 100%;
-      height: 100%;
-    }
-
-    .pinterest-embed > a {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
+    .start-menu a:hover {
+      background: var(--light-gray);
     }
   </style>
 </head>
 <body>
-
-  <!-- WINDOWS -->
+  <!-- Header Window -->
   <div class="window" id="headerWindow">
     <div class="window-header">
-      <span>Header</span>
-      <div class="window-controls">
-        <button class="btn-min">_</button>
-        <button class="btn-max">■</button>
-        <button class="btn-close" onclick="closeWindow('headerWindow')">×</button>
+      <div class="window-title">Header</div>
+      <div class="window-buttons">
+        <span class="btn-minimize">_</span>
+        <span class="btn-maximize">■</span>
+        <span class="btn-close">×</span>
       </div>
     </div>
     <div class="window-content">
-      <img src="https://imgur.com/Dok5RmF.png" alt="Header">
+      <img src="https://imgur.com/Dok5RmF.png" alt="Header" style="width:100%; height:auto;">
     </div>
   </div>
 
+  <!-- Notebook Window -->
   <div class="window" id="notebookWindow">
     <div class="window-header">
-      <span>Notebook</span>
-      <div class="window-controls">
-        <button class="btn-min">_</button>
-        <button class="btn-max">■</button>
-        <button class="btn-close" onclick="closeWindow('notebookWindow')">×</button>
+      <div class="window-title">Notebook</div>
+      <div class="window-buttons">
+        <span class="btn-minimize">_</span>
+        <span class="btn-maximize">■</span>
+        <span class="btn-close">×</span>
       </div>
     </div>
     <div class="window-content">
@@ -182,42 +197,80 @@
     </div>
   </div>
 
+  <!-- Pinterest Window -->
   <div class="window" id="pinterestWindow">
     <div class="window-header">
-      <span>Pinterest Feed</span>
-      <div class="window-controls">
-        <button class="btn-min">_</button>
-        <button class="btn-max">■</button>
-        <button class="btn-close" onclick="closeWindow('pinterestWindow')">×</button>
+      <div class="window-title">Pinterest</div>
+      <div class="window-buttons">
+        <span class="btn-minimize">_</span>
+        <span class="btn-maximize">■</span>
+        <span class="btn-close">×</span>
       </div>
     </div>
     <div class="window-content">
-      <div class="pinterest-embed">
-        <a data-pin-do="embedBoard" data-pin-board-width="800"
-          data-pin-scale-height="720" data-pin-scale-width="120"
-          href="https://www.pinterest.com/pasteliume/mine/"></a>
-      </div>
+      <a data-pin-do="embedBoard"
+         data-pin-board-width="750"
+         data-pin-scale-height="800"
+         data-pin-scale-width="100"
+         href="https://www.pinterest.com/pasteliume/mine/"></a>
     </div>
   </div>
 
-  <!-- TASKBAR -->
+  <!-- Taskbar -->
   <div class="taskbar">
-    <button onclick="openWindow('headerWindow')">Header</button>
-    <button onclick="openWindow('notebookWindow')">Notebook</button>
-    <button onclick="openWindow('pinterestWindow')">Pinterest</button>
+    <button class="start-button">Start</button>
+    <div class="taskbar-icons">
+      <a href="shop.html"><img src="https://img.icons8.com/fluency/48/folder-invoices.png" alt="Downloads"></a>
+      <a href="writing.html"><img src="https://img.icons8.com/fluency/48/folder-documents.png" alt="Documents"></a>
+      <a href="graphic-design.html"><img src="https://img.icons8.com/fluency/48/folder-pictures.png" alt="Photos"></a>
+      <a href="videos.html"><img src="https://img.icons8.com/fluency/48/folder-video.png" alt="Videos"></a>
+      <a href="social-media.html"><img src="https://img.icons8.com/fluency/48/internet-explorer.png" alt="Internet Explorer"></a>
+      <a href="summer05.html"><img src="https://img.icons8.com/fluency/48/folder.png" alt="Summer '05"></a>
+    </div>
+    <div class="taskbar-windows">
+      <button onclick="restoreWindow('headerWindow')">Header</button>
+      <button onclick="restoreWindow('notebookWindow')">Notebook</button>
+      <button onclick="restoreWindow('pinterestWindow')">Pinterest</button>
+    </div>
   </div>
 
-  <!-- Pinterest Script -->
+  <!-- Start Menu -->
+  <div class="start-menu" id="startMenu">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+    <a href="studio-ken.html">Studio Ken</a>
+    <a href="profile-info.html">About</a>
+    <a href="#" onclick="alert('Shutdown... Confirm?');">Shut Down</a>
+  </div>
+
+  <!-- Pinterest JS -->
   <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 
   <script>
-    function openWindow(id) {
-      document.getElementById(id).style.display = "flex";
+    // Window controls
+    document.querySelectorAll('.window').forEach(win => {
+      const closeBtn = win.querySelector('.btn-close');
+      const minimizeBtn = win.querySelector('.btn-minimize');
+
+      closeBtn.addEventListener('click', () => {
+        win.style.display = 'none';
+      });
+
+      minimizeBtn.addEventListener('click', () => {
+        win.style.display = 'none';
+      });
+    });
+
+    function restoreWindow(id) {
+      document.getElementById(id).style.display = 'flex';
     }
 
-    function closeWindow(id) {
-      document.getElementById(id).style.display = "none";
-    }
+    // Start menu toggle
+    const startButton = document.querySelector('.start-button');
+    const startMenu = document.getElementById('startMenu');
+    startButton.addEventListener('click', () => {
+      startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
   </script>
 </body>
 </html>
