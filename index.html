@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Desktop Simulation</title>
-<link rel="icon" href="https://i.imgur.com/wHDx7cE.png" type="image/png">
+<title>Desktop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   :root {
     --primary: #9a9ad4;
@@ -16,64 +16,60 @@
     --gray: #bfbfdc;
     --dark-gray: #404040;
     --white: #ffffff;
-    --pink: #ff66cc;
   }
+
   body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
     background: url('https://i.imgur.com/4D0ZDvV.png') no-repeat center center fixed;
     background-size: cover;
+    font-family: sans-serif;
     overflow: hidden;
   }
-  /* Windows */
+
   .window {
     position: absolute;
-    border: 2px solid var(--primary);
     background: var(--silver);
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border: 2px solid var(--dark-gray);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     resize: both;
     overflow: hidden;
-    z-index: 10;
+    z-index: 100;
   }
+
   .window-header {
+    height: 35px;
     background: var(--primary);
-    color: var(--white);
-    padding: 5px;
-    cursor: move;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 5px;
+    cursor: move;
   }
+
   .window-controls {
     display: flex;
+    gap: 5px;
   }
+
   .window-btn {
-    width: 25px;
+    width: 20px;
     height: 20px;
-    margin-left: 2px;
     background: var(--secondary);
-    color: var(--white);
+    color: white;
     text-align: center;
-    line-height: 20px;
+    line-height: 18px;
     cursor: pointer;
   }
+
   .window-content {
     padding: 10px;
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100% - 35px);
   }
-  .resize-handle {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 15px;
-    height: 15px;
-    cursor: se-resize;
-    background: var(--accent);
-  }
-  /* Taskbar */
+
   #taskbar {
     position: fixed;
     bottom: 0;
@@ -81,49 +77,49 @@
     width: 100%;
     background: var(--dark-gray);
     display: flex;
-    padding: 2px;
-    box-sizing: border-box;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+    z-index: 300;
   }
+
   .taskbar-button {
-    margin: 0 2px;
-    padding: 2px 6px;
+    padding: 5px 10px;
     cursor: pointer;
     background: var(--primary);
-    color: var(--white);
+    color: white;
     border: none;
   }
-  #startButton {
-    background: var(--primary);
-    color: var(--white);
-    border: none;
-    margin-right: 5px;
-    cursor: pointer;
-    padding: 2px 8px;
-  }
-  /* Start Menu */
+
   #startMenu {
-    position: absolute;
+    position: fixed;
     bottom: 40px;
     left: 5px;
     background: var(--dark-gray);
-    color: var(--white);
-    display: flex;
+    display: none;
     flex-direction: column;
-    z-index: 100;
+    padding: 5px;
+    z-index: 400;
   }
+
   #startMenu button {
     background: var(--dark-gray);
-    color: var(--white);
+    color: white;
     border: none;
     text-align: left;
     padding: 5px 10px;
     cursor: pointer;
+    width: 150px;
+  }
+
+  #startMenu button:hover {
+    background: var(--secondary);
+  }
+
+  .files-container {
     position: relative;
   }
-  #startMenu button:hover {
-    background: var(--pink);
-  }
-  /* Submenu right side */
+
   .submenu {
     display: none;
     position: absolute;
@@ -133,41 +129,36 @@
     background: var(--dark-gray);
     z-index: 200;
   }
-  .files:hover + .submenu {
+
+  .files-container:hover .submenu,
+  .submenu:hover {
     display: flex;
   }
-  /* Folder icons */
-  .folder {
+
+  /* Desktop folders */
+  .desktop-folder {
     position: absolute;
     width: 80px;
     text-align: center;
+    color: white;
     cursor: pointer;
   }
-  .folder img {
+
+  .desktop-folder img {
     width: 64px;
     height: 64px;
+  }
+
+  .clock {
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+    color: white;
+    font-weight: bold;
   }
 </style>
 </head>
 <body>
-
-<!-- Folder Icons -->
-<div class="folder" style="top:50px; left:20px;" onclick="window.location='digital-art.html'">
-  <img src="https://i.imgur.com/64oUj2L.png" alt="Digital Art">
-  <div>Digital Art</div>
-</div>
-<div class="folder" style="top:130px; left:20px;" onclick="window.location='graphic-design.html'">
-  <img src="https://i.imgur.com/64oUj2L.png" alt="Graphic Design">
-  <div>Graphic Design</div>
-</div>
-<div class="folder" style="top:210px; left:20px;" onclick="window.location='videos.html'">
-  <img src="https://i.imgur.com/64oUj2L.png" alt="Videos">
-  <div>Videos</div>
-</div>
-<div class="folder" style="top:290px; left:20px;" onclick="window.location='writing.html'">
-  <img src="https://i.imgur.com/64oUj2L.png" alt="Writing">
-  <div>Writing</div>
-</div>
 
 <!-- Header Window -->
 <div class="window" id="headerWindow" style="top:20px; left:50px; width:960px; height:384px;">
@@ -215,7 +206,24 @@
     </a>
     <script async type="text/javascript" src="https://assets.pinterest.com/js/pinit.js"></script>
   </div>
-  <div class="resize-handle"></div>
+</div>
+
+<!-- Desktop Folders -->
+<div class="desktop-folder" style="top:20px; left:20px;" onclick="window.location='digital-art.html'">
+  <img src="https://img.icons8.com/fluency/48/000000/folder-invoices.png"/>
+  <div>Digital Art</div>
+</div>
+<div class="desktop-folder" style="top:100px; left:20px;" onclick="window.location='graphic-design.html'">
+  <img src="https://img.icons8.com/fluency/48/000000/folder-invoices.png"/>
+  <div>Graphic Design</div>
+</div>
+<div class="desktop-folder" style="top:180px; left:20px;" onclick="window.location='videos.html'">
+  <img src="https://img.icons8.com/fluency/48/000000/folder-invoices.png"/>
+  <div>Videos</div>
+</div>
+<div class="desktop-folder" style="top:260px; left:20px;" onclick="window.location='writing.html'">
+  <img src="https://img.icons8.com/fluency/48/000000/folder-invoices.png"/>
+  <div>Writing</div>
 </div>
 
 <!-- Taskbar -->
@@ -224,51 +232,90 @@
 </div>
 
 <!-- Start Menu -->
-<div id="startMenu" style="display:none;">
-  <button class="files">Files</button>
-  <div class="submenu">
-    <button onclick="window.location='digital-art.html'">Digital Art</button>
-    <button onclick="window.location='graphic-design.html'">Graphic Design</button>
-    <button onclick="window.location='videos.html'">Videos</button>
-    <button onclick="window.location='writing.html'">Writing</button>
+<div id="startMenu">
+  <div class="files-container">
+    <button class="files">Files</button>
+    <div class="submenu">
+      <button onclick="window.location='digital-art.html'">Digital Art</button>
+      <button onclick="window.location='graphic-design.html'">Graphic Design</button>
+      <button onclick="window.location='videos.html'">Videos</button>
+      <button onclick="window.location='writing.html'">Writing</button>
+    </div>
   </div>
   <button onclick="window.location='profile-info.html'">About</button>
   <button onclick="window.location='contact.html'">Contact</button>
   <button onclick="window.location='shop.html'">Shop</button>
   <button onclick="window.location='studio-ken.html'">Studio Ken</button>
-  <button onclick="alert('Are you sure?\nWhen we pull up you know it\'s a...')">Shut Down</button>
+  <button onclick="shutdown()">Shut Down</button>
 </div>
 
+<!-- Clock -->
+<div class="clock" id="clock"></div>
+
 <script>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2,'0');
+    const m = now.getMinutes().toString().padStart(2,'0');
+    const s = now.getSeconds().toString().padStart(2,'0');
+    document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+  }
+  setInterval(updateClock,1000);
+  updateClock();
+
+  // Start menu toggle
   const startButton = document.getElementById('startButton');
   const startMenu = document.getElementById('startMenu');
-
   startButton.addEventListener('click', () => {
     startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
-    startMenu.style.flexDirection = 'column';
   });
 
-  function closeWindow(id){
-    document.getElementById(id).style.display='none';
-  }
-
+  // Minimize/close windows
   function minimizeWindow(id){
     const win = document.getElementById(id);
-    win.style.display='none';
-
+    win.style.display = 'none';
     if(!document.querySelector(`.taskbar-button[data-window-id="${id}"]`)){
       const btn = document.createElement('button');
-      btn.className='taskbar-button';
-      btn.textContent=win.querySelector('.window-header').textContent;
-      btn.dataset.windowId=id;
-      btn.addEventListener('click', () => {
+      btn.className = 'taskbar-button';
+      btn.textContent = win.querySelector('.window-header').textContent;
+      btn.dataset.windowId = id;
+      btn.addEventListener('click',()=>{
         win.style.display='block';
         btn.remove();
       });
       document.getElementById('taskbar').appendChild(btn);
     }
   }
-</script>
+  function closeWindow(id){
+    document.getElementById(id).style.display='none';
+  }
 
+  // Dummy shutdown
+  function shutdown(){
+    if(confirm("Are you sure?\nWhen we pull up you know it's a...")){
+      alert("Shutting down...");
+      location.reload();
+    }
+  }
+
+  // Draggable windows
+  const windows = document.querySelectorAll('.window');
+  windows.forEach(win=>{
+    const header = win.querySelector('.window-header');
+    let offsetX=0, offsetY=0, isDown=false;
+    header.addEventListener('mousedown', e=>{
+      isDown=true;
+      offsetX=e.clientX - win.offsetLeft;
+      offsetY=e.clientY - win.offsetTop;
+    });
+    document.addEventListener('mousemove', e=>{
+      if(!isDown) return;
+      win.style.left=(e.clientX - offsetX)+'px';
+      win.style.top=(e.clientY - offsetY)+'px';
+    });
+    document.addEventListener('mouseup', ()=>{isDown=false});
+  });
+</script>
 </body>
 </html>
