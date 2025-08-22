@@ -4,142 +4,48 @@
   <meta charset="UTF-8">
   <title>Sunnie Jae Creates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
   <style>
     :root {
-      --purple: #9a9ad4;
-      --pink: #ff66cc;
-      --cyan: #02d1ca;
+      --black: #000010;
+      --white: #ffffff;
       --dark-gray: #404040;
       --gray: #bfbfdc;
-      --white: #fff;
+      --silver: #f0f0f5;
+      --pink: #ffb3d6;
+      --teal: #00a8a3;
+      --dark-purple: #3f3d7a;
+      --accent: #00c9c2;
+      --secondary: #c13886;
+      --primary: #9a9ad4;
     }
 
     body {
       margin: 0;
-      padding: 0;
-      background: url("https://i.imgur.com/4D0ZDvV.png") no-repeat center center fixed;
-      background-size: cover;
-      font-family: sans-serif;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--silver);
       overflow: auto;
     }
 
-    /* Desktop Icons */
-    .desktop-icon {
-      width: 80px;
-      text-align: center;
-      color: white;
-      margin: 10px;
-      cursor: pointer;
-    }
+    /* Desktop */
     .desktop {
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      padding: 10px;
-      position: absolute;
-      top: 0;
-      left: 0;
+      gap: 15px;
     }
-    .desktop-icon img {
+    .folder {
+      width: 80px;
+      text-align: center;
+      cursor: pointer;
+      color: var(--black);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .folder img {
       width: 48px;
       height: 48px;
       display: block;
-      margin: 0 auto;
-    }
-    .desktop-icon span {
-      font-size: 0.8rem;
-      word-wrap: break-word;
-    }
-
-    /* Windows */
-    .window {
-      position: absolute;
-      background: var(--white);
-      border: 2px solid var(--gray);
-      box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-      resize: both;
-      overflow: hidden;
-      z-index: 10;
-    }
-    .window-header {
-      background: var(--purple);
-      color: white;
-      padding: 5px;
-      cursor: move;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .window-content {
-      padding: 10px;
-      height: calc(100% - 30px);
-      overflow: auto;
-    }
-    .window-controls {
-      display: flex;
-      gap: 5px;
-    }
-    .window-btn {
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      line-height: 18px;
-      background: var(--pink);
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    /* Shutdown Window Styles */
-    .shutdown-window {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 400px;
-      height: 200px;
-      background: var(--white);
-      border: 2px solid var(--gray);
-      box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-      z-index: 3000;
-      display: none;
-    }
-    .shutdown-content {
-      padding: 20px;
-      text-align: center;
-      height: calc(100% - 40px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .shutdown-text {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      color: var(--dark-gray);
-    }
-    .shutdown-btn {
-      background: var(--purple);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 1rem;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    }
-    .shutdown-btn:hover {
-      background: var(--pink);
-    }
-    .shutdown-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 2999;
-      display: none;
+      margin: 0 auto 5px;
     }
 
     /* Taskbar */
@@ -149,293 +55,253 @@
       left: 0;
       width: 100%;
       height: 40px;
-      background: var(--dark-gray);
+      background: var(--dark-purple);
+      color: var(--white);
       display: flex;
       align-items: center;
-      padding: 0 5px;
-      box-sizing: border-box;
-      color: white;
-      z-index: 1000;
+      justify-content: space-between;
+      padding: 0 10px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
     }
-    .taskbar .start-btn {
-      background: var(--purple);
-      color: white;
-      padding: 5px 10px;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-    .taskbar-icons {
+    .taskbar-left {
       display: flex;
+      align-items: center;
       gap: 5px;
-      flex-grow: 1;
+      overflow-x: auto;
     }
-    .taskbar-icon {
-      background: var(--gray);
-      padding: 3px 8px;
+    .taskbar button {
+      background: var(--secondary);
+      color: var(--white);
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
       cursor: pointer;
-      border-radius: 3px;
-      font-size: 0.85rem;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .taskbar button:hover,
+    .taskbar button.active {
+      background: var(--primary);
     }
     .clock {
-      margin-left: auto;
+      font-size: 14px;
     }
 
-    /* Start Menu */
-    .start-menu {
+    /* Window */
+    .window {
       position: absolute;
-      bottom: 40px;
-      left: 5px;
-      width: 200px;
-      background: var(--dark-gray);
-      border: 2px solid var(--gray);
-      display: none;
-      flex-direction: column;
-      z-index: 2000;
-    }
-    .start-menu-item {
-      padding: 8px;
-      color: white;
-      cursor: pointer;
-    }
-    .start-menu-item:hover {
-      background: var(--pink);
-      color: white;
-    }
-
-    /* Submenu */
-    .submenu {
-      position: absolute;
-      top: 0;
-      left: 200px;
-      width: 200px;
-      background: var(--gray);
+      top: 100px;
+      left: 100px;
+      width: 400px;
+      height: 300px;
+      background: var(--white);
       border: 2px solid var(--dark-gray);
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       display: none;
       flex-direction: column;
-      z-index: 2001;
+      z-index: 10;
     }
-    .submenu-item {
-      padding: 8px;
-      cursor: pointer;
-      background: var(--gray);
-      color: var(--dark-gray);
-    }
-    .submenu-item:hover {
-      background: var(--pink);
-      color: white;
-    }
-    .start-menu-item:hover .submenu {
+    .window-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 6px;
+      cursor: move;
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .window-header span {
+      font-weight: bold;
+    }
+    .window-controls {
+      display: flex;
+      gap: 6px;
+    }
+    .window-controls button {
+      width: 20px;
+      height: 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 0;
+    }
+    .window-controls button:hover {
+      background: var(--gray);
+    }
+    .window-content {
+      flex: 1;
+      background: var(--silver);
+      overflow: auto;
+      padding: 10px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
 <body>
-  <!-- Desktop Icons -->
+
+  <!-- Desktop Folders -->
   <div class="desktop">
-    <div class="desktop-icon" onclick="openWindow('headerWindow')">
-      <img src="https://i.imgur.com/wHDx7cE.png" alt="Header">
-      <span>Header</span>
+    <div class="folder" onclick="openWindow('recycle','Recycle Bin','recycle.html')">
+      <img src="https://img.icons8.com/fluency/48/recycle-bin.png" alt="Recycle">
+      <span>Recycle</span>
     </div>
-    <div class="desktop-icon" onclick="openWindow('notebookWindow')">
-      <img src="https://i.imgur.com/wHDx7cE.png" alt="Notebook">
-      <span>Notebook</span>
+    <div class="folder" onclick="openWindow('documents','Documents','writing.html')">
+      <img src="https://img.icons8.com/fluency/48/folder-invoices.png" alt="Documents">
+      <span>Documents</span>
     </div>
-    <div class="desktop-icon" onclick="openWindow('pinterestWindow')">
-      <img src="https://i.imgur.com/wHDx7cE.png" alt="Pinterest">
-      <span>Pinterest</span>
+    <div class="folder" onclick="openWindow('photos','Photos','digital-art.html')">
+      <img src="https://img.icons8.com/fluency/48/folder-pictures.png" alt="Photos">
+      <span>Photos</span>
     </div>
-    <div class="desktop-icon" onclick="openWindow('mp3Window')">
-      <img src="https://i.imgur.com/wHDx7cE.png" alt="Music">
-      <span>Music</span>
+    <div class="folder" onclick="openWindow('videos','Videos','videos.html')">
+      <img src="https://img.icons8.com/fluency/48/folder-video.png" alt="Videos">
+      <span>Videos</span>
     </div>
-  </div>
-
-  <!-- Header Window -->
-  <div class="window" id="headerWindow" style="top:50px; left:200px; width:960px; height:384px;">
-    <div class="window-header">
-      Header
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('headerWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('headerWindow')">×</div>
-      </div>
+    <div class="folder" onclick="openWindow('browser','Browser','social-profiles.html')">
+      <img src="https://img.icons8.com/fluency/48/internet-explorer.png" alt="Browser">
+      <span>Browser</span>
     </div>
-    <div class="window-content" style="padding:0;">
-      <img src="https://i.imgur.com/ixrv4gl.png" alt="Header" style="width:100%; height:100%;">
+    <div class="folder" onclick="openWindow('summer2005','Summer 2005','summer-2005.html')">
+      <img src="https://img.icons8.com/fluency/48/folder-music.png" alt="Summer 2005">
+      <span>Summer 2005</span>
     </div>
   </div>
 
-  <!-- Notebook Window -->
-  <div class="window" id="notebookWindow" style="top:460px; left:100px; width:500px; height:50%;">
+  <!-- Example Windows -->
+  <div id="musicPlayer" class="window">
     <div class="window-header">
-      Notebook
+      <span>Music Player</span>
       <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content" style="padding:0; overflow-y:auto; overflow-x:hidden;">
-      <img src="https://i.imgur.com/YBfxfzX.png" alt="Notebook" style="width:100%; height:auto;">
-    </div>
-  </div>
-
-  <!-- Pinterest Window (minimized by default) -->
-  <div class="window" id="pinterestWindow" style="top:120px; left:750px; width:400px; height:400px; display:none;">
-    <div class="window-header">
-      Pinterest
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="200" data-pin-scale-width="80" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
-      <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
-    </div>
-  </div>
-
-  <!-- MP3 Player Window -->
-  <div class="window" id="mp3Window" style="top:200px; left:300px; width:300px; height:120px;">
-    <div class="window-header">
-      Music Player
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('mp3Window')">_</div>
-        <div class="window-btn" onclick="closeWindow('mp3Window')">×</div>
+        <button onclick="minimizeWindow('musicPlayer')">_</button>
+        <button onclick="closeWindow('musicPlayer')">×</button>
       </div>
     </div>
     <div class="window-content">
       <audio controls>
-        <source src="your-music-file.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+        <source src="example.mp3" type="audio/mpeg">
       </audio>
-    </div>
-  </div>
-
-  <!-- Shutdown Window -->
-  <div class="shutdown-overlay" id="shutdownOverlay" onclick="closeShutdown()"></div>
-  <div class="shutdown-window" id="shutdownWindow">
-    <div class="window-header" style="cursor: default;">
-      Shut Down Sunnie Jae Creates
-      <div class="window-controls">
-        <div class="window-btn" onclick="closeShutdown()">×</div>
-      </div>
-    </div>
-    <div class="shutdown-content">
-      <div class="shutdown-text">when we pull up you know it's a...</div>
-      <button class="shutdown-btn" onclick="executeShutdown()">Shut Down</button>
     </div>
   </div>
 
   <!-- Taskbar -->
   <div class="taskbar">
-    <div class="start-btn" onclick="toggleStartMenu()">Start</div>
-    <div class="taskbar-icons" id="taskbarIcons"></div>
+    <div class="taskbar-left" id="taskbar"></div>
     <div class="clock" id="clock"></div>
   </div>
 
-  <!-- Start Menu -->
-  <div class="start-menu" id="startMenu">
-    <div class="start-menu-item">
-      Files
-      <div class="submenu">
-        <div class="submenu-item" onclick="window.location='digital-art.html'">Digital Art</div>
-        <div class="submenu-item" onclick="window.location='graphic-design.html'">Graphic Design</div>
-        <div class="submenu-item" onclick="window.location='videos.html'">Videos</div>
-        <div class="submenu-item" onclick="window.location='writing.html'">Writing</div>
-      </div>
-    </div>
-    <div class="start-menu-item" onclick="window.location='profile-info.html'">About</div>
-    <div class="start-menu-item" onclick="window.location='contact.html'">Contact</div>
-    <div class="start-menu-item" onclick="window.location='shop.html'">Shop</div>
-    <div class="start-menu-item" onclick="window.location='studio-ken.html'">Studio Ken</div>
-    <div class="start-menu-item" onclick="openShutdown()">Shut Down</div>
-  </div>
-
   <script>
-    // Dragging logic
-    document.querySelectorAll('.window').forEach(win => {
-      const header = win.querySelector('.window-header');
-      header.addEventListener('mousedown', (e) => {
-        let shiftX = e.clientX - win.getBoundingClientRect().left;
-        let shiftY = e.clientY - win.getBoundingClientRect().top;
-
-        function moveAt(pageX, pageY) {
-          win.style.left = pageX - shiftX + 'px';
-          win.style.top = pageY - shiftY + 'px';
-        }
-
-        function onMouseMove(e) {
-          moveAt(e.pageX, e.pageY);
-        }
-
-        document.addEventListener('mousemove', onMouseMove);
-
-        document.addEventListener('mouseup', () => {
-          document.removeEventListener('mousemove', onMouseMove);
-        }, { once: true });
-      });
-    });
-
-    // Taskbar + Window Logic
-    function minimizeWindow(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-    function closeWindow(id) {
-      document.getElementById(id).style.display = 'none';
-      const icon = document.querySelector(`.taskbar-icon[data-id="${id}"]`);
-      if (icon) icon.remove();
-    }
-    function openWindow(id) {
-      const win = document.getElementById(id);
-      win.style.display = 'block';
-      let icon = document.querySelector(`.taskbar-icon[data-id="${id}"]`);
-      if (!icon) {
-        icon = document.createElement('div');
-        icon.className = 'taskbar-icon';
-        icon.dataset.id = id;
-        icon.textContent = win.querySelector('.window-header').childNodes[0].textContent.trim();
-        icon.onclick = () => {
-          if (win.style.display === 'none') {
-            win.style.display = 'block';
-          } else {
-            win.style.display = 'none';
-          }
-        };
-        document.getElementById('taskbarIcons').appendChild(icon);
-      }
-    }
-
-    // Clock
+    // Clock with static year 2006
     function updateClock() {
       const now = new Date();
-      document.getElementById('clock').textContent =
-        now.getHours().toString().padStart(2,'0') + ':' +
-        now.getMinutes().toString().padStart(2,'0');
+      const date = (now.getMonth()+1).toString().padStart(2,'0') + '/' +
+                   now.getDate().toString().padStart(2,'0') + '/2006';
+      const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      document.getElementById('clock').textContent = date + ' ' + time;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Start Menu
-    function toggleStartMenu() {
-      const menu = document.getElementById('startMenu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    // Window Manager
+    const taskbar = document.getElementById('taskbar');
+    let zIndexCounter = 20;
+
+    function openWindow(id, title, url) {
+      let win = document.getElementById(id);
+      if (!win) {
+        win = document.createElement("div");
+        win.id = id;
+        win.className = "window";
+        win.innerHTML = `
+          <div class="window-header">
+            <span>${title}</span>
+            <div class="window-controls">
+              <button onclick="minimizeWindow('${id}')">_</button>
+              <button onclick="closeWindow('${id}')">×</button>
+            </div>
+          </div>
+          <div class="window-content"><iframe src="${url}"></iframe></div>
+        `;
+        document.body.appendChild(win);
+      }
+      win.style.display = "flex";
+      win.style.zIndex = ++zIndexCounter;
+      addToTaskbar(id, title);
+      setActive(id);
+      makeDraggable(win);
     }
 
-    // Shutdown Functions
-    function openShutdown() {
-      document.getElementById('shutdownOverlay').style.display = 'block';
-      document.getElementById('shutdownWindow').style.display = 'block';
-      // Hide start menu when opening shutdown
-      document.getElementById('startMenu').style.display = 'none';
+    function addToTaskbar(id, title) {
+      if (!document.getElementById("task-" + id)) {
+        const btn = document.createElement("button");
+        btn.id = "task-" + id;
+        btn.textContent = title;
+        btn.onclick = () => toggleWindow(id);
+        taskbar.appendChild(btn);
+      }
+      setActive(id);
     }
 
-    function closeShutdown() {
-      document.getElementById('shutdownOverlay').style.display = 'none';
-      document.getElementById('shutdownWindow').style.display = 'none';
+    function setActive(id) {
+      document.querySelectorAll(".taskbar button").forEach(b => b.classList.remove("active"));
+      const btn = document.getElementById("task-" + id);
+      if (btn) btn.classList.add("active");
     }
 
-    function executeShutdown() {
-      history.back();
+    function toggleWindow(id) {
+      const win = document.getElementById(id);
+      if (!win) return;
+      if (win.style.display === "none") {
+        win.style.display = "flex";
+        win.style.zIndex = ++zIndexCounter;
+      } else {
+        win.style.display = "none";
+      }
     }
+
+    function minimizeWindow(id) {
+      const win = document.getElementById(id);
+      if (win) win.style.display = "none";
+    }
+
+    function closeWindow(id) {
+      const win = document.getElementById(id);
+      if (win) win.remove();
+      const btn = document.getElementById("task-" + id);
+      if (btn) btn.remove();
+    }
+
+    // Dragging
+    function makeDraggable(win) {
+      const header = win.querySelector(".window-header");
+      let offsetX = 0, offsetY = 0, dragging = false;
+
+      header.onmousedown = (e) => {
+        dragging = true;
+        offsetX = e.clientX - win.offsetLeft;
+        offsetY = e.clientY - win.offsetTop;
+        win.style.zIndex = ++zIndexCounter;
+      };
+
+      document.onmouseup = () => { dragging = false; };
+      document.onmousemove = (e) => {
+        if (dragging) {
+          win.style.left = (e.clientX - offsetX) + "px";
+          win.style.top = (e.clientY - offsetY) + "px";
+        }
+      };
+    }
+
+    // Start with minimized music player in taskbar
+    openWindow("musicPlayer","Music Player","");
+    minimizeWindow("musicPlayer");
   </script>
 </body>
 </html>
