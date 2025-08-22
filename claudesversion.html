@@ -8,27 +8,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #9a9ad4;       /* primary */
-  --secondary: #c13886;     /* secondary */
-  --accent: #00c9c2;        /* accent */
-  --dark-purple: #3f3d7a;   /* dark purple */
-  --hover-cyan: #00a8a3;    /* darker-cyan */
-  --hover-pink: #ffb3d6;    /* light-pink */
-  --light-gray: #f0f0f5;    /* silver */
-  --medium-gray: #bfbfdc;   /* gray */
-  --dark-gray: #404040;     /* dark-gray */
-  --white: #ffffff;         /* white */
+  --primary: #9a9ad4;       /* lavender */
+  --secondary: #c13886;     /* bright pink */
+  --accent: #00c9c2;        /* cyan */
+  --dark-purple: #3f3d7a;   /* dark window border */
+  --hover-cyan: #00a8a3;    /* hover highlight */
+  --hover-pink: #ffb3d6;    /* hover glow */
+  --light-gray: #f0f0f5;    /* window bg */
+  --medium-gray: #bfbfdc;   /* taskbar bg */
+  --dark-gray: #404040;     /* text */
+  --white: #ffffff;         /* headers/text */
 }
 
 /* ===== Reset & Base ===== */
 * { margin:0; padding:0; box-sizing:border-box; }
 body, html {
-  width:100vw; min-height:100vh;
+  width:100vw; height:100vh;
   background: url('https://imgur.com/4D0ZDvV.png') no-repeat center/cover;
   font-family: 'Tahoma', sans-serif;
   color: var(--dark-gray);
-  overflow-x:hidden;
-  overflow-y:auto;
+  overflow:hidden;
 }
 .desktop { position: relative; width:100%; height:100%; }
 
@@ -40,8 +39,10 @@ body, html {
   box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
   z-index: 100;
   display: block;
-  min-width: 200px;
+  min-width: 250px;
+  min-height: 150px;
   border-radius:2px;
+  resize: none; /* Disable default resize */
 }
 .window.minimized { display:none; }
 
@@ -55,6 +56,7 @@ body, html {
   justify-content: space-between;
   align-items: center;
   cursor: move;
+  user-select: none;
 }
 
 .window-controls { display: flex; gap:3px; }
@@ -69,7 +71,47 @@ body, html {
 }
 .window-btn:hover { border:2px inset var(--white); background: var(--hover-cyan); }
 
-.window-content { padding:10px; overflow:auto; max-height: calc(100vh - 100px); background: var(--light-gray); }
+.window-content { 
+  padding:10px; 
+  overflow:auto; 
+  height: calc(100% - 40px);
+  background: var(--light-gray); 
+}
+
+/* ===== Resize Handles ===== */
+.resize-handle {
+  position: absolute;
+  background: transparent;
+  z-index: 10;
+}
+
+.resize-handle.resize-right {
+  right: -3px;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  cursor: e-resize;
+}
+
+.resize-handle.resize-bottom {
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  cursor: s-resize;
+}
+
+.resize-handle.resize-corner {
+  bottom: -3px;
+  right: -3px;
+  width: 12px;
+  height: 12px;
+  cursor: se-resize;
+}
+
+.resize-handle:hover {
+  background: rgba(0, 201, 194, 0.3);
+}
 
 /* ===== Taskbar ===== */
 .taskbar {
@@ -174,37 +216,40 @@ body, html {
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Documents"></div>
     <div class="folder-label">Documents</div>
   </div>
-  <div class="folder videos" style="top:80px; left:150px;" onclick="openFolder('Videos')">
+  <div class="folder videos" style="top:180px; left:50px;" onclick="openFolder('Videos')">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Videos"></div>
     <div class="folder-label">Videos</div>
   </div>
-  <div class="folder photos" style="top:180px; left:50px;" onclick="openFolder('Photos')">
+  <div class="folder photos" style="top:280px; left:50px;" onclick="openFolder('Photos')">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Photos"></div>
     <div class="folder-label">Photos</div>
   </div>
-  <div class="folder summer05" style="top:180px; left:150px;" onclick="location.href='summer05.html'">
+  <div class="folder summer05" style="top:380px; left:50px;" onclick="location.href='summer05.html'">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 05"></div>
     <div class="folder-label">Summer '05</div>
   </div>
 
   <!-- Title Window -->
-  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px;">
+  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px; height:300px;">
     <div class="window-header">
-      <span>✨ Sunnie Jae Creates</span>
+      <span>Sunnie Jae Creates</span>
       <div class="window-controls">
         <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
         <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
       </div>
     </div>
     <div class="window-content">
-      <div class="title-banner" style="width:100%; height:200px; background-image:url('https://imgur.com/fG62t37.png'); background-size:cover; background-position:center; border:2px inset var(--white); border-radius:2px;"></div>
+      <div class="title-banner" style="width:100%; height:200px; background-image:url('https://imgur.com/ixrv4gl.png'); background-size:cover; background-position:center; border:2px inset var(--white); border-radius:2px;"></div>
     </div>
+    <div class="resize-handle resize-right"></div>
+    <div class="resize-handle resize-bottom"></div>
+    <div class="resize-handle resize-corner"></div>
   </div>
 
   <!-- Pinterest Window -->
   <div class="window" id="pinterestWindow" style="top:280px; left:100px; width:400px; height:500px;">
     <div class="window-header">
-      <span>Pinterest Feed</span>
+      <span>Portfolio Feed</span>
       <div class="window-controls">
         <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
         <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
@@ -213,24 +258,30 @@ body, html {
     <div class="window-content" style="padding:0;">
       <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="500" data-pin-scale-width="80" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
     </div>
+    <div class="resize-handle resize-right"></div>
+    <div class="resize-handle resize-bottom"></div>
+    <div class="resize-handle resize-corner"></div>
   </div>
 
   <!-- Notebook Window -->
   <div class="window" id="notebookWindow" style="top:280px; left:520px; width:400px; height:500px;">
     <div class="window-header">
-      <span>Notebook</span>
+      <span>All About Me!!</span>
       <div class="window-controls">
         <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
         <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
       </div>
     </div>
     <div class="window-content" style="padding:0;">
-      <img src="https://i.imgur.com/GrbDrVZ.png" style="width:100%; height:100%; object-fit:contain;">
+      <img src="https://imgur.com/YBfxfzX.png" style="width:100%; height:100%; object-fit:contain;">
     </div>
+    <div class="resize-handle resize-right"></div>
+    <div class="resize-handle resize-bottom"></div>
+    <div class="resize-handle resize-corner"></div>
   </div>
 
   <!-- Shutdown Confirmation -->
-  <div class="window" id="shutdownWindow" style="top:200px; left:300px; width:300px; display:none;">
+  <div class="window" id="shutdownWindow" style="top:200px; left:300px; width:300px; height:150px; display:none;">
     <div class="window-header">
       <span>Shut Down</span>
       <div class="window-controls">
@@ -238,9 +289,12 @@ body, html {
       </div>
     </div>
     <div class="window-content" style="text-align:center;">
-      <p>Are you sure you want to shut down?</p>
-      <button onclick="confirmShutdown()">Confirm</button>
+      <p>When we pull up, what is it?</p>
+      <button onclick="confirmShutdown()">Shut Down</button>
     </div>
+    <div class="resize-handle resize-right"></div>
+    <div class="resize-handle resize-bottom"></div>
+    <div class="resize-handle resize-corner"></div>
   </div>
 
   <!-- Taskbar -->
@@ -248,8 +302,8 @@ body, html {
     <button class="start-button" onclick="toggleStartMenu()">☰</button>
     <div class="taskbar-items">
       <div class="icon-button" title="Search"><img src="https://imgur.com/HDV7ZqL.png" alt="Search"></div>
-      <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/7KkDjkT.png" alt="Browser"></div>
-      <div class="icon-button" title="Settings"><img src="https://imgur.com/8T1tGdL.png" alt="Settings"></div>
+      <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/wHDx7cE.png" alt="Browser"></div>
+      <div class="icon-button" title="Settings"><img src="https://imgur.com/wHDx7cE.png" alt="Settings"></div>
     </div>
     <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
   </div>
@@ -267,52 +321,164 @@ body, html {
 
 <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 <script>
-let draggedWindow=null; let offset={x:0,y:0}; let highestZ=200;
-function makeDraggable(el){
-  const header=el.querySelector('.window-header');
-  header.addEventListener('mousedown',startDrag);
-  function startDrag(e){
-    if(e.target.classList.contains('window-btn')) return;
-    draggedWindow=el;
-    const rect=el.getBoundingClientRect();
-    offset.x=e.clientX-rect.left; offset.y=e.clientY-rect.top;
-    el.style.zIndex=++highestZ;
-    document.addEventListener('mousemove',drag);
-    document.addEventListener('mouseup',stopDrag);
+let draggedWindow = null;
+let resizedWindow = null;
+let offset = { x: 0, y: 0 };
+let highestZ = 200;
+let resizeType = null;
+let startMousePos = { x: 0, y: 0 };
+let startWindowPos = { x: 0, y: 0, width: 0, height: 0 };
+
+// Enhanced dragging functionality
+function makeDraggable(el) {
+  const header = el.querySelector('.window-header');
+  header.addEventListener('mousedown', startDrag);
+  
+  // Add resize handles
+  makeResizable(el);
+  
+  function startDrag(e) {
+    if (e.target.classList.contains('window-btn')) return;
+    
+    draggedWindow = el;
+    const rect = el.getBoundingClientRect();
+    offset.x = e.clientX - rect.left;
+    offset.y = e.clientY - rect.top;
+    el.style.zIndex = ++highestZ;
+    
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+    e.preventDefault();
   }
-  function drag(e){
-    if(!draggedWindow) return;
-    let x=e.clientX-offset.x;
-    let y=e.clientY-offset.y;
-    const maxX=window.innerWidth-el.offsetWidth;
-    const maxY=window.innerHeight-el.offsetHeight-40;
-    draggedWindow.style.left=Math.max(0,Math.min(x,maxX))+'px';
-    draggedWindow.style.top=Math.max(0,Math.min(y,maxY))+'px';
+  
+  function drag(e) {
+    if (!draggedWindow) return;
+    
+    let x = e.clientX - offset.x;
+    let y = e.clientY - offset.y;
+    
+    // Better boundary calculations
+    const windowWidth = draggedWindow.offsetWidth;
+    const windowHeight = draggedWindow.offsetHeight;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const taskbarHeight = 40;
+    
+    // Keep window within bounds
+    x = Math.max(0, Math.min(x, viewportWidth - windowWidth));
+    y = Math.max(0, Math.min(y, viewportHeight - windowHeight - taskbarHeight));
+    
+    draggedWindow.style.left = x + 'px';
+    draggedWindow.style.top = y + 'px';
   }
-  function stopDrag(){ draggedWindow=null; document.removeEventListener('mousemove',drag); document.removeEventListener('mouseup',stopDrag); }
+  
+  function stopDrag() {
+    draggedWindow = null;
+    document.removeEventListener('mousemove', drag);
+    document.removeEventListener('mouseup', stopDrag);
+  }
 }
+
+// Resize functionality
+function makeResizable(el) {
+  const resizeHandles = el.querySelectorAll('.resize-handle');
+  
+  resizeHandles.forEach(handle => {
+    handle.addEventListener('mousedown', startResize);
+  });
+  
+  function startResize(e) {
+    resizedWindow = el;
+    resizeType = null;
+    
+    if (e.target.classList.contains('resize-right')) {
+      resizeType = 'right';
+    } else if (e.target.classList.contains('resize-bottom')) {
+      resizeType = 'bottom';
+    } else if (e.target.classList.contains('resize-corner')) {
+      resizeType = 'corner';
+    }
+    
+    const rect = el.getBoundingClientRect();
+    startMousePos.x = e.clientX;
+    startMousePos.y = e.clientY;
+    startWindowPos.x = rect.left;
+    startWindowPos.y = rect.top;
+    startWindowPos.width = rect.width;
+    startWindowPos.height = rect.height;
+    
+    el.style.zIndex = ++highestZ;
+    
+    document.addEventListener('mousemove', resize);
+    document.addEventListener('mouseup', stopResize);
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  function resize(e) {
+    if (!resizedWindow || !resizeType) return;
+    
+    const deltaX = e.clientX - startMousePos.x;
+    const deltaY = e.clientY - startMousePos.y;
+    
+    let newWidth = startWindowPos.width;
+    let newHeight = startWindowPos.height;
+    
+    // Calculate new dimensions based on resize type
+    if (resizeType === 'right' || resizeType === 'corner') {
+      newWidth = startWindowPos.width + deltaX;
+    }
+    
+    if (resizeType === 'bottom' || resizeType === 'corner') {
+      newHeight = startWindowPos.height + deltaY;
+    }
+    
+    // Apply minimum and maximum constraints
+    const minWidth = 250;
+    const minHeight = 150;
+    const maxWidth = window.innerWidth - startWindowPos.x;
+    const maxHeight = window.innerHeight - startWindowPos.y - 40; // Account for taskbar
+    
+    newWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
+    newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
+    
+    resizedWindow.style.width = newWidth + 'px';
+    resizedWindow.style.height = newHeight + 'px';
+  }
+  
+  function stopResize() {
+    resizedWindow = null;
+    resizeType = null;
+    document.removeEventListener('mousemove', resize);
+    document.removeEventListener('mouseup', stopResize);
+  }
+}
+
+// Initialize all windows
 document.querySelectorAll('.window').forEach(makeDraggable);
 
-function closeWindow(id){ 
-  document.getElementById(id).style.display='none'; 
+// Window management functions
+function closeWindow(id) { 
+  document.getElementById(id).style.display = 'none'; 
   removeTaskbarItem(id);
 }
-function minimizeWindow(id){ 
+
+function minimizeWindow(id) { 
   document.getElementById(id).classList.add('minimized'); 
   addTaskbarItem(id);
 }
-function focusWindow(id){ 
-  const win=document.getElementById(id); 
-  if(win.classList.contains('minimized')) {
+
+function focusWindow(id) { 
+  const win = document.getElementById(id); 
+  if (win.classList.contains('minimized')) {
     win.classList.remove('minimized'); 
     removeTaskbarItem(id);
   }
-  win.style.zIndex=++highestZ; 
+  win.style.zIndex = ++highestZ; 
 }
 
 function addTaskbarItem(windowId) {
-  // Don't add duplicate taskbar items
-  if(document.getElementById(`taskbar-${windowId}`)) return;
+  if (document.getElementById(`taskbar-${windowId}`)) return;
   
   const windowEl = document.getElementById(windowId);
   const windowTitle = windowEl.querySelector('.window-header span').textContent;
@@ -321,29 +487,87 @@ function addTaskbarItem(windowId) {
   taskbarItem.className = 'taskbar-item';
   taskbarItem.id = `taskbar-${windowId}`;
   taskbarItem.textContent = windowTitle;
-  taskbarItem.onclick = () => {
-    focusWindow(windowId);
-  };
+  taskbarItem.onclick = () => focusWindow(windowId);
   
   document.querySelector('.taskbar-items').appendChild(taskbarItem);
 }
 
 function removeTaskbarItem(windowId) {
   const taskbarItem = document.getElementById(`taskbar-${windowId}`);
-  if(taskbarItem) {
+  if (taskbarItem) {
     taskbarItem.remove();
   }
 }
 
-function openFolder(name){ alert(`Opening ${name}...`); }
+// Utility functions
+function openFolder(name) { 
+  alert(`Opening ${name}...`); 
+}
 
-function toggleStartMenu(){ const menu=document.getElementById('startMenu'); menu.style.display=menu.style.display==='flex'?'none':'flex'; }
+function toggleStartMenu() { 
+  const menu = document.getElementById('startMenu'); 
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'; 
+}
 
-function updateTime(){ document.getElementById('taskbarTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
-setInterval(updateTime,1000); updateTime();
+function updateTime() { 
+  document.getElementById('taskbarTime').textContent = new Date().toLocaleTimeString([], {
+    hour: '2-digit', 
+    minute: '2-digit'
+  }); 
+}
 
-function showShutdown(){ document.getElementById('shutdownWindow').style.display='block'; }
-function confirmShutdown(){ window.history.back(); }
+function showShutdown() { 
+  const shutdownWin = document.getElementById('shutdownWindow');
+  shutdownWin.style.display = 'block'; 
+  shutdownWin.style.zIndex = ++highestZ;
+}
+
+function confirmShutdown() { 
+  window.history.back(); 
+}
+
+// Auto-resize windows on viewport change
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.window').forEach(win => {
+    if (win.style.display === 'none') return;
+    
+    const rect = win.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const taskbarHeight = 40;
+    
+    // Adjust position if window is out of bounds
+    let newLeft = parseInt(win.style.left) || rect.left;
+    let newTop = parseInt(win.style.top) || rect.top;
+    let newWidth = parseInt(win.style.width) || rect.width;
+    let newHeight = parseInt(win.style.height) || rect.height;
+    
+    // Keep window within viewport
+    if (newLeft + newWidth > viewportWidth) {
+      newLeft = Math.max(0, viewportWidth - newWidth);
+    }
+    if (newTop + newHeight > viewportHeight - taskbarHeight) {
+      newTop = Math.max(0, viewportHeight - newHeight - taskbarHeight);
+    }
+    
+    win.style.left = newLeft + 'px';
+    win.style.top = newTop + 'px';
+  });
+});
+
+// Start time updates
+setInterval(updateTime, 1000); 
+updateTime();
+
+// Click outside to close start menu
+document.addEventListener('click', (e) => {
+  const startMenu = document.getElementById('startMenu');
+  const startButton = document.querySelector('.start-button');
+  
+  if (!startMenu.contains(e.target) && e.target !== startButton) {
+    startMenu.style.display = 'none';
+  }
+});
 </script>
 </body>
 </html>
