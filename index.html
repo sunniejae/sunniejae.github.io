@@ -21,6 +21,25 @@
     font-family: Tahoma, sans-serif;
     background: url('https://imgur.com/4D0ZDvV.pnng') no-repeat center center fixed;
     background-size: cover;
+    overflow-x: hidden;
+  }
+
+  /* Desktop folders */
+  .desktop-folder {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #000;
+  }
+
+  .desktop-folder img {
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 auto;
   }
 
   /* Taskbar */
@@ -38,17 +57,13 @@
     z-index: 1000;
   }
 
-  .taskbar button, .folder {
+  .taskbar button {
     margin-right: 8px;
     background: #eee;
     border: 1px solid #666;
     padding: 2px 6px;
     cursor: pointer;
     font-size: 0.8rem;
-  }
-
-  .folder {
-    background: linear-gradient(to bottom, #fff, #ccc);
   }
 
   /* Windows */
@@ -104,7 +119,6 @@
   /* Notebook window */
   #notebookWindow img {
     width: 100%;
-    height: auto;
     display: block;
   }
 
@@ -120,12 +134,48 @@
     width: 100%;
   }
 
+  /* Footer clock */
+  .footer-clock {
+    position: fixed;
+    bottom: var(--taskbar-h);
+    right: 10px;
+    font-size: 0.9rem;
+    color: #fff;
+    font-family: Tahoma, sans-serif;
+    z-index: 1000;
+  }
 </style>
 </head>
 <body>
 
+<!-- Desktop Folders -->
+<div class="desktop-folder" style="top:50px; left:50px;" onclick="location.href='shop.html'">
+  <img src="https://imgur.com/6cZyYVx.png" alt="Downloads">
+  Downloads
+</div>
+<div class="desktop-folder" style="top:50px; left:160px;" onclick="location.href='writing.html'">
+  <img src="https://imgur.com/6cZyYVx.png" alt="Documents">
+  Documents
+</div>
+<div class="desktop-folder" style="top:50px; left:270px;" onclick="location.href='graphic-design.html'">
+  <img src="https://imgur.com/6cZyYVx.png" alt="Photos">
+  Photos
+</div>
+<div class="desktop-folder" style="top:50px; left:380px;" onclick="location.href='videos.html'">
+  <img src="https://imgur.com/6cZyYVx.png" alt="Videos">
+  Videos
+</div>
+<div class="desktop-folder" style="top:50px; left:490px;" onclick="location.href='social-media.html'">
+  <img src="https://imgur.com/6cZyYVx.png" alt="Internet Explorer">
+  Internet Explorer
+</div>
+<div class="desktop-folder" style="top:50px; left:600px;" onclick="location.href='summer05.html'">
+  <img src="https://imgur.com/6cZyYVx.png" alt="Summer 2005">
+  Summer 2005
+</div>
+
 <!-- Windows -->
-<div class="window" id="headerWindow" style="top:40px; left:100px; width:960px; z-index:300;">
+<div class="window" id="headerWindow" style="top:40px; left:100px; width:720px; z-index:300;">
   <div class="window-header">
     <span>Header</span>
     <div class="buttons">
@@ -135,7 +185,7 @@
     </div>
   </div>
   <div class="window-content">
-    <img src="https://imgur.com/ixrv4gl.png" alt="Header Image">
+    <img src="https://imgur.com/Dok5RmF.png" alt="Header Image">
   </div>
 </div>
 
@@ -148,7 +198,7 @@
       <span class="close-btn" onclick="toggleWindow('notebookWindow')">×</span>
     </div>
   </div>
-  <div class="window-content" style="height: 950px;">
+  <div class="window-content" style="height:950px;">
     <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook Image">
   </div>
 </div>
@@ -185,39 +235,65 @@
 </div>
 
 <!-- Taskbar -->
-<div class="taskbar">
-  <button onclick="toggleWindow('headerWindow')">Header</button>
-  <button onclick="toggleWindow('notebookWindow')">All About Me!</button>
-  <button onclick="toggleWindow('pinterestWindow')">Live Updates</button>
-  <button onclick="toggleWindow('playerWindow')">Audio Player</button>
-  <div class="folder" onclick="location.href='shop.html'">Downloads</div>
-  <div class="folder" onclick="location.href='writing.html'">Documents</div>
-  <div class="folder" onclick="location.href='graphic-design.html'">Photos</div>
-  <div class="folder" onclick="location.href='videos.html'">Videos</div>
-  <div class="folder" onclick="location.href='social-media.html'">Internet Explorer</div>
-</div>
+<div class="taskbar" id="taskbar"></div>
+
+<!-- Footer Clock -->
+<div class="footer-clock" id="footerClock"></div>
 
 <!-- Pinterest JS -->
 <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 
 <script>
+  let topZ = 300;
+
   function toggleWindow(id) {
     const w = document.getElementById(id);
     if (w.style.display === "none") {
       w.style.display = "block";
       w.style.zIndex = ++topZ;
+      addTaskbarButton(id);
     } else {
       w.style.display = "none";
+      removeTaskbarButton(id);
     }
   }
 
-  let topZ = 300;
+  function addTaskbarButton(id) {
+    const taskbar = document.getElementById('taskbar');
+    if (!document.getElementById('taskBtn_' + id)) {
+      const btn = document.createElement('button');
+      btn.id = 'taskBtn_' + id;
+      btn.innerText = document.getElementById(id).querySelector('.window-header span').innerText;
+      btn.onclick = () => toggleWindow(id);
+      taskbar.appendChild(btn);
+    }
+  }
+
+  function removeTaskbarButton(id) {
+    const btn = document.getElementById('taskBtn_' + id);
+    if (btn) btn.remove();
+  }
+
+  // Bring window to front on click
   const windows = document.querySelectorAll('.window');
   windows.forEach(w => {
     w.addEventListener('mousedown', () => {
       w.style.zIndex = ++topZ;
+      addTaskbarButton(w.id);
     });
   });
+
+  // Footer Clock
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    document.getElementById('footerClock').innerText = `${hours}:${minutes} ${ampm} (2006)`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
 </script>
 
 </body>
