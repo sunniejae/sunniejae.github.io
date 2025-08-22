@@ -23,15 +23,13 @@
 /* ===== Reset & Base ===== */
 * { margin:0; padding:0; box-sizing:border-box; }
 body, html {
-  width:100vw; min-height:100vh;
+  width:100vw; height:100vh;
   background: url('https://imgur.com/4D0ZDvV.png') no-repeat center/cover;
-  background-attachment: fixed;
   font-family: 'Tahoma', sans-serif;
   color: var(--dark-gray);
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow:hidden;
 }
-.desktop { position: relative; width:100%; min-height:100vh; }
+.desktop { position: relative; width:100%; height:100%; }
 
 /* ===== Windows ===== */
 .window {
@@ -40,11 +38,11 @@ body, html {
   border: 2px solid var(--dark-purple);
   box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
   z-index: 100;
-  display: block;
-  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
   min-height: 150px;
   border-radius:2px;
-  resize: none; /* Disable default resize */
 }
 .window.minimized { display:none; }
 
@@ -58,7 +56,7 @@ body, html {
   justify-content: space-between;
   align-items: center;
   cursor: move;
-  user-select: none;
+  flex-shrink: 0;
 }
 
 .window-controls { display: flex; gap:3px; }
@@ -76,43 +74,31 @@ body, html {
 .window-content { 
   padding:10px; 
   overflow:auto; 
-  height: calc(100% - 40px);
   background: var(--light-gray); 
+  flex: 1;
+  position: relative;
 }
 
-/* ===== Resize Handles ===== */
+/* Resize handle */
 .resize-handle {
   position: absolute;
-  background: transparent;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  background: var(--dark-purple);
+  cursor: nw-resize;
   z-index: 10;
 }
-
-.resize-handle.resize-right {
-  right: -3px;
-  top: 0;
-  width: 6px;
-  height: 100%;
-  cursor: e-resize;
-}
-
-.resize-handle.resize-bottom {
-  bottom: -3px;
-  left: 0;
-  width: 100%;
-  height: 6px;
-  cursor: s-resize;
-}
-
-.resize-handle.resize-corner {
-  bottom: -3px;
-  right: -3px;
-  width: 12px;
-  height: 12px;
-  cursor: se-resize;
-}
-
-.resize-handle:hover {
-  background: rgba(0, 201, 194, 0.3);
+.resize-handle::before {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-bottom: 8px solid var(--white);
 }
 
 /* ===== Taskbar ===== */
@@ -170,58 +156,17 @@ body, html {
   flex-direction:column;
   z-index:2000;
   padding:5px 0;
-  width:200px;
+  width:180px;
   box-shadow:4px 4px 6px rgba(0,0,0,0.4);
 }
-.start-menu a, .start-menu .menu-item {
+.start-menu a {
   padding:5px 10px;
   font-size:0.7rem;
   color: var(--dark-gray);
   text-decoration:none;
   display:block;
-  cursor:pointer;
-  position:relative;
 }
-.start-menu a:hover, .start-menu .menu-item:hover { background: var(--accent); color:#fff; }
-
-.menu-item.has-submenu:after {
-  content: '►';
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.6rem;
-}
-
-.submenu {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  background: var(--light-gray);
-  border: 2px solid var(--dark-purple);
-  display: none;
-  flex-direction: column;
-  width: 180px;
-  box-shadow: 4px 4px 6px rgba(0,0,0,0.4);
-  z-index: 2001;
-}
-
-.menu-item:hover .submenu {
-  display: flex;
-}
-
-.submenu a {
-  padding: 5px 10px;
-  font-size: 0.7rem;
-  color: var(--dark-gray);
-  text-decoration: none;
-  display: block;
-}
-
-.submenu a:hover {
-  background: var(--accent);
-  color: #fff;
-}
+.start-menu a:hover { background: var(--accent); color:#fff; }
 
 /* ===== Desktop Folders ===== */
 .folder {
@@ -259,21 +204,21 @@ body, html {
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Documents"></div>
     <div class="folder-label">Documents</div>
   </div>
-  <div class="folder videos" style="top:180px; left:50px;" onclick="openFolder('Videos')">
+  <div class="folder videos" style="top:80px; left:150px;" onclick="openFolder('Videos')">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Videos"></div>
     <div class="folder-label">Videos</div>
   </div>
-  <div class="folder photos" style="top:280px; left:50px;" onclick="openFolder('Photos')">
+  <div class="folder photos" style="top:180px; left:50px;" onclick="openFolder('Photos')">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Photos"></div>
     <div class="folder-label">Photos</div>
   </div>
-  <div class="folder summer05" style="top:380px; left:50px;" onclick="location.href='summer05.html'">
+  <div class="folder summer05" style="top:180px; left:150px;" onclick="location.href='summer05.html'">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 05"></div>
     <div class="folder-label">Summer '05</div>
   </div>
 
   <!-- Title Window -->
-  <div class="window" id="titleWindow" style="top:50px; left:100px; width:600px; height:200px;">
+  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px; height:250px;">
     <div class="window-header">
       <span>Sunnie Jae Creates</span>
       <div class="window-controls">
@@ -282,11 +227,9 @@ body, html {
       </div>
     </div>
     <div class="window-content">
-      <div class="title-banner" style="width:100%; height:120px; background-image:url('https://imgur.com/ixrv4gl.png'); background-size:cover; background-position:center; border:2px inset var(--white); border-radius:2px;"></div>
+      <div class="title-banner" style="width:100%; height:200px; background-image:url('https://imgur.com/ixrv4gl.png'); background-size:cover; background-position:center; border:2px inset var(--white); border-radius:2px;"></div>
     </div>
-    <div class="resize-handle resize-right"></div>
-    <div class="resize-handle resize-bottom"></div>
-    <div class="resize-handle resize-corner"></div>
+    <div class="resize-handle"></div>
   </div>
 
   <!-- Pinterest Window -->
@@ -301,9 +244,7 @@ body, html {
     <div class="window-content" style="padding:0;">
       <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="500" data-pin-scale-width="80" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
     </div>
-    <div class="resize-handle resize-right"></div>
-    <div class="resize-handle resize-bottom"></div>
-    <div class="resize-handle resize-corner"></div>
+    <div class="resize-handle"></div>
   </div>
 
   <!-- Notebook Window -->
@@ -315,30 +256,25 @@ body, html {
         <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
       </div>
     </div>
-    <div class="window-content" style="padding:0;">
-      <img src="https://imgur.com/YBfxfzX.png" style="width:100%; height:100%; object-fit:contain;">
+    <div class="window-content" style="padding:10px; overflow-y:auto; overflow-x:auto;">
+      <img src="https://imgur.com/YBfxfzX.png" style="max-width:none; height:auto; display:block;">
     </div>
-    <div class="resize-handle resize-right"></div>
-    <div class="resize-handle resize-bottom"></div>
-    <div class="resize-handle resize-corner"></div>
+    <div class="resize-handle"></div>
   </div>
 
   <!-- Shutdown Confirmation -->
-  <div class="window" id="shutdownWindow" style="top:200px; left:300px; width:320px; height:180px; display:none;">
+  <div class="window" id="shutdownWindow" style="top:200px; left:300px; width:300px; height:150px; display:none;">
     <div class="window-header">
       <span>Shut Down</span>
       <div class="window-controls">
         <div class="window-btn" onclick="closeWindow('shutdownWindow')">×</div>
       </div>
     </div>
-    <div class="window-content" style="text-align:center; padding:20px;">
-      <p style="margin-bottom:10px; font-weight:bold;">Are you sure?</p>
-      <p style="margin-bottom:20px; font-size:0.8rem; color:#666;">When we pull up you know it's a...</p>
-      <button onclick="confirmShutdown()" style="background:var(--secondary); color:white; border:2px outset var(--white); padding:8px 16px; cursor:pointer; font-size:0.8rem;">Shut Down</button>
+    <div class="window-content" style="text-align:center;">
+      <p>When we pull up, what is it?</p>
+      <button onclick="confirmShutdown()">Shut Down</button>
     </div>
-    <div class="resize-handle resize-right"></div>
-    <div class="resize-handle resize-bottom"></div>
-    <div class="resize-handle resize-corner"></div>
+    <div class="resize-handle"></div>
   </div>
 
   <!-- Taskbar -->
@@ -348,120 +284,71 @@ body, html {
       <div class="icon-button" title="Search"><img src="https://imgur.com/HDV7ZqL.png" alt="Search"></div>
       <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/wHDx7cE.png" alt="Browser"></div>
       <div class="icon-button" title="Settings"><img src="https://imgur.com/wHDx7cE.png" alt="Settings"></div>
+      <div class="icon-button" title="Settings"><img src="https://imgur.com/wHDx7cE.png" alt="Settings"></div>
     </div>
     <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
   </div>
 
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
-    <div class="menu-item has-submenu">
-      Files
-      <div class="submenu">
-        <a href="digital-art.html">Digital Art</a>
-        <a href="graphic-design.html">Graphic Design</a>
-        <a href="videos.html">Videos</a>
-        <a href="writing.html">Writing</a>
-      </div>
-    </div>
+    <a href="portfolio.html">Portfolio</a>
     <a href="profile-info.html">About</a>
     <a href="contact.html">Contact</a>
-    <a href="shop.html">Shop</a>
     <a href="studio-ken.html">Studio Ken</a>
-    <div class="menu-item" onclick="showShutdown()">Shut Down</div>
+    <a href="#" onclick="showShutdown()">Shut Down</a> 
   </div>
 
 </div>
 
 <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 <script>
-let draggedWindow = null;
-let resizedWindow = null;
-let offset = { x: 0, y: 0 };
-let highestZ = 200;
-let resizeType = null;
-let startMousePos = { x: 0, y: 0 };
-let startWindowPos = { x: 0, y: 0, width: 0, height: 0 };
+let draggedWindow=null; 
+let resizingWindow=null;
+let offset={x:0,y:0}; 
+let highestZ=200;
 
-// Enhanced dragging functionality
-function makeDraggable(el) {
-  const header = el.querySelector('.window-header');
-  header.addEventListener('mousedown', startDrag);
+function makeDraggable(el){
+  const header=el.querySelector('.window-header');
+  header.addEventListener('mousedown',startDrag);
   
-  // Add resize handles
-  makeResizable(el);
-  
-  function startDrag(e) {
-    if (e.target.classList.contains('window-btn')) return;
-    
-    draggedWindow = el;
-    const rect = el.getBoundingClientRect();
-    offset.x = e.clientX - rect.left;
-    offset.y = e.clientY - rect.top;
-    el.style.zIndex = ++highestZ;
-    
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', stopDrag);
+  function startDrag(e){
+    if(e.target.classList.contains('window-btn')) return;
+    draggedWindow=el;
+    const rect=el.getBoundingClientRect();
+    offset.x=e.clientX-rect.left; 
+    offset.y=e.clientY-rect.top;
+    el.style.zIndex=++highestZ;
+    document.addEventListener('mousemove',drag);
+    document.addEventListener('mouseup',stopDrag);
     e.preventDefault();
   }
   
-  function drag(e) {
-    if (!draggedWindow) return;
-    
-    let x = e.clientX - offset.x;
-    let y = e.clientY - offset.y;
-    
-    // Better boundary calculations
-    const windowWidth = draggedWindow.offsetWidth;
-    const windowHeight = draggedWindow.offsetHeight;
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const taskbarHeight = 40;
-    
-    // Keep window within bounds (allow scrolling vertically)
-    x = Math.max(0, Math.min(x, viewportWidth - windowWidth));
-    y = Math.max(0, y); // Remove upper bound to allow scrolling
-    
-    draggedWindow.style.left = x + 'px';
-    draggedWindow.style.top = y + 'px';
+  function drag(e){
+    if(!draggedWindow) return;
+    let x=e.clientX-offset.x;
+    let y=e.clientY-offset.y;
+    const maxX=window.innerWidth-el.offsetWidth;
+    const maxY=window.innerHeight-el.offsetHeight-40;
+    draggedWindow.style.left=Math.max(0,Math.min(x,maxX))+'px';
+    draggedWindow.style.top=Math.max(0,Math.min(y,maxY))+'px';
   }
   
-  function stopDrag() {
-    draggedWindow = null;
-    document.removeEventListener('mousemove', drag);
-    document.removeEventListener('mouseup', stopDrag);
+  function stopDrag(){ 
+    draggedWindow=null; 
+    document.removeEventListener('mousemove',drag); 
+    document.removeEventListener('mouseup',stopDrag); 
   }
 }
 
-// Resize functionality
 function makeResizable(el) {
-  const resizeHandles = el.querySelectorAll('.resize-handle');
+  const resizeHandle = el.querySelector('.resize-handle');
+  if (!resizeHandle) return;
   
-  resizeHandles.forEach(handle => {
-    handle.addEventListener('mousedown', startResize);
-  });
+  resizeHandle.addEventListener('mousedown', startResize);
   
   function startResize(e) {
-    resizedWindow = el;
-    resizeType = null;
-    
-    if (e.target.classList.contains('resize-right')) {
-      resizeType = 'right';
-    } else if (e.target.classList.contains('resize-bottom')) {
-      resizeType = 'bottom';
-    } else if (e.target.classList.contains('resize-corner')) {
-      resizeType = 'corner';
-    }
-    
-    const rect = el.getBoundingClientRect();
-    startMousePos.x = e.clientX;
-    startMousePos.y = e.clientY;
-    startWindowPos.x = rect.left;
-    startWindowPos.y = rect.top;
-    startWindowPos.width = rect.width;
-    startWindowPos.height = rect.height;
-    
+    resizingWindow = el;
     el.style.zIndex = ++highestZ;
-    
     document.addEventListener('mousemove', resize);
     document.addEventListener('mouseup', stopResize);
     e.preventDefault();
@@ -469,69 +356,52 @@ function makeResizable(el) {
   }
   
   function resize(e) {
-    if (!resizedWindow || !resizeType) return;
+    if (!resizingWindow) return;
     
-    const deltaX = e.clientX - startMousePos.x;
-    const deltaY = e.clientY - startMousePos.y;
+    const rect = resizingWindow.getBoundingClientRect();
+    const newWidth = Math.max(200, e.clientX - rect.left);
+    const newHeight = Math.max(150, e.clientY - rect.top);
     
-    let newWidth = startWindowPos.width;
-    let newHeight = startWindowPos.height;
+    // Ensure window doesn't go off screen
+    const maxWidth = window.innerWidth - rect.left;
+    const maxHeight = window.innerHeight - rect.top - 40;
     
-    // Calculate new dimensions based on resize type
-    if (resizeType === 'right' || resizeType === 'corner') {
-      newWidth = startWindowPos.width + deltaX;
-    }
-    
-    if (resizeType === 'bottom' || resizeType === 'corner') {
-      newHeight = startWindowPos.height + deltaY;
-    }
-    
-    // Apply minimum and maximum constraints (allow vertical scrolling)
-    const minWidth = 250;
-    const minHeight = 150;
-    const maxWidth = window.innerWidth - startWindowPos.x;
-    const maxHeight = Math.max(300, window.innerHeight * 2); // Allow larger heights
-    
-    newWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
-    newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
-    
-    resizedWindow.style.width = newWidth + 'px';
-    resizedWindow.style.height = newHeight + 'px';
+    resizingWindow.style.width = Math.min(newWidth, maxWidth) + 'px';
+    resizingWindow.style.height = Math.min(newHeight, maxHeight) + 'px';
   }
   
   function stopResize() {
-    resizedWindow = null;
-    resizeType = null;
+    resizingWindow = null;
     document.removeEventListener('mousemove', resize);
     document.removeEventListener('mouseup', stopResize);
   }
 }
 
-// Initialize all windows
-document.querySelectorAll('.window').forEach(makeDraggable);
+// Initialize dragging and resizing for all windows
+document.querySelectorAll('.window').forEach(window => {
+  makeDraggable(window);
+  makeResizable(window);
+});
 
-// Window management functions
-function closeWindow(id) { 
-  document.getElementById(id).style.display = 'none'; 
+function closeWindow(id){ 
+  document.getElementById(id).style.display='none'; 
   removeTaskbarItem(id);
 }
-
-function minimizeWindow(id) { 
+function minimizeWindow(id){ 
   document.getElementById(id).classList.add('minimized'); 
   addTaskbarItem(id);
 }
-
-function focusWindow(id) { 
-  const win = document.getElementById(id); 
-  if (win.classList.contains('minimized')) {
+function focusWindow(id){ 
+  const win=document.getElementById(id); 
+  if(win.classList.contains('minimized')) {
     win.classList.remove('minimized'); 
     removeTaskbarItem(id);
   }
-  win.style.zIndex = ++highestZ; 
+  win.style.zIndex=++highestZ; 
 }
 
 function addTaskbarItem(windowId) {
-  if (document.getElementById(`taskbar-${windowId}`)) return;
+  if(document.getElementById(`taskbar-${windowId}`)) return;
   
   const windowEl = document.getElementById(windowId);
   const windowTitle = windowEl.querySelector('.window-header span').textContent;
@@ -540,78 +410,58 @@ function addTaskbarItem(windowId) {
   taskbarItem.className = 'taskbar-item';
   taskbarItem.id = `taskbar-${windowId}`;
   taskbarItem.textContent = windowTitle;
-  taskbarItem.onclick = () => focusWindow(windowId);
+  taskbarItem.onclick = () => {
+    focusWindow(windowId);
+  };
   
   document.querySelector('.taskbar-items').appendChild(taskbarItem);
 }
 
 function removeTaskbarItem(windowId) {
   const taskbarItem = document.getElementById(`taskbar-${windowId}`);
-  if (taskbarItem) {
+  if(taskbarItem) {
     taskbarItem.remove();
   }
 }
 
-// Utility functions
-function openFolder(name) { 
-  alert(`Opening ${name}...`); 
+function openFolder(name){ alert(`Opening ${name}...`); }
+
+function toggleStartMenu(){ 
+  const menu=document.getElementById('startMenu'); 
+  menu.style.display=menu.style.display==='flex'?'none':'flex'; 
 }
 
-function toggleStartMenu() { 
-  const menu = document.getElementById('startMenu'); 
-  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'; 
+function updateTime(){ 
+  document.getElementById('taskbarTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); 
 }
+setInterval(updateTime,1000); 
+updateTime();
 
-function updateTime() { 
-  document.getElementById('taskbarTime').textContent = new Date().toLocaleTimeString([], {
-    hour: '2-digit', 
-    minute: '2-digit'
-  }); 
+function showShutdown(){ 
+  document.getElementById('shutdownWindow').style.display='flex'; 
 }
-
-function showShutdown() { 
-  const shutdownWin = document.getElementById('shutdownWindow');
-  shutdownWin.style.display = 'block'; 
-  shutdownWin.style.zIndex = ++highestZ;
-}
-
-function confirmShutdown() { 
+function confirmShutdown(){ 
   window.history.back(); 
 }
 
-// Auto-resize windows on viewport change (simplified for scrollable page)
-window.addEventListener('resize', () => {
-  document.querySelectorAll('.window').forEach(win => {
-    if (win.style.display === 'none') return;
-    
-    const rect = win.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
-    
-    // Only adjust horizontal position if window is out of bounds
-    let newLeft = parseInt(win.style.left) || rect.left;
-    let newWidth = parseInt(win.style.width) || rect.width;
-    
-    // Keep window within viewport horizontally
-    if (newLeft + newWidth > viewportWidth) {
-      newLeft = Math.max(0, viewportWidth - newWidth);
-      win.style.left = newLeft + 'px';
-    }
-  });
-});
-
-// Start time updates
-setInterval(updateTime, 1000); 
-updateTime();
-
-// Click outside to close start menu
-document.addEventListener('click', (e) => {
-  const startMenu = document.getElementById('startMenu');
-  const startButton = document.querySelector('.start-button');
+function updateClock() {
+  const clock = document.getElementById("taskbar-clock");
+  if (!clock) return;
   
-  if (!startMenu.contains(e.target) && e.target !== startButton) {
-    startMenu.style.display = 'none';
-  }
-});
+  const now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+
+  const frozenDate = "Aug 22, 2006";
+  clock.textContent = `${hours}:${minutes} ${ampm} | ${frozenDate}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
 </script>
 </body>
 </html>
