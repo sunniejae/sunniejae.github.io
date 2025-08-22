@@ -292,9 +292,48 @@ function makeDraggable(el){
 }
 document.querySelectorAll('.window').forEach(makeDraggable);
 
-function closeWindow(id){ document.getElementById(id).style.display='none'; }
-function minimizeWindow(id){ document.getElementById(id).classList.add('minimized'); }
-function focusWindow(id){ const win=document.getElementById(id); if(win.classList.contains('minimized')) win.classList.remove('minimized'); win.style.zIndex=++highestZ; }
+function closeWindow(id){ 
+  document.getElementById(id).style.display='none'; 
+  removeTaskbarItem(id);
+}
+function minimizeWindow(id){ 
+  document.getElementById(id).classList.add('minimized'); 
+  addTaskbarItem(id);
+}
+function focusWindow(id){ 
+  const win=document.getElementById(id); 
+  if(win.classList.contains('minimized')) {
+    win.classList.remove('minimized'); 
+    removeTaskbarItem(id);
+  }
+  win.style.zIndex=++highestZ; 
+}
+
+function addTaskbarItem(windowId) {
+  // Don't add duplicate taskbar items
+  if(document.getElementById(`taskbar-${windowId}`)) return;
+  
+  const windowEl = document.getElementById(windowId);
+  const windowTitle = windowEl.querySelector('.window-header span').textContent;
+  
+  const taskbarItem = document.createElement('div');
+  taskbarItem.className = 'taskbar-item';
+  taskbarItem.id = `taskbar-${windowId}`;
+  taskbarItem.textContent = windowTitle;
+  taskbarItem.onclick = () => {
+    focusWindow(windowId);
+  };
+  
+  document.querySelector('.taskbar-items').appendChild(taskbarItem);
+}
+
+function removeTaskbarItem(windowId) {
+  const taskbarItem = document.getElementById(`taskbar-${windowId}`);
+  if(taskbarItem) {
+    taskbarItem.remove();
+  }
+}
+
 function openFolder(name){ alert(`Opening ${name}...`); }
 
 function toggleStartMenu(){ const menu=document.getElementById('startMenu'); menu.style.display=menu.style.display==='flex'?'none':'flex'; }
