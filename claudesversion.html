@@ -23,13 +23,15 @@
 /* ===== Reset & Base ===== */
 * { margin:0; padding:0; box-sizing:border-box; }
 body, html {
-  width:100vw; height:100vh;
+  width:100vw; min-height:100vh;
   background: url('https://imgur.com/4D0ZDvV.png') no-repeat center/cover;
+  background-attachment: fixed;
   font-family: 'Tahoma', sans-serif;
   color: var(--dark-gray);
-  overflow:hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-.desktop { position: relative; width:100%; height:100%; }
+.desktop { position: relative; width:100%; min-height:100vh; }
 
 /* ===== Windows ===== */
 .window {
@@ -168,17 +170,58 @@ body, html {
   flex-direction:column;
   z-index:2000;
   padding:5px 0;
-  width:180px;
+  width:200px;
   box-shadow:4px 4px 6px rgba(0,0,0,0.4);
 }
-.start-menu a {
+.start-menu a, .start-menu .menu-item {
   padding:5px 10px;
   font-size:0.7rem;
   color: var(--dark-gray);
   text-decoration:none;
   display:block;
+  cursor:pointer;
+  position:relative;
 }
-.start-menu a:hover { background: var(--accent); color:#fff; }
+.start-menu a:hover, .start-menu .menu-item:hover { background: var(--accent); color:#fff; }
+
+.menu-item.has-submenu:after {
+  content: '►';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.6rem;
+}
+
+.submenu {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background: var(--light-gray);
+  border: 2px solid var(--dark-purple);
+  display: none;
+  flex-direction: column;
+  width: 180px;
+  box-shadow: 4px 4px 6px rgba(0,0,0,0.4);
+  z-index: 2001;
+}
+
+.menu-item:hover .submenu {
+  display: flex;
+}
+
+.submenu a {
+  padding: 5px 10px;
+  font-size: 0.7rem;
+  color: var(--dark-gray);
+  text-decoration: none;
+  display: block;
+}
+
+.submenu a:hover {
+  background: var(--accent);
+  color: #fff;
+}
 
 /* ===== Desktop Folders ===== */
 .folder {
@@ -230,7 +273,7 @@ body, html {
   </div>
 
   <!-- Title Window -->
-  <div class="window" id="titleWindow" style="top:50px; left:100px; width:700px; height:300px;">
+  <div class="window" id="titleWindow" style="top:50px; left:100px; width:600px; height:200px;">
     <div class="window-header">
       <span>Sunnie Jae Creates</span>
       <div class="window-controls">
@@ -239,7 +282,7 @@ body, html {
       </div>
     </div>
     <div class="window-content">
-      <div class="title-banner" style="width:100%; height:200px; background-image:url('https://imgur.com/ixrv4gl.png'); background-size:cover; background-position:center; border:2px inset var(--white); border-radius:2px;"></div>
+      <div class="title-banner" style="width:100%; height:120px; background-image:url('https://imgur.com/ixrv4gl.png'); background-size:cover; background-position:center; border:2px inset var(--white); border-radius:2px;"></div>
     </div>
     <div class="resize-handle resize-right"></div>
     <div class="resize-handle resize-bottom"></div>
@@ -281,16 +324,17 @@ body, html {
   </div>
 
   <!-- Shutdown Confirmation -->
-  <div class="window" id="shutdownWindow" style="top:200px; left:300px; width:300px; height:150px; display:none;">
+  <div class="window" id="shutdownWindow" style="top:200px; left:300px; width:320px; height:180px; display:none;">
     <div class="window-header">
       <span>Shut Down</span>
       <div class="window-controls">
         <div class="window-btn" onclick="closeWindow('shutdownWindow')">×</div>
       </div>
     </div>
-    <div class="window-content" style="text-align:center;">
-      <p>When we pull up, what is it?</p>
-      <button onclick="confirmShutdown()">Shut Down</button>
+    <div class="window-content" style="text-align:center; padding:20px;">
+      <p style="margin-bottom:10px; font-weight:bold;">Are you sure?</p>
+      <p style="margin-bottom:20px; font-size:0.8rem; color:#666;">When we pull up you know it's a...</p>
+      <button onclick="confirmShutdown()" style="background:var(--secondary); color:white; border:2px outset var(--white); padding:8px 16px; cursor:pointer; font-size:0.8rem;">Shut Down</button>
     </div>
     <div class="resize-handle resize-right"></div>
     <div class="resize-handle resize-bottom"></div>
@@ -310,11 +354,20 @@ body, html {
 
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="contact.html">Contact</a>
-    <a href="#" onclick="showShutdown()">Shut Down</a>
-    <a href="studio-ken.html">Studio Ken</a>
+    <div class="menu-item has-submenu">
+      Files
+      <div class="submenu">
+        <a href="digital-art.html">Digital Art</a>
+        <a href="graphic-design.html">Graphic Design</a>
+        <a href="videos.html">Videos</a>
+        <a href="writing.html">Writing</a>
+      </div>
+    </div>
     <a href="profile-info.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="shop.html">Shop</a>
+    <a href="studio-ken.html">Studio Ken</a>
+    <div class="menu-item" onclick="showShutdown()">Shut Down</div>
   </div>
 
 </div>
@@ -364,9 +417,9 @@ function makeDraggable(el) {
     const viewportHeight = window.innerHeight;
     const taskbarHeight = 40;
     
-    // Keep window within bounds
+    // Keep window within bounds (allow scrolling vertically)
     x = Math.max(0, Math.min(x, viewportWidth - windowWidth));
-    y = Math.max(0, Math.min(y, viewportHeight - windowHeight - taskbarHeight));
+    y = Math.max(0, y); // Remove upper bound to allow scrolling
     
     draggedWindow.style.left = x + 'px';
     draggedWindow.style.top = y + 'px';
@@ -433,11 +486,11 @@ function makeResizable(el) {
       newHeight = startWindowPos.height + deltaY;
     }
     
-    // Apply minimum and maximum constraints
+    // Apply minimum and maximum constraints (allow vertical scrolling)
     const minWidth = 250;
     const minHeight = 150;
     const maxWidth = window.innerWidth - startWindowPos.x;
-    const maxHeight = window.innerHeight - startWindowPos.y - 40; // Account for taskbar
+    const maxHeight = Math.max(300, window.innerHeight * 2); // Allow larger heights
     
     newWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
     newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
@@ -526,32 +579,23 @@ function confirmShutdown() {
   window.history.back(); 
 }
 
-// Auto-resize windows on viewport change
+// Auto-resize windows on viewport change (simplified for scrollable page)
 window.addEventListener('resize', () => {
   document.querySelectorAll('.window').forEach(win => {
     if (win.style.display === 'none') return;
     
     const rect = win.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const taskbarHeight = 40;
     
-    // Adjust position if window is out of bounds
+    // Only adjust horizontal position if window is out of bounds
     let newLeft = parseInt(win.style.left) || rect.left;
-    let newTop = parseInt(win.style.top) || rect.top;
     let newWidth = parseInt(win.style.width) || rect.width;
-    let newHeight = parseInt(win.style.height) || rect.height;
     
-    // Keep window within viewport
+    // Keep window within viewport horizontally
     if (newLeft + newWidth > viewportWidth) {
       newLeft = Math.max(0, viewportWidth - newWidth);
+      win.style.left = newLeft + 'px';
     }
-    if (newTop + newHeight > viewportHeight - taskbarHeight) {
-      newTop = Math.max(0, viewportHeight - newHeight - taskbarHeight);
-    }
-    
-    win.style.left = newLeft + 'px';
-    win.style.top = newTop + 'px';
   });
 });
 
