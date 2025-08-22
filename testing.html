@@ -250,7 +250,6 @@ body, html {
       <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/wHDx7cE.png" alt="Browser"></div>
       <div class="icon-button" title="Settings"><img src="https://imgur.com/wHDx7cE.png" alt="Settings"></div>
       <div class="icon-button" title="Settings"><img src="https://imgur.com/wHDx7cE.png" alt="Settings"></div>
-      <button class="taskbar-btn" onclick="toggleWindow('pinterestWindow')">Pinterest</button>
     </div>
     <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
   </div>
@@ -258,10 +257,10 @@ body, html {
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
     <a href="portfolio.html">Portfolio</a>
-    <a href="contact.html">Contact</a>
-    <a href="#" onclick="showShutdown()">Shut Down</a>
-    <a href="studio-ken.html">Studio Ken</a>
     <a href="profile-info.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="studio-ken.html">Studio Ken</a>
+    <a href="#" onclick="showShutdown()">Shut Down</a> 
   </div>
 
 </div>
@@ -345,6 +344,26 @@ setInterval(updateTime,1000); updateTime();
 
 function showShutdown(){ document.getElementById('shutdownWindow').style.display='block'; }
 function confirmShutdown(){ window.history.back(); }
+
+function updateClock() {
+  const clock = document.getElementById("taskbar-clock");
+  const now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+
+  // Freeze date in 2006
+  const frozenDate = "Aug 22, 2006";
+
+  clock.textContent = `${hours}:${minutes} ${ampm} | ${frozenDate}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
 </script>
 </body>
 </html>
