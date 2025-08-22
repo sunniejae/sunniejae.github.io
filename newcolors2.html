@@ -22,7 +22,7 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background: url('https://imgur.com/mreYQcF.png') no-repeat center center fixed;
+      background: url('https://imgur.com/4D0ZDvV.png') no-repeat center center fixed;
       background-size: cover;
       overflow: hidden;
     }
@@ -114,9 +114,31 @@
     }
 
     /* Specific windows */
-    #header-window { width: 80%; height: 768px; top: 20px; left: 10%; z-index: 1; }
-    #notebook-window { width: 1000px; height: 500px; top: 800px; left: 50px; z-index: 2; }
-    #pinterest-window { width: 600px; height: 400px; top: 400px; left: 1100px; z-index: 3; }
+    #header-window {
+      width: 80%;
+      max-width: 1920px;
+      aspect-ratio: 1920 / 768;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    #notebook-window { 
+      width: 1000px; 
+      height: 500px; 
+      top: 820px; 
+      left: 50px; 
+      z-index: 2; 
+    }
+
+    #pinterest-window { 
+      width: 600px; 
+      height: 400px; 
+      top: 400px; 
+      left: 1100px; 
+      z-index: 3; 
+    }
 
     #notebook-window img {
       width: 1000px;
