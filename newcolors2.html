@@ -1,274 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Windows XP Style Desktop</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="https://imgur.com/wHDx7cE.png">
-  <style>
-    :root {
-      --primary-purple: #9a9ad4;
-      --primary-pink: #ff66cc;
-      --primary-cyan: #02d1ca;
-      --header-gradient-start: #d3d3d3;
-      --header-gradient-end: #a9a9a9;
-      --window-bg: #f0f0f0;
-      --taskbar-bg: #3b3b3b;
-      --desktop-icon-size: 80px;
-      --desktop-icon-gap: 20px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windows XP Style Homepage</title>
+<link rel="icon" type="image/png" href="https://imgur.com/wHDx7cE.png">
+<style>
+  :root {
+    --primary-purple: #9a9ad4;
+    --primary-pink: #ff66cc;
+    --cyan: #02d1ca;
+    --header-gradient: linear-gradient(to bottom, #ccc, #999);
+    --window-bg: #f0f0f0;
+    --window-border: #007e8f;
+  }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: url('https://imgur.com/4D0ZDvV.png') no-repeat center center fixed;
-      background-size: cover;
-      overflow: hidden;
-    }
+  body {
+    margin: 0;
+    padding: 0;
+    background: url('https://imgur.com/4D0ZDvV.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+  }
 
-    /* Taskbar */
-    .taskbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 50px;
-      background: var(--taskbar-bg);
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      box-sizing: border-box;
-      z-index: 100;
-    }
+  /* Desktop folder icons */
+  .desktop-folder {
+    position: absolute;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+  }
 
-    .taskbar button {
-      margin-right: 10px;
-      background: var(--primary-purple);
-      border: none;
-      color: white;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-weight: bold;
-      border-radius: 3px;
-    }
+  .desktop-folder img {
+    width: 64px;
+    height: 64px;
+  }
 
-    /* Desktop folders */
-    .desktop-icon {
-      width: var(--desktop-icon-size);
-      text-align: center;
-      color: white;
-      cursor: pointer;
-      position: absolute;
-    }
+  .desktop-folder span {
+    display: block;
+    color: white;
+    font-size: 0.8rem;
+  }
 
-    .desktop-icon img {
-      width: 100%;
-      display: block;
-      margin-bottom: 5px;
-    }
+  /* Taskbar */
+  .taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: var(--primary-purple);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    z-index: 1000;
+  }
 
-    /* Windows */
-    .window {
-      position: absolute;
-      background: var(--window-bg);
-      border: 2px solid #888;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-      overflow: hidden;
-      resize: both;
-    }
+  .taskbar button {
+    margin-right: 10px;
+    background: var(--cyan);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    border-radius: 3px;
+  }
 
-    .window-header {
-      background: linear-gradient(to bottom, var(--header-gradient-start), var(--header-gradient-end));
-      padding: 5px;
-      cursor: move;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  /* Windows */
+  .window {
+    position: absolute;
+    background: var(--window-bg);
+    border: 3px outset var(--window-border);
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 
-    .window-header .controls span {
-      margin-left: 5px;
-      width: 16px;
-      height: 16px;
-      display: inline-block;
-      text-align: center;
-      line-height: 16px;
-      cursor: pointer;
-      font-weight: bold;
-      color: white;
-    }
+  .window-header {
+    background: var(--header-gradient);
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+  }
 
-    .window-header .controls .minimize { background: var(--primary-cyan); }
-    .window-header .controls .maximize { background: var(--primary-purple); }
-    .window-header .controls .close { background: var(--primary-pink); }
+  .window-header .buttons span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border-radius: 2px;
+  }
 
-    .window-content {
-      background: #fff;
-      width: 100%;
-      height: calc(100% - 30px);
-      overflow: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .buttons .minimize { background: var(--cyan); }
+  .buttons .maximize { background: var(--primary-purple); }
+  .buttons .close { background: var(--primary-pink); }
 
-    /* Specific windows */
-    #header-window {
-      width: 960px;
-      height: 384px;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
+  .window-content {
+    padding: 10px;
+    overflow: auto;
+  }
 
-    #notebook-window { 
-      width: 1000px; 
-      height: 500px; 
-      max-height: calc(100vh - 60px);
-      top: 420px; 
-      left: 50px; 
-      z-index: 2; 
-    }
+  #header-window {
+    width: 90vw;
+    max-width: 960px;
+    height: auto;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    #pinterest-window { 
-      width: 600px; 
-      height: 400px; 
-      top: 400px; 
-      left: 1100px; 
-      z-index: 3; 
-    }
+  #notebook-window {
+    width: 90vw;
+    max-width: 1000px;
+    height: 50vh;
+    max-height: 500px;
+    top: 420px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    #notebook-window img {
-      width: 1000px;
-      height: 2015px;
-    }
+  #pinterest-window {
+    width: 90vw;
+    max-width: 600px;
+    height: 400px;
+    top: 20px;
+    right: 20px;
+  }
 
-    .window-content iframe, .window-content a {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
+  /* Responsive images */
+  .window img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Pinterest embed styling */
+  .pinterest-embed {
+    width: 100%;
+    height: 100%;
+  }
+
+</style>
 </head>
 <body>
 
-  <!-- Desktop Folders -->
-  <div class="desktop-icon" style="top: 50px; left: 50px;" onclick="window.open('shop.html')">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Downloads">
-    <div>Downloads</div>
-  </div>
-  <div class="desktop-icon" style="top: 150px; left: 50px;" onclick="window.open('writing.html')">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Documents">
-    <div>Documents</div>
-  </div>
-  <div class="desktop-icon" style="top: 250px; left: 50px;" onclick="window.open('graphic-design.html')">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Photos">
-    <div>Photos</div>
-  </div>
-  <div class="desktop-icon" style="top: 350px; left: 50px;" onclick="window.open('videos.html')">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Videos">
-    <div>Videos</div>
-  </div>
-  <div class="desktop-icon" style="top: 450px; left: 50px;" onclick="window.open('social-media.html')">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Internet Explorer">
-    <div>Internet Explorer</div>
-  </div>
+<!-- Desktop Folders -->
+<div class="desktop-folder" style="top:20px; left:20px;" onclick="window.location.href='shop.html'">
+  <img src="https://img.icons8.com/fluency/48/folder-invoices.png"/>
+  <span>Downloads</span>
+</div>
+<div class="desktop-folder" style="top:120px; left:20px;" onclick="window.location.href='writing.html'">
+  <img src="https://img.icons8.com/fluency/48/folder-invoices.png"/>
+  <span>Documents</span>
+</div>
+<div class="desktop-folder" style="top:220px; left:20px;" onclick="window.location.href='graphic-design.html'">
+  <img src="https://img.icons8.com/fluency/48/folder-invoices.png"/>
+  <span>Photos</span>
+</div>
+<div class="desktop-folder" style="top:320px; left:20px;" onclick="window.location.href='videos.html'">
+  <img src="https://img.icons8.com/fluency/48/folder-invoices.png"/>
+  <span>Videos</span>
+</div>
+<div class="desktop-folder" style="top:420px; left:20px;" onclick="window.location.href='social-media.html'">
+  <img src="https://img.icons8.com/fluency/48/internet-explorer.png"/>
+  <span>IE</span>
+</div>
 
-  <!-- Windows -->
-  <div class="window" id="header-window">
-    <div class="window-header">
-      <span>Header</span>
-      <div class="controls">
-        <span class="minimize">_</span>
-        <span class="maximize">■</span>
-        <span class="close">×</span>
-      </div>
-    </div>
-    <div class="window-content">
-      <img src="https://imgur.com/Dok5RmF.png" alt="Header Image">
+<!-- Header Window -->
+<div class="window" id="header-window">
+  <div class="window-header">
+    <span>Header</span>
+    <div class="buttons">
+      <span class="minimize">_</span>
+      <span class="maximize">■</span>
+      <span class="close">×</span>
     </div>
   </div>
+  <div class="window-content">
+    <img src="https://imgur.com/Dok5RmF.png" alt="Header">
+  </div>
+</div>
 
-  <div class="window" id="notebook-window">
-    <div class="window-header">
-      <span>Notebook</span>
-      <div class="controls">
-        <span class="minimize">_</span>
-        <span class="maximize">■</span>
-        <span class="close">×</span>
-      </div>
-    </div>
-    <div class="window-content">
-      <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook">
+<!-- Notebook Window -->
+<div class="window" id="notebook-window">
+  <div class="window-header">
+    <span>Notebook</span>
+    <div class="buttons">
+      <span class="minimize">_</span>
+      <span class="maximize">■</span>
+      <span class="close">×</span>
     </div>
   </div>
+  <div class="window-content">
+    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook">
+  </div>
+</div>
 
-  <div class="window" id="pinterest-window">
-    <div class="window-header">
-      <span>Pinterest</span>
-      <div class="controls">
-        <span class="minimize">_</span>
-        <span class="maximize">■</span>
-        <span class="close">×</span>
-      </div>
-    </div>
-    <div class="window-content">
-      <a data-pin-do="embedBoard" data-pin-board-width="651" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
+<!-- Pinterest Window -->
+<div class="window" id="pinterest-window">
+  <div class="window-header">
+    <span>Pinterest</span>
+    <div class="buttons">
+      <span class="minimize">_</span>
+      <span class="maximize">■</span>
+      <span class="close">×</span>
     </div>
   </div>
-
-  <!-- Taskbar -->
-  <div class="taskbar">
-    <button onclick="alert('Start Menu')">Start</button>
-    <button onclick="window.open('social-media.html')">Internet</button>
-    <button onclick="alert('Settings')">Settings</button>
+  <div class="window-content pinterest-embed">
+    <a data-pin-do="embedBoard" data-pin-board-width="600" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
   </div>
+</div>
 
-  <!-- Pinterest JS -->
-  <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+<!-- Taskbar -->
+<div class="taskbar">
+  <button onclick="alert('Start menu placeholder')">Start</button>
+  <button onclick="window.location.href='social-media.html'">Internet</button>
+  <button onclick="alert('Settings placeholder')">Settings</button>
+</div>
 
-  <!-- Draggable windows -->
-  <script>
-    function dragElement(elmnt) {
-      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      const header = elmnt.querySelector(".window-header");
-      if (header) {
-        header.onmousedown = dragMouseDown;
-      } else {
-        elmnt.onmousedown = dragMouseDown;
-      }
-
-      function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
-      }
-
-      function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-      }
-
-      function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
-      }
+<!-- Scripts -->
+<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+<script>
+  // Dragging functionality
+  function dragElement(el) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    const header = el.querySelector(".window-header");
+    if (header) {
+      header.onmousedown = dragMouseDown;
+    } else {
+      el.onmousedown = dragMouseDown;
     }
 
-    const windows = document.querySelectorAll(".window");
-    windows.forEach(win => dragElement(win));
-  </script>
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
 
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      el.style.top = (el.offsetTop - pos2) + "px";
+      el.style.left = (el.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+
+  // Initialize draggable windows
+  document.querySelectorAll('.window').forEach(dragElement);
+
+  // Simple minimize/close buttons
+  document.querySelectorAll('.window .close').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.target.closest('.window').style.display = 'none';
+    });
+  });
+
+  document.querySelectorAll('.window .minimize').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const content = e.target.closest('.window').querySelector('.window-content');
+      content.style.display = content.style.display === 'none' ? 'block' : 'none';
+    });
+  });
+
+</script>
 </body>
 </html>
