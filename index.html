@@ -6,208 +6,215 @@
 <title>Sunnie Jae Desktop</title>
 <link rel="icon" href="https://i.imgur.com/wHDx7cE.png">
 <style>
-  :root {
-    --primary: #9a9ad4;
-    --secondary: #c13886;
-    --accent: #00c9c2;
-    --dark-purple: #3f3d7a;
-    --darker-cyan: #00a8a3;
-    --light-pink: #ffb3d6;
-    --silver: #f0f0f5;
-    --gray: #bfbfdc;
-    --dark-gray: #404040;
-    --white: #ffffff;
-    --black: #000010;
+:root {
+  --primary: #9a9ad4;
+  --secondary: #c13886;
+  --accent: #00c9c2;
+  --dark-purple: #3f3d7a;
+  --darker-cyan: #00a8a3;
+  --light-pink: #ffb3d6;
+  --silver: #f0f0f5;
+  --gray: #bfbfdc;
+  --dark-gray: #404040;
+  --white: #ffffff;
+  --black: #000010;
 
-    --taskbar-h: 50px;
-    --window-border: 3px solid var(--primary);
-    --folder-size: 80px;
-  }
+  --taskbar-h: 50px;
+  --window-border: 3px solid var(--primary);
+  --folder-size: 80px;
+}
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Tahoma, sans-serif;
-    background: url('https://i.imgur.com/4D0ZDvV.png') no-repeat center center;
-    background-size: cover;
-    overflow: hidden;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Tahoma, sans-serif;
+  background: url('https://i.imgur.com/4D0ZDvV.png') no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
 
-  /* Desktop Folders */
-  .folder {
-    position: absolute;
-    width: var(--folder-size);
-    text-align: center;
-    cursor: default;
-    font-size: 0.8rem;
-    color: var(--black);
-    left: 20px;
-  }
-  .folder img {
-    width: 48px;
-    height: 48px;
-    display: block;
-    margin: 0 auto 5px;
-  }
-  .folder:hover {
-    filter: brightness(1.2);
-  }
-  .folder[data-tooltip]:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--dark-gray);
-    color: var(--white);
-    padding: 2px 5px;
-    font-size: 0.75rem;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
+/* Desktop Folders */
+.folder {
+  position: absolute;
+  width: var(--folder-size);
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--black);
+  left: 20px;
+}
+.folder img {
+  width: 48px;
+  height: 48px;
+  display: block;
+  margin: 0 auto 5px;
+}
+.folder:hover {
+  filter: brightness(1.2);
+}
+.folder[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark-gray);
+  color: var(--white);
+  padding: 2px 5px;
+  font-size: 0.75rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
 
-  /* Taskbar */
-  .taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: var(--taskbar-h);
-    background: var(--primary);
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    box-sizing: border-box;
-    gap: 5px;
-    z-index: 1000;
-    overflow-x: auto;
-  }
-  .taskbar button {
-    background: var(--silver);
-    border: 1px solid var(--dark-gray);
-    padding: 2px 10px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-  .taskbar button:hover {
-    background: var(--accent);
-    color: var(--white);
-  }
-  #startMenu {
-    position: fixed;
-    bottom: var(--taskbar-h);
-    left: 0;
-    background: var(--white);
-    border: 1px solid var(--dark-gray);
-    display: none;
-    flex-direction: column;
-    min-width: 150px;
-    z-index: 1100;
-  }
-  #startMenu button {
-    width: 100%;
-    text-align: left;
-    border: none;
-    background: none;
-    padding: 5px 10px;
-    border-bottom: 1px solid var(--gray);
-  }
-  #startMenu button:hover {
-    background: var(--primary);
-    color: var(--white);
-  }
+/* Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--taskbar-h);
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  gap: 5px;
+  z-index: 1000;
+  overflow-x: auto;
+}
+.taskbar button {
+  background: var(--silver);
+  border: 1px solid var(--dark-gray);
+  padding: 2px 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.taskbar button:hover {
+  background: var(--accent);
+  color: var(--white);
+}
 
-  /* Windows */
-  .window {
-    position: absolute;
-    border: var(--window-border);
-    background: var(--white);
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    z-index: 100;
-    overflow: hidden;
-  }
-  .window-header {
-    background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    cursor: move;
-  }
-  .window-header .buttons {
-    display: flex;
-    gap: 4px;
-  }
-  .window-header .buttons span {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    text-align: center;
-    line-height: 16px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .close-btn { color: var(--secondary); }
-  .minimize-btn { color: var(--accent); }
-  .maximize-btn { color: var(--primary); }
-  .window-content {
-    padding: 5px;
-    overflow: auto;
-  }
+/* Start Menu */
+#startMenu {
+  position: fixed;
+  bottom: var(--taskbar-h);
+  left: 0;
+  background: var(--white);
+  border: 1px solid var(--dark-gray);
+  display: none;
+  flex-direction: column;
+  min-width: 150px;
+  z-index: 1100;
+}
+#startMenu button {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--gray);
+  color: var(--black);
+}
+#startMenu button:hover {
+  background: var(--primary);
+  color: var(--white);
+}
 
-  /* Footer Clock */
-  .footer-clock {
-    position: fixed;
-    bottom: calc(var(--taskbar-h) + 10px);
-    right: 20px;
-    color: var(--white);
-    font-family: monospace;
-    background: rgba(0,0,0,0.5);
-    padding: 5px 10px;
-    border-radius: 3px;
-    z-index: 1000;
-  }
+/* Windows */
+.window {
+  position: absolute;
+  border: var(--window-border);
+  background: var(--white);
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  z-index: 100;
+  overflow: hidden;
+}
+.window-header {
+  background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+  color: var(--white);
+}
+.window-header .buttons {
+  display: flex;
+  gap: 4px;
+}
+.window-header .buttons span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  line-height: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close-btn { color: var(--secondary); }
+.minimize-btn { color: var(--accent); }
+.maximize-btn { color: var(--primary); }
+.window-content {
+  padding: 5px;
+  overflow: auto;
+  color: var(--black);
+}
 
-  /* Shutdown modal */
-  .modal-bg {
-    position: fixed;
-    top:0; left:0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-  }
-  .modal-content {
-    background: var(--white);
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 300px;
-  }
-  .modal-content h2 {
-    margin-top: 0;
-  }
-  .modal-content p {
-    font-size: 0.9rem;
-    margin: 10px 0 20px 0;
-  }
-  .modal-content button {
-    background: var(--secondary);
-    color: var(--white);
-    border: none;
-    padding: 5px 15px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 0.9rem;
-  }
-  .modal-content button:hover {
-    background: var(--primary);
-  }
+/* Footer Clock */
+.footer-clock {
+  position: fixed;
+  bottom: calc(var(--taskbar-h) + 10px);
+  right: 20px;
+  color: var(--white);
+  font-family: monospace;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 3px;
+  z-index: 1000;
+}
+
+/* Shutdown modal */
+.modal-bg {
+  position: fixed;
+  top:0; left:0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+.modal-content {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 300px;
+}
+.modal-content h2 {
+  margin-top: 0;
+  color: var(--dark-purple);
+}
+.modal-content p {
+  font-size: 0.9rem;
+  margin: 10px 0 20px 0;
+  color: var(--black);
+}
+.modal-content button {
+  background: var(--secondary);
+  color: var(--white);
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.modal-content button:hover {
+  background: var(--primary);
+}
 </style>
 </head>
 <body>
@@ -221,9 +228,17 @@
   <img src="https://img.icons8.com/fluency/48/folder-invoices.png"/>
   Photos
 </div>
+<div class="folder" style="top:220px;" data-tooltip="Graphics" ondblclick="openWindow('graphicsWindow')">
+  <img src="https://img.icons8.com/fluency/48/folder-invoices.png"/>
+  Graphics
+</div>
+<div class="folder" style="top:320px;" data-tooltip="Music" ondblclick="openWindow('musicWindow')">
+  <img src="https://img.icons8.com/fluency/48/folder-invoices.png"/>
+  Music
+</div>
 
-<!-- Example Windows -->
-<div class="window" id="documentsWindow" style="top:100px; left:50px; width:400px; height:300px; display:none;">
+<!-- Windows -->
+<div class="window" id="documentsWindow" style="top:80px; left:50px; width:450px; height:350px; display:none;">
   <div class="window-header">
     <span>Documents</span>
     <div class="buttons">
@@ -233,11 +248,12 @@
     </div>
   </div>
   <div class="window-content">
-    <p>Documents folder content.</p>
+    <img src="https://i.imgur.com/0HfTkUO.png" alt="Notebook" style="max-width:100%; margin-bottom:10px;">
+    <p>This is your notebook content area.</p>
   </div>
 </div>
 
-<div class="window" id="photosWindow" style="top:100px; left:500px; width:400px; height:300px; display:none;">
+<div class="window" id="photosWindow" style="top:100px; left:520px; width:400px; height:300px; display:none;">
   <div class="window-header">
     <span>Photos</span>
     <div class="buttons">
@@ -247,7 +263,54 @@
     </div>
   </div>
   <div class="window-content">
-    <p>Photos folder content.</p>
+    <p>Photo gallery content goes here.</p>
+  </div>
+</div>
+
+<div class="window" id="graphicsWindow" style="top:150px; left:200px; width:500px; height:400px; display:none;">
+  <div class="window-header">
+    <span>Graphics</span>
+    <div class="buttons">
+      <span class="minimize-btn" onclick="minimizeWindow('graphicsWindow')">_</span>
+      <span class="maximize-btn">■</span>
+      <span class="close-btn" onclick="closeWindow('graphicsWindow')">×</span>
+    </div>
+  </div>
+  <div class="window-content">
+    <p>Pinterest Feed:</p>
+    <iframe src="https://www.pinterest.com/pinterest/boards/" height="350" width="100%" style="border:none;"></iframe>
+  </div>
+</div>
+
+<div class="window" id="musicWindow" style="top:200px; left:600px; width:350px; height:150px; display:none;">
+  <div class="window-header">
+    <span>Music</span>
+    <div class="buttons">
+      <span class="minimize-btn" onclick="minimizeWindow('musicWindow')">_</span>
+      <span class="maximize-btn">■</span>
+      <span class="close-btn" onclick="closeWindow('musicWindow')">×</span>
+    </div>
+  </div>
+  <div class="window-content">
+    <audio controls style="width:100%;">
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
+<!-- Header Window -->
+<div class="window" id="headerWindow" style="top:20px; left:200px; width:600px; height:150px; display:block;">
+  <div class="window-header">
+    <span>Welcome</span>
+    <div class="buttons">
+      <span class="minimize-btn" onclick="minimizeWindow('headerWindow')">_</span>
+      <span class="maximize-btn">■</span>
+      <span class="close-btn" onclick="closeWindow('headerWindow')">×</span>
+    </div>
+  </div>
+  <div class="window-content">
+    <img src="https://i.imgur.com/yourHeaderImage.png" alt="Header" style="width:100%; height:auto;">
   </div>
 </div>
 
@@ -261,6 +324,8 @@
 <div id="startMenu">
   <button onclick="openWindow('documentsWindow')">Documents</button>
   <button onclick="openWindow('photosWindow')">Photos</button>
+  <button onclick="openWindow('graphicsWindow')">Graphics</button>
+  <button onclick="openWindow('musicWindow')">Music</button>
 </div>
 
 <!-- Footer Clock -->
@@ -276,7 +341,7 @@
 </div>
 
 <script>
-let topZ = 100; // global z-index tracker
+let topZ = 100;
 
 // Taskbar & Start Menu
 function toggleStartMenu() {
@@ -350,10 +415,9 @@ function bringToFront(win) {
   win.style.zIndex = topZ;
 }
 
-// Make all current windows draggable
 document.querySelectorAll('.window').forEach(makeDraggable);
 
-// Shutdown modal functions
+// Shutdown modal
 function openShutdownModal() {
   document.getElementById('shutdownModal').style.display = 'flex';
 }
@@ -362,6 +426,5 @@ function shutdown() {
   window.history.back();
 }
 </script>
-
 </body>
 </html>
