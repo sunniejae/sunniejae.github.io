@@ -19,6 +19,10 @@
       --dark-gray: #404040;
       --white: #ffffff;
       --pink: #ff66cc;
+      --submenu-bg: #6b5b95;
+      --submenu-hover: #ffb3d6;
+      --menu-bg: #404040;
+      --menu-hover: #ff66cc;
     }
 
     html, body {
@@ -32,14 +36,12 @@
       overflow: hidden;
     }
 
-    /* Windows */
     .window {
       position: absolute;
       background: var(--silver);
       border: 2px solid var(--dark-purple);
       box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
       z-index: 100;
-      display: block;
       min-width: 200px;
       min-height: 100px;
       border-radius: 2px;
@@ -120,17 +122,16 @@
       bottom: 30px;
       left: 0;
       width: 180px;
-      background: var(--dark-gray);
+      background: var(--menu-bg);
       display: none;
       flex-direction: column;
       z-index: 1000;
       border-top-left-radius: 2px;
       border-top-right-radius: 2px;
-      padding: 4px 0;
     }
 
     #startMenu button {
-      background: var(--dark-gray);
+      background: var(--menu-bg);
       color: var(--white);
       border: none;
       text-align: left;
@@ -141,37 +142,49 @@
     }
 
     #startMenu button:hover {
-      background: var(--pink);
+      background: var(--menu-hover);
       color: var(--white);
     }
 
     #startMenu .submenu {
       display: flex;
       flex-direction: column;
-      margin-left: 12px;
+      background: var(--submenu-bg);
+      margin-left: 0;
     }
 
-    /* Folders in single column */
-    .folders-list {
+    #startMenu .submenu button {
+      background: var(--submenu-bg);
+      padding-left: 18px;
+    }
+
+    #startMenu .submenu button:hover {
+      background: var(--submenu-hover);
+    }
+
+    /* Desktop folders */
+    .desktop-folder {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-    }
-
-    .folders-list a {
+      align-items: center;
       text-decoration: none;
       color: var(--dark-purple);
-      padding: 4px 6px;
-      border-radius: 2px;
-      background: var(--light-pink);
+      font-size: 0.9rem;
+      margin: 8px 0;
+      cursor: pointer;
     }
 
-    .folders-list a:hover {
-      background: var(--pink);
-      color: var(--white);
+    .desktop-folder img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 4px;
     }
 
-    /* Header and notebook padding adjustments */
+    .desktop-folder:hover {
+      color: var(--pink);
+    }
+
+    /* Header and Notebook images */
     #headerWindow .window-content img,
     #notebookWindow .window-content img {
       width: 100%;
@@ -183,6 +196,26 @@
 </head>
 
 <body>
+
+  <!-- Desktop folders -->
+  <div style="position:absolute; top:20px; left:20px; display:flex; flex-direction:column;">
+    <a class="desktop-folder" href="digital-art.html">
+      <img src="https://i.imgur.com/YBfxfzX.png" alt="Digital Art">
+      Digital Art
+    </a>
+    <a class="desktop-folder" href="graphic-design.html">
+      <img src="https://i.imgur.com/YBfxfzX.png" alt="Graphic Design">
+      Graphic Design
+    </a>
+    <a class="desktop-folder" href="videos.html">
+      <img src="https://i.imgur.com/YBfxfzX.png" alt="Videos">
+      Videos
+    </a>
+    <a class="desktop-folder" href="writing.html">
+      <img src="https://i.imgur.com/YBfxfzX.png" alt="Writing">
+      Writing
+    </a>
+  </div>
 
   <!-- Header Window -->
   <div class="window" id="headerWindow" style="top:20px; left:150px; width:900px; height:200px;">
@@ -214,40 +247,6 @@
     <div class="resize-handle"></div>
   </div>
 
-  <!-- Folders Window -->
-  <div class="window" id="foldersWindow" style="top:240px; left:550px; width:200px; height:300px;">
-    <div class="window-header">
-      Folders
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('foldersWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('foldersWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content folders-list">
-      <a href="digital-art.html">Digital Art</a>
-      <a href="graphic-design.html">Graphic Design</a>
-      <a href="videos.html">Videos</a>
-      <a href="writing.html">Writing</a>
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
-  <!-- Pinterest Window -->
-  <div class="window" id="pinterestWindow" style="top:100px; left:300px; width:400px; height:500px; display:none;">
-    <div class="window-header">
-      Pinterest
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content">
-      <!-- Pinterest embed code -->
-      <p>Pinterest embed goes here</p>
-    </div>
-    <div class="resize-handle"></div>
-  </div>
-
   <!-- Taskbar -->
   <div id="taskbar">
     <button id="startButton">Start</button>
@@ -269,16 +268,7 @@
     <button onclick="shutdown()">Shut Down</button>
   </div>
 
-  <!-- Shutdown Popup -->
-  <div id="shutdownPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-      background:var(--dark-gray); color:var(--white); padding:20px; border-radius:6px; z-index:2000;">
-    <p>Are you sure?</p>
-    <p style="font-size:0.85rem;">When we pull up you know it's a...</p>
-    <button onclick="confirmShutdown()" style="padding:4px 8px; margin-top:10px; background:var(--pink); border:none; color:white; border-radius:2px;">Shut Down</button>
-  </div>
-
   <script>
-    // Dragging windows
     let dragTarget = null;
     let offsetX, offsetY;
 
@@ -298,9 +288,7 @@
       }
     });
 
-    document.addEventListener('mouseup', e => {
-      dragTarget = null;
-    });
+    document.addEventListener('mouseup', e => { dragTarget = null; });
 
     // Resizing windows
     document.querySelectorAll('.window').forEach(win => {
@@ -331,7 +319,6 @@
       });
     });
 
-    // Minimize windows
     function minimizeWindow(id){
       const win = document.getElementById(id);
       win.style.display='none';
@@ -350,20 +337,14 @@
       }
     }
 
-    // Start menu toggle
     const startBtn = document.getElementById('startButton');
     const startMenu = document.getElementById('startMenu');
     startBtn.addEventListener('click', () => {
       startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 
-    // Shutdown popup
     function shutdown(){
-      document.getElementById('shutdownPopup').style.display='block';
-    }
-
-    function confirmShutdown(){
-      window.location.href = '/'; // navigates back to homepage
+      alert("Shutting down...");
     }
   </script>
 </body>
