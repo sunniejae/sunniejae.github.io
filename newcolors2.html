@@ -9,204 +9,211 @@
   :root {
     --primary-purple: #9a9ad4;
     --primary-pink: #ff66cc;
-    --primary-cyan: #02d1ca;
-    --header-gradient-start: #d3d3d3;
-    --header-gradient-end: #a9a9a9;
-    --background-color: #89e6e0;
+    --cyan: #02d1ca;
+    --dark-purple: #442269;
+    --magenta: #c73e8d;
+    --accent-blue: #007e8f;
+    --light-gray: #e0e0e0;
+    --medium-gray: #999999;
+    --background: #89e6e0;
   }
-
   body {
     margin: 0;
+    padding: 0;
     font-family: Tahoma, sans-serif;
     background: url('https://imgur.com/mreYQcF.png') no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
   }
-
   /* Windows */
   .window {
     position: absolute;
-    border: 2px solid #000;
-    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-    max-width: 80%;
-    max-height: 80%;
-    overflow: hidden;
+    border: 2px solid var(--accent-blue);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
     background: #fff;
-    resize: both;
+    border-radius: 3px;
+    min-width: 200px;
+    max-width: 600px;
+    min-height: 100px;
+    max-height: 800px;
+    overflow: hidden;
+    z-index: 10;
   }
-
   .window-header {
     cursor: move;
+    background: linear-gradient(to bottom, var(--light-gray), var(--medium-gray));
     padding: 5px;
-    background: linear-gradient(to bottom, var(--header-gradient-start), var(--header-gradient-end));
-    color: #000;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-
-  .window-controls {
-    display: flex;
-    gap: 5px;
-  }
-
-  .window-btn {
-    width: 20px;
-    height: 20px;
+  .window-buttons span {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
     text-align: center;
+    margin-left: 3px;
     line-height: 18px;
     font-weight: bold;
     cursor: pointer;
-    border: 1px solid #666;
+    border-radius: 2px;
   }
-
-  .window-btn.minimize { background: var(--primary-cyan); }
-  .window-btn.maximize { background: var(--primary-purple); }
-  .window-btn.close { background: var(--primary-pink); }
-
-  .window-content img, .window-content iframe {
-    width: 100%;
-    height: auto;
-    display: block;
+  .window-buttons .minimize { background: var(--cyan); color:#fff; }
+  .window-buttons .maximize { background: var(--primary-purple); color:#fff; }
+  .window-buttons .close { background: var(--primary-pink); color:#fff; }
+  .window-content {
+    padding: 10px;
+    overflow: auto;
+    height: calc(100% - 30px);
   }
-
   /* Taskbar */
   .taskbar {
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
     height: 50px;
-    background: #333;
+    background: var(--dark-purple);
     display: flex;
     align-items: center;
     padding: 0 10px;
-    gap: 10px;
     box-sizing: border-box;
   }
-
   .taskbar button {
-    background: #555;
+    margin-right: 5px;
+    background: var(--primary-purple);
     color: #fff;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+    border-radius: 2px;
   }
-
-  .desktop-folder {
-    position: absolute;
-    width: 80px;
+  .folder-icon {
+    display: inline-block;
+    margin: 5px;
     text-align: center;
     cursor: pointer;
+    color: #fff;
   }
-
-  .desktop-folder img {
-    width: 64px;
-    height: 64px;
+  .folder-icon img {
+    width: 48px;
+    height: 48px;
+    display: block;
+    margin: 0 auto 2px auto;
   }
-
+  .computer-wrapper img {
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    display: block;
+  }
+  /* Responsive */
+  @media (max-width: 1024px){
+    .window { max-width: 90%; max-height: 90%; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Windows -->
-<div class="window" id="headerWindow" style="top:50px; left:200px; z-index:1;">
-  <div class="window-header" onmousedown="bringToFront('headerWindow')">
-    Header
-    <div class="window-controls">
-      <div class="window-btn minimize" onclick="minimize('headerWindow')">_</div>
-      <div class="window-btn maximize">■</div>
-      <div class="window-btn close" onclick="closeWindow('headerWindow')">×</div>
+<!-- Header Window -->
+<div id="headerWindow" class="window" style="top:20px; left:20px; width:600px; height:384px; z-index:20;">
+  <div class="window-header">
+    <span>Header</span>
+    <div class="window-buttons">
+      <span class="minimize">_</span>
+      <span class="maximize">■</span>
+      <span class="close" onclick="closeWindow('headerWindow')">×</span>
     </div>
   </div>
   <div class="window-content">
-    <img src="https://imgur.com/Dok5RmF.png" alt="Header Image"/>
+    <img src="https://imgur.com/Dok5RmF.png" alt="Header" style="width:100%; height:auto;">
   </div>
 </div>
 
-<div class="window" id="notebookWindow" style="top:100px; left:750px; z-index:2;">
-  <div class="window-header" onmousedown="bringToFront('notebookWindow')">
-    Notebook
-    <div class="window-controls">
-      <div class="window-btn minimize" onclick="minimize('notebookWindow')">_</div>
-      <div class="window-btn maximize">■</div>
-      <div class="window-btn close" onclick="closeWindow('notebookWindow')">×</div>
+<!-- Notebook Window -->
+<div id="notebookWindow" class="window" style="top:430px; left:50px; width:397px; height:800px; z-index:30;">
+  <div class="window-header">
+    <span>Notebook</span>
+    <div class="window-buttons">
+      <span class="minimize">_</span>
+      <span class="maximize">■</span>
+      <span class="close" onclick="closeWindow('notebookWindow')">×</span>
     </div>
   </div>
   <div class="window-content">
-    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook"/>
+    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook" style="width:100%; height:auto;">
   </div>
 </div>
 
-<div class="window" id="pinterestWindow" style="top:200px; left:1300px; z-index:3;">
-  <div class="window-header" onmousedown="bringToFront('pinterestWindow')">
-    Pinterest
-    <div class="window-controls">
-      <div class="window-btn minimize" onclick="minimize('pinterestWindow')">_</div>
-      <div class="window-btn maximize">■</div>
-      <div class="window-btn close" onclick="closeWindow('pinterestWindow')">×</div>
+<!-- Pinterest Window -->
+<div id="pinterestWindow" class="window" style="top:430px; left:470px; width:600px; height:600px; z-index:40;">
+  <div class="window-header">
+    <span>Pinterest</span>
+    <div class="window-buttons">
+      <span class="minimize">_</span>
+      <span class="maximize">■</span>
+      <span class="close" onclick="closeWindow('pinterestWindow')">×</span>
     </div>
   </div>
   <div class="window-content">
-    <a data-pin-do="embedBoard" data-pin-board-width="600" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
+    <a data-pin-do="embedBoard" data-pin-board-width="651" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
   </div>
-</div>
-
-<!-- Desktop Folders -->
-<div class="desktop-folder" style="top:50px; left:50px;" onclick="location.href='shop.html'">
-  <img src="https://imgur.com/5fjM6QN.png" alt="Downloads"/>
-  <div>Downloads</div>
-</div>
-
-<div class="desktop-folder" style="top:50px; left:150px;" onclick="location.href='writing.html'">
-  <img src="https://imgur.com/5fjM6QN.png" alt="Documents"/>
-  <div>Documents</div>
-</div>
-
-<div class="desktop-folder" style="top:50px; left:250px;" onclick="location.href='graphic-design.html'">
-  <img src="https://imgur.com/5fjM6QN.png" alt="Photos"/>
-  <div>Photos</div>
-</div>
-
-<div class="desktop-folder" style="top:50px; left:350px;" onclick="location.href='videos.html'">
-  <img src="https://imgur.com/5fjM6QN.png" alt="Videos"/>
-  <div>Videos</div>
-</div>
-
-<div class="desktop-folder" style="top:50px; left:450px;" onclick="location.href='social-media.html'">
-  <img src="https://imgur.com/5fjM6QN.png" alt="Internet Explorer"/>
-  <div>IE</div>
 </div>
 
 <!-- Taskbar -->
 <div class="taskbar">
-  <button onclick="alert('Start menu placeholder')">Start</button>
-  <button onclick="location.href='portfolio.html'">Portfolio</button>
-  <button onclick="location.href='contact.html'">Contact</button>
-  <button onclick="location.href='studio-ken.html'">Studio Ken</button>
-  <button onclick="location.href='profile-info.html'">About</button>
-  <button onclick="alert('Settings placeholder')">Settings</button>
+  <button onclick="alert('Start Menu Placeholder')">Start</button>
+  <button onclick="window.location.href='social-media.html'">Internet</button>
+  <button onclick="window.location.href='downloads.html'">Downloads</button>
+  <button onclick="window.location.href='documents.html'">Documents</button>
+  <button onclick="window.location.href='photos.html'">Photos</button>
+  <button onclick="window.location.href='videos.html'">Videos</button>
+  <button onclick="alert('Settings Placeholder')">Settings</button>
 </div>
 
 <!-- Scripts -->
 <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 <script>
-let topZ = 3;
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  var header = elmnt.querySelector(".window-header");
+  if (header) {
+    header.onmousedown = dragMouseDown;
+  }
 
-function bringToFront(id){
-  topZ++;
-  document.getElementById(id).style.zIndex = topZ;
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+    elmnt.style.zIndex = ++highestZ;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
 }
 
-function minimize(id){
-  const w = document.getElementById(id);
-  w.style.display = 'none';
-}
+var highestZ = 50;
+["headerWindow","notebookWindow","pinterestWindow"].forEach(id => dragElement(document.getElementById(id)));
 
 function closeWindow(id){
-  const w = document.getElementById(id);
-  w.style.display = 'none';
+  document.getElementById(id).style.display='none';
 }
 </script>
-
 </body>
 </html>
