@@ -5,6 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design Gallery</title>
     <style>
+        :root {
+            /* Base Colors */
+            --black: #000010;
+            --white: #ffffff;
+            --dark-gray: #404040;
+            --gray: #bfbfdc;
+            --silver: #f0f0f5;
+            --pink: #ffb3d6;
+            --teal: #00a8a3;
+            --dark-purple: #3f3d7a;
+            --accent: #00c9c2;
+            --secondary: #c13886;
+            --primary: #9a9ad4;
+            
+            /* Text Colors */
+            --text-primary: var(--black);
+            --text-secondary: var(--dark-purple);
+            
+            /* Background Colors */
+            --background-light: var(--white);
+            --background-gradient: var(--silver);
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-background: linear-gradient(135deg, var(--background-light) 0%, var(--background-gradient) 100%);
+            --gradient-purple-pink: linear-gradient(135deg, var(--primary), var(--pink));
+            --gradient-cyan-blue: linear-gradient(45deg, var(--teal), var(--accent));
+            --gradient-pink-variants: linear-gradient(225deg, var(--pink), var(--secondary));
+            --gradient-purple-variants: linear-gradient(315deg, var(--dark-purple), var(--primary));
+            --gradient-radial: radial-gradient(circle, var(--secondary), var(--dark-purple));
+            --gradient-multi: linear-gradient(90deg, var(--accent), var(--teal), var(--primary));
+            --gradient-light: linear-gradient(180deg, var(--pink), var(--silver));
+            --gradient-conic: conic-gradient(from 45deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+            --gradient-blue-purple: linear-gradient(135deg, var(--accent), var(--dark-purple));
+            --gradient-tag: linear-gradient(135deg, var(--primary), var(--pink));
+            
+            /* Opacity Variants */
+            --primary-opacity-10: rgba(154, 154, 212, 0.1);
+            --primary-opacity-20: rgba(154, 154, 212, 0.2);
+            --primary-opacity-30: rgba(154, 154, 212, 0.3);
+            --background-opacity-95: rgba(255, 255, 255, 0.95);
+            --background-opacity-90: rgba(255, 255, 255, 0.9);
+            --background-opacity-98: rgba(255, 255, 255, 0.98);
+            --text-opacity-10: rgba(0, 0, 16, 0.1);
+            --text-opacity-50: rgba(0, 0, 16, 0.5);
+            --text-opacity-90: rgba(0, 0, 16, 0.9);
+            --white-opacity-70: rgba(255, 255, 255, 0.7);
+            --white-opacity-80: rgba(255, 255, 255, 0.8);
+            --white-opacity-90: rgba(255, 255, 255, 0.9);
+            --secondary-opacity-80: rgba(193, 56, 134, 0.8);
+            --overlay-gradient: linear-gradient(135deg, rgba(154, 154, 212, 0.9), rgba(193, 56, 134, 0.9));
+            --light-overlay: rgba(255, 255, 255, 0.8);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,9 +67,9 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #faf8fc 0%, #f6e6f9 100%);
+            background: var(--gradient-background);
             min-height: 100vh;
-            color: #130d16;
+            color: var(--text-primary);
             padding-top: 80px;
         }
 
@@ -25,9 +79,9 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(250, 248, 252, 0.95);
+            background: var(--background-opacity-95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(159, 118, 202, 0.1);
+            border-bottom: 1px solid var(--primary-opacity-10);
             z-index: 999;
             padding: 0 20px;
         }
@@ -44,7 +98,7 @@
         .nav-logo {
             font-size: 24px;
             font-weight: bold;
-            background: linear-gradient(135deg, #9f76ca, #ff68b5);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -64,7 +118,7 @@
 
         .nav-menu a {
             text-decoration: none;
-            color: #130d16;
+            color: var(--text-primary);
             font-weight: 500;
             font-size: 16px;
             transition: all 0.3s ease;
@@ -72,11 +126,11 @@
         }
 
         .nav-menu a:hover {
-            color: #ff68b5;
+            color: var(--secondary);
         }
 
         .nav-menu a.active {
-            color: #ff68b5;
+            color: var(--secondary);
         }
 
         .nav-menu a.active::after {
@@ -86,7 +140,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(135deg, #9f76ca, #ff68b5);
+            background: var(--gradient-primary);
             border-radius: 1px;
         }
 
@@ -95,7 +149,7 @@
             background: none;
             border: none;
             font-size: 24px;
-            color: #130d16;
+            color: var(--text-primary);
             cursor: pointer;
         }
 
@@ -110,7 +164,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 30px 0;
-            border-bottom: 1px solid rgba(19, 13, 22, 0.1);
+            border-bottom: 1px solid var(--text-opacity-10);
             margin-bottom: 40px;
         }
 
@@ -124,12 +178,12 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #d2baff, #ff68b5, #34dae1);
+            background: var(--gradient-multi);
             display: flex;
             align-items: center;
             justify-content: center;
             border: 4px solid #fff;
-            box-shadow: 0 8px 25px rgba(159, 118, 202, 0.3);
+            box-shadow: 0 8px 25px var(--primary-opacity-30);
             overflow: hidden;
         }
 
@@ -143,7 +197,7 @@
             font-size: 28px;
             font-weight: 300;
             margin-bottom: 15px;
-            color: #130d16;
+            color: var(--text-primary);
         }
 
         .stats {
@@ -159,23 +213,23 @@
         .stat-number {
             font-size: 18px;
             font-weight: bold;
-            color: #130d16;
+            color: var(--text-primary);
         }
 
         .stat-label {
             font-size: 14px;
-            color: #9f76ca;
+            color: var(--dark-purple);
         }
 
         .bio {
             font-size: 16px;
             line-height: 1.5;
-            color: #130d16;
+            color: var(--text-primary);
             max-width: 300px;
         }
 
         .bio strong {
-            color: #9f76ca;
+            color: var(--dark-purple);
         }
 
         .gallery-grid {
@@ -210,7 +264,7 @@
             right: 0;
             bottom: 0;
             opacity: 0;
-            background: linear-gradient(135deg, rgba(210, 186, 255, 0.9), rgba(255, 104, 181, 0.9));
+            background: var(--overlay-gradient);
             transition: opacity 0.3s ease;
             z-index: 1;
             display: flex;
@@ -242,39 +296,39 @@
 
         /* Different background patterns for gallery items */
         .gallery-item:nth-child(1) {
-            background: linear-gradient(135deg, #d2baff, #ff68b5);
+            background: var(--gradient-purple-pink);
         }
 
         .gallery-item:nth-child(2) {
-            background: linear-gradient(45deg, #34dae1, #418ede);
+            background: var(--gradient-cyan-blue);
         }
 
         .gallery-item:nth-child(3) {
-            background: linear-gradient(225deg, #ffaee0, #ff68b5);
+            background: var(--gradient-pink-variants);
         }
 
         .gallery-item:nth-child(4) {
-            background: linear-gradient(315deg, #9f76ca, #d2baff);
+            background: var(--gradient-purple-variants);
         }
 
         .gallery-item:nth-child(5) {
-            background: radial-gradient(circle, #ff68b5, #9f76ca);
+            background: var(--gradient-radial);
         }
 
         .gallery-item:nth-child(6) {
-            background: linear-gradient(90deg, #34dae1, #418ede, #d2baff);
+            background: var(--gradient-multi);
         }
 
         .gallery-item:nth-child(7) {
-            background: linear-gradient(180deg, #ffaee0, #f6e6f9);
+            background: var(--gradient-light);
         }
 
         .gallery-item:nth-child(8) {
-            background: conic-gradient(from 45deg, #d2baff, #ff68b5, #34dae1, #d2baff);
+            background: var(--gradient-conic);
         }
 
         .gallery-item:nth-child(9) {
-            background: linear-gradient(135deg, #418ede, #9f76ca);
+            background: var(--gradient-blue-purple);
         }
 
         /* Design elements within each gallery item */
@@ -291,7 +345,7 @@
             content: '';
             width: 60px;
             height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.8);
+            border: 4px solid var(--white-opacity-80);
             border-radius: 50%;
         }
 
@@ -299,7 +353,7 @@
             content: '';
             width: 50px;
             height: 50px;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--white-opacity-90);
             transform: rotate(45deg);
         }
 
@@ -309,22 +363,22 @@
             height: 0;
             border-left: 25px solid transparent;
             border-right: 25px solid transparent;
-            border-bottom: 50px solid rgba(255, 255, 255, 0.9);
+            border-bottom: 50px solid var(--white-opacity-90);
         }
 
         .gallery-item:nth-child(4) .design-element::after {
             content: '';
             width: 80px;
             height: 4px;
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 15px 0 rgba(255, 255, 255, 0.9), 0 30px 0 rgba(255, 255, 255, 0.9);
+            background: var(--white-opacity-90);
+            box-shadow: 0 15px 0 var(--white-opacity-90), 0 30px 0 var(--white-opacity-90);
         }
 
         .gallery-item:nth-child(5) .design-element::after {
             content: '';
             width: 60px;
             height: 60px;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--white-opacity-90);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         }
 
@@ -332,7 +386,7 @@
             content: '';
             width: 50px;
             height: 50px;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--white-opacity-90);
             border-radius: 10px;
         }
 
@@ -340,7 +394,7 @@
             content: '';
             width: 60px;
             height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.9);
+            border: 4px solid var(--white-opacity-90);
             border-radius: 10px;
             border-right: transparent;
             border-bottom: transparent;
@@ -351,16 +405,16 @@
             content: '';
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--white-opacity-90);
             border-radius: 50%;
-            box-shadow: 20px 0 0 rgba(255, 255, 255, 0.7), -20px 0 0 rgba(255, 255, 255, 0.7);
+            box-shadow: 20px 0 0 var(--white-opacity-70), -20px 0 0 var(--white-opacity-70);
         }
 
         .gallery-item:nth-child(9) .design-element::after {
             content: '';
             width: 70px;
             height: 70px;
-            border: 6px solid rgba(255, 255, 255, 0.9);
+            border: 6px solid var(--white-opacity-90);
             border-top: 6px solid transparent;
             border-radius: 50%;
         }
@@ -374,7 +428,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(19, 13, 22, 0.9);
+            background-color: var(--text-opacity-90);
             backdrop-filter: blur(10px);
         }
 
@@ -395,7 +449,7 @@
             max-width: 90vw;
             max-height: 90vh;
             display: flex;
-            background: #faf8fc;
+            background: var(--background-light);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -405,7 +459,7 @@
             width: 500px;
             height: 500px;
             object-fit: cover;
-            background: linear-gradient(135deg, #d2baff, #ff68b5, #34dae1);
+            background: var(--gradient-multi);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -434,17 +488,17 @@
         .modal-title {
             font-size: 24px;
             font-weight: bold;
-            color: #130d16;
+            color: var(--text-primary);
             margin-bottom: 10px;
         }
 
         .modal-subtitle {
-            color: #9f76ca;
+            color: var(--dark-purple);
             font-size: 16px;
         }
 
         .modal-description {
-            color: #130d16;
+            color: var(--text-primary);
             line-height: 1.6;
             font-size: 15px;
             margin-bottom: 30px;
@@ -458,8 +512,8 @@
         }
 
         .tag {
-            background: linear-gradient(135deg, #d2baff, #ffaee0);
-            color: #130d16;
+            background: var(--gradient-tag);
+            color: var(--text-primary);
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 12px;
@@ -471,27 +525,27 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 20px;
-            border-top: 1px solid rgba(159, 118, 202, 0.2);
+            border-top: 1px solid var(--primary-opacity-20);
         }
 
         .modal-stats {
             display: flex;
             gap: 20px;
             font-size: 14px;
-            color: #9f76ca;
+            color: var(--dark-purple);
         }
 
         .close {
             position: absolute;
             top: 20px;
             right: 20px;
-            color: #130d16;
+            color: var(--text-primary);
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
             width: 40px;
             height: 40px;
-            background: rgba(250, 248, 252, 0.9);
+            background: var(--background-opacity-90);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -500,7 +554,7 @@
         }
 
         .close:hover {
-            background: #ff68b5;
+            background: var(--secondary);
             color: white;
             transform: rotate(90deg);
         }
@@ -510,11 +564,11 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 30px;
-            color: rgba(250, 248, 252, 0.8);
+            color: var(--light-overlay);
             cursor: pointer;
             width: 50px;
             height: 50px;
-            background: rgba(19, 13, 22, 0.5);
+            background: var(--text-opacity-50);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -523,7 +577,7 @@
         }
 
         .nav-arrow:hover {
-            background: rgba(255, 104, 181, 0.8);
+            background: var(--secondary-opacity-80);
             color: white;
         }
 
@@ -558,11 +612,11 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(250, 248, 252, 0.98);
+                background: var(--background-opacity-98);
                 backdrop-filter: blur(20px);
                 flex-direction: column;
                 padding: 20px;
-                border-bottom: 1px solid rgba(159, 118, 202, 0.1);
+                border-bottom: 1px solid var(--primary-opacity-10);
                 gap: 20px;
             }
 
@@ -706,7 +760,7 @@
                         <span>💬 12</span>
                         <span>📤 8</span>
                     </div>
-                    <div style="font-size: 12px; color: #9f76ca;">2 days ago</div>
+                    <div style="font-size: 12px; color: var(--dark-purple);">2 days ago</div>
                 </div>
             </div>
         </div>
@@ -730,28 +784,28 @@
                 title: "Sunnie Jae Brand Identity",
                 subtitle: "Personal Brand Design",
                 description: "placeholder.",
-                background: "linear-gradient(135deg, #d2baff, #ff68b5)",
+                background: "var(--gradient-purple-pink)",
                 elementClass: "nth-child(1)"
             },
             {
                 title: "Conceptual Logo Designs",
                 subtitle: "Logo Design Collection",
                 description: "placeholder",
-                background: "linear-gradient(45deg, #34dae1, #418ede)",
+                background: "var(--gradient-cyan-blue)",
                 elementClass: "nth-child(2)"
             },
             {
                 title: "Commissioned Designs",
                 subtitle: "Custom Client Work",
                 description: "placeholder",
-                background: "linear-gradient(225deg, #ffaee0, #ff68b5)",
+                background: "var(--gradient-pink-variants)",
                 elementClass: "nth-child(3)"
             },
             {
                 title: "Email Campaign Graphics",
                 subtitle: "Digital Marketing Design",
                 description: "placeholder",
-                background: "linear-gradient(315deg, #9f76ca, #d2baff)",
+                background: "var(--gradient-purple-variants)",
                 elementClass: "nth-child(4)",
                 imageUrl: "https://imgur.com/w31bIPR.png"
             },
@@ -759,21 +813,21 @@
                 title: "Product Promotion",
                 subtitle: "Marketing & Advertising",
                 description: "placeholder.",
-                background: "radial-gradient(circle, #ff68b5, #9f76ca)",
+                background: "var(--gradient-radial)",
                 elementClass: "nth-child(5)"
             },
             {
                 title: "Sticker Designs",
                 subtitle: "Product Design & Illustration",
                 description: "placeholder.",
-                background: "linear-gradient(90deg, #34dae1, #418ede, #d2baff)",
+                background: "var(--gradient-multi)",
                 elementClass: "nth-child(6)"
             },
             {
                 title: "Poster/Print Designs",
                 subtitle: "Print Design & Typography",
                 description: "placeholder",
-                background: "linear-gradient(135deg, #418ede, #9f76ca)",
+                background: "var(--gradient-blue-purple)",
                 elementClass: "nth-child(7)"
             }
         ];
@@ -798,7 +852,7 @@
                 img.style.height = '100%';
                 img.style.objectFit = 'cover';
                 modalImage.appendChild(img);
-                modalImage.style.background = '#f6e6f9'; // Subtle background for images
+                modalImage.style.background = 'var(--background-gradient)'; // Subtle background for images
             } else {
                 // Use gradient background with design element for projects without images
                 modalImage.style.background = project.background;
