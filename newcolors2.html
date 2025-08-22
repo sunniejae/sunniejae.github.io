@@ -7,16 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #9a9ad4;       /* lavender */
-  --secondary: #ff66cc;     /* bright pink */
-  --accent: #02d1ca;        /* cyan */
-  --dark-purple: #442269;   /* dark window border */
-  --hover-cyan: #89e6e0;    /* hover highlight */
-  --hover-pink: #c73e8d;    /* hover glow */
-  --light-gray: #f0f0f5;    /* window bg */
-  --medium-gray: #bfbfdc;   /* taskbar bg */
-  --dark-gray: #404040;     /* text */
-  --white: #ffffff;         /* headers/text */
+  --primary-purple: #9a9ad4;
+  --bright-pink: #ff66cc;
+  --cyan: #02d1ca;
+  --dark-purple: #442269;
+  --light-gray: #f0f0f5;
+  --medium-gray: #bfbfdc;
+  --dark-gray: #404040;
+  --white: #ffffff;
+  --hover-cyan: #89e6e0;
+  --hover-pink: #c73e8d;
 }
 
 /* ===== Reset & Base ===== */
@@ -60,15 +60,14 @@ body, html {
 .window-btn {
   width:18px; height:18px;
   border:2px outset var(--white);
+  background: var(--cyan);
   font-weight:bold;
   display:flex; align-items:center; justify-content:center;
   font-size:0.6rem;
   cursor:pointer;
 }
-.window-btn[data-type="_"] { background: var(--accent); }
-.window-btn[data-type="■"] { background: var(--primary); }
-.window-btn[data-type="×"] { background: var(--secondary); }
-
+.window-btn:nth-child(2) { background: var(--primary-purple); }
+.window-btn:nth-child(3) { background: var(--bright-pink); }
 .window-btn:hover { border:2px inset var(--white); }
 
 .window-content { padding:10px; overflow:auto; max-height: calc(100vh - 100px); background: var(--light-gray); }
@@ -84,7 +83,7 @@ body, html {
   z-index:1000;
 }
 .start-button {
-  background: linear-gradient(to bottom, var(--light-gray), var(--accent));
+  background: linear-gradient(to bottom, var(--light-gray), var(--cyan));
   color:#fff;
   border:2px outset var(--white);
   padding:5px 12px;
@@ -95,15 +94,15 @@ body, html {
 
 .taskbar-items { display:flex; gap:5px; margin-left:5px; flex:1; align-items:center; }
 .taskbar-item {
-  background: var(--primary);
+  background: var(--primary-purple);
   color:#fff;
-  border:1px outset var(--primary);
+  border:1px outset var(--primary-purple);
   padding:4px 8px;
   font-size:0.6rem;
   cursor:pointer;
 }
-.taskbar-item:hover { border:1px inset var(--primary); background: var(--hover-pink); }
-.taskbar-item.active { background: var(--secondary); border:1px inset var(--secondary); }
+.taskbar-item:hover { border:1px inset var(--primary-purple); background: var(--hover-pink); }
+.taskbar-item.active { background: var(--bright-pink); border:1px inset var(--bright-pink); }
 
 .taskbar-time { font-size:0.6rem; color:#000; margin-left:auto; }
 
@@ -113,7 +112,7 @@ body, html {
   display:flex; align-items:center; justify-content:center;
   margin:0 3px;
   border:2px outset var(--white);
-  background: var(--primary);
+  background: var(--primary-purple);
   cursor:pointer;
 }
 .icon-button:hover { border:2px inset var(--white); background: var(--hover-cyan); }
@@ -138,7 +137,7 @@ body, html {
   text-decoration:none;
   display:block;
 }
-.start-menu a:hover { background: var(--accent); color:#fff; }
+.start-menu a:hover { background: var(--cyan); color:#fff; }
 
 /* ===== Desktop Folders ===== */
 .folder {
@@ -151,13 +150,35 @@ body, html {
 .folder-icon {
   width:48px; height:48px;
   display:flex; align-items:center; justify-content:center;
-  margin-bottom:5px; border:2px outset var(--white); background:var(--primary);
+  margin-bottom:5px; border:2px outset var(--white); background:var(--primary-purple);
   border-radius:2px;
 }
 .folder-icon img { width:32px; height:32px; object-fit:contain; }
 .folder-label { font-size:0.6rem; color: var(--dark-gray); text-align:center; }
 
-/* ===== Responsive ===== */
+/* ===== Authentic XP Elements ===== */
+.start-menu hr { margin:5px 0; border:0; border-top:1px solid var(--dark-purple); }
+.window-content button { margin:5px; padding:5px 10px; border:2px outset var(--primary-purple); background:var(--light-gray); cursor:pointer; }
+.window-content button:hover { border:2px inset var(--primary-purple); background: var(--hover-cyan); }
+
+.context-menu {
+  position:absolute;
+  background: var(--light-gray);
+  border:2px solid var(--dark-purple);
+  display:none;
+  flex-direction:column;
+  padding:5px 0;
+  z-index:3000;
+}
+.context-menu a {
+  padding:5px 15px;
+  font-size:0.6rem;
+  color: var(--dark-gray);
+  text-decoration:none;
+  display:block;
+}
+.context-menu a:hover { background: var(--cyan); color:#fff; }
+
 @media(max-width:768px){
   .folder{width:60px;height:70px;}
   .folder-icon{width:36px;height:36px;}
@@ -171,9 +192,13 @@ body, html {
 
 <div class="desktop">
   <!-- Desktop Folders -->
-  <div class="folder summer05" style="top:180px; left:150px;" onclick="location.href='summer05.html'">
+  <div class="folder summer05" style="top:150px; left:150px;" onclick="openFolder('Summer 05')">
     <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 05"></div>
     <div class="folder-label">Summer '05</div>
+  </div>
+  <div class="folder documents" style="top:150px; left:250px;" onclick="openFolder('Documents')">
+    <div class="folder-icon"><img src="https://imgur.com/3M6gqVf.png" alt="Documents"></div>
+    <div class="folder-label">Documents</div>
   </div>
 
   <!-- Title Window -->
@@ -181,54 +206,15 @@ body, html {
     <div class="window-header">
       <span>✨ Sunnie Jae Creates</span>
       <div class="window-controls">
-        <div class="window-btn" data-type="_" onclick="minimizeWindow('titleWindow')">_</div>
-        <div class="window-btn" data-type="×" onclick="closeWindow('titleWindow')">×</div>
+        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('titleWindow')">■</div>
+        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
       </div>
     </div>
     <div class="window-content">
       <div class="title-banner" style="width:100%; height:200px; background-image:url('https://i.imgur.com/n6km6m0.png'); background-size:cover; background-position:center; border:2px inset var(--white); border-radius:2px;"></div>
-    </div>
-  </div>
-
-  <!-- Pinterest Window -->
-  <div class="window" id="pinterestWindow" style="top:280px; left:100px; width:400px; height:500px;">
-    <div class="window-header">
-      <span>Pinterest Feed</span>
-      <div class="window-controls">
-        <div class="window-btn" data-type="_" onclick="minimizeWindow('pinterestWindow')">_</div>
-        <div class="window-btn" data-type="×" onclick="closeWindow('pinterestWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content" style="padding:0;">
-      <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="500" data-pin-scale-width="80" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
-    </div>
-  </div>
-
-  <!-- Notebook Window -->
-  <div class="window" id="notebookWindow" style="top:280px; left:520px; width:400px; height:500px;">
-    <div class="window-header">
-      <span>Notebook</span>
-      <div class="window-controls">
-        <div class="window-btn" data-type="_" onclick="minimizeWindow('notebookWindow')">_</div>
-        <div class="window-btn" data-type="×" onclick="closeWindow('notebookWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content" style="padding:0;">
-      <img src="https://i.imgur.com/GrbDrVZ.png" style="width:100%; height:100%; object-fit:contain;">
-    </div>
-  </div>
-
-  <!-- Shutdown Confirmation -->
-  <div class="window" id="shutdownWindow" style="top:200px; left:300px; width:300px; display:none;">
-    <div class="window-header">
-      <span>Shut Down</span>
-      <div class="window-controls">
-        <div class="window-btn" data-type="×" onclick="closeWindow('shutdownWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content" style="text-align:center;">
-      <p>Are you sure you want to shut down?</p>
-      <button onclick="confirmShutdown()">Confirm</button>
+      <button onclick="alert('Opening portfolio...')">Portfolio</button>
+      <button onclick="alert('Opening notebook...')">Notebook</button>
     </div>
   </div>
 
@@ -236,25 +222,32 @@ body, html {
   <div class="taskbar">
     <button class="start-button" onclick="toggleStartMenu()">☰</button>
     <div class="taskbar-items">
-      <div class="icon-button" title="Search"><img src="https://imgur.com/HDV7ZqL.png" alt="Search"></div>
-      <div class="icon-button" title="Internet Browser" onclick="location.href='social-media.html'"><img src="https://imgur.com/7KkDjkT.png" alt="Browser"></div>
-      <div class="icon-button" title="Settings"><img src="https://imgur.com/8T1tGdL.png" alt="Settings"></div>
+      <div class="icon-button" title="Search" onclick="alert('Search clicked')"><img src="https://imgur.com/HDV7ZqL.png" alt="Search"></div>
+      <div class="icon-button" title="Internet Browser" onclick="alert('Browser clicked')"><img src="https://imgur.com/7KkDjkT.png" alt="Browser"></div>
+      <div class="icon-button" title="Settings" onclick="alert('Settings clicked')"><img src="https://imgur.com/8T1tGdL.png" alt="Settings"></div>
     </div>
     <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
   </div>
 
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
-    <a href="portfolio.html">Portfolio</a>
-    <a href="contact.html">Contact</a>
-    <a href="#" onclick="showShutdown()">Shut Down</a>
-    <a href="studio-ken.html">Studio Ken</a>
-    <a href="profile-info.html">About</a>
+    <a href="#" onclick="alert('Opening portfolio...')">Portfolio</a>
+    <a href="#" onclick="alert('Opening contact...')">Contact</a>
+    <hr>
+    <a href="#" onclick="alert('Shutting down...')">Shut Down</a>
+    <a href="#" onclick="alert('Opening studio...')">Studio Ken</a>
+    <a href="#" onclick="alert('Opening about...')">About</a>
+  </div>
+
+  <!-- Right-click Context Menu -->
+  <div class="context-menu" id="desktopContext">
+    <a href="#" onclick="alert('New Folder')">New Folder</a>
+    <a href="#" onclick="alert('Refresh Desktop')">Refresh</a>
+    <a href="#" onclick="alert('Properties')">Properties</a>
   </div>
 
 </div>
 
-<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
 <script>
 let draggedWindow=null; let offset={x:0,y:0}; let highestZ=200;
 function makeDraggable(el){
@@ -292,8 +285,15 @@ function toggleStartMenu(){ const menu=document.getElementById('startMenu'); men
 function updateTime(){ document.getElementById('taskbarTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
 setInterval(updateTime,1000); updateTime();
 
-function showShutdown(){ document.getElementById('shutdownWindow').style.display='block'; }
-function confirmShutdown(){ window.history.back(); }
+const desktop=document.querySelector('.desktop');
+const contextMenu=document.getElementById('desktopContext');
+desktop.addEventListener('contextmenu',e=>{
+  e.preventDefault();
+  contextMenu.style.top=e.clientY+'px';
+  contextMenu.style.left=e.clientX+'px';
+  contextMenu.style.display='flex';
+});
+desktop.addEventListener('click',e=>{ if(!e.target.closest('.context-menu')) contextMenu.style.display='none'; });
 </script>
 </body>
 </html>
