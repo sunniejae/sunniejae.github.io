@@ -1,348 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="https://imgur.com/wHDx7cE.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae 2005 Desktop</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --primary: #9a9ad4;
-  --secondary: #c13886;
-  --accent: #00c9c2;
-  --dark-purple: #3f3d7a;
-  --hover-cyan: #00a8a3;
-  --hover-pink: #ffb3d6;
-  --light-gray: #f0f0f5;
-  --medium-gray: #bfbfdc;
-  --dark-gray: #404040;
-  --white: #ffffff;
-}
+  <meta charset="UTF-8">
+  <title>Sunnie Jae Creates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
+  <style>
+    :root {
+      --purple: #9a9ad4;
+      --pink: #ff66cc;
+      --cyan: #02d1ca;
+      --dark-gray: #404040;
+      --gray: #bfbfdc;
+      --white: #fff;
+    }
 
-/* ===== Reset & Base ===== */
-* { margin:0; padding:0; box-sizing:border-box; }
-body, html {
-  width:100vw; height:100vh;
-  background: url('https://imgur.com/4D0ZDvV.png') no-repeat center/cover;
-  font-family: 'Tahoma', sans-serif;
-  color: var(--dark-gray);
-  overflow:hidden;
-}
-.desktop { position: relative; width:100%; height:100%; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: url("https://i.imgur.com/4D0ZDvV.png") no-repeat center center fixed;
+      background-size: cover;
+      font-family: sans-serif;
+      overflow: auto;
+    }
 
-/* ===== Windows ===== */
-.window {
-  position: absolute;
-  background: var(--light-gray);
-  border: 2px solid var(--dark-purple);
-  box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
-  z-index: 100;
-  display: block;
-  min-width: 200px;
-  border-radius:2px;
-}
-.window.minimized { display:none; }
+    /* Desktop Icons */
+    .desktop-icon {
+      width: 80px;
+      text-align: center;
+      color: white;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .desktop {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .desktop-icon img {
+      width: 48px;
+      height: 48px;
+      display: block;
+      margin: 0 auto;
+    }
+    .desktop-icon span {
+      font-size: 0.8rem;
+      word-wrap: break-word;
+    }
 
-.window-header {
-  background: linear-gradient(to bottom, var(--light-gray), var(--medium-gray));
-  color: var(--dark-purple);
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: move;
-}
+    /* Windows */
+    .window {
+      position: absolute;
+      background: var(--white);
+      border: 2px solid var(--gray);
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+      resize: both;
+      overflow: hidden;
+      z-index: 10;
+    }
+    .window-header {
+      background: var(--purple);
+      color: white;
+      padding: 5px;
+      cursor: move;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .window-content {
+      padding: 10px;
+      height: calc(100% - 30px);
+      overflow: auto;
+    }
+    .window-controls {
+      display: flex;
+      gap: 5px;
+    }
+    .window-btn {
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 18px;
+      background: var(--pink);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.window-controls { display: flex; gap:3px; }
-.window-btn {
-  width:18px; height:18px;
-  border:2px outset var(--white);
-  background: var(--accent);
-  display:flex; align-items:center; justify-content:center;
-  font-size:0.6rem;
-  cursor:pointer;
-}
-.window-btn:hover { border:2px inset var(--white); background: var(--hover-cyan); }
+    /* Taskbar */
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: var(--dark-gray);
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      box-sizing: border-box;
+      color: white;
+      z-index: 1000;
+    }
+    .taskbar .start-btn {
+      background: var(--purple);
+      color: white;
+      padding: 5px 10px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .taskbar-icons {
+      display: flex;
+      gap: 5px;
+      flex-grow: 1;
+    }
+    .taskbar-icon {
+      background: var(--gray);
+      padding: 3px 8px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 0.85rem;
+    }
+    .clock {
+      margin-left: auto;
+    }
 
-.window-content { padding:10px; overflow:auto; max-height: calc(100vh - 100px); background: var(--light-gray); }
+    /* Start Menu */
+    .start-menu {
+      position: absolute;
+      bottom: 40px;
+      left: 5px;
+      width: 200px;
+      background: var(--dark-gray);
+      border: 2px solid var(--gray);
+      display: none;
+      flex-direction: column;
+      z-index: 2000;
+    }
+    .start-menu-item {
+      padding: 8px;
+      color: white;
+      cursor: pointer;
+    }
+    .start-menu-item:hover {
+      background: var(--pink);
+      color: white;
+    }
 
-/* ===== Taskbar ===== */
-.taskbar {
-  position: fixed; bottom:0; left:0;
-  width:100%; height:40px;
-  background: var(--medium-gray);
-  border-top:2px solid var(--white);
-  display:flex; align-items:center; padding:0 5px;
-  box-shadow: inset 0 1px 0 var(--white),0 -2px 4px rgba(0,0,0,0.3);
-  z-index:1000;
-}
-.start-button {
-  background: linear-gradient(to bottom, var(--light-gray), var(--medium-gray));
-  color:#fff;
-  border:2px outset var(--white);
-  padding:5px 12px;
-  font-size:0.7rem;
-  cursor:pointer;
-}
-.start-button:hover { border:2px inset var(--white); background: var(--hover-cyan); }
-
-.taskbar-items { display:flex; gap:5px; margin-left:5px; flex:1; align-items:center; }
-.taskbar-item {
-  background: var(--primary);
-  color:#fff;
-  border:1px outset var(--primary);
-  padding:4px 8px;
-  font-size:0.7rem;
-  cursor:pointer;
-}
-.taskbar-item:hover { border:1px inset var(--primary); background: var(--hover-pink); }
-.taskbar-item.active { background: var(--secondary); border:1px inset var(--secondary); }
-
-.taskbar-time { font-size:0.8rem; color:#000; margin-left:auto; }
-
-/* ===== Start Menu ===== */
-.start-menu {
-  position: fixed; bottom:40px; left:0;
-  background: var(--dark-gray);
-  border:2px solid var(--dark-purple);
-  display:none;
-  flex-direction:column;
-  z-index:2000;
-  padding:5px 0;
-  width:180px;
-  box-shadow:4px 4px 6px rgba(0,0,0,0.4);
-}
-.start-menu a {
-  padding:5px 10px;
-  font-size:0.7rem;
-  color: var(--white);
-  text-decoration:none;
-  display:block;
-}
-.start-menu a:hover { background: var(--secondary); color:#fff; }
-
-/* Submenu for Files */
-.files-container { position:relative; }
-.submenu {
-  display:none;
-  position:absolute;
-  top:0; left:100%;
-  flex-direction:column;
-  background: var(--dark-gray);
-  width:160px;
-  z-index:2100;
-}
-.submenu a {
-  color: var(--white);
-  padding:5px 10px;
-}
-.submenu a:hover { background: var(--secondary); color:#fff; }
-.files-container:hover .submenu, .submenu:hover { display:flex; }
-
-/* ===== Desktop Folders ===== */
-.folder {
-  position:absolute; width:80px; height:90px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  cursor:pointer; user-select:none;
-  z-index: 10;
-}
-.folder:hover { transform:scale(1.05); box-shadow:0 0 6px var(--hover-cyan); }
-.folder-icon {
-  width:48px; height:48px;
-  display:flex; align-items:center; justify-content:center;
-  margin-bottom:5px; border:2px outset var(--white); background:var(--primary);
-  border-radius:2px;
-}
-.folder-icon img { width:32px; height:32px; object-fit:contain; }
-.folder-label { font-size:0.9rem; color: var(--dark-gray); text-align:center; }
-
-/* ===== Responsive ===== */
-@media(max-width:768px){
-  .folder{width:60px;height:70px;}
-  .folder-icon{width:36px;height:36px;}
-  .folder-icon img{width:24px;height:24px;}
-  .folder-label{font-size:0.5rem;}
-  .window{max-width:90vw; max-height:80vh;}
-}
-</style>
+    /* Submenu */
+    .submenu {
+      position: absolute;
+      top: 0;
+      left: 200px;
+      width: 200px;
+      background: var(--gray);
+      border: 2px solid var(--dark-gray);
+      display: none;
+      flex-direction: column;
+      z-index: 2001;
+    }
+    .submenu-item {
+      padding: 8px;
+      cursor: pointer;
+      background: var(--gray);
+      color: var(--dark-gray);
+    }
+    .submenu-item:hover {
+      background: var(--pink);
+      color: white;
+    }
+    .start-menu-item:hover .submenu {
+      display: flex;
+    }
+  </style>
 </head>
 <body>
+  <!-- Desktop Icons -->
+  <div class="desktop">
+    <div class="desktop-icon" onclick="openWindow('headerWindow')">
+      <img src="https://i.imgur.com/wHDx7cE.png" alt="Header">
+      <span>Header</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('notebookWindow')">
+      <img src="https://i.imgur.com/wHDx7cE.png" alt="Notebook">
+      <span>Notebook</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('pinterestWindow')">
+      <img src="https://i.imgur.com/wHDx7cE.png" alt="Pinterest">
+      <span>Pinterest</span>
+    </div>
+    <div class="desktop-icon" onclick="openWindow('mp3Window')">
+      <img src="https://i.imgur.com/wHDx7cE.png" alt="Music">
+      <span>Music</span>
+    </div>
+  </div>
 
-<div class="desktop">
-
-  <!-- Desktop Folders (single column left side) -->
-  <div class="folder" style="top:80px; left:50px;" onclick="openFolder('Documents')">
-    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Documents"></div>
-    <div class="folder-label">Documents</div>
-  </div>
-  <div class="folder" style="top:180px; left:50px;" onclick="openFolder('Videos')">
-    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Videos"></div>
-    <div class="folder-label">Videos</div>
-  </div>
-  <div class="folder" style="top:280px; left:50px;" onclick="openFolder('Photos')">
-    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Photos"></div>
-    <div class="folder-label">Photos</div>
-  </div>
-  <div class="folder" style="top:380px; left:50px;" onclick="location.href='summer05.html'">
-    <div class="folder-icon"><img src="https://imgur.com/XRXG5tA.png" alt="Summer 05"></div>
-    <div class="folder-label">Summer '05</div>
-  </div>
-
-  <!-- Title/Header Window -->
-  <div class="window" id="titleWindow" style="top:50px; left:150px; width:960px; height:384px;">
+  <!-- Header Window -->
+  <div class="window" id="headerWindow" style="top:50px; left:200px; width:960px; height:384px;">
     <div class="window-header">
-      <span>Sunnie Jae Creates</span>
+      Header
       <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
+        <div class="window-btn" onclick="minimizeWindow('headerWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('headerWindow')">×</div>
       </div>
     </div>
     <div class="window-content" style="padding:0;">
-      <img src="https://imgur.com/ixrv4gl.png" alt="Header" style="width:960px; height:384px; display:block;">
-    </div>
-  </div>
-
-  <!-- Pinterest Window -->
-  <div class="window minimized" id="pinterestWindow" style="top:460px; left:150px; width:400px; height:500px;">
-    <div class="window-header">
-      <span>Portfolio Feed</span>
-      <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
-      </div>
-    </div>
-    <div class="window-content" style="padding:0;">
-      <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="500" data-pin-scale-width="80" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
+      <img src="https://i.imgur.com/ixrv4gl.png" alt="Header" style="width:100%; height:100%;">
     </div>
   </div>
 
   <!-- Notebook Window -->
-  <div class="window" id="notebookWindow" style="top:460px; left:580px; width:300px; height:375px;">
+  <div class="window" id="notebookWindow" style="top:460px; left:100px; width:500px; height:50%;">
     <div class="window-header">
-      <span>All About Me!!</span>
+      Notebook
       <div class="window-controls">
         <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
         <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
       </div>
     </div>
-    <div class="window-content" style="padding:0; overflow-y:auto;">
-      <img src="https://imgur.com/YBfxfzX.png" style="width:100%; height:auto; display:block;">
+    <div class="window-content" style="padding:0; overflow-y:auto; overflow-x:hidden;">
+      <img src="https://i.imgur.com/YBfxfzX.png" alt="Notebook" style="width:100%; height:auto;">
     </div>
   </div>
 
-  <!-- Shutdown Confirmation -->
-  <div class="window" id="shutdownWindow" style="top:200px; left:300px; width:300px; display:none;">
+  <!-- Pinterest Window (minimized by default) -->
+  <div class="window" id="pinterestWindow" style="top:120px; left:750px; width:400px; height:400px; display:none;">
     <div class="window-header">
-      <span>Shut Down</span>
+      Pinterest
       <div class="window-controls">
-        <div class="window-btn" onclick="closeWindow('shutdownWindow')">×</div>
+        <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
+        <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
       </div>
     </div>
-    <div class="window-content" style="text-align:center;">
-      <p>When we pull up, what is it?</p>
-      <button onclick="confirmShutdown()">Shut Down</button>
+    <div class="window-content">
+      <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="200" data-pin-scale-width="80" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
+      <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+    </div>
+  </div>
+
+  <!-- MP3 Player Window -->
+  <div class="window" id="mp3Window" style="top:200px; left:300px; width:300px; height:120px;">
+    <div class="window-header">
+      Music Player
+      <div class="window-controls">
+        <div class="window-btn" onclick="minimizeWindow('mp3Window')">_</div>
+        <div class="window-btn" onclick="closeWindow('mp3Window')">×</div>
+      </div>
+    </div>
+    <div class="window-content">
+      <audio controls>
+        <source src="your-music-file.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
     </div>
   </div>
 
   <!-- Taskbar -->
   <div class="taskbar">
-    <button class="start-button" onclick="toggleStartMenu()">Start</button>
-    <div class="taskbar-items"></div>
-    <div class="taskbar-time" id="taskbarTime">12:00 PM</div>
+    <div class="start-btn" onclick="toggleStartMenu()">Start</div>
+    <div class="taskbar-icons" id="taskbarIcons"></div>
+    <div class="clock" id="clock"></div>
   </div>
 
   <!-- Start Menu -->
   <div class="start-menu" id="startMenu">
-    <div class="files-container">
-      <a href="#">Files ▸</a>
+    <div class="start-menu-item">
+      Files
       <div class="submenu">
-        <a href="digital-art.html">Digital Art</a>
-        <a href="graphic-design.html">Graphic Design</a>
-        <a href="videos.html">Videos</a>
-        <a href="writing.html">Writing</a>
+        <div class="submenu-item" onclick="window.location='digital-art.html'">Digital Art</div>
+        <div class="submenu-item" onclick="window.location='graphic-design.html'">Graphic Design</div>
+        <div class="submenu-item" onclick="window.location='videos.html'">Videos</div>
+        <div class="submenu-item" onclick="window.location='writing.html'">Writing</div>
       </div>
     </div>
-    <a href="profile-info.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="shop.html">Shop</a>
-    <a href="studio-ken.html">Studio Ken</a>
-    <a href="#" onclick="showShutdown()">Shut Down</a>
+    <div class="start-menu-item" onclick="window.location='profile-info.html'">About</div>
+    <div class="start-menu-item" onclick="window.location='contact.html'">Contact</div>
+    <div class="start-menu-item" onclick="window.location='shop.html'">Shop</div>
+    <div class="start-menu-item" onclick="window.location='studio-ken.html'">Studio Ken</div>
+    <div class="start-menu-item" onclick="confirmShutdown()">Shut Down</div>
   </div>
 
-</div>
+  <script>
+    // Dragging logic
+    document.querySelectorAll('.window').forEach(win => {
+      const header = win.querySelector('.window-header');
+      header.addEventListener('mousedown', (e) => {
+        let shiftX = e.clientX - win.getBoundingClientRect().left;
+        let shiftY = e.clientY - win.getBoundingClientRect().top;
 
-<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
-<script>
-let draggedWindow=null; let offset={x:0,y:0}; let highestZ=200;
-function makeDraggable(el){
-  const header=el.querySelector('.window-header');
-  header.addEventListener('mousedown',startDrag);
-  function startDrag(e){
-    if(e.target.classList.contains('window-btn')) return;
-    draggedWindow=el;
-    const rect=el.getBoundingClientRect();
-    offset.x=e.clientX-rect.left; offset.y=e.clientY-rect.top;
-    el.style.zIndex=++highestZ;
-    document.addEventListener('mousemove',drag);
-    document.addEventListener('mouseup',stopDrag);
-  }
-  function drag(e){
-    if(!draggedWindow) return;
-    let x=e.clientX-offset.x;
-    let y=e.clientY-offset.y;
-    const maxX=window.innerWidth-el.offsetWidth;
-    const maxY=window.innerHeight-el.offsetHeight-40;
-    draggedWindow.style.left=Math.max(0,Math.min(x,maxX))+'px';
-    draggedWindow.style.top=Math.max(0,Math.min(y,maxY))+'px';
-  }
-  function stopDrag(){ draggedWindow=null; document.removeEventListener('mousemove',drag); document.removeEventListener('mouseup',stopDrag); }
-}
-document.querySelectorAll('.window').forEach(makeDraggable);
+        function moveAt(pageX, pageY) {
+          win.style.left = pageX - shiftX + 'px';
+          win.style.top = pageY - shiftY + 'px';
+        }
 
-function closeWindow(id){ 
-  document.getElementById(id).style.display='none'; 
-  removeTaskbarItem(id);
-}
-function minimizeWindow(id){ 
-  document.getElementById(id).classList.add('minimized'); 
-  addTaskbarItem(id);
-}
-function focusWindow(id){ 
-  const win=document.getElementById(id); 
-  if(win.classList.contains('minimized')) {
-    win.classList.remove('minimized'); 
-    removeTaskbarItem(id);
-  }
-  win.style.display='block';
-  win.style.zIndex=++highestZ; 
-}
+        function onMouseMove(e) {
+          moveAt(e.pageX, e.pageY);
+        }
 
-function addTaskbarItem(windowId) {
-  if(document.getElementById(`taskbar-${windowId}`)) return;
-  const windowEl = document.getElementById(windowId);
-  const windowTitle = windowEl.querySelector('.window-header span').textContent;
-  const taskbarItem = document.createElement('div');
-  taskbarItem.className = 'taskbar-item';
-  taskbarItem.id = `taskbar-${windowId}`;
-  taskbarItem.textContent = windowTitle;
-  taskbarItem.onclick = () => { focusWindow(windowId); };
-  document.querySelector('.taskbar-items').appendChild(taskbarItem);
-}
-function removeTaskbarItem(windowId) {
-  const taskbarItem = document.getElementById(`taskbar-${windowId}`);
-  if(taskbarItem) taskbarItem.remove();
-}
-function openFolder(name){ alert(`Opening ${name}...`); }
-function toggleStartMenu(){ 
-  const menu=document.getElementById('startMenu'); 
-  menu.style.display=menu.style.display==='flex'?'none':'flex'; 
-}
-function updateTime(){ document.getElementById('taskbarTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
-setInterval(updateTime,1000); updateTime();
-function showShutdown(){ document.getElementById('shutdownWindow').style.display='block'; }
-function confirmShutdown(){ window.history.back(); }
-</script>
+        document.addEventListener('mousemove', onMouseMove);
+
+        document.addEventListener('mouseup', () => {
+          document.removeEventListener('mousemove', onMouseMove);
+        }, { once: true });
+      });
+    });
+
+    // Taskbar + Window Logic
+    function minimizeWindow(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    function closeWindow(id) {
+      document.getElementById(id).style.display = 'none';
+      const icon = document.querySelector(`.taskbar-icon[data-id="${id}"]`);
+      if (icon) icon.remove();
+    }
+    function openWindow(id) {
+      const win = document.getElementById(id);
+      win.style.display = 'block';
+      let icon = document.querySelector(`.taskbar-icon[data-id="${id}"]`);
+      if (!icon) {
+        icon = document.createElement('div');
+        icon.className = 'taskbar-icon';
+        icon.dataset.id = id;
+        icon.textContent = win.querySelector('.window-header').childNodes[0].textContent.trim();
+        icon.onclick = () => {
+          if (win.style.display === 'none') {
+            win.style.display = 'block';
+          } else {
+            win.style.display = 'none';
+          }
+        };
+        document.getElementById('taskbarIcons').appendChild(icon);
+      }
+    }
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent =
+        now.getHours().toString().padStart(2,'0') + ':' +
+        now.getMinutes().toString().padStart(2,'0');
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Start Menu
+    function toggleStartMenu() {
+      const menu = document.getElementById('startMenu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    // Shut Down
+    function confirmShutdown() {
+      if (confirm("Are you sure?\nWhen we pull up you know it's a...")) {
+        history.back();
+      }
+    }
+  </script>
 </body>
 </html>
