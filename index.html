@@ -6,154 +6,175 @@
 <title>Sunnie Jae Desktop</title>
 <link rel="icon" href="https://i.imgur.com/wHDx7cE.png" type="image/png">
 <style>
-  :root {
-    --primary: #9a9ad4;
-    --secondary: #c13886;
-    --accent: #00c9c2;
-    --dark-purple: #3f3d7a;
-    --darker-cyan: #00a8a3;
-    --light-pink: #ffb3d6;
-    --silver: #f0f0f5;
-    --gray: #bfbfdc;
-    --dark-gray: #404040;
-    --white: #ffffff;
-    --pink: #ff66cc;
-  }
-  html, body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    background: url('https://i.imgur.com/4D0ZDvV.png') no-repeat center center fixed;
-    background-size: cover;
-  }
+:root {
+  --primary: #9a9ad4;
+  --secondary: #c13886;
+  --accent: #00c9c2;
+  --dark-purple: #3f3d7a;
+  --darker-cyan: #00a8a3;
+  --light-pink: #ffb3d6;
+  --silver: #f0f0f5;
+  --gray: #bfbfdc;
+  --dark-gray: #404040;
+  --white: #ffffff;
+  --pink: #ff66cc;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: url('https://i.imgur.com/4D0ZDvV.png') no-repeat center center fixed;
+  background-size: cover;
+}
 
-  /* Desktop folders as icons */
-  .folder-icons {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .folder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    color: var(--white);
-    text-decoration: none;
-  }
-  .folder img {
-    width: 64px;
-    height: 64px;
-  }
+/* Desktop folders as icons */
+.folder-icons {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.folder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: var(--white);
+  text-decoration: none;
+}
+.folder img {
+  width: 64px;
+  height: 64px;
+}
 
-  /* Windows */
-  .window {
-    position: absolute;
-    background: var(--white);
-    border: 1px solid var(--gray);
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-    overflow: hidden;
-    resize: both;
-  }
-  .window-header {
-    background: var(--primary);
-    color: var(--white);
-    padding: 5px 10px;
-    cursor: move;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .window-controls {
-    display: flex;
-    gap: 5px;
-  }
-  .window-btn {
-    background: var(--secondary);
-    border: none;
-    color: var(--white);
-    cursor: pointer;
-    padding: 0 5px;
-  }
-  .window-content {
-    padding: 10px;
-    overflow: auto;
-  }
-  .resize-handle {
-    width: 10px;
-    height: 10px;
-    background: var(--accent);
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    cursor: se-resize;
-  }
+/* Windows */
+.window {
+  position: absolute;
+  background: var(--white);
+  border: 1px solid var(--gray);
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  overflow: hidden;
+  resize: both;
+}
+.window-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 5px 10px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.window-controls {
+  display: flex;
+  gap: 5px;
+}
+.window-btn {
+  background: var(--secondary);
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  padding: 0 5px;
+}
+.window-content {
+  padding: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100% - 35px);
+}
+.resize-handle {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: se-resize;
+}
 
-  /* Taskbar */
-  #taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: var(--dark-gray);
-    display: flex;
-    gap: 5px;
-    padding: 5px;
-  }
-  .taskbar-button {
-    background: var(--secondary);
-    color: var(--white);
-    border: none;
-    cursor: pointer;
-    padding: 5px 10px;
-  }
+/* Taskbar */
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--dark-gray);
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+}
+.taskbar-button {
+  background: var(--secondary);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+}
 
-  /* Start Menu */
-  #startMenu {
-    position: absolute;
-    bottom: 40px;
-    left: 10px;
-    background: var(--dark-gray);
-    color: var(--white);
-    display: none;
-    flex-direction: column;
-    min-width: 150px;
-    border: 1px solid var(--gray);
-  }
-  #startMenu button {
-    background: var(--dark-gray);
-    color: var(--white);
-    border: none;
-    text-align: left;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  #startMenu button:hover {
-    background: var(--pink);
-  }
-  /* Submenu */
-  .submenu button {
-    padding-left: 20px;
-    background: #303030;
-  }
-  .submenu button:hover {
-    background: var(--pink);
-  }
+/* Start Menu */
+#startMenu {
+  position: absolute;
+  bottom: 40px;
+  left: 10px;
+  background: var(--dark-gray);
+  color: var(--white);
+  display: none;
+  flex-direction: column;
+  min-width: 150px;
+  border: 1px solid var(--gray);
+}
+#startMenu button {
+  background: var(--dark-gray);
+  color: var(--white);
+  border: none;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+#startMenu button:hover {
+  background: var(--pink);
+}
+/* Submenu */
+.submenu {
+  display: none;
+  flex-direction: column;
+}
+#startMenu button:hover + .submenu {
+  display: flex;
+}
+.submenu button {
+  padding-left: 20px;
+  background: #303030;
+}
+.submenu button:hover {
+  background: var(--pink);
+}
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<img src="https://i.imgur.com/ixrv4gl.png" alt="Header" style="width:100%; position:absolute; top:0; left:0; z-index:0;">
+<!-- Header Window -->
+<div class="window" id="headerWindow" style="top:0; left:50px; width:90%; height:120px;">
+  <div class="window-header">
+    Header
+    <div class="window-controls">
+      <div class="window-btn" onclick="minimizeWindow('headerWindow')">_</div>
+      <div class="window-btn" onclick="closeWindow('headerWindow')">×</div>
+    </div>
+  </div>
+  <div class="window-content">
+    <img src="https://i.imgur.com/ixrv4gl.png" alt="Header" style="width:100%; height:auto;">
+  </div>
+  <div class="resize-handle"></div>
+</div>
 
 <!-- Notebook Window -->
-<div class="window" id="notebookWindow" style="top:50px; left:200px; width:400px; height:50vh;">
+<div class="window" id="notebookWindow" style="top:150px; left:200px; width:400px; height:50vh;">
   <div class="window-header">
     Notebook
     <div class="window-controls">
@@ -222,41 +243,37 @@
 </div>
 
 <script>
-  // Start menu toggle
-  function toggleStartMenu() {
-    const menu = document.getElementById('startMenu');
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-  }
+function toggleStartMenu() {
+  const menu = document.getElementById('startMenu');
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+}
 
-  // Shut down popup
-  function shutDown() {
-    if(confirm("Are you sure?\nWhen we pull up you know it's a...")) {
-      window.location.href = "#"; // Or navigate back
-    }
+function shutDown() {
+  if(confirm("Are you sure?\nWhen we pull up you know it's a...")) {
+    window.location.href = "#"; 
   }
+}
 
-  // Minimize window function with taskbar button
-  function minimizeWindow(id) {
-    const win = document.getElementById(id);
-    win.style.display = 'none';
-    const taskbar = document.getElementById('taskbar');
-    if (!document.querySelector(`.taskbar-button[data-window-id="${id}"]`)) {
-      const btn = document.createElement('button');
-      btn.className = 'taskbar-button';
-      btn.textContent = win.querySelector('.window-header').textContent;
-      btn.dataset.windowId = id;
-      btn.addEventListener('click', () => {
-        win.style.display = 'block';
-        taskbar.removeChild(btn);
-      });
-      taskbar.appendChild(btn);
-    }
+function minimizeWindow(id) {
+  const win = document.getElementById(id);
+  win.style.display = 'none';
+  const taskbar = document.getElementById('taskbar');
+  if (!document.querySelector(`.taskbar-button[data-window-id="${id}"]`)) {
+    const btn = document.createElement('button');
+    btn.className = 'taskbar-button';
+    btn.textContent = win.querySelector('.window-header').textContent;
+    btn.dataset.windowId = id;
+    btn.addEventListener('click', () => {
+      win.style.display = 'block';
+      taskbar.removeChild(btn);
+    });
+    taskbar.appendChild(btn);
   }
+}
 
-  // Close window
-  function closeWindow(id) {
-    document.getElementById(id).style.display = 'none';
-  }
+function closeWindow(id) {
+  document.getElementById(id).style.display = 'none';
+}
 </script>
 </body>
 </html>
