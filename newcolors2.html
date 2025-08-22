@@ -115,9 +115,8 @@
 
     /* Specific windows */
     #header-window {
-      width: 80%;
-      max-width: 1920px;
-      aspect-ratio: 1920 / 768;
+      width: 960px;
+      height: 384px;
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
@@ -127,7 +126,8 @@
     #notebook-window { 
       width: 1000px; 
       height: 500px; 
-      top: 820px; 
+      max-height: calc(100vh - 60px);
+      top: 420px; 
       left: 50px; 
       z-index: 2; 
     }
