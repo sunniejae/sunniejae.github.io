@@ -23,6 +23,7 @@
     font-family: sans-serif;
     background: var(--gray);
     overflow-x: hidden;
+    padding-bottom: 40px; /* space for taskbar */
   }
 
   /* Taskbar */
@@ -37,19 +38,32 @@
     align-items: center;
     padding: 0 5px;
     z-index: 1000;
+    justify-content: space-between;
+  }
+
+  #taskbar-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
 
   #taskbar .taskbar-button {
     background: var(--primary);
     color: var(--white);
     border: none;
-    margin: 0 2px;
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 2px;
     font-size: 0.85rem;
   }
 
+  #clock {
+    color: var(--white);
+    margin-right: 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Start menu */
   #start-menu {
     position: fixed;
     bottom: 40px;
@@ -88,6 +102,7 @@
     display: block;
   }
 
+  /* Windows */
   .window {
     position: absolute;
     background: var(--silver);
@@ -143,7 +158,7 @@
     border-top-left-radius: 2px;
   }
 
-  /* Shut down popup */
+  /* Shutdown popup */
   #shutdown-popup {
     position: fixed;
     top: 50%;
@@ -168,12 +183,36 @@
     border-radius: 2px;
   }
 
+  /* Header image */
+  #header-container {
+    padding: 20px;
+  }
+
+  #header-image {
+    width: 100%;
+    height: auto;
+    max-height: 384px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
 </style>
 </head>
 <body>
 
+<!-- Header -->
+<div id="header-container">
+  <img id="header-image" src="header-image.jpg" alt="Header Image">
+</div>
+
 <!-- Start Button -->
-<button id="start-btn" class="taskbar-button">Start</button>
+<div id="taskbar-left">
+  <button id="start-btn" class="taskbar-button">Start</button>
+</div>
+
+<!-- Clock -->
+<div id="clock"></div>
 
 <!-- Start Menu -->
 <div id="start-menu">
@@ -192,17 +231,72 @@
   <button id="shutdown-btn">Shut Down</button>
 </div>
 
-<!-- Windows -->
-<div class="window" id="exampleWindow" style="top:50px; left:100px; width:400px; height:300px;">
+<!-- Notebook Window -->
+<div class="window" id="notebookWindow" style="top:440px; left:100px; width:400px; height:300px;">
   <div class="window-header">
-    Example Window
+    Notebook
     <div class="window-controls">
-      <div class="window-btn" onclick="minimizeWindow('exampleWindow')">_</div>
-      <div class="window-btn" onclick="closeWindow('exampleWindow')">×</div>
+      <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
+      <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
     </div>
   </div>
   <div class="window-content">
-    Content goes here.
+    <img src="notebook.jpg" alt="Notebook" style="width:100%; height:auto; border-radius:2px;">
+  </div>
+  <div class="resize-handle"></div>
+</div>
+
+<!-- Pinterest Window (starts minimized) -->
+<div class="window" id="pinterestWindow" style="top:120px; left:550px; width:400px; height:400px; display:none;">
+  <div class="window-header">
+    Pinterest
+    <div class="window-controls">
+      <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
+      <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
+    </div>
+  </div>
+  <div class="window-content">
+    <!-- Pinterest Embed Example -->
+    <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="240" data-pin-scale-width="80" href="https://www.pinterest.com/yourusername/boardname/"></a>
+    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+  </div>
+  <div class="resize-handle"></div>
+</div>
+
+<!-- Folders Window -->
+<div class="window" id="foldersWindow" style="top:150px; left:950px; width:200px; height:300px;">
+  <div class="window-header">
+    Folders
+    <div class="window-controls">
+      <div class="window-btn" onclick="minimizeWindow('foldersWindow')">_</div>
+      <div class="window-btn" onclick="closeWindow('foldersWindow')">×</div>
+    </div>
+  </div>
+  <div class="window-content">
+    <ul>
+      <li><a href="digital-art.html">Digital Art</a></li>
+      <li><a href="graphic-design.html">Graphic Design</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="writing.html">Writing</a></li>
+    </ul>
+  </div>
+  <div class="resize-handle"></div>
+</div>
+
+<!-- MP3 Player Window -->
+<div class="window" id="mp3Window" style="top:400px; left:600px; width:300px; height:120px;">
+  <div class="window-header">
+    MP3 Player
+    <div class="window-controls">
+      <div class="window-btn" onclick="minimizeWindow('mp3Window')">_</div>
+      <div class="window-btn" onclick="closeWindow('mp3Window')">×</div>
+    </div>
+  </div>
+  <div class="window-content">
+    <audio controls style="width:100%;">
+      <source src="audio.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
   </div>
   <div class="resize-handle"></div>
 </div>
@@ -218,6 +312,15 @@
 </div>
 
 <script>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    const clock = document.getElementById('clock');
+    clock.textContent = now.toLocaleTimeString();
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
   // Start menu toggle
   const startBtn = document.getElementById('start-btn');
   const startMenu = document.getElementById('start-menu');
@@ -231,7 +334,7 @@
   });
 
   function confirmShutdown() {
-    window.location.href = 'index.html'; // navigate back to homepage
+    window.location.href = 'index.html';
   }
 
   // Draggable windows
