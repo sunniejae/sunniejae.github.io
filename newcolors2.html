@@ -69,6 +69,23 @@
     border-radius: 3px;
   }
 
+  /* Taskbar items for minimized windows */
+  .taskbar-item {
+    margin-right: 10px;
+    background: var(--primary-pink);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 0.8rem;
+  }
+
+  .taskbar-item:hover {
+    background: #ff99dd;
+  }
+
   /* Windows */
   .window {
     position: absolute;
@@ -79,6 +96,10 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+  }
+
+  .window.minimized {
+    display: none;
   }
 
   .window-header {
@@ -228,6 +249,7 @@
   <button onclick="alert('Start menu placeholder')">Start</button>
   <button onclick="window.location.href='social-media.html'">Internet</button>
   <button onclick="alert('Settings placeholder')">Settings</button>
+  <!-- Minimized window buttons will appear here -->
 </div>
 
 <!-- Scripts -->
@@ -272,17 +294,62 @@
   // Initialize draggable windows
   document.querySelectorAll('.window').forEach(dragElement);
 
-  // Simple minimize/close buttons
+  // Window management functions
+  function closeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    window.style.display = 'none';
+    removeTaskbarItem(windowId);
+  }
+
+  function minimizeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    window.classList.add('minimized');
+    addTaskbarItem(windowId);
+  }
+
+  function restoreWindow(windowId) {
+    const window = document.getElementById(windowId);
+    window.classList.remove('minimized');
+    removeTaskbarItem(windowId);
+  }
+
+  function addTaskbarItem(windowId) {
+    // Don't add duplicate taskbar items
+    if(document.getElementById(`taskbar-${windowId}`)) return;
+    
+    const windowEl = document.getElementById(windowId);
+    const windowTitle = windowEl.querySelector('.window-header span').textContent;
+    
+    const taskbarItem = document.createElement('button');
+    taskbarItem.className = 'taskbar-item';
+    taskbarItem.id = `taskbar-${windowId}`;
+    taskbarItem.textContent = windowTitle;
+    taskbarItem.onclick = () => {
+      restoreWindow(windowId);
+    };
+    
+    document.querySelector('.taskbar').appendChild(taskbarItem);
+  }
+
+  function removeTaskbarItem(windowId) {
+    const taskbarItem = document.getElementById(`taskbar-${windowId}`);
+    if(taskbarItem) {
+      taskbarItem.remove();
+    }
+  }
+
+  // Updated button event listeners
   document.querySelectorAll('.window .close').forEach(btn => {
     btn.addEventListener('click', e => {
-      e.target.closest('.window').style.display = 'none';
+      const windowId = e.target.closest('.window').id;
+      closeWindow(windowId);
     });
   });
 
   document.querySelectorAll('.window .minimize').forEach(btn => {
     btn.addEventListener('click', e => {
-      const content = e.target.closest('.window').querySelector('.window-content');
-      content.style.display = content.style.display === 'none' ? 'block' : 'none';
+      const windowId = e.target.closest('.window').id;
+      minimizeWindow(windowId);
     });
   });
 
