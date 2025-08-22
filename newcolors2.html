@@ -3,226 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Windows XP Desktop Simulation</title>
+<title>Windows XP Style Desktop</title>
 <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
 <style>
-:root {
+  :root {
     --primary-purple: #9a9ad4;
     --primary-pink: #ff66cc;
-    --primary-cyan: #02d1ca;
-    --secondary-purple: #8f0fc8;
-    --secondary-pink: #c73e8d;
-    --accent-dark: #442269;
-    --accent-red: #6e0b41;
-    --light-gray: #e0e0e0;
-    --medium-gray: #b0b0b0;
-    --background: #89e6e0;
-}
+    --cyan: #02d1ca;
+    --header-gradient-start: #e0e0e0;
+    --header-gradient-end: #a0a0a0;
+    --window-bg: #f3f3f3;
+    --window-border: #007e8f;
+    --taskbar-bg: #442269;
+    --taskbar-height: 50px;
+    --folder-color: #c73e8d;
+  }
 
-/* Reset */
-body, html { margin:0; padding:0; font-family: Arial, sans-serif; background: var(--background); overflow-x: hidden; }
-img { max-width: 100%; height: auto; display: block; }
-
-/* Windows */
-.window {
-    position: absolute;
-    border: 2px solid var(--accent-dark);
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-    background: #fff;
-    width: 50%;
-    max-width: 600px;
-    min-width: 300px;
-    height: auto;
-    min-height: 200px;
-    resize: both;
+  body {
+    margin: 0;
+    font-family: Tahoma, sans-serif;
     overflow: hidden;
-}
-.window-header {
+    background: url('https://imgur.com/mreYQcF.png') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  /* Desktop icons */
+  .desktop-icons {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .desktop-icons a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* Windows */
+  .window {
+    position: absolute;
+    background: var(--window-bg);
+    border: 3px outset var(--window-border);
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.5);
+    min-width: 200px;
+    max-width: 80%;
+    width: 500px;
+    max-height: 90%;
+    overflow: hidden;
+    resize: both;
+  }
+  .window-header {
+    background: linear-gradient(to bottom, var(--header-gradient-start), var(--header-gradient-end));
     cursor: move;
     padding: 5px 10px;
-    background: linear-gradient(to bottom, var(--light-gray), var(--medium-gray));
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.window-controls div {
-    display: inline-block;
-    width: 20px; height: 20px;
-    margin-left: 5px;
+  }
+  .window-header .window-controls {
+    display: flex;
+    gap: 5px;
+  }
+  .window-btn {
+    width: 20px;
+    height: 20px;
     text-align: center;
-    line-height: 20px;
+    line-height: 18px;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 3px;
-}
-.window-controls .minimize { background: var(--primary-cyan); color: #fff; }
-.window-controls .maximize { background: var(--primary-purple); color: #fff; }
-.window-controls .close { background: var(--primary-pink); color: #fff; }
-.window-content { padding: 10px; overflow: auto; max-height: 80vh; }
+    border: 1px solid #666;
+    border-radius: 2px;
+    user-select: none;
+  }
+  .window-btn.minimize { background: var(--cyan); }
+  .window-btn.maximize { background: var(--primary-purple); }
+  .window-btn.close { background: var(--primary-pink); }
 
-/* Desktop icons */
-.desktop-icon {
-    width: 80px;
-    text-align: center;
-    margin: 10px;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 12px;
-}
-.desktop-icon img { width: 64px; height: 64px; }
+  .window-content {
+    padding: 5px;
+    background: #fdfdfd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-/* Taskbar */
-.taskbar {
+  .window img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Taskbar */
+  .taskbar {
     position: fixed;
     bottom: 0;
-    left:0;
     width: 100%;
-    height: 50px;
-    background: var(--medium-gray);
+    height: var(--taskbar-height);
+    background: var(--taskbar-bg);
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     padding: 0 10px;
-    box-sizing: border-box;
-}
-.taskbar input { flex:1; margin-right:10px; padding: 5px; border-radius:3px; border:1px solid #aaa; }
-.taskbar button { margin-left:5px; }
+    gap: 10px;
+    color: white;
+    font-size: 0.9rem;
+  }
 
-/* Draggable support */
-.dragging { opacity:0.9; }
+  .taskbar .start-btn, .taskbar .task-icon {
+    background: #555;
+    border: 1px solid #222;
+    padding: 2px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
 
+  /* Pinterest embed responsive */
+  .pinterest-embed {
+    width: 100%;
+    max-width: 100%;
+    height: 350px;
+    overflow: hidden;
+  }
+  .pinterest-embed > * {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Draggable windows */
+  .dragging {
+    opacity: 0.9;
+  }
 </style>
 </head>
 <body>
 
-<!-- Desktop icons -->
-<div class="desktop-icon" onclick="window.location='shop.html'">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Downloads">
-    <div>Downloads</div>
-</div>
-<div class="desktop-icon" onclick="window.location='writing.html'">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Documents">
-    <div>Documents</div>
-</div>
-<div class="desktop-icon" onclick="window.location='graphic-design.html'">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Photos">
-    <div>Photos</div>
-</div>
-<div class="desktop-icon" onclick="window.location='videos.html'">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Videos">
-    <div>Videos</div>
-</div>
-<div class="desktop-icon" onclick="window.location='social-media.html'">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Internet Explorer">
-    <div>Internet Explorer</div>
-</div>
-<div class="desktop-icon" onclick="window.location='summer05.html'">
-    <img src="https://imgur.com/5fjM6QN.png" alt="Summer 05">
-    <div>Summer '05</div>
+<!-- Desktop Icons -->
+<div class="desktop-icons">
+  <a href="shop.html">📁 Downloads</a>
+  <a href="writing.html">📁 Documents</a>
+  <a href="graphic-design.html">📁 Photos</a>
+  <a href="videos.html">📁 Videos</a>
+  <a href="social-media.html">🌐 Internet Explorer</a>
+  <a href="summer05.html">📁 Summer '05</a>
 </div>
 
-<!-- Header window -->
+<!-- Windows -->
 <div class="window" id="headerWindow" style="top:50px; left:50px; z-index:1;">
-    <div class="window-header" onmousedown="bringToFront('headerWindow')">
-        Header
-        <div class="window-controls">
-            <div class="window-btn minimize" onclick="minimize('headerWindow')">_</div>
-            <div class="window-btn maximize">■</div>
-            <div class="window-btn close" onclick="closeWindow('headerWindow')">×</div>
-        </div>
+  <div class="window-header" onmousedown="bringToFront('headerWindow')">
+    Header
+    <div class="window-controls">
+      <div class="window-btn minimize" onclick="minimize('headerWindow')">_</div>
+      <div class="window-btn maximize">■</div>
+      <div class="window-btn close" onclick="closeWindow('headerWindow')">×</div>
     </div>
-    <div class="window-content">
-        <img src="https://imgur.com/fG62t37.png" alt="Header Image"/>
-    </div>
+  </div>
+  <div class="window-content">
+    <img src="https://imgur.com/fG62t37.png" alt="Header Image"/>
+  </div>
 </div>
 
-<!-- Notebook window -->
-<div class="window" id="notebookWindow" style="top:100px; left:700px; z-index:2;">
-    <div class="window-header" onmousedown="bringToFront('notebookWindow')">
-        Notebook
-        <div class="window-controls">
-            <div class="window-btn minimize" onclick="minimize('notebookWindow')">_</div>
-            <div class="window-btn maximize">■</div>
-            <div class="window-btn close" onclick="closeWindow('notebookWindow')">×</div>
-        </div>
+<div class="window" id="notebookWindow" style="top:100px; left:600px; z-index:2;">
+  <div class="window-header" onmousedown="bringToFront('notebookWindow')">
+    Notebook
+    <div class="window-controls">
+      <div class="window-btn minimize" onclick="minimize('notebookWindow')">_</div>
+      <div class="window-btn maximize">■</div>
+      <div class="window-btn close" onclick="closeWindow('notebookWindow')">×</div>
     </div>
-    <div class="window-content">
-        <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook" style="width:100%; max-width:397px;"/>
-    </div>
+  </div>
+  <div class="window-content">
+    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook Image" style="max-width:250px; height:auto;"/>
+  </div>
 </div>
 
-<!-- Pinterest window -->
-<div class="window" id="pinterestWindow" style="top:200px; left:1300px; z-index:3;">
-    <div class="window-header" onmousedown="bringToFront('pinterestWindow')">
-        Pinterest
-        <div class="window-controls">
-            <div class="window-btn minimize" onclick="minimize('pinterestWindow')">_</div>
-            <div class="window-btn maximize">■</div>
-            <div class="window-btn close" onclick="closeWindow('pinterestWindow')">×</div>
-        </div>
+<div class="window" id="pinterestWindow" style="top:200px; left:1100px; z-index:3;">
+  <div class="window-header" onmousedown="bringToFront('pinterestWindow')">
+    Pinterest
+    <div class="window-controls">
+      <div class="window-btn minimize" onclick="minimize('pinterestWindow')">_</div>
+      <div class="window-btn maximize">■</div>
+      <div class="window-btn close" onclick="closeWindow('pinterestWindow')">×</div>
     </div>
-    <div class="window-content">
-        <a data-pin-do="embedBoard" data-pin-board-width="600" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
-    </div>
+  </div>
+  <div class="window-content pinterest-embed">
+    <a data-pin-do="embedBoard" data-pin-board-width="600" data-pin-scale-height="762" data-pin-scale-width="80" href="https://www.pinterest.com/pasteliume/mine/"></a>
+  </div>
 </div>
 
 <!-- Taskbar -->
 <div class="taskbar">
-    <input type="text" placeholder="Search...">
-    <button onclick="alert('Start Menu Placeholder')">☰</button>
-    <button>Settings</button>
+  <div class="start-btn">Start ☰</div>
+  <div class="task-icon">🔍</div>
+  <div class="task-icon">⚙️</div>
 </div>
 
-<!-- Pinterest JS -->
+<!-- Scripts -->
 <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
-
 <script>
 let topZ = 3;
-
 function bringToFront(id){
-    topZ++;
-    document.getElementById(id).style.zIndex = topZ;
+  topZ++;
+  document.getElementById(id).style.zIndex = topZ;
 }
-
 function minimize(id){
-    const w = document.getElementById(id);
-    w.style.display = 'none';
+  document.getElementById(id).style.display='none';
 }
-
 function closeWindow(id){
-    const w = document.getElementById(id);
-    w.style.display = 'none';
+  document.getElementById(id).style.display='none';
 }
-
-/* Draggable windows */
-let dragTarget = null;
-let offsetX = 0;
-let offsetY = 0;
-
-document.querySelectorAll('.window-header').forEach(header=>{
-    header.addEventListener('mousedown', e=>{
-        dragTarget = header.parentElement;
-        offsetX = e.clientX - dragTarget.getBoundingClientRect().left;
-        offsetY = e.clientY - dragTarget.getBoundingClientRect().top;
-        bringToFront(dragTarget.id);
-        dragTarget.classList.add('dragging');
-    });
-});
-
-document.addEventListener('mousemove', e=>{
-    if(dragTarget){
-        dragTarget.style.left = (e.clientX - offsetX) + 'px';
-        dragTarget.style.top = (e.clientY - offsetY) + 'px';
-    }
-});
-
-document.addEventListener('mouseup', e=>{
-    if(dragTarget){
-        dragTarget.classList.remove('dragging');
-        dragTarget = null;
-    }
-});
 </script>
 
 </body>
 </html>
-
