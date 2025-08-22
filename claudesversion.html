@@ -193,32 +193,38 @@ body {
 
 .submenu { 
   display: none; 
-  background: var(--silver);
+  background: linear-gradient(to bottom, var(--accent), var(--darker-cyan));
   border-top: 1px solid var(--gray);
 }
 
 .submenu a {
   padding-left: 24px;
   font-size: 0.8rem;
+  color: var(--white);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Footer Clock */
+.submenu a:hover {
+  background: rgba(255,255,255,0.2);
+  color: var(--white);
+}
+
+/* Taskbar Clock */
 #clockContainer {
-  position: fixed;
-  bottom: var(--taskbar-h);
-  right: 10px;
-  background: rgba(255,255,255,0.9);
+  margin-left: auto;
+  background: rgba(255,255,255,0.2);
   padding: 4px 8px;
-  border: 1px solid var(--gray);
+  border: 1px solid rgba(255,255,255,0.3);
   border-radius: 3px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  backdrop-filter: blur(5px);
 }
 
 #clock {
   font-family: 'Courier New', monospace;
-  color: var(--dark-gray);
+  color: var(--white);
   font-size: 0.8rem;
   font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 /* Responsive design */
@@ -330,6 +336,11 @@ body {
 <!-- Taskbar -->
 <div class="taskbar" id="taskbar">
   <button class="start-menu-button" onclick="toggleStartMenu()">📁 Start</button>
+  
+  <!-- Clock in taskbar -->
+  <div id="clockContainer">
+    <span id="clock"></span>
+  </div>
 </div>
 
 <!-- Start Menu -->
