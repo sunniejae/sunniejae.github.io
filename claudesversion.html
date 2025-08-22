@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunnie Jae Desktop</title>
+<link rel="icon" href="https://imgur.com/wHDx7cE.png">
+<style>
+:root {
+  --primary: #9a9ad4;
+  --secondary: #c13886;
+  --accent: #00c9c2;
+  --dark-purple: #3f3d7a;
+  --darker-cyan: #00a8a3;
+  --light-pink: #ffb3d6;
+  --silver: #f0f0f5;
+  --gray: #bfbfdc;
+  --dark-gray: #404040;
+  --white: #ffffff;
+  --black: #000010;
+  --taskbar-h: 50px;
+  --window-border: 3px solid var(--primary);
+}
+
+body {
+  margin: 0;
+  font-family: Tahoma, sans-serif;
+  background: var(--silver);
+  color: var(--dark-gray);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Desktop folders */
+.folder {
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  padding: 8px 6px;
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  width: 80px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.folder:hover {
+  background: var(--light-pink);
+}
+
+.folder:active {
+  background: var(--accent);
+  color: var(--white);
+}
+
+/* Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--taskbar-h);
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+}
+
+.taskbar button {
+  margin-right: 8px;
+  background: var(--light-pink);
+  border: 1px solid var(--dark-gray);
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--dark-gray);
+  border-radius: 2px;
+  transition: background-color 0.2s;
+}
+
+.taskbar button:hover {
+  background: var(--white);
+}
+
+.start-menu-button {
+  font-weight: bold;
+  background: linear-gradient(to bottom, var(--white), var(--light-pink)) !important;
+}
+
+/* Windows */
+.window {
+  position: absolute;
+  border: var(--window-border);
+  background: var(--white);
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+  z-index: 100;
+  overflow: hidden;
+  min-width: 200px;
+  min-height: 100px;
+}
+
+.window-header {
+  background: linear-gradient(to bottom, var(--dark-purple), var(--primary));
+  color: var(--white);
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move;
+  user-select: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.window-header .buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.window-header .buttons span {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  line-height: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--white);
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  transition: background-color 0.2s;
+}
+
+.window-header .buttons span:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+.close-btn { color: var(--secondary) !important; }
+.minimize-btn { color: var(--accent) !important; }
+.maximize-btn { color: var(--darker-cyan) !important; }
+
+.window-content {
+  padding: 8px;
+  overflow: auto;
+  background: var(--silver);
+}
+
+.window-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Start menu */
+#startMenu {
+  position: fixed;
+  bottom: var(--taskbar-h);
+  left: 10px;
+  background: var(--white);
+  border: 2px solid var(--dark-gray);
+  display: none;
+  flex-direction: column;
+  width: 200px;
+  z-index: 2000;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#startMenu a {
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--dark-gray);
+  display: block;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--gray);
+  transition: background-color 0.2s;
+}
+
+#startMenu a:hover { 
+  background: var(--light-pink); 
+}
+
+#startMenu a:last-child {
+  border-bottom: none;
+}
+
+.submenu { 
+  display: none; 
+  background: var(--silver);
+  border-top: 1px solid var(--gray);
+}
+
+.submenu a {
+  padding-left: 24px;
+  font-size: 0.8rem;
+}
+
+/* Footer Clock */
+#clockContainer {
+  position: fixed;
+  bottom: var(--taskbar-h);
+  right: 10px;
+  background: rgba(255,255,255,0.9);
+  padding: 4px 8px;
+  border: 1px solid var(--gray);
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+#clock {
+  font-family: 'Courier New', monospace;
+  color: var(--dark-gray);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .window {
+    width: 95% !important;
+    left: 2.5% !important;
+    top: 20px !important;
+  }
+  
+  .folder {
+    position: static !important;
+    display: inline-block;
+    margin: 5px;
+  }
+  
+  .taskbar {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--taskbar-h);
+  }
+}
+
+/* Hidden windows */
+.hidden {
+  display: none !important;
+}
+</style>
+</head>
+<body>
+
+<!-- Desktop Folders -->
+<div class="folder" style="top:60px; left:40px;" onclick="openFolder('shop')">
+  <div>📁</div>
+  <div>Downloads</div>
+</div>
+<div class="folder" style="top:60px; left:140px;" onclick="openFolder('writing')">
+  <div>📄</div>
+  <div>Documents</div>
+</div>
+<div class="folder" style="top:60px; left:240px;" onclick="openFolder('graphic-design')">
+  <div>🖼️</div>
+  <div>Photos</div>
+</div>
+<div class="folder" style="top:60px; left:340px;" onclick="openFolder('videos')">
+  <div>🎬</div>
+  <div>Videos</div>
+</div>
+<div class="folder" style="top:60px; left:440px;" onclick="openFolder('social-media')">
+  <div>🌐</div>
+  <div>Internet Explorer</div>
+</div>
+<div class="folder" style="top:140px; left:40px;" onclick="openFolder('summer05')">
+  <div>☀️</div>
+  <div>Summer 2005</div>
+</div>
+
+<!-- Windows -->
+<div class="window" id="headerWindow" style="top:40px; left:60px; width:960px; max-width:90vw; z-index:300;">
+  <div class="window-header">
+    <span>Header</span>
+    <div class="buttons">
+      <span class="minimize-btn" onclick="toggleWindow('headerWindow')">_</span>
+      <span class="maximize-btn" onclick="maximizeWindow('headerWindow')">■</span>
+      <span class="close-btn" onclick="closeWindow('headerWindow')">×</span>
+    </div>
+  </div>
+  <div class="window-content">
+    <img src="https://imgur.com/Dok5RmF.png" alt="Header Image" 
+         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iOTYwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y0ZjRmNCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSI+SGVhZGVyIEltYWdlPC90ZXh0Pjwvc3ZnPg=='">
+  </div>
+</div>
+
+<div class="window" id="notebookWindow" style="top:120px; left:600px; width:500px; height:600px; z-index:200;">
+  <div class="window-header">
+    <span>Notebook</span>
+    <div class="buttons">
+      <span class="minimize-btn" onclick="toggleWindow('notebookWindow')">_</span>
+      <span class="maximize-btn" onclick="maximizeWindow('notebookWindow')">■</span>
+      <span class="close-btn" onclick="closeWindow('notebookWindow')">×</span>
+    </div>
+  </div>
+  <div class="window-content" style="height:calc(100% - 40px); overflow-y:auto;">
+    <img src="https://imgur.com/GrbDrVZ.png" alt="Notebook Image"
+         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2Y0ZjRmNCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSI+Tm90ZWJvb2sgSW1hZ2U8L3RleHQ+PC9zdmc+'">
+  </div>
+</div>
+
+<div class="window" id="playerWindow" style="top:400px; left:800px; width:300px; height:120px; z-index:150;">
+  <div class="window-header">
+    <span>Music Player</span>
+    <div class="buttons">
+      <span class="minimize-btn" onclick="toggleWindow('playerWindow')">_</span>
+      <span class="maximize-btn" onclick="maximizeWindow('playerWindow')">■</span>
+      <span class="close-btn" onclick="closeWindow('playerWindow')">×</span>
+    </div>
+  </div>
+  <div class="window-content">
+    <audio controls style="width: 100%;">
+      <source src="#" type="audio/mpeg">
+      <p style="margin: 10px 0; text-align: center; color: var(--dark-gray);">
+        🎵 Music Player<br>
+        <small>No audio file loaded</small>
+      </p>
+    </audio>
+  </div>
+</div>
+
+<!-- Taskbar -->
+<div class="taskbar" id="taskbar">
+  <button class="start-menu-button" onclick="toggleStartMenu()">📁 Start</button>
+</div>
+
+<!-- Start Menu -->
+<div id="startMenu">
+  <a href="#" onclick="toggleSubmenu(event)">📁 Files ▸</a>
+  <div class="submenu" id="filesSubmenu">
+    <a href="#" onclick="openFolder('graphic-design')">🎨 Graphic Design</a>
+    <a href="#" onclick="openFolder('digital-art')">🖌️ Digital Art</a>
+    <a href="#" onclick="openFolder('videos')">🎬 Videos</a>
+    <a href="#" onclick="openFolder('writing')">📝 Writing</a>
+  </div>
+  <a href="#" onclick="openFolder('profile-info')">👤 About</a>
+  <a href="#" onclick="openFolder('contact')">📞 Contact</a>
+  <a href="#" onclick="openFolder('shop')">🛒 Shop</a>
+  <a href="#" onclick="openFolder('studio-ken')">🎵 Studio Ken</a>
+  <a href="#" onclick="shutdown()">⚡ Shut Down</a>
+</div>
+
+<!-- Clock -->
+<div id="clockContainer">
+  <span id="clock"></span>
+</div>
+
+<script>
+// Global variables
+let topZ = 300;
+let windowButtons = {};
+
+// Window dragging functionality
+function makeDraggable(el) {
+  const header = el.querySelector('.window-header');
+  let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
+  
+  header.onmousedown = dragMouseDown;
+  
+  function dragMouseDown(e) {
+    // Don't drag if clicking on buttons
+    if (e.target.classList.contains('close-btn') || 
+        e.target.classList.contains('minimize-btn') || 
+        e.target.classList.contains('maximize-btn')) {
+      return;
+    }
+    
+    e.preventDefault();
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+    el.style.zIndex = ++topZ;
+  }
+  
+  function elementDrag(e) {
+    e.preventDefault();
+    offsetX = mouseX - e.clientX;
+    offsetY = mouseY - e.clientY;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    const newTop = el.offsetTop - offsetY;
+    const newLeft = el.offsetLeft - offsetX;
+    
+    // Keep window within viewport bounds
+    el.style.top = Math.max(0, Math.min(newTop, window.innerHeight - 100)) + "px";
+    el.style.left = Math.max(0, Math.min(newLeft, window.innerWidth - 200)) + "px";
+  }
+  
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+// Initialize dragging for all windows
+document.querySelectorAll('.window').forEach(w => makeDraggable(w));
+
+// Create taskbar buttons for each window
+function initTaskbarButtons() {
+  const taskbar = document.getElementById('taskbar');
+  const windowsList = document.querySelectorAll('.window');
+  
+  windowsList.forEach(win => {
+    const id = win.id;
+    const btn = document.createElement('button');
+    btn.innerText = win.querySelector('.window-header span').innerText;
+    btn.onclick = () => toggleWindow(id);
+    taskbar.appendChild(btn);
+    windowButtons[id] = btn;
+  });
+}
+
+// Window management functions
+function toggleWindow(id) {
+  const w = document.getElementById(id);
+  if (w.style.display === "none" || w.classList.contains('hidden')) {
+    w.style.display = "block";
+    w.classList.remove('hidden');
+    w.style.zIndex = ++topZ;
+  } else {
+    w.style.display = "none";
+    w.classList.add('hidden');
+  }
+}
+
+function closeWindow(id) {
+  const w = document.getElementById(id);
+  w.style.display = "none";
+  w.classList.add('hidden');
+  
+  if (windowButtons[id]) {
+    windowButtons[id].style.opacity = "0.5";
+  }
+}
+
+function maximizeWindow(id) {
+  const w = document.getElementById(id);
+  const isMaximized = w.dataset.maximized === 'true';
+  
+  if (!isMaximized) {
+    // Store original dimensions
+    w.dataset.originalTop = w.style.top;
+    w.dataset.originalLeft = w.style.left;
+    w.dataset.originalWidth = w.style.width;
+    w.dataset.originalHeight = w.style.height;
+    
+    // Maximize
+    w.style.top = '0px';
+    w.style.left = '0px';
+    w.style.width = '100vw';
+    w.style.height = `calc(100vh - ${getComputedStyle(document.documentElement).getPropertyValue('--taskbar-h')})`;
+    w.dataset.maximized = 'true';
+  } else {
+    // Restore
+    w.style.top = w.dataset.originalTop || '40px';
+    w.style.left = w.dataset.originalLeft || '60px';
+    w.style.width = w.dataset.originalWidth || '500px';
+    w.style.height = w.dataset.originalHeight || '400px';
+    w.dataset.maximized = 'false';
+  }
+  
+  w.style.zIndex = ++topZ;
+}
+
+// Start menu functionality
+function toggleStartMenu() {
+  const sm = document.getElementById('startMenu');
+  sm.style.display = sm.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function toggleSubmenu(event) {
+  event.preventDefault();
+  const submenu = document.getElementById('filesSubmenu');
+  submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+}
+
+// Folder navigation
+function openFolder(folderName) {
+  console.log(`Opening ${folderName} folder`);
+  alert(`Opening ${folderName} folder.\nNavigation to ${folderName}.html would happen here.`);
+  
+  // Hide start menu
+  document.getElementById('startMenu').style.display = 'none';
+}
+
+// Shutdown function
+function shutdown() {
+  if (confirm("Are you sure you want to shut down Sunnie Jae Desktop?")) {
+    document.body.style.background = "#000";
+    document.body.innerHTML = '<div style="color:#fff; text-align:center; padding-top:40vh; font-family:Tahoma;">System shutting down...</div>';
+    setTimeout(() => {
+      window.close() || (window.location.href = 'about:blank');
+    }, 2000);
+  }
+}
+
+// Clock functionality (stuck at 2006 theme)
+function updateClock() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  const displayHours = hours % 12 || 12;
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  
+  document.getElementById('clock').innerText = 
+    `${displayHours}:${minutes}:${seconds} ${ampm} (2006)`;
+}
+
+// Click outside to close start menu
+document.addEventListener('click', (e) => {
+  const startMenu = document.getElementById('startMenu');
+  const startButton = document.querySelector('.start-menu-button');
+  
+  if (!startMenu.contains(e.target) && !startButton.contains(e.target)) {
+    startMenu.style.display = 'none';
+  }
+});
+
+// Focus windows on click
+document.querySelectorAll('.window').forEach(w => {
+  w.addEventListener('mousedown', () => {
+    w.style.zIndex = ++topZ;
+  });
+});
+
+// Initialize everything
+document.addEventListener('DOMContentLoaded', () => {
+  initTaskbarButtons();
+  updateClock();
+  setInterval(updateClock, 1000);
+});
+</script>
+
+</body>
+</html>
