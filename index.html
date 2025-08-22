@@ -141,8 +141,8 @@
   <!-- Taskbar -->
   <div class="taskbar">
     <div class="taskbar-left">
-      <button onclick="confirmShutdown()">Start</button>
-      <button onclick="confirmShutdown()">Shutdown</button>
+      <button onclick="openShutdown()">Start</button>
+      <button onclick="openShutdown()">Shutdown</button>
     </div>
     <div class="clock" id="clock"></div>
   </div>
@@ -169,12 +169,16 @@
     updateClock();
 
     // Shutdown modal logic
-    function confirmShutdown() {
+    function openShutdown() {
       document.getElementById('shutdownModal').style.display = 'flex';
     }
     document.getElementById('confirmShutdown').onclick = function() {
       document.getElementById('shutdownModal').style.display = 'none';
-      history.back();
+      if (window.history.length > 1) {
+        history.back();
+      } else {
+        window.close();
+      }
     };
     document.getElementById('closeShutdown').onclick = function() {
       document.getElementById('shutdownModal').style.display = 'none';
