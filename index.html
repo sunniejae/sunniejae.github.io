@@ -2,40 +2,60 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desktop Simulation</title>
 <link rel="icon" href="https://i.imgur.com/wHDx7cE.png" type="image/png">
 <style>
+  :root {
+    --primary: #9a9ad4;
+    --secondary: #c13886;
+    --accent: #00c9c2;
+    --dark-purple: #3f3d7a;
+    --darker-cyan: #00a8a3;
+    --light-pink: #ffb3d6;
+    --silver: #f0f0f5;
+    --gray: #bfbfdc;
+    --dark-gray: #404040;
+    --white: #ffffff;
+    --pink: #ff66cc;
+  }
   body {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     font-family: sans-serif;
     background: url('https://i.imgur.com/4D0ZDvV.png') no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
   }
-
   /* Windows */
   .window {
     position: absolute;
-    border: 1px solid #888;
-    background: #fff;
+    border: 2px solid var(--primary);
+    background: var(--silver);
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     resize: both;
     overflow: hidden;
     z-index: 10;
   }
   .window-header {
-    background: #9a9ad4;
-    color: #fff;
-    padding: 5px 10px;
+    background: var(--primary);
+    color: var(--white);
+    padding: 5px;
     cursor: move;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+  .window-controls {
+    display: flex;
+  }
   .window-btn {
-    margin-left: 5px;
+    width: 25px;
+    height: 20px;
+    margin-left: 2px;
+    background: var(--secondary);
+    color: var(--white);
+    text-align: center;
+    line-height: 20px;
     cursor: pointer;
   }
   .window-content {
@@ -51,107 +71,102 @@
     width: 15px;
     height: 15px;
     cursor: se-resize;
+    background: var(--accent);
   }
-
   /* Taskbar */
   #taskbar {
     position: fixed;
-    bottom:0;
-    left:0;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 40px;
-    background:#404040;
+    background: var(--dark-gray);
     display: flex;
-    align-items: center;
-    padding: 0 5px;
-    z-index:20;
+    padding: 2px;
+    box-sizing: border-box;
   }
   .taskbar-button {
-    background:#9a9ad4;
-    border:none;
-    color:#fff;
-    margin-right:5px;
-    padding:5px 10px;
-    cursor:pointer;
+    margin: 0 2px;
+    padding: 2px 6px;
+    cursor: pointer;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
   }
-
-  /* Desktop folder icons */
-  .folder-icons {
-    position:absolute;
-    top:50px;
-    left:20px;
-    display:flex;
-    flex-direction: column;
-    gap:15px;
-  }
-  .folder-icons img {
-    width:64px;
-    height:64px;
-    cursor:pointer;
-  }
-
-  /* Start menu */
   #startButton {
-    background:#9a9ad4;
-    color:white;
-    border:none;
-    padding:5px 10px;
-    cursor:pointer;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    margin-right: 5px;
+    cursor: pointer;
+    padding: 2px 8px;
   }
+  /* Start Menu */
   #startMenu {
-    position: fixed;
+    position: absolute;
     bottom: 40px;
-    left:0;
-    background: #404040;
-    color: white;
-    display: none;
+    left: 5px;
+    background: var(--dark-gray);
+    color: var(--white);
+    display: flex;
     flex-direction: column;
-    padding: 5px;
-    min-width: 150px;
-    z-index:25;
+    z-index: 100;
   }
   #startMenu button {
-    background:none;
-    border:none;
-    color:white;
-    text-align:left;
-    padding:5px;
-    cursor:pointer;
-    position:relative;
+    background: var(--dark-gray);
+    color: var(--white);
+    border: none;
+    text-align: left;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
   }
   #startMenu button:hover {
-    background:#ff66cc;
+    background: var(--pink);
   }
+  /* Submenu right side */
   .submenu {
-    display:none;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
     flex-direction: column;
-    position:absolute;
-    left:150px;
-    top:0;
-    background:#404040;
-    min-width:150px;
+    background: var(--dark-gray);
+    z-index: 200;
   }
-  #startMenu .files:hover + .submenu {
-    display:flex;
+  .files:hover + .submenu {
+    display: flex;
   }
-
-  /* Images in windows */
-  .window-content img {
-    width:100%;
-    height:100%;
-    display:block;
+  /* Folder icons */
+  .folder {
+    position: absolute;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .folder img {
+    width: 64px;
+    height: 64px;
   }
 </style>
 </head>
 <body>
 
-<!-- Folder icons -->
-<div class="folder-icons">
-  <img src="https://i.imgur.com/ixrv4gl.png" alt="Notebook" onclick="openWindow('notebookWindow')">
-  <img src="https://i.imgur.com/YBfxfzX.png" alt="Digital Art" onclick="window.location='digital-art.html'">
-  <img src="https://i.imgur.com/YBfxfzX.png" alt="Graphic Design" onclick="window.location='graphic-design.html'">
-  <img src="https://i.imgur.com/YBfxfzX.png" alt="Videos" onclick="window.location='videos.html'">
-  <img src="https://i.imgur.com/YBfxfzX.png" alt="Writing" onclick="window.location='writing.html'">
+<!-- Folder Icons -->
+<div class="folder" style="top:50px; left:20px;" onclick="window.location='digital-art.html'">
+  <img src="https://i.imgur.com/64oUj2L.png" alt="Digital Art">
+  <div>Digital Art</div>
+</div>
+<div class="folder" style="top:130px; left:20px;" onclick="window.location='graphic-design.html'">
+  <img src="https://i.imgur.com/64oUj2L.png" alt="Graphic Design">
+  <div>Graphic Design</div>
+</div>
+<div class="folder" style="top:210px; left:20px;" onclick="window.location='videos.html'">
+  <img src="https://i.imgur.com/64oUj2L.png" alt="Videos">
+  <div>Videos</div>
+</div>
+<div class="folder" style="top:290px; left:20px;" onclick="window.location='writing.html'">
+  <img src="https://i.imgur.com/64oUj2L.png" alt="Writing">
+  <div>Writing</div>
 </div>
 
 <!-- Header Window -->
@@ -163,8 +178,8 @@
       <div class="window-btn" onclick="closeWindow('headerWindow')">×</div>
     </div>
   </div>
-  <div class="window-content" style="padding:0; height:calc(100% - 35px);">
-    <img src="https://i.imgur.com/ixrv4gl.png" alt="Header">
+  <div class="window-content" style="padding:0; height: calc(100% - 35px);">
+    <img src="https://i.imgur.com/ixrv4gl.png" alt="Header" style="width:100%; height:100%; display:block;">
   </div>
 </div>
 
@@ -177,12 +192,12 @@
       <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
     </div>
   </div>
-  <div class="window-content">
-    <p>Your notebook content here...</p>
+  <div class="window-content" style="padding:0;">
+    <img src="https://i.imgur.com/YBfxfzX.png" alt="Notebook">
   </div>
 </div>
 
-<!-- Pinterest Window (starts minimized) -->
+<!-- Pinterest Window -->
 <div class="window" id="pinterestWindow" style="top:100px; left:300px; width:400px; height:500px; display:none;">
   <div class="window-header">
     Pinterest
@@ -200,23 +215,7 @@
     </a>
     <script async type="text/javascript" src="https://assets.pinterest.com/js/pinit.js"></script>
   </div>
-</div>
-
-<!-- MP3 Player Window -->
-<div class="window" id="mp3Window" style="top:200px; left:600px; width:300px; height:80px;">
-  <div class="window-header">
-    Music
-    <div class="window-controls">
-      <div class="window-btn" onclick="minimizeWindow('mp3Window')">_</div>
-      <div class="window-btn" onclick="closeWindow('mp3Window')">×</div>
-    </div>
-  </div>
-  <div class="window-content">
-    <audio controls>
-      <source src="your-audio.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-  </div>
+  <div class="resize-handle"></div>
 </div>
 
 <!-- Taskbar -->
@@ -225,7 +224,7 @@
 </div>
 
 <!-- Start Menu -->
-<div id="startMenu">
+<div id="startMenu" style="display:none;">
   <button class="files">Files</button>
   <div class="submenu">
     <button onclick="window.location='digital-art.html'">Digital Art</button>
@@ -237,48 +236,38 @@
   <button onclick="window.location='contact.html'">Contact</button>
   <button onclick="window.location='shop.html'">Shop</button>
   <button onclick="window.location='studio-ken.html'">Studio Ken</button>
-  <button onclick="shutdown()">Shut Down</button>
+  <button onclick="alert('Are you sure?\nWhen we pull up you know it\'s a...')">Shut Down</button>
 </div>
 
 <script>
-function openWindow(id) {
-  document.getElementById(id).style.display='block';
-}
+  const startButton = document.getElementById('startButton');
+  const startMenu = document.getElementById('startMenu');
 
-function closeWindow(id) {
-  document.getElementById(id).style.display='none';
-}
+  startButton.addEventListener('click', () => {
+    startMenu.style.display = startMenu.style.display === 'flex' ? 'none' : 'flex';
+    startMenu.style.flexDirection = 'column';
+  });
 
-function minimizeWindow(id) {
-  const win = document.getElementById(id);
-  win.style.display='none';
-  const taskbar = document.getElementById('taskbar');
-  if(!document.querySelector(`.taskbar-button[data-window-id="${id}"]`)){
-    const btn = document.createElement('button');
-    btn.className='taskbar-button';
-    btn.textContent=win.querySelector('.window-header').textContent;
-    btn.dataset.windowId=id;
-    btn.addEventListener('click', ()=>{
-      win.style.display='block';
-      taskbar.removeChild(btn);
-    });
-    taskbar.appendChild(btn);
+  function closeWindow(id){
+    document.getElementById(id).style.display='none';
   }
-}
 
-// Start menu toggle
-const startButton = document.getElementById('startButton');
-const startMenu = document.getElementById('startMenu');
-startButton.addEventListener('click', ()=>{
-  startMenu.style.display = startMenu.style.display==='flex'?'none':'flex';
-});
+  function minimizeWindow(id){
+    const win = document.getElementById(id);
+    win.style.display='none';
 
-// Shutdown confirmation
-function shutdown(){
-  if(confirm("Are you sure?\nWhen we pull up you know it's a...")){
-    window.location.href = '/'; // Navigate back or do something
+    if(!document.querySelector(`.taskbar-button[data-window-id="${id}"]`)){
+      const btn = document.createElement('button');
+      btn.className='taskbar-button';
+      btn.textContent=win.querySelector('.window-header').textContent;
+      btn.dataset.windowId=id;
+      btn.addEventListener('click', () => {
+        win.style.display='block';
+        btn.remove();
+      });
+      document.getElementById('taskbar').appendChild(btn);
+    }
   }
-}
 </script>
 
 </body>
