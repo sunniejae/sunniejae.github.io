@@ -60,13 +60,16 @@ body, html {
 .window-btn {
   width:18px; height:18px;
   border:2px outset var(--white);
-  background: var(--secondary);
   font-weight:bold;
   display:flex; align-items:center; justify-content:center;
   font-size:0.6rem;
   cursor:pointer;
 }
-.window-btn:hover { border:2px inset var(--white); background: var(--hover-pink); }
+.window-btn[data-type="_"] { background: var(--accent); }
+.window-btn[data-type="■"] { background: var(--primary); }
+.window-btn[data-type="×"] { background: var(--secondary); }
+
+.window-btn:hover { border:2px inset var(--white); }
 
 .window-content { padding:10px; overflow:auto; max-height: calc(100vh - 100px); background: var(--light-gray); }
 
@@ -178,8 +181,8 @@ body, html {
     <div class="window-header">
       <span>✨ Sunnie Jae Creates</span>
       <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('titleWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('titleWindow')">×</div>
+        <div class="window-btn" data-type="_" onclick="minimizeWindow('titleWindow')">_</div>
+        <div class="window-btn" data-type="×" onclick="closeWindow('titleWindow')">×</div>
       </div>
     </div>
     <div class="window-content">
@@ -192,8 +195,8 @@ body, html {
     <div class="window-header">
       <span>Pinterest Feed</span>
       <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('pinterestWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('pinterestWindow')">×</div>
+        <div class="window-btn" data-type="_" onclick="minimizeWindow('pinterestWindow')">_</div>
+        <div class="window-btn" data-type="×" onclick="closeWindow('pinterestWindow')">×</div>
       </div>
     </div>
     <div class="window-content" style="padding:0;">
@@ -206,8 +209,8 @@ body, html {
     <div class="window-header">
       <span>Notebook</span>
       <div class="window-controls">
-        <div class="window-btn" onclick="minimizeWindow('notebookWindow')">_</div>
-        <div class="window-btn" onclick="closeWindow('notebookWindow')">×</div>
+        <div class="window-btn" data-type="_" onclick="minimizeWindow('notebookWindow')">_</div>
+        <div class="window-btn" data-type="×" onclick="closeWindow('notebookWindow')">×</div>
       </div>
     </div>
     <div class="window-content" style="padding:0;">
@@ -220,7 +223,7 @@ body, html {
     <div class="window-header">
       <span>Shut Down</span>
       <div class="window-controls">
-        <div class="window-btn" onclick="closeWindow('shutdownWindow')">×</div>
+        <div class="window-btn" data-type="×" onclick="closeWindow('shutdownWindow')">×</div>
       </div>
     </div>
     <div class="window-content" style="text-align:center;">
