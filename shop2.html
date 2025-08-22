@@ -87,7 +87,7 @@
       border-radius: 12px;
       padding: 2rem;
       box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
     }
 
     .widget-header {
@@ -110,6 +110,101 @@
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .featured-products {
+      margin-top: 3rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-title h3 {
+      font-size: 1.8rem;
+      color: var(--dark-purple);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title p {
+      color: var(--gray);
+      font-size: 1rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      text-decoration: none;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-info h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark-purple);
+      font-weight: 600;
+    }
+
+    .product-info p {
+      font-size: 0.95rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .product-price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-price span {
+      font-weight: 700;
+      color: var(--pink);
+      font-size: 1.1rem;
+    }
+
+    .shop-button {
+      background: var(--magenta);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .product-card:hover .shop-button {
+      background: var(--dark-purple);
     }
 
     footer {
@@ -167,8 +262,8 @@
   <section class="section-products">
     <div class="etsy-widget-container">
       <div class="widget-header">
-        <h3>Shop Sunnie Jae</h3>
-        <p>My designs on apparel, stationary, and more</p>
+        <h3>Browse All Products</h3>
+        <p>Explore my complete collection on Etsy</p>
       </div>
       
       <!-- Etsy Widget iframe version -->
@@ -183,6 +278,68 @@
       
       <!-- Alternative Etsy Widget div version (backup) -->
       <div class='sk-ww-etsy-shop' data-embed-id='25591381'></div>
+    </div>
+
+    <!-- Featured Products Section -->
+    <div class="featured-products">
+      <div class="section-title">
+        <h3>Featured Products</h3>
+        <p>Click any item to view and purchase on Etsy</p>
+      </div>
+      
+      <div class="product-grid">
+        <!-- Product Card 1 - Replace with your actual Etsy product URL -->
+        <a href="https://www.etsy.com/listing/YOUR-PRODUCT-ID-1" target="_blank" class="product-card">
+          <img src="https://imgur.com/5fjM6QN.png" alt="Featured Artwork 1">
+          <div class="product-info">
+            <h4>Original Artwork Title</h4>
+            <p>Beautiful handcrafted piece perfect for any space. Made with high-quality materials.</p>
+            <div class="product-price">
+              <span>$45.00</span>
+              <div class="shop-button">Shop Now</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product Card 2 - Replace with your actual Etsy product URL -->
+        <a href="https://www.etsy.com/listing/YOUR-PRODUCT-ID-2" target="_blank" class="product-card">
+          <img src="https://imgur.com/5fjM6QN.png" alt="Featured Book 1">
+          <div class="product-info">
+            <h4>Book Title Here</h4>
+            <p>An engaging read that will captivate your imagination from start to finish.</p>
+            <div class="product-price">
+              <span>$22.99</span>
+              <div class="shop-button">Shop Now</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product Card 3 - Replace with your actual Etsy product URL -->
+        <a href="https://www.etsy.com/listing/YOUR-PRODUCT-ID-3" target="_blank" class="product-card">
+          <img src="https://imgur.com/5fjM6QN.png" alt="Featured Artwork 2">
+          <div class="product-info">
+            <h4>Limited Edition Print</h4>
+            <p>Exclusive limited edition print, numbered and signed by the artist.</p>
+            <div class="product-price">
+              <span>$35.00</span>
+              <div class="shop-button">Shop Now</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product Card 4 - Replace with your actual Etsy product URL -->
+        <a href="https://www.etsy.com/listing/YOUR-PRODUCT-ID-4" target="_blank" class="product-card">
+          <img src="https://imgur.com/5fjM6QN.png" alt="Featured Book 2">
+          <div class="product-info">
+            <h4>Poetry Collection</h4>
+            <p>A heartfelt collection of poems exploring themes of love, loss, and discovery.</p>
+            <div class="product-price">
+              <span>$18.50</span>
+              <div class="shop-button">Shop Now</div>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
