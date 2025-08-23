@@ -332,5 +332,145 @@
     <p>&copy; 2025 Pasteliume Shop. All rights reserved.</p>
   </footer>
 
+  <!-- Discount Popup -->
+  <div class="popup-overlay" id="discountPopup">
+    <div class="popup">
+      <h3>🎉 Special Offer!</h3>
+      <p>Get 25% off all Etsy purchases with this exclusive code:</p>
+      <div class="popup-code" id="discountCode">SUNNIESITE</div>
+      <p style="font-size: 0.9rem; color: var(--dark-gray);">Click to copy the code and visit Etsy!</p>
+      <div class="popup-buttons">
+        <button class="popup-btn primary" onclick="copyCodeAndRedirect()">Copy & Shop Etsy</button>
+        <button class="popup-btn secondary" onclick="closePopup()">Maybe Later</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Discount Button -->
+  <button class="discount-btn" onclick="showPopup()">💝 25% OFF</button>
+
+  <script>
+    function showPopup() {
+      document.getElementById('discountPopup').classList.add('show');
+    }
+
+    function closePopup() {
+      document.getElementById('discountPopup').classList.remove('show');
+    }
+
+    function copyCodeAndRedirect() {
+      // Copy code to clipboard
+      const code = 'SUNNIESITE';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => {
+          // Show brief confirmation
+          const codeElement = document.getElementById('discountCode');
+          const originalText = codeElement.textContent;
+          codeElement.textContent = 'COPIED! ✓';
+          codeElement.style.background = 'var(--accent)';
+          codeElement.style.color = 'var(--white)';
+          
+          setTimeout(() => {
+            // Redirect to Etsy (replace with actual Etsy shop URL)
+            window.open('https://etsy.com', '_blank');
+            closePopup();
+            
+            // Reset code display
+            setTimeout(() => {
+              codeElement.textContent = originalText;
+              codeElement.style.background = 'var(--silver)';
+              codeElement.style.color = 'var(--dark-purple)';
+            }, 1000);
+          }, 1000);
+        });
+      } else {
+        // Fallback for older browsers
+        alert('Code: SUNNIESITE (copied to clipboard)');
+        window.open('https://etsy.com', '_blank');
+        closePopup();
+      }
+    }
+
+    // Auto-show popup after 5 seconds (optional)
+    setTimeout(showPopup, 5000);
+
+    // Close popup when clicking outside
+    document.getElementById('discountPopup').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePopup();
+      }
+    });
+  </script>
+
+  <!-- Discount Popup -->
+  <div class="popup-overlay" id="discountPopup">
+    <div class="popup">
+      <h3>🎉 Special Offer!</h3>
+      <p>Get 25% off all Etsy purchases with this exclusive code:</p>
+      <div class="popup-code" id="discountCode">SUNNIESITE</div>
+      <p style="font-size: 0.9rem; color: var(--dark-gray);">Click to copy the code and visit Etsy!</p>
+      <div class="popup-buttons">
+        <button class="popup-btn primary" onclick="copyCodeAndRedirect()">Copy & Shop Etsy</button>
+        <button class="popup-btn secondary" onclick="closePopup()">Maybe Later</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Discount Button -->
+  <button class="discount-btn" onclick="showPopup()">💝 25% OFF</button>
+
+  <script>
+    function showPopup() {
+      document.getElementById('discountPopup').classList.add('show');
+    }
+
+    function closePopup() {
+      document.getElementById('discountPopup').classList.remove('show');
+    }
+
+    function copyCodeAndRedirect() {
+      // Copy code to clipboard
+      const code = 'SUNNIESITE';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => {
+          // Show brief confirmation
+          const codeElement = document.getElementById('discountCode');
+          const originalText = codeElement.textContent;
+          codeElement.textContent = 'COPIED! ✓';
+          codeElement.style.background = 'var(--accent)';
+          codeElement.style.color = 'var(--white)';
+          
+          setTimeout(() => {
+            // Redirect to Etsy (replace with actual Etsy shop URL)
+            window.open('https://etsy.com', '_blank');
+            closePopup();
+            
+            // Reset code display
+            setTimeout(() => {
+              codeElement.textContent = originalText;
+              codeElement.style.background = 'var(--silver)';
+              codeElement.style.color = 'var(--dark-purple)';
+            }, 1000);
+          }, 1000);
+        });
+      } else {
+        // Fallback for older browsers
+        alert('Code: SUNNIESITE (copied to clipboard)');
+        window.open('https://etsy.com', '_blank');
+        closePopup();
+      }
+    }
+
+    // Auto-show popup after 3 seconds (optional)
+    setTimeout(showPopup, 3000);
+
+    // Close popup when clicking outside
+    document.getElementById('discountPopup').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePopup();
+      }
+    });
+  </script>
+
 </body>
 </html>
