@@ -14,26 +14,30 @@
 <style>
   /* === Root Variables === */
   :root {
-      --black: #000010;
-      --white: #ffffff;
+      --black: #0b0b0f;
+      --white: #fefefe;
       --dark-gray: #404040;
       --gray: #bfbfdc;
       --silver: #f0f0f5;
       --pink: #ffb3d6;
+      --lavender: #c9a0dc;
       --teal: #00a8a3;
       --dark-purple: #3f3d7a;
       --accent: #00c9c2;
       --secondary: #c13886;
       --primary: #9a9ad4;
+      --post-bg: rgba(20,20,30,0.85);
+      --hover-bright: 1.1;
   }
 
   /* === Global Styles === */
   body {
     margin: 0;
-    font-family: Georgia, serif;
+    font-family: 'Georgia', serif;
     background: url('https://i.imgur.com/gxc6hdU.png') var(--black) no-repeat center top fixed;
     background-size: cover;
     color: var(--white);
+    line-height: 1.5;
   }
 
   a { color: var(--secondary); text-decoration: none; }
@@ -58,25 +62,33 @@
     width: 100%;
     border-radius: 50%;
     margin-bottom: 15px;
-    border: 2px solid var(--secondary);
+    border: 2px solid var(--lavender);
+    filter: grayscale(20%) contrast(90%);
   }
 
   .about {
     font-size: 0.9rem;
     margin-bottom: 20px;
-    line-height: 1.4;
+    color: var(--gray);
   }
 
   .nav-links a {
     display: block;
     margin: 5px 0;
     font-weight: bold;
+    padding: 2px 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .nav-links a:hover {
+    color: var(--pink);
+    transform: translateX(5px);
   }
 
   .extras {
     margin-top: 30px;
     font-size: 0.8rem;
     color: var(--gray);
+    font-style: italic;
   }
 
   /* --- Main Feed --- */
@@ -88,31 +100,40 @@
     gap: 20px;
   }
 
-  /* RSS widget always first */
   .post.rss-widget-post { order: -1; }
 
   .post {
-    background: rgba(20,20,30,0.85);
+    background: var(--post-bg);
     border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 3px;
+    border-radius: 4px;
     padding: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, filter 0.2s ease;
     cursor: pointer;
+    overflow: hidden;
   }
 
-  .post:hover { transform: translateY(-2px); }
+  .post:hover {
+    transform: translateY(-2px);
+    filter: brightness(var(--hover-bright));
+  }
 
   .post-image {
     width: 100%;
     max-height: 300px;
     object-fit: cover;
-    border-radius: 2px;
-    filter: contrast(95%) brightness(90%);
+    border-radius: 3px;
+    filter: contrast(95%) brightness(85%) grayscale(10%);
     margin-bottom: 10px;
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
 
-  .post-meta { font-size: 0.8rem; color: var(--pink); }
+  .post:hover .post-image {
+    transform: scale(1.02);
+    filter: contrast(100%) brightness(95%);
+  }
+
+  .post-meta { font-size: 0.8rem; color: var(--lavender); }
 
   /* === Lightbox === */
   .lightbox {
@@ -128,12 +149,21 @@
   }
 
   .lightbox:target { display: flex; }
-  .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--secondary); }
+  .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--lavender); }
 
   /* === RSS Widget Styling === */
   .rss-widget-container { margin-bottom: 10px; }
   .blog-link { display: inline-block; margin-top: 10px; font-size: 0.9rem; color: var(--primary); }
   .blog-link i { margin-left: 5px; }
+
+  /* === Typography / Tumblr Vibes === */
+  h1, h2, h3 {
+    font-family: 'Georgia', serif;
+    font-weight: normal;
+    color: var(--lavender);
+  }
+
+  p { font-family: 'Georgia', serif; }
 
 </style>
 </head>
@@ -144,8 +174,8 @@
       <img src="https://i.imgur.com/wHDx7cE.png" alt="Sunnie Jae Avatar" class="avatar">
       
       <div class="about">
-        Welcome to my library — a collection of notebooks, sketches, and posts from my Medium blog.  
-        Dark, grungy, and curated for the aesthetic.
+        Welcome to my library — a collection of notebooks, sketches, and posts curated for a soft-grunge, lavender-hued aesthetic.  
+        Pale, dreamy, slightly melancholic — like scrolling through Tumblr in 2014.
       </div>
 
       <div class="nav-links">
