@@ -368,6 +368,20 @@
     </div>
 
     <!-- Windows -->
+    <div class="window minimized" id="header-window" style="left: 50px; top: 50px; width: 500px; height: 200px;">
+        <div class="window-header">
+            <span>Header Banner</span>
+            <div class="window-controls">
+                <div class="window-button minimize-btn">_</div>
+                <div class="window-button close-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <img src="https://i.imgur.com/ixrv4gl.png" alt="Header Banner" class="header-banner">
+        </div>
+        <div class="resize-handle"></div>
+    </div>
+
     <div class="window minimized" id="notebook-window" style="left: 100px; top: 100px; width: 600px; height: 500px;">
         <div class="window-header">
             <span>Personal Essay.doc</span>
@@ -377,7 +391,6 @@
             </div>
         </div>
         <div class="window-content">
-            <img src="https://i.imgur.com/ixrv4gl.png" alt="Header Banner" class="header-banner">
             <img src="https://i.imgur.com/YBfxfzX.png" alt="Personal Essay" class="notebook-image">
         </div>
         <div class="resize-handle"></div>
@@ -404,19 +417,18 @@
         <div class="resize-handle"></div>
     </div>
 
-    <div class="window minimized" id="pinterest-window" style="left: 300px; top: 200px; width: 400px; height: 300px;">
+    <!-- Pinterest Window (minimized by default) -->
+    <div class="window minimized" id="pinterest-window" style="left: 300px; top: 200px; width: 400px; height: 400px;">
         <div class="window-header">
-            <span>Pinterest - Live Feed</span>
+            <span>Pinterest</span>
             <div class="window-controls">
                 <div class="window-button minimize-btn">_</div>
                 <div class="window-button close-btn">×</div>
             </div>
         </div>
         <div class="window-content">
-            <img src="https://i.imgur.com/ixrv4gl.png" alt="Header Banner" class="header-banner">
-            <div style="text-align: center; padding: 40px; color: var(--dark-gray);">
-                Loading Live Feed...
-            </div>
+            <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="200" data-pin-scale-width="80" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
+            <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
         </div>
         <div class="resize-handle"></div>
     </div>
@@ -470,6 +482,7 @@
             
             // Open default windows
             setTimeout(() => {
+                openWindow('header-window');
                 openWindow('notebook-window');
                 openWindow('music-window');
                 openWindow('pinterest-window');
