@@ -14,29 +14,29 @@
 <style>
   /* === Root Variables === */
   :root { 
-    --black: #000010;
-    --white: #ffffff;
-    --dark-gray: #404040;
-    --gray: #bfbfdc;
-    --silver: #f0f0f5;
-    --pink: #ffb3d6;
-    --teal: #00a8a3;
-    --dark-purple: #3f3d7a;
-    --accent: #00c9c2;
-    --secondary: #c13886;
-    --primary: #9a9ad4;
+      --black: #000010;
+      --white: #ffffff;
+      --dark-gray: #404040;
+      --gray: #bfbfdc;
+      --silver: #f0f0f5;
+      --pink: #ffb3d6;
+      --teal: #00a8a3;
+      --dark-purple: #3f3d7a;
+      --accent: #00c9c2;
+      --secondary: #c13886;
+      --primary: #9a9ad4;
   }
 
   /* === Global Styles === */
   body {
     margin: 0;
     font-family: Georgia, serif;
-    background-color: var(--black); /* solid background */
+    background: var(--black);
     color: var(--white);
   }
 
   a { color: var(--secondary); text-decoration: none; }
-  a:hover { text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
   /* === Layout === */
   .container {
@@ -50,7 +50,6 @@
   .sidebar {
     width: 250px;
     padding-right: 20px;
-    border-right: 1px solid rgba(255,255,255,0.1);
   }
 
   .avatar {
@@ -66,30 +65,22 @@
     line-height: 1.4;
   }
 
-  /* Sidebar buttons */
-  .nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
+  /* Rounded nav buttons */
   .nav-links a {
-    display: inline-block;
-    padding: 10px 15px;
-    border-radius: 25px;
-    text-align: center;
-    background-color: var(--dark-gray);
-    color: var(--white);
+    display: block;
+    margin: 5px 0;
+    padding: 8px 12px;
+    background: var(--dark-purple);
+    color: var(--pink);
+    border-radius: 12px;
     font-weight: bold;
-    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid var(--primary);
+    text-align: center;
+    transition: background 0.3s;
   }
 
   .nav-links a:hover {
-    background-color: var(--primary);
-    color: var(--black);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    background: var(--secondary);
+    color: var(--white);
   }
 
   .extras {
@@ -107,12 +98,10 @@
     gap: 20px;
   }
 
-  .post.rss-widget-post { order: -1; }
-
   .post {
     background: rgba(20,20,30,0.85);
     border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 3px;
+    border-radius: 10px;
     padding: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     transition: transform 0.2s ease;
@@ -123,7 +112,8 @@
 
   .post-image {
     width: 100%;
-    height: 394px; /* fixed 16:9 ratio */
+    height: auto;
+    aspect-ratio: 700 / 394; /* 16:9 ratio */
     object-fit: cover;
     border-radius: 2px;
     filter: contrast(95%) brightness(90%);
@@ -131,6 +121,46 @@
   }
 
   .post-meta { font-size: 0.8rem; color: var(--pink); }
+
+  /* === RSS Widget Styling === */
+  .rss-widget-post {
+    background: rgba(63, 61, 122, 0.85); /* dark purple */
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+    font-family: Georgia, serif;
+  }
+
+  .rss-widget-post:hover {
+    background: rgba(63, 61, 122, 0.95);
+    transform: translateY(-2px);
+  }
+
+  .rss-widget-post .rss-item-title {
+    font-weight: bold;
+    color: var(--pink);
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+  }
+
+  .rss-widget-post .rss-item-content {
+    font-size: 0.9rem;
+    color: var(--white);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .rss-widget-post .rss-item-readmore {
+    color: var(--accent);
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .rss-widget-post .rss-item-readmore:hover {
+    text-decoration: underline;
+  }
 
   /* === Lightbox === */
   .lightbox {
@@ -148,10 +178,6 @@
   .lightbox:target { display: flex; }
   .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--secondary); }
 
-  /* === RSS Widget Styling === */
-  .rss-widget-container { margin-bottom: 10px; }
-  .blog-link { display: inline-block; margin-top: 10px; font-size: 0.9rem; color: var(--primary); }
-  .blog-link i { margin-left: 5px; }
 </style>
 </head>
 <body>
@@ -167,7 +193,7 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="fakebookwall.html">Me</a>
-        <a href="digital-art.html>Photos</a>
+        <a href="digital-art.html">Photos</a>
         <a href="videos.html">Videos</a>
         <a href="shop.html">Sunnie Store</a>
       </div>
@@ -202,15 +228,15 @@
         <!-- Example Post Placeholders -->
         <div class="post">
           <a href="#lightbox1">
-            <img src="https://imgur.com/KUJ9JZu.png" alt="Notebook sketch" class="post-image">
-            <p class="post-meta">new skates feeling hella hipster</p>
+            <img src="https://i.imgur.com/KUJ9JZu.png" alt="Notebook sketch" class="post-image">
+            <p class="post-meta">documents — unfinished notebook page</p>
           </a>
         </div>
 
         <div class="post">
           <a href="#lightbox2">
-            <img src="https://placehold.co/700x394/3f3d7a/ffffff?text=placeholder" alt="Sketch Art" class="post-image">
-            <p class="post-meta">placeholder</p>
+            <img src="https://i.imgur.com/KUJ9JZu.png" alt="Sketch Art" class="post-image">
+            <p class="post-meta">photos — midnight park sketch</p>
           </a>
         </div>
       </div>
@@ -219,10 +245,10 @@
 
   <!-- Lightboxes -->
   <div id="lightbox1" class="lightbox">
-    <a href="#"><img src="https://placehold.co/1400x788/3f3d7a/ffffff?text=placeholder" alt="Notebook Sketch"></a>
+    <a href="#"><img src="https://i.imgur.com/KUJ9JZu.png" alt="Notebook Sketch"></a>
   </div>
   <div id="lightbox2" class="lightbox">
-    <a href="#"><img src="https://placehold.co/1400x788/3f3d7a/ffffff?text=placeholder" alt="Sketch Art"></a>
+    <a href="#"><img src="https://i.imgur.com/KUJ9JZu.png" alt="Sketch Art"></a>
   </div>
 </body>
 </html>
