@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop Page</title>
@@ -8,19 +9,17 @@
   <style>
     /* Root Color Palette */
     :root {
-      --purple: #9a9ad4;              
-      --pink: #ff66cc;                 
-      --cyan: #02d1ca;                 
-      --magenta: #da70d6;              
-      --dark-purple: #8b008b;          
-      --pale-pink: #ffb3e6;            
-      --lilac: #dda0dd;                
-      --white: #ffffff;                
-      --light-gray: #e6e6fa;           
-      --gray: #663399;                 
-      --silver: #c0c0c0;               
-      --dark-gray: #4b0082;            
-      --black: #1a0d1f;                
+      --primary: #9a9ad4;       /* lavender */
+      --secondary: #c13886;     /* bright pink */
+      --accent: #00c9c2;        /* cyan */
+      --dark-purple: #3f3d7a;   /* dark purple */
+      --teal: #00a8a3;          /* teal */
+      --light-pink: #ffb3d6;    /* light pink */
+      --silver: #f0f0f5;        /* silver */
+      --gray: #bfbfdc;          /* gray */
+      --dark-gray: #404040;     /* dark gray */
+      --white: #ffffff;         /* white */
+      --black: #000010;         /* black */
     }
 
     * {
@@ -31,12 +30,12 @@
 
     body {
       font-family: 'Roboto', sans-serif;
-      background: var(--lilac);
+      background: var(--silver);
       color: var(--dark-purple);
     }
 
     header {
-      background: var(--purple);
+      background: var(--primary);
       color: var(--white);
       padding: 1rem 2rem;
       display: flex;
@@ -57,7 +56,7 @@
     }
 
     nav a:hover {
-      color: var(--magenta);
+      color: var(--light-pink);
     }
 
     .hero {
@@ -118,11 +117,11 @@
 
     .product-info span {
       font-weight: 700;
-      color: var(--pink);
+      color: var(--secondary);
     }
 
     footer {
-      background: var(--purple);
+      background: var(--primary);
       color: var(--white);
       text-align: center;
       padding: 2rem;
@@ -130,7 +129,7 @@
     }
 
     footer a {
-      color: var(--magenta);
+      color: var(--light-pink);
       text-decoration: none;
       margin: 0 0.5rem;
     }
@@ -173,7 +172,6 @@
     </div>
     <div class="product-card">
       <img src="https://imgur.com/5fjM6QN.png" alt="Product 3">
-      <a href="index.html">Home</a>
       <div class="product-info">
         <h3>Product</h3>
         <p>****info placeholder</p>
