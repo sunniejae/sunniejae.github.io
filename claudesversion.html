@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Tahoma', sans-serif;
-            background: var(--black) url('https://i.imgur.com/mreYQcF.png') no-repeat center center fixed;
+            background: var(--black) url('https://imgur.com/gxc6hdU.png') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             overflow: hidden;
@@ -368,7 +368,7 @@
     </div>
 
     <!-- Windows -->
-    <div class="window minimized" id="header-window" style="left: 50px; top: 50px; width: 500px; height: 200px;">
+    <div class="window" id="header-window" style="left: 50%; top: 50%; width: 500px; height: 200px; transform: translate(-50%, -50%);">
         <div class="window-header">
             <span>Header Banner</span>
             <div class="window-controls">
@@ -480,12 +480,9 @@
             setInterval(updateClock, 1000);
             updateTaskbar();
             
-            // Open default windows
+            // Open default windows - only header window visible
             setTimeout(() => {
                 openWindow('header-window');
-                openWindow('notebook-window');
-                openWindow('music-window');
-                openWindow('pinterest-window');
             }, 500);
         });
 
