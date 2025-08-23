@@ -1,165 +1,219 @@
-:root {
-    --black: #000010;
-    --white: #ffffff;
-    --dark-gray: #404040;
-    --gray: #bfbfdc;
-    --silver: #f0f0f5;
-    --pink: #ffb3d6;
-    --teal: #00a8a3;
-    --dark-purple: #3f3d7a;
-    --accent: #00c9c2;
-    --secondary: #c13886; /* dark cherry lipstick */
-    --primary: #9a9ad4;  /* lavender hair */
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunnie Jae Creates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-body {
-    background: var(--black) url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-    font-family: 'Helvetica Neue', 'Arial', sans-serif;
-    color: var(--silver);
-    line-height: 1.6;
-    min-height: 100vh;
-    font-size: 14px;
-}
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-/* container for Tumblr feed style */
-.container {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 20px;
-}
+  <style>
+    :root {
+      --black: #000010;
+      --white: #ffffff;
+      --dark-gray: #404040;
+      --gray: #bfbfdc;
+      --silver: #f0f0f5;
+      --pink: #ffb3d6;
+      --teal: #00a8a3;
+      --dark-purple: #3f3d7a;
+      --accent: #00c9c2;
+      --secondary: #c13886; /* dark cherry lipstick */
+      --primary: #9a9ad4;  /* lavender hair */
+    }
 
-/* Header */
-.header {
-    text-align: center;
-    margin-bottom: 40px;
-}
+    body {
+      background: var(--black) url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+      font-family: 'Helvetica Neue', 'Arial', sans-serif;
+      color: var(--silver);
+      line-height: 1.6;
+      min-height: 100vh;
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+    }
 
-.logo {
-    max-width: 120px;
-    margin-bottom: 10px;
-    filter: grayscale(100%) contrast(120%);
-}
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-.title {
-    font-family: 'Times New Roman', serif;
-    font-size: 2.2rem;
-    color: var(--secondary);
-    letter-spacing: 1px;
-    text-transform: lowercase;
-}
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-.subtitle {
-    font-family: 'Indie Flower', cursive;
-    font-size: 1rem;
-    color: var(--primary);
-    opacity: 0.8;
-}
+    .logo {
+      max-width: 120px;
+      margin-bottom: 10px;
+      filter: grayscale(100%) contrast(120%);
+    }
 
-/* Nav links */
-.nav-menu {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 0;
-}
+    .title {
+      font-family: 'Times New Roman', serif;
+      font-size: 2.2rem;
+      color: var(--secondary);
+      text-transform: lowercase;
+    }
 
-.nav-link {
-    color: var(--gray);
-    text-decoration: none;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-transform: lowercase;
-    border-bottom: 1px dotted transparent;
-    transition: 0.3s;
-}
+    .subtitle {
+      font-family: 'Indie Flower', cursive;
+      font-size: 1rem;
+      color: var(--primary);
+      opacity: 0.8;
+    }
 
-.nav-link:hover {
-    border-color: var(--secondary);
-    color: var(--secondary);
-}
+    /* Nav */
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
 
-/* Tumblr posts */
-.post {
-    background: rgba(20,20,30,0.85);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 3px;
-    padding: 20px;
-    margin: 30px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    transition: transform 0.2s ease;
-}
+    .nav-link {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: lowercase;
+      border-bottom: 1px dotted transparent;
+      transition: 0.3s;
+    }
 
-.post:hover {
-    transform: translateY(-2px);
-}
+    .nav-link:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
 
-/* Image post */
-.post-image {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 2px;
-    filter: contrast(95%) brightness(90%);
-    margin-bottom: 15px;
-}
+    /* Tumblr-style posts */
+    .post {
+      background: rgba(20,20,30,0.85);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 3px;
+      padding: 20px;
+      margin: 30px 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease;
+    }
 
-/* Text/quote vibes */
-.text-post-content {
-    font-family: 'Courier New', monospace;
-    font-size: 1rem;
-    color: var(--pink);
-    line-height: 1.5;
-    text-align: center;
-    font-style: italic;
-}
+    .post:hover {
+      transform: translateY(-2px);
+    }
 
-.quote-text {
-    font-family: 'Georgia', serif;
-    font-size: 1.4rem;
-    color: var(--white);
-    margin-bottom: 10px;
-    font-style: italic;
-}
+    .post-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 2px;
+      filter: contrast(95%) brightness(90%);
+      margin-bottom: 15px;
+    }
 
-.quote-source {
-    font-size: 0.85rem;
-    color: var(--gray);
-}
+    .text-post-content {
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      color: var(--pink);
+      text-align: center;
+      font-style: italic;
+    }
 
-/* Tags & notes */
-.post-tags {
-    font-size: 0.75rem;
-    margin-top: 15px;
-    color: var(--teal);
-    text-transform: lowercase;
-}
+    .post-meta {
+      font-size: 0.7rem;
+      margin-top: 10px;
+      color: var(--gray);
+      text-align: right;
+      font-style: italic;
+    }
 
-.tag {
-    margin-right: 8px;
-    opacity: 0.7;
-    cursor: pointer;
-}
+    /* RSS widget styling inside post */
+    .rss-widget-container {
+      margin: 10px 0;
+    }
 
-.tag:hover {
-    opacity: 1;
-    color: var(--secondary);
-}
+    .blog-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--teal);
+      text-decoration: none;
+    }
 
-.post-meta {
-    font-size: 0.7rem;
-    margin-top: 10px;
-    color: var(--gray);
-    text-align: right;
-    font-style: italic;
-}
+    .blog-link:hover {
+      color: var(--secondary);
+    }
 
-/* Footer */
-.footer {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 0.75rem;
-    color: var(--gray);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding: 20px;
-    font-family: 'Courier New', monospace;
-}
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.75rem;
+      color: var(--gray);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="https://imgur.com/5fjM6QN.png" alt="Sunnie Jae Creates Logo" class="logo">
+      <h1 class="title">sunnie jae creates</h1>
+      <p class="subtitle">sadgirl dreams & midnight thoughts</p>
+    </div>
+
+    <!-- Nav -->
+    <nav class="nav-menu">
+      <a href="#" class="nav-link">home</a>
+      <a href="#" class="nav-link">about</a>
+      <a href="#" class="nav-link">contact</a>
+    </nav>
+
+    <!-- Example Tumblr-style image post -->
+    <div class="post">
+      <img src="https://placekitten.com/800/400" alt="Placeholder" class="post-image">
+      <p class="post-meta">posted on a rainy night in 2006</p>
+    </div>
+
+    <!-- Example Tumblr-style text/quote post -->
+    <div class="post">
+      <div class="text-post-content">
+        “smoking cigarettes in the park at midnight,<br>
+        talking about dreams we’ll never tell anyone.”
+      </div>
+      <p class="post-meta">anonymous thought</p>
+    </div>
+
+    <!-- Your RSS widget as a Tumblr-style post -->
+    <div class="post">
+      <h2 class="text-post-content">latest from my blog</h2>
+      <div class="rss-widget-container">
+        <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
+        <div id="retainable-rss-embed"
+             data-rss="https://medium.com/feed/@sunniejae.creates"
+             data-maxcols="2"
+             data-layout="grid"
+             data-poststyle="inline"
+             data-readmore="read more"
+             data-buttonclass="rss-btn"
+             data-offset="-100">
+        </div>
+      </div>
+      <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
+        <i class="fas fa-external-link-alt"></i> visit my full medium blog
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2006 – 2025 Sunnie Jae Creates | made with midnight coffee & cigarette ash</p>
+    </footer>
+  </div>
+</body>
+</html>
