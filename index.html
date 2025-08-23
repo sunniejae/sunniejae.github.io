@@ -1,237 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Sunnie Jae Creates Desktop</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
-<style>
-  :root {
-    --black: #000010;
-    --white: #ffffff;
-    --dark-gray: #404040;
-    --gray: #bfbfdc;
-    --silver: #f0f0f5;
-    --pink: #ffb3d6;
-    --teal: #00a8a3;
-    --dark-purple: #3f3d7a;
-    --accent: #00c9c2;
-    --secondary: #c13886;
-    --primary: #9a9ad4;
-  }
+  <meta charset="UTF-8">
+  <title>Sunnie Jae Creates</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Root palette */
+    :root {
+      --primary: #9a9ad4;
+      --secondary: #c13886;
+      --accent: #00c9c2;
+      --dark-purple: #3f3d7a;
+      --teal: #00a8a3;
+      --pink: #ffb3d6;
+      --silver: #f0f0f5;
+      --gray: #bfbfdc;
+      --dark-gray: #404040;
+      --white: #ffffff;
+      --black: #000010;
+    }
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background: url('https://i.imgur.com/mreYQcF.png') no-repeat center center fixed;
-    background-size: cover;
-    overflow: hidden;
-  }
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: url('https://i.imgur.com/mreYQcF.png') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
 
-  .desktop {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
+    /* Desktop folders */
+    .folder {
+      position: absolute;
+      width: 80px;
+      text-align: center;
+      cursor: pointer;
+      color: var(--white);
+      font-size: 0.85rem;
+    }
+    .folder img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 5px;
+    }
 
-  .folder {
-    width: 80px;
-    text-align: center;
-    margin: 10px;
-    display: inline-block;
-    cursor: pointer;
-    color: var(--white);
-    font-size: 12px;
-  }
+    /* Window style */
+    .window {
+      position: absolute;
+      background: var(--silver);
+      border: 2px solid var(--dark-gray);
+      border-radius: 6px;
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      overflow: hidden;
+    }
+    .window-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 4px 8px;
+      cursor: move;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .window-controls {
+      display: flex;
+      gap: 4px;
+    }
+    .window-btn {
+      width: 18px;
+      height: 18px;
+      background: var(--secondary);
+      text-align: center;
+      line-height: 18px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .window-content {
+      padding: 10px;
+      background: var(--white);
+      overflow: auto;
+    }
 
-  .folder img {
-    width: 64px;
-    height: 64px;
-    display: block;
-    margin: 0 auto 5px;
-  }
+    /* Notebook scroll */
+    #notebookWindow .window-content {
+      max-height: 50vh;
+    }
 
-  .taskbar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
-    background: var(--dark-gray);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5px;
-    box-sizing: border-box;
-    z-index: 1000;
-  }
+    /* Taskbar */
+    #taskbar {
+      position: fixed;
+      bottom: 0;
+      left:0;
+      width:100%;
+      height: 40px;
+      background: var(--dark-gray);
+      display:flex;
+      align-items:center;
+      padding:0 5px;
+      gap:5px;
+      z-index: 50;
+    }
+    #startButton {
+      background: var(--primary);
+      color: var(--white);
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor:pointer;
+    }
+    .taskbar-button {
+      background: var(--gray);
+      color: var(--black);
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .taskbar-button.active {
+      background: var(--accent);
+      color: var(--white);
+    }
+    #clock {
+      margin-left:auto;
+      color: var(--white);
+      font-size:0.85rem;
+    }
 
-  .taskbar .start-button {
-    background: var(--primary);
-    color: var(--white);
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-  }
+    /* Start menu */
+    #startMenu {
+      position: fixed;
+      bottom: 40px;
+      left: 0;
+      background: var(--silver);
+      border: 2px solid var(--dark-gray);
+      width:200px;
+      display:none;
+      flex-direction: column;
+      z-index:100;
+    }
+    #startMenu a {
+      padding: 6px 10px;
+      text-decoration:none;
+      color: var(--black);
+      display:block;
+    }
+    #startMenu a:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+    .submenu {
+      display: none;
+      flex-direction: column;
+      margin-left:10px;
+    }
+    .has-submenu:hover .submenu {
+      display:flex;
+    }
 
-  .taskbar .windows-buttons {
-    display: flex;
-    flex-grow: 1;
-    margin: 0 10px;
-  }
+    /* Modal */
+    #shutdownModal {
+      position:fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.5);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:200;
+    }
+    #shutdownModalContent {
+      background: var(--white);
+      padding:20px;
+      border-radius:8px;
+      text-align:center;
+      width:300px;
+      position:relative;
+    }
+    #shutdownModalContent .close {
+      position:absolute;
+      top:5px; right:10px;
+      cursor:pointer;
+      font-weight:bold;
+      font-size:16px;
+    }
+    #shutdownModalContent button {
+      margin-top:20px;
+      padding:6px 12px;
+      cursor:pointer;
+      background: var(--secondary);
+      color: var(--white);
+      border:none;
+      border-radius:4px;
+    }
 
-  .taskbar .window-btn {
-    background: var(--gray);
-    color: var(--black);
-    padding: 5px 10px;
-    margin-right: 3px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-
-  .taskbar .window-btn.active, .taskbar .window-btn:hover {
-    background: var(--accent);
-    color: var(--white);
-  }
-
-  .taskbar .clock {
-    color: var(--white);
-    font-size: 12px;
-  }
-
-  .start-menu {
-    position: fixed;
-    bottom: 40px;
-    left: 5px;
-    width: 200px;
-    background: var(--dark-gray);
-    border: 1px solid var(--gray);
-    display: none;
-    flex-direction: column;
-    z-index: 1001;
-  }
-
-  .start-menu a {
-    color: var(--white);
-    padding: 8px;
-    text-decoration: none;
-    border-bottom: 1px solid var(--gray);
-  }
-
-  .start-menu a:hover {
-    background: var(--accent);
-  }
-
-  .window {
-    position: absolute;
-    background: var(--silver);
-    border: 2px solid var(--dark-gray);
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .window-header {
-    background: var(--primary);
-    color: var(--white);
-    padding: 5px;
-    cursor: move;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-  }
-
-  .window-controls .window-btn {
-    margin-left: 5px;
-    cursor: pointer;
-    color: var(--white);
-    font-weight: bold;
-  }
-
-  .window-content {
-    padding: 10px;
-    overflow: auto;
-    background: var(--white);
-    flex-grow: 1;
-  }
-
-  .modal-backdrop {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.6);
-    display:none;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-  }
-
-  .modal {
-    background: var(--silver);
-    padding: 20px;
-    border-radius: 8px;
-    position: relative;
-    width: 300px;
-    text-align: center;
-  }
-
-  .modal .close {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 18px;
-  }
-
-  .modal button {
-    margin-top: 20px;
-    padding: 8px 16px;
-    background: var(--primary);
-    color: var(--white);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-</style>
+  </style>
 </head>
 <body>
-<div class="desktop">
 
-  <!-- Folders -->
-  <div class="folder" onclick="openWindow('recycleWindow')">
-    <img src="https://i.imgur.com/Jq0izu6.png" alt="Recycle">
-    Recycle
+  <!-- Header -->
+  <img src="https://i.imgur.com/ixrv4gl.png" style="width:100%; position:absolute; top:0; left:0; z-index:5;">
+
+  <!-- Desktop Folders -->
+  <div class="folder" style="top:100px; left:50px;" onclick="openWindow('documentsWindow')">
+    <img src="https://i.imgur.com/Jq0izu6.png">
+    <div>Documents</div>
   </div>
-  <div class="folder" onclick="openWindow('documentsWindow')">
-    <img src="https://i.imgur.com/Jq0izu6.png" alt="Documents">
-    Documents
+  <div class="folder" style="top:200px; left:50px;" onclick="openWindow('photosWindow')">
+    <img src="https://i.imgur.com/Jq0izu6.png">
+    <div>Photos</div>
   </div>
-  <div class="folder" onclick="openWindow('photosWindow')">
-    <img src="https://i.imgur.com/Jq0izu6.png" alt="Photos">
-    Photos
+  <div class="folder" style="top:300px; left:50px;" onclick="openWindow('videosWindow')">
+    <img src="https://i.imgur.com/Jq0izu6.png">
+    <div>Videos</div>
   </div>
-  <div class="folder" onclick="openWindow('videosWindow')">
-    <img src="https://i.imgur.com/Jq0izu6.png" alt="Videos">
-    Videos
+  <div class="folder" style="top:400px; left:50px;" onclick="openWindow('browserWindow')">
+    <img src="https://i.imgur.com/Jq0izu6.png">
+    <div>Browser</div>
   </div>
-  <div class="folder" onclick="openWindow('browserWindow')">
-    <img src="https://i.imgur.com/Jq0izu6.png" alt="Browser">
-    Browser
+  <div class="folder" style="top:500px; left:50px;" onclick="openWindow('summerWindow')">
+    <img src="https://i.imgur.com/Jq0izu6.png">
+    <div>Summer 2005</div>
   </div>
-  <div class="folder" onclick="openWindow('summerWindow')">
-    <img src="https://i.imgur.com/Jq0izu6.png" alt="Summer 2005">
-    Summer 2005
+  <div class="folder" style="top:600px; left:50px;" onclick="openWindow('recycleWindow')">
+    <img src="https://i.imgur.com/Jq0izu6.png">
+    <div>Recycle</div>
   </div>
 
   <!-- Notebook Window -->
-  <div class="window" id="notebookWindow" style="top:50px; left:100px; width:800px; height:1000px;">
+  <div class="window" id="notebookWindow" style="top:100px; left:200px; width:800px; display:none;">
     <div class="window-header">
       Personal Essay.doc
       <div class="window-controls">
@@ -240,12 +234,12 @@
       </div>
     </div>
     <div class="window-content">
-      <img src="https://i.imgur.com/YBfxfzX.png" alt="Notebook Image" style="width:100%;">
+      <img src="https://i.imgur.com/YBfxfzX.png" style="width:100%;">
     </div>
   </div>
 
-  <!-- Pinterest Window (minimized by default) -->
-  <div class="window" id="pinterestWindow" style="top:120px; left:750px; width:400px; height:400px;">
+  <!-- Pinterest Window -->
+  <div class="window" id="pinterestWindow" style="top:120px; left:750px; width:400px; height:400px; display:none;">
     <div class="window-header">
       Pinterest
       <div class="window-controls">
@@ -260,108 +254,97 @@
   </div>
 
   <!-- Taskbar -->
-  <div class="taskbar">
-    <div class="start-button" onclick="toggleStartMenu()">Start</div>
-    <div class="windows-buttons" id="windowsButtons"></div>
-    <div class="clock" id="clock"></div>
+  <div id="taskbar">
+    <div id="startButton" onclick="toggleStartMenu()">Start</div>
+    <div id="taskButtons"></div>
+    <div id="clock"></div>
   </div>
 
   <!-- Start Menu -->
-  <div class="start-menu" id="startMenu">
-    <a href="#">Files ▼</a>
-    <div style="padding-left:15px;">
-      <a href="graphic-design.html">Graphic Design</a>
-      <a href="digital-art.html">Digital Art</a>
-      <a href="videos.html">Videos</a>
-      <a href="writing.html">Writing</a>
+  <div id="startMenu">
+    <div class="has-submenu">
+      <a href="#">Files ▼</a>
+      <div class="submenu">
+        <a href="graphic-design.html">Graphic Design</a>
+        <a href="digital-art.html">Digital Art</a>
+        <a href="videos.html">Videos</a>
+        <a href="writing.html">Writing</a>
+      </div>
     </div>
     <a href="profile-info.html">About</a>
     <a href="contact.html">Contact</a>
     <a href="shop.html">Shop</a>
     <a href="studio-ken.html">Studio Ken</a>
-    <a href="#" onclick="openShutdownModal()">Shut Down</a>
+    <a href="#" onclick="showShutdownModal()">Shut Down</a>
   </div>
 
   <!-- Shutdown Modal -->
-  <div class="modal-backdrop" id="shutdownModal">
-    <div class="modal">
-      <span class="close" onclick="closeShutdownModal()">×</span>
+  <div id="shutdownModal">
+    <div id="shutdownModalContent">
+      <div class="close" onclick="closeShutdownModal()">×</div>
       <p>when we pull up, you know it’s a …</p>
       <button onclick="shutdown()">Shut Down</button>
     </div>
   </div>
 
-</div>
+  <script>
+    // Start menu toggle
+    function toggleStartMenu(){
+      const menu = document.getElementById('startMenu');
+      menu.style.display = menu.style.display==='flex'?'none':'flex';
+    }
 
-<script>
-  // Clock
-  function updateClock() {
-    const now = new Date();
-    const month = String(now.getMonth()+1).padStart(2,'0');
-    const day = String(now.getDate()).padStart(2,'0');
-    const hours = String(now.getHours()).padStart(2,'0');
-    const minutes = String(now.getMinutes()).padStart(2,'0');
-    document.getElementById('clock').textContent = `${month}/${day}/2006 ${hours}:${minutes}`;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
+    // Open/close windows
+    function openWindow(id){
+      const win = document.getElementById(id);
+      if(win.style.display==='none'){
+        win.style.display='block';
+        addTaskButton(id);
+      } else {
+        win.style.display='none';
+      }
+    }
+    function minimizeWindow(id){
+      document.getElementById(id).style.display='none';
+    }
+    function closeWindow(id){
+      document.getElementById(id).style.display='none';
+      const btn = document.getElementById('btn_'+id);
+      if(btn) btn.remove();
+    }
 
-  // Start Menu
-  function toggleStartMenu() {
-    const menu = document.getElementById('startMenu');
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-  }
-
-  // Windows management
-  function openWindow(id) {
-    const win = document.getElementById(id);
-    win.style.display = 'flex';
-    addTaskbarButton(id);
-  }
-
-  function closeWindow(id) {
-    const win = document.getElementById(id);
-    win.style.display = 'none';
-  }
-
-  function minimizeWindow(id) {
-    const win = document.getElementById(id);
-    win.style.display = 'none';
-  }
-
-  function addTaskbarButton(id) {
-    const container = document.getElementById('windowsButtons');
-    if (!document.getElementById('btn-'+id)) {
+    // Taskbar buttons
+    function addTaskButton(id){
+      const container = document.getElementById('taskButtons');
+      if(document.getElementById('btn_'+id)) return;
       const btn = document.createElement('div');
-      btn.className = 'window-btn active';
-      btn.id = 'btn-'+id;
-      btn.textContent = id.replace('Window','');
-      btn.onclick = () => toggleWindow(id, btn);
+      btn.className='taskbar-button active';
+      btn.id='btn_'+id;
+      btn.innerText=id.replace('Window','');
+      btn.onclick=()=>{ 
+        const win = document.getElementById(id);
+        if(win.style.display==='none'){ win.style.display='block'; btn.classList.add('active'); }
+        else{ win.style.display='none'; btn.classList.remove('active'); }
+      };
       container.appendChild(btn);
     }
-  }
 
-  function toggleWindow(id, btn) {
-    const win = document.getElementById(id);
-    if (win.style.display === 'flex') {
-      win.style.display = 'none';
-      btn.classList.remove('active');
-    } else {
-      win.style.display = 'flex';
-      btn.classList.add('active');
+    // Clock (fixed date)
+    function updateClock(){
+      const now = new Date();
+      const mm = String(now.getMonth()+1).padStart(2,'0');
+      const dd = String(now.getDate()).padStart(2,'0');
+      const hh = String(now.getHours()).padStart(2,'0');
+      const min = String(now.getMinutes()).padStart(2,'0');
+      document.getElementById('clock').innerText = mm+'/'+dd+'/2006 '+hh+':'+min;
     }
-  }
+    setInterval(updateClock,1000);
+    updateClock();
 
-  // Shutdown Modal
-  function openShutdownModal() {
-    document.getElementById('shutdownModal').style.display = 'flex';
-  }
-  function closeShutdownModal() {
-    document.getElementById('shutdownModal').style.display = 'none';
-  }
-  function shutdown() {
-    history.back();
-  }
-</script>
+    // Shutdown modal
+    function showShutdownModal(){ document.getElementById('shutdownModal').style.display='flex'; }
+    function closeShutdownModal(){ document.getElementById('shutdownModal').style.display='none'; }
+    function shutdown(){ history.back(); }
+  </script>
 </body>
 </html>
