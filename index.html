@@ -21,287 +21,249 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
+      font-family: Arial, sans-serif;
       background: var(--silver);
-      overflow: auto;
-    }
-
-    /* Desktop */
-    .desktop {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    .folder {
-      width: 80px;
-      text-align: center;
-      cursor: pointer;
       color: var(--black);
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .folder img {
-      width: 48px;
-      height: 48px;
-      display: block;
-      margin: 0 auto 5px;
     }
 
     /* Taskbar */
-    .taskbar {
+    #taskbar {
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 100%;
+      right: 0;
       height: 40px;
       background: var(--dark-purple);
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      z-index: 1000;
+    }
+
+    #start-button {
+      background: var(--primary);
       color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10px;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+      margin-right: 8px;
     }
-    .taskbar-left {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      overflow-x: auto;
+
+    #start-button:hover {
+      background: var(--secondary);
     }
-    .taskbar button {
+
+    #taskbar-windows {
+      flex: 1;
+      display: flex;
+      gap: 4px;
+    }
+
+    .taskbar-item {
+      background: var(--gray);
+      padding: 4px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .taskbar-item.active,
+    .taskbar-item:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    #clock {
+      color: var(--white);
+      font-size: 14px;
+    }
+
+    /* Start Menu */
+    .start-menu {
+      display: none;
+      position: fixed;
+      bottom: 40px;
+      left: 5px;
+      width: 220px;
+      background: var(--silver);
+      border: 2px solid var(--dark-gray);
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      z-index: 2000;
+    }
+
+    .start-menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .start-menu-item {
+      position: relative;
+      border-bottom: 1px solid var(--gray);
+    }
+
+    .start-menu-item a {
+      display: block;
+      padding: 8px;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .start-menu-item a:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: 180px;
+      background: var(--silver);
+      border: 1px solid var(--dark-gray);
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .start-menu-item:hover .submenu {
+      display: block;
+    }
+
+    /* Shutdown Modal */
+    #shutdown-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shutdown-content {
+      background: var(--white);
+      padding: 20px;
+      border-radius: 8px;
+      width: 320px;
+      text-align: center;
+      position: relative;
+    }
+
+    .shutdown-content h2 {
+      margin: 0 0 10px;
+    }
+
+    .shutdown-close {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--dark-gray);
+    }
+
+    .shutdown-content button {
+      margin-top: 15px;
+      padding: 6px 12px;
       background: var(--secondary);
       color: var(--white);
       border: none;
-      padding: 5px 12px;
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-    .taskbar button:hover,
-    .taskbar button.active {
-      background: var(--primary);
-    }
-    .clock {
-      font-size: 14px;
     }
 
-    /* Window */
-    .window {
-      position: absolute;
-      top: 100px;
-      left: 100px;
-      width: 400px;
-      height: 300px;
-      background: var(--white);
-      border: 2px solid var(--dark-gray);
-      border-radius: 6px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      display: none;
-      flex-direction: column;
-      z-index: 10;
-    }
-    .window-header {
-      background: var(--primary);
-      color: var(--white);
-      padding: 6px;
-      cursor: move;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .window-header span {
-      font-weight: bold;
-    }
-    .window-controls {
-      display: flex;
-      gap: 6px;
-    }
-    .window-controls button {
-      width: 20px;
-      height: 20px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 14px;
-      line-height: 16px;
-      padding: 0;
-    }
-    .window-controls button:hover {
-      background: var(--gray);
-    }
-    .window-content {
-      flex: 1;
-      background: var(--silver);
-      overflow: auto;
-      padding: 10px;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .shutdown-content button:hover {
+      background: var(--accent);
     }
   </style>
 </head>
 <body>
 
-  <!-- Desktop Folders -->
-  <div class="desktop">
-    <div class="folder" onclick="openWindow('recycle','Recycle Bin','recycle.html')">
-      <img src="https://img.icons8.com/fluency/48/recycle-bin.png" alt="Recycle">
-      <span>Recycle</span>
-    </div>
-    <div class="folder" onclick="openWindow('documents','Documents','writing.html')">
-      <img src="https://img.icons8.com/fluency/48/folder-invoices.png" alt="Documents">
-      <span>Documents</span>
-    </div>
-    <div class="folder" onclick="openWindow('photos','Photos','digital-art.html')">
-      <img src="https://img.icons8.com/fluency/48/folder-pictures.png" alt="Photos">
-      <span>Photos</span>
-    </div>
-    <div class="folder" onclick="openWindow('videos','Videos','videos.html')">
-      <img src="https://img.icons8.com/fluency/48/folder-video.png" alt="Videos">
-      <span>Videos</span>
-    </div>
-    <div class="folder" onclick="openWindow('browser','Browser','social-profiles.html')">
-      <img src="https://img.icons8.com/fluency/48/internet-explorer.png" alt="Browser">
-      <span>Browser</span>
-    </div>
-    <div class="folder" onclick="openWindow('summer2005','Summer 2005','summer-2005.html')">
-      <img src="https://img.icons8.com/fluency/48/folder-music.png" alt="Summer 2005">
-      <span>Summer 2005</span>
-    </div>
-  </div>
-
-  <!-- Example Windows -->
-  <div id="musicPlayer" class="window">
-    <div class="window-header">
-      <span>Music Player</span>
-      <div class="window-controls">
-        <button onclick="minimizeWindow('musicPlayer')">_</button>
-        <button onclick="closeWindow('musicPlayer')">×</button>
-      </div>
-    </div>
-    <div class="window-content">
-      <audio controls>
-        <source src="example.mp3" type="audio/mpeg">
-      </audio>
-    </div>
-  </div>
-
   <!-- Taskbar -->
-  <div class="taskbar">
-    <div class="taskbar-left" id="taskbar"></div>
-    <div class="clock" id="clock"></div>
+  <div id="taskbar">
+    <button id="start-button">Start</button>
+    <div id="taskbar-windows"></div>
+    <div id="clock"></div>
+  </div>
+
+  <!-- Start Menu -->
+  <div class="start-menu" id="start-menu">
+    <ul>
+      <li class="start-menu-item"><a href="recycle.html">♻ Recycle Bin</a></li>
+      <li class="start-menu-item"><a href="documents.html">📂 Documents</a></li>
+      <li class="start-menu-item"><a href="photos.html">🖼 Photos</a></li>
+      <li class="start-menu-item"><a href="videos.html">🎥 Videos</a></li>
+      <li class="start-menu-item"><a href="browser.html">🌐 Browser</a></li>
+      <li class="start-menu-item"><a href="summer2005.html">☀ Summer 2005</a></li>
+      <li class="start-menu-item"><a href="#" id="shutdown-link">🔴 Shut Down</a></li>
+    </ul>
+  </div>
+
+  <!-- Shutdown Modal -->
+  <div id="shutdown-modal">
+    <div class="shutdown-content">
+      <span class="shutdown-close" id="shutdown-close">&times;</span>
+      <h2>When we pull up, you know it’s a…</h2>
+      <button id="shutdown-confirm">Shut Down</button>
+    </div>
   </div>
 
   <script>
-    // Clock with static year 2006
+    // Clock
     function updateClock() {
+      const clock = document.getElementById("clock");
       const now = new Date();
-      const date = (now.getMonth()+1).toString().padStart(2,'0') + '/' +
-                   now.getDate().toString().padStart(2,'0') + '/2006';
-      const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-      document.getElementById('clock').textContent = date + ' ' + time;
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let suffix = "AM";
+      if (hours >= 12) { suffix = "PM"; if (hours > 12) hours -= 12; }
+      if (hours === 0) hours = 12;
+      if (minutes < 10) minutes = "0" + minutes;
+      const date = `${now.getMonth()+1}/${now.getDate()}/2006`;
+      clock.textContent = `${hours}:${minutes} ${suffix} ${date}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Window Manager
-    const taskbar = document.getElementById('taskbar');
-    let zIndexCounter = 20;
-
-    function openWindow(id, title, url) {
-      let win = document.getElementById(id);
-      if (!win) {
-        win = document.createElement("div");
-        win.id = id;
-        win.className = "window";
-        win.innerHTML = `
-          <div class="window-header">
-            <span>${title}</span>
-            <div class="window-controls">
-              <button onclick="minimizeWindow('${id}')">_</button>
-              <button onclick="closeWindow('${id}')">×</button>
-            </div>
-          </div>
-          <div class="window-content"><iframe src="${url}"></iframe></div>
-        `;
-        document.body.appendChild(win);
+    // Start Menu toggle
+    const startButton = document.getElementById("start-button");
+    const startMenu = document.getElementById("start-menu");
+    startButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      startMenu.style.display = startMenu.style.display === "block" ? "none" : "block";
+    });
+    document.addEventListener("click", (e) => {
+      if (!startMenu.contains(e.target) && e.target !== startButton) {
+        startMenu.style.display = "none";
       }
-      win.style.display = "flex";
-      win.style.zIndex = ++zIndexCounter;
-      addToTaskbar(id, title);
-      setActive(id);
-      makeDraggable(win);
-    }
+    });
 
-    function addToTaskbar(id, title) {
-      if (!document.getElementById("task-" + id)) {
-        const btn = document.createElement("button");
-        btn.id = "task-" + id;
-        btn.textContent = title;
-        btn.onclick = () => toggleWindow(id);
-        taskbar.appendChild(btn);
-      }
-      setActive(id);
-    }
+    // Shutdown modal
+    const shutdownLink = document.getElementById("shutdown-link");
+    const shutdownModal = document.getElementById("shutdown-modal");
+    const shutdownClose = document.getElementById("shutdown-close");
+    const shutdownConfirm = document.getElementById("shutdown-confirm");
 
-    function setActive(id) {
-      document.querySelectorAll(".taskbar button").forEach(b => b.classList.remove("active"));
-      const btn = document.getElementById("task-" + id);
-      if (btn) btn.classList.add("active");
-    }
+    shutdownLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      shutdownModal.style.display = "flex";
+      startMenu.style.display = "none";
+    });
 
-    function toggleWindow(id) {
-      const win = document.getElementById(id);
-      if (!win) return;
-      if (win.style.display === "none") {
-        win.style.display = "flex";
-        win.style.zIndex = ++zIndexCounter;
+    shutdownClose.addEventListener("click", () => {
+      shutdownModal.style.display = "none";
+    });
+
+    shutdownConfirm.addEventListener("click", () => {
+      if (window.history.length > 1) {
+        history.back();
       } else {
-        win.style.display = "none";
+        window.close();
       }
-    }
-
-    function minimizeWindow(id) {
-      const win = document.getElementById(id);
-      if (win) win.style.display = "none";
-    }
-
-    function closeWindow(id) {
-      const win = document.getElementById(id);
-      if (win) win.remove();
-      const btn = document.getElementById("task-" + id);
-      if (btn) btn.remove();
-    }
-
-    // Dragging
-    function makeDraggable(win) {
-      const header = win.querySelector(".window-header");
-      let offsetX = 0, offsetY = 0, dragging = false;
-
-      header.onmousedown = (e) => {
-        dragging = true;
-        offsetX = e.clientX - win.offsetLeft;
-        offsetY = e.clientY - win.offsetTop;
-        win.style.zIndex = ++zIndexCounter;
-      };
-
-      document.onmouseup = () => { dragging = false; };
-      document.onmousemove = (e) => {
-        if (dragging) {
-          win.style.left = (e.clientX - offsetX) + "px";
-          win.style.top = (e.clientY - offsetY) + "px";
-        }
-      };
-    }
-
-    // Start with minimized music player in taskbar
-    openWindow("musicPlayer","Music Player","");
-    minimizeWindow("musicPlayer");
+    });
   </script>
 </body>
 </html>
