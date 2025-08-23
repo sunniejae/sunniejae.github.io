@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Tahoma', sans-serif;
-            background: var(--black) url('https://imgur.com/gxc6hdU.png') no-repeat center center fixed;
+            background: var(--black) url('https://i.imgur.com/mreYQcF.png') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             overflow: hidden;
@@ -576,21 +576,19 @@
             taskbarButtons.innerHTML = '';
             
             document.querySelectorAll('.window').forEach(window => {
-                if (!window.classList.contains('minimized') || document.querySelectorAll('.window:not(.minimized)').length === 0) {
-                    const button = document.createElement('div');
-                    button.className = 'taskbar-button';
-                    if (window.classList.contains('active')) {
-                        button.classList.add('active');
-                    }
-                    button.textContent = window.querySelector('.window-header span').textContent;
-                    button.addEventListener('click', function() {
-                        if (window.classList.contains('minimized')) {
-                            window.classList.remove('minimized');
-                        }
-                        setActiveWindow(window);
-                    });
-                    taskbarButtons.appendChild(button);
+                const button = document.createElement('div');
+                button.className = 'taskbar-button';
+                if (window.classList.contains('active') && !window.classList.contains('minimized')) {
+                    button.classList.add('active');
                 }
+                button.textContent = window.querySelector('.window-header span').textContent;
+                button.addEventListener('click', function() {
+                    if (window.classList.contains('minimized')) {
+                        window.classList.remove('minimized');
+                    }
+                    setActiveWindow(window);
+                });
+                taskbarButtons.appendChild(button);
             });
         }
 
