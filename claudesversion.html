@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Desktop</title>
-    <link rel="icon" type="image/png" href="https://i.imgur.com/gxc6hdU.png">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
     <style>
         :root {
             --black: #000010;
@@ -325,17 +325,22 @@
             width: 100%;
             flex: 1;
             min-height: 200px;
+            position: relative;
         }
 
         .pinterest-embed iframe {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
             width: 100% !important;
             height: 100% !important;
-            min-height: 200px;
-            border: none;
+            border: none !important;
         }
 
-        .window-content .pinterest-embed {
-            height: calc(100% - 16px); /* Account for window content padding */
+        .pinterest-embed [data-pin-do="embedBoard"] {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
 
         .music-controls {
