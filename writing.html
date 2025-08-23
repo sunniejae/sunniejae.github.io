@@ -7,27 +7,24 @@
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 
-<!-- Page Title -->
 <title>Sunnie Jae Creates — Library</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
-  /* === Root Variables === */
-  :root {
-      --black: #0b0b0f;
-      --white: #fefefe;
+  /* === Root Variables (Official Brand Colors) === */
+  :root { 
+      --black: #000010;
+      --white: #ffffff;
       --dark-gray: #404040;
       --gray: #bfbfdc;
       --silver: #f0f0f5;
       --pink: #ffb3d6;
-      --lavender: #c9a0dc;
       --teal: #00a8a3;
       --dark-purple: #3f3d7a;
       --accent: #00c9c2;
       --secondary: #c13886;
       --primary: #9a9ad4;
-      --post-bg: rgba(20,20,30,0.85);
-      --hover-bright: 1.1;
   }
 
   /* === Global Styles === */
@@ -62,7 +59,7 @@
     width: 100%;
     border-radius: 50%;
     margin-bottom: 15px;
-    border: 2px solid var(--lavender);
+    border: 2px solid var(--primary);
     filter: grayscale(20%) contrast(90%);
   }
 
@@ -87,7 +84,7 @@
   .extras {
     margin-top: 30px;
     font-size: 0.8rem;
-    color: var(--gray);
+    color: var(--silver);
     font-style: italic;
   }
 
@@ -100,30 +97,30 @@
     gap: 20px;
   }
 
-  .post.rss-widget-post { order: -1; }
-
   .post {
-    background: var(--post-bg);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 4px;
+    background: rgba(20,20,30,0.85);
+    border: 1px solid var(--primary);
+    border-radius: 6px;
     padding: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    transition: transform 0.2s ease, filter 0.2s ease;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, filter 0.2s ease, border-color 0.2s ease;
     cursor: pointer;
     overflow: hidden;
+    transform: rotate(-0.5deg);
   }
 
   .post:hover {
-    transform: translateY(-2px);
-    filter: brightness(var(--hover-bright));
+    transform: rotate(0deg) translateY(-3px);
+    filter: brightness(1.1);
+    border-color: var(--accent);
   }
 
   .post-image {
     width: 100%;
     max-height: 300px;
     object-fit: cover;
-    border-radius: 3px;
-    filter: contrast(95%) brightness(85%) grayscale(10%);
+    border-radius: 4px;
+    filter: contrast(95%) brightness(85%) grayscale(5%);
     margin-bottom: 10px;
     transition: transform 0.3s ease, filter 0.3s ease;
   }
@@ -133,7 +130,16 @@
     filter: contrast(100%) brightness(95%);
   }
 
-  .post-meta { font-size: 0.8rem; color: var(--lavender); }
+  .post-meta { font-size: 0.8rem; color: var(--primary); }
+
+  /* Text / Quote posts */
+  .post-text {
+    font-style: italic;
+    color: var(--pink);
+    border-left: 3px solid var(--primary);
+    padding-left: 10px;
+    margin: 10px 0;
+  }
 
   /* === Lightbox === */
   .lightbox {
@@ -142,29 +148,23 @@
     top:0; left:0;
     width: 100%;
     height:100%;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.95);
     justify-content: center;
     align-items: center;
     z-index: 999;
   }
 
   .lightbox:target { display: flex; }
-  .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--lavender); }
+  .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--primary); }
 
   /* === RSS Widget Styling === */
   .rss-widget-container { margin-bottom: 10px; }
   .blog-link { display: inline-block; margin-top: 10px; font-size: 0.9rem; color: var(--primary); }
   .blog-link i { margin-left: 5px; }
 
-  /* === Typography / Tumblr Vibes === */
-  h1, h2, h3 {
-    font-family: 'Georgia', serif;
-    font-weight: normal;
-    color: var(--lavender);
-  }
-
+  /* Typography / Tumblr vibes */
+  h1,h2,h3 { font-family: 'Georgia', serif; font-weight: normal; color: var(--primary); }
   p { font-family: 'Georgia', serif; }
-
 </style>
 </head>
 <body>
@@ -175,7 +175,7 @@
       
       <div class="about">
         Welcome to my library — a collection of notebooks, sketches, and posts curated for a soft-grunge, lavender-hued aesthetic.  
-        Pale, dreamy, slightly melancholic — like scrolling through Tumblr in 2014.
+        Pale, dreamy, slightly melancholic — fully branded with SunnieJae colors.
       </div>
 
       <div class="nav-links">
@@ -194,7 +194,7 @@
     <!-- Main Feed -->
     <main class="main-feed">
       <div class="post-grid">
-        <!-- RSS Widget always first -->
+        <!-- RSS Widget -->
         <div class="post rss-widget-post">
           <div class="rss-widget-container">
             <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
@@ -213,7 +213,7 @@
           </a>
         </div>
 
-        <!-- Example Post Placeholders -->
+        <!-- Example image post -->
         <div class="post">
           <a href="#lightbox1">
             <img src="https://placehold.co/700x400/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook sketch" class="post-image">
@@ -221,6 +221,12 @@
           </a>
         </div>
 
+        <!-- Example quote/text post -->
+        <div class="post post-text">
+          <p>"sometimes i feel like a ghost in my own life."</p>
+        </div>
+
+        <!-- Example photo post -->
         <div class="post">
           <a href="#lightbox2">
             <img src="https://placehold.co/700x400/3f3d7a/ffffff?text=Sketch+Art" alt="Sketch Art" class="post-image">
