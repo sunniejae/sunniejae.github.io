@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Tahoma', sans-serif;
-            background: var(--black) url('https://i.imgur.com/gxc6hdU.png') no-repeat center center fixed;
+            background: var(--black) url('https://i.imgur.com/mreYQcF.png') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             overflow: hidden;
@@ -131,6 +131,8 @@
             padding: 8px;
             height: calc(100% - 30px);
             overflow: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .taskbar {
@@ -321,7 +323,7 @@
 
         .pinterest-embed {
             width: 100%;
-            height: 100%;
+            flex: 1;
             min-height: 200px;
         }
 
@@ -380,7 +382,7 @@
     </div>
 
     <!-- Windows -->
-    <div class="window" id="header-window" style="left: 50%; top: 50%; width: 500px; height: 200px; transform: translate(-50%, -50%);">
+    <div class="window" id="header-window" style="left: 50%; top: 50%; width: 1000px; height: 400px; transform: translate(-50%, -50%);">
         <div class="window-header">
             <span>Header Banner</span>
             <div class="window-controls">
@@ -422,7 +424,7 @@
                 <div class="music-button">⏯</div>
                 <div class="music-button">⏭</div>
             </div>
-            <div style="background: var(--black); color: var(--accent); padding: 8px; font-size: 11px;">
+            <div style="background: var(--black); color: var(--accent); padding: 8px; font-size: 11px; flex: 1;">
                 Now Playing: Summer Vibes Mix
             </div>
         </div>
