@@ -12,8 +12,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-/* === Root Variables === */
-:root { 
+  /* === Root Variables === */
+  :root { 
     --black: #000010;
     --white: #ffffff;
     --dark-gray: #404040;
@@ -25,54 +25,55 @@
     --accent: #00c9c2;
     --secondary: #c13886;
     --primary: #9a9ad4;
-}
+  }
 
-/* === Global Styles === */
-body {
+  /* === Global Styles === */
+  body {
     margin: 0;
     font-family: Georgia, serif;
-    background-color: var(--black);
+    background-color: var(--black); /* solid background */
     color: var(--white);
-}
+  }
 
-a { text-decoration: none; }
+  a { color: var(--secondary); text-decoration: none; }
+  a:hover { text-decoration: none; }
 
-/* === Layout === */
-.container {
+  /* === Layout === */
+  .container {
     display: flex;
     max-width: 960px;
     margin: 0 auto;
     padding: 20px;
-}
+  }
 
-/* --- Sidebar --- */
-.sidebar {
+  /* --- Sidebar --- */
+  .sidebar {
     width: 250px;
     padding-right: 20px;
     border-right: 1px solid rgba(255,255,255,0.1);
-}
+  }
 
-.avatar {
+  .avatar {
     width: 100%;
     border-radius: 50%;
     margin-bottom: 15px;
     border: 2px solid var(--secondary);
-}
+  }
 
-.about {
+  .about {
     font-size: 0.9rem;
     margin-bottom: 20px;
     line-height: 1.4;
-}
+  }
 
-/* Sidebar Menu Buttons */
-.nav-links {
+  /* Sidebar buttons */
+  .nav-links {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
+  }
 
-.nav-links a {
+  .nav-links a {
     display: inline-block;
     padding: 10px 15px;
     border-radius: 25px;
@@ -82,75 +83,57 @@ a { text-decoration: none; }
     font-weight: bold;
     transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid var(--primary);
-}
+  }
 
-.nav-links a:hover {
+  .nav-links a:hover {
     background-color: var(--primary);
     color: var(--black);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-}
+  }
 
-.extras {
+  .extras {
     margin-top: 30px;
     font-size: 0.8rem;
     color: var(--gray);
-}
+  }
 
-/* --- Main Feed --- */
-.main-feed { flex: 1; padding-left: 20px; }
+  /* --- Main Feed --- */
+  .main-feed { flex: 1; padding-left: 20px; }
 
-.post-grid {
+  .post-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-}
+  }
 
-/* RSS widget always first */
-.post.rss-widget-post { order: -1; }
+  .post.rss-widget-post { order: -1; }
 
-/* === Tumblr Soft-Grunge Post Styles === */
-.post {
-    background: rgba(20, 20, 30, 0.85);
-    border: 1px solid var(--primary);
-    border-radius: 8px;
-    padding: 12px;
-    box-shadow: 4px 6px 12px rgba(0,0,0,0.5), -2px 3px 6px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease, filter 0.2s ease, border-color 0.2s ease;
+  .post {
+    background: rgba(20,20,30,0.85);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease;
     cursor: pointer;
-    overflow: hidden;
-    transform: rotate(-0.5deg);
-    background-image: url('https://www.transparenttextures.com/patterns/grain.png'); /* subtle grain */
-}
+  }
 
-.post:hover {
-    transform: rotate(0deg) translateY(-3px);
-    filter: brightness(1.1);
-    border-color: var(--accent);
-    box-shadow: 6px 8px 14px rgba(0,0,0,0.6), -3px 4px 8px rgba(0,0,0,0.35);
-}
+  .post:hover { transform: translateY(-2px); }
 
-.post-image {
+  .post-image {
     width: 100%;
-    max-height: 300px;
+    height: 394px; /* fixed 16:9 ratio */
     object-fit: cover;
-    border-radius: 6px;
-    filter: contrast(95%) brightness(85%) grayscale(5%);
+    border-radius: 2px;
+    filter: contrast(95%) brightness(90%);
     margin-bottom: 10px;
-    box-shadow: 2px 4px 10px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
-}
+  }
 
-.post:hover .post-image {
-    transform: scale(1.02);
-    filter: contrast(100%) brightness(95%);
-    box-shadow: 4px 6px 12px rgba(0,0,0,0.6);
-}
+  .post-meta { font-size: 0.8rem; color: var(--pink); }
 
-.post-meta { font-size: 0.8rem; color: var(--pink); }
-
-/* === Lightbox === */
-.lightbox {
+  /* === Lightbox === */
+  .lightbox {
     display: none;
     position: fixed;
     top:0; left:0;
@@ -160,82 +143,316 @@ a { text-decoration: none; }
     justify-content: center;
     align-items: center;
     z-index: 999;
-}
+  }
 
-.lightbox:target { display: flex; }
-.lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--secondary); }
+  .lightbox:target { display: flex; }
+  .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--secondary); }
 
-/* === RSS Widget Styling === */
-.rss-widget-container { margin-bottom: 10px; }
-.blog-link { display: inline-block; margin-top: 10px; font-size: 0.9rem; color: var(--primary); }
-.blog-link i { margin-left: 5px; }
-
+  /* === RSS Widget Styling === */
+  .rss-widget-container { margin-bottom: 10px; }
+  .blog-link { display: inline-block; margin-top: 10px; font-size: 0.9rem; color: var(--primary); }
+  .blog-link i { margin-left: 5px; }
 </style>
 </head>
 <body>
-<div class="container">
+  <div class="container">
     <!-- Sidebar -->
     <aside class="sidebar">
-        <img src="https://i.imgur.com/wHDx7cE.png" alt="Sunnie Jae Avatar" class="avatar">
-        
-        <div class="about">
-            Welcome to my library — a collection of notebooks, sketches, and posts from my Medium blog.  
-            Dark, grungy, and curated for the aesthetic.
-        </div>
+      <img src="https://i.imgur.com/wHDx7cE.png" alt="Sunnie Jae Avatar" class="avatar">
+      
+      <div class="about">
+        Welcome to my library — a collection of notebooks, sketches, and posts from my Medium blog.  
+        Dark, grungy, and curated for the aesthetic.
+      </div>
 
-        <div class="nav-links">
-            <a href="#">Documents</a>
-            <a href="#">Downloads</a>
-            <a href="#">Photos</a>
-            <a href="#">Videos</a>
-            <a href="#">Internet</a>
-        </div>
+      <div class="nav-links">
+        <a href="#">Documents</a>
+        <a href="#">Downloads</a>
+        <a href="#">Photos</a>
+        <a href="#">Videos</a>
+        <a href="#">Internet</a>
+      </div>
 
-        <div class="extras">
-            © 2014 Sunnie Jae Creates
-        </div>
+      <div class="extras">
+        © 2006 Sunnie Jae Creates
+      </div>
     </aside>
 
     <!-- Main Feed -->
     <main class="main-feed">
-        <div class="post-grid">
-            <!-- RSS Widget always first -->
-            <div class="post rss-widget-post">
-                <div class="rss-widget-container">
-                    <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
-                    <div id="retainable-rss-embed"
-                         data-rss="https://medium.com/feed/@sunniejae.creates"
-                         data-maxcols="1"
-                         data-layout="grid"
-                         data-poststyle="inline"
-                         data-readmore="read more"
-                         data-buttonclass="rss-btn"
-                         data-offset="-100">
-                    </div>
-                </div>
-                <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
-                    visit my full medium blog <i class="fas fa-external-link-alt"></i>
-                </a>
+      <div class="post-grid">
+        <!-- RSS Widget always first -->
+        <div class="post rss-widget-post">
+          <div class="rss-widget-container">
+            <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
+            <div id="retainable-rss-embed"
+                 data-rss="https://medium.com/feed/@sunniejae.creates"
+                 data-maxcols="1"
+                 data-layout="grid"
+                 data-poststyle="inline"
+                 data-readmore="read more"
+                 data-buttonclass="rss-btn"
+                 data-offset="-100">
             </div>
-
-            <!-- Example Post Placeholders -->
-            <div class="post">
-                <a href="#lightbox1">
-                    <img src="https://placehold.co/700x400/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook sketch" class="post-image">
-                    <p class="post-meta">documents — unfinished notebook page</p>
-                </a>
-            </div>
-
-            <div class="post">
-                <a href="#lightbox2">
-                    <img src="https://placehold.co/700x400/3f3d7a/ffffff?text=Sketch+Art" alt="Sketch Art" class="post-image">
-                    <p class="post-meta">photos — midnight park sketch</p>
-                </a>
-            </div>
+          </div>
+          <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
+            visit my full medium blog <i class="fas fa-external-link-alt"></i>
+          </a>
         </div>
-    </main>
-</div>
 
-<!-- Lightboxes -->
-<div id="lightbox1" class="lightbox">
-    <a href="#"><img src="http
+        <!-- Example Post Placeholders -->
+        <div class="post">
+          <a href="#lightbox1">
+            <img src="<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
+
+<!-- Page Title -->
+<title>Sunnie Jae Creates — Library</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* === Root Variables === */
+  :root { 
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
+  }
+
+  /* === Global Styles === */
+  body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background-color: var(--black); /* solid background */
+    color: var(--white);
+  }
+
+  a { color: var(--secondary); text-decoration: none; }
+  a:hover { text-decoration: none; }
+
+  /* === Layout === */
+  .container {
+    display: flex;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* --- Sidebar --- */
+  .sidebar {
+    width: 250px;
+    padding-right: 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .avatar {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 2px solid var(--secondary);
+  }
+
+  .about {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  /* Sidebar buttons */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 25px;
+    text-align: center;
+    background-color: var(--dark-gray);
+    color: var(--white);
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--primary);
+  }
+
+  .nav-links a:hover {
+    background-color: var(--primary);
+    color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  }
+
+  .extras {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
+
+  /* --- Main Feed --- */
+  .main-feed { flex: 1; padding-left: 20px; }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .post.rss-widget-post { order: -1; }
+
+  .post {
+    background: rgba(20,20,30,0.85);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+
+  .post:hover { transform: translateY(-2px); }
+
+  .post-image {
+    width: 100%;
+    height: 394px; /* fixed 16:9 ratio */
+    object-fit: cover;
+    border-radius: 2px;
+    filter: contrast(95%) brightness(90%);
+    margin-bottom: 10px;
+  }
+
+  .post-meta { font-size: 0.8rem; color: var(--pink); }
+
+  /* === Lightbox === */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top:0; left:0;
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .lightbox:target { display: flex; }
+  .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--secondary); }
+
+  /* === RSS Widget Styling === */
+  .rss-widget-container { margin-bottom: 10px; }
+  .blog-link { display: inline-block; margin-top: 10px; font-size: 0.9rem; color: var(--primary); }
+  .blog-link i { margin-left: 5px; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="https://i.imgur.com/wHDx7cE.png" alt="Sunnie Jae Avatar" class="avatar">
+      
+      <div class="about">
+        Welcome to my library — a collection of notebooks, sketches, and posts from my Medium blog.  
+        Dark, grungy, and curated for the aesthetic.
+      </div>
+
+      <div class="nav-links">
+        <a href="#">Documents</a>
+        <a href="#">Downloads</a>
+        <a href="#">Photos</a>
+        <a href="#">Videos</a>
+        <a href="#">Internet</a>
+      </div>
+
+      <div class="extras">
+        © 2006 Sunnie Jae Creates
+      </div>
+    </aside>
+
+    <!-- Main Feed -->
+    <main class="main-feed">
+      <div class="post-grid">
+        <!-- RSS Widget always first -->
+        <div class="post rss-widget-post">
+          <div class="rss-widget-container">
+            <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
+            <div id="retainable-rss-embed"
+                 data-rss="https://medium.com/feed/@sunniejae.creates"
+                 data-maxcols="1"
+                 data-layout="grid"
+                 data-poststyle="inline"
+                 data-readmore="read more"
+                 data-buttonclass="rss-btn"
+                 data-offset="-100">
+            </div>
+          </div>
+          <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
+            visit my full medium blog <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+
+        <!-- Example Post Placeholders -->
+        <div class="post">
+          <a href="#lightbox1">
+            <img src="https://placehold.co/700x394/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook sketch" class="post-image">
+            <p class="post-meta">documents — unfinished notebook page</p>
+          </a>
+        </div>
+
+        <div class="post">
+          <a href="#lightbox2">
+            <img src="https://placehold.co/700x394/3f3d7a/ffffff?text=Sketch+Art" alt="Sketch Art" class="post-image">
+            <p class="post-meta">photos — midnight park sketch</p>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Lightboxes -->
+  <div id="lightbox1" class="lightbox">
+    <a href="#"><img src="https://placehold.co/1400x788/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook Sketch"></a>
+  </div>
+  <div id="lightbox2" class="lightbox">
+    <a href="#"><img src="https://placehold.co/1400x788/3f3d7a/ffffff?text=Sketch+Art" alt="Sketch Art"></a>
+  </div>
+</body>
+</html>
+" alt="Notebook sketch" class="post-image">
+            <p class="post-meta">documents — unfinished notebook page</p>
+          </a>
+        </div>
+
+        <div class="post">
+          <a href="#lightbox2">
+            <img src="https://placehold.co/700x394/3f3d7a/ffffff?text=Sketch+Art" alt="Sketch Art" class="post-image">
+            <p class="post-meta">photos — midnight park sketch</p>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Lightboxes -->
+  <div id="lightbox1" class="lightbox">
+    <a href="#"><img src="https://placehold.co/1400x788/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook Sketch"></a>
+  </div>
+  <div id="lightbox2" class="lightbox">
+    <a href="#"><img src="https://placehold.co/1400x788/3f3d7a/ffffff?text=Sketch+Art" alt="Sketch Art"></a>
+  </div>
+</body>
+</html>
