@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Desktop</title>
-    <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/gxc6hdU.png">
     <style>
         :root {
             --black: #000010;
@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Tahoma', sans-serif;
-            background: var(--black) url('https://i.imgur.com/gxc6hdU.png') no-repeat center center fixed;
+            background: var(--black) url('https://i.imgur.com/mreYQcF.png') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             overflow: hidden;
@@ -331,6 +331,11 @@
             width: 100% !important;
             height: 100% !important;
             min-height: 200px;
+            border: none;
+        }
+
+        .window-content .pinterest-embed {
+            height: calc(100% - 16px); /* Account for window content padding */
         }
 
         .music-controls {
@@ -440,7 +445,7 @@
                 <div class="window-button close-btn">×</div>
             </div>
         </div>
-        <div class="window-content">
+        <div class="window-content" style="padding: 0;">
             <div class="pinterest-embed">
                 <a data-pin-do="embedBoard" data-pin-board-width="100%" data-pin-scale-height="100%" data-pin-scale-width="100%" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
                 <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
