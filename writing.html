@@ -7,98 +7,90 @@
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 
-<!-- Page Title -->
 <title>Sunnie Jae Creates — Library</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  /* === Root Variables === */
-  :root { 
-      --black: #000010;
-      --white: #ffffff;
-      --dark-gray: #404040;
-      --gray: #bfbfdc;
-      --silver: #f0f0f5;
-      --pink: #ffb3d6;
-      --teal: #00a8a3;
-      --dark-purple: #3f3d7a;
-      --accent: #00c9c2;
-      --secondary: #c13886;
-      --primary: #9a9ad4;
-  }
 
-  /* === Global Styles === */
-  body {
+<style>
+:root { 
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
+}
+
+/* --- Global Styles --- */
+body {
     margin: 0;
     font-family: Georgia, serif;
-    background: var(--black);
+    background: var(--dark-gray);
     color: var(--white);
-  }
+}
 
-  a { color: var(--secondary); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+a { color: var(--secondary); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-  /* === Layout === */
-  .container {
+/* --- Layout --- */
+.container {
     display: flex;
     max-width: 960px;
     margin: 0 auto;
     padding: 20px;
-  }
+}
 
-  /* --- Sidebar --- */
-  .sidebar {
+/* --- Sidebar --- */
+.sidebar {
     width: 250px;
     padding-right: 20px;
-  }
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
 
-  .avatar {
+.avatar {
     width: 100%;
     border-radius: 50%;
     margin-bottom: 15px;
     border: 2px solid var(--secondary);
-  }
+}
 
-  .about {
+.about {
     font-size: 0.9rem;
     margin-bottom: 20px;
     line-height: 1.4;
-  }
+}
 
-  /* Rounded nav buttons */
-  .nav-links a {
+.nav-links a {
     display: block;
     margin: 5px 0;
-    padding: 8px 12px;
-    background: var(--dark-purple);
-    color: var(--pink);
-    border-radius: 12px;
     font-weight: bold;
-    text-align: center;
-    transition: background 0.3s;
-  }
-
-  .nav-links a:hover {
-    background: var(--secondary);
+    background: var(--dark-purple);
     color: var(--white);
-  }
+    text-align: center;
+    padding: 8px 0;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
 
-  .extras {
-    margin-top: 30px;
-    font-size: 0.8rem;
-    color: var(--gray);
-  }
+.nav-links a:hover {
+    background: var(--accent);
+}
 
-  /* --- Main Feed --- */
-  .main-feed { flex: 1; padding-left: 20px; }
+/* --- Main Feed --- */
+.main-feed { flex: 1; padding-left: 20px; }
 
-  .post-grid {
+.post-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-  }
+}
 
-  .post {
+.post {
     background: rgba(20,20,30,0.85);
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: 10px;
@@ -106,149 +98,138 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     transition: transform 0.2s ease;
     cursor: pointer;
-  }
+}
 
-  .post:hover { transform: translateY(-2px); }
+.post:hover { transform: translateY(-2px); }
 
-  .post-image {
+.post-image {
     width: 100%;
-    height: auto;
-    aspect-ratio: 700 / 394; /* 16:9 ratio */
+    aspect-ratio: 700 / 394;
     object-fit: cover;
     border-radius: 2px;
-    filter: contrast(95%) brightness(90%);
     margin-bottom: 10px;
-  }
+}
 
-  .post-meta { font-size: 0.8rem; color: var(--pink); }
+.post-meta { font-size: 0.8rem; color: var(--pink); }
 
-  /* === RSS Widget Styling === */
-  .rss-widget-post {
-    background: rgba(63, 61, 122, 0.85); /* dark purple */
-    border: 1px solid rgba(255,255,255,0.1);
+/* --- RSS Styling --- */
+.rss-widget-post {
+    background: rgba(20,20,30,0.85);
+    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    margin-bottom: 20px;
-    font-family: Georgia, serif;
-  }
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease;
+}
 
-  .rss-widget-post:hover {
-    background: rgba(63, 61, 122, 0.95);
-    transform: translateY(-2px);
-  }
+.rss-widget-post:hover { transform: translateY(-2px); }
 
-  .rss-widget-post .rss-item-title {
+.rss-item .post-image {
+    width: 100%;
+    aspect-ratio: 700 / 394;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.rss-item-title {
     font-weight: bold;
     color: var(--pink);
-    margin-bottom: 5px;
     font-size: 1.1rem;
-  }
+    margin-bottom: 5px;
+}
 
-  .rss-widget-post .rss-item-content {
+.rss-item-text {
     font-size: 0.9rem;
     color: var(--white);
     line-height: 1.5;
     margin-bottom: 10px;
-  }
+}
 
-  .rss-widget-post .rss-item-readmore {
+.rss-item-readmore {
     color: var(--accent);
     font-weight: bold;
     text-decoration: none;
-  }
+}
 
-  .rss-widget-post .rss-item-readmore:hover {
-    text-decoration: underline;
-  }
-
-  /* === Lightbox === */
-  .lightbox {
-    display: none;
-    position: fixed;
-    top:0; left:0;
-    width: 100%;
-    height:100%;
-    background: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-
-  .lightbox:target { display: flex; }
-  .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--secondary); }
-
+.rss-item-readmore:hover { text-decoration: underline; }
 </style>
 </head>
+
 <body>
-  <div class="container">
+<div class="container">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <img src="https://imgur.com/Jq0izu6.png" alt="Sunnie Jae Avatar" class="avatar">
-      
-      <div class="about">
-        18 || Teenage Gadfly
-      </div>
-
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="fakebookwall.html">Me</a>
-        <a href="digital-art.html">Photos</a>
-        <a href="videos.html">Videos</a>
-        <a href="shop.html">Sunnie Store</a>
-      </div>
-
-      <div class="extras">
-        © 2014 Sunnie Jae Creates
-      </div>
+        <img src="https://i.imgur.com/Jq0izu6.png" alt="Sunnie Jae Avatar" class="avatar">
+        <div class="about">18 || Teenage Gadfly</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="fakebookwall.html">Me</a>
+            <a href="digital-art.html">Photos</a>
+            <a href="videos.html">Videos</a>
+            <a href="shop.html">Sunnie Store</a>
+        </div>
+        <div class="extras">© 2014 Sunnie Jae Creates</div>
     </aside>
 
     <!-- Main Feed -->
     <main class="main-feed">
-      <div class="post-grid">
-        <!-- RSS Widget always first -->
-        <div class="post rss-widget-post">
-          <div class="rss-widget-container">
-            <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
-            <div id="retainable-rss-embed"
-                 data-rss="https://medium.com/feed/@sunniejae.creates"
-                 data-maxcols="1"
-                 data-layout="grid"
-                 data-poststyle="inline"
-                 data-readmore="read more"
-                 data-buttonclass="rss-btn"
-                 data-offset="-100">
+        <div class="post-grid">
+            <!-- RSS Posts -->
+            <div class="post rss-widget-post">
+                <div class="rss-item">
+                    <img src="https://i.imgur.com/KUJ9JZu.png" alt="RSS Post Placeholder" class="post-image">
+                    <div class="rss-item-content">
+                        <div class="rss-item-title" id="rss-title-1">Loading latest Medium post...</div>
+                        <p class="rss-item-text" id="rss-text-1">This will display the first two Medium articles.</p>
+                        <a class="rss-item-readmore" id="rss-link-1" href="#" target="_blank">read more</a>
+                    </div>
+                </div>
             </div>
-          </div>
-          <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
-            visit my full medium blog <i class="fas fa-external-link-alt"></i>
-          </a>
-        </div>
+            <div class="post rss-widget-post">
+                <div class="rss-item">
+                    <img src="https://i.imgur.com/KUJ9JZu.png" alt="RSS Post Placeholder" class="post-image">
+                    <div class="rss-item-content">
+                        <div class="rss-item-title" id="rss-title-2">Loading latest Medium post...</div>
+                        <p class="rss-item-text" id="rss-text-2">This will display the first two Medium articles.</p>
+                        <a class="rss-item-readmore" id="rss-link-2" href="#" target="_blank">read more</a>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Example Post Placeholders -->
-        <div class="post">
-          <a href="#lightbox1">
-            <img src="https://i.imgur.com/KUJ9JZu.png" alt="Notebook sketch" class="post-image">
-            <p class="post-meta">documents — unfinished notebook page</p>
-          </a>
+            <!-- Example static posts -->
+            <div class="post">
+                <img src="https://i.imgur.com/KUJ9JZu.png" alt="Notebook sketch" class="post-image">
+                <p class="post-meta">documents — unfinished notebook page</p>
+            </div>
+            <div class="post">
+                <img src="https://i.imgur.com/KUJ9JZu.png" alt="Sketch Art" class="post-image">
+                <p class="post-meta">photos — midnight park sketch</p>
+            </div>
         </div>
-
-        <div class="post">
-          <a href="#lightbox2">
-            <img src="https://i.imgur.com/KUJ9JZu.png" alt="Sketch Art" class="post-image">
-            <p class="post-meta">photos — midnight park sketch</p>
-          </a>
-        </div>
-      </div>
     </main>
-  </div>
+</div>
 
-  <!-- Lightboxes -->
-  <div id="lightbox1" class="lightbox">
-    <a href="#"><img src="https://i.imgur.com/KUJ9JZu.png" alt="Notebook Sketch"></a>
-  </div>
-  <div id="lightbox2" class="lightbox">
-    <a href="#"><img src="https://i.imgur.com/KUJ9JZu.png" alt="Sketch Art"></a>
-  </div>
+<!-- Medium RSS Feed Script -->
+<script>
+async function fetchMediumPosts() {
+    const rssUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@sunniejae.creates';
+    try {
+        const response = await fetch(rssUrl);
+        const data = await response.json();
+        const posts = data.items.slice(0,2);
+
+        posts.forEach((post, index) => {
+            document.getElementById(`rss-title-${index+1}`).innerText = post.title;
+            document.getElementById(`rss-text-${index+1}`).innerHTML = post.description.replace(/<[^>]+>/g,'').substring(0,200) + '...';
+            document.getElementById(`rss-link-${index+1}`).href = post.link;
+        });
+    } catch(e) {
+        console.error('Error fetching Medium posts', e);
+    }
+}
+
+fetchMediumPosts();
+</script>
 </body>
 </html>
