@@ -1,344 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sunnie Jae Creates - Grunge Tumblr</title>
-  <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Courier+Prime&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 
-  <style>
-    :root {
-      --black: #0a0a10;
+<!-- Page Title -->
+<title>Sunnie Jae Creates — Library</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* === Root Variables === */
+  :root {
+      --black: #000010;
       --white: #ffffff;
-      --dark-gray: #303030;
+      --dark-gray: #404040;
       --gray: #bfbfdc;
       --silver: #f0f0f5;
       --pink: #ffb3d6;
       --teal: #00a8a3;
       --dark-purple: #3f3d7a;
-      --secondary: #c13886; /* dark cherry lipstick */
-      --primary: #9a9ad4;   /* lavender hair */
       --accent: #00c9c2;
-    }
+      --secondary: #c13886;
+      --primary: #9a9ad4;
+  }
 
-    /* Body & Background */
-    body {
-      margin: 0;
-      font-family: 'Courier Prime', monospace;
-      background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png') repeat fixed var(--black);
-      color: var(--silver);
-      min-height: 100vh;
-    }
+  /* === Global Styles === */
+  body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background: url('https://i.imgur.com/gxc6hdU.png') var(--black) no-repeat center top fixed;
+    background-size: cover;
+    color: var(--white);
+  }
 
-    /* Main container */
-    .wrapper {
-      display: flex;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+  a { color: var(--secondary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-    /* Sidebar */
-    .sidebar {
-      width: 250px;
-      margin-right: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: sticky;
-      top: 20px;
-    }
+  /* === Layout === */
+  .container {
+    display: flex;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-    .avatar {
-      width: 150px;
-      border-radius: 50%;
-      border: 3px solid var(--secondary);
-      margin-bottom: 15px;
-      filter: grayscale(40%) contrast(120%);
-    }
+  /* --- Sidebar --- */
+  .sidebar {
+    width: 250px;
+    padding-right: 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
 
-    .about {
-      font-size: 0.85rem;
-      text-align: center;
-      line-height: 1.4;
-      margin-bottom: 20px;
-      color: var(--pink);
-    }
+  .avatar {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 2px solid var(--secondary);
+  }
 
-    .nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+  .about {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
 
-    .nav-links a {
-      color: var(--gray);
-      text-decoration: none;
-      font-size: 0.9rem;
-      border-bottom: 1px dotted transparent;
-      transition: 0.3s;
-    }
+  .nav-links a {
+    display: block;
+    margin: 5px 0;
+    font-weight: bold;
+  }
 
-    .nav-links a:hover {
-      border-color: var(--secondary);
-      color: var(--secondary);
-    }
+  .extras {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
 
-    .sidebar .status-box {
-      background: rgba(50,50,70,0.85);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 10px;
-      width: 100%;
-      border-radius: 3px;
-      font-size: 0.8rem;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+  /* --- Main Feed --- */
+  .main-feed { flex: 1; padding-left: 20px; }
 
-    .sidebar .extras {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 10px;
-    }
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
 
-    .sidebar .extras img {
-      width: 25px;
-      height: 25px;
-    }
+  /* RSS widget always first */
+  .post.rss-widget-post { order: -1; }
 
-    /* Main feed */
-    .main-feed {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
+  .post {
+    background: rgba(20,20,30,0.85);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
 
-    .post {
-      background: rgba(20,20,30,0.85);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 3px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      transition: transform 0.2s ease;
-    }
+  .post:hover { transform: translateY(-2px); }
 
-    .post:hover {
-      transform: translateY(-2px);
-    }
+  .post-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: contrast(95%) brightness(90%);
+    margin-bottom: 10px;
+  }
 
-    .post a {
-      color: inherit;
-      text-decoration: none;
-      display: block;
-    }
+  .post-meta { font-size: 0.8rem; color: var(--pink); }
 
-    .post-image {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      border-radius: 2px;
-      filter: contrast(95%) brightness(90%);
-      margin-bottom: 15px;
-      transition: filter 0.3s ease;
-      cursor: pointer;
-    }
+  /* === Lightbox === */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top:0; left:0;
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
 
-    .post a:hover .post-image {
-      filter: contrast(110%) brightness(100%);
-    }
+  .lightbox:target { display: flex; }
+  .lightbox img { max-width: 90%; max-height: 90%; border: 3px solid var(--secondary); }
 
-    .text-post-content {
-      font-family: 'Indie Flower', cursive;
-      font-size: 1rem;
-      color: var(--pink);
-      text-align: center;
-      font-style: italic;
-    }
+  /* === RSS Widget Styling === */
+  .rss-widget-container { margin-bottom: 10px; }
+  .blog-link { display: inline-block; margin-top: 10px; font-size: 0.9rem; color: var(--primary); }
+  .blog-link i { margin-left: 5px; }
 
-    .post-meta {
-      font-size: 0.7rem;
-      margin-top: 10px;
-      color: var(--gray);
-      text-align: right;
-      font-style: italic;
-    }
-
-    /* RSS widget styling */
-    .rss-widget-container {
-      margin: 10px 0;
-    }
-
-    .blog-link {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 0.85rem;
-      color: var(--teal);
-      text-decoration: none;
-    }
-
-    .blog-link:hover {
-      color: var(--secondary);
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 0.75rem;
-      color: var(--gray);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding: 20px;
-      font-family: 'Courier Prime', monospace;
-    }
-
-    /* Lightbox */
-    #lightbox {
-      position: fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background: rgba(0,0,0,0.9);
-      display: none;
-      justify-content:center;
-      align-items:center;
-      z-index: 9999;
-    }
-
-    #lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 3px solid var(--secondary);
-      border-radius: 5px;
-    }
-
-    #lightbox:target {
-      display: flex;
-    }
-  </style>
+</style>
 </head>
 <body>
-  <div class="wrapper">
+  <div class="container">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <img src="https://i.imgur.com/wHDx7cE.png/ffffff?text=graypunzel" alt="avatar" class="avatar">
+      <img src="https://i.imgur.com/wHDx7cE.png" alt="Sunnie Jae Avatar" class="avatar">
+      
       <div class="about">
-        18 | teenage gadfly |
+        Welcome to my library — a collection of notebooks, sketches, and posts from my Medium blog.  
+        Dark, grungy, and curated for the aesthetic.
       </div>
+
       <div class="nav-links">
-        <a href="index.html">home</a>
-        <a href="#">archive</a>
-        <a href="writing.html">writing</a>
-        <a href="digital-art.html">art</a>
-        <a href="social-profiles.html">socials</a>
-        <a href="#contact.html>ask me</a>
-        <a href="#">submit</a>
+        <a href="#">Documents</a>
+        <a href="#">Downloads</a>
+        <a href="#">Photos</a>
+        <a href="#">Videos</a>
+        <a href="#">Internet</a>
       </div>
-      <div class="status-box">
-        currently listening to: “Supernova- Aespa” <br>
-        feeling: nostalgic & violet
-      </div>
+
       <div class="extras">
-        <img src="https://placehold.co/25x25/ff66cc/ffffff?text=❤" alt="heart">
-        <img src="https://placehold.co/25x25/00c9c2/ffffff?text=✨" alt="sparkle">
-        <img src="https://placehold.co/25x25/c13886/ffffff?text=💀" alt="skull">
+        © 2006 Sunnie Jae Creates
       </div>
     </aside>
 
-    <!-- Main feed -->
+    <!-- Main Feed -->
     <main class="main-feed">
-      <!-- Interactive posts -->
-      <div class="post">
-        <a href="#lightbox1">
-          <img src="https://placehold.co/700x400/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook sketch" class="post-image">
-          <p class="post-meta">documents — unfinished notebook page</p>
-        </a>
-      </div>
-      <div id="lightbox1" class="lightbox" onclick="location.hash=''">
-        <img src="https://placehold.co/700x400/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook sketch">
-      </div>
-
-      <div class="post">
-        <a href="#lightbox2">
-          <img src="https://placehold.co/700x400/c13886/ffffff?text=Digital+Art" alt="Digital art" class="post-image">
-          <p class="post-meta">downloads — pixel bleed</p>
-        </a>
-      </div>
-      <div id="lightbox2" class="lightbox" onclick="location.hash=''">
-        <img src="https://placehold.co/700x400/c13886/ffffff?text=Digital+Art" alt="Digital art">
-      </div>
-
-      <div class="post">
-        <a href="#lightbox3">
-          <img src="https://placehold.co/700x400/00a8a3/ffffff?text=Polaroid+Photography" alt="Polaroid" class="post-image">
-          <p class="post-meta">photos — polaroid photography</p>
-        </a>
-      </div>
-      <div id="lightbox3" class="lightbox" onclick="location.hash=''">
-        <img src="https://placehold.co/700x400/00a8a3/ffffff?text=Polaroid+Photography" alt="Polaroid">
-      </div>
-
-      <div class="post">
-        <a href="#lightbox4">
-          <img src="https://placehold.co/700x400/9a9ad4/ffffff?text=Video+Project" alt="Video" class="post-image">
-          <p class="post-meta">videos — experimental short film</p>
-        </a>
-      </div>
-      <div id="lightbox4" class="lightbox" onclick="location.hash=''">
-        <img src="https://placehold.co/700x400/9a9ad4/ffffff?text=Video+Project" alt="Video">
-      </div>
-
-      <div class="post">
-        <a href="#lightbox5">
-          <img src="https://placehold.co/700x400/ffb3d6/000000?text=Internet+Explorer" alt="Browser" class="post-image">
-          <p class="post-meta">browser — social profiles</p>
-        </a>
-      </div>
-      <div id="lightbox5" class="lightbox" onclick="location.hash=''">
-        <img src="https://placehold.co/700x400/ffb3d6/000000?text=Internet+Explorer" alt="Browser">
-      </div>
-
-      <!-- Text/Quote Post -->
-      <div class="post">
-        <div class="text-post-content">
-          “smoking cigarettes in the park at midnight,<br>
-          talking about dreams we’ll never tell anyone.”
-        </div>
-        <p class="post-meta">anonymous thought</p>
-      </div>
-
-      <!-- RSS widget -->
-      <div class="post">
-        <h2 class="text-post-content">latest from my blog</h2>
-        <div class="rss-widget-container">
-          <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
-          <div id="retainable-rss-embed"
-               data-rss="https://medium.com/feed/@sunniejae.creates"
-               data-maxcols="2"
-               data-layout="grid"
-               data-poststyle="inline"
-               data-readmore="read more"
-               data-buttonclass="rss-btn"
-               data-offset="-100">
+      <div class="post-grid">
+        <!-- RSS Widget always first -->
+        <div class="post rss-widget-post">
+          <div class="rss-widget-container">
+            <script src="https://www.twilik.com/assets/retainable/rss-embed/retainable-rss-embed.js"></script>
+            <div id="retainable-rss-embed"
+                 data-rss="https://medium.com/feed/@sunniejae.creates"
+                 data-maxcols="1"
+                 data-layout="grid"
+                 data-poststyle="inline"
+                 data-readmore="read more"
+                 data-buttonclass="rss-btn"
+                 data-offset="-100">
+            </div>
           </div>
+          <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
+            visit my full medium blog <i class="fas fa-external-link-alt"></i>
+          </a>
         </div>
-        <a href="https://medium.com/@sunniejae.creates" class="blog-link" target="_blank">
-          <i class="fas fa-external-link-alt"></i> visit my full medium blog
-        </a>
-      </div>
 
-      <footer class="footer">
-        <p>© 2006 – 2025 Sunnie Jae Creates | made with midnight coffee & cigarette ash</p>
-      </footer>
+        <!-- Example Post Placeholders -->
+        <div class="post">
+          <a href="#lightbox1">
+            <img src="https://placehold.co/700x400/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook sketch" class="post-image">
+            <p class="post-meta">documents — unfinished notebook page</p>
+          </a>
+        </div>
+
+        <div class="post">
+          <a href="#lightbox2">
+            <img src="https://placehold.co/700x400/3f3d7a/ffffff?text=Sketch+Art" alt="Sketch Art" class="post-image">
+            <p class="post-meta">photos — midnight park sketch</p>
+          </a>
+        </div>
+      </div>
     </main>
+  </div>
+
+  <!-- Lightboxes -->
+  <div id="lightbox1" class="lightbox">
+    <a href="#"><img src="https://placehold.co/1400x800/3f3d7a/ffffff?text=Notebook+Sketch" alt="Notebook Sketch"></a>
+  </div>
+  <div id="lightbox2" class="lightbox">
+    <a href="#"><img src="https://placehold.co/1400x800/3f3d7a/ffffff?text=Sketch+Art" alt="Sketch Art"></a>
   </div>
 </body>
 </html>
