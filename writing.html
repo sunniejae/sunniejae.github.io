@@ -96,11 +96,13 @@ a:hover { text-decoration: underline; }
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    transition: transform 0.2s ease;
-    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.post:hover { transform: translateY(-2px); }
+.post:hover { 
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+}
 
 .post-image {
     width: 100%;
@@ -114,22 +116,12 @@ a:hover { text-decoration: underline; }
 
 /* --- RSS Styling --- */
 .rss-widget-post {
-    background: rgba(20,20,30,0.85);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    transition: transform 0.2s ease;
+    cursor: pointer;
 }
 
-.rss-widget-post:hover { transform: translateY(-2px); }
-
-.rss-item .post-image {
-    width: 100%;
-    aspect-ratio: 700 / 394;
-    object-fit: cover;
-    border-radius: 2px;
-    margin-bottom: 10px;
+.rss-widget-post:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
 }
 
 .rss-item-title {
@@ -175,7 +167,8 @@ a:hover { text-decoration: underline; }
     <!-- Main Feed -->
     <main class="main-feed">
         <div class="post-grid">
-            <!-- RSS Posts -->
+
+            <!-- RSS Post #1 -->
             <div class="post rss-widget-post">
                 <div class="rss-item">
                     <img src="https://imgur.com/3yVv7sx.png" alt="RSS Post Placeholder" class="post-image">
@@ -186,15 +179,21 @@ a:hover { text-decoration: underline; }
                     </div>
                 </div>
             </div>
-            </div>
 
-            <!--  static posts -->
+            <!-- Static Post #1 -->
             <div class="post">
                 <img src="https://i.imgur.com/KUJ9JZu.png" alt="Notebook sketch" class="post-image">
                 <p class="post-meta">new skates .. hella hipster</p>
             </div>
-        <!--  rss posts -->
-         <div class="post rss-widget-post">
+
+            <!-- Static Post #2 -->
+            <div class="post">
+                <img src="https://i.imgur.com/KUJ9JZu.png" alt="Sketch Art" class="post-image">
+                <p class="post-meta">photos — midnight park sketch</p>
+            </div>
+
+            <!-- RSS Post #2 -->
+            <div class="post rss-widget-post">
                 <div class="rss-item">
                     <img src="https://imgur.com/3yVv7sx.png" alt="RSS Post Placeholder" class="post-image">
                     <div class="rss-item-content">
@@ -203,12 +202,8 @@ a:hover { text-decoration: underline; }
                         <a class="rss-item-readmore" id="rss-link-2" href="#" target="_blank">read more</a>
                     </div>
                 </div>
-         </div>
-    <!--  static posts -->
-            <div class="post">
-                <img src="https://i.imgur.com/KUJ9JZu.png" alt="Sketch Art" class="post-image">
-                <p class="post-meta">photos — midnight park sketch</p>
             </div>
+
         </div>
     </main>
 </div>
@@ -216,20 +211,31 @@ a:hover { text-decoration: underline; }
 <!-- Medium RSS Feed Script -->
 <script>
 async function fetchMediumPosts() {
-    const rssUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@sunniejae.creates';
-    try {
-        const response = await fetch(rssUrl);
-        const data = await response.json();
-        const posts = data.items.slice(0,2);
+  const rssUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@sunniejae.creates';
+  try {
+    const response = await fetch(rssUrl);
+    const data = await response.json();
+    const posts = data.items.slice(0, 2);
 
-        posts.forEach((post, index) => {
-            document.getElementById(`rss-title-${index+1}`).innerText = post.title;
-            document.getElementById(`rss-text-${index+1}`).innerHTML = post.description.replace(/<[^>]+>/g,'').substring(0,200) + '...';
-            document.getElementById(`rss-link-${index+1}`).href = post.link;
-        });
-    } catch(e) {
-        console.error('Error fetching Medium posts', e);
-    }
+    posts.forEach((post, index) => {
+      const titleEl = document.getElementById(`rss-title-${index+1}`);
+      const textEl = document.getElementById(`rss-text-${index+1}`);
+      const linkEl = document.getElementById(`rss-link-${index+1}`);
+      const cardEl = linkEl.closest(".rss-widget-post");
+
+      titleEl.innerText = post.title;
+      textEl.innerHTML = post.description.replace(/<[^>]+>/g, '').substring(0, 200) + '...';
+      linkEl.href = post.link;
+
+      // make whole card clickable (but ignore clicks on the link itself)
+      cardEl.addEventListener("click", (e) => {
+        if (e.target.tagName.toLowerCase() === "a") return;
+        window.open(post.link, "_blank");
+      });
+    });
+  } catch (e) {
+    console.error('Error fetching Medium posts', e);
+  }
 }
 
 fetchMediumPosts();
