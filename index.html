@@ -727,7 +727,7 @@ const chatSend = document.getElementById('chat-send');
 
 const chatLines = [
   "OMG hey XD",
-  "lol!  (￣︶￣*\))",
+  "lol!\(￣︶￣*\))",
   "i have swim practice l8r...",
   "moms calling, g2g",
   "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
@@ -741,7 +741,7 @@ function typeMessage(msg, sender='tweety96', totalDuration=2000){
     const msgDiv = document.createElement('div');
     
     if(sender === 'tweety96'){
-        msgDiv.textContent = <strong> 'Tweety9' </strong>; // prefix
+        msgDiv.textContent = 'Tweety96: '; // prefix
         msgDiv.style.color = 'var(--accent)'; // secondary color
     } else {
         msgDiv.style.color = 'var(--white)'; // user messages stay white
