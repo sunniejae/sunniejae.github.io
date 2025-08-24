@@ -1,217 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Creates - Mobile Mode</title>
-<link rel="icon" href="https://i.imgur.com/gHDx7cE.png">
-<style>
-    :root {
-        --black: #000010;
-        --white: #ffffff;
-        --dark-gray: #404040;
-        --gray: #bfbfdc;
-        --silver: #f0f0f5;
-        --pink: #ffb3d6;
-        --teal: #00a8a3;
-        --dark-purple: #3f3d7a;
-        --accent: #00c9c2;
-        --secondary: #c13886;
-        --primary: #9a9ad4;
-    }
+const chatContainer = document.getElementById('chatContainer');
+const chatInput = document.getElementById('chatInput');
+let messageIndex = 0;
 
-    body {
-        margin: 0;
-        font-family: 'Courier New', monospace;
-        background: #000;
-        color: #fff;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
+const tweetyResponses = [
+    "OMG hey XD",
+    "lol! (￣︶￣*)",
+    "i cant talk long, i have swim practice l8r...",
+    "if u have time, you should check out what ive uploaded to my computer",
+    "i cant wait to hear what u think about it",
+    "its kinda like time traveling",
+    "i made sure you can find all the cool things ive made",
+    "like this website! i scripted it!",
+    "ive been working on some art projects, they're all saved here somewhere",
+    "(. ❛ ᴗ ❛.)",
+    "we should schedule a play date",
+    "then i can show you everthing i hid around here",
+    "ugh moms calling, g2g",
+    "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
+];
 
-    .phone-header {
-        height: 24px;
-        background: #222;
-        color: #fff;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 2px 6px;
-        font-size: 12px;
-    }
+function sendTweetyMessage() {
+    if(messageIndex >= tweetyResponses.length) return;
 
-    .chat-container {
-        flex: 1;
-        padding: 6px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        background: #111;
-        font-size: 12px;
-    }
+    const typing = document.createElement('div');
+    typing.className = 'typing-indicator';
+    typing.innerText = 'Tweety96 is typing...';
+    chatContainer.appendChild(typing);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 
-    .message {
-        max-width: 80%;
-        padding: 6px;
-        border-radius: 4px;
-        word-wrap: break-word;
-    }
-
-    .message.tweety {
-        background: #0a0;
-        color: #e0ffe0;
-        align-self: flex-start;
-        border: 1px solid #0f0;
-    }
-
-    .message.user {
-        background: #c0c0c0;
-        color: #000;
-        align-self: flex-end;
-        border: 1px solid #888;
-    }
-
-    .typing-indicator {
-        font-size: 11px;
-        font-style: italic;
-        color: #888;
-        align-self: flex-start;
-    }
-
-    .input-area {
-        display: flex;
-        padding: 6px;
-        background: #222;
-        gap: 4px;
-    }
-
-    .input-area input {
-        flex: 1;
-        padding: 6px;
-        font-family: 'Courier New', monospace;
-        font-size: 12px;
-        background: #111;
-        color: #fff;
-        border: 1px solid #555;
-        border-radius: 2px;
-    }
-
-    .input-area button {
-        padding: 6px 10px;
-        background: #555;
-        color: #fff;
-        border: 1px solid #888;
-        cursor: pointer;
-        font-family: 'Courier New', monospace;
-        font-size: 12px;
-    }
-
-    .start-menu-mobile {
-        position: fixed;
-        bottom: 40px;
-        left: 0;
-        width: 100%;
-        background: #222;
-        border-top: 2px solid #555;
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    .start-menu-mobile button {
-        background: #333;
-        border: 1px solid #555;
-        color: #fff;
-        padding: 6px;
-        text-align: left;
-        font-size: 12px;
-        cursor: pointer;
-    }
-
-    .start-menu-mobile button:hover {
-        background: #444;
-    }
-</style>
-</head>
-<body>
-
-<div class="phone-header">
-    <span>9:41 AM</span>
-    <span>Signal | 100% Battery</span>
-</div>
-
-<div class="chat-container" id="chatContainer"></div>
-
-<div class="input-area">
-    <input type="text" id="chatInput" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
-</div>
-
-<div class="start-menu-mobile">
-    <button onclick="alert('Settings menu open!')">Settings</button>
-    <button onclick="window.location.href='index.html'">Back to Desktop</button>
-</div>
-
-<script>
-    const chatContainer = document.getElementById('chatContainer');
-    const chatInput = document.getElementById('chatInput');
-    let messageIndex = 0;
-
-    const tweetyResponses = [
-        "OMG hey XD",
-        "lol! (￣︶￣*)",
-        "i cant talk long, i have swim practice l8r...",
-        "if u have time, you should check out what ive uploaded to my computer",
-        "i cant wait to hear what u think about it",
-        "its kinda like time traveling",
-        "i made sure you can find all the cool things ive made",
-        "like this website! i scripted it!",
-        "ive been working on some art projects, they're all saved here somewhere",
-        "(. ❛ ᴗ ❛.)",
-        "we should schedule a play date",
-        "then i can show you everthing i hid around here",
-        "ugh moms calling, g2g",
-        "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
-    ];
-
-    function nextMessage() {
-        if(messageIndex < tweetyResponses.length) {
-            const typing = document.createElement('div');
-            typing.className = 'typing-indicator';
-            typing.innerText = 'Tweety96 is typing...';
-            chatContainer.appendChild(typing);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-
-            setTimeout(() => {
-                typing.remove();
-                const msg = document.createElement('div');
-                msg.className = 'message tweety';
-                msg.innerText = tweetyResponses[messageIndex];
-                chatContainer.appendChild(msg);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-                messageIndex++;
-                setTimeout(nextMessage, 1500);
-            }, 1500);
-        }
-    }
-
-    function sendMessage() {
-        const val = chatInput.value.trim();
-        if(!val) return;
+    setTimeout(() => {
+        typing.remove();
         const msg = document.createElement('div');
-        msg.className = 'message user';
-        msg.innerText = val;
+        msg.className = 'message tweety';
+        msg.innerText = tweetyResponses[messageIndex];
         chatContainer.appendChild(msg);
         chatContainer.scrollTop = chatContainer.scrollHeight;
-        chatInput.value = '';
-    }
+        messageIndex++;
+    }, 1500);
+}
 
-    // Start the conversation automatically
-    nextMessage();
-</script>
+function sendMessage() {
+    const val = chatInput.value.trim();
+    if(!val) return;
 
-</body>
-</html>
+    // Show user's message
+    const msg = document.createElement('div');
+    msg.className = 'message user';
+    msg.innerText = val;
+    chatContainer.appendChild(msg);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    chatInput.value = '';
+
+    // After user responds, send next Tweety message
+    sendTweetyMessage();
+}
+
+// Start the first message
+sendTweetyMessage();
