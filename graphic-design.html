@@ -446,8 +446,8 @@
 
         .modal-content {
             position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
+            max-width: 95vw;
+            max-height: 95vh;
             display: flex;
             background: var(--background-light);
             border-radius: 15px;
@@ -455,22 +455,120 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
-        .modal-image {
-            width: 500px;
-            height: 500px;
-            object-fit: cover;
-            background: var(--gradient-multi);
+        /* Carousel Container */
+        .carousel-container {
+            width: 600px;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .modal-image .design-element {
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .carousel-slide .design-element {
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* Carousel Navigation */
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--white-opacity-70);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--secondary);
+            transform: scale(1.2);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            background: var(--background-opacity-90);
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-arrow:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 15px;
+        }
+
+        .carousel-next {
+            right: 15px;
+        }
+
+        /* Counter */
+        .image-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--text-opacity-50);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 10;
         }
 
         .modal-details {
@@ -479,6 +577,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            max-height: 600px;
+            overflow-y: auto;
         }
 
         .modal-header {
@@ -551,6 +651,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
+            z-index: 20;
         }
 
         .close:hover {
@@ -638,18 +739,25 @@
                 max-height: 95vh;
             }
 
-            .modal-image {
+            .carousel-container {
                 width: 100%;
-                height: 300px;
+                height: 400px;
             }
 
             .modal-details {
                 width: 100%;
                 padding: 20px;
+                max-height: none;
             }
 
             .nav-arrow {
                 display: none;
+            }
+
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
             }
         }
     </style>
@@ -734,13 +842,31 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal with Carousel -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <div id="modal-image" class="modal-image">
-                <div class="design-element"></div>
+            
+            <!-- Carousel Container -->
+            <div class="carousel-container">
+                <div class="carousel-images" id="carousel-images">
+                    <!-- Slides will be dynamically generated -->
+                </div>
+                
+                <!-- Image Counter -->
+                <div class="image-counter" id="image-counter">1 / 3</div>
+                
+                <!-- Carousel Navigation Arrows -->
+                <button class="carousel-arrow carousel-prev" id="carousel-prev">‹</button>
+                <button class="carousel-arrow carousel-next" id="carousel-next">›</button>
+                
+                <!-- Carousel Dots -->
+                <div class="carousel-nav" id="carousel-nav">
+                    <!-- Dots will be dynamically generated -->
+                </div>
             </div>
+            
+            <!-- Modal Details -->
             <div class="modal-details">
                 <div class="modal-header">
                     <div id="modal-title" class="modal-title">Project Title</div>
@@ -764,8 +890,8 @@
                 </div>
             </div>
         </div>
-        <div class="nav-arrow nav-prev">‹</div>
-        <div class="nav-arrow nav-next">›</div>
+        <div class="nav-arrow nav-prev" id="modal-prev">‹</div>
+        <div class="nav-arrow nav-next" id="modal-next">›</div>
     </div>
 
     <script>
@@ -773,100 +899,231 @@
         const modalTitle = document.getElementById('modal-title');
         const modalSubtitle = document.getElementById('modal-subtitle');
         const modalDescription = document.getElementById('modal-description');
-        const modalImage = document.getElementById('modal-image');
+        const carouselImages = document.getElementById('carousel-images');
+        const carouselNav = document.getElementById('carousel-nav');
+        const imageCounter = document.getElementById('image-counter');
         const closeBtn = document.querySelector('.close');
         const galleryItems = document.querySelectorAll('.gallery-item');
         
-        let currentIndex = 0;
+        let currentProjectIndex = 0;
+        let currentImageIndex = 0;
 
+        // Sample project data with multiple images per project
         const projectData = [
             {
                 title: "Sunnie Jae Brand Identity",
                 subtitle: "Personal Brand Design",
-                description: "placeholder.",
-                background: "var(--gradient-purple-pink)",
-                elementClass: "nth-child(1)"
-            },
-            {
-                title: "Conceptual Logo Designs",
-                subtitle: "Logo Design Collection",
-                description: "placeholder",
-                background: "var(--gradient-cyan-blue)",
-                elementClass: "nth-child(2)"
+                description: "A comprehensive brand identity system featuring custom typography, color palettes, and visual elements that capture the essence of creative storytelling.",
+                images: [
+                    { type: 'gradient', background: 'var(--gradient-purple-pink)', elementClass: 'nth-child(1)' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/3f3d7a/ffffff?text=Logo+Set+3' }
+                ]
             },
             {
                 title: "Commissioned Designs",
                 subtitle: "Custom Client Work",
-                description: "placeholder",
-                background: "var(--gradient-pink-variants)",
-                elementClass: "nth-child(3)"
+                description: "Custom design solutions created for various clients, showcasing versatility across different industries and design challenges.",
+                images: [
+                    { type: 'gradient', background: 'var(--gradient-pink-variants)', elementClass: 'nth-child(3)' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Client+Work+1' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=Client+Work+2' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/f0f0f5/000000?text=Client+Work+3' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/bfbfdc/000000?text=Client+Work+4' }
+                ]
             },
             {
                 title: "Email Campaign Graphics",
                 subtitle: "Digital Marketing Design",
-                description: "placeholder",
-                background: "var(--gradient-purple-variants)",
-                elementClass: "nth-child(4)",
-                imageUrl: "https://imgur.com/w31bIPR.png"
+                description: "Eye-catching email campaign designs that boost engagement and conversion rates through compelling visual storytelling.",
+                images: [
+                    { type: 'image', url: 'https://imgur.com/w31bIPR.png' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/9a9ad4/ffffff?text=Email+Header' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/00a8a3/ffffff?text=Newsletter+Design' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=CTA+Buttons' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Email+Footer' }
+                ]
             },
             {
                 title: "Product Promotion",
                 subtitle: "Marketing & Advertising",
-                description: "placeholder.",
-                background: "var(--gradient-radial)",
-                elementClass: "nth-child(5)"
+                description: "Dynamic promotional materials designed to showcase products in their best light and drive sales through visual appeal.",
+                images: [
+                    { type: 'gradient', background: 'var(--gradient-radial)', elementClass: 'nth-child(5)' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/3f3d7a/ffffff?text=Product+Banner' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/00c9c2/ffffff?text=Social+Media+Ad' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/9a9ad4/ffffff?text=Promo+Poster' }
+                ]
             },
             {
                 title: "Sticker Designs",
                 subtitle: "Product Design & Illustration",
-                description: "placeholder.",
-                background: "var(--gradient-multi)",
-                elementClass: "nth-child(6)"
+                description: "Fun and vibrant sticker designs that bring personality to any surface, from laptops to water bottles.",
+                images: [
+                    { type: 'gradient', background: 'var(--gradient-multi)', elementClass: 'nth-child(6)' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Sticker+Pack+1' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/00a8a3/ffffff?text=Sticker+Pack+2' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=Custom+Stickers' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/9a9ad4/ffffff?text=Holographic+Set' }
+                ]
             },
             {
                 title: "Poster/Print Designs",
                 subtitle: "Print Design & Typography",
-                description: "placeholder",
-                background: "var(--gradient-blue-purple)",
-                elementClass: "nth-child(7)"
+                description: "Bold poster designs and print materials that command attention and communicate messages effectively.",
+                images: [
+                    { type: 'gradient', background: 'var(--gradient-blue-purple)', elementClass: 'nth-child(7)' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/3f3d7a/ffffff?text=Concert+Poster' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/00c9c2/ffffff?text=Art+Exhibition' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=Event+Flyer' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Typography+Poster' }
+                ]
             }
         ];
 
-        function openModal(index) {
-            currentIndex = index;
-            const project = projectData[index];
+        function createCarouselSlide(image, index) {
+            const slide = document.createElement('div');
+            slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
             
+            if (image.type === 'image') {
+                const img = document.createElement('img');
+                img.src = image.url;
+                img.alt = `Slide ${index + 1}`;
+                slide.appendChild(img);
+            } else {
+                // Gradient background with design element
+                slide.style.background = image.background;
+                const designElement = document.createElement('div');
+                designElement.className = 'design-element';
+                slide.appendChild(designElement);
+                
+                // Add the specific design element styling
+                if (image.elementClass) {
+                    slide.classList.add('gradient-slide');
+                    // Apply the CSS rules for the specific nth-child
+                    const elementIndex = image.elementClass.match(/\d+/)[0];
+                    slide.setAttribute('data-element', elementIndex);
+                }
+            }
+            
+            return slide;
+        }
+
+        function createCarouselDot(index, isActive = false) {
+            const dot = document.createElement('div');
+            dot.className = `carousel-dot ${isActive ? 'active' : ''}`;
+            dot.addEventListener('click', () => goToSlide(index));
+            return dot;
+        }
+
+        function updateCarousel(imageIndex) {
+            const slides = carouselImages.querySelectorAll('.carousel-slide');
+            const dots = carouselNav.querySelectorAll('.carousel-dot');
+            const project = projectData[currentProjectIndex];
+            
+            // Update slides
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === imageIndex);
+            });
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === imageIndex);
+            });
+            
+            // Update counter
+            imageCounter.textContent = `${imageIndex + 1} / ${project.images.length}`;
+            
+            currentImageIndex = imageIndex;
+        }
+
+        function goToSlide(index) {
+            const project = projectData[currentProjectIndex];
+            if (index >= 0 && index < project.images.length) {
+                updateCarousel(index);
+            }
+        }
+
+        function nextSlide() {
+            const project = projectData[currentProjectIndex];
+            const nextIndex = (currentImageIndex + 1) % project.images.length;
+            goToSlide(nextIndex);
+        }
+
+        function prevSlide() {
+            const project = projectData[currentProjectIndex];
+            const prevIndex = (currentImageIndex - 1 + project.images.length) % project.images.length;
+            goToSlide(prevIndex);
+        }
+
+        function openModal(projectIndex) {
+            currentProjectIndex = projectIndex;
+            currentImageIndex = 0;
+            const project = projectData[projectIndex];
+            
+            // Update modal content
             modalTitle.textContent = project.title;
             modalSubtitle.textContent = project.subtitle;
             modalDescription.textContent = project.description;
             
-            // Clear previous content
-            modalImage.innerHTML = '';
+            // Clear and rebuild carousel
+            carouselImages.innerHTML = '';
+            carouselNav.innerHTML = '';
             
-            if (project.imageUrl) {
-                // Use actual image if available
-                const img = document.createElement('img');
-                img.src = project.imageUrl;
-                img.alt = project.title;
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                modalImage.appendChild(img);
-                modalImage.style.background = 'var(--background-gradient)'; // Subtle background for images
-            } else {
-                // Use gradient background with design element for projects without images
-                modalImage.style.background = project.background;
-                const designElement = document.createElement('div');
-                designElement.className = 'design-element';
-                modalImage.appendChild(designElement);
-                
-                // Copy the design element from the gallery item
-                const originalElement = galleryItems[index].querySelector('.design-element');
-                designElement.className = originalElement.className;
-            }
+            // Create slides
+            project.images.forEach((image, index) => {
+                const slide = createCarouselSlide(image, index);
+                carouselImages.appendChild(slide);
+            });
             
+            // Create dots
+            project.images.forEach((_, index) => {
+                const dot = createCarouselDot(index, index === 0);
+                carouselNav.appendChild(dot);
+            });
+            
+            // Update counter
+            imageCounter.textContent = `1 / ${project.images.length}`;
+            
+            // Show modal
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Apply gradient design elements after DOM is ready
+            setTimeout(() => {
+                applyGradientElements();
+            }, 0);
+        }
+
+        function applyGradientElements() {
+            const gradientSlides = carouselImages.querySelectorAll('[data-element]');
+            gradientSlides.forEach(slide => {
+                const elementIndex = slide.getAttribute('data-element');
+                const designElement = slide.querySelector('.design-element');
+                
+                if (designElement) {
+                    // Apply the specific pseudo-element styling based on the element index
+                    switch(elementIndex) {
+                        case '1':
+                            designElement.innerHTML = '<div style="width: 100px; height: 100px; border: 6px solid rgba(255,255,255,0.8); border-radius: 50%;"></div>';
+                            break;
+                        case '2':
+                            designElement.innerHTML = '<div style="width: 80px; height: 80px; background: rgba(255,255,255,0.9); transform: rotate(45deg);"></div>';
+                            break;
+                        case '3':
+                            designElement.innerHTML = '<div style="width: 0; height: 0; border-left: 40px solid transparent; border-right: 40px solid transparent; border-bottom: 80px solid rgba(255,255,255,0.9);"></div>';
+                            break;
+                        case '5':
+                            designElement.innerHTML = '<div style="width: 100px; height: 100px; background: rgba(255,255,255,0.9); clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>';
+                            break;
+                        case '6':
+                            designElement.innerHTML = '<div style="width: 80px; height: 80px; background: rgba(255,255,255,0.9); border-radius: 15px;"></div>';
+                            break;
+                        case '7':
+                            designElement.innerHTML = '<div style="width: 100px; height: 100px; border: 6px solid rgba(255,255,255,0.9); border-radius: 15px; border-right: transparent; border-bottom: transparent; transform: rotate(45deg);"></div>';
+                            break;
+                    }
+                }
+            });
         }
 
         function closeModal() {
@@ -875,13 +1132,13 @@
         }
 
         function nextProject() {
-            currentIndex = (currentIndex + 1) % projectData.length;
-            openModal(currentIndex);
+            const nextIndex = (currentProjectIndex + 1) % projectData.length;
+            openModal(nextIndex);
         }
 
         function prevProject() {
-            currentIndex = (currentIndex - 1 + projectData.length) % projectData.length;
-            openModal(currentIndex);
+            const prevIndex = (currentProjectIndex - 1 + projectData.length) % projectData.length;
+            openModal(prevIndex);
         }
 
         // Event listeners
@@ -891,20 +1148,126 @@
 
         closeBtn.addEventListener('click', closeModal);
         
-        document.querySelector('.nav-next').addEventListener('click', nextProject);
-        document.querySelector('.nav-prev').addEventListener('click', prevProject);
+        // Carousel navigation
+        document.getElementById('carousel-prev').addEventListener('click', prevSlide);
+        document.getElementById('carousel-next').addEventListener('click', nextSlide);
+        
+        // Modal project navigation
+        document.getElementById('modal-prev').addEventListener('click', prevProject);
+        document.getElementById('modal-next').addEventListener('click', nextProject);
 
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
         });
 
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (!modal.classList.contains('active')) return;
             
-            if (e.key === 'Escape') closeModal();
-            if (e.key === 'ArrowRight') nextProject();
-            if (e.key === 'ArrowLeft') prevProject();
+            switch(e.key) {
+                case 'Escape':
+                    closeModal();
+                    break;
+                case 'ArrowRight':
+                    if (e.shiftKey) {
+                        nextProject();
+                    } else {
+                        nextSlide();
+                    }
+                    break;
+                case 'ArrowLeft':
+                    if (e.shiftKey) {
+                        prevProject();
+                    } else {
+                        prevSlide();
+                    }
+                    break;
+                case 'ArrowUp':
+                    nextProject();
+                    break;
+                case 'ArrowDown':
+                    prevProject();
+                    break;
+            }
+        });
+
+        // Auto-advance carousel (optional)
+        let autoAdvanceInterval;
+        
+        function startAutoAdvance() {
+            autoAdvanceInterval = setInterval(() => {
+                nextSlide();
+            }, 4000); // Change slide every 4 seconds
+        }
+
+        function stopAutoAdvance() {
+            if (autoAdvanceInterval) {
+                clearInterval(autoAdvanceInterval);
+                autoAdvanceInterval = null;
+            }
+        }
+
+        // Start auto-advance when modal opens
+        modal.addEventListener('transitionend', (e) => {
+            if (e.target === modal && modal.classList.contains('active')) {
+                startAutoAdvance();
+            }
+        });
+
+        // Stop auto-advance when modal closes or user interacts
+        ['click', 'keydown', 'touchstart'].forEach(event => {
+            modal.addEventListener(event, stopAutoAdvance);
+        });
+
+        closeBtn.addEventListener('click', stopAutoAdvance);
+
+        // Mobile touch gestures for carousel
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carouselImages.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopAutoAdvance();
+        });
+
+        carouselImages.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchStartX - touchEndX;
+            
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
     </script>
 </body>
-</html>
+</html>placeholder.com/600x600/9a9ad4/ffffff?text=Brand+Logo' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=Color+Palette' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Typography' }
+                ]
+            },
+            {
+                title: "Conceptual Logo Designs",
+                subtitle: "Logo Design Collection",
+                description: "Explore a diverse collection of conceptual logo designs showcasing various styles, from minimalist to bold, each telling a unique brand story.",
+                images: [
+                    { type: 'gradient', background: 'var(--gradient-cyan-blue)', elementClass: 'nth-child(2)' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/00a8a3/ffffff?text=Logo+Set+1' },
+                    { type: 'image', url: 'https://via.placeholder.com/600x600/00c9c2/ffffff?text=Logo+Set+2' },
+                    { type: 'image', url: 'https://via.
