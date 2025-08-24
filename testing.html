@@ -361,82 +361,6 @@
         .music-button:hover {
             background: var(--white);
         }
-        /* Mobile Mode Styling */
-body.mobile-mode {
-    overflow: hidden;
-    font-family: 'Courier New', monospace;
-}
-
-/* Hide everything except chat window and start menu */
-body.mobile-mode .desktop,
-body.mobile-mode .window:not(#chat-window),
-body.mobile-mode .taskbar-button,
-body.mobile-mode .window-controls,
-body.mobile-mode .resize-handle,
-body.mobile-mode .window-header:not(#chat-window .window-header) {
-    display: none !important;
-}
-
-/* Taskbar becomes bottom keyboard area */
-body.mobile-mode .taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    background: var(--gray);
-    border-top: 2px inset var(--dark-gray);
-    z-index: 1000;
-}
-
-/* Chat window full-screen above taskbar */
-body.mobile-mode #chat-window {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% - 60px);
-    border: none;
-    box-shadow: none;
-    z-index: 1001;
-    background: var(--silver);
-    overflow-y: auto;
-}
-
-/* Chat bubbles */
-body.mobile-mode #chat-window .message-user {
-    align-self: flex-end;
-    background-color: var(--white);
-    color: var(--black);
-    margin: 4px;
-    padding: 6px 10px;
-    border-radius: 12px;
-    max-width: 70%;
-}
-
-body.mobile-mode #chat-window .message-tweety96 {
-    align-self: flex-start;
-    background-color: var(--secondary);
-    color: var(--white);
-    margin: 4px;
-    padding: 6px 10px;
-    border-radius: 12px;
-    max-width: 70%;
-}
-
-/* Start menu at top */
-body.mobile-mode .start-menu {
-    top: 0;
-    bottom: auto;
-    left: 0;
-    width: 100%;
-    z-index: 1002;
-}
-
     </style>
 </head>
 <body>
@@ -558,11 +482,12 @@ body.mobile-mode .start-menu {
         <div class="menu-item" data-link="contact.html">Contact</div>
         <div class="menu-item" data-link="shop.html">Shop</div>
         <div class="menu-item" data-link="studio-ken.html">Studio Ken</div>
-         <div class="menu-item has-submenu">Settings
-        <div class="submenu">
-            <div class="menu-item" id="mobile-mode-toggle">Mobile Mode</div>
+        <div class="menu-item has-submenu">
+            Settings
+            <div class="submenu">
+                <div class="menu-item" data-link="mobile.html">Mobile Mode</div>
+            </div>
         </div>
-    </div>
         <div class="menu-item" id="shutdown-item">Shut Down</div>
     </div>
 <!-- Tweety96 Chat Window -->
@@ -800,9 +725,7 @@ body.mobile-mode .start-menu {
                 e.preventDefault();
             }
         });
-
-        //chatwindow//
-const chatWindow = document.getElementById('chat-window');
+        const chatWindow = document.getElementById('chat-window');
 const chatContent = document.getElementById('chat-messages');
 const typingIndicator = document.getElementById('typing-indicator');
 const chatInput = document.getElementById('chat-input');
@@ -812,15 +735,19 @@ const chatLines = [
   "OMG hey XD",
   "lol! \(￣︶￣*\)",
   "i cant talk long, i have swim practice l8r...",
-  "ugh moms calling, g2g",
-  "if u have time, u should check out what ive uploaded to my computer",
+  "if u have time, you should check out what ive uploaded to my computer",
   "i cant wait to hear what u think about it",
+"its kinda like time traveling"
+" (. ❛ ᴗ ❛.) "
+        " we should schedule a play date"
+"then i can show you everthing i hid around here"
+        "ugh moms calling, g2g",
   "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
 ];
 
 let currentLine = 0;
-let userResponseTimer;
-let nudgeSent = false; // track if "hello? ru there?" has been sent
+let nudgeTimeout = null;
+let nudgeSent = false;
 
 // Add message with typing animation
 function typeMessage(msg, sender='tweety96', totalDuration=2000){
@@ -829,9 +756,10 @@ function typeMessage(msg, sender='tweety96', totalDuration=2000){
     
     if(sender === 'tweety96'){
         msgDiv.textContent = 'Tweety96: '; // prefix
-        msgDiv.style.color = 'var(--accent)'; // secondary color
+        msgDiv.style.color = 'var(--accent)';
     } else {
-        msgDiv.style.color = 'var(--white)'; // user messages stay white
+        msgDiv.textContent = 'You: '; // prefix for user
+        msgDiv.style.color = 'var(--white)';
     }
 
     msgDiv.className = sender==='tweety96' ? 'message-tweety96' : 'message-user';
@@ -848,53 +776,112 @@ function typeMessage(msg, sender='tweety96', totalDuration=2000){
             clearInterval(typingInterval);
             setTimeout(() => {
                 typingIndicator.style.display = 'none';
+            }, 5000);
 
-                // 👇 Only set nudge timer for Tweety96's *normal* messages
-                if(sender === 'tweety96' && msg !== "hello? ru there?"){
-                    nudgeSent = false;
-                    clearTimeout(userResponseTimer);
-                    userResponseTimer = setTimeout(() => {
-                        if(!nudgeSent){
-                            typeMessage("hello? ru there?", "tweety96", 2000);
-                            nudgeSent = true;
-                        }
-                    }, 2000); // wait 2 seconds for user reply
-                }
-
-            }, 5000); // typing indicator delay
+            // Start nudge timer if Tweety96 sent this
+            if(sender === 'tweety96'){
+                nudgeSent = false;
+                clearTimeout(nudgeTimeout);
+                nudgeTimeout = setTimeout(() => {
+                    if(!nudgeSent){
+                        const nudge = document.createElement('div');
+                        nudge.textContent = "Tweety96: hello? ru there?";
+                        nudge.style.color = 'var(--accent)';
+                        nudge.className = 'message-tweety96';
+                        chatContent.appendChild(nudge);
+                        chatContent.scrollTop = chatContent.scrollHeight;
+                        nudgeSent = true;
+                    }
+                }, 2000);
+            }
         }
     }, intervalTime);
 }
 
 // Send user message
 function sendUserMessage(text){
-    clearTimeout(userResponseTimer); // cancel nudge timer
-    nudgeSent = false; // reset so Tweety96 can nudge next time
-
     const userDiv = document.createElement('div');
     userDiv.textContent = 'You: ' + text;
     userDiv.className = 'message-user';
-    userDiv.style.padding='2px 0';
     userDiv.style.color = 'var(--white)';
+    userDiv.style.padding='2px 0';
     chatContent.appendChild(userDiv);
     chatContent.scrollTop = chatContent.scrollHeight;
+
+    // Cancel pending nudge
+    clearTimeout(nudgeTimeout);
+    nudgeSent = true;
+
+    // Trigger Tweety96 response if available
+    if(currentLine < chatLines.length){
+        setTimeout(()=>{ typeMessage(chatLines[currentLine]); currentLine++; }, 500);
+    }
 }
 
-// User send action
+// Button click
 chatSend.addEventListener('click', ()=>{
     const text = chatInput.value.trim();
     if(!text) return;
     sendUserMessage(text);
     chatInput.value='';
-    if(currentLine < chatLines.length){
-        setTimeout(()=>{ typeMessage(chatLines[currentLine]); currentLine++; }, 500);
-    }
 });
+
+// Enter key
 chatInput.addEventListener('keypress', e=>{ if(e.key==='Enter') chatSend.click(); });
 
 // Auto-open first message on page load
 window.addEventListener('load', ()=>{
-    typeMessage(chatLines[current]()
+    typeMessage(chatLines[currentLine]);
+    currentLine++;
+
+    // Start chat window on top
+    if (chatWindow) chatWindow.style.zIndex = 9999;
+});
+
+// Mobile Mode Toggle via Start Menu
+const mobileMenuItem = document.getElementById('mobile-mode-toggle');
+mobileMenuItem.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.body.classList.toggle('mobile-mode');
+
+    const chatWindow = document.getElementById('chat-window');
+    const startMenu = document.getElementById('start-menu');
+
+    if(document.body.classList.contains('mobile-mode')) {
+        if(chatWindow) chatWindow.classList.add('active');
+        if(startMenu) startMenu.classList.add('show');
+    } else {
+        if(chatWindow) chatWindow.classList.remove('active');
+        if(startMenu) startMenu.classList.remove('show');
+    }
+});
+/* Typing indicator animation */
+.typing-indicator {
+  display: none;
+  margin: 6px 0;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.typing-indicator span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0.6); }
+  40% { transform: scale(1); }
+}
 
     </script>
 </body>
