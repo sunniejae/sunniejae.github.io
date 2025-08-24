@@ -725,29 +725,32 @@
                 e.preventDefault();
             }
         });
+
+        // Chat
         const chatWindow = document.getElementById('chat-window');
 const chatContent = document.getElementById('chat-messages');
 const typingIndicator = document.getElementById('typing-indicator');
 const chatInput = document.getElementById('chat-input');
 const chatSend = document.getElementById('chat-send');
-
-const chatLines = [
-  "OMG hey XD",
-  "lol! \(￣︶￣*\)",
-  "i cant talk long, i have swim practice l8r...",
-  "if u have time, you should check out what ive uploaded to my computer",
-  "i cant wait to hear what u think about it",
-"its kinda like time traveling"
-" (. ❛ ᴗ ❛.) "
-        " we should schedule a play date"
-"then i can show you everthing i hid around here"
-        "ugh moms calling, g2g",
-  "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
+        
+const tweetyResponses = [
+    "OMG hey XD",
+    "lol! \(￣︶￣*\)",
+    "i cant talk long, i have swim practice l8r...",
+    "if u have time, you should check out what ive uploaded to my computer",
+    "i cant wait to hear what u think about it"
+    "its kinda like time traveling"
+    "i made sure you can find all the cool things ive made"
+    "like this website! i scripted it!"
+    "ive been working on some art projects, they're all saved here somewhere"
+    " (. ❛ ᴗ ❛.) "
+    "we should schedule a play date"
+    "then i can show you everthing i hid around here"
+    "ugh moms calling, g2g",
+    "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
 ];
 
 let currentLine = 0;
-let nudgeTimeout = null;
-let nudgeSent = false;
 
 // Add message with typing animation
 function typeMessage(msg, sender='tweety96', totalDuration=2000){
@@ -756,10 +759,9 @@ function typeMessage(msg, sender='tweety96', totalDuration=2000){
     
     if(sender === 'tweety96'){
         msgDiv.textContent = 'Tweety96: '; // prefix
-        msgDiv.style.color = 'var(--accent)';
+        msgDiv.style.color = 'var(--accent)'; // secondary color
     } else {
-        msgDiv.textContent = 'You: '; // prefix for user
-        msgDiv.style.color = 'var(--white)';
+        msgDiv.style.color = 'var(--white)'; // user messages stay white
     }
 
     msgDiv.className = sender==='tweety96' ? 'message-tweety96' : 'message-user';
@@ -777,111 +779,31 @@ function typeMessage(msg, sender='tweety96', totalDuration=2000){
             setTimeout(() => {
                 typingIndicator.style.display = 'none';
             }, 5000);
-
-            // Start nudge timer if Tweety96 sent this
-            if(sender === 'tweety96'){
-                nudgeSent = false;
-                clearTimeout(nudgeTimeout);
-                nudgeTimeout = setTimeout(() => {
-                    if(!nudgeSent){
-                        const nudge = document.createElement('div');
-                        nudge.textContent = "Tweety96: hello? ru there?";
-                        nudge.style.color = 'var(--accent)';
-                        nudge.className = 'message-tweety96';
-                        chatContent.appendChild(nudge);
-                        chatContent.scrollTop = chatContent.scrollHeight;
-                        nudgeSent = true;
-                    }
-                }, 2000);
-            }
         }
     }, intervalTime);
 }
-
 // Send user message
-function sendUserMessage(text){
-    const userDiv = document.createElement('div');
-    userDiv.textContent = 'You: ' + text;
-    userDiv.className = 'message-user';
-    userDiv.style.color = 'var(--white)';
-    userDiv.style.padding='2px 0';
-    chatContent.appendChild(userDiv);
-    chatContent.scrollTop = chatContent.scrollHeight;
-
-    // Cancel pending nudge
-    clearTimeout(nudgeTimeout);
-    nudgeSent = true;
-
-    // Trigger Tweety96 response if available
-    if(currentLine < chatLines.length){
-        setTimeout(()=>{ typeMessage(chatLines[currentLine]); currentLine++; }, 500);
-    }
-}
-
-// Button click
 chatSend.addEventListener('click', ()=>{
     const text = chatInput.value.trim();
     if(!text) return;
-    sendUserMessage(text);
+    const userDiv = document.createElement('div');
+    userDiv.textContent = 'You: ' + text;
+    userDiv.className = 'message-user';
+    userDiv.style.padding='2px 0';
+    chatContent.appendChild(userDiv);
+    chatContent.scrollTop = chatContent.scrollHeight;
     chatInput.value='';
+    if(currentLine < chatLines.length){
+        setTimeout(()=>{ typeMessage(chatLines[currentLine]); currentLine++; }, 500);
+    }
 });
-
-// Enter key
 chatInput.addEventListener('keypress', e=>{ if(e.key==='Enter') chatSend.click(); });
 
 // Auto-open first message on page load
 window.addEventListener('load', ()=>{
     typeMessage(chatLines[currentLine]);
     currentLine++;
-
-    // Start chat window on top
-    if (chatWindow) chatWindow.style.zIndex = 9999;
 });
-
-// Mobile Mode Toggle via Start Menu
-const mobileMenuItem = document.getElementById('mobile-mode-toggle');
-mobileMenuItem.addEventListener('click', (e) => {
-    e.stopPropagation();
-    document.body.classList.toggle('mobile-mode');
-
-    const chatWindow = document.getElementById('chat-window');
-    const startMenu = document.getElementById('start-menu');
-
-    if(document.body.classList.contains('mobile-mode')) {
-        if(chatWindow) chatWindow.classList.add('active');
-        if(startMenu) startMenu.classList.add('show');
-    } else {
-        if(chatWindow) chatWindow.classList.remove('active');
-        if(startMenu) startMenu.classList.remove('show');
-    }
-});
-/* Typing indicator animation */
-.typing-indicator {
-  display: none;
-  margin: 6px 0;
-  padding: 6px 10px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 12px;
-  width: fit-content;
-}
-
-.typing-indicator span {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin: 0 2px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: bounce 1.4s infinite;
-}
-
-.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0.6); }
-  40% { transform: scale(1); }
-}
 
     </script>
 </body>
