@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Tahoma', sans-serif;
-            background: var(--black) url('https://imgur.com/OROvPLq.png') no-repeat center center fixed;
+            background: var(--black) url('https://i.imgur.com/gxc6hdU.png') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             overflow: hidden;
@@ -141,8 +141,8 @@
             left: 0;
             right: 0;
             height: 50px;
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border-top: 2px outset var(--silver);
+            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+            border-top: 2px outset var(--gray);
             display: flex;
             align-items: center;
             padding: 0 8px;
@@ -150,8 +150,8 @@
         }
 
         .start-button {
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border: 2px outset var(--silver);
+            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+            border: 2px outset var(--gray);
             color: var(--black);
             font-weight: bold;
             padding: 6px 12px;
@@ -171,8 +171,8 @@
         }
 
         .taskbar-button {
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border: 2px inset var(--silver);
+            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+            border: 2px inset var(--gray);
             color: var(--black);
             padding: 6px 12px;
             cursor: pointer;
@@ -184,7 +184,7 @@
         }
 
         .taskbar-button.active {
-            background: var(--secondary);
+            background: linear-gradient(to bottom, var(--dark-gray), var(--gray));
             border: 2px inset var(--dark-gray);
         }
 
@@ -219,7 +219,7 @@
         .menu-item {
             padding: 8px 16px;
             cursor: pointer;
-            border-bottom: 1px solid var(--secondary);
+            border-bottom: 1px solid var(--gray);
             font-size: 12px;
             position: relative;
         }
@@ -240,7 +240,7 @@
             left: 100%;
             top: 0;
             width: 200px;
-            background: var(--teal);
+            background: var(--silver);
             border: 2px outset var(--gray);
             display: none;
         }
@@ -285,8 +285,8 @@
         }
 
         .shutdown-button {
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border: 2px outset var(--silver);
+            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+            border: 2px outset var(--gray);
             padding: 8px 16px;
             margin-top: 16px;
             cursor: pointer;
@@ -294,7 +294,7 @@
         }
 
         .shutdown-button:hover {
-            background: linear-gradient(to bottom, var(--pink), var(--secondary));
+            background: linear-gradient(to bottom, var(--white), var(--silver));
         }
 
         .notebook-image {
@@ -311,8 +311,8 @@
             height: 16px;
             background: var(--gray);
             cursor: nw-resize;
-            border-left: 2px inset var(--dark-purple);
-            border-top: 2px inset var(--dark-purple);
+            border-left: 2px inset var(--gray);
+            border-top: 2px inset var(--gray);
         }
 
         .header-banner {
@@ -351,46 +351,46 @@
         }
 
         .music-button {
-            background: var(--primary);
-            border: 1px outset var(--dark-purple);
+            background: var(--gray);
+            border: 1px outset var(--gray);
             padding: 4px 8px;
             cursor: pointer;
             font-size: 10px;
         }
 
         .music-button:hover {
-            background: var(--teal);
+            background: var(--white);
         }
     </style>
 </head>
 <body>
     <div class="desktop" id="desktop">
         <div class="desktop-icon" data-target="recycle">
-            <img src="https://imgur.com/kONQgml.png" alt="Recycle">
+            <img src="https://imgur.com/xAlFvpi.png" alt="Recycle">
             <span>Recycle</span>
         </div>
         <div class="desktop-icon" data-target="documents">
-            <img src="https://imgur.com/FZeNUaR.png" alt="Documents">
+            <img src="https://imgur.com/Igoe1nl.png" alt="Documents">
             <span>Documents</span>
         </div>
         <div class="desktop-icon" data-target="photos">
-            <img src="https://imgur.com/FZeNUaR.png" alt="Photos">
+            <img src="https://imgur.com/Igoe1nl.png" alt="Photos">
             <span>Photos</span>
         </div>
         <div class="desktop-icon" data-target="videos">
-            <img src="https://imgur.com/gT1Gmxn.png" alt="Videos">
+            <img src="https://imgur.com/6ECTKrH.png" alt="Videos">
             <span>Videos</span>
         </div>
         <div class="desktop-icon" data-target="browser">
-            <img src="https://imgur.com/pvKWSGT.png" alt="Browser">
+            <img src="https://imgur.com/wj4vQ1N.png" alt="Browser">
             <span>Browser</span>
         </div>
         <div class="desktop-icon" data-target="summer2005">
-            <img src="https://imgur.com/FZeNUaR.png" alt="Summer 2005">
+            <img src="https://imgur.com/Igoe1nl.png" alt="Summer 2005">
             <span>Summer 2005</span>
         </div>
         <div class="desktop-icon" data-target="downloads">
-            <img src="https://imgur.com/UqKJWxZ.png" alt="Downloads">
+            <img src="https://imgur.com/mHhjBOl.png" alt="Downloads">
             <span>Downloads</span>
         </div>
     </div>
@@ -520,7 +520,7 @@
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
             const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('clock').textContent = ${month}/${day}/2006 ${time};
+            document.getElementById('clock').textContent = `${month}/${day}/2006 ${time}`;
         }
 
         // Desktop icons
@@ -700,6 +700,7 @@
                 e.preventDefault();
             }
         });
+        
     </script>
 </body>
 </html>
