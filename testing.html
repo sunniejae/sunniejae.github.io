@@ -307,8 +307,8 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 16px;
-            height: 16px;
+            width: 10px;
+            height: 10px;
             background: var(--pink);
             cursor: nw-resize;
             border-left: 2px inset var(--gray);
@@ -727,7 +727,7 @@ const chatSend = document.getElementById('chat-send');
 
 const chatLines = [
   "OMG hey XD",
-  "lol!",
+  "lol!\(￣︶￣*\))",
   "i have swim practice l8r...",
   "moms calling, g2g",
   "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
@@ -739,11 +739,19 @@ let currentLine = 0;
 function typeMessage(msg, sender='tweety96', totalDuration=2000){
     typingIndicator.style.display = 'block';
     const msgDiv = document.createElement('div');
+    
+    if(sender === 'tweety96'){
+        msgDiv.textContent = 'Tweety96: '; // prefix
+        msgDiv.style.color = 'var(--accent)'; // secondary color
+    } else {
+        msgDiv.style.color = 'var(--white)'; // user messages stay white
+    }
+
     msgDiv.className = sender==='tweety96' ? 'message-tweety96' : 'message-user';
     chatContent.appendChild(msgDiv);
 
     let i = 0;
-    const intervalTime = totalDuration / msg.length; // spread typing over 2 seconds
+    const intervalTime = totalDuration / msg.length;
 
     const typingInterval = setInterval(() => {
         msgDiv.textContent += msg.charAt(i);
@@ -751,14 +759,12 @@ function typeMessage(msg, sender='tweety96', totalDuration=2000){
         chatContent.scrollTop = chatContent.scrollHeight;
         if (i >= msg.length) {
             clearInterval(typingInterval);
-            // keep indicator for 5 seconds after finishing
             setTimeout(() => {
                 typingIndicator.style.display = 'none';
             }, 5000);
         }
     }, intervalTime);
 }
-
 // Send user message
 chatSend.addEventListener('click', ()=>{
     const text = chatInput.value.trim();
