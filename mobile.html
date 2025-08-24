@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Creates</title>
+<title>Sunnie Jae Creates - Mobile Mode</title>
 <link rel="icon" href="https://i.imgur.com/gHDx7cE.png">
 <style>
     :root {
@@ -20,102 +20,139 @@
         --primary: #9a9ad4;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Tahoma', sans-serif; background: var(--black) url('https://i.imgur.com/gxc6hdU.png') no-repeat center center fixed; background-size: cover; height: 100vh; overflow: hidden; user-select: none; }
-
-    .desktop { height: calc(100vh - 50px); position: relative; padding: 20px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
-
-    .desktop-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; padding: 8px; border-radius: 4px; transition: background-color 0.2s; width: 80px; height: 80px; }
-    .desktop-icon:hover { background-color: rgba(255, 255, 255, 0.1); }
-    .desktop-icon img { width: 48px; height: 48px; margin-bottom: 4px; }
-    .desktop-icon span { color: var(--white); font-size: 11px; text-align: center; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); line-height: 1.2; }
-
-    .window { position: absolute; background: var(--silver); border: 2px outset var(--gray); min-width: 300px; min-height: 200px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 10; }
-    .window.active { z-index: 100; }
-    .window.minimized { display: none; }
-
-    .window-header { background: linear-gradient(to bottom,var(--primary),var(--dark-purple)); color: var(--white); padding: 4px 8px; cursor: move; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: bold; }
-    .window-controls { display: flex; gap: 2px; }
-    .window-button { width: 18px; height: 18px; background: var(--gray); border: 1px outset var(--gray); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: bold; }
-    .window-button:hover { background: var(--accent); }
-
-    .window-content { padding: 8px; height: calc(100% - 30px); overflow: auto; display: flex; flex-direction: column; }
-
-    .taskbar { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: linear-gradient(to bottom,var(--silver),var(--gray)); border-top: 2px outset var(--gray); display: flex; align-items: center; padding: 0 8px; z-index: 1000; }
-    .start-button { background: linear-gradient(to bottom,var(--silver),var(--gray)); border: 2px outset var(--gray); color: var(--black); font-weight: bold; padding: 6px 12px; cursor: pointer; margin-right: 8px; font-size: 13px; }
-    .start-button:hover { background: linear-gradient(to bottom,var(--white),var(--gray)); }
-    .taskbar-buttons { flex: 1; display: flex; gap: 4px; }
-    .taskbar-button { background: linear-gradient(to bottom,var(--silver),var(--gray)); border: 2px inset var(--gray); color: var(--black); padding: 6px 12px; cursor: pointer; font-size: 12px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .taskbar-button.active { background: linear-gradient(to bottom,var(--primary),var(--dark-purple)); border: 2px inset var(--gray); }
-    .taskbar-button:hover { background: linear-gradient(to bottom,var(--white),var(--silver)); }
-    .clock { color: var(--black); font-size: 11px; padding: 4px 8px; background: var(--silver); border: 1px inset var(--gray); margin-left: 8px; }
-
-    .start-menu { position: fixed; bottom: 50px; left: 8px; width: 250px; background: var(--silver); border: 2px outset var(--gray); display: none; z-index: 1001; }
-    .start-menu.show { display: block; }
-    .menu-item { padding: 8px 16px; cursor: pointer; border-bottom: 1px solid var(--gray); font-size: 12px; position: relative; }
-    .menu-item:hover { background: var(--primary); color: var(--white); }
-    .menu-item.has-submenu::after { content: '▶'; position: absolute; right: 8px; }
-    .submenu { position: absolute; left: 100%; top: 0; width: 200px; background: var(--teal); border: 2px outset var(--dark-gray); display: none; }
-    .menu-item:hover .submenu { display: block; }
-
-    .chat-container {
+    body {
+        margin: 0;
+        font-family: 'Courier New', monospace;
+        background: #000;
+        color: #fff;
+        height: 100vh;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
+    }
+
+    .phone-header {
+        height: 24px;
+        background: #222;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+
+    .chat-container {
+        flex: 1;
         padding: 6px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
         gap: 4px;
-        background: #000;
+        background: #111;
+        font-size: 12px;
+    }
+
+    .message {
+        max-width: 80%;
+        padding: 6px;
+        border-radius: 4px;
+        word-wrap: break-word;
+    }
+
+    .message.tweety {
+        background: #0a0;
+        color: #e0ffe0;
+        align-self: flex-start;
+        border: 1px solid #0f0;
+    }
+
+    .message.user {
+        background: #c0c0c0;
+        color: #000;
+        align-self: flex-end;
+        border: 1px solid #888;
+    }
+
+    .typing-indicator {
+        font-size: 11px;
+        font-style: italic;
+        color: #888;
+        align-self: flex-start;
+    }
+
+    .input-area {
+        display: flex;
+        padding: 6px;
+        background: #222;
+        gap: 4px;
+    }
+
+    .input-area input {
+        flex: 1;
+        padding: 6px;
         font-family: 'Courier New', monospace;
         font-size: 12px;
-        line-height: 1.2;
-        height: 300px;
-        overflow-y: auto;
+        background: #111;
+        color: #fff;
+        border: 1px solid #555;
+        border-radius: 2px;
     }
 
-    .message { padding: 4px 6px; border: 1px solid #555; max-width: 80%; word-wrap: break-word; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.2; }
-    .message.user { align-self: flex-end; background: #c0c0c0; color: #000; border: 1px solid #888; }
-    .message.tweety { align-self: flex-start; background: #0a0; color: #e0ffe0; border: 1px solid #0f0; }
-    .typing-indicator { font-size: 11px; font-style: italic; color: #888; align-self: flex-start; }
-
-    .mobile-only { display: none; }
-    @media screen and (max-width: 600px) {
-        .desktop, .taskbar { display: none; }
-        .mobile-only { display: block; width: 100%; height: 100vh; background: #000; color: #fff; }
-        .chat-container { height: calc(100vh - 50px); }
+    .input-area button {
+        padding: 6px 10px;
+        background: #555;
+        color: #fff;
+        border: 1px solid #888;
+        cursor: pointer;
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
     }
 
+    .start-menu-mobile {
+        position: fixed;
+        bottom: 40px;
+        left: 0;
+        width: 100%;
+        background: #222;
+        border-top: 2px solid #555;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .start-menu-mobile button {
+        background: #333;
+        border: 1px solid #555;
+        color: #fff;
+        padding: 6px;
+        text-align: left;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .start-menu-mobile button:hover {
+        background: #444;
+    }
 </style>
 </head>
 <body>
 
-<div class="desktop">
-    <div class="desktop-icon" onclick="openChat()">
-        <img src="https://i.imgur.com/6Q0J9zS.png" alt="Chat">
-        <span>Chat</span>
-    </div>
+<div class="phone-header">
+    <span>9:41 AM</span>
+    <span>Signal | 100% Battery</span>
 </div>
 
-<div class="taskbar">
-    <div class="start-button" onclick="toggleStartMenu()">Start</div>
-    <div class="taskbar-buttons"></div>
-    <div class="clock" id="clock"></div>
+<div class="chat-container" id="chatContainer"></div>
+
+<div class="input-area">
+    <input type="text" id="chatInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
 </div>
 
-<div class="start-menu" id="startMenu">
-    <div class="menu-item has-submenu">Settings
-        <div class="submenu">
-            <div class="menu-item" onclick="openChat()">Mobile Mode</div>
-        </div>
-    </div>
-</div>
-
-<div class="mobile-only">
-    <div class="chat-container" id="chatContainer">
-        <!-- Messages appear here -->
-    </div>
-    <div style="position: fixed; bottom:0; width:100%; background:#222; padding:6px; display:flex;">
-        <input type="text" id="chatInput" style="flex:1; padding:6px; font-family:'Courier New',monospace;">
-        <button onclick="sendMessage()" style="padding:6px;">Send</button>
-    </div>
+<div class="start-menu-mobile">
+    <button onclick="alert('Settings menu open!')">Settings</button>
+    <button onclick="window.location.href='index.html'">Back to Desktop</button>
 </div>
 
 <script>
@@ -140,15 +177,6 @@
         "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
     ];
 
-    function toggleStartMenu() {
-        document.getElementById('startMenu').classList.toggle('show');
-    }
-
-    function openChat() {
-        document.querySelector('.mobile-only').style.display = 'block';
-        nextMessage();
-    }
-
     function nextMessage() {
         if(messageIndex < tweetyResponses.length) {
             const typing = document.createElement('div');
@@ -156,7 +184,7 @@
             typing.innerText = 'Tweety96 is typing...';
             chatContainer.appendChild(typing);
             chatContainer.scrollTop = chatContainer.scrollHeight;
-            
+
             setTimeout(() => {
                 typing.remove();
                 const msg = document.createElement('div');
@@ -181,15 +209,8 @@
         chatInput.value = '';
     }
 
-    function updateClock() {
-        const now = new Date();
-        const h = String(now.getHours()).padStart(2,'0');
-        const m = String(now.getMinutes()).padStart(2,'0');
-        const s = String(now.getSeconds()).padStart(2,'0');
-        document.getElementById('clock').innerText = `${h}:${m}:${s}`;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+    // Start the conversation automatically
+    nextMessage();
 </script>
 
 </body>
