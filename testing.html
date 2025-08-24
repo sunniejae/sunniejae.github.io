@@ -361,22 +361,23 @@
         .music-button:hover {
             background: var(--white);
         }
-        
-  /* Mobile Mode Overrides */
+        /* Mobile Mode Styling */
 body.mobile-mode {
     overflow: hidden;
     font-family: 'Courier New', monospace;
 }
 
+/* Hide everything except chat window and start menu */
 body.mobile-mode .desktop,
-body.mobile-mode .window:not(.chat-window),
+body.mobile-mode .window:not(#chat-window),
 body.mobile-mode .taskbar-button,
 body.mobile-mode .window-controls,
-body.mobile-mode .resize-handle {
-    display: none !important; /* hide everything except chat and start menu */
+body.mobile-mode .resize-handle,
+body.mobile-mode .window-header:not(#chat-window .window-header) {
+    display: none !important;
 }
 
-/* Taskbar becomes the keyboard area */
+/* Taskbar becomes bottom keyboard area */
 body.mobile-mode .taskbar {
     position: fixed;
     bottom: 0;
@@ -390,15 +391,15 @@ body.mobile-mode .taskbar {
     z-index: 1000;
 }
 
-/* Chat window full screen */
-body.mobile-mode .chat-window {
+/* Chat window full-screen above taskbar */
+body.mobile-mode #chat-window {
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 60px); /* leave space for taskbar/keyboard */
+    height: calc(100% - 60px);
     border: none;
     box-shadow: none;
     z-index: 1001;
@@ -406,31 +407,31 @@ body.mobile-mode .chat-window {
     overflow-y: auto;
 }
 
-/* Chat messages styling like SMS bubbles */
-body.mobile-mode .chat-window .message {
-    max-width: 70%;
-    padding: 8px 12px;
-    margin: 4px;
-    border-radius: 12px;
-    font-size: 14px;
-}
-
-body.mobile-mode .chat-window .message.user {
+/* Chat bubbles */
+body.mobile-mode #chat-window .message-user {
     align-self: flex-end;
     background-color: var(--white);
     color: var(--black);
+    margin: 4px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    max-width: 70%;
 }
 
-body.mobile-mode .chat-window .message.bot {
+body.mobile-mode #chat-window .message-tweety96 {
     align-self: flex-start;
     background-color: var(--secondary);
     color: var(--white);
+    margin: 4px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    max-width: 70%;
 }
 
-/* Start menu fixed at the top of chat */
+/* Start menu at top */
 body.mobile-mode .start-menu {
-    bottom: auto;
     top: 0;
+    bottom: auto;
     left: 0;
     width: 100%;
     z-index: 1002;
@@ -440,6 +441,9 @@ body.mobile-mode .start-menu {
 </head>
 <body>
     <div class="desktop" id="desktop">
+        <button id="mobile-toggle" style="position:fixed; top:10px; right:10px; z-index:2000; padding:6px 10px; font-size:12px; background:var(--accent); color:var(--white); border:none; cursor:pointer;">
+    Toggle Mobile Mode
+</button>
         <div class="desktop-icon" data-target="recycle">
             <img src="https://imgur.com/xAlFvpi.png" alt="Recycle">
             <span>Recycle</span>
@@ -557,11 +561,6 @@ body.mobile-mode .start-menu {
         <div class="menu-item" data-link="contact.html">Contact</div>
         <div class="menu-item" data-link="shop.html">Shop</div>
         <div class="menu-item" data-link="studio-ken.html">Studio Ken</div>
-        <div class="menu-item has-submenu">
-            Settings
-         <div class="submenu">
-             <div class="mobile-toggle" id="mobile-toggle" style="background:var(--accent); color:var(--black); padding:4px 8px; cursor:pointer; font-size:10px; border-radius:3px;">Mobile Mode</div>
-         </div>
         <div class="menu-item" id="shutdown-item">Shut Down</div>
     </div>
 <!-- Tweety96 Chat Window -->
@@ -869,30 +868,20 @@ window.addEventListener('load', ()=>{
     typeMessage(chatLines[currentLine]);
     currentLine++;
 });
-    const toggleButton = document.getElementById('mobile-toggle');
-
-    toggleButton.addEventListener('click', () => {
-        document.body.classList.toggle('mobile-mode');
-    });
-        const toggleButton = document.getElementById('mobile-toggle');
+// Mobile Mode Toggle
+const toggleButton = document.getElementById('mobile-toggle');
 
 toggleButton.addEventListener('click', () => {
     document.body.classList.toggle('mobile-mode');
 
-    if(document.body.classList.contains('mobile-mode')) {
-        // Open chat window automatically
-        const chatWindow = document.querySelector('.chat-window');
-        if(chatWindow) chatWindow.classList.add('active');
+    const chatWindow = document.getElementById('chat-window');
+    const startMenu = document.getElementById('start-menu');
 
-        // Show start menu
-        const startMenu = document.querySelector('.start-menu');
+    if(document.body.classList.contains('mobile-mode')) {
+        if(chatWindow) chatWindow.classList.add('active');
         if(startMenu) startMenu.classList.add('show');
     } else {
-        // Close chat window and start menu when leaving mobile mode
-        const chatWindow = document.querySelector('.chat-window');
         if(chatWindow) chatWindow.classList.remove('active');
-
-        const startMenu = document.querySelector('.start-menu');
         if(startMenu) startMenu.classList.remove('show');
     }
 });
