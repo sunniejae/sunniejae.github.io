@@ -444,6 +444,25 @@
         </div>
         <div class="resize-handle"></div>
     </div>
+<!-- Tweety96 Chat Window -->
+<div class="window" id="chat-window" style="left: 400px; top: 200px; width: 300px; height: 400px;">
+  <div class="window-header">
+      <span>tweety96</span>
+      <div class="window-controls">
+          <div class="window-button minimize-btn">_</div>
+          <div class="window-button close-btn">×</div>
+      </div>
+  </div>
+  <div class="window-content" style="display:flex; flex-direction:column; padding:0;">
+      <div id="typing-indicator" style="font-style:italic;color:var(--gray);display:none;padding:5px;">tweety96 is typing...</div>
+      <div id="chat-messages" style="flex:1; overflow-y:auto; padding:5px; background:var(--black); color:var(--white); font-size:12px;"></div>
+      <div id="chat-input-area" style="display:flex; border-top:1px solid var(--gray);">
+          <input id="chat-input" type="text" placeholder="Type a message..." style="flex:1; border:none; padding:4px; font-size:12px; outline:none;">
+          <button id="chat-send" style="background:var(--primary); color:var(--white); border:none; padding:4px 8px; cursor:pointer;">Send</button>
+      </div>
+  </div>
+  <div class="resize-handle"></div>
+</div>
 
     <!-- Pinterest Window (minimized by default) -->
     <div class="window minimized" id="pinterest-window" style="left: 300px; top: 200px; width: 400px; height: 400px;">
@@ -459,26 +478,6 @@
         </div>
         <div class="resize-handle"></div>
     </div>
-    
-<!-- Tweety96 Chat Window -->
-<div class="window minimized" id="chat-window" style="left: 400px; top: 200px; width: 300px; height: 400px;">
-    <div class="window-header">
-        <span>tweety96</span>
-        <div class="window-controls">
-            <div class="window-button minimize-btn">_</div>
-            <div class="window-button close-btn">×</div>
-        </div>
-    </div>
-    <div class="window-content" style="display:flex; flex-direction:column; padding:0;">
-        <div id="typing-indicator" style="font-style:italic;color:var(--gray);display:none;padding:5px;">tweety96 is typing...</div>
-        <div id="chat-messages" style="flex:1; overflow-y:auto; padding:5px; background:var(--black); color:var(--white); font-size:12px;"></div>
-        <div id="chat-input-area" style="display:flex; border-top:1px solid var(--gray);">
-            <input id="chat-input" type="text" placeholder="Type a message..." style="flex:1; border:none; padding:4px; font-size:12px; outline:none;">
-            <button id="chat-send" style="background:var(--primary); color:var(--white); border:none; padding:4px 8px; cursor:pointer;">Send</button>
-        </div>
-    </div>
-    <div class="resize-handle"></div>
-</div>
 
     <!-- Taskbar -->
     <div class="taskbar">
@@ -540,7 +539,7 @@
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
             const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('clock').textContent = `${month}/${day}/2006 ${time}`;
+            document.getElementById('clock').textContent = ${month}/${day}/2006 ${time};
         }
 
         // Desktop icons
@@ -720,8 +719,7 @@
                 e.preventDefault();
             }
         });
-        // Tweety96 chat logic
-const chatWindow = document.getElementById('chat-window');
+        const chatWindow = document.getElementById('chat-window');
 const chatContent = document.getElementById('chat-messages');
 const typingIndicator = document.getElementById('typing-indicator');
 const chatInput = document.getElementById('chat-input');
@@ -737,48 +735,47 @@ const chatLines = [
 
 let currentLine = 0;
 
-function addChatMessage(msg, sender='tweety96'){
+// Add message with typing animation
+function typeMessage(msg, sender='tweety96', speed=40){
+    typingIndicator.style.display='block';
+    let i=0;
     const msgDiv = document.createElement('div');
-    msgDiv.textContent = (sender==='tweety96' ? 'tweety96: ' : 'You: ') + msg;
     msgDiv.className = sender==='tweety96' ? 'message-tweety96' : 'message-user';
-    msgDiv.style.padding = '2px 0';
     chatContent.appendChild(msgDiv);
-    chatContent.scrollTop = chatContent.scrollHeight;
+
+    const typingInterval = setInterval(()=>{
+        msgDiv.textContent += msg.charAt(i);
+        i++;
+        chatContent.scrollTop = chatContent.scrollHeight;
+        if(i>=msg.length){
+            clearInterval(typingInterval);
+            typingIndicator.style.display='none';
+        }
+    }, speed);
 }
 
-function showTypingIndicator(show=true){ typingIndicator.style.display = show ? 'block':'none'; }
-
-// Send message
+// Send user message
 chatSend.addEventListener('click', ()=>{
     const text = chatInput.value.trim();
     if(!text) return;
-    addChatMessage(text,'user');
+    const userDiv = document.createElement('div');
+    userDiv.textContent = 'You: ' + text;
+    userDiv.className = 'message-user';
+    userDiv.style.padding='2px 0';
+    chatContent.appendChild(userDiv);
+    chatContent.scrollTop = chatContent.scrollHeight;
     chatInput.value='';
     if(currentLine < chatLines.length){
-        showTypingIndicator(true);
-        setTimeout(()=>{
-            showTypingIndicator(false);
-            addChatMessage(chatLines[currentLine]);
-            currentLine++;
-        },2000);
+        setTimeout(()=>{ typeMessage(chatLines[currentLine]); currentLine++; }, 500);
     }
 });
 chatInput.addEventListener('keypress', e=>{ if(e.key==='Enter') chatSend.click(); });
 
-// First message when chat opens
-function startChat(){
-    if(currentLine < chatLines.length){
-        showTypingIndicator(true);
-        setTimeout(()=>{
-            showTypingIndicator(false);
-            addChatMessage(chatLines[currentLine]);
-            currentLine++;
-        },1000);
-    }
-}
-
-// Make chat appear when window is opened
-document.querySelector(`#taskbar-buttons .taskbar-button:nth-child( ${document.querySelectorAll('.window').length} )`)?.addEventListener('click', startChat);
+// Auto-open first message on page load
+window.addEventListener('load', ()=>{
+    typeMessage(chatLines[currentLine]);
+    currentLine++;
+});
 
     </script>
 </body>
