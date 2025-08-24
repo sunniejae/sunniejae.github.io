@@ -1,260 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sunnie Jae Creates – Retro Desktop</title>
-  <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root {
-      --black: #000010;
-      --white: #ffffff;
-      --dark-gray: #404040;
-      --gray: #bfbfdc;
-      --silver: #f0f0f5;
-      --pink: #ffb3d6;
-      --teal: #00a8a3;
-      --dark-purple: #3f3d7a;
-      --accent: #00c9c2;
-      --secondary: #c13886;
-      --primary: #9a9ad4;
-    }
+<meta charset="UTF-8">
+<title>Sunnie Jae Creates – Retro Desktop</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root {
+  --black: #000010;
+  --white: #ffffff;
+  --dark-gray: #404040;
+  --gray: #bfbfdc;
+  --silver: #f0f0f5;
+  --pink: #ffb3d6;
+  --teal: #00a8a3;
+  --dark-purple: #3f3d7a;
+  --accent: #00c9c2;
+  --secondary: #c13886;
+  --primary: #9a9ad4;
+}
 
-    body {
-      margin: 0;
-      font-family: "Trebuchet MS", sans-serif;
-      background: url("https://i.imgur.com/mreYQcF.png") center/cover no-repeat fixed;
-      overflow: hidden;
-    }
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", sans-serif;
+  background: url("https://i.imgur.com/mreYQcF.png") center/cover no-repeat fixed;
+  overflow: hidden;
+}
 
-    /* Generic window styling */
-    .window {
-      position: absolute;
-      top: 100px;
-      left: 100px;
-      width: 400px;
-      height: 300px;
-      background: var(--silver);
-      border: 2px solid var(--dark-gray);
-      box-shadow: 4px 4px 0 var(--dark-gray);
-      display: flex;
-      flex-direction: column;
-      resize: both;
-      overflow: hidden;
-      z-index: 10;
-    }
+/* Taskbar */
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: var(--dark-gray);
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  box-sizing: border-box;
+  z-index: 999;
+  color: var(--white);
+}
 
-    .title-bar {
-      background: var(--primary);
-      color: var(--white);
-      padding: 4px 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: move;
-      user-select: none;
-    }
+.taskbar-button {
+  background: var(--primary);
+  border: 1px solid var(--black);
+  padding: 2px 6px;
+  margin-right: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
 
-    .title-bar .buttons {
-      display: flex;
-      gap: 4px;
-    }
+/* Messenger Window */
+#messengerWindow {
+  position: absolute;
+  top: 100px;
+  left: calc(50% - 200px);
+  width: 400px;
+  height: 300px;
+  background: var(--silver);
+  border: 2px solid var(--dark-gray);
+  box-shadow: 4px 4px 0 var(--dark-gray);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  overflow: hidden;
+}
 
-    .title-bar button {
-      width: 18px;
-      height: 18px;
-      border: none;
-      background: var(--secondary);
-      color: var(--white);
-      font-weight: bold;
-      line-height: 14px;
-      cursor: pointer;
-    }
+.title-bar {
+  background: var(--primary);
+  color: var(--white);
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .window-content {
-      flex: 1;
-      background: var(--white);
-      padding: 6px;
-      overflow-y: auto;
-      font-size: 14px;
-    }
+.title-bar .buttons button {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: var(--secondary);
+  color: var(--white);
+  font-weight: bold;
+  line-height: 14px;
+  cursor: pointer;
+}
 
-    /* AIM chat styling */
-    .chat-log {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+.window-content {
+  flex: 1;
+  background: var(--white);
+  padding: 6px;
+  overflow-y: auto;
+  font-size: 14px;
+}
 
-    .msg {
-      max-width: 70%;
-      padding: 6px 10px;
-      border-radius: 10px;
-      word-wrap: break-word;
-    }
+/* Chat */
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-    .msg.you {
-      align-self: flex-end;
-      background: var(--pink);
-      color: var(--black);
-    }
+.msg {
+  max-width: 70%;
+  padding: 6px 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
 
-    .msg.buddy {
-      align-self: flex-start;
-      background: var(--gray);
-      color: var(--black);
-    }
+.msg.you {
+  align-self: flex-end;
+  background: var(--pink);
+  color: var(--black);
+}
 
-    .chat-input {
-      display: flex;
-      border-top: 1px solid var(--dark-gray);
-    }
+.msg.buddy {
+  align-self: flex-start;
+  background: var(--gray);
+  color: var(--black);
+}
 
-    .chat-input input {
-      flex: 1;
-      padding: 6px;
-      border: none;
-      outline: none;
-      font-size: 14px;
-    }
+.chat-input {
+  display: flex;
+  border-top: 1px solid var(--dark-gray);
+}
 
-    .chat-input button {
-      background: var(--teal);
-      color: var(--white);
-      border: none;
-      padding: 6px 12px;
-      cursor: pointer;
-    }
+.chat-input input {
+  flex: 1;
+  padding: 6px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
 
-    /* Taskbar */
-    .taskbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 32px;
-      background: var(--dark-gray);
-      display: flex;
-      align-items: center;
-      padding: 0 6px;
-      gap: 6px;
-      justify-content: space-between;
-    }
-
-    .taskbar-left {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .taskbar-button {
-      background: var(--silver);
-      border: 1px solid var(--black);
-      padding: 4px 10px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .taskbar-button.active {
-      background: var(--primary);
-      color: var(--white);
-    }
-
-    .taskbar-clock {
-      color: var(--white);
-      font-family: monospace;
-      padding-right: 6px;
-      font-size: 14px;
-    }
-  </style>
+.chat-input button {
+  background: var(--teal);
+  color: var(--white);
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
-  
-  <!-- AIM Messenger Window -->
-  <div class="window" id="aimWindow">
-    <div class="title-bar">
-      <span>Messenger – tweety96</span>
-      <div class="buttons">
-        <button onclick="closeWindow('aimWindow')">×</button>
-      </div>
-    </div>
-    <div class="window-content">
-      <div class="chat-log" id="chatLog"></div>
-    </div>
-    <div class="chat-input">
-      <input type="text" id="chatInput" placeholder="Type a message...">
-      <button onclick="sendMessage()">Send</button>
+
+<!-- Messenger Window -->
+<div id="messengerWindow">
+  <div class="title-bar">
+    <span>Messenger – tweety96</span>
+    <div class="buttons">
+      <button onclick="closeWindow('messengerWindow')">×</button>
     </div>
   </div>
-
-  <!-- Taskbar -->
-  <div class="taskbar">
-    <div class="taskbar-left" id="taskbar"></div>
-    <div class="taskbar-clock" id="clock">00:00 01/01/2006</div>
+  <div class="window-content">
+    <div class="chat-log" id="chatLog"></div>
   </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
 
-  <script>
-    // Draggable windows
-    document.querySelectorAll('.window').forEach(win => {
-      const titleBar = win.querySelector('.title-bar');
-      let offsetX = 0, offsetY = 0, dragging = false;
+<!-- Taskbar -->
+<div id="taskbar">
+  <div class="taskbar-button" onclick="toggleMessenger()">Messenger</div>
+  <div id="clock"></div>
+</div>
 
-      titleBar.addEventListener('mousedown', e => {
-        dragging = true;
-        offsetX = e.clientX - win.offsetLeft;
-        offsetY = e.clientY - win.offsetTop;
-        win.style.zIndex = 100;
-      });
+<script>
+// Taskbar functions
+function toggleMessenger() {
+  const win = document.getElementById("messengerWindow");
+  if (win.style.display === "none") {
+    win.style.display = "flex";
+  } else {
+    win.style.display = "none";
+  }
+}
 
-      document.addEventListener('mousemove', e => {
-        if (dragging) {
-          win.style.left = (e.clientX - offsetX) + 'px';
-          win.style.top = (e.clientY - offsetY) + 'px';
-        }
-      });
+// Clock
+function updateClock() {
+  const now = new Date();
+  const mm = String(now.getMonth()+1).padStart(2,'0');
+  const dd = String(now.getDate()).padStart(2,'0');
+  const clock = document.getElementById("clock");
+  clock.textContent = `${mm}/${dd}/2006`;
+}
+setInterval(updateClock, 1000);
+updateClock();
 
-      document.addEventListener('mouseup', () => dragging = false);
-    });
-
-    function closeWindow(id) {
-      const win = document.getElementById(id);
-      win.style.display = "none";
-      removeTaskbarButton(id);
-    }
-
-    // Taskbar logic
-    function addTaskbarButton(id, label) {
-      const taskbar = document.getElementById("taskbar");
-      if (document.querySelector(`[data-window='${id}']`)) return;
-      const btn = document.createElement("button");
-      btn.className = "taskbar-button active";
-      btn.textContent = label;
-      btn.dataset.window = id;
-      btn.onclick = () => toggleWindow(id, btn);
-      taskbar.appendChild(btn);
-    }
-
-    function removeTaskbarButton(id) {
-      const btn = document.querySelector(`[data-window='${id}']`);
-      if (btn) btn.remove();
-    }
-
-    function toggleWindow(id, btn) {
-      const win = document.getElementById(id);
-      if (win.style.display === "none") {
-        win.style.display = "flex";
-        btn.classList.add("active");
-      } else {
-        win.style.display = "none";
-        btn.classList.remove("active");
-      }
-    }
-
-    // AIM Chat Logic
+// Chat
 const chatLog = document.getElementById("chatLog");
 const chatInput = document.getElementById("chatInput");
 
-// Buddy messages
 const buddyMessages = [
   "OMG hey XD",
   "lol!",
@@ -264,6 +204,7 @@ const buddyMessages = [
 ];
 
 let msgIndex = 0;
+let readyForUser = false;
 
 function appendMessage(text, sender) {
   const div = document.createElement("div");
@@ -275,39 +216,38 @@ function appendMessage(text, sender) {
 
 function sendMessage() {
   const text = chatInput.value.trim();
-  if (!text) return;
+  if (!text || !readyForUser) return;
   appendMessage(text, "you");
   chatInput.value = "";
+  readyForUser = false;
 
-  // Trigger buddy reply if available
+  // Buddy reply after 1s
   if (msgIndex < buddyMessages.length) {
     setTimeout(() => {
       appendMessage(buddyMessages[msgIndex], "buddy");
       msgIndex++;
-    }, 1000); // delay to feel like typing
+      readyForUser = true;
+    }, 1000);
   }
 }
 
-    // Clock logic
-    function updateClock() {
-      const now = new Date();
-      const mm = String(now.getMonth() + 1).padStart(2, '0');
-      const dd = String(now.getDate()).padStart(2, '0');
-      const hh = String(now.getHours()).padStart(2, '0');
-      const min = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById("clock").textContent = `${hh}:${min} ${mm}/${dd}/2006`;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+// Initial typing indicator and first message
+window.onload = function() {
+  const typing = document.createElement("div");
+  typing.id = "typingIndicator";
+  typing.classList.add("msg","buddy");
+  typing.textContent = "...";
+  chatLog.appendChild(typing);
+  chatLog.scrollTop = chatLog.scrollHeight;
 
-    // Auto open AIM on load
-    window.onload = function() {
-      const aim = document.getElementById("aimWindow");
-      aim.style.left = (window.innerWidth/2 - 200) + "px";
-      aim.style.top = (window.innerHeight/2 - 150) + "px";
-      addTaskbarButton("aimWindow", "Messenger");
-      setTimeout(sendBuddyMessage, 1000);
-    }
-  </script>
+  setTimeout(() => {
+    typing.remove();
+    appendMessage(buddyMessages[msgIndex], "buddy");
+    msgIndex++;
+    readyForUser = true;
+  }, 5000); // 5 seconds typing
+}
+</script>
+
 </body>
 </html>
