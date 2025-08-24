@@ -182,7 +182,35 @@ header {
 
 <body>
 <header>Sunnie Jae Digital Art Portfolio</header>
+    
+<!-- Classic Pinterest Header -->
+<header style="display:flex; align-items:center; justify-content:space-between; padding:10px 20px; background-color:white; border-bottom:1px solid #e6e6e6; position:sticky; top:0; z-index:200;">
+    <div style="display:flex; align-items:center; gap:15px;">
+        <img src="https://i.imgur.com/wHDx7cE.png" alt="Logo" style="height:32px; width:32px; border-radius:4px;">
+        <span style="font-weight:bold; font-size:1.2rem; color:#333;">Sunnie Jae</span>
+    </div>
+    <input type="text" placeholder="Search" style="flex:1; max-width:400px; margin:0 20px; padding:6px 10px; border:1px solid #ccc; border-radius:20px;">
+    <div style="display:flex; align-items:center; gap:10px;">
+        <button style="background:none; border:none; cursor:pointer; font-size:1.1rem;">🏠 Home</button>
+        <button style="background:none; border:none; cursor:pointer; font-size:1.1rem;">📌 Today</button>
+        <button style="background:none; border:none; cursor:pointer; font-size:1.1rem;">👤 Following</button>
+        <img src="https://i.imgur.com/wHDx7cE.png" alt="Profile" style="height:32px; width:32px; border-radius:50%; cursor:pointer;">
+    </div>
+</header>
 
+<!-- Optional Sidebar for categories -->
+<aside style="position:fixed; top:60px; left:0; width:180px; padding:10px; background-color:#f7f7f7; height:100%; border-right:1px solid #e6e6e6;">
+    <ul style="list-style:none; padding:0; margin:0; font-size:0.95rem; color:#555;">
+        <li style="margin-bottom:10px; cursor:pointer;">Art</li>
+        <li style="margin-bottom:10px; cursor:pointer;">Photography</li>
+        <li style="margin-bottom:10px; cursor:pointer;">Design</li>
+        <li style="margin-bottom:10px; cursor:pointer;">Illustration</li>
+        <li style="margin-bottom:10px; cursor:pointer;">Inspiration</li>
+    </ul>
+</aside>
+
+<!-- Adjust grid margin to account for sidebar -->
+<div class="grid" style="margin-left:200px;">
 <div class="grid">
 
 <!-- Pin 1 -->
