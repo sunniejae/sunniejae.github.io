@@ -800,7 +800,9 @@ body.mobile-mode .start-menu {
                 e.preventDefault();
             }
         });
-        const chatWindow = document.getElementById('chat-window');
+
+        //chatwindow//
+const chatWindow = document.getElementById('chat-window');
 const chatContent = document.getElementById('chat-messages');
 const typingIndicator = document.getElementById('typing-indicator');
 const chatInput = document.getElementById('chat-input');
@@ -808,15 +810,17 @@ const chatSend = document.getElementById('chat-send');
 
 const chatLines = [
   "OMG hey XD",
-  "lol!\(￣︶￣*\)",
+  "lol! \(￣︶￣*\)",
   "i cant talk long, i have swim practice l8r...",
   "ugh moms calling, g2g",
-    "if u have time, u should check out what ive uploaded to my computer",
-    "i cant wait to hear what u think about it",
+  "if u have time, u should check out what ive uploaded to my computer",
+  "i cant wait to hear what u think about it",
   "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
 ];
 
 let currentLine = 0;
+let userResponseTimer;
+let nudgeSent = false; // track if "hello? ru there?" has been sent
 
 // Add message with typing animation
 function typeMessage(msg, sender='tweety96', totalDuration=2000){
@@ -844,20 +848,43 @@ function typeMessage(msg, sender='tweety96', totalDuration=2000){
             clearInterval(typingInterval);
             setTimeout(() => {
                 typingIndicator.style.display = 'none';
-            }, 5000);
+
+                // 👇 Only set nudge timer for Tweety96's *normal* messages
+                if(sender === 'tweety96' && msg !== "hello? ru there?"){
+                    nudgeSent = false;
+                    clearTimeout(userResponseTimer);
+                    userResponseTimer = setTimeout(() => {
+                        if(!nudgeSent){
+                            typeMessage("hello? ru there?", "tweety96", 2000);
+                            nudgeSent = true;
+                        }
+                    }, 2000); // wait 2 seconds for user reply
+                }
+
+            }, 5000); // typing indicator delay
         }
     }, intervalTime);
 }
+
 // Send user message
-chatSend.addEventListener('click', ()=>{
-    const text = chatInput.value.trim();
-    if(!text) return;
+function sendUserMessage(text){
+    clearTimeout(userResponseTimer); // cancel nudge timer
+    nudgeSent = false; // reset so Tweety96 can nudge next time
+
     const userDiv = document.createElement('div');
     userDiv.textContent = 'You: ' + text;
     userDiv.className = 'message-user';
     userDiv.style.padding='2px 0';
+    userDiv.style.color = 'var(--white)';
     chatContent.appendChild(userDiv);
     chatContent.scrollTop = chatContent.scrollHeight;
+}
+
+// User send action
+chatSend.addEventListener('click', ()=>{
+    const text = chatInput.value.trim();
+    if(!text) return;
+    sendUserMessage(text);
     chatInput.value='';
     if(currentLine < chatLines.length){
         setTimeout(()=>{ typeMessage(chatLines[currentLine]); currentLine++; }, 500);
@@ -867,27 +894,8 @@ chatInput.addEventListener('keypress', e=>{ if(e.key==='Enter') chatSend.click()
 
 // Auto-open first message on page load
 window.addEventListener('load', ()=>{
-    typeMessage(chatLines[currentLine]);
-    currentLine++;
-});
-// Mobile Mode Toggle via Start Menu
-const mobileMenuItem = document.getElementById('mobile-mode-toggle');
+    typeMessage(chatLines[current]()
 
-mobileMenuItem.addEventListener('click', (e) => {
-    e.stopPropagation(); // prevent closing start menu immediately
-    document.body.classList.toggle('mobile-mode');
-
-    const chatWindow = document.getElementById('chat-window');
-    const startMenu = document.getElementById('start-menu');
-
-    if(document.body.classList.contains('mobile-mode')) {
-        if(chatWindow) chatWindow.classList.add('active');
-        if(startMenu) startMenu.classList.add('show'); // keep start menu open
-    } else {
-        if(chatWindow) chatWindow.classList.remove('active');
-        if(startMenu) startMenu.classList.remove('show');
-    }
-});
     </script>
 </body>
 </html>
