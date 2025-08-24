@@ -138,6 +138,13 @@
       align-items: center;
       padding: 0 6px;
       gap: 6px;
+      justify-content: space-between;
+    }
+
+    .taskbar-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .taskbar-button {
@@ -151,6 +158,13 @@
     .taskbar-button.active {
       background: var(--primary);
       color: var(--white);
+    }
+
+    .taskbar-clock {
+      color: var(--white);
+      font-family: monospace;
+      padding-right: 6px;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -174,7 +188,10 @@
   </div>
 
   <!-- Taskbar -->
-  <div class="taskbar" id="taskbar"></div>
+  <div class="taskbar">
+    <div class="taskbar-left" id="taskbar"></div>
+    <div class="taskbar-clock" id="clock">00:00 01/01/2006</div>
+  </div>
 
   <script>
     // Draggable windows
@@ -208,7 +225,7 @@
     // Taskbar logic
     function addTaskbarButton(id, label) {
       const taskbar = document.getElementById("taskbar");
-      if (document.querySelector(`[data-window='${id}']`)) return; // already exists
+      if (document.querySelector(`[data-window='${id}']`)) return;
       const btn = document.createElement("button");
       btn.className = "taskbar-button active";
       btn.textContent = label;
@@ -272,6 +289,18 @@
         }
       }
     }
+
+    // Clock logic
+    function updateClock() {
+      const now = new Date();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const hh = String(now.getHours()).padStart(2, '0');
+      const min = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById("clock").textContent = `${hh}:${min} ${mm}/${dd}/2006`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
     // Auto open AIM on load
     window.onload = function() {
