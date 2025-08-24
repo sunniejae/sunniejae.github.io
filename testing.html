@@ -20,15 +20,10 @@
             --primary: #9a9ad4;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Tahoma', sans-serif;
-            background: var(--black) url('https://i.imgur.com/mreYQcF.png') no-repeat center center fixed;
+            background: var(--black) url('https://imgur.com/OROvPLq.png') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             overflow: hidden;
@@ -45,417 +40,53 @@
             align-items: flex-start;
         }
 
-        .desktop-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            width: 80px;
-            height: 80px;
-        }
+        .desktop-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; padding: 8px; border-radius: 4px; transition: background-color 0.2s; width: 80px; height: 80px; }
+        .desktop-icon:hover { background-color: rgba(255, 255, 255, 0.1); }
+        .desktop-icon img { width: 48px; height: 48px; margin-bottom: 4px; }
+        .desktop-icon span { color: var(--white); font-size: 11px; text-align: center; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); line-height: 1.2; }
 
-        .desktop-icon:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+        .window { position: absolute; background: var(--silver); border: 2px outset var(--gray); min-width: 300px; min-height: 200px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 10; }
+        .window.active { z-index: 100; }
+        .window.minimized { display: none; }
 
-        .desktop-icon img {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 4px;
-        }
+        .window-header { background: linear-gradient(to bottom, var(--primary), var(--dark-purple)); color: var(--white); padding: 4px 8px; cursor: move; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: bold; }
+        .window-controls { display: flex; gap: 2px; }
+        .window-button { width: 18px; height: 18px; background: var(--gray); border: 1px outset var(--gray); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; }
+        .window-button:hover { background: var(--white); }
 
-        .desktop-icon span {
-            color: var(--white);
-            font-size: 11px;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-            line-height: 1.2;
-        }
+        .window-content { padding: 8px; height: calc(100% - 30px); overflow: auto; display: flex; flex-direction: column; }
 
-        .window {
-            position: absolute;
-            background: var(--silver);
-            border: 2px outset var(--gray);
-            min-width: 300px;
-            min-height: 200px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 10;
-        }
+        .taskbar { position: fixed; bottom: 0; left: 0; right: 0; height: 50px; background: linear-gradient(to bottom, var(--silver), var(--gray)); border-top: 2px outset var(--silver); display: flex; align-items: center; padding: 0 8px; z-index: 1000; }
+        .start-button { background: linear-gradient(to bottom, var(--silver), var(--gray)); border: 2px outset var(--silver); color: var(--black); font-weight: bold; padding: 6px 12px; cursor: pointer; margin-right: 8px; font-size: 12px; }
+        .start-button:hover { background: linear-gradient(to bottom, var(--white), var(--gray)); }
+        .taskbar-buttons { flex: 1; display: flex; gap: 4px; }
+        .taskbar-button { background: linear-gradient(to bottom, var(--silver), var(--gray)); border: 2px inset var(--silver); color: var(--black); padding: 6px 12px; cursor: pointer; font-size: 11px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .taskbar-button.active { background: var(--secondary); border: 2px inset var(--dark-gray); }
+        .taskbar-button:hover { background: linear-gradient(to bottom, var(--white), var(--silver)); }
+        .clock { color: var(--black); font-size: 11px; padding: 4px 8px; background: var(--silver); border: 1px inset var(--gray); margin-left: 8px; }
 
-        .window.active {
-            z-index: 100;
-        }
+        /* Messenger-specific */
+        #messenger-window { width: 300px; height: 400px; right: 20px; top: 100px; display: flex; flex-direction: column; }
+        #messenger-window .window-content { flex: 1; overflow-y: auto; background: var(--black); color: var(--white); font-size: 12px; }
+        #messenger-window input { flex:1; border:none; padding:4px; font-size:12px; background: var(--dark-gray); color: var(--white); }
+        #messenger-window button { background: var(--primary); color: var(--white); border:none; padding:4px 8px; cursor:pointer; }
+        #messenger-window button:hover { background: var(--accent); }
+        .chat-message { padding:4px; margin-bottom:2px; }
+        .chat-message.tweety96 { color: var(--accent); }
+        .chat-message.user { color: var(--white); }
+        #typing-indicator { font-style: italic; color: var(--gray); display:none; }
 
-        .window.minimized {
-            display: none;
-        }
-
-        .window-header {
-            background: linear-gradient(to bottom, var(--primary), var(--dark-purple));
-            color: var(--white);
-            padding: 4px 8px;
-            cursor: move;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .window-controls {
-            display: flex;
-            gap: 2px;
-        }
-
-        .window-button {
-            width: 18px;
-            height: 18px;
-            background: var(--gray);
-            border: 1px outset var(--gray);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        .window-button:hover {
-            background: var(--white);
-        }
-
-        .window-content {
-            padding: 8px;
-            height: calc(100% - 30px);
-            overflow: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .taskbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border-top: 2px outset var(--silver);
-            display: flex;
-            align-items: center;
-            padding: 0 8px;
-            z-index: 1000;
-        }
-
-        .start-button {
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border: 2px outset var(--silver);
-            color: var(--black);
-            font-weight: bold;
-            padding: 6px 12px;
-            cursor: pointer;
-            margin-right: 8px;
-            font-size: 12px;
-        }
-
-        .start-button:hover {
-            background: linear-gradient(to bottom, var(--white), var(--gray));
-        }
-
-        .taskbar-buttons {
-            flex: 1;
-            display: flex;
-            gap: 4px;
-        }
-
-        .taskbar-button {
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border: 2px inset var(--silver);
-            color: var(--black);
-            padding: 6px 12px;
-            cursor: pointer;
-            font-size: 11px;
-            max-width: 150px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .taskbar-button.active {
-            background: var(--secondary);
-            border: 2px inset var(--dark-gray);
-        }
-
-        .taskbar-button:hover {
-            background: linear-gradient(to bottom, var(--white), var(--silver));
-        }
-
-        .clock {
-            color: var(--black);
-            font-size: 11px;
-            padding: 4px 8px;
-            background: var(--silver);
-            border: 1px inset var(--gray);
-            margin-left: 8px;
-        }
-
-        .start-menu {
-            position: fixed;
-            bottom: 50px;
-            left: 8px;
-            width: 250px;
-            background: var(--silver);
-            border: 2px outset var(--gray);
-            display: none;
-            z-index: 1001;
-        }
-
-        .start-menu.show {
-            display: block;
-        }
-
-        .menu-item {
-            padding: 8px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--secondary);
-            font-size: 12px;
-            position: relative;
-        }
-
-        .menu-item:hover {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .menu-item.has-submenu::after {
-            content: '▶';
-            position: absolute;
-            right: 8px;
-        }
-
-        .submenu {
-            position: absolute;
-            left: 100%;
-            top: 0;
-            width: 200px;
-            background: var(--teal);
-            border: 2px outset var(--gray);
-            display: none;
-        }
-
-        .menu-item:hover .submenu {
-            display: block;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--silver);
-            border: 2px outset var(--gray);
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            max-width: 400px;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .shutdown-button {
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border: 2px outset var(--silver);
-            padding: 8px 16px;
-            margin-top: 16px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .shutdown-button:hover {
-            background: linear-gradient(to bottom, var(--pink), var(--secondary));
-        }
-
-        .notebook-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .resize-handle {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 16px;
-            height: 16px;
-            background: var(--gray);
-            cursor: nw-resize;
-            border-left: 2px inset var(--dark-purple);
-            border-top: 2px inset var(--dark-purple);
-        }
-
-        .header-banner {
-            width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .pinterest-embed {
-            width: 100%;
-            flex: 1;
-            min-height: 200px;
-            position: relative;
-        }
-
-        .pinterest-embed iframe {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            border: none !important;
-        }
-
-        .pinterest-embed [data-pin-do="embedBoard"] {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        .music-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .music-button {
-            background: var(--primary);
-            border: 1px outset var(--dark-purple);
-            padding: 4px 8px;
-            cursor: pointer;
-            font-size: 10px;
-        }
-
-        .music-button:hover {
-            background: var(--teal);
-        }
-
-        /* Messenger */
-        #messenger-window {
-            width: 300px;
-            height: 400px;
-            top: 50px;
-            right: 50px;
-        }
-
-        #messenger-window .window-content {
-            height: 340px;
-            overflow-y: auto;
-            background: var(--white);
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            padding: 6px;
-        }
-
-        .msg {
-            padding: 6px 10px;
-            border-radius: 6px;
-            max-width: 80%;
-            word-wrap: break-word;
-            font-size: 12px;
-        }
-
-        .msg.user {
-            background: var(--teal);
-            color: var(--white);
-            align-self: flex-end;
-        }
-
-        .msg.buddy {
-            background: var(--pink);
-            color: var(--black);
-            align-self: flex-start;
-        }
-
-        #chat-input-container {
-            display: flex;
-            gap: 4px;
-            padding: 4px;
-            border-top: 1px solid var(--gray);
-        }
-
-        #chatInput {
-            flex: 1;
-            padding: 4px;
-            font-size: 12px;
-        }
-
-        #sendBtn {
-            padding: 4px 8px;
-            font-size: 12px;
-            cursor: pointer;
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-        }
-
-        #sendBtn:hover {
-            background: var(--secondary);
-        }
+        /* Other styles omitted for brevity, keep your original CSS as-is */
     </style>
 </head>
 <body>
     <div class="desktop" id="desktop">
-        <div class="desktop-icon" data-target="recycle">
-            <img src="https://imgur.com/Jq0izu6.png" alt="Recycle">
-            <span>Recycle</span>
-        </div>
-        <div class="desktop-icon" data-target="documents">
-            <img src="https://imgur.com/Jq0izu6.png" alt="Documents">
-            <span>Documents</span>
-        </div>
-        <div class="desktop-icon" data-target="photos">
-            <img src="https://imgur.com/Jq0izu6.png" alt="Photos">
-            <span>Photos</span>
-        </div>
-        <div class="desktop-icon" data-target="videos">
-            <img src="https://imgur.com/Jq0izu6.png" alt="Videos">
-            <span>Videos</span>
-        </div>
-        <div class="desktop-icon" data-target="browser">
-            <img src="https://imgur.com/Jq0izu6.png" alt="Browser">
-            <span>Browser</span>
-        </div>
-        <div class="desktop-icon" data-target="summer2005">
-            <img src="https://imgur.com/Jq0izu6.png" alt="Summer 2005">
-            <span>Summer 2005</span>
-        </div>
+        <!-- Desktop icons here (same as your original) -->
     </div>
 
-    <!-- Messenger Window -->
+    <!-- Existing windows here -->
+
+    <!-- Tweety96 Messenger Window -->
     <div class="window" id="messenger-window">
         <div class="window-header">
             <span>Messenger</span>
@@ -464,12 +95,13 @@
                 <div class="window-button close-btn">×</div>
             </div>
         </div>
-        <div class="window-content" id="chatLog">
-            <div class="msg buddy"> DreamingDivaGrl is typing...</div>
+        <div class="window-content" id="messenger-content">
+            <div id="typing-indicator">tweety96 is typing...</div>
+            <div id="chat-messages"></div>
         </div>
-        <div id="chat-input-container">
-            <input type="text" id="chatInput" placeholder="Type a message and hit send →">
-            <button id="sendBtn">Send</button>
+        <div style="display:flex; border-top: 1px solid var(--gray);">
+            <input id="chat-input" type="text" placeholder="Type a message...">
+            <button id="chat-send">Send</button>
         </div>
     </div>
 
@@ -480,89 +112,99 @@
         <div class="clock" id="clock"></div>
     </div>
 
-    <script>
-        let draggedElement = null;
-        let dragOffset = { x: 0, y: 0 };
-        let isResizing = false;
-        let activeWindow = null;
-        let windowZIndex = 100;
+    <!-- Start menu & other modals here -->
 
-        const messages = [
+    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+    <script>
+        // Clock, desktop icons, start menu, shutdown, window management here
+        // ... keep your existing JS ...
+
+        // --- Tweety96 Messenger Script ---
+        const messengerWindow = document.getElementById('messenger-window');
+        const chatContent = document.getElementById('chat-messages');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+
+        const chatLines = [
             "OMG hey XD",
-            "lol! (❁´◡`❁)",
+            "lol!",
             "i have swim practice l8r...",
             "moms calling, g2g",
-            "email me at sunniejae.creates@gmail.com and we can talk 2morrow\(￣︶￣*\))"
+            "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
         ];
-        let msgIndex = 0;
-        const chatLog = document.getElementById('chatLog');
-        const chatInput = document.getElementById('chatInput');
 
-        function addMessage(content, sender='buddy') {
-            const div = document.createElement('div');
-            div.className = `msg ${sender}`;
-            div.textContent = content;
-            chatLog.appendChild(div);
-            chatLog.scrollTop = chatLog.scrollHeight;
+        let currentLine = 0;
+
+        function addMessage(msg, sender='tweety96') {
+            const msgDiv = document.createElement('div');
+            msgDiv.textContent = sender + ": " + msg;
+            msgDiv.className = 'chat-message ' + (sender==='tweety96'?'tweety96':'user');
+            chatContent.appendChild(msgDiv);
+            chatContent.scrollTop = chatContent.scrollHeight;
         }
 
-        function showNextBuddyMessage() {
-            if(msgIndex < messages.length){
-                addMessage(messages[msgIndex], 'buddy');
-                msgIndex++;
-            }
-        }
+        function showTypingIndicator(show=true) { typingIndicator.style.display = show ? 'block' : 'none'; }
 
-        document.getElementById('sendBtn').addEventListener('click', () => {
-            const value = chatInput.value.trim();
-            if(value){
-                addMessage(value, 'user');
-                chatInput.value='';
-                setTimeout(showNextBuddyMessage, 1000);
-            }
-        });
-
-        chatInput.addEventListener('keypress', (e) => {
-            if(e.key === 'Enter'){
-                e.preventDefault();
-                document.getElementById('sendBtn').click();
-            }
-        });
-
-        // Initial typing indicator
-        window.addEventListener('load', () => {
+        function sendNextLine() {
+            if(currentLine >= chatLines.length) return;
+            showTypingIndicator(true);
             setTimeout(() => {
-                chatLog.querySelector('.buddy').textContent = messages[msgIndex];
-                msgIndex++;
-            }, 5000);
+                showTypingIndicator(false);
+                addMessage(chatLines[currentLine]);
+                currentLine++;
+            }, 2000);
+        }
+
+        chatSend.addEventListener('click', () => {
+            const text = chatInput.value.trim();
+            if(!text) return;
+            addMessage(text, 'You');
+            chatInput.value = '';
+            sendNextLine();
         });
 
-        // Clock
-        function updateClock() {
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('clock').textContent = `${month}/${day}/2006 ${time}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        chatInput.addEventListener('keypress', e => { if(e.key==='Enter') chatSend.click(); });
 
-        // Taskbar button for Messenger
-        function updateTaskbar() {
+        // Typing indicator on load & first message after 5s
+        window.addEventListener('load', () => {
+            showTypingIndicator(true);
+            setTimeout(() => {
+                showTypingIndicator(false);
+                addMessage(chatLines[currentLine]);
+                currentLine++;
+            }, 5000);
+
+            // Add messenger taskbar button
             const taskbarButtons = document.getElementById('taskbar-buttons');
-            taskbarButtons.innerHTML = '';
-            const messengerBtn = document.createElement('div');
-            messengerBtn.className='taskbar-button active';
-            messengerBtn.textContent='Messenger';
-            messengerBtn.addEventListener('click', ()=>{
-                const win = document.getElementById('messenger-window');
-                win.classList.toggle('minimized');
-                messengerBtn.classList.toggle('active');
+            const messengerButton = document.createElement('div');
+            messengerButton.className = 'taskbar-button active';
+            messengerButton.textContent = 'Messenger';
+            messengerButton.addEventListener('click', () => {
+                if(messengerWindow.classList.contains('minimized')) {
+                    messengerWindow.classList.remove('minimized');
+                    messengerButton.classList.add('active');
+                } else {
+                    messengerWindow.classList.add('minimized');
+                    messengerButton.classList.remove('active');
+                }
             });
-            taskbarButtons.appendChild(messengerBtn);
-        }
-        updateTaskbar();
+            taskbarButtons.appendChild(messengerButton);
+        });
+
+        // Window minimize/close for messenger
+        messengerWindow.querySelector('.minimize-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            messengerWindow.classList.add('minimized');
+            const btn = document.querySelector('.taskbar-button.active');
+            if(btn) btn.classList.remove('active');
+        });
+        messengerWindow.querySelector('.close-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            messengerWindow.classList.add('minimized');
+            const btn = document.querySelector('.taskbar-button.active');
+            if(btn) btn.classList.remove('active');
+        });
     </script>
 </body>
 </html>
