@@ -35,6 +35,7 @@ body {
 }
 
 /* Header - Using primary color */
+    
 header {
     background: var(--secondary);
     height: 55px;
@@ -42,6 +43,13 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+    .logo-icon {
+    width: 40px;       /* adjust size as needed */
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px; /* optional: slightly rounded corners */
 }
 
 .logo-section {
@@ -450,9 +458,10 @@ footer a:hover {
 
 <header>
     <div class="logo-section">
-        <a href="#" class="logo">JaeTube</a>
-        <span class="logo-tagline">Broadcast Myself</span>
-    </div>
+    <img src="https://imgur.com/KkssLVW.png" alt="Logo" class="logo-icon">
+    <a href="index.html" class="logo">JaeTube</a>
+    <span class="logo-tagline">Broadcast Myself</span>
+</div>
     
     <div class="search-container">
         <input type="text" placeholder="Search">
