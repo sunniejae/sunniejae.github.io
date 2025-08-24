@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunnie Jae Creates - RetroTube</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
+<style>
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--silver);
+    color: var(--black);
+}
+
+/* Header */
+header {
+    background-color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 2px solid var(--dark-purple);
+}
+
+.logo {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--white);
+    letter-spacing: 2px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 5px;
+    width: 250px;
+    border: 1px solid var(--dark-gray);
+    border-radius: 3px 0 0 3px;
+    outline: none;
+}
+
+.search-bar button {
+    padding: 5px 10px;
+    border: 1px solid var(--dark-gray);
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    background-color: var(--accent);
+    color: var(--white);
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: var(--secondary);
+}
+
+/* Top navigation */
+nav.top-nav {
+    background-color: var(--dark-gray);
+    padding: 5px 20px;
+    display: flex;
+    gap: 15px;
+}
+
+nav.top-nav a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+nav.top-nav a:hover {
+    background-color: var(--accent);
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: var(--dark-gray);
+    color: var(--white);
+    width: 180px;
+    min-height: calc(100vh - 90px);
+    padding: 20px;
+    float: left;
+}
+
+.sidebar a {
+    display: block;
+    color: var(--white);
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.sidebar a:hover {
+    background-color: var(--accent);
+}
+
+/* Main content */
+.content {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.video-grid, .recommended-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* Video cards */
+.video-card, .recommended-card {
+    background-color: var(--white);
+    border: 2px solid var(--dark-purple);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.video-card iframe {
+    width: 100%;
+    height: 180px;
+}
+
+.video-card h3, .recommended-card h3 {
+    padding: 10px;
+    font-size: 16px;
+    color: var(--dark-gray);
+    font-family: 'Verdana', sans-serif;
+    font-weight: bold;
+}
+
+/* Recommended video style */
+.recommended-card img {
+    width: 100%;
+    height: auto;
+}
+
+.recommended-info {
+    padding: 5px 10px 10px 10px;
+}
+
+.views {
+    font-size: 12px;
+    color: var(--dark-gray);
+    margin-top: 3px;
+}
+
+.stars {
+    color: gold;
+    font-size: 14px;
+}
+
+/* Footer */
+footer {
+    clear: both;
+    background-color: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-top: 2px solid var(--dark-purple);
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Sunnie Jae Creates</div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search">
+        <button>Search</button>
+    </div>
+</header>
+
+<nav class="top-nav">
+    <a href="index.html">Home</a>
+    <a href="https://www.youtube.com/">Videos</a>
+    <a href="fakebookwall.html">Channels</a>
+    <a href="studio-ken.html">Community</a>
+</nav>
+
+<div class="sidebar">
+    <a href="#">My Subscriptions</a>
+    <a href="javascript:history.back()">History</a>
+    <a href="shop.html">Favorites</a>
+    <a href="portfolio.html">Settings</a>
+</div>
+
+<div class="content">
+    <h2>Main Videos</h2>
+    <div class="video-grid">
+        <div class="video-card">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" frameborder="0" allowfullscreen></iframe>
+            <h3>Rick Astley - Never Gonna Give You Up</h3>
+        </div>
+        <div class="video-card">
+            <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" title="YouTube video" frameborder="0" allowfullscreen></iframe>
+            <h3>PSY - Gangnam Style</h3>
+        </div>
+    </div>
+
+    <h2>Recommended Videos</h2>
+    <div class="recommended-grid">
+        <div class="recommended-card">
+            <img src="https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg" alt="Adele - Rolling in the Deep">
+            <div class="recommended-info">
+                <h3>Adele - Rolling in the Deep</h3>
+                <div class="views">12,345,678 views</div>
+                <div class="stars">★★★★★</div>
+            </div>
+        </div>
+        <div class="recommended-card">
+            <img src="https://img.youtube.com/vi/L_jWHffIx5E/hqdefault.jpg" alt="Smash Mouth - All Star">
+            <div class="recommended-info">
+                <h3>Smash Mouth - All Star</h3>
+                <div class="views">23,456,789 views</div>
+                <div class="stars">★★★★☆</div>
+            </div>
+        </div>
+        <div class="recommended-card">
+            <img src="https://img.youtube.com/vi/oHg5SJYRHA0/hqdefault.jpg" alt="Rick Roll Thumbnail">
+            <div class="recommended-info">
+                <h3>Rick Astley - Never Gonna Give You Up</h3>
+                <div class="views">98,765,432 views</div>
+                <div class="stars">★★★★★</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2008 Sunnie Jae Creates
+</footer>
+
+</body>
+</html>
