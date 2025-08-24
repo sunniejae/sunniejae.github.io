@@ -2,199 +2,162 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sunnie Jae Creates – Retro Desktop</title>
-<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunnie Jae Creates</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 <style>
 :root {
-  --black: #000010;
-  --white: #ffffff;
-  --dark-gray: #404040;
-  --gray: #bfbfdc;
-  --silver: #f0f0f5;
-  --pink: #ffb3d6;
-  --teal: #00a8a3;
-  --dark-purple: #3f3d7a;
-  --accent: #00c9c2;
-  --secondary: #c13886;
-  --primary: #9a9ad4;
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
 }
 
-body {
-  margin: 0;
-  font-family: "Trebuchet MS", sans-serif;
-  background: url("https://i.imgur.com/mreYQcF.png") center/cover no-repeat fixed;
-  overflow: hidden;
-}
+* {margin:0;padding:0;box-sizing:border-box;}
+body {font-family:'Tahoma',sans-serif; background: var(--black) url('https://imgur.com/OROvPLq.png') no-repeat center center fixed; background-size: cover; height: 100vh; overflow: hidden; user-select: none;}
+.desktop {height: calc(100vh - 50px); position: relative; padding: 20px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;}
+.desktop-icon {display:flex; flex-direction:column; align-items:center; cursor:pointer; padding:8px; border-radius:4px; transition: background-color 0.2s; width:80px; height:80px;}
+.desktop-icon:hover {background-color: rgba(255,255,255,0.1);}
+.desktop-icon img {width:48px;height:48px;margin-bottom:4px;}
+.desktop-icon span {color:var(--white); font-size:11px; text-align:center; text-shadow:1px 1px 2px rgba(0,0,0,0.8); line-height:1.2;}
 
-/* Taskbar */
-#taskbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30px;
-  background: var(--dark-gray);
-  display: flex;
-  align-items: center;
-  padding: 0 5px;
-  box-sizing: border-box;
-  z-index: 999;
-  color: var(--white);
-}
+.window {position:absolute; background:var(--silver); border:2px outset var(--gray); min-width:300px; min-height:200px; box-shadow:2px 2px 10px rgba(0,0,0,0.3); z-index:10;}
+.window.active {z-index:100;}
+.window.minimized {display:none;}
+.window-header {background:linear-gradient(to bottom,var(--primary),var(--dark-purple)); color:var(--white); padding:4px 8px; cursor:move; display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:bold;}
+.window-controls {display:flex; gap:2px;}
+.window-button {width:18px; height:18px; background:var(--gray); border:1px outset var(--gray); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:bold;}
+.window-button:hover {background: var(--white);}
+.window-content {padding:8px; height:calc(100% - 30px); overflow:auto; display:flex; flex-direction:column;}
+.taskbar {position:fixed; bottom:0; left:0; right:0; height:50px; background:linear-gradient(to bottom,var(--silver),var(--gray)); border-top:2px outset var(--silver); display:flex; align-items:center; padding:0 8px; z-index:1000;}
+.start-button {background:linear-gradient(to bottom,var(--silver),var(--gray)); border:2px outset var(--silver); color:var(--black); font-weight:bold; padding:6px 12px; cursor:pointer; margin-right:8px; font-size:12px;}
+.start-button:hover {background:linear-gradient(to bottom,var(--white),var(--gray));}
+.taskbar-buttons {flex:1; display:flex; gap:4px;}
+.taskbar-button {background:linear-gradient(to bottom,var(--silver),var(--gray)); border:2px inset var(--silver); color:var(--black); padding:6px 12px; cursor:pointer; font-size:11px; max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.taskbar-button.active {background: var(--secondary); border:2px inset var(--dark-gray);}
+.taskbar-button:hover {background:linear-gradient(to bottom,var(--white),var(--silver));}
+.clock {color:var(--black); font-size:11px; padding:4px 8px; background:var(--silver); border:1px inset var(--gray); margin-left:8px;}
+.start-menu {position:fixed; bottom:50px; left:8px; width:250px; background:var(--silver); border:2px outset var(--gray); display:none; z-index:1001;}
+.start-menu.show {display:block;}
+.menu-item {padding:8px 16px; cursor:pointer; border-bottom:1px solid var(--secondary); font-size:12px; position:relative;}
+.menu-item:hover {background: var(--primary); color:var(--white);}
+.menu-item.has-submenu::after {content:'▶'; position:absolute; right:8px;}
+.submenu {position:absolute; left:100%; top:0; width:200px; background:var(--teal); border:2px outset var(--gray); display:none;}
+.menu-item:hover .submenu {display:block;}
+.modal {position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:2000;}
+.modal.show {display:flex;}
+.modal-content {background:var(--silver); border:2px outset var(--gray); padding:20px; text-align:center; position:relative; max-width:400px;}
+.modal-close {position:absolute; top:8px; right:12px; cursor:pointer; font-size:16px; font-weight:bold;}
+.shutdown-button {background:linear-gradient(to bottom,var(--silver),var(--gray)); border:2px outset var(--silver); padding:8px 16px; margin-top:16px; cursor:pointer; font-size:12px;}
+.shutdown-button:hover {background:linear-gradient(to bottom,var(--pink),var(--secondary));}
+.notebook-image {width:100%; height:auto; display:block;}
+.resize-handle {position:absolute; bottom:0; right:0; width:16px; height:16px; background:var(--gray); cursor:nw-resize; border-left:2px inset var(--dark-purple); border-top:2px inset var(--dark-purple);}
+.header-banner {width:100%; height:auto; margin-bottom:10px;}
+.pinterest-embed {width:100%; flex:1; min-height:200px; position:relative;}
+.pinterest-embed iframe {position:absolute !important; top:0 !important; left:0 !important; width:100% !important; height:100% !important; border:none !important;}
+.pinterest-embed [data-pin-do="embedBoard"] {display:block; width:100%; height:100%;}
+.music-controls {display:flex; align-items:center; gap:8px; margin-bottom:8px;}
+.music-button {background:var(--primary); border:1px outset var(--dark-purple); padding:4px 8px; cursor:pointer; font-size:10px;}
+.music-button:hover {background:var(--teal);}
 
-.taskbar-button {
-  background: var(--primary);
-  border: 1px solid var(--black);
-  padding: 2px 6px;
-  margin-right: 4px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-/* Messenger Window */
-#messengerWindow {
-  position: absolute;
-  top: 100px;
-  left: calc(50% - 200px);
-  width: 400px;
-  height: 300px;
-  background: var(--silver);
-  border: 2px solid var(--dark-gray);
-  box-shadow: 4px 4px 0 var(--dark-gray);
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
-  overflow: hidden;
-}
-
-.title-bar {
-  background: var(--primary);
-  color: var(--white);
-  padding: 4px 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.title-bar .buttons button {
-  width: 18px;
-  height: 18px;
-  border: none;
-  background: var(--secondary);
-  color: var(--white);
-  font-weight: bold;
-  line-height: 14px;
-  cursor: pointer;
-}
-
-.window-content {
-  flex: 1;
-  background: var(--white);
-  padding: 6px;
-  overflow-y: auto;
-  font-size: 14px;
-}
-
-/* Chat */
-.chat-log {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.msg {
-  max-width: 70%;
-  padding: 6px 10px;
-  border-radius: 10px;
-  word-wrap: break-word;
-}
-
-.msg.you {
-  align-self: flex-end;
-  background: var(--pink);
-  color: var(--black);
-}
-
-.msg.buddy {
-  align-self: flex-start;
-  background: var(--gray);
-  color: var(--black);
-}
-
-.chat-input {
-  display: flex;
-  border-top: 1px solid var(--dark-gray);
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 6px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-}
-
-.chat-input button {
-  background: var(--teal);
-  color: var(--white);
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
-}
+/* Messenger window */
+#messenger-window {width:320px; height:400px; left:50px; top:50px; background:var(--white); border:2px outset var(--gray);}
+#messenger-window .window-header {background: var(--secondary); color: var(--white);}
+#messenger-window .window-content {display:flex; flex-direction:column; overflow-y:auto; height:calc(100% - 30px); padding:8px; font-size:12px; background: var(--black); color: var(--white);}
+.msg {padding:4px 8px; border-radius:4px; margin-bottom:4px; max-width:80%;}
+.msg.you {background:var(--accent); color:var(--black); align-self:flex-end;}
+.msg.buddy {background:var(--teal); color:var(--white); align-self:flex-start;}
+#chat-input-container {display:flex; margin-top:4px; gap:4px;}
+#chatInput {flex:1; padding:4px; font-size:12px; border:1px solid var(--gray);}
+#sendBtn {padding:4px 8px; font-size:12px; cursor:pointer; background:var(--secondary); color:var(--white); border:1px outset var(--gray);}
+#sendBtn:hover {background:var(--primary);}
 </style>
 </head>
 <body>
-
-<!-- Messenger Window -->
-<div id="messengerWindow">
-  <div class="title-bar">
-    <span>Messenger – tweety96</span>
-    <div class="buttons">
-      <button onclick="closeWindow('messengerWindow')">×</button>
-    </div>
-  </div>
-  <div class="window-content">
-    <div class="chat-log" id="chatLog"></div>
-  </div>
-  <div class="chat-input">
-    <input type="text" id="chatInput" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
-  </div>
+<div class="desktop" id="desktop">
+    <!-- your existing desktop icons here -->
 </div>
 
-<!-- Taskbar -->
-<div id="taskbar">
-  <div class="taskbar-button" onclick="toggleMessenger()">Messenger</div>
-  <div id="clock"></div>
+<!-- Messenger Window -->
+<div class="window minimized" id="messenger-window">
+    <div class="window-header">
+        <span>Messenger</span>
+        <div class="window-controls">
+            <div class="window-button minimize-btn">_</div>
+            <div class="window-button close-btn">×</div>
+        </div>
+    </div>
+    <div class="window-content" id="chatLog">
+        <div class="msg buddy">Tweety96- is typing...</div>
+    </div>
+    <div id="chat-input-container">
+        <input type="text" id="chatInput" placeholder="Type a message...">
+        <button id="sendBtn">Send</button>
+    </div>
+</div>
+
+<!-- Taskbar and Start Menu (existing) -->
+<div class="taskbar">
+    <div class="start-button" id="start-button">Start</div>
+    <div class="taskbar-buttons" id="taskbar-buttons"></div>
+    <div class="clock" id="clock"></div>
+</div>
+
+<div class="start-menu" id="start-menu">
+    <!-- existing menu items -->
+</div>
+
+<div class="modal" id="shutdown-modal">
+    <div class="modal-content">
+        <div class="modal-close" id="modal-close">×</div>
+        <p>when we pull up, you know it's a …</p>
+        <div class="shutdown-button" id="shutdown-confirm">Shut Down</div>
+    </div>
 </div>
 
 <script>
-// Taskbar functions
-function toggleMessenger() {
-  const win = document.getElementById("messengerWindow");
-  if (win.style.display === "none") {
-    win.style.display = "flex";
-  } else {
-    win.style.display = "none";
-  }
-}
-
 // Clock
 function updateClock() {
-  const now = new Date();
-  const mm = String(now.getMonth()+1).padStart(2,'0');
-  const dd = String(now.getDate()).padStart(2,'0');
-  const clock = document.getElementById("clock");
-  clock.textContent = `${mm}/${dd}/2006`;
+    const now = new Date();
+    const month = String(now.getMonth()+1).padStart(2,'0');
+    const day = String(now.getDate()).padStart(2,'0');
+    const time = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    document.getElementById('clock').textContent = `${month}/${day}/2006 ${time}`;
 }
-setInterval(updateClock, 1000);
-updateClock();
+setInterval(updateClock,1000); updateClock();
 
-// Chat
+// Taskbar management
+function updateTaskbar() {
+    const taskbarButtons = document.getElementById('taskbar-buttons');
+    taskbarButtons.innerHTML='';
+    const messengerBtn = document.createElement('div');
+    messengerBtn.className='taskbar-button';
+    messengerBtn.id='messenger-btn';
+    messengerBtn.textContent='Messenger';
+    if(!document.getElementById('messenger-window').classList.contains('minimized')) {
+        messengerBtn.classList.add('active');
+    }
+    messengerBtn.addEventListener('click', ()=>{
+        const win = document.getElementById('messenger-window');
+        if(win.classList.contains('minimized')) {win.classList.remove('minimized');}
+        else {win.classList.add('minimized');}
+        updateTaskbar();
+    });
+    taskbarButtons.appendChild(messengerBtn);
+}
+updateTaskbar();
+
+// Messenger chat logic
 const chatLog = document.getElementById("chatLog");
 const chatInput = document.getElementById("chatInput");
-
+const sendBtn = document.getElementById("sendBtn");
 const buddyMessages = [
   "OMG hey XD",
   "lol!",
@@ -202,52 +165,39 @@ const buddyMessages = [
   "moms calling, g2g",
   "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
 ];
-
 let msgIndex = 0;
-let readyForUser = false;
 
-function appendMessage(text, sender) {
-  const div = document.createElement("div");
-  div.classList.add("msg", sender);
-  div.textContent = text;
-  chatLog.appendChild(div);
-  chatLog.scrollTop = chatLog.scrollHeight;
+function appendMessage(text, sender){
+    const div = document.createElement('div');
+    div.classList.add('msg', sender);
+    div.textContent=text;
+    chatLog.appendChild(div);
+    chatLog.scrollTop = chatLog.scrollHeight;
 }
 
-function sendMessage() {
-  const text = chatInput.value.trim();
-  if (!text || !readyForUser) return;
-  appendMessage(text, "you");
-  chatInput.value = "";
-  readyForUser = false;
+sendBtn.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', function(e){ if(e.key==='Enter') sendMessage(); });
 
-  // Buddy reply after 1s
-  if (msgIndex < buddyMessages.length) {
-    setTimeout(() => {
-      appendMessage(buddyMessages[msgIndex], "buddy");
-      msgIndex++;
-      readyForUser = true;
-    }, 1000);
-  }
+function sendMessage(){
+    const text = chatInput.value.trim();
+    if(!text) return;
+    appendMessage(text,'you');
+    chatInput.value='';
+    if(msgIndex<buddyMessages.length){
+        setTimeout(()=>{
+            appendMessage(buddyMessages[msgIndex],'buddy');
+            msgIndex++;
+        },500); // short delay after user message
+    }
 }
 
-// Initial typing indicator and first message
-window.onload = function() {
-  const typing = document.createElement("div");
-  typing.id = "typingIndicator";
-  typing.classList.add("msg","buddy");
-  typing.textContent = "...";
-  chatLog.appendChild(typing);
-  chatLog.scrollTop = chatLog.scrollHeight;
-
-  setTimeout(() => {
-    typing.remove();
-    appendMessage(buddyMessages[msgIndex], "buddy");
+// Initial typing simulation
+setTimeout(()=>{
+    chatLog.innerHTML=''; // remove "is typing..."
+    appendMessage(buddyMessages[msgIndex],'buddy');
     msgIndex++;
-    readyForUser = true;
-  }, 5000); // 5 seconds typing
-}
-</script>
+},5000); // 5 sec delay for first message
 
+</script>
 </body>
 </html>
