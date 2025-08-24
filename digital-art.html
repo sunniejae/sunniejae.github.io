@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Art Portfolio</title>
+<title>Jayme's Digital Art Portfolio</title>
 <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 <style>
 :root {
@@ -22,23 +22,26 @@
 
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: var(--dark-gray);
-    color: var(--white);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: var(--silver);
+    color: var(--black);
 }
 
 header {
-    background-color: var(--black);
+    background-color: var(--white);
     padding: 1rem 2rem;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 header h1 {
     margin: 0;
-    color: var(--accent);
+    color: var(--primary);
     font-size: 2rem;
-    letter-spacing: 1px;
+    font-weight: 600;
 }
 
 .gallery {
@@ -49,35 +52,74 @@ header h1 {
 
 @media (max-width: 1200px) { .gallery { column-count: 3; } }
 @media (max-width: 900px)  { .gallery { column-count: 2; } }
-@media (max-width: 600px)  { .gallery { column-count: 1; } }
+@media (max-width: 600px)  { .gallery { column-count: 1; padding: 1rem; } }
 
 .pin {
-    background-color: var(--gray);
+    position: relative;
+    background-color: var(--white);
     margin-bottom: 1rem;
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
     display: inline-block;
     width: 100%;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
 }
 
 .pin img {
     width: 100%;
     display: block;
+    border-bottom: 1px solid var(--gray);
 }
 
 .pin:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.caption {
-    padding: 0.5rem 1rem;
-    background-color: var(--dark-purple);
+/* Sliding overlay with blur */
+.overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.35);
+    backdrop-filter: blur(5px);
     color: var(--white);
+    transition: bottom 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.pin:hover .overlay {
+    bottom: 0;
+}
+
+.overlay .title {
     font-size: 0.9rem;
-    text-align: center;
+    font-weight: bold;
+}
+
+.overlay .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.overlay .actions span {
+    background-color: var(--accent);
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.overlay .actions span:hover {
+    background-color: var(--secondary);
 }
 
 /* Modal Styles */
@@ -87,7 +129,7 @@ header h1 {
     z-index: 100;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.85);
     justify-content: center;
     align-items: center;
 }
@@ -95,9 +137,9 @@ header h1 {
 .modal img {
     max-width: 90%;
     max-height: 90%;
-    border-radius: 10px;
-    box-shadow: 0 0 20px var(--accent);
-    transition: transform 0.3s;
+    border-radius: 6px;
+    box-shadow: 0 0 15px var(--accent);
+    transition: transform 0.2s ease;
 }
 
 .modal img:hover {
@@ -121,32 +163,54 @@ header h1 {
 </header>
 
 <div class="gallery">
-    <!-- Each pin has a data attribute for the high-res modal -->
     <div class="pin">
         <img src="https://via.placeholder.com/400x500/9a9ad4/ffffff?text=Art+1" 
              data-full="https://via.placeholder.com/1000x1250/9a9ad4/ffffff?text=Art+1" 
              alt="Art 1">
-        <div class="caption">Digital Painting 1</div>
+        <div class="overlay">
+            <div class="title">Digital Painting 1</div>
+            <div class="actions">
+                <span>Save</span>
+                <span>Like</span>
+            </div>
+        </div>
     </div>
     <div class="pin">
         <img src="https://via.placeholder.com/400x500/c13886/ffffff?text=Art+2" 
              data-full="https://via.placeholder.com/1000x1250/c13886/ffffff?text=Art+2" 
              alt="Art 2">
-        <div class="caption">Digital Illustration 2</div>
+        <div class="overlay">
+            <div class="title">Digital Illustration 2</div>
+            <div class="actions">
+                <span>Save</span>
+                <span>Like</span>
+            </div>
+        </div>
     </div>
     <div class="pin">
         <img src="https://via.placeholder.com/400x450/00c9c2/ffffff?text=Art+3" 
              data-full="https://via.placeholder.com/1000x1125/00c9c2/ffffff?text=Art+3" 
              alt="Art 3">
-        <div class="caption">Concept Art 3</div>
+        <div class="overlay">
+            <div class="title">Concept Art 3</div>
+            <div class="actions">
+                <span>Save</span>
+                <span>Like</span>
+            </div>
+        </div>
     </div>
     <div class="pin">
         <img src="https://via.placeholder.com/400x500/ffb3d6/ffffff?text=Art+4" 
              data-full="https://via.placeholder.com/1000x1250/ffb3d6/ffffff?text=Art+4" 
              alt="Art 4">
-        <div class="caption">Sketch 4</div>
+        <div class="overlay">
+            <div class="title">Sketch 4</div>
+            <div class="actions">
+                <span>Save</span>
+                <span>Like</span>
+            </div>
+        </div>
     </div>
-    <!-- Add more pins as needed -->
 </div>
 
 <!-- Modal -->
@@ -161,7 +225,6 @@ const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modal-img");
 const closeBtn = document.querySelector(".modal .close");
 
-// Open modal with high-res image
 document.querySelectorAll(".pin img").forEach(img => {
     img.addEventListener("click", () => {
         modal.style.display = "flex";
@@ -170,14 +233,8 @@ document.querySelectorAll(".pin img").forEach(img => {
     });
 });
 
-// Close modal
-closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-});
-
-modal.addEventListener("click", e => {
-    if(e.target === modal) modal.style.display = "none";
-});
+closeBtn.addEventListener("click", () => { modal.style.display = "none"; });
+modal.addEventListener("click", e => { if(e.target === modal) modal.style.display = "none"; });
 </script>
 
 </body>
