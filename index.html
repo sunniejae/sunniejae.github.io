@@ -101,7 +101,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
         }
 
@@ -119,12 +119,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 13px;
             font-weight: bold;
         }
 
         .window-button:hover {
-            background: var(--white);
+            background: var(--accent);
         }
 
         .window-content {
@@ -141,7 +141,7 @@
             left: 0;
             right: 0;
             height: 50px;
-            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+            background: linear-gradient(to bottom, var(--silver), var(--gray));
             border-top: 2px outset var(--gray);
             display: flex;
             align-items: center;
@@ -150,14 +150,14 @@
         }
 
         .start-button {
-            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+            background: linear-gradient(to bottom, var(--silver), var(--gray));
             border: 2px outset var(--gray);
             color: var(--black);
             font-weight: bold;
             padding: 6px 12px;
             cursor: pointer;
             margin-right: 8px;
-            font-size: 12px;
+            font-size: 13px;
         }
 
         .start-button:hover {
@@ -171,12 +171,12 @@
         }
 
         .taskbar-button {
-            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+            background: linear-gradient(to bottom, var(--silver), var(--gray));
             border: 2px inset var(--gray);
             color: var(--black);
             padding: 6px 12px;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 12px;
             max-width: 150px;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -184,8 +184,8 @@
         }
 
         .taskbar-button.active {
-            background: linear-gradient(to bottom, var(--dark-gray), var(--gray));
-            border: 2px inset var(--dark-gray);
+            background: linear-gradient(to bottom, var(--primary), var(--dark-purple));
+            border: 2px inset var(--gray);
         }
 
         .taskbar-button:hover {
@@ -240,8 +240,8 @@
             left: 100%;
             top: 0;
             width: 200px;
-            background: var(--silver);
-            border: 2px outset var(--gray);
+            background: var(--teal);
+            border: 2px outset var(--dark-gray);
             display: none;
         }
 
@@ -285,7 +285,7 @@
         }
 
         .shutdown-button {
-            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
+            background: linear-gradient(to bottom, var(--silver), var(--gray));
             border: 2px outset var(--gray);
             padding: 8px 16px;
             margin-top: 16px;
@@ -307,9 +307,9 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 16px;
-            height: 16px;
-            background: var(--gray);
+            width: 10px;
+            height: 10px;
+            background: var(--pink);
             cursor: nw-resize;
             border-left: 2px inset var(--gray);
             border-top: 2px inset var(--gray);
@@ -355,7 +355,7 @@
             border: 1px outset var(--gray);
             padding: 4px 8px;
             cursor: pointer;
-            font-size: 10px;
+            font-size: 12px;
         }
 
         .music-button:hover {
@@ -484,6 +484,25 @@
         <div class="menu-item" data-link="studio-ken.html">Studio Ken</div>
         <div class="menu-item" id="shutdown-item">Shut Down</div>
     </div>
+<!-- Tweety96 Chat Window -->
+    <div class="window" id="chat-window" style="left: 400px; top: 200px; width: 300px; height: 400px; z-index: 9999;">
+  <div class="window-header">
+      <span>CHAT WITH: tweety96</span>
+      <div class="window-controls">
+          <div class="window-button minimize-btn">_</div>
+          <div class="window-button close-btn">×</div>
+      </div>
+  </div>
+  <div class="window-content" style="display:flex; flex-direction:column; padding:0;">
+      <div id="typing-indicator" style="font-style:italic;color:var(--gray);display:none;padding:5px;">tweety96 is typing...</div>
+      <div id="chat-messages" style="flex:1; overflow-y:auto; padding:5px; background:var(--black); color:var(--white); font-size:12px;"></div>
+      <div id="chat-input-area" style="display:flex; border-top:1px solid var(--gray);">
+          <input id="chat-input" type="text" placeholder="Type a message..." style="flex:1; border:none; padding:4px; font-size:12px; outline:none;">
+          <button id="chat-send" style="background:var(--primary); color:var(--white); border:none; padding:4px 8px; cursor:pointer;">Send</button>
+      </div>
+  </div>
+  <div class="resize-handle"></div>
+</div>
 
     <!-- Shutdown Modal -->
     <div class="modal" id="shutdown-modal">
@@ -700,7 +719,75 @@
                 e.preventDefault();
             }
         });
-        
+        const chatWindow = document.getElementById('chat-window');
+const chatContent = document.getElementById('chat-messages');
+const typingIndicator = document.getElementById('typing-indicator');
+const chatInput = document.getElementById('chat-input');
+const chatSend = document.getElementById('chat-send');
+
+const chatLines = [
+  "OMG hey XD",
+  "lol!  (￣︶￣*\))",
+  "i have swim practice l8r...",
+  "moms calling, g2g",
+  "email me at sunniejae.creates@gmail.com and we can talk 2morrow"
+];
+
+let currentLine = 0;
+
+// Add message with typing animation
+function typeMessage(msg, sender='tweety96', totalDuration=2000){
+    typingIndicator.style.display = 'block';
+    const msgDiv = document.createElement('div');
+    
+    if(sender === 'tweety96'){
+        msgDiv.textContent = '<strong> Tweety96: </strong> '; // prefix
+        msgDiv.style.color = 'var(--accent)'; // secondary color
+    } else {
+        msgDiv.style.color = 'var(--white)'; // user messages stay white
+    }
+
+    msgDiv.className = sender==='tweety96' ? 'message-tweety96' : 'message-user';
+    chatContent.appendChild(msgDiv);
+
+    let i = 0;
+    const intervalTime = totalDuration / msg.length;
+
+    const typingInterval = setInterval(() => {
+        msgDiv.textContent += msg.charAt(i);
+        i++;
+        chatContent.scrollTop = chatContent.scrollHeight;
+        if (i >= msg.length) {
+            clearInterval(typingInterval);
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+            }, 5000);
+        }
+    }, intervalTime);
+}
+// Send user message
+chatSend.addEventListener('click', ()=>{
+    const text = chatInput.value.trim();
+    if(!text) return;
+    const userDiv = document.createElement('div');
+    userDiv.textContent = 'You: ' + text;
+    userDiv.className = 'message-user';
+    userDiv.style.padding='2px 0';
+    chatContent.appendChild(userDiv);
+    chatContent.scrollTop = chatContent.scrollHeight;
+    chatInput.value='';
+    if(currentLine < chatLines.length){
+        setTimeout(()=>{ typeMessage(chatLines[currentLine]); currentLine++; }, 500);
+    }
+});
+chatInput.addEventListener('keypress', e=>{ if(e.key==='Enter') chatSend.click(); });
+
+// Auto-open first message on page load
+window.addEventListener('load', ()=>{
+    typeMessage(chatLines[currentLine]);
+    currentLine++;
+});
+
     </script>
 </body>
 </html>
