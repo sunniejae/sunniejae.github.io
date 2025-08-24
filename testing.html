@@ -736,22 +736,27 @@ const chatLines = [
 let currentLine = 0;
 
 // Add message with typing animation
-function typeMessage(msg, sender='tweety96', speed=40){
-    typingIndicator.style.display='block';
-    let i=0;
+function typeMessage(msg, sender='tweety96', totalDuration=2000){
+    typingIndicator.style.display = 'block';
     const msgDiv = document.createElement('div');
     msgDiv.className = sender==='tweety96' ? 'message-tweety96' : 'message-user';
     chatContent.appendChild(msgDiv);
 
-    const typingInterval = setInterval(()=>{
+    let i = 0;
+    const intervalTime = totalDuration / msg.length; // spread typing over 2 seconds
+
+    const typingInterval = setInterval(() => {
         msgDiv.textContent += msg.charAt(i);
         i++;
         chatContent.scrollTop = chatContent.scrollHeight;
-        if(i>=msg.length){
+        if (i >= msg.length) {
             clearInterval(typingInterval);
-            typingIndicator.style.display='none';
+            // keep indicator for 5 seconds after finishing
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+            }, 5000);
         }
-    }, speed);
+    }, intervalTime);
 }
 
 // Send user message
