@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Art Portfolio</title>
-<link rel="icon" href="https://i.imgur.com/wHDx7cE.png" type="image/png">
+<title>Sunnie Jae Digital Art Portfolio</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
+
 <style>
 :root {
     --black: #000010;
@@ -20,287 +21,331 @@
     --primary: #9a9ad4;
 }
 
-/* Reset & base */
+/* Body and grid */
 body {
     margin: 0;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background-color: var(--white);
     color: var(--black);
 }
 
-/* Header */
 header {
-    position: sticky;
-    top: 0;
-    background-color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    border-bottom: 1px solid var(--gray);
-    z-index: 100;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: var(--primary);
-}
-
-nav a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: var(--dark-gray);
+    padding: 15px;
+    background-color: var(--primary);
+    color: var(--white);
+    text-align: center;
+    font-size: 1.8rem;
     font-weight: bold;
 }
 
-nav a:hover {
-    color: var(--accent);
-}
-
-/* Grid layout */
 .grid {
     column-count: 4;
-    column-gap: 15px;
-    padding: 20px;
+    column-gap: 1rem;
+    padding: 1rem;
 }
 
-@media (max-width: 1200px) {
-    .grid { column-count: 3; }
-}
-@media (max-width: 800px) {
-    .grid { column-count: 2; }
-}
-@media (max-width: 500px) {
-    .grid { column-count: 1; }
-}
+@media(max-width:1200px){ .grid { column-count:3; } }
+@media(max-width:900px){ .grid { column-count:2; } }
+@media(max-width:600px){ .grid { column-count:1; } }
 
-/* Pins */
 .pin {
-    break-inside: avoid;
-    margin-bottom: 15px;
+    display: inline-block;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.pin-content {
     position: relative;
     cursor: pointer;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: var(--silver);
-    transition: transform 0.2s;
 }
 
-.pin img {
+.pin-content img {
     width: 100%;
     display: block;
+    border-radius: 6px;
 }
 
-.pin:hover {
-    transform: scale(1.02);
-}
-
+/* Pin info */
 .pin-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0,0,0,0.6);
-    color: var(--white);
-    padding: 5px;
+    padding: 5px 0;
     font-size: 0.9rem;
-    opacity: 0;
-    transition: opacity 0.2s;
 }
 
-.pin:hover .pin-info {
-    opacity: 1;
+/* Share button */
+.share-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--accent);
+    border: none;
+    color: var(--white);
+    padding: 5px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
 }
 
-/* Flashing notification badge */
-#tutorial-badge {
+.pin:hover .share-btn { display: block; }
+
+/* Share menu */
+.share-menu {
+    position: absolute;
+    top: 35px;
+    right: 8px;
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: 6px;
+    display: none;
+    flex-direction: column;
+    padding: 5px;
+    gap: 5px;
+    z-index: 50;
+}
+
+.share-menu a, .share-menu button {
+    background: none;
+    border: none;
+    color: var(--dark-gray);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+/* Lightbox */
+#lightbox {
+    display: none;
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.85);
+    justify-content:center;
+    align-items:center;
+    z-index:100;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 6px;
+}
+
+/* Flashing chat notification */
+#chat-notification {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--accent);
+    background: var(--accent);
     color: var(--white);
-    font-size: 1.5rem;
-    padding: 10px;
-    border-radius: 50%;
+    padding: 12px 18px;
+    border-radius: 50px;
     cursor: pointer;
-    animation: pulse 1.2s infinite;
-    z-index: 200;
-}
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+    animation: flash 1s infinite alternate;
+    z-index: 101;
 }
 
-/* Chat modal */
-#chat-modal {
-    display: none;
+@keyframes flash {
+    0% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* Chat window */
+#chat-window {
+    display:none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
-    z-index: 300;
-}
-
-#chat-modal .chat-window {
-    background-color: var(--white);
-    width: 300px;
+    bottom: 70px;
+    right: 20px;
+    width: 280px;
     max-height: 400px;
+    background: var(--white);
+    border: 2px solid var(--accent);
     border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.chat-header {
-    background-color: var(--primary);
-    color: var(--white);
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.chat-messages {
-    flex: 1;
-    padding: 10px;
     overflow-y: auto;
-    background-color: var(--silver);
+    padding: 10px;
+    z-index:102;
+    font-size:0.9rem;
 }
 
-.chat-messages .message {
-    margin-bottom: 8px;
-    padding: 5px 10px;
-    border-radius: 6px;
-    background-color: var(--accent);
-    color: var(--white);
-    font-family: sans-serif;
-}
-
-/* Typing indicator */
-.typing {
-    display: inline-block;
-    background-color: var(--accent);
-    color: var(--white);
-    padding: 5px 10px;
-    border-radius: 6px;
+.chat-message {
     margin-bottom: 8px;
 }
-.typing::after {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    margin-left: 4px;
-    border-radius: 50%;
-    background-color: var(--white);
-    animation: blink 1s infinite;
+.chat-message.bot {
+    color: var(--dark-gray);
+    font-weight: bold;
 }
-@keyframes blink {
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0; }
+.chat-message.user {
+    color: var(--primary);
+    text-align: right;
 }
 </style>
 </head>
+
 <body>
+<header>Sunnie Jae Digital Art Portfolio</header>
 
-<header>
-    <h1>My Art Portfolio</h1>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Gallery</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-    </nav>
-</header>
+<div class="grid">
 
-<main class="grid">
-    <!-- Example pins, you can duplicate and replace src -->
-    <div class="pin">
-        <img src="https://via.placeholder.com/300x400.png?text=Art+1" alt="Art 1">
-        <div class="pin-info">Art 1 Description</div>
+<!-- Pin 1 -->
+<div class="pin">
+  <div class="pin-content">
+    <img src="https://i.imgur.com/nNpWqcw.png" alt="Art 1">
+    <div class="pin-info">Art 1 Description</div>
+    <button class="share-btn">Share</button>
+    <div class="share-menu">
+      <button class="copy-link">Copy Link</button>
+      <a href="#" target="_blank" class="social-x">X</a>
+      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
+      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
+      <a href="#" target="_blank" class="social-reddit">Reddit</a>
     </div>
-    <div class="pin">
-        <img src="https://via.placeholder.com/300x500.png?text=Art+2" alt="Art 2">
-        <div class="pin-info">Art 2 Description</div>
-    </div>
-    <div class="pin">
-        <img src="https://via.placeholder.com/300x350.png?text=Art+3" alt="Art 3">
-        <div class="pin-info">Art 3 Description</div>
-    </div>
-    <div class="pin">
-        <img src="https://via.placeholder.com/300x450.png?text=Art+4" alt="Art 4">
-        <div class="pin-info">Art 4 Description</div>
-    </div>
-    <!-- Add more pins as needed -->
-</main>
-
-<!-- Tutorial notification -->
-<div id="tutorial-badge">💬</div>
-
-<!-- Chat Modal -->
-<div id="chat-modal" class="modal">
-    <div class="chat-window">
-        <div class="chat-header">Portfolio Tutor</div>
-        <div class="chat-messages" id="chat-messages"></div>
-    </div>
+  </div>
 </div>
 
+<!-- Pin 2 -->
+<div class="pin">
+  <div class="pin-content">
+    <img src="https://i.imgur.com/ZaLvpTQ.png" alt="Art 2">
+    <div class="pin-info">Art 2 Description</div>
+    <button class="share-btn">Share</button>
+    <div class="share-menu">
+      <button class="copy-link">Copy Link</button>
+      <a href="#" target="_blank" class="social-x">X</a>
+      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
+      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
+      <a href="#" target="_blank" class="social-reddit">Reddit</a>
+    </div>
+  </div>
+</div>
+
+<!-- Pin 3 -->
+<div class="pin">
+  <div class="pin-content">
+    <img src="https://i.imgur.com/rLX8jEJ.png" alt="Art 3">
+    <div class="pin-info">Art 3 Description</div>
+    <button class="share-btn">Share</button>
+    <div class="share-menu">
+      <button class="copy-link">Copy Link</button>
+      <a href="#" target="_blank" class="social-x">X</a>
+      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
+      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
+      <a href="#" target="_blank" class="social-reddit">Reddit</a>
+    </div>
+  </div>
+</div>
+
+<!-- Pin 4 -->
+<div class="pin">
+  <div class="pin-content">
+    <img src="https://i.imgur.com/wmB1AOK.png" alt="Art 4">
+    <div class="pin-info">Art 4 Description</div>
+    <button class="share-btn">Share</button>
+    <div class="share-menu">
+      <button class="copy-link">Copy Link</button>
+      <a href="#" target="_blank" class="social-x">X</a>
+      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
+      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
+      <a href="#" target="_blank" class="social-reddit">Reddit</a>
+    </div>
+  </div>
+</div>
+
+<!-- Pin 5 -->
+<div class="pin">
+  <div class="pin-content">
+    <img src="https://i.imgur.com/6mthVOk.png" alt="Art 5">
+    <div class="pin-info">Art 5 Description</div>
+    <button class="share-btn">Share</button>
+    <div class="share-menu">
+      <button class="copy-link">Copy Link</button>
+      <a href="#" target="_blank" class="social-x">X</a>
+      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
+      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
+      <a href="#" target="_blank" class="social-reddit">Reddit</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox"><img src="" alt="Full Art"></div>
+
+<!-- Flashing chat notification -->
+<div id="chat-notification">💬 Tutorial</div>
+<div id="chat-window"></div>
+
 <script>
-// Tutorial messages
+// Lightbox
+document.querySelectorAll('.pin-content img').forEach(img => {
+    img.addEventListener('click', () => {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.style.display = 'flex';
+        lightbox.querySelector('img').src = img.src;
+    });
+});
+document.getElementById('lightbox').addEventListener('click', () => {
+    document.getElementById('lightbox').style.display = 'none';
+});
+
+// Share functionality
+document.querySelectorAll('.pin').forEach(pin => {
+    const shareBtn = pin.querySelector('.share-btn');
+    const shareMenu = pin.querySelector('.share-menu');
+    const copyBtn = pin.querySelector('.copy-link');
+    const img = pin.querySelector('img');
+
+    shareBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        shareMenu.style.display = shareMenu.style.display === 'flex' ? 'none' : 'flex';
+        shareMenu.style.flexDirection = 'column';
+    });
+
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(img.src)
+          .then(() => alert('Link copied!'))
+          .catch(err => alert('Failed to copy.'));
+    });
+
+    const url = encodeURIComponent(window.location.href);
+    const media = encodeURIComponent(img.src);
+    pin.querySelector('.social-x').href = `https://twitter.com/intent/tweet?url=${url}`;
+    pin.querySelector('.social-pinterest').href = `https://www.pinterest.com/pin/create/button/?url=${url}&media=${media}`;
+    pin.querySelector('.social-tumblr').href = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${url}`;
+    pin.querySelector('.social-reddit').href = `https://www.reddit.com/submit?url=${url}`;
+});
+
+document.body.addEventListener('click', () => {
+    document.querySelectorAll('.share-menu').forEach(menu => menu.style.display = 'none');
+});
+
+// Chat tutorial
+const chatNotification = document.getElementById('chat-notification');
+const chatWindow = document.getElementById('chat-window');
 const tutorialMessages = [
-    "Welcome to my digital art portfolio!",
-    "This gallery is inspired by Pinterest 2018 style.",
-    "Hover over each pin to see more info and actions.",
-    "Click any image to see it in full size.",
-    "Enjoy exploring my artwork!"
+    "Hi! Welcome to my portfolio 💖",
+    "Click on any image to see it larger.",
+    "Hover over an image and click 'Share' to copy or share it!",
+    "Explore and enjoy my digital art collection!"
 ];
+let messageIndex = 0;
 
-let currentMsgIndex = 0;
-const badge = document.getElementById("tutorial-badge");
-const chatModal = document.getElementById("chat-modal");
-const chatMessages = document.getElementById("chat-messages");
+chatNotification.addEventListener('click', () => {
+    chatWindow.style.display = 'block';
+    messageIndex = 0;
+    chatWindow.innerHTML = '';
+    showNextMessage();
+});
 
-// Show message with typing indicator
-function showMessageWithTyping() {
-    if(currentMsgIndex < tutorialMessages.length) {
-        // Add typing indicator
-        const typingDiv = document.createElement("div");
-        typingDiv.className = "typing";
-        typingDiv.textContent = "Typing";
-        chatMessages.appendChild(typingDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-
-        setTimeout(() => {
-            typingDiv.remove();
-            const msgDiv = document.createElement("div");
-            msgDiv.className = "message";
-            msgDiv.textContent = tutorialMessages[currentMsgIndex];
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            currentMsgIndex++;
-            setTimeout(showMessageWithTyping, 800);
-        }, 1500);
-    }
+function showNextMessage() {
+    if(messageIndex >= tutorialMessages.length) return;
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'chat-message bot';
+    msgDiv.textContent = tutorialMessages[messageIndex];
+    chatWindow.appendChild(msgDiv);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+    messageIndex++;
+    setTimeout(showNextMessage, 2000);
 }
-
-// Open chat on badge click
-badge.addEventListener("click", () => {
-    chatModal.style.display = "flex";
-    badge.style.display = "none";
-    showMessageWithTyping();
-});
-
-// Close chat by clicking outside
-chatModal.addEventListener("click", e => {
-    if(e.target === chatModal) {
-        chatModal.style.display = "none";
-    }
-});
 </script>
 </body>
 </html>
