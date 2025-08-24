@@ -870,10 +870,11 @@ window.addEventListener('load', ()=>{
     typeMessage(chatLines[currentLine]);
     currentLine++;
 });
-// Mobile Mode Toggle
-const toggleButton = document.getElementById('mobile-toggle');
+// Mobile Mode Toggle via Start Menu
+const mobileMenuItem = document.getElementById('mobile-mode-toggle');
 
-toggleButton.addEventListener('click', () => {
+mobileMenuItem.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent closing start menu immediately
     document.body.classList.toggle('mobile-mode');
 
     const chatWindow = document.getElementById('chat-window');
@@ -881,13 +882,12 @@ toggleButton.addEventListener('click', () => {
 
     if(document.body.classList.contains('mobile-mode')) {
         if(chatWindow) chatWindow.classList.add('active');
-        if(startMenu) startMenu.classList.add('show');
+        if(startMenu) startMenu.classList.add('show'); // keep start menu open
     } else {
         if(chatWindow) chatWindow.classList.remove('active');
         if(startMenu) startMenu.classList.remove('show');
     }
 });
-
     </script>
 </body>
 </html>
