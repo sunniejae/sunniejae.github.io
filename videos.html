@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Creates - RetroTube</title>
+<title>Sunnie Jae Creates - Video Portfolio</title>
 <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 <style>
 :root {
@@ -90,6 +90,7 @@ nav.top-nav a {
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 3px;
+    font-weight: bold;
 }
 
 nav.top-nav a:hover {
@@ -104,6 +105,7 @@ nav.top-nav a:hover {
     min-height: calc(100vh - 90px);
     padding: 20px;
     float: left;
+    border-right: 2px solid var(--dark-purple);
 }
 
 .sidebar a {
@@ -138,6 +140,11 @@ nav.top-nav a:hover {
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.video-card:hover, .recommended-card:hover {
+    transform: scale(1.02);
 }
 
 .video-card iframe {
@@ -191,7 +198,7 @@ footer {
 <header>
     <div class="logo">Sunnie Jae Creates</div>
     <div class="search-bar">
-        <input type="text" placeholder="Search">
+        <input type="text" placeholder="Search my videos">
         <button>Search</button>
     </div>
 </header>
@@ -211,41 +218,45 @@ footer {
 </div>
 
 <div class="content">
-    <h2>Main Videos</h2>
+    <h2>Main Portfolio Videos</h2>
     <div class="video-grid">
         <div class="video-card">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" frameborder="0" allowfullscreen></iframe>
-            <h3>Rick Astley - Never Gonna Give You Up</h3>
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" title="Portfolio Video 1" frameborder="0" allowfullscreen></iframe>
+            <h3>Portfolio Video Title 1</h3>
         </div>
         <div class="video-card">
-            <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" title="YouTube video" frameborder="0" allowfullscreen></iframe>
-            <h3>PSY - Gangnam Style</h3>
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Portfolio Video 2" frameborder="0" allowfullscreen></iframe>
+            <h3>Portfolio Video Title 2</h3>
+        </div>
+        <div class="video-card">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="Portfolio Video 3" frameborder="0" allowfullscreen></iframe>
+            <h3>Portfolio Video Title 3</h3>
         </div>
     </div>
 
-    <h2>Recommended Videos</h2>
+    <h2>Recommended Portfolio Videos</h2>
     <div class="recommended-grid">
         <div class="recommended-card">
-            <img src="https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg" alt="Adele - Rolling in the Deep">
+            <img src="https://img.youtube.com/vi/VIDEO_ID_4/hqdefault.jpg" alt="Portfolio Video 4">
             <div class="recommended-info">
-                <h3>Adele - Rolling in the Deep</h3>
-                <div class="views">12,345,678 views</div>
+                <h3>Portfolio Video 4</h3>
+                <div class="views">15,234 views</div>
                 <div class="stars">★★★★★</div>
             </div>
         </div>
         <div class="recommended-card">
-            <img src="https://img.youtube.com/vi/L_jWHffIx5E/hqdefault.jpg" alt="Smash Mouth - All Star">
+            <img src="https://img.youtube.com/vi/VIDEO_ID_5/hqdefault.jpg" alt="Portfolio Video 5">
             <div class="recommended-info">
-                <h3>Smash Mouth - All Star</h3>
-                <div class="views">23,456,789 views</div>
+                <h3>Portfolio Video 5</h3>
+                <div class="views">12,876 views</div>
                 <div class="stars">★★★★☆</div>
             </div>
         </div>
         <div class="recommended-card">
-            <img src="https://img.youtube.com/vi/oHg5SJYRHA0/hqdefault.jpg" alt="Rick Roll Thumbnail">
+            <img src="https://img.youtube.com/vi/VIDEO_ID_6/hqdefault.jpg" alt="Portfolio Video 6">
             <div class="recommended-info">
-                <h3>Rick Astley - Never Gonna Give You Up</h3>
-                <div class="views">98,765,432 views</div>
+                <h3>Portfolio Video 6</h3>
+                <div class="views">8,923 views</div>
                 <div class="stars">★★★★★</div>
             </div>
         </div>
@@ -253,7 +264,7 @@ footer {
 </div>
 
 <footer>
-    &copy; 2008 Sunnie Jae Creates
+    &copy; 2025 Sunnie Jae Creates
 </footer>
 
 </body>
