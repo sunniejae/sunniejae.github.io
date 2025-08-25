@@ -45,7 +45,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--white);
+    background: var(--pinke);
     border-bottom: 2px solid var(--silver);
     padding: 16px 20px;
     display: flex;
@@ -139,7 +139,7 @@ header {
     padding: 16px 24px;
     border: 2px solid var(--gray);
     border-radius: 30px;
-    background: var(--white);
+    background: var(--silver);
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease;
@@ -202,10 +202,10 @@ header {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    background: var(--white);
+    background: var(--light-pink);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: zoom-in;
-    border: 1px solid var(--silver);
+    border: 1px solid var(--secondary);
 }
 
 .pin:hover {
@@ -352,13 +352,15 @@ header {
 .pin-title {
     font-weight: 600;
     font-size: 18px;
-    color: var(--secondary);
+    color: var(--dark-purple);
     margin-bottom: 8px;
+    justify-content: center; /* Centers horizontally along the main axis */
+    align-items: center; /* Centers vertically along the cross axis */
 }
 
 .pin-description {
     font-size: 14px;
-    color: var(--dark-purple);
+    color: var(--dark-gay);
     line-height: 1.5;
 }
 
@@ -435,12 +437,13 @@ header {
 .message:nth-child(even) {
     background: var(--pink);
     margin-left: 20px;
+    color: var(--dark-purple);
 }
 
 .message:nth-child(odd) {
-    background: var(--accent);
+    background: var(--pink);
     margin-left: 20px;
-    color: var(--white);
+    color: var(--dark-purple);
 }
 
 @keyframes slideIn {
