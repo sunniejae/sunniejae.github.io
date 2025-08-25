@@ -669,7 +669,7 @@ if (e.target.classList.contains('social-share') || e.target.closest('.social-sha
     const platform = link.dataset.platform;
     const pinId = link.dataset.pinId;
     const pinTitle = pinData.find(p => p.id === pinId)?.title || `Art ${pinId}`;
-    const description = pinData.find(p => p.id === pinId)?.description || 'Check out this amazing artwork!';
+    const description = pinData.find(p => p.id === pinId)?.description || 'Check out this cool thing from SunnieJae.com';
     const pinUrl = window.location.href.split('#')[0] + '#' + pinId; // link to anchor
 
     let shareUrl = '';
