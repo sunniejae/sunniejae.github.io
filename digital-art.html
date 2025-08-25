@@ -1,446 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pinterest-Style Portfolio – Sunnie Jae</title>
-<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunnie Jae Portfolio</title>
+<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 
 <style>
-:root{
-  --black:#000010;--white:#ffffff;--dark-gray:#404040;--gray:#bfbfdc;--silver:#f0f0f5;
-  --pink:#ffb3d6;--teal:#00a8a3;--dark-purple:#3f3d7a;--accent:#00c9c2;--secondary:#c13886;--primary:#9a9ad4;
-  --pinterest-red:#e60023;--pinterest-red-dark:#ad001b;--overlay:#111827cc;
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
 }
 
-/* Base */
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:var(--primary);color:var(--black);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
 
-/* Header (classic 2018 look) */
-.header{
-  position:sticky; top:0; z-index:1000;
-  display:flex; align-items:center; gap:14px;
-  padding:10px 16px; background:#teal; border-bottom:1px solid var(--silver);
+body { 
+    background: var(--white);
+    color: var(--black);
 }
-.header-left{display:flex; align-items:center; gap:12px}
-.logoP{
-  width:34px;height:34px;border-radius:50%;background:var(--secondary);display:grid;place-items:center;color:#fff;
-  font:700 20px/1 "Helvetica Neue",Arial,sans-serif; user-select:none;
-}
-.header-tabs{display:flex; gap:8px}
-.header-tab{
-  padding:8px 12px;border-radius:20px;background:var(--light-pink);color:#111;text-decoration:none;font-weight:600;font-size:14px;
-}
-.header-tab.active{background:#accent;color:#fff}
-.header-search{flex:1;display:flex}
-.header-search input{
-  width:100%; border:none; background:var(--silver); padding:12px 14px; border-radius:24px; font-size:14px; outline:2px solid transparent;
-}
-.header-search input:focus{outline-color:var(--primary)}
-.header-icons{display:flex; align-items:center; gap:12px}
-.icon-btn{
-  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:none;background:var(--silver);cursor:pointer;
-}
-.icon-btn:hover{background:#e9e9e9}
-.icon{width:20px;height:20px;display:block}
 
-/* Masonry grid (columns) */
-.feed{padding:16px; column-count:4; column-gap:16px}
-@media (max-width:1200px){.feed{column-count:3}}
-@media (max-width:900px){.feed{column-count:2}}
-@media (max-width:600px){.feed{column-count:1}}
+header {
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-.pin{
-  display:inline-block; width:100%; margin:0 0 16px; break-inside:avoid; position:relative; border-radius:12px; overflow:hidden;
-  background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.06);
+header .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--white);
+    margin-right: 20px;
 }
-.pin img{width:100%; display:block}
-.pin .meta{padding:10px 12px; font-size:13px; color:var(--dark-gray)}
 
-/* Hover overlay with Save + Share */
-.pin .overlay{
-  position:absolute; inset:0; display:flex; justify-content:space-between; align-items:flex-end; padding:10px; opacity:0; transition:.2s ease;
-  background:linear-gradient(to bottom, transparent 60%, rgba(0,0,0,.35));
+header input.search {
+    flex: 1;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 20px;
 }
-.pin:hover .overlay{opacity:1}
-.overlay .top-right{position:absolute; top:10px; right:10px}
-.btn-save{
-  background:var(--secondary); color:#fff; border:none; border-radius:24px; padding:8px 14px; font-weight:700; cursor:pointer;
-}
-.btn-save:hover{background:var(--dark-purple)}
-.btn-share{
-  background:var(--silver); color:#111; border:none; border-radius:24px; padding:8px 12px; font-weight:600; cursor:pointer;
-}
-.btn-share:hover{background:var(--light-pink)}
 
-/* Lightbox */
-.lightbox{
-  position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:1100;
+header .icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
-.lightbox.open{display:flex}
-.lightbox img{max-width:92vw; max-height:90vh; border-radius:12px}
 
-/* Global Share Popup (authentic feel) */
-.popup-overlay{
-  position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.45); z-index:1200;
+header .icons span {
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: var(--white);
 }
-.popup-overlay.show{display:flex}
-.popup{
-  width:320px; max-width:90vw; background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.25); padding:18px; text-align:center;
-}
-.popup h3{margin:0 0 6px 0; font-size:18px}
-.popup p{margin:6px 0; color:var(--dark-gray); font-size:14px}
-.popup-code{
-  background:var(--silver); color:var(--dark-purple); border-radius:8px; padding:10px; word-break:break-all; cursor:pointer; font-family:ui-monospace,Menlo,Consolas,monospace;
-}
-.popup-actions{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:10px}
-.popup-btn{
-  border:none; border-radius:8px; padding:8px 12px; font-weight:700; cursor:pointer; background:var(--primary); color:#fff;
-}
-.popup-btn.secondary{background:var(--secondary)}
-.popup-btn.link{background:var(--teal); text-decoration:none; display:inline-block}
-.popup-btn.link:hover{background:var(--accent)}
-.popup small{display:block; margin-top:6px; color:var(--primary)}
 
-/* Toast (fake Save feedback) */
-.toast{
-  position:fixed; top:16px; left:50%; transform:translateX(-50%); background:#111; color:#fff; padding:10px 14px; border-radius:20px; 
-  box-shadow:0 6px 20px rgba(0,0,0,.25); font-weight:600; z-index:1300; opacity:0; transition:.2s ease;
+main {
+    column-count: 4;
+    column-gap: 15px;
+    padding: 20px;
 }
-.toast.show{opacity:1}
 
-/* Chat bubble tutorial */
-.chat-bubble{
-  position:fixed; right:18px; bottom:18px; z-index:1400; background:var(--accent); color:#fff; width:56px; height:56px;
-  display:grid; place-items:center; border-radius:50%; cursor:pointer; box-shadow:0 8px 20px rgba(0,0,0,.25); animation:pulse 1.2s infinite;
+.pin {
+    display: inline-block;
+    background: var(--silver);
+    margin-bottom: 15px;
+    border-radius: 5px;
+    width: 100%;
+    position: relative;
+    break-inside: avoid;
 }
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-.chat-window{
-  position:fixed; right:50px; bottom:100px; z-index:1401; width:320px; max-height:440px; background:#fff; border-radius:12px; overflow:hidden; display:none;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+.pin img {
+    width: 100%;
+    display: block;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
 }
-.chat-header{background:var(--primary); color:#fff; padding:10px 12px; font-weight:700}
-.chat-body{background:var(--light-pink); padding:10px; max-height:360px; overflow:auto}
-.msg{background:#fff; border-radius:12px; padding:8px 10px; margin:6px 0; box-shadow:0 2px 6px rgba(0,0,0,.07); color:#333; font-size:14px}
-.typing{display:inline-block; padding:6px 10px; border-radius:12px; background:var(--silver); color:var(--primary)}
-.typing::after{content:""; display:inline-block; width:6px; height:6px; margin-left:6px; background:var(--primary); border-radius:50%; animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.chat-footer{display:flex; gap:8px; padding:10px; background:#fff; border-top:1px solid var(--silver)}
-.tour-btn{flex:1; background:var(--teal); color:#fff; border:none; border-radius:8px; padding:8px 10px; font-weight:700; cursor:pointer}
-.skip-btn{background:var(--silver); color:#333; border:none; border-radius:8px; padding:8px 10px; font-weight:700; cursor:pointer}
+
+.pin .pin-info {
+    padding: 8px;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+}
+
+.pin .pin-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 8px;
+}
+
+.pin button.share-btn {
+    background: var(--dark-purple);
+    color: var(--white);
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.share-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: var(--white);
+    border: 2px solid var(--dark-purple);
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    z-index: 200;
+    transition: transform 0.2s ease;
+}
+
+.share-popup.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.share-popup h4 { margin-bottom: 10px; font-size: 1rem; color: var(--dark-purple); }
+.share-popup .share-buttons { display: flex; flex-direction: column; gap: 6px; }
+.share-popup button, .share-popup a {
+    padding: 5px;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 0.9rem;
+}
+
+.share-popup button.copy-link { background: var(--accent); cursor: pointer; }
+.share-popup a { background: var(--secondary); }
+
+.chat-bubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+    z-index: 150;
+}
+
+.chat-bubble img {
+    width: 30px;
+    height: 30px;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    background: var(--white);
+    border: 2px solid var(--dark-purple);
+    border-radius: 8px;
+    overflow-y: auto;
+    display: none;
+    flex-direction: column;
+    z-index: 160;
+}
+
+.chat-window.show { display: flex; }
+
+.chat-window .message {
+    padding: 8px 10px;
+    margin: 5px;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.snackbar {
+    visibility: hidden;
+    min-width: 220px;
+    background-color: var(--dark-purple);
+    color: var(--white);
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    z-index: 300;
+}
+
+.snackbar.show {
+    visibility: visible;
+    animation: fadein 0.3s, fadeout 0.3s 2.5s;
+}
+
+@keyframes fadein { from { bottom: 0; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+@keyframes fadeout { from { bottom: 30px; opacity: 1; } to { bottom: 0; opacity: 0; } }
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<div class="header" role="banner">
-  <div class="header-left">
-    <div class="logoP" aria-label="Pinterest style logo">SJ</div>
-    <div class="header-tabs" role="navigation" aria-label="Primary">
-      <a class="header-tab active" href="index.html" title="Home">Home</a>
-      <a class="header-tab" href="studio-ke.html" title="Following">Following</a>
+<header>
+    <div class="logo">S</div>
+    <input type="text" class="search" placeholder="Search your portfolio...">
+    <div class="icons">
+        <span>🏠</span>
+        <span>👥</span>
+        <span>🔔</span>
+        <span id="chat-icon">💬</span>
+        <span>👤</span>
     </div>
-  </div>
-  <div class="header-search" role="search">
-    <input id="searchInput" type="search" placeholder="search..." aria-label="Search pins" />
-  </div>
-  <div class="header-icons" aria-label="Account and notifications">
-    <button class="icon-btn" title="Notifications" aria-label="Notifications">
-      <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm6-6V11a6 6 0 1 0-12 0v5l-2 2v1h16v-1l-2-2Z" fill="#111"/></svg>
-    </button>
-    <button class="icon-btn" title="Messages" aria-label="Messages">
-      <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 3V4Z" stroke="#111" stroke-width="2" fill="none"/></svg>
-    </button>
-    <button class="icon-btn" title="Profile" aria-label="Profile">
-      <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="#111"/><path d="M4 20c1.5-4 6-6 8-6s6.5 2 8 6" stroke="#111" stroke-width="2"/></svg>
-    </button>
-  </div>
+</header>
+
+<main id="pin-feed">
+    <!-- Example real pins -->
+    <div class="pin">
+        <img src="https://i.imgur.com/nNpWqcw.png" alt="Art 1">
+        <div class="pin-info">Art 1</div>
+        <div class="pin-actions">
+            <button class="share-btn">Share</button>
+        </div>
+    </div>
+    <div class="pin">
+        <img src="https://i.imgur.com/ZaLvpTQ.png" alt="Art 2">
+        <div class="pin-info">Art 2</div>
+        <div class="pin-actions">
+            <button class="share-btn">Share</button>
+        </div>
+    </div>
+    <div class="pin">
+        <img src="https://i.imgur.com/rLX8jEJ.png" alt="Art 3">
+        <div class="pin-info">Art 3</div>
+        <div class="pin-actions">
+            <button class="share-btn">Share</button>
+        </div>
+    </div>
+    <div class="pin">
+        <img src="https://i.imgur.com/wmB1AOK.png" alt="Art 4">
+        <div class="pin-info">Art 4</div>
+        <div class="pin-actions">
+            <button class="share-btn">Share</button>
+        </div>
+    </div>
+    <div class="pin">
+        <img src="https://i.imgur.com/6mthVOk.png" alt="Art 5">
+        <div class="pin-info">Art 5</div>
+        <div class="pin-actions">
+            <button class="share-btn">Share</button>
+        </div>
+    </div>
+    <!-- Placeholder pins -->
+    <script>
+    for (let i=0;i<20;i++){
+        document.write(`<div class="pin">
+        <img src="https://via.placeholder.com/300x400?text=Nothing+to+see+here...+yet" alt="placeholder">
+        <div class="pin-info">Nothing to see here... yet</div>
+        <div class="pin-actions">
+            <button class="share-btn">Share</button>
+        </div>
+        </div>`);
+    }
+    </script>
+</main>
+
+<!-- Single Share Popup -->
+<div class="share-popup" id="sharePopup">
+    <h4>Share this pin</h4>
+    <div class="share-buttons">
+        <button class="copy-link" id="copyLinkBtn">Copy Link</button>
+        <a href="#" target="_blank" id="linkX">X</a>
+        <a href="#" target="_blank" id="linkPinterest">Pinterest</a>
+        <a href="#" target="_blank" id="linkTumblr">Tumblr</a>
+        <a href="#" target="_blank" id="linkReddit">Reddit</a>
+        <button onclick="closeSharePopup()">Close</button>
+    </div>
 </div>
 
-<!-- Feed -->
-<div id="feed" class="feed" aria-live="polite">
-  <!-- Your 5 art pins first -->
-  <figure class="pin" data-title="Art 1">
-    <img src="https://i.imgur.com/nNpWqcw.png" alt="Art 1" />
-    <figcaption class="meta">Art 1</figcaption>
-    <div class="overlay">
-      <div class="top-right"><button class="btn-save" data-action="save">Save</button></div>
-      <button class="btn-share" data-action="share" data-src="https://i.imgur.com/nNpWqcw.png">Share</button>
-    </div>
-  </figure>
-
-  <figure class="pin" data-title="Art 2">
-    <img src="https://i.imgur.com/ZaLvpTQ.png" alt="Art 2" />
-    <figcaption class="meta">Art 2</figcaption>
-    <div class="overlay">
-      <div class="top-right"><button class="btn-save" data-action="save">Save</button></div>
-      <button class="btn-share" data-action="share" data-src="https://i.imgur.com/ZaLvpTQ.png">Share</button>
-    </div>
-  </figure>
-
-  <figure class="pin" data-title="Art 3">
-    <img src="https://i.imgur.com/rLX8jEJ.png" alt="Art 3" />
-    <figcaption class="meta">Art 3</figcaption>
-    <div class="overlay">
-      <div class="top-right"><button class="btn-save" data-action="save">Save</button></div>
-      <button class="btn-share" data-action="share" data-src="https://sunniejae.com/digital-art.html">Share</button>
-    </div>
-  </figure>
-
-  <figure class="pin" data-title="Art 4">
-    <img src="https://i.imgur.com/wmB1AOK.png" alt="Art 4" />
-    <figcaption class="meta">Art 4</figcaption>
-    <div class="overlay">
-      <div class="top-right"><button class="btn-save" data-action="save">Save</button></div>
-      <button class="btn-share" data-action="share" data-src="https://i.imgur.com/wmB1AOK.png">Share</button>
-    </div>
-  </figure>
-
-  <figure class="pin" data-title="Art 5">
-    <img src="https://i.imgur.com/6mthVOk.png" alt="Art 5" />
-    <figcaption class="meta">Art 5</figcaption>
-    <div class="overlay">
-      <div class="top-right"><button class="btn-save" data-action="save">Save</button></div>
-      <button class="btn-share" data-action="share" data-src="https://i.imgur.com/6mthVOk.png">Share</button>
-    </div>
-  </figure>
+<!-- Chat Bubble -->
+<div class="chat-bubble" id="chatBubble">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/speech-bubble.png" alt="Chat">
 </div>
+<div class="chat-window" id="chatWindow"></div>
 
-<!-- Lightbox -->
-<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <img alt="Full view" />
-</div>
-
-<!-- Global Share Popup -->
-<div id="sharePopup" class="popup-overlay" role="dialog" aria-modal="true" aria-label="Share">
-  <div class="popup">
-    <h3>Share this Pin</h3>
-    <p>Click to copy the image link:</p>
-    <div id="shareLink" class="popup-code" title="Click to copy">https://example.com/image.png</div>
-    <div class="popup-actions">
-      <button class="popup-btn" id="copyBtn">Copy Link</button>
-      <a id="linkX" class="popup-btn link" target="_blank" rel="noopener">X</a>
-      <a id="linkPinterest" class="popup-btn link" target="_blank" rel="noopener">Pinterest</a>
-      <a id="linkTumblr" class="popup-btn link" target="_blank" rel="noopener">Tumblr</a>
-      <a id="linkReddit" class="popup-btn link" target="_blank" rel="noopener">Reddit</a>
-      <button class="popup-btn secondary" id="closeShare">Close</button>
-    </div>
-    <small>Thanks for spreading the love or whatever ❤</small>
-  </div>
-</div>
-
-<!-- Toast -->
-<div id="toast" class="toast" role="status" aria-live="polite">Saved!</div>
-
-<!-- Chat bubble & tutorial -->
-<button id="chatBubble" class="chat-bubble" title="Open tutorial" aria-label="Open tutorial">1 UNREAD</button>
-<div id="chatWindow" class="chat-window" role="dialog" aria-modal="true" aria-label="Tutorial">
-  <div class="chat-header">Portfolio Tour</div>
-  <div id="chatBody" class="chat-body"></div>
-  <div class="chat-footer">
-    <button id="restartTour" class="tour-btn">Restart Chat</button>
-    <button id="skipTour" class="skip-btn">Close</button>
-  </div>
-</div>
+<!-- Snackbar -->
+<div id="snackbar">⚠️ Not available for download</div>
 
 <script>
-/* ---------- Utility ---------- */
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
+// Share popup logic
+const sharePopup = document.getElementById('sharePopup');
+const copyBtn = document.getElementById('copyLinkBtn');
+const linkX = document.getElementById('linkX');
+const linkPinterest = document.getElementById('linkPinterest');
+const linkTumblr = document.getElementById('linkTumblr');
+const linkReddit = document.getElementById('linkReddit');
 
-/* ---------- Lightbox ---------- */
-const lightbox = $('#lightbox');
-$('#feed').addEventListener('click', e=>{
-  const img = e.target.closest('.pin')?.querySelector('img');
-  if(!img) return;
-  if(e.target.matches('.btn-save, .btn-share')) return; // buttons handled elsewhere
-  lightbox.classList.add('open');
-  lightbox.querySelector('img').src = img.src;
-});
-lightbox.addEventListener('click', ()=> lightbox.classList.remove('open'));
-document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') lightbox.classList.remove('open'); });
-
-/* ---------- Share Popup ---------- */
-let currentShare = '';
-const sharePopup = $('#sharePopup');
-const shareLink = $('#shareLink');
-function openShare(link){
-  currentShare = link;
-  shareLink.textContent = link;
-  // Social links
-  const page = encodeURIComponent(location.href);
-  const media = encodeURIComponent(link);
-  $('#linkX').href = `https://twitter.com/intent/tweet?url=${media}`;
-  $('#linkPinterest').href = `https://www.pinterest.com/pin/create/button/?url=${page}&media=${media}`;
-  $('#linkTumblr').href = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${media}&content=${media}`;
-  $('#linkReddit').href = `https://www.reddit.com/submit?url=${media}`;
-  sharePopup.classList.add('show');
-}
-$('#closeShare').addEventListener('click', ()=> sharePopup.classList.remove('show'));
-sharePopup.addEventListener('click', e=>{ if(e.target===sharePopup) sharePopup.classList.remove('show'); });
-$('#copyBtn').addEventListener('click', copyShareLink);
-shareLink.addEventListener('click', copyShareLink);
-function copyShareLink(){
-  if(!currentShare) return;
-  (navigator.clipboard?.writeText(currentShare) || Promise.reject()).then(()=>{
-    const orig = shareLink.textContent;
-    shareLink.textContent = 'COPIED! ✓';
-    shareLink.style.background = 'var(--accent)';
-    shareLink.style.color = '#fff';
-    setTimeout(()=>{
-      shareLink.textContent = orig;
-      shareLink.style.background = 'var(--silver)';
-      shareLink.style.color = 'var(--dark-purple)';
-    }, 900);
-  }).catch(()=>{
-    alert('Link: ' + currentShare);
-  });
-}
-
-/* ---------- Save (fake) ---------- */
-const toast = $('#toast');
-function showToast(text='Saved!'){
-  toast.textContent = text;
-  toast.classList.add('show');
-  setTimeout(()=> toast.classList.remove('show'), 1200);
-}
-
-/* Delegate Save/Share clicks */
-$('#feed').addEventListener('click', e=>{
-  const btn = e.target.closest('button');
-  if(!btn) return;
-  if(btn.dataset.action==='save'){
-    btn.textContent = 'Saved';
-    showToast('Saved to Inspirations');
-  }
-  if(btn.dataset.action==='share'){
-    const src = btn.dataset.src || btn.closest('.pin')?.querySelector('img')?.src;
-    if(src) openShare(src);
-  }
+document.querySelectorAll('.share-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+        const img = e.target.closest('.pin').querySelector('img');
+        const link = img.src;
+        const page = window.location.href;
+        const media = encodeURIComponent(link);
+        linkX.href = `https://twitter.com/intent/tweet?url=${media}`;
+        linkPinterest.href = `https://www.pinterest.com/pin/create/button/?url=${page}&media=${media}`;
+        linkTumblr.href = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${media}&content=${media}`;
+        linkReddit.href = `https://www.reddit.com/submit?url=${media}`;
+        sharePopup.classList.add('show');
+    });
 });
 
-/* ---------- Search filter ---------- */
-$('#searchInput').addEventListener('input', e=>{
-  const q = e.target.value.trim().toLowerCase();
-  $$('#feed .pin').forEach(pin=>{
-    const title = (pin.dataset.title || pin.querySelector('.meta')?.textContent || '').toLowerCase();
-    pin.style.display = title.includes(q) ? 'inline-block' : 'none';
-  });
+function closeSharePopup(){ sharePopup.classList.remove('show'); }
+
+// Copy link
+copyBtn.addEventListener('click', () => {
+    const url = sharePopup.classList.contains('show') ? encodeURIComponent(document.querySelector('.pin img').src) : '';
+    navigator.clipboard.writeText(url).then(()=>{ alert('Link copied!'); });
 });
 
-/* ---------- Infinite placeholders (image placeholders with text) ---------- */
-let phCount = 0, loading=false;
-function svgPlaceholder(w,h,text){
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>
-    <defs>
-      <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
-        <stop offset='0%' stop-color='%23f5f5fa'/>
-        <stop offset='100%' stop-color='%23e9e9f3'/>
-      </linearGradient>
-    </defs>
-    <rect width='100%' height='100%' fill='url(%23g)'/>
-    <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'
-      font-family='Helvetica, Arial, sans-serif' font-size='18' fill='%23777'>${text}</text>
-  </svg>`;
-  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-}
-function addPlaceholders(n=20){
-  const heights=[180,220,260,300,340,380,420];
-  const feed = $('#feed');
-  let html='';
-  for(let i=0;i<n;i++){
-    const h = heights[Math.floor(Math.random()*heights.length)];
-    const w = 600; // logical width; will scale to column width
-    const text = 'Nothing to see here… yet';
-    const src = svgPlaceholder(w,h,text);
-    const id = ++phCount;
-    html += `
-      <figure class="pin" data-title="${text} ${id}">
-        <img src="${src}" alt="${text} ${id}" />
-        <figcaption class="meta">${text}</figcaption>
-        <div class="overlay">
-          <div class="top-right"><button class="btn-save" data-action="save">Save</button></div>
-          <button class="btn-share" data-action="share" data-src="${src}">Share</button>
-        </div>
-      </figure>`;
-  }
-  // Inject as DOM nodes (faster than innerHTML concat per node)
-  const container = document.createElement('div'); container.innerHTML = html;
-  while(container.firstChild) feed.appendChild(container.firstChild);
-}
-function onScroll(){
-  if(loading) return;
-  if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 900){
-    loading=true; addPlaceholders(24); loading=false;
-  }
-}
-addPlaceholders(24);
-window.addEventListener('scroll', onScroll);
-
-/* ---------- Chat Tutorial (step-by-step) ---------- */
-const chatBubble = $('#chatBubble');
-const chatWindow = $('#chatWindow');
-const chatBody = $('#chatBody');
-const restartTour = $('#restartTour');
-const skipTour = $('#skipTour');
-
-const tourSteps = [
-  "heeyyy, welcome to my digital art portfolio"
-  "no pressure, but you can share any images using the share button on the post."
-  "if you're looking for something special, you can use the search bar for keywords or titles"
-  "if you're bored of looking at these, i probably have something else you haven't checked out yet"
-  "you can go back to the home page and open more folders"
-  "or you can push random buttons on this feed and see if anything exciting happens"
-  "anyway i'm starting to infodump at this point"
-  "enjoy looking at.. whatever you wanna look at on sunniejae.com"
+// Chat bubble logic
+const chatBubble = document.getElementById('chatBubble');
+const chatWindow = document.getElementById('chatWindow');
+const chatMessages = [
+  "heeyyy, welcome to my digital art portfolio",
+  "no pressure, but you can share any images using the share button on the post.",
+  "if you're looking for something special, you can use the search bar for keywords or titles",
+  "if you're bored of looking at these, i probably have something else you haven't checked out yet",
+  "you can go back to the home page and open more folders",
+  "or you can push random buttons on this feed and see if anything exciting happens",
+  "anyway i'm starting to infodump at this point",
+  "enjoy looking at.. whatever you wanna look at on sunniejae.com",
   "byeeeee"
 ];
 
-let stepIndex = 0;
-let typingTimeout;
-
-function appendTyping(){
-  const t = document.createElement('div'); t.className='typing'; t.textContent='Typing';
-  chatBody.appendChild(t); chatBody.scrollTop = chatBody.scrollHeight; return t;
-}
-function appendMsg(text){
-  const m = document.createElement('div'); m.className='msg'; m.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<b>$1</b>');
-  chatBody.appendChild(m); chatBody.scrollTop = chatBody.scrollHeight;
-}
-function playTour(){
-  clearTimeout(typingTimeout);
-  chatBody.innerHTML='';
-  stepIndex = 0;
-  const run = ()=>{
-    if(stepIndex>=tourSteps.length) return;
-    const typing = appendTyping();
-    typingTimeout = setTimeout(()=>{
-      typing.remove(); appendMsg(tourSteps[stepIndex++]); typingTimeout = setTimeout(run, 900);
-    }, 1200);
-  };
-  run();
-}
-
-chatBubble.addEventListener('click', ()=>{
-  chatWindow.style.display='block';
-  chatBubble.style.animation='none';
-  playTour();
-});
-restartTour.addEventListener('click', playTour);
-skipTour.addEventListener('click', ()=> chatWindow.style.display='none');
-
-/* Accessibility: close chat/lightbox/share with Escape */
-document.addEventListener('keydown', (e)=>{
-  if(e.key==='Escape'){
-    chatWindow.style.display='none';
-    sharePopup.classList.remove('show');
-    lightbox.classList.remove('open');
-  }
+chatBubble.addEventListener('click', () => {
+    chatWindow.classList.add('show');
+    chatBubble.style.display = 'none';
+    let i=0;
+    const interval = setInterval(() => {
+        if(i>=chatMessages.length){ clearInterval(interval); return; }
+        const div = document.createElement('div');
+        div.className='message';
+        div.textContent=chatMessages[i];
+        chatWindow.appendChild(div);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        i++;
+    }, 1500);
 });
 
-/* Ensure overlay buttons exist on initial pins (already in markup) and all dynamic placeholders (delegated above) */
+// Right-click download block
+document.querySelectorAll('.pin img').forEach(img => {
+    img.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        const snackbar = document.getElementById('snackbar');
+        snackbar.classList.add('show');
+        setTimeout(()=> snackbar.classList.remove('show'), 2500);
+    });
+});
 </script>
+
 </body>
 </html>
