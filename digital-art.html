@@ -357,13 +357,13 @@ header {
 .pin-title {
     font-weight: 600;
     font-size: 18px;
-    color: var(--black);
+    color: var(--secondary);
     margin-bottom: 8px;
 }
 
 .pin-description {
     font-size: 14px;
-    color: var(--dark-gray);
+    color: var(--dark-purple);
     line-height: 1.5;
 }
 
@@ -744,7 +744,7 @@ chatButton.addEventListener('click', () => {
                 chatMessages.appendChild(messageDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 chatIndex++;
-            }, 1500);
+            }, 4000);
         }
     } else {
         chatWindow.style.display = 'none';
