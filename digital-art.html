@@ -658,34 +658,35 @@ document.addEventListener('click', function(e) {
         });
     }
     
-    // Handle social sharing
-    if (e.target.classList.contains('social-share') || e.target.closest('.social-share')) {
-        e.preventDefault();
-        const link = e.target.closest('.social-share');
-        const platform = link.dataset.platform;
-        const pinId = link.dataset.pinId;
-        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
-        const pinTitle = pinData.find(p => p.id === pinId)?.title || `Art ${pinId}`;
-        const description = pinData.find(p => p.id === pinId)?.description || 'Check out this amazing artwork!';
-        
-        let shareUrl = '';
-        
-        switch(platform) {
-            case 'twitter':
-                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${pinTitle} - ${description}`)}&url=${encodeURIComponent(imageUrl)}`;
-                break;
-            case 'pinterest':
-                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
-                break;
-            case 'tumblr':
-                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pinTitle)}&caption=${encodeURIComponent(description)}&source=${encodeURIComponent(imageUrl)}&canonicalUrl=${encodeURIComponent(window.location.href)}`;
-                break;
-        }
-        
-        if (shareUrl) {
-            window.open(shareUrl, '_blank', 'width=600,height=600');
-        }
+// Handle social sharing
+if (e.target.classList.contains('social-share') || e.target.closest('.social-share')) {
+    e.preventDefault();
+    const link = e.target.closest('.social-share');
+    const platform = link.dataset.platform;
+    const pinId = link.dataset.pinId;
+    const pinTitle = pinData.find(p => p.id === pinId)?.title || `Art ${pinId}`;
+    const description = pinData.find(p => p.id === pinId)?.description || 'Check out this amazing artwork!';
+    const pinUrl = window.location.href.split('#')[0] + '#' + pinId; // link to anchor
+
+    let shareUrl = '';
+
+    switch(platform) {
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pinTitle + ' - ' + description)}&url=${encodeURIComponent(pinUrl)}`;
+            break;
+        case 'pinterest':
+            shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(pinUrl)}&media=${encodeURIComponent(`https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`)}&description=${encodeURIComponent(pinTitle + ' - ' + description)}`;
+            break;
+        case 'tumblr':
+            shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pinTitle)}&caption=${encodeURIComponent(description)}&source=${encodeURIComponent(`https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`)}&canonicalUrl=${encodeURIComponent(pinUrl)}`;
+            break;
     }
+
+    if (shareUrl) {
+        window.open(shareUrl, '_blank', 'width=600,height=600');
+    }
+}
+
     
     // Close menus when clicking outside
     if (!e.target.closest('.share-btn') && !e.target.closest('.share-menu')) {
