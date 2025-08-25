@@ -35,7 +35,7 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--silver);
+    background: var(--light-pink);
     color: var(--black);
     line-height: 1.5;
 }
@@ -45,7 +45,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--white);
+    background: var(--secondary);
     border-bottom: 2px solid var(--silver);
     padding: 16px 20px;
     display: flex;
@@ -202,7 +202,7 @@ header {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    background: var(--white);
+    background: var(--black);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: zoom-in;
     border: 1px solid var(--silver);
@@ -273,6 +273,62 @@ header {
     background: var(--gradient-secondary);
     transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
+}
+
+.tags-btn {
+    background: var(--gradient-secondary);
+    color: var(--white);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 18px;
+    font-weight: 300;
+    font-size: 10px;
+}
+
+.tags-btn:hover {
+    background: var(--gradient);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.tags-menu {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    background: var(--white);
+    border: 2px solid var(--gray);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--shadow-hover);
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 280px;
+    z-index: 1000;
+}
+
+.tags-menu.active {
+    display: flex;
+}
+
+.tag-item {
+    background: var(--silver);
+    color: var(--dark-purple);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--gray);
+    user-select: none;
+}
+
+.tag-item:hover {
+    background: var(--accent);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
 }
 
 
@@ -557,17 +613,17 @@ header {
 <script>
 // Pin data and generation
 const pinData = [
-    { id: "1", title: "Webcomic Style: Self Portrait", description: "Exploring techniques to bring simple webcomic art to life"imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/1.png" },
-    { id: "2", title: "Siberian", description: "Color block portrait of a siberian cat"imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/2.png" },
-    { id: "3", title: "Winter", description: "Colorblock portrait of Winter from Aespa (smoothed)", imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/3.png" },
-    { id: "4", title: "NingNing", description: "Colorblock portrait of NingNing from Aespa (smoothed)",imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/4.png"},
-    { id: "5", title: "iLand 2: n/a Finale", description: "izna ot7 color block portrait", imageUrl:"https://sunniejae.blob.core.windows.net/sunniejae/5.png"},
-    { id: "6", title: "Webcomic Portrait", description: "Hailey Reed from Not Just Another Werewolf Romance" imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/6.png"},
-    { id: "7", title: "It's a Bubblegum, Bitch", description: "Colorblock portrait of Brittney Spears (holographic)" imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/7.png"},
-    { id: "8", title: "Losing Feeling", description: "Exploring techniques for creative portraits (commissioned)" imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/8.png },
-    { id: "9", title: "MoonSun", description: "Colorblock portrait of Moonbyul and Solar from Mamamoo", imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/9.png"},
-    { id: "10", title: "Blonde Bombshell", description: "Digital pastel portrait of Marilyn Monroe", imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/10.png},
-    { id: "11", title: "Seeing is Believing", description: "Digital pastel piece of a greco-roman bust", imageUrl: "https://sunniejae.blob.core.windows.net/sunniejae/1.png" }
+    { id: "1", title: "Webcomic Style: Self Portrait", description: "Exploring techniques to bring simple webcomic art to", tags: ["webcomic", "self portrait", "digital art", "character design", "cartoon style"] },
+    { id: "2", title: "Siberian", description: "Color block portrait of a siberian cat", tags: ["cat", "siberian", "animal portrait", "colorblock", "pet art", "feline"] },
+    { id: "3", title: "Winter", description: "Colorblock portrait of Winter from Aespa (smoothed)", tags: ["kpop", "aespa", "winter", "idol", "colorblock", "portrait", "korean"] },
+    { id: "4", title: "NingNing", description: "Colorblock portrait of NingNing from Aespa (smoothed)", tags: ["kpop", "aespa", "ningning", "idol", "colorblock", "portrait", "korean"] },
+    { id: "5", title: "iLand 2: n/a Finale", description: "izna ot7 color block portrait", tags: ["iland", "izna", "kpop", "group portrait", "colorblock", "idol", "survival show"] },
+    { id: "6", title: "Webcomic Portrait", description: "Hailey Reed from Not Just Another Werewolf Romance", tags: ["webcomic", "character", "werewolf", "romance", "hailey reed", "fiction"] },
+    { id: "7", title: "It's a Bubblegum, Bitch", description: "Colorblock portrait of Brittney Spears (holographic)", tags: ["britney spears", "pop icon", "holographic", "colorblock", "bubblegum", "celebrity"] },
+    { id: "8", title: "Losing Feeling", description: "Exploring techniques for creative portraits (commissioned)", tags: ["commission", "portrait", "creative", "experimental", "digital art", "emotion"] },
+    { id: "9", title: "MoonSun", description: "Colorblock portrait of Moonbyul and Solar from Mamamoo", tags: ["mamamoo", "moonbyul", "solar", "kpop", "duo", "colorblock", "portrait"] },
+    { id: "10", title: "Blonde Bombshell", description: "Digital pastel portrait of Marilyn Monroe", tags: ["marilyn monroe", "classic", "pastel", "vintage", "hollywood", "icon", "blonde"] },
+    { id: "11", title: "Seeing is Believing", description: "Digital pastel piece of a greco-roman bust", tags: ["classical", "greco-roman", "bust", "sculpture", "pastel", "ancient art", "statue"] }
 ];
 
 const masonry = document.getElementById('masonry-container');
@@ -580,7 +636,13 @@ pinData.forEach(pin => {
             <img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}" loading="lazy">
             <div class="pin-overlay">
                 <div class="pin-actions">
+                    <button class="tags-btn" data-pin-id="${pin.id}">Tags</button>
                     <button class="share-btn" data-pin-id="${pin.id}">Share</button>
+                    <div class="tags-menu" id="tags-${pin.id}">
+                        ${pin.tags.map(tag => `
+                            <span class="tag-item" data-tag="${tag}">#${tag}</span>
+                        `).join('')}
+                    </div>
                     <div class="share-menu" id="menu-${pin.id}">
                         <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">
                             <span class="share-icon">🔗</span>
@@ -598,10 +660,6 @@ pinData.forEach(pin => {
                             <span class="share-icon">💜</span>
                             Share on Tumblr
                         </a>
-                        <a href="#" class="share-option social-share" data-platform="reddit" data-pin-id="${pin.id}">
-                            <span class="share-icon">🧡</span>
-                            Share on Reddit
-                        </a>
                     </div>
                 </div>
             </div>
@@ -616,6 +674,65 @@ pinData.forEach(pin => {
 
 // Share functionality
 document.addEventListener('click', function(e) {
+    // Handle tags button clicks
+    if (e.target.classList.contains('tags-btn')) {
+        e.stopPropagation();
+        const pinId = e.target.dataset.pinId;
+        const menu = document.getElementById(`tags-${pinId}`);
+        
+        // Close all other menus
+        document.querySelectorAll('.tags-menu, .share-menu').forEach(m => {
+            if (m.id !== `tags-${pinId}`) {
+                m.classList.remove('active');
+            }
+        });
+        
+        menu.classList.toggle('active');
+    }
+    
+    // Handle tag clicks
+    if (e.target.classList.contains('tag-item')) {
+        const tag = e.target.dataset.tag;
+        const searchBox = document.querySelector('.search-box');
+        searchBox.value = tag;
+        searchBox.focus();
+        
+        // Trigger search
+        const event = new Event('input', { bubbles: true });
+        searchBox.dispatchEvent(event);
+        
+        // Close all menus
+        document.querySelectorAll('.tags-menu').forEach(menu => {
+            menu.classList.remove('active');
+        });
+        
+        // Show notification
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            z-index: 10000;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: var(--shadow-hover);
+            animation: slideIn 0.3s ease;
+        `;
+        notification.textContent = `🏷️ Searching for "${tag}"`;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 2000);
+    }
+    
     // Handle share button clicks
     if (e.target.classList.contains('share-btn')) {
         e.stopPropagation();
@@ -623,7 +740,7 @@ document.addEventListener('click', function(e) {
         const menu = document.getElementById(`menu-${pinId}`);
         
         // Close all other menus
-        document.querySelectorAll('.share-menu').forEach(m => {
+        document.querySelectorAll('.share-menu, .tags-menu').forEach(m => {
             if (m.id !== `menu-${pinId}`) {
                 m.classList.remove('active');
             }
@@ -700,8 +817,9 @@ document.addEventListener('click', function(e) {
     }
     
     // Close menus when clicking outside
-    if (!e.target.closest('.share-btn') && !e.target.closest('.share-menu')) {
-        document.querySelectorAll('.share-menu').forEach(menu => {
+    if (!e.target.closest('.share-btn') && !e.target.closest('.share-menu') && 
+        !e.target.closest('.tags-btn') && !e.target.closest('.tags-menu')) {
+        document.querySelectorAll('.share-menu, .tags-menu').forEach(menu => {
             menu.classList.remove('active');
         });
     }
@@ -761,8 +879,12 @@ searchBox.addEventListener('input', function(e) {
     pins.forEach(pin => {
         const title = pin.querySelector('.pin-title').textContent.toLowerCase();
         const description = pin.querySelector('.pin-description').textContent.toLowerCase();
+        const pinId = pin.querySelector('.share-btn').dataset.pinId;
+        const pinTags = pinData.find(p => p.id === pinId)?.tags || [];
+        const tagsText = pinTags.join(' ').toLowerCase();
         
-        if (title.includes(searchTerm) || description.includes(searchTerm) || searchTerm === '') {
+        if (title.includes(searchTerm) || description.includes(searchTerm) || 
+            tagsText.includes(searchTerm) || searchTerm === '') {
             pin.style.display = 'block';
         } else {
             pin.style.display = 'none';
