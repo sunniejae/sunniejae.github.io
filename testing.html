@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Portfolio</title>
+<title>Sunnie Jae - Digital Art</title>
 <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,7 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--silver);
+    background: var(--teal);
     color: var(--black);
     line-height: 1.5;
 }
@@ -139,7 +139,7 @@ header {
     padding: 16px 24px;
     border: 2px solid var(--gray);
     border-radius: 30px;
-    background: var(--white);
+    background: var(--silver);
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease;
@@ -202,7 +202,7 @@ header {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    background: var(--white);
+    background: var(--black);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: zoom-in;
     border: 1px solid var(--silver);
@@ -540,7 +540,7 @@ header {
 <header>
     <div class="logo">
         <div class="logo-icon">S</div>
-        <div class="logo-text">Sunnie Jae</div>
+        <div class="logo-text">SunnieJae's Pinterest Feed</div>
     </div>
     
     <nav class="nav-pills">
@@ -603,12 +603,13 @@ pinData.forEach(pin => {
             <img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}" loading="lazy">
             <div class="pin-overlay">
                 <div class="pin-actions">
-                    <button class="share-btn" data-pin-id="${pin.id}">Share</button>
-                    <div class="share-menu" id="menu-${pin.id}">
-                        <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">
-                            <span class="share-icon">🔗</span>
+                <button class="tag-btn" data-pin-id="${pin.id}">Tags</button>
+                <button class="share-btn" data-pin-id="${pin.id}">Share</button>
+                <div class="share-menu" id="menu-${pin.id}">
+                <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">
+                <span class="share-icon">🔗</span>
                             Copy link
-                        </a>
+                            </a>
                         <a href="#" class="share-option social-share" data-platform="twitter" data-pin-id="${pin.id}">
                             <span class="share-icon">🖤</span>
                             Share on X
