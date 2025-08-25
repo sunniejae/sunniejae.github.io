@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Pins</title>
+<title>Sunnie Jae Portfolio</title>
 <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
-
-<!-- Styles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Paste your CSS here (the full CSS you just provided) */
 :root {
     --black: #000010;
     --white: #ffffff;
@@ -27,7 +27,6 @@
     --gradient-secondary: linear-gradient(135deg, var(--secondary), var(--pink));
 }
 
-/* Rest of your CSS from previous message */
 * {
     margin: 0;
     padding: 0;
@@ -36,8 +35,8 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--teal);
-    color: var(--white);
+    background: var(--silver);
+    color: var(--black);
     line-height: 1.5;
 }
 
@@ -203,7 +202,7 @@ header {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    background: var(--black);
+    background: var(--white);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: zoom-in;
     border: 1px solid var(--silver);
@@ -276,6 +275,65 @@ header {
     box-shadow: var(--shadow-hover);
 }
 
+.tags-btn {
+    background: var(--gradient-secondary);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.tags-btn:hover {
+    background: var(--gradient);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.tags-menu {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    background: var(--white);
+    border: 2px solid var(--gray);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--shadow-hover);
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 280px;
+    z-index: 1000;
+}
+
+.tags-menu.active {
+    display: flex;
+}
+
+.tag-item {
+    background: var(--silver);
+    color: var(--dark-purple);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--gray);
+    user-select: none;
+}
+
+.tag-item:hover {
+    background: var(--accent);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
 
 .share-menu {
     position: absolute;
@@ -322,7 +380,7 @@ header {
 }
 
 .share-option[data-platform="twitter"]:hover {
-    background: var(--teal);
+    background: #1da1f2;
     color: var(--white);
 }
 
@@ -336,13 +394,18 @@ header {
     color: var(--white);
 }
 
+.share-option[data-platform="reddit"]:hover {
+    background: #ff4500;
+    color: var(--white);
+}
+
 .share-icon {
-    width: 12px;
-    height: 12px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
+    font-size: 18px;
 }
 
 .pin-info {
@@ -353,19 +416,14 @@ header {
 .pin-title {
     font-weight: 600;
     font-size: 18px;
-    color: var(--secondary);
-    text-align: center; /* centers the title */
-    margin: 0.5rem 0; /* optional spacing */
+    color: var(--black);
     margin-bottom: 8px;
 }
 
 .pin-description {
     font-size: 14px;
-    color: var(--dark-purple);
+    color: var(--dark-gray);
     line-height: 1.5;
-    text-align: justify; /* justifies the description */
-    margin: 0.5rem 0; /* optional spacing */
-    font-size: 0.9rem;
 }
 
 /* Chat Button */
@@ -444,8 +502,9 @@ header {
 }
 
 .message:nth-child(odd) {
-    background: var(--pink);
+    background: var(--accent);
     margin-left: 20px;
+    color: var(--white);
 }
 
 @keyframes slideIn {
@@ -516,143 +575,360 @@ header {
 
 <header>
     <div class="logo">
-        <div class="logo-icon">SJ</div>
+        <div class="logo-icon">S</div>
         <div class="logo-text">Sunnie Jae</div>
     </div>
+    
     <nav class="nav-pills">
-        <a href="#" class="nav-pill">Home</a>
-        <a href="#" class="nav-pill">Portfolio</a>
-        <a href="#" class="nav-pill">About</a>
-        <a href="#" class="nav-pill">Contact</a>
+        <a href="index.html" class="nav-pill">Home</a>
+        <a href="portfolio.html" class="nav-pill">Gallery</a>
+        <a href="profile.html" class="nav-pill">About</a>
     </nav>
+    
     <div class="search-container">
-        <input type="text" class="search-box" placeholder="Search pins...">
+        <input type="search" class="search-box" placeholder="Search keywords...">
     </div>
+    
     <div class="profile-actions">
-        <button class="profile-btn">P</button>
+        <button class="profile-btn">🔔</button>
+        <button class="profile-btn">💬</button>
+        <button class="profile-btn">👤</button>
     </div>
 </header>
 
 <div class="container">
-    <div class="masonry" id="masonry"></div>
+    <div class="masonry" id="masonry-container">
+        <!-- Pins will be generated by JavaScript -->
+    </div>
 </div>
 
-<!-- Chat -->
-<button class="chat-button" onclick="toggleChat()">💬</button>
+<button class="chat-button">💬</button>
+
 <div id="chatWindow">
-    <div class="chat-header">Chat</div>
-    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-header">
+        Chat with Sunnie Jae ✨
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <!-- Messages will appear here -->
+    </div>
 </div>
 
-<!-- Scripts -->
 <script>
+// Pin data and generation
 const pinData = [
-    { id: "1", title: "Webcomic Style: Self Portrait", description: "Exploring techniques to bring simple webcomic art to life", tags: ['digital', 'portrait', 'self portrait', 'webcomic'] },
-    { id: "2", title: "Siberian", description: "Color block portrait of a siberian cat" },
-    { id: "3", title: "Winter", description: "Colorblock portrait of Winter from Aespa (smoothed)" },
-    { id: "4", title: "NingNing", description: "Colorblock portrait of NingNing from Aespa (smoothed)" },
-    { id: "5", title: "iLand 2: n/a Finale", description: "izna ot7 color block portrait" },
-    { id: "6", title: "Webcomic Portrait", description: "Hailey Reed from Not Just Another Werewolf Romance" },
-    { id: "7", title: "It's a Bubblegum, Bitch", description: "Colorblock portrait of Brittney Spears (holographic)" },
-    { id: "8", title: "Losing Feeling", description: "Exploring techniques for creative portraits (commissioned)" },
-    { id: "9", title: "MoonSun", description: "Colorblock portrait of Moonbyul and Solar from Mamamoo" },
-    { id: "10", title: "Blonde Bombshell", description: "Digital pastel portrait of Marilyn Monroe" },
-    { id: "11", title: "Seeing is Believing", description: "Digital pastel piece of a greco-roman bust" }
+    { id: "1", title: "Webcomic Style: Self Portrait", description: "Exploring techniques to bring simple webcomic art to", tags: ["webcomic", "self portrait", "digital art", "character design", "cartoon style"] },
+    { id: "2", title: "Siberian", description: "Color block portrait of a siberian cat", tags: ["cat", "siberian", "animal portrait", "colorblock", "pet art", "feline"] },
+    { id: "3", title: "Winter", description: "Colorblock portrait of Winter from Aespa (smoothed)", tags: ["kpop", "aespa", "winter", "idol", "colorblock", "portrait", "korean"] },
+    { id: "4", title: "NingNing", description: "Colorblock portrait of NingNing from Aespa (smoothed)", tags: ["kpop", "aespa", "ningning", "idol", "colorblock", "portrait", "korean"] },
+    { id: "5", title: "iLand 2: n/a Finale", description: "izna ot7 color block portrait", tags: ["iland", "izna", "kpop", "group portrait", "colorblock", "idol", "survival show"] },
+    { id: "6", title: "Webcomic Portrait", description: "Hailey Reed from Not Just Another Werewolf Romance", tags: ["webcomic", "character", "werewolf", "romance", "hailey reed", "fiction"] },
+    { id: "7", title: "It's a Bubblegum, Bitch", description: "Colorblock portrait of Brittney Spears (holographic)", tags: ["britney spears", "pop icon", "holographic", "colorblock", "bubblegum", "celebrity"] },
+    { id: "8", title: "Losing Feeling", description: "Exploring techniques for creative portraits (commissioned)", tags: ["commission", "portrait", "creative", "experimental", "digital art", "emotion"] },
+    { id: "9", title: "MoonSun", description: "Colorblock portrait of Moonbyul and Solar from Mamamoo", tags: ["mamamoo", "moonbyul", "solar", "kpop", "duo", "colorblock", "portrait"] },
+    { id: "10", title: "Blonde Bombshell", description: "Digital pastel portrait of Marilyn Monroe", tags: ["marilyn monroe", "classic", "pastel", "vintage", "hollywood", "icon", "blonde"] },
+    { id: "11", title: "Seeing is Believing", description: "Digital pastel piece of a greco-roman bust", tags: ["classical", "greco-roman", "bust", "sculpture", "pastel", "ancient art", "statue"] }
 ];
 
-// Generate pins
-const masonry = document.getElementById('masonry');
+const masonry = document.getElementById('masonry-container');
+
 pinData.forEach(pin => {
-    const pinEl = document.createElement('div');
-    pinEl.classList.add('pin');
-    pinEl.innerHTML = `
+    const pinElement = document.createElement('div');
+    pinElement.className = 'pin';
+    pinElement.innerHTML = `
         <div class="pin-image">
-            <img src="https://via.placeholder.com/400x300?text=${encodeURIComponent(pin.title)}" alt="${pin.title}">
-        </div>
-        <div class="pin-info">
-            <h3 class="pin-title">${pin.title}</h3>
-            <p class="pin-description">${pin.description}</p>
-            <button class="share-btn" onclick="toggleShareMenu(this)">Share</button>
-            <div class="share-menu">
-                <a href="#" class="share-option copy-link">Copy Link</a>
-                <a href="#" class="share-option" data-platform="twitter">Twitter</a>
-                <a href="#" class="share-option" data-platform="pinterest">Pinterest</a>
-                <a href="#" class="share-option" data-platform="tumblr">Tumblr</a>
+            <img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}" loading="lazy">
+            <div class="pin-overlay">
+                <div class="pin-actions">
+                    <button class="tags-btn" data-pin-id="${pin.id}">Tags</button>
+                    <button class="share-btn" data-pin-id="${pin.id}">Share</button>
+                    <div class="tags-menu" id="tags-${pin.id}">
+                        ${pin.tags.map(tag => `
+                            <span class="tag-item" data-tag="${tag}">#${tag}</span>
+                        `).join('')}
+                    </div>
+                    <div class="share-menu" id="menu-${pin.id}">
+                        <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">
+                            <span class="share-icon">🔗</span>
+                            Copy link
+                        </a>
+                        <a href="#" class="share-option social-share" data-platform="twitter" data-pin-id="${pin.id}">
+                            <span class="share-icon">🖤</span>
+                            Share on X
+                        </a>
+                        <a href="#" class="share-option social-share" data-platform="pinterest" data-pin-id="${pin.id}">
+                            <span class="share-icon">🧡</span>
+                            Share on Pinterest
+                        </a>
+                        <a href="#" class="share-option social-share" data-platform="tumblr" data-pin-id="${pin.id}">
+                            <span class="share-icon">💜</span>
+                            Share on Tumblr
+                        </a>
+                        <a href="#" class="share-option social-share" data-platform="reddit" data-pin-id="${pin.id}">
+                            <span class="share-icon">🧡</span>
+                            Share on Reddit
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="pin-info">
+            <div class="pin-title">${pin.title}</div>
+            <div class="pin-description">${pin.description}</div>
+        </div>
     `;
-    masonry.appendChild(pinEl);
+    masonry.appendChild(pinElement);
 });
 
-// Share menu toggle
-function toggleShareMenu(btn) {
-    const menu = btn.nextElementSibling;
-    menu.classList.toggle('active');
-}
+// Share functionality
+document.addEventListener('click', function(e) {
+    // Handle tags button clicks
+    if (e.target.classList.contains('tags-btn')) {
+        e.stopPropagation();
+        const pinId = e.target.dataset.pinId;
+        const menu = document.getElementById(`tags-${pinId}`);
+        
+        // Close all other menus
+        document.querySelectorAll('.tags-menu, .share-menu').forEach(m => {
+            if (m.id !== `tags-${pinId}`) {
+                m.classList.remove('active');
+            }
+        });
+        
+        menu.classList.toggle('active');
+    }
+    
+    // Handle tag clicks
+    if (e.target.classList.contains('tag-item')) {
+        const tag = e.target.dataset.tag;
+        const searchBox = document.querySelector('.search-box');
+        searchBox.value = tag;
+        searchBox.focus();
+        
+        // Trigger search
+        const event = new Event('input', { bubbles: true });
+        searchBox.dispatchEvent(event);
+        
+        // Close all menus
+        document.querySelectorAll('.tags-menu').forEach(menu => {
+            menu.classList.remove('active');
+        });
+        
+        // Show notification
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            z-index: 10000;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: var(--shadow-hover);
+            animation: slideIn 0.3s ease;
+        `;
+        notification.textContent = `🏷️ Searching for "${tag}"`;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 2000);
+    }
+    
+    // Handle share button clicks
+    if (e.target.classList.contains('share-btn')) {
+        e.stopPropagation();
+        const pinId = e.target.dataset.pinId;
+        const menu = document.getElementById(`menu-${pinId}`);
+        
+        // Close all other menus
+        document.querySelectorAll('.share-menu, .tags-menu').forEach(m => {
+            if (m.id !== `menu-${pinId}`) {
+                m.classList.remove('active');
+            }
+        });
+        
+        menu.classList.toggle('active');
+    }
+    
+    // Handle copy link
+    if (e.target.classList.contains('copy-link') || e.target.closest('.copy-link')) {
+        e.preventDefault();
+        const pinId = e.target.dataset.pinId || e.target.closest('.copy-link').dataset.pinId;
+        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
+        
+        navigator.clipboard.writeText(imageUrl).then(() => {
+            // Create temporary notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: var(--gradient);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                z-index: 10000;
+                font-size: 14px;
+                font-weight: 600;
+                box-shadow: var(--shadow-hover);
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = '🔗 Link copied!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        });
+    }
+    
+    // Handle social sharing
+    if (e.target.classList.contains('social-share') || e.target.closest('.social-share')) {
+        e.preventDefault();
+        const link = e.target.closest('.social-share');
+        const platform = link.dataset.platform;
+        const pinId = link.dataset.pinId;
+        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
+        const pinTitle = pinData.find(p => p.id === pinId)?.title || `Art ${pinId}`;
+        const description = pinData.find(p => p.id === pinId)?.description || 'Check out this amazing artwork!';
+        
+        let shareUrl = '';
+        
+        switch(platform) {
+            case 'twitter':
+                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${pinTitle} - ${description}`)}&url=${encodeURIComponent(imageUrl)}`;
+                break;
+            case 'pinterest':
+                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
+                break;
+            case 'tumblr':
+                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pinTitle)}&caption=${encodeURIComponent(description)}&source=${encodeURIComponent(imageUrl)}&canonicalUrl=${encodeURIComponent(window.location.href)}`;
+                break;
+            case 'reddit':
+                shareUrl = `https://reddit.com/submit?url=${encodeURIComponent(imageUrl)}&title=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
+                break;
+        }
+        
+        if (shareUrl) {
+            window.open(shareUrl, '_blank', 'width=600,height=600');
+        }
+    }
+    
+    // Close menus when clicking outside
+    if (!e.target.closest('.share-btn') && !e.target.closest('.share-menu') && 
+        !e.target.closest('.tags-btn') && !e.target.closest('.tags-menu')) {
+        document.querySelectorAll('.share-menu, .tags-menu').forEach(menu => {
+            menu.classList.remove('active');
+        });
+    }
+});
 
-// Chat
-const chatMessages = [
-    "Hello! Welcome to Sunnie Jae's portfolio.",
-    "Check out the pins and feel free to explore!",
-    "You can click share on any pin to see options."
+// Chat functionality
+const chatButton = document.querySelector('.chat-button');
+const chatWindow = document.getElementById('chatWindow');
+const chatMessages = document.getElementById('chatMessages');
+let chatOpen = false;
+let chatIndex = 0;
+
+const chatMessagesList = [
+    "heeyyy, welcome to my digital art portfolio ✨",
+    "no pressure, but you can share any images using the share button on the post.",
+    "if you're looking for something special, you can use the search bar for keywords or titles",
+    "if you're bored of looking at these, i probably have something else you haven't checked out yet",
+    "you can go back to the home page and open more folders",
+    "or you can push random buttons on this feed and see if anything exciting happens",
+    "anyway i'm starting to infodump at this point 😅",
+    "enjoy looking at.. whatever you wanna look at on sunniejae.com",
+    "byeeeee 💖"
 ];
 
-const chatEl = document.getElementById('chatMessages');
-
-chatMessages.forEach(msg => {
-    const msgDiv = document.createElement('div');
-    msgDiv.classList.add('message');
-    msgDiv.textContent = msg;
-    chatEl.appendChild(msgDiv);
+chatButton.addEventListener('click', () => {
+    if (!chatOpen) {
+        chatWindow.style.display = 'flex';
+        chatOpen = true;
+        
+        if (chatIndex < chatMessagesList.length) {
+            const interval = setInterval(() => {
+                if (chatIndex >= chatMessagesList.length) {
+                    clearInterval(interval);
+                    return;
+                }
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.textContent = chatMessagesList[chatIndex];
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                chatIndex++;
+            }, 1500);
+        }
+    } else {
+        chatWindow.style.display = 'none';
+        chatOpen = false;
+    }
 });
 
-function toggleChat() {
-    const chatWindow = document.getElementById('chatWindow');
-    chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
-}
-
-// Search
+// Search functionality
 const searchBox = document.querySelector('.search-box');
-searchBox.addEventListener('input', e => {
-    const value = e.target.value.toLowerCase();
-    document.querySelectorAll('.pin').forEach(pin => {
+searchBox.addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const pins = document.querySelectorAll('.pin');
+    
+    pins.forEach(pin => {
         const title = pin.querySelector('.pin-title').textContent.toLowerCase();
-        const desc = pin.querySelector('.pin-description').textContent.toLowerCase();
-        pin.style.display = (title.includes(value) || desc.includes(value)) ? 'block' : 'none';
+        const description = pin.querySelector('.pin-description').textContent.toLowerCase();
+        const pinId = pin.querySelector('.share-btn').dataset.pinId;
+        const pinTags = pinData.find(p => p.id === pinId)?.tags || [];
+        const tagsText = pinTags.join(' ').toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm) || 
+            tagsText.includes(searchTerm) || searchTerm === '') {
+            pin.style.display = 'block';
+        } else {
+            pin.style.display = 'none';
+        }
     });
 });
 
-// Social sharing
-document.addEventListener('click', e => {
-    if (e.target.classList.contains('share-option') || e.target.closest('.share-option')) {
-        e.preventDefault();
-        const option = e.target.closest('.share-option');
-        const platform = option.dataset.platform;
-        const pinEl = option.closest('.pin');
-        const pinId = Array.from(masonry.children).indexOf(pinEl) + 1;
-        const pin = pinData.find(p => p.id == pinId);
-        const pinUrl = window.location.href.split('#')[0] + '#' + pinId;
-
-        let shareUrl = '';
-        switch(platform) {
-            case 'twitter':
-                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pin.title + ' - ' + pin.description)}&url=${encodeURIComponent(pinUrl)}`;
-                break;
-            case 'pinterest':
-                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(pinUrl)}&media=${encodeURIComponent('https://via.placeholder.com/400x300?text=' + encodeURIComponent(pin.title))}&description=${encodeURIComponent(pin.title + ' - ' + pin.description)}`;
-                break;
-            case 'tumblr':
-                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pin.title)}&caption=${encodeURIComponent(pin.description)}&source=${encodeURIComponent('https://via.placeholder.com/400x300?text=' + encodeURIComponent(pin.title))}&canonicalUrl=${encodeURIComponent(pinUrl)}`;
-                break;
-            default:
-                if(option.classList.contains('copy-link')) {
-                    navigator.clipboard.writeText(pinUrl).then(()=>alert('Link copied!'));
-                }
-        }
-
-        if(shareUrl) window.open(shareUrl, '_blank', 'width=600,height=600');
+// Save button functionality
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('save-btn')) {
+        const btn = e.target;
+        const originalText = btn.textContent;
+        btn.textContent = 'Saved! ✓';
+        btn.style.background = 'var(--gradient-secondary)';
+        
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = 'var(--gradient)';
+        }, 2500);
     }
 });
+
+// Add CSS animation for slideOut
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+    }
+`;
+document.head.appendChild(style);
 </script>
 
 </body>
