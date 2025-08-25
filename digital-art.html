@@ -5,13 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sunnie Jae Portfolio</title>
 <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
-
-<!-- Custom Font -->
 <style>
-@font-face {
-    font-family: 'MyFont1';
-    src: url('https://sunniejae.blob.core.windows.net/sunniejae/Myfont1-Regular.ttf') format('truetype');
-}
 :root {
     --black: #000010;
     --white: #ffffff;
@@ -25,172 +19,155 @@
     --secondary: #c13886;
     --primary: #9a9ad4;
 }
+
+/* Reset and layout */
 body {
     margin: 0;
-    font-family: 'MyFont1', sans-serif;
-    background: var(--white);
-    color: var(--dark-gray);
+    font-family: 'Arial', sans-serif;
+    background: var(--black);
+    color: var(--white);
 }
 header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
-    background: var(--primary);
-    color: var(--white);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    align-items: center;
+    padding: 1rem;
+    background: var(--dark-gray);
 }
-header .logo { font-weight: bold; font-size: 1.5rem; }
-header nav a {
-    margin: 0 10px;
-    color: var(--white);
-    text-decoration: none;
+header nav {
+    display: flex;
+    gap: 1rem;
 }
-header nav a:hover { text-decoration: underline; }
-header .search-bar input {
-    padding: 5px 10px;
-    border-radius: 20px;
+header input[type="search"] {
+    padding: 0.5rem;
+    border-radius: 10px;
     border: none;
+    width: 200px;
+    text-align: center;
 }
 .masonry {
     column-count: 3;
-    column-gap: 10px;
-    padding: 10px;
+    column-gap: 1rem;
+    padding: 1rem;
 }
 .pin {
+    background: var(--dark-gray);
+    margin-bottom: 1rem;
     display: inline-block;
-    margin-bottom: 15px;
     width: 100%;
-    position: relative;
-    break-inside: avoid;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
-    background: var(--silver);
-    transition: transform 0.3s;
+    position: relative;
 }
 .pin img {
     width: 100%;
     display: block;
-    cursor: pointer;
-    border-radius: 5px 5px 0 0;
-    transition: all 0.3s ease;
-}
-.pin:hover img {
-    filter: brightness(0.8);
 }
 .pin-info {
-    padding: 8px;
-    font-size: 0.9rem;
+    padding: 0.5rem;
 }
 .share-btn {
     position: absolute;
-    bottom: 8px;
-    right: 8px;
+    top: 5px;
+    right: 5px;
     background: var(--accent);
-    color: var(--white);
     border: none;
-    border-radius: 50px;
-    padding: 5px 12px;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
     cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.2s, background 0.3s;
+    transition: all 0.3s ease;
 }
 .share-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     background: linear-gradient(45deg, var(--accent), var(--secondary));
 }
 .share-menu {
     display: none;
     position: absolute;
-    bottom: 40px;
-    right: 8px;
-    background: var(--white);
-    border: 1px solid var(--gray);
-    border-radius: 5px;
-    padding: 5px;
+    top: 35px;
+    right: 5px;
+    background: var(--dark-gray);
+    border-radius: 10px;
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 .share-menu a, .share-menu button {
-    display: block;
-    margin: 3px 0;
+    color: var(--white);
     text-decoration: none;
-    color: var(--dark-gray);
-    background: none;
+    background: var(--accent);
     border: none;
+    padding: 0.3rem;
+    border-radius: 5px;
     cursor: pointer;
 }
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-}
-.popup-overlay.show { display: flex; }
-.popup {
-    background: var(--white);
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-}
-.popup button { margin-top: 10px; }
-#chatBubble {
+.chat-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: var(--accent);
+    background: var(--primary);
     color: var(--white);
+    border: none;
+    padding: 0.8rem;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    font-size: 1.2rem;
-    z-index: 1000;
 }
 #chatWindow {
+    display: none;
     position: fixed;
-    bottom: 90px;
+    bottom: 70px;
     right: 20px;
     width: 300px;
     max-height: 400px;
-    background: var(--white);
-    border: 1px solid var(--gray);
-    border-radius: 10px;
-    display: none;
-    flex-direction: column;
     overflow-y: auto;
-    padding: 10px;
+    background: var(--dark-gray);
+    border-radius: 10px;
+    padding: 0.5rem;
 }
-#chatWindow.show { display: flex; }
-.message { margin: 5px 0; background: var(--primary); color: var(--white); padding: 5px 10px; border-radius: 10px; }
-#closeChat { align-self: flex-end; cursor: pointer; color: var(--secondary); margin-bottom: 5px; }
+.message {
+    margin: 0.3rem 0;
+    padding: 0.3rem;
+    background: var(--primary);
+    border-radius: 5px;
+    color: var(--white);
+}
+@media (max-width: 900px) {
+    .masonry { column-count: 2; }
+}
+@media (max-width: 600px) {
+    .masonry { column-count: 1; }
+}
 </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">Sunnie Jae</div>
     <nav>
         <a href="#">Home</a>
-        <a href="#">Gallery</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="#">Videos</a>
+        <a href="#">Channels</a>
+        <a href="#">Community</a>
     </nav>
-    <div class="search-bar"><input type="text" placeholder="Search..."></div>
+    <input type="search" placeholder="Search...">
+    <nav>
+        <a href="#">Favorites</a>
+        <a href="#">Settings</a>
+    </nav>
 </header>
 
 <div class="masonry">
-    <!-- Pins -->
-    <div class="pin">
-        <img src="https://sunniejae.blob.core.windows.net/sunniejae/1.png" alt="Art 1">
-        <div class="pin-info">Art 1</div>
+  <!-- All 11 pins -->
+  <script>
+    const pinData = [
+      "1","2","3","4","5","6","7","8","9","10","11"
+    ];
+    const masonry = document.currentScript.parentNode;
+    pinData.forEach(num=>{
+      const div = document.createElement('div');
+      div.className='pin';
+      div.innerHTML = `
+        <img src="https://sunniejae.blob.core.windows.net/sunniejae/${num}.png" alt="Art ${num}">
+        <div class="pin-info">Art ${num}</div>
         <button class="share-btn">Share</button>
         <div class="share-menu">
             <button class="copy-link">Copy Link</button>
@@ -199,32 +176,21 @@ header .search-bar input {
             <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
             <a href="#" target="_blank" class="social-reddit">Reddit</a>
         </div>
-    </div>
-    <!-- Repeat for all 11 pins -->
+      `;
+      masonry.appendChild(div);
+    });
+  </script>
 </div>
 
-<!-- Not Available Popup -->
-<div class="popup-overlay" id="notAvailablePopup">
-    <div class="popup">
-        <h3>Not available for download</h3>
-        <button onclick="closeNotAvailable()">Close</button>
-    </div>
-</div>
-
-<!-- Chat Bubble -->
-<div id="chatBubble">💬</div>
-<div id="chatWindow">
-    <div id="closeChat">✖</div>
-    <div id="chatMessages"></div>
-</div>
+<button class="chat-button">Chat</button>
+<div id="chatWindow"></div>
 
 <script>
-// Chat bubble logic
-const chatBubble = document.getElementById('chatBubble');
+// Chat logic
+const chatButton = document.querySelector('.chat-button');
 const chatWindow = document.getElementById('chatWindow');
-const closeChat = document.getElementById('closeChat');
-const chatMessagesContainer = document.getElementById('chatMessages');
-
+let chatOpen = false;
+let chatIndex = 0;
 const chatMessages = [
   "heeyyy, welcome to my digital art portfolio",
   "no pressure, but you can share any images using the share button on the post.",
@@ -236,58 +202,39 @@ const chatMessages = [
   "enjoy looking at.. whatever you wanna look at on sunniejae.com",
   "byeeeee"
 ];
-
-let interval = null;
-let i = 0; // track current message index
-
-function startChatMessages() {
-  if (interval) return; 
-  interval = setInterval(() => {
-    if (i >= chatMessages.length) { clearInterval(interval); interval=null; return; }
-    const div = document.createElement("div");
-    div.className = "message";
-    div.textContent = chatMessages[i];
-    chatMessagesContainer.appendChild(div);
-    chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-    i++;
-  }, 1500);
-}
-
-chatBubble.addEventListener("click", () => {
-  chatBubble.style.display = "none";
-  chatWindow.classList.add("show");
-  startChatMessages();
-});
-
-closeChat.addEventListener("click", () => {
-  chatWindow.classList.remove("show");
-  chatBubble.style.display = "flex";
-  clearInterval(interval);
-  interval=null;
+chatButton.addEventListener('click', ()=>{
+    if(!chatOpen){
+        chatWindow.style.display='block';
+        chatOpen=true;
+        if(chatIndex<chatMessages.length){
+            const interval = setInterval(()=>{
+                if(chatIndex>=chatMessages.length){ clearInterval(interval); return; }
+                const div = document.createElement('div');
+                div.className='message';
+                div.textContent=chatMessages[chatIndex];
+                chatWindow.appendChild(div);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+                chatIndex++;
+            },1500);
+        }
+    } else {
+        chatWindow.style.display='none';
+        chatOpen=false;
+    }
 });
 
 // Share button logic
-document.querySelectorAll('.pin').forEach(pin => {
-    const shareBtn = pin.querySelector('.share-btn');
-    const shareMenu = pin.querySelector('.share-menu');
-    const img = pin.querySelector('img').src;
-
-    shareBtn.addEventListener('click', () => {
-        shareMenu.style.display = shareMenu.style.display === 'block' ? 'none' : 'block';
-        shareMenu.querySelector('.copy-link').onclick = () => {
-            navigator.clipboard.writeText(img).then(() => alert('Link copied!'));
-        };
-        shareMenu.querySelector('.social-x').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(img)}`;
-        shareMenu.querySelector('.social-pinterest').href = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&media=${encodeURIComponent(img)}`;
-        shareMenu.querySelector('.social-tumblr').href = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(img)}&content=${encodeURIComponent(img)}`;
-        shareMenu.querySelector('.social-reddit').href = `https://www.reddit.com/submit?url=${encodeURIComponent(img)}`;
-    });
+document.addEventListener('click', e=>{
+    if(e.target.classList.contains('share-btn')){
+        const menu = e.target.nextElementSibling;
+        menu.style.display = menu.style.display==='flex'?'none':'flex';
+        menu.style.flexDirection='column';
+    }
+    if(e.target.classList.contains('copy-link')){
+        const img = e.target.closest('.pin').querySelector('img').src;
+        navigator.clipboard.writeText(img).then(()=> alert("Link copied!"));
+    }
 });
-
-// Not Available popup
-function closeNotAvailable() {
-    document.getElementById('notAvailablePopup').classList.remove('show');
-}
 </script>
 
 </body>
