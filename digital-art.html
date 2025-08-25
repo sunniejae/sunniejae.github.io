@@ -78,6 +78,7 @@ main {
     border-radius: 5px;
     width: 100%;
     position: relative;
+    overflow: hidden; /* for gradient overlay */
     break-inside: avoid;
 }
 
@@ -86,6 +87,25 @@ main {
     display: block;
     border-radius: 5px 5px 0 0;
     cursor: pointer;
+    transition: transform 0.3s ease; /* optional smooth zoom on hover */
+}
+
+.pin:hover img {
+    transform: scale(1.03); /* subtle zoom effect */
+}
+
+.pin::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.3));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 5px 5px 0 0; /* match image rounding */
+}
+
+.pin:hover::after {
+    opacity: 1;
 }
 
 .pin .pin-info {
@@ -104,12 +124,17 @@ main {
     background: var(--dark-purple);
     color: var(--white);
     border: none;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 6px 12px;
+    border-radius: 20px; /* more rounded */
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
-
+    .pin button.share-btn:hover {
+    transform: translateY(-3px); /* small Y-axis lift */
+    background: linear-gradient(135deg, var(--accent), var(--secondary)); /* gradient on hover */
+}
+    
 .share-popup {
     position: fixed;
     top: 50%;
@@ -226,11 +251,11 @@ main {
     <div class="logo">S</div>
     <input type="text" class="search" placeholder="Search your portfolio...">
     <div class="icons">
-        <span>🏠</span>
-        <span>👥</span>
-        <span>🔔</span>
-        <span id="chat-icon">💬</span>
-        <span>👤</span>
+        <span>home</span>
+        <span>following</span>
+        <span>notifications</span>
+        <span id="chat-icon">messages</span>
+        <span>profile</span>
     </div>
 </header>
 
