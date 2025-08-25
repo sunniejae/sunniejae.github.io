@@ -28,6 +28,8 @@ body {
   background: var(--white);
   color: var(--black);
 }
+
+/* Header / Top bar */
 header {
   display: flex;
   align-items: center;
@@ -44,14 +46,34 @@ header h1 {
   color: var(--dark-purple);
   margin: 0;
 }
-header nav a {
-  margin-left: 15px;
-  color: var(--dark-gray);
-  text-decoration: none;
-  font-weight: bold;
+.header-left {
+  display: flex;
+  align-items: center;
 }
-header nav a:hover {
-  color: var(--accent);
+.header-left img {
+  height: 32px;
+  margin-right: 10px;
+}
+.header-search {
+  margin-left: 20px;
+}
+.header-search input {
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--gray);
+  outline: none;
+  width: 250px;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+}
+.header-right img {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  margin-left: 15px;
+  cursor: pointer;
 }
 
 /* Pinterest-style masonry */
@@ -72,6 +94,8 @@ header nav a:hover {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   break-inside: avoid;
+  position: relative;
+  overflow: hidden;
 }
 .pin img {
   width: 100%;
@@ -84,17 +108,31 @@ header nav a:hover {
   font-size: 0.9rem;
   color: var(--dark-gray);
 }
-.share-btn {
-  margin: 5px 10px 10px;
+
+/* Hover overlay for buttons */
+.pin .hover-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+}
+.pin:hover .hover-buttons {
+  display: flex;
+}
+.hover-buttons button {
   padding: 6px 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
-  background: var(--primary);
-  color: var(--white);
-}
-.share-btn:hover {
   background: var(--accent);
+  color: var(--white);
+  font-size: 0.8rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.hover-buttons button:hover {
+  background: var(--primary);
 }
 
 /* Share Popup */
@@ -130,59 +168,69 @@ header nav a:hover {
 .popup-btn.secondary { background:var(--secondary); }
 .popup-btn.social-btn { background:var(--teal); text-decoration:none; display:inline-block; }
 .popup-buttons a.popup-btn.social-btn:hover { background:var(--accent); }
+
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Sunnie Jae Creates</h1>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Portfolio</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-  </nav>
+  <div class="header-left">
+    <img src="https://i.imgur.com/wHDx7cE.png" alt="Logo">
+    <h1>Sunnie Jae</h1>
+    <div class="header-search">
+      <input type="text" placeholder="Search Art...">
+    </div>
+  </div>
+  <div class="header-right">
+    <img src="https://i.imgur.com/wHDx7cE.png" alt="Profile">
+    <img src="https://i.imgur.com/wHDx7cE.png" alt="Notifications">
+  </div>
 </header>
 
 <div class="gallery">
   <!-- Pin 1 -->
   <div class="pin">
-    <div class="pin-content">
-      <img src="https://i.imgur.com/nNpWqcw.png" alt="Art 1">
-      <div class="pin-info">Art 1 Description</div>
-      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/nNpWqcw.png')">Share</button>
+    <img src="https://i.imgur.com/nNpWqcw.png" alt="Art 1">
+    <div class="pin-info">Art 1 Description</div>
+    <div class="hover-buttons">
+      <button onclick="showSharePopup('https://i.imgur.com/nNpWqcw.png')">Share</button>
+      <button onclick="alert('Save feature placeholder')">Save</button>
     </div>
   </div>
   <!-- Pin 2 -->
   <div class="pin">
-    <div class="pin-content">
-      <img src="https://i.imgur.com/ZaLvpTQ.png" alt="Art 2">
-      <div class="pin-info">Art 2 Description</div>
-      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/ZaLvpTQ.png')">Share</button>
+    <img src="https://i.imgur.com/ZaLvpTQ.png" alt="Art 2">
+    <div class="pin-info">Art 2 Description</div>
+    <div class="hover-buttons">
+      <button onclick="showSharePopup('https://i.imgur.com/ZaLvpTQ.png')">Share</button>
+      <button onclick="alert('Save feature placeholder')">Save</button>
     </div>
   </div>
   <!-- Pin 3 -->
   <div class="pin">
-    <div class="pin-content">
-      <img src="https://i.imgur.com/rLX8jEJ.png" alt="Art 3">
-      <div class="pin-info">Art 3 Description</div>
-      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/rLX8jEJ.png')">Share</button>
+    <img src="https://i.imgur.com/rLX8jEJ.png" alt="Art 3">
+    <div class="pin-info">Art 3 Description</div>
+    <div class="hover-buttons">
+      <button onclick="showSharePopup('https://i.imgur.com/rLX8jEJ.png')">Share</button>
+      <button onclick="alert('Save feature placeholder')">Save</button>
     </div>
   </div>
   <!-- Pin 4 -->
   <div class="pin">
-    <div class="pin-content">
-      <img src="https://i.imgur.com/wmB1AOK.png" alt="Art 4">
-      <div class="pin-info">Art 4 Description</div>
-      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/wmB1AOK.png')">Share</button>
+    <img src="https://i.imgur.com/wmB1AOK.png" alt="Art 4">
+    <div class="pin-info">Art 4 Description</div>
+    <div class="hover-buttons">
+      <button onclick="showSharePopup('https://i.imgur.com/wmB1AOK.png')">Share</button>
+      <button onclick="alert('Save feature placeholder')">Save</button>
     </div>
   </div>
   <!-- Pin 5 -->
   <div class="pin">
-    <div class="pin-content">
-      <img src="https://i.imgur.com/6mthVOk.png" alt="Art 5">
-      <div class="pin-info">Art 5 Description</div>
-      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/6mthVOk.png')">Share</button>
+    <img src="https://i.imgur.com/6mthVOk.png" alt="Art 5">
+    <div class="pin-info">Art 5 Description</div>
+    <div class="hover-buttons">
+      <button onclick="showSharePopup('https://i.imgur.com/6mthVOk.png')">Share</button>
+      <button onclick="alert('Save feature placeholder')">Save</button>
     </div>
   </div>
 </div>
@@ -243,7 +291,6 @@ header nav a:hover {
     }
   }
 
-  // Close when clicking outside
   document.getElementById('sharePopup').addEventListener('click', function(e) {
     if (e.target === this) closeSharePopup();
   });
