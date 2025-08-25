@@ -249,23 +249,21 @@ document.addEventListener('click', (e)=>{
         const pinId = link.dataset.pinId;
         const pin = pinData.find(p=>p.id===pinId);
         if(!pin) return;
-        const pinUrl = window.location.href.split('#')[0] + '#pin' + pinId;
+        const pinAnchorUrl = window.location.href.split('#')[0] + '#pin' + pinId;
         let shareUrl = '';
         switch(platform){
             case 'twitter':
-                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pin.title + ' - ' + pin.description)}&url=${encodeURIComponent(pinUrl)}`;
+                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pin.title + ' - ' + pin.description)}&url=${encodeURIComponent(pinAnchorUrl)}`;
                 break;
             case 'pinterest':
-                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(pinUrl)}&media=${encodeURIComponent(`https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`)}&description=${encodeURIComponent(pin.title + ' - ' + pin.description)}`;
+                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(pinAnchorUrl)}&media=${encodeURIComponent(`https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`)}&description=${encodeURIComponent(pin.title + ' - ' + pin.description)}`;
                 break;
             case 'tumblr':
-                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pin.title)}&caption=${encodeURIComponent(pin.description)}&source=${encodeURIComponent(`https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`)}&canonicalUrl=${encodeURIComponent(pinUrl)}`;
+                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pin.title)}&caption=${encodeURIComponent(pin.description)}&source=${encodeURIComponent(`https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`)}&canonicalUrl=${encodeURIComponent(pinAnchorUrl)}`;
                 break;
         }
         if(shareUrl){
             window.open(shareUrl,'_blank','width=600,height=600');
-        }
-    }
 
     if(e.target.classList.contains('tag-btn')){
         const pinId = e.target.dataset.pinId;
