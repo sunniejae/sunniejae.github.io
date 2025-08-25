@@ -800,19 +800,17 @@ searchBox.addEventListener('input', function(e) {
 
 // Save button functionality
 ddocument.addEventListener('click', function(e) {
-    if (e.target.classList.contains('tag-btn')) {
-        const pinId = e.target.closest('.pin').querySelector('.tag-btn').dataset.pinId;
-        const pin = pinData.find(p => p.id === pinId);
-        if (!pin) return;
-
-        document.getElementById('saveTitle').textContent = pin.title;
-        document.getElementById('saveImage').src = `https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`;
-        document.getElementById('saveTags').textContent = 'Tags: ' + (pin.tags?.join(', ') || 'None');
-        document.getElementById('saveLink').value = `${window.location.href.split('#')[0]}#${pin.id}`;
-
-        document.getElementById('savePopup').style.display = 'block';
-    }
-});
+    if(e.target.classList.contains('tag-btn')){
+    const pinId = e.target.dataset.pinId;
+    const pin = pinData.find(p=>p.id===pinId);
+    if(!pin) return;
+    document.getElementById('saveTitle').textContent = pin.title;
+    document.getElementById('saveImage').src = `https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`;
+    document.getElementById('saveTags').textContent = 'Tags: ' + (pin.tags.join(', ') || 'None');
+    document.getElementById('saveLink').value = `${window.location.href.split('#')[0]}#${pin.id}`;
+    document.getElementById('savePopup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+    };
 
 function copyLink() {
     const input = document.getElementById('tagLink');
