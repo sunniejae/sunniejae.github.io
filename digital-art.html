@@ -263,7 +263,7 @@ header {
     padding: 12px 24px;
     border-radius: 25px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 13px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow);
@@ -322,9 +322,9 @@ header {
 .share-option {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 6px;
     padding: 12px 16px;
-    border-radius: 12px;
+    border-radius: 8px;
     text-decoration: none;
     color: var(--dark-purple);
     transition: all 0.2s ease;
@@ -461,13 +461,13 @@ header {
 }
 
 .message:nth-child(even) {
-    background: linear-gradient(135deg, var(--pink), rgba(255, 179, 214, 0.3));
+    background: var(--pink);
     margin-left: 20px;
 }
 
 .message:nth-child(odd) {
-    background: linear-gradient(135deg, var(--accent), rgba(0, 201, 194, 0.2));
-    margin-right: 20px;
+    background: var(--accent);
+    margin-left: 20px;
     color: var(--white);
 }
 
@@ -544,13 +544,13 @@ header {
     </div>
     
     <nav class="nav-pills">
-        <a href="#" class="nav-pill">Home</a>
-        <a href="#" class="nav-pill">Gallery</a>
-        <a href="#" class="nav-pill">About</a>
+        <a href="index.html" class="nav-pill">Home</a>
+        <a href="portfolio.html" class="nav-pill">Gallery</a>
+        <a href="profile.html" class="nav-pill">About</a>
     </nav>
     
     <div class="search-container">
-        <input type="search" class="search-box" placeholder="Search for art, inspiration, ideas...">
+        <input type="search" class="search-box" placeholder="Search keywords...">
     </div>
     
     <div class="profile-actions">
@@ -611,19 +611,19 @@ pinData.forEach(pin => {
                             Copy link
                         </a>
                         <a href="#" class="share-option social-share" data-platform="twitter" data-pin-id="${pin.id}">
-                            <span class="share-icon">🐦</span>
+                            <span class="share-icon">🖤</span>
                             Share on X
                         </a>
                         <a href="#" class="share-option social-share" data-platform="pinterest" data-pin-id="${pin.id}">
-                            <span class="share-icon">📌</span>
+                            <span class="share-icon">🧡</span>
                             Share on Pinterest
                         </a>
                         <a href="#" class="share-option social-share" data-platform="tumblr" data-pin-id="${pin.id}">
-                            <span class="share-icon">📱</span>
+                            <span class="share-icon">💜</span>
                             Share on Tumblr
                         </a>
                         <a href="#" class="share-option social-share" data-platform="reddit" data-pin-id="${pin.id}">
-                            <span class="share-icon">📰</span>
+                            <span class="share-icon">🧡</span>
                             Share on Reddit
                         </a>
                     </div>
