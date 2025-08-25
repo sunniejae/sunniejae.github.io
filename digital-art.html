@@ -22,26 +22,26 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
 .header{
   position:sticky; top:0; z-index:1000;
   display:flex; align-items:center; gap:14px;
-  padding:10px 16px; background:#fff; border-bottom:1px solid #eee;
+  padding:10px 16px; background:#fff; border-bottom:1px solid var(--silver);
 }
 .header-left{display:flex; align-items:center; gap:12px}
 .logoP{
-  width:34px;height:34px;border-radius:50%;background:var(--pinterest-red);display:grid;place-items:center;color:#fff;
+  width:34px;height:34px;border-radius:50%;background:var(--secondary);display:grid;place-items:center;color:#fff;
   font:700 20px/1 "Helvetica Neue",Arial,sans-serif; user-select:none;
 }
 .header-tabs{display:flex; gap:8px}
 .header-tab{
-  padding:8px 12px;border-radius:20px;background:#f3f3f3;color:#111;text-decoration:none;font-weight:600;font-size:14px;
+  padding:8px 12px;border-radius:20px;background:var(--silver);color:#111;text-decoration:none;font-weight:600;font-size:14px;
 }
 .header-tab.active{background:#111;color:#fff}
 .header-search{flex:1;display:flex}
 .header-search input{
-  width:100%; border:none; background:#efefef; padding:12px 14px; border-radius:24px; font-size:14px; outline:2px solid transparent;
+  width:100%; border:none; background:var(--silver); padding:12px 14px; border-radius:24px; font-size:14px; outline:2px solid transparent;
 }
 .header-search input:focus{outline-color:var(--primary)}
 .header-icons{display:flex; align-items:center; gap:12px}
 .icon-btn{
-  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:none;background:#f3f3f3;cursor:pointer;
+  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:none;background:var(--silver);cursor:pointer;
 }
 .icon-btn:hover{background:#e9e9e9}
 .icon{width:20px;height:20px;display:block}
@@ -57,7 +57,7 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
   background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.06);
 }
 .pin img{width:100%; display:block}
-.pin .meta{padding:10px 12px; font-size:13px; color:#444}
+.pin .meta{padding:10px 12px; font-size:13px; color:var(--dark-gray)}
 
 /* Hover overlay with Save + Share */
 .pin .overlay{
@@ -67,13 +67,13 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
 .pin:hover .overlay{opacity:1}
 .overlay .top-right{position:absolute; top:10px; right:10px}
 .btn-save{
-  background:var(--pinterest-red); color:#fff; border:none; border-radius:24px; padding:8px 14px; font-weight:700; cursor:pointer;
+  background:var(--secondary); color:#fff; border:none; border-radius:24px; padding:8px 14px; font-weight:700; cursor:pointer;
 }
-.btn-save:hover{background:var(--pinterest-red-dark)}
+.btn-save:hover{background:var(--dark-purple)}
 .btn-share{
-  background:#efefef; color:#111; border:none; border-radius:24px; padding:8px 12px; font-weight:600; cursor:pointer;
+  background:var(--silver); color:#111; border:none; border-radius:24px; padding:8px 12px; font-weight:600; cursor:pointer;
 }
-.btn-share:hover{background:#e5e5e5}
+.btn-share:hover{background:var(--light-pink)}
 
 /* Lightbox */
 .lightbox{
@@ -91,7 +91,7 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
   width:320px; max-width:90vw; background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.25); padding:18px; text-align:center;
 }
 .popup h3{margin:0 0 6px 0; font-size:18px}
-.popup p{margin:6px 0; color:#555; font-size:14px}
+.popup p{margin:6px 0; color:var(--dark-gray); font-size:14px}
 .popup-code{
   background:var(--silver); color:var(--dark-purple); border-radius:8px; padding:10px; word-break:break-all; cursor:pointer; font-family:ui-monospace,Menlo,Consolas,monospace;
 }
@@ -102,7 +102,7 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
 .popup-btn.secondary{background:var(--secondary)}
 .popup-btn.link{background:var(--teal); text-decoration:none; display:inline-block}
 .popup-btn.link:hover{background:var(--accent)}
-.popup small{display:block; margin-top:6px; color:#666}
+.popup small{display:block; margin-top:6px; color:var(--primary)}
 
 /* Toast (fake Save feedback) */
 .toast{
@@ -122,14 +122,14 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
   box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 .chat-header{background:var(--primary); color:#fff; padding:10px 12px; font-weight:700}
-.chat-body{background:#f7f7fb; padding:10px; max-height:360px; overflow:auto}
+.chat-body{background:var(--light-pink); padding:10px; max-height:360px; overflow:auto}
 .msg{background:#fff; border-radius:12px; padding:8px 10px; margin:6px 0; box-shadow:0 2px 6px rgba(0,0,0,.07); color:#333; font-size:14px}
-.typing{display:inline-block; padding:6px 10px; border-radius:12px; background:var(--silver); color:#666}
-.typing::after{content:""; display:inline-block; width:6px; height:6px; margin-left:6px; background:#666; border-radius:50%; animation:blink 1s infinite}
+.typing{display:inline-block; padding:6px 10px; border-radius:12px; background:var(--silver); color:var(--primary)}
+.typing::after{content:""; display:inline-block; width:6px; height:6px; margin-left:6px; background:var(--primary); border-radius:50%; animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.chat-footer{display:flex; gap:8px; padding:10px; background:#fff; border-top:1px solid #eee}
+.chat-footer{display:flex; gap:8px; padding:10px; background:#fff; border-top:1px solid var(--silver)}
 .tour-btn{flex:1; background:var(--teal); color:#fff; border:none; border-radius:8px; padding:8px 10px; font-weight:700; cursor:pointer}
-.skip-btn{background:#eee; color:#333; border:none; border-radius:8px; padding:8px 10px; font-weight:700; cursor:pointer}
+.skip-btn{background:var(--silver); color:#333; border:none; border-radius:8px; padding:8px 10px; font-weight:700; cursor:pointer}
 </style>
 </head>
 <body>
