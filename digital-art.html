@@ -443,9 +443,8 @@ header {
 }
 
 .message:nth-child(odd) {
-    background: var(--accent);
+    background: var(--pink);
     margin-left: 20px;
-    color: var(--white);
 }
 
 @keyframes slideIn {
@@ -738,7 +737,7 @@ chatButton.addEventListener('click', () => {
                 chatMessages.appendChild(messageDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 chatIndex++;
-            }, 4000);
+            }, 3000);
         }
     } else {
         chatWindow.style.display = 'none';
