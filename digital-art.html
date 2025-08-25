@@ -16,13 +16,13 @@
 /* Base */
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--white);color:var(--black);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif}
+body{margin:0;background:var(--primary);color:var(--black);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif}
 
 /* Header (classic 2018 look) */
 .header{
   position:sticky; top:0; z-index:1000;
   display:flex; align-items:center; gap:14px;
-  padding:10px 16px; background:#fff; border-bottom:1px solid var(--silver);
+  padding:10px 16px; background:#teal; border-bottom:1px solid var(--silver);
 }
 .header-left{display:flex; align-items:center; gap:12px}
 .logoP{
@@ -31,9 +31,9 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
 }
 .header-tabs{display:flex; gap:8px}
 .header-tab{
-  padding:8px 12px;border-radius:20px;background:var(--silver);color:#111;text-decoration:none;font-weight:600;font-size:14px;
+  padding:8px 12px;border-radius:20px;background:var(--light-pink);color:#111;text-decoration:none;font-weight:600;font-size:14px;
 }
-.header-tab.active{background:#111;color:#fff}
+.header-tab.active{background:#accent;color:#fff}
 .header-search{flex:1;display:flex}
 .header-search input{
   width:100%; border:none; background:var(--silver); padding:12px 14px; border-radius:24px; font-size:14px; outline:2px solid transparent;
@@ -118,7 +118,7 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
 }
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .chat-window{
-  position:fixed; right:18px; bottom:86px; z-index:1401; width:320px; max-height:440px; background:#fff; border-radius:12px; overflow:hidden; display:none;
+  position:fixed; right:50px; bottom:100px; z-index:1401; width:320px; max-height:440px; background:#fff; border-radius:12px; overflow:hidden; display:none;
   box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 .chat-header{background:var(--primary); color:#fff; padding:10px 12px; font-weight:700}
@@ -139,12 +139,12 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
   <div class="header-left">
     <div class="logoP" aria-label="Pinterest style logo">SJ</div>
     <div class="header-tabs" role="navigation" aria-label="Primary">
-      <a class="header-tab active" href="#" title="Home">Home</a>
-      <a class="header-tab" href="#" title="Following">Following</a>
+      <a class="header-tab active" href="index.html" title="Home">Home</a>
+      <a class="header-tab" href="studio-ke.html" title="Following">Following</a>
     </div>
   </div>
   <div class="header-search" role="search">
-    <input id="searchInput" type="search" placeholder="Search for art, colors, vibes…" aria-label="Search pins" />
+    <input id="searchInput" type="search" placeholder="search..." aria-label="Search pins" />
   </div>
   <div class="header-icons" aria-label="Account and notifications">
     <button class="icon-btn" title="Notifications" aria-label="Notifications">
@@ -185,7 +185,7 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
     <figcaption class="meta">Art 3</figcaption>
     <div class="overlay">
       <div class="top-right"><button class="btn-save" data-action="save">Save</button></div>
-      <button class="btn-share" data-action="share" data-src="https://i.imgur.com/rLX8jEJ.png">Share</button>
+      <button class="btn-share" data-action="share" data-src="https://sunniejae.com/digital-art.html">Share</button>
     </div>
   </figure>
 
@@ -227,7 +227,7 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
       <a id="linkReddit" class="popup-btn link" target="_blank" rel="noopener">Reddit</a>
       <button class="popup-btn secondary" id="closeShare">Close</button>
     </div>
-    <small>We don’t track links. It’s just for sharing your art ❤</small>
+    <small>Thanks for spreading the love or whatever ❤</small>
   </div>
 </div>
 
@@ -235,12 +235,12 @@ body{margin:0;background:var(--white);color:var(--black);font-family:-apple-syst
 <div id="toast" class="toast" role="status" aria-live="polite">Saved!</div>
 
 <!-- Chat bubble & tutorial -->
-<button id="chatBubble" class="chat-bubble" title="Open tutorial" aria-label="Open tutorial">💬</button>
+<button id="chatBubble" class="chat-bubble" title="Open tutorial" aria-label="Open tutorial">1 UNREAD</button>
 <div id="chatWindow" class="chat-window" role="dialog" aria-modal="true" aria-label="Tutorial">
   <div class="chat-header">Portfolio Tour</div>
   <div id="chatBody" class="chat-body"></div>
   <div class="chat-footer">
-    <button id="restartTour" class="tour-btn">Restart Tour</button>
+    <button id="restartTour" class="tour-btn">Restart Chat</button>
     <button id="skipTour" class="skip-btn">Close</button>
   </div>
 </div>
@@ -387,13 +387,15 @@ const restartTour = $('#restartTour');
 const skipTour = $('#skipTour');
 
 const tourSteps = [
-  "Hi! Welcome to my Pinterest-style portfolio 👋",
-  "Use the **search bar** at the top to filter pins by text.",
-  "Scroll through the **masonry feed** — it grows like Pinterest’s endless scroll.",
-  "Hover a pin to reveal **Save** (top-right) and **Share** (bottom-right).",
-  "Click a pin image to open a **full-screen lightbox**.",
-  "Click **Share** to open the popup — press **Copy Link** or share to X / Pinterest / Tumblr / Reddit.",
-  "That’s it! Enjoy exploring — you can replay this tour anytime from the chat bubble 💬"
+  "heeyyy, welcome to my digital art portfolio"
+  "no pressure, but you can share any images using the share button on the post."
+  "if you're looking for something special, you can use the search bar for keywords or titles"
+  "if you're bored of looking at these, i probably have something else you haven't checked out yet"
+  "you can go back to the home page and open more folders"
+  "or you can push random buttons on this feed and see if anything exciting happens"
+  "anyway i'm starting to infodump at this point"
+  "enjoy looking at.. whatever you wanna look at on sunniejae.com"
+  "byeeeee"
 ];
 
 let stepIndex = 0;
