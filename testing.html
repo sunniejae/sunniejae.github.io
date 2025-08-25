@@ -603,7 +603,6 @@ pinData.forEach(pin => {
             <img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}" loading="lazy">
             <div class="pin-overlay">
                 <div class="pin-actions">
-                <button class="tag-btn" data-pin-id="${pin.id}">Tags</button>
                 <button class="share-btn" data-pin-id="${pin.id}">Share</button>
                 <div class="share-menu" id="menu-${pin.id}">
                 <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">
@@ -622,10 +621,11 @@ pinData.forEach(pin => {
                             <span class="share-icon">💜</span>
                             Share on Tumblr
                         </a>
-                        <div id="savePopup" class="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:var(--white); padding:20px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:2000; width:300px;">
+                        <button class="tag-btn" data-pin-id="${pin.id}">#</button>
+                        <div id="tagPopup" class="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:var(--white); padding:20px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:2000; width:300px;">
                         <h3 id="saveTitle"></h3>
                         <img id="saveImage" src="" alt="Artwork" style="width:100%; border-radius:12px; margin:10px 0;">
-                        <p id="saveTags" style="font-size:0.9rem; color:var(--dark-gray);">Tags: </p>
+                        <p id="saveTags" style="font-size:0.75rem; color:var(--dark-gray);">Tags: </p>
                         <input id="saveLink" type="text" readonly style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--gray); margin-top:5px;">
                         <div style="margin-top:10px; display:flex; justify-content:flex-end; gap:10px;">
                         <button onclick="copyLink()">Copy Link</button>
@@ -800,8 +800,8 @@ searchBox.addEventListener('input', function(e) {
 
 // Save button functionality
 ddocument.addEventListener('click', function(e) {
-    if (e.target.classList.contains('save-btn')) {
-        const pinId = e.target.closest('.pin').querySelector('.share-btn').dataset.pinId;
+    if (e.target.classList.contains('tag-btn')) {
+        const pinId = e.target.closest('.pin').querySelector('.tag-btn').dataset.pinId;
         const pin = pinData.find(p => p.id === pinId);
         if (!pin) return;
 
@@ -815,14 +815,14 @@ ddocument.addEventListener('click', function(e) {
 });
 
 function copyLink() {
-    const input = document.getElementById('saveLink');
+    const input = document.getElementById('tagLink');
     input.select();
     document.execCommand('copy');
-    alert('🔗 Link copied!');
+    alert('tags copied!');
 }
 
 function closePopup() {
-    document.getElementById('savePopup').style.display = 'none';
+    document.getElementById('tagPopup').style.display = 'none';
 }
 
 
