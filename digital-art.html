@@ -3,377 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Digital Art Portfolio</title>
+<title>Sunnie Jae Art Portfolio</title>
 <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
 
 <style>
 :root {
-    --black: #000010;
-    --white: #ffffff;
-    --dark-gray: #404040;
-    --gray: #bfbfdc;
-    --silver: #f0f0f5;
-    --pink: #ffb3d6;
-    --teal: #00a8a3;
-    --dark-purple: #3f3d7a;
-    --accent: #00c9c2;
-    --secondary: #c13886;
-    --primary: #9a9ad4;
+  --black: #000010;
+  --white: #ffffff;
+  --dark-gray: #404040;
+  --gray: #bfbfdc;
+  --silver: #f0f0f5;
+  --pink: #ffb3d6;
+  --teal: #00a8a3;
+  --dark-purple: #3f3d7a;
+  --accent: #00c9c2;
+  --secondary: #c13886;
+  --primary: #9a9ad4;
 }
 
-/* Body and grid */
+/* Reset and basic styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--white);
-    color: var(--black);
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--white);
+  color: var(--black);
 }
-
 header {
-    padding: 15px;
-    background-color: var(--primary);
-    color: var(--white);
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--silver);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+header h1 {
+  font-size: 1.5rem;
+  color: var(--dark-purple);
+  margin: 0;
+}
+header nav a {
+  margin-left: 15px;
+  color: var(--dark-gray);
+  text-decoration: none;
+  font-weight: bold;
+}
+header nav a:hover {
+  color: var(--accent);
 }
 
-.grid {
-    column-count: 4;
-    column-gap: 1rem;
-    padding: 1rem;
+/* Pinterest-style masonry */
+.gallery {
+  column-count: 4;
+  column-gap: 15px;
+  padding: 20px;
 }
-
-@media(max-width:1200px){ .grid { column-count:3; } }
-@media(max-width:900px){ .grid { column-count:2; } }
-@media(max-width:600px){ .grid { column-count:1; } }
+@media(max-width:1200px) { .gallery { column-count: 3; } }
+@media(max-width:900px) { .gallery { column-count: 2; } }
+@media(max-width:600px) { .gallery { column-count: 1; } }
 
 .pin {
-    display: inline-block;
-    margin-bottom: 1rem;
-    width: 100%;
+  background: var(--white);
+  margin-bottom: 15px;
+  display: inline-block;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  break-inside: avoid;
 }
-
-.pin-content {
-    position: relative;
-    cursor: pointer;
+.pin img {
+  width: 100%;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  display: block;
 }
-
-.pin-content img {
-    width: 100%;
-    display: block;
-    border-radius: 6px;
-}
-
-/* Pin info */
 .pin-info {
-    padding: 5px 0;
-    font-size: 0.9rem;
+  padding: 10px;
+  font-size: 0.9rem;
+  color: var(--dark-gray);
 }
-
-/* Share button */
 .share-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background-color: var(--accent);
-    border: none;
-    color: var(--white);
-    padding: 5px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: none;
+  margin: 5px 10px 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--white);
+}
+.share-btn:hover {
+  background: var(--accent);
 }
 
-.pin:hover .share-btn { display: block; }
-
-/* Share menu */
-.share-menu {
-    position: absolute;
-    top: 35px;
-    right: 8px;
-    background-color: var(--white);
-    border: 1px solid var(--gray);
-    border-radius: 6px;
-    display: none;
-    flex-direction: column;
-    padding: 5px;
-    gap: 5px;
-    z-index: 50;
+/* Share Popup */
+.popup-overlay {
+  display:none;
+  position:fixed;
+  top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.4);
+  z-index:300;
+  justify-content:center; align-items:center;
 }
-
-.share-menu a, .share-menu button {
-    background: none;
-    border: none;
-    color: var(--dark-gray);
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-align: left;
+.popup-overlay.show { display:flex; }
+.popup {
+  background:var(--white);
+  padding:20px;
+  border-radius:10px;
+  width:300px;
+  max-width:90%;
+  text-align:center;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
 }
-
-/* Lightbox */
-#lightbox {
-    display: none;
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.85);
-    justify-content:center;
-    align-items:center;
-    z-index:100;
+.popup-code {
+  background:var(--silver);
+  color:var(--dark-purple);
+  padding:8px;
+  margin:10px 0;
+  border-radius:5px;
+  cursor:pointer;
+  word-break:break-all;
 }
-
-#lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 6px;
-}
-
-/* Flashing chat notification */
-#chat-notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--accent);
-    color: var(--white);
-    padding: 12px 18px;
-    border-radius: 50px;
-    cursor: pointer;
-    animation: flash 1s infinite alternate;
-    z-index: 101;
-}
-
-@keyframes flash {
-    0% { opacity: 1; }
-    100% { opacity: 0.3; }
-}
-
-/* Chat window */
-#chat-window {
-    display:none;
-    position: fixed;
-    bottom: 70px;
-    right: 20px;
-    width: 280px;
-    max-height: 400px;
-    background: var(--white);
-    border: 2px solid var(--accent);
-    border-radius: 8px;
-    overflow-y: auto;
-    padding: 10px;
-    z-index:102;
-    font-size:0.9rem;
-}
-
-.chat-message {
-    margin-bottom: 8px;
-}
-.chat-message.bot {
-    color: var(--dark-gray);
-    font-weight: bold;
-}
-.chat-message.user {
-    color: var(--primary);
-    text-align: right;
-}
+.popup-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:5px; }
+.popup-btn { padding:6px 12px; border:none; border-radius:5px; cursor:pointer; background:var(--primary); color:white; }
+.popup-btn.secondary { background:var(--secondary); }
+.popup-btn.social-btn { background:var(--teal); text-decoration:none; display:inline-block; }
+.popup-buttons a.popup-btn.social-btn:hover { background:var(--accent); }
 </style>
 </head>
-
 <body>
-<header>Sunnie Jae Digital Art Portfolio</header>
-    
-<!-- Classic Pinterest Header -->
-<header style="display:flex; align-items:center; justify-content:space-between; padding:10px 20px; background-color:white; border-bottom:1px solid #e6e6e6; position:sticky; top:0; z-index:200;">
-    <div style="display:flex; align-items:center; gap:15px;">
-        <img src="https://i.imgur.com/wHDx7cE.png" alt="Logo" style="height:32px; width:32px; border-radius:4px;">
-        <span style="font-weight:bold; font-size:1.2rem; color:#333;">Sunnie Jae</span>
-    </div>
-    <input type="text" placeholder="Search" style="flex:1; max-width:400px; margin:0 20px; padding:6px 10px; border:1px solid #ccc; border-radius:20px;">
-    <div style="display:flex; align-items:center; gap:10px;">
-        <button style="background:none; border:none; cursor:pointer; font-size:1.1rem;">🏠 Home</button>
-        <button style="background:none; border:none; cursor:pointer; font-size:1.1rem;">📌 Today</button>
-        <button style="background:none; border:none; cursor:pointer; font-size:1.1rem;">👤 Following</button>
-        <img src="https://i.imgur.com/wHDx7cE.png" alt="Profile" style="height:32px; width:32px; border-radius:50%; cursor:pointer;">
-    </div>
+
+<header>
+  <h1>Sunnie Jae Creates</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Portfolio</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
 </header>
 
-<!-- Optional Sidebar for categories -->
-<aside style="position:fixed; top:60px; left:0; width:180px; padding:10px; background-color:#f7f7f7; height:100%; border-right:1px solid #e6e6e6;">
-    <ul style="list-style:none; padding:0; margin:0; font-size:0.95rem; color:#555;">
-        <li style="margin-bottom:10px; cursor:pointer;">Art</li>
-        <li style="margin-bottom:10px; cursor:pointer;">Photography</li>
-        <li style="margin-bottom:10px; cursor:pointer;">Design</li>
-        <li style="margin-bottom:10px; cursor:pointer;">Illustration</li>
-        <li style="margin-bottom:10px; cursor:pointer;">Inspiration</li>
-    </ul>
-</aside>
-
-<!-- Adjust grid margin to account for sidebar -->
-<div class="grid" style="margin-left:200px;">
-<div class="grid">
-
-<!-- Pin 1 -->
-<div class="pin">
-  <div class="pin-content">
-    <img src="https://i.imgur.com/nNpWqcw.png" alt="Art 1">
-    <div class="pin-info">Art 1 Description</div>
-    <button class="share-btn">Share</button>
-    <div class="share-menu">
-      <button class="copy-link">Copy Link</button>
-      <a href="#" target="_blank" class="social-x">X</a>
-      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
-      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
-      <a href="#" target="_blank" class="social-reddit">Reddit</a>
+<div class="gallery">
+  <!-- Pin 1 -->
+  <div class="pin">
+    <div class="pin-content">
+      <img src="https://i.imgur.com/nNpWqcw.png" alt="Art 1">
+      <div class="pin-info">Art 1 Description</div>
+      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/nNpWqcw.png')">Share</button>
+    </div>
+  </div>
+  <!-- Pin 2 -->
+  <div class="pin">
+    <div class="pin-content">
+      <img src="https://i.imgur.com/ZaLvpTQ.png" alt="Art 2">
+      <div class="pin-info">Art 2 Description</div>
+      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/ZaLvpTQ.png')">Share</button>
+    </div>
+  </div>
+  <!-- Pin 3 -->
+  <div class="pin">
+    <div class="pin-content">
+      <img src="https://i.imgur.com/rLX8jEJ.png" alt="Art 3">
+      <div class="pin-info">Art 3 Description</div>
+      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/rLX8jEJ.png')">Share</button>
+    </div>
+  </div>
+  <!-- Pin 4 -->
+  <div class="pin">
+    <div class="pin-content">
+      <img src="https://i.imgur.com/wmB1AOK.png" alt="Art 4">
+      <div class="pin-info">Art 4 Description</div>
+      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/wmB1AOK.png')">Share</button>
+    </div>
+  </div>
+  <!-- Pin 5 -->
+  <div class="pin">
+    <div class="pin-content">
+      <img src="https://i.imgur.com/6mthVOk.png" alt="Art 5">
+      <div class="pin-info">Art 5 Description</div>
+      <button class="share-btn" onclick="showSharePopup('https://i.imgur.com/6mthVOk.png')">Share</button>
     </div>
   </div>
 </div>
 
-<!-- Pin 2 -->
-<div class="pin">
-  <div class="pin-content">
-    <img src="https://i.imgur.com/ZaLvpTQ.png" alt="Art 2">
-    <div class="pin-info">Art 2 Description</div>
-    <button class="share-btn">Share</button>
-    <div class="share-menu">
-      <button class="copy-link">Copy Link</button>
-      <a href="#" target="_blank" class="social-x">X</a>
-      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
-      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
-      <a href="#" target="_blank" class="social-reddit">Reddit</a>
+<!-- Share Popup -->
+<div class="popup-overlay" id="sharePopup">
+  <div class="popup">
+    <h3>Share This Art 🎨</h3>
+    <p>Copy the link to share or use the buttons below:</p>
+    <div class="popup-code" id="shareLink">https://i.imgur.com/nNpWqcw.png</div>
+    <p style="font-size: 0.9rem; color: var(--dark-gray);">Click the link to copy!</p>
+    <div class="popup-buttons">
+      <button class="popup-btn primary" onclick="copyShareLink()">Copy Link</button>
+      <a class="popup-btn social-btn" id="socialX" target="_blank">X</a>
+      <a class="popup-btn social-btn" id="socialPinterest" target="_blank">Pinterest</a>
+      <a class="popup-btn social-btn" id="socialTumblr" target="_blank">Tumblr</a>
+      <a class="popup-btn social-btn" id="socialReddit" target="_blank">Reddit</a>
+      <button class="popup-btn secondary" onclick="closeSharePopup()">Close</button>
     </div>
   </div>
 </div>
-
-<!-- Pin 3 -->
-<div class="pin">
-  <div class="pin-content">
-    <img src="https://i.imgur.com/rLX8jEJ.png" alt="Art 3">
-    <div class="pin-info">Art 3 Description</div>
-    <button class="share-btn">Share</button>
-    <div class="share-menu">
-      <button class="copy-link">Copy Link</button>
-      <a href="#" target="_blank" class="social-x">X</a>
-      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
-      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
-      <a href="#" target="_blank" class="social-reddit">Reddit</a>
-    </div>
-  </div>
-</div>
-
-<!-- Pin 4 -->
-<div class="pin">
-  <div class="pin-content">
-    <img src="https://i.imgur.com/wmB1AOK.png" alt="Art 4">
-    <div class="pin-info">Art 4 Description</div>
-    <button class="share-btn">Share</button>
-    <div class="share-menu">
-      <button class="copy-link">Copy Link</button>
-      <a href="#" target="_blank" class="social-x">X</a>
-      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
-      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
-      <a href="#" target="_blank" class="social-reddit">Reddit</a>
-    </div>
-  </div>
-</div>
-
-<!-- Pin 5 -->
-<div class="pin">
-  <div class="pin-content">
-    <img src="https://i.imgur.com/6mthVOk.png" alt="Art 5">
-    <div class="pin-info">Art 5 Description</div>
-    <button class="share-btn">Share</button>
-    <div class="share-menu">
-      <button class="copy-link">Copy Link</button>
-      <a href="#" target="_blank" class="social-x">X</a>
-      <a href="#" target="_blank" class="social-pinterest">Pinterest</a>
-      <a href="#" target="_blank" class="social-tumblr">Tumblr</a>
-      <a href="#" target="_blank" class="social-reddit">Reddit</a>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<!-- Lightbox -->
-<div id="lightbox"><img src="" alt="Full Art"></div>
-
-<!-- Flashing chat notification -->
-<div id="chat-notification">💬 Tutorial</div>
-<div id="chat-window"></div>
 
 <script>
-// Lightbox
-document.querySelectorAll('.pin-content img').forEach(img => {
-    img.addEventListener('click', () => {
-        const lightbox = document.getElementById('lightbox');
-        lightbox.style.display = 'flex';
-        lightbox.querySelector('img').src = img.src;
-    });
-});
-document.getElementById('lightbox').addEventListener('click', () => {
-    document.getElementById('lightbox').style.display = 'none';
-});
+  let currentImageLink = '';
 
-// Share functionality
-document.querySelectorAll('.pin').forEach(pin => {
-    const shareBtn = pin.querySelector('.share-btn');
-    const shareMenu = pin.querySelector('.share-menu');
-    const copyBtn = pin.querySelector('.copy-link');
-    const img = pin.querySelector('img');
+  function showSharePopup(imageLink) {
+    currentImageLink = imageLink;
+    document.getElementById('shareLink').textContent = imageLink;
+    document.getElementById('sharePopup').classList.add('show');
 
-    shareBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        shareMenu.style.display = shareMenu.style.display === 'flex' ? 'none' : 'flex';
-        shareMenu.style.flexDirection = 'column';
-    });
+    // Set social links dynamically
+    document.getElementById('socialX').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(imageLink)}`;
+    document.getElementById('socialPinterest').href = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(imageLink)}`;
+    document.getElementById('socialTumblr').href = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(imageLink)}`;
+    document.getElementById('socialReddit').href = `https://www.reddit.com/submit?url=${encodeURIComponent(imageLink)}`;
+  }
 
-    copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(img.src)
-          .then(() => alert('Link copied!'))
-          .catch(err => alert('Failed to copy.'));
-    });
+  function closeSharePopup() {
+    document.getElementById('sharePopup').classList.remove('show');
+  }
 
-    const url = encodeURIComponent(window.location.href);
-    const media = encodeURIComponent(img.src);
-    pin.querySelector('.social-x').href = `https://twitter.com/intent/tweet?url=${url}`;
-    pin.querySelector('.social-pinterest').href = `https://www.pinterest.com/pin/create/button/?url=${url}&media=${media}`;
-    pin.querySelector('.social-tumblr').href = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${url}`;
-    pin.querySelector('.social-reddit').href = `https://www.reddit.com/submit?url=${url}`;
-});
+  function copyShareLink() {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(currentImageLink).then(() => {
+        const linkElement = document.getElementById('shareLink');
+        const originalText = linkElement.textContent;
+        linkElement.textContent = 'COPIED! ✓';
+        linkElement.style.background = 'var(--accent)';
+        linkElement.style.color = 'var(--white)';
+        setTimeout(() => {
+          linkElement.textContent = originalText;
+          linkElement.style.background = 'var(--silver)';
+          linkElement.style.color = 'var(--dark-purple)';
+        }, 1000);
+      });
+    } else {
+      alert(`Link copied: ${currentImageLink}`);
+    }
+  }
 
-document.body.addEventListener('click', () => {
-    document.querySelectorAll('.share-menu').forEach(menu => menu.style.display = 'none');
-});
-
-// Chat tutorial
-const chatNotification = document.getElementById('chat-notification');
-const chatWindow = document.getElementById('chat-window');
-const tutorialMessages = [
-    "Hi! Welcome to my portfolio 💖",
-    "Click on any image to see it larger.",
-    "Hover over an image and click 'Share' to copy or share it!",
-    "Explore and enjoy my digital art collection!"
-];
-let messageIndex = 0;
-
-chatNotification.addEventListener('click', () => {
-    chatWindow.style.display = 'block';
-    messageIndex = 0;
-    chatWindow.innerHTML = '';
-    showNextMessage();
-});
-
-function showNextMessage() {
-    if(messageIndex >= tutorialMessages.length) return;
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'chat-message bot';
-    msgDiv.textContent = tutorialMessages[messageIndex];
-    chatWindow.appendChild(msgDiv);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-    messageIndex++;
-    setTimeout(showNextMessage, 2000);
-}
+  // Close when clicking outside
+  document.getElementById('sharePopup').addEventListener('click', function(e) {
+    if (e.target === this) closeSharePopup();
+  });
 </script>
+
 </body>
 </html>
