@@ -1,932 +1,891 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae Portfolio</title>
-<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-    --black: #000010;
-    --white: #ffffff;
-    --dark-gray: #404040;
-    --gray: #bfbfdc;
-    --silver: #f0f0f5;
-    --pink: #ffb3d6;
-    --teal: #00a8a3;
-    --dark-purple: #3f3d7a;
-    --accent: #00c9c2;
-    --secondary: #c13886;
-    --primary: #9a9ad4;
-    --shadow: 0 2px 8px rgba(0,0,16,0.15);
-    --shadow-hover: 0 8px 32px rgba(0,0,16,0.25);
-    --gradient: linear-gradient(135deg, var(--accent), var(--primary));
-    --gradient-secondary: linear-gradient(135deg, var(--secondary), var(--pink));
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--silver);
-    color: var(--black);
-    line-height: 1.5;
-}
-
-/* Header */
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: var(--white);
-    border-bottom: 2px solid var(--silver);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: var(--shadow);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-right: 20px;
-}
-
-.logo-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--gradient);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--white);
-    font-weight: 700;
-    font-size: 18px;
-    box-shadow: var(--shadow);
-}
-
-.logo-text {
-    font-weight: 700;
-    font-size: 20px;
-    background: var(--dark-purple);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.nav-pills {
-    display: flex;
-    gap: 8px;
-    margin-right: auto;
-}
-
-.nav-pill {
-    padding: 12px 20px;
-    border-radius: 25px;
-    background: var(--dark-purple);
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 16px;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border: 2px solid transparent;
-}
-
-.nav-pill:first-child {
-    background: var(--gradient);
-    box-shadow: var(--shadow);
-}
-
-.nav-pill:not(:first-child) {
-    background: transparent;
-    color: var(--dark-purple);
-    border: 2px solid var(--gray);
-}
-
-.nav-pill:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.nav-pill:not(:first-child):hover {
-    background: var(--gray);
-    border-color: var(--primary);
-}
-
-.nav-pill:first-child:hover {
-    background: var(--gradient-secondary);
-}
-
-.search-container {
-    flex: 1;
-    max-width: 600px;
-    margin: 0 20px;
-    position: relative;
-}
-
-.search-box {
-    width: 100%;
-    padding: 16px 24px;
-    border: 2px solid var(--gray);
-    border-radius: 30px;
-    background: var(--white);
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-    color: var(--black);
-}
-
-.search-box:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(0, 201, 194, 0.1);
-}
-
-.search-box::placeholder {
-    color: var(--gray);
-}
-
-.profile-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.profile-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--silver);
-    border: 2px solid var(--gray);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    color: var(--dark-purple);
-}
-
-.profile-btn:hover {
-    background: var(--accent);
-    color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-/* Masonry Layout */
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 24px;
-}
-
-.masonry {
-    columns: 5;
-    column-gap: 20px;
-    column-fill: balance;
-}
-
-.pin {
-    break-inside: avoid;
-    margin-bottom: 20px;
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    background: var(--white);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: zoom-in;
-    border: 1px solid var(--silver);
-}
-
-.pin:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--gray);
-}
-
-.pin-image {
-    position: relative;
-    overflow: hidden;
-}
-
-.pin img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 20px 20px 0 0;
-    transition: transform 0.4s ease;
-}
-
-.pin:hover img {
-    transform: scale(1.08);
-}
-
-.pin-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(0,0,16,0.1) 0%, rgba(0,0,16,0.3) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-}
-
-.pin:hover .pin-overlay {
-    opacity: 1;
-}
-
-.pin-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.share-btn {
-    background: var(--gradient);
-    color: var(--white);
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
-}
-
-.share-btn:hover {
-    background: var(--gradient-secondary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.tags-btn {
-    background: var(--gradient-secondary);
-    color: var(--white);
-    border: none;
-    padding: 6px 12px;
-    border-radius: 18px;
-    font-weight: 300;
-    font-size: 10px;
-}
-
-.tags-btn:hover {
-    background: var(--gradient);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.tags-menu {
-    position: absolute;
-    top: 70px;
-    left: 20px;
-    background: var(--white);
-    border: 2px solid var(--gray);
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: var(--shadow-hover);
-    display: none;
-    flex-wrap: wrap;
-    gap: 8px;
-    max-width: 280px;
-    z-index: 1000;
-}
-
-.tags-menu.active {
-    display: flex;
-}
-
-.tag-item {
-    background: var(--silver);
-    color: var(--dark-purple);
-    padding: 8px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: 1px solid var(--gray);
-    user-select: none;
-}
-
-.tag-item:hover {
-    background: var(--accent);
-    color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-
-.share-menu {
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    background: var(--white);
-    border: 2px solid var(--gray);
-    border-radius: 16px;
-    padding: 12px;
-    box-shadow: var(--shadow-hover);
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    min-width: 200px;
-    z-index: 1000;
-}
-
-.share-menu.active {
-    display: flex;
-}
-
-.share-option {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--dark-purple);
-    transition: all 0.2s ease;
-    font-weight: 500;
-    border: 1px solid transparent;
-}
-
-.share-option:hover {
-    background: var(--silver);
-    border-color: var(--gray);
-    transform: translateX(4px);
-}
-
-.share-option.copy-link:hover {
-    background: var(--accent);
-    color: var(--white);
-}
-
-.share-option[data-platform="twitter"]:hover {
-    background: #1da1f2;
-    color: var(--white);
-}
-
-.share-option[data-platform="pinterest"]:hover {
-    background: var(--secondary);
-    color: var(--white);
-}
-
-.share-option[data-platform="tumblr"]:hover {
-    background: var(--dark-purple);
-    color: var(--white);
-}
-
-.share-option[data-platform="reddit"]:hover {
-    background: #ff4500;
-    color: var(--white);
-}
-
-.share-icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-}
-
-.pin-info {
-    padding: 16px;
-    background: var(--white);
-}
-
-.pin-title {
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--black);
-    margin-bottom: 8px;
-}
-
-.pin-description {
-    font-size: 14px;
-    color: var(--dark-gray);
-    line-height: 1.5;
-}
-
-/* Chat Button */
-.chat-button {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 64px;
-    height: 64px;
-    background: var(--gradient);
-    color: var(--white);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: var(--shadow-hover);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    z-index: 1000;
-}
-
-.chat-button:hover {
-    background: var(--gradient-secondary);
-    transform: scale(1.1) rotate(10deg);
-}
-
-#chatWindow {
-    position: fixed;
-    bottom: 110px;
-    right: 30px;
-    width: 350px;
-    max-height: 450px;
-    background: var(--white);
-    border: 2px solid var(--gray);
-    border-radius: 20px;
-    box-shadow: var(--shadow-hover);
-    display: none;
-    flex-direction: column;
-    z-index: 1000;
-    overflow: hidden;
-}
-
-.chat-header {
-    background: var(--gradient);
-    color: var(--white);
-    padding: 20px;
-    font-weight: 600;
-    font-size: 18px;
-    text-align: center;
-}
-
-.chat-messages {
-    padding: 20px;
-    max-height: 350px;
-    overflow-y: auto;
-    flex: 1;
-}
-
-.message {
-    background: var(--silver);
-    padding: 16px 20px;
-    border-radius: 18px;
-    margin-bottom: 16px;
-    color: var(--black);
-    font-size: 15px;
-    line-height: 1.5;
-    border: 1px solid var(--gray);
-    animation: slideIn 0.3s ease;
-}
-
-.message:nth-child(even) {
-    background: var(--pink);
-    margin-left: 20px;
-}
-
-.message:nth-child(odd) {
-    background: var(--accent);
-    margin-left: 20px;
-    color: var(--white);
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .masonry { columns: 4; }
-}
-
-@media (max-width: 900px) {
-    .masonry { columns: 3; }
-    .nav-pills { display: none; }
-    .container { padding: 20px; }
-}
-
-@media (max-width: 600px) {
-    .masonry { columns: 2; }
-    .search-container { margin: 0 12px; }
-    header { padding: 12px 16px; }
-    .logo-text { display: none; }
-}
-
-@media (max-width: 480px) {
-    .masonry { columns: 1; }
-    .container { padding: 16px; }
-    #chatWindow { 
-        width: calc(100vw - 32px);
-        right: 16px;
-    }
-    .chat-button {
-        width: 56px;
-        height: 56px;
-        bottom: 20px;
-        right: 20px;
-    }
-}
-
-/* Custom scrollbar */
-.chat-messages::-webkit-scrollbar {
-    width: 6px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-    background: var(--silver);
-    border-radius: 10px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-    background: var(--gray);
-    border-radius: 10px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunnie Jae - KPOP Shop</title>
+    <style>
+        :root {
+            --black: #000010;
+            --white: #ffffff;
+            --dark-gray: #404040;
+            --gray: #bfbfdc;
+            --silver: #f0f0f5;
+            --pink: #ffb3d6;
+            --teal: #00a8a3;
+            --dark-purple: #3f3d7a;
+            --accent: #00c9c2;
+            --secondary: #c13886;
+            --primary: #9a9ad4;
+            --depop-bg: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--depop-bg);
+            color: var(--black);
+            line-height: 1.4;
+        }
+
+        /* Depop-style header */
+        .depop-header {
+            background: var(--white);
+            border-bottom: 1px solid #e8e8e8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 16px;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-arrow {
+            font-size: 18px;
+            color: var(--dark-gray);
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .header-icon {
+            font-size: 20px;
+            color: var(--dark-gray);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .bag-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f8f8f8;
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin-bottom: 8px;
+        }
+
+        .search-input {
+            border: none;
+            background: none;
+            flex: 1;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            color: #999;
+            margin-right: 8px;
+        }
+
+        /* Profile section */
+        .profile-section {
+            background: var(--white);
+            padding: 20px 16px;
+            border-bottom: 8px solid var(--depop-bg);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .profile-pic {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            border: 3px solid var(--primary);
+        }
+
+        .profile-info h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--black);
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+        }
+
+        .verified-badge {
+            background: var(--accent);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .bio {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 16px;
+            color: var(--black);
+        }
+
+        .bio-tags {
+            color: var(--teal);
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .follow-btn, .message-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .follow-btn {
+            background: var(--black);
+            color: white;
+        }
+
+        .follow-btn.following {
+            background: var(--white);
+            color: var(--black);
+            border: 1px solid #ddd;
+        }
+
+        .message-btn {
+            background: var(--white);
+            color: var(--black);
+            border: 1px solid #ddd;
+        }
+
+        /* Reviews section */
+        .reviews-section {
+            background: var(--white);
+            padding: 16px;
+            margin-bottom: 8px;
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .reviews-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .reviews-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 14px;
+        }
+
+        .rating-text {
+            font-size: 12px;
+            color: var(--dark-gray);
+        }
+
+        .review-sample {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--dark-gray);
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Items section */
+        .items-section {
+            background: var(--white);
+            padding-top: 16px;
+        }
+
+        .items-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px 16px;
+        }
+
+        .items-count {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .sort-filter {
+            display: flex;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .filter-btn {
+            background: var(--white);
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: var(--black);
+            color: white;
+            border-color: var(--black);
+        }
+
+        /* Products grid - classic Depop style */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: #e8e8e8;
+        }
+
+        .product-card {
+            background: var(--white);
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .product-card:active {
+            opacity: 0.8;
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--secondary);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .like-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .like-btn.liked {
+            color: #ff3040;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-brand {
+            font-size: 11px;
+            color: var(--dark-gray);
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .product-title {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-bottom: 4px;
+            color: var(--black);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-size {
+            font-size: 11px;
+            color: var(--dark-gray);
+            margin-bottom: 6px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        /* Loading more button */
+        .load-more {
+            background: var(--white);
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .load-more-btn {
+            background: var(--black);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Product modal */
+        .product-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--white);
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .product-modal.active {
+            display: block;
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            padding: 16px;
+            border-bottom: 1px solid #e8e8e8;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 10;
+        }
+
+        .modal-close {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .modal-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .modal-brand {
+            font-size: 12px;
+            color: var(--dark-gray);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .modal-product-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .modal-price {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .modal-details {
+            background: #f9f9f9;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .modal-description {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            position: sticky;
+            bottom: 0;
+            background: var(--white);
+            padding: 16px;
+            border-top: 1px solid #e8e8e8;
+            display: flex;
+            gap: 12px;
+        }
+
+        .buy-btn {
+            flex: 2;
+            background: var(--black);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .add-bag-btn {
+            flex: 1;
+            background: var(--white);
+            color: var(--black);
+            border: 1px solid #ddd;
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-
-<header>
-    <div class="logo">
-        <div class="logo-icon">S</div>
-        <div class="logo-text">Sunnie Jae</div>
+    <!-- Header -->
+    <div class="depop-header">
+        <div class="header-top">
+            <div class="header-left">
+                <div class="back-arrow">←</div>
+                <div class="header-title">Sunnie Jae - KPOP </div>
+            </div>
+            <div class="header-icons">
+                <div class="header-icon">🔍</div>
+                <div class="header-icon">
+                    🛍️
+                    <span class="bag-count" id="bag-count">0</span>
+                </div>
+                <div class="header-icon">⋮</div>
+            </div>
+        </div>
+        <div class="search-bar">
+            <div class="search-icon">🔍</div>
+            <input type="text" class="search-input" placeholder="Search sunniejae's items">
+        </div>
     </div>
-    
-    <nav class="nav-pills">
-        <a href="index.html" class="nav-pill">Home</a>
-        <a href="portfolio.html" class="nav-pill">Gallery</a>
-        <a href="profile.html" class="nav-pill">About</a>
-    </nav>
-    
-    <div class="search-container">
-        <input type="search" class="search-box" placeholder="Search keywords...">
-    </div>
-    
-    <div class="profile-actions">
-        <button class="profile-btn">🔔</button>
-        <button class="profile-btn">💬</button>
-        <button class="profile-btn">👤</button>
-    </div>
-</header>
 
-<div class="container">
-    <div class="masonry" id="masonry-container">
-        <!-- Pins will be generated by JavaScript -->
-    </div>
-</div>
-
-<button class="chat-button">💬</button>
-
-<div id="chatWindow">
-    <div class="chat-header">
-        Chat with Sunnie Jae ✨
-    </div>
-    <div class="chat-messages" id="chatMessages">
-        <!-- Messages will appear here -->
-    </div>
-</div>
-
-<script>
-// Pin data and generation
-const pinData = [
-    { id: "1", title: "Webcomic Style: Self Portrait", description: "Exploring techniques to bring simple webcomic art to", tags: ["webcomic", "self portrait", "digital art", "character design", "cartoon style"] },
-    { id: "2", title: "Siberian", description: "Color block portrait of a siberian cat", tags: ["cat", "siberian", "animal portrait", "colorblock", "pet art", "feline"] },
-    { id: "3", title: "Winter", description: "Colorblock portrait of Winter from Aespa (smoothed)", tags: ["kpop", "aespa", "winter", "idol", "colorblock", "portrait", "korean"] },
-    { id: "4", title: "NingNing", description: "Colorblock portrait of NingNing from Aespa (smoothed)", tags: ["kpop", "aespa", "ningning", "idol", "colorblock", "portrait", "korean"] },
-    { id: "5", title: "iLand 2: n/a Finale", description: "izna ot7 color block portrait", tags: ["iland", "izna", "kpop", "group portrait", "colorblock", "idol", "survival show"] },
-    { id: "6", title: "Webcomic Portrait", description: "Hailey Reed from Not Just Another Werewolf Romance", tags: ["webcomic", "character", "werewolf", "romance", "hailey reed", "fiction"] },
-    { id: "7", title: "It's a Bubblegum, Bitch", description: "Colorblock portrait of Brittney Spears (holographic)", tags: ["britney spears", "pop icon", "holographic", "colorblock", "bubblegum", "celebrity"] },
-    { id: "8", title: "Losing Feeling", description: "Exploring techniques for creative portraits (commissioned)", tags: ["commission", "portrait", "creative", "experimental", "digital art", "emotion"] },
-    { id: "9", title: "MoonSun", description: "Colorblock portrait of Moonbyul and Solar from Mamamoo", tags: ["mamamoo", "moonbyul", "solar", "kpop", "duo", "colorblock", "portrait"] },
-    { id: "10", title: "Blonde Bombshell", description: "Digital pastel portrait of Marilyn Monroe", tags: ["marilyn monroe", "classic", "pastel", "vintage", "hollywood", "icon", "blonde"] },
-    { id: "11", title: "Seeing is Believing", description: "Digital pastel piece of a greco-roman bust", tags: ["classical", "greco-roman", "bust", "sculpture", "pastel", "ancient art", "statue"] }
-];
-
-const masonry = document.getElementById('masonry-container');
-
-pinData.forEach(pin => {
-    const pinElement = document.createElement('div');
-    pinElement.className = 'pin';
-    pinElement.innerHTML = `
-        <div class="pin-image">
-            <img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}" loading="lazy">
-            <div class="pin-overlay">
-                <div class="pin-actions">
-                    <button class="tags-btn" data-pin-id="${pin.id}">Tags</button>
-                    <button class="share-btn" data-pin-id="${pin.id}">Share</button>
-                    <div class="tags-menu" id="tags-${pin.id}">
-                        ${pin.tags.map(tag => `
-                            <span class="tag-item" data-tag="${tag}">#${tag}</span>
-                        `).join('')}
-                    </div>
-                    <div class="share-menu" id="menu-${pin.id}">
-                        <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">
-                            <span class="share-icon">🔗</span>
-                            Copy link
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="twitter" data-pin-id="${pin.id}">
-                            <span class="share-icon">🖤</span>
-                            Share on X
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="pinterest" data-pin-id="${pin.id}">
-                            <span class="share-icon">🧡</span>
-                            Share on Pinterest
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="tumblr" data-pin-id="${pin.id}">
-                            <span class="share-icon">💜</span>
-                            Share on Tumblr
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="reddit" data-pin-id="${pin.id}">
-                            <span class="share-icon">🧡</span>
-                            Share on Reddit
-                        </a>
-                    </div>
+    <!-- Profile Section -->
+    <div class="profile-section">
+        <div class="profile-header">
+            <div class="profile-pic">🌟</div>
+            <div class="profile-info">
+                <h1>sunniejae <span class="verified-badge">VERIFIED</span></h1>
+                <div class="profile-stats">
+                    <span>847 items</span>
+                    <span>2.1k followers</span>
+                    <span>892 following</span>
                 </div>
             </div>
         </div>
-        <div class="pin-info">
-            <div class="pin-title">${pin.title}</div>
-            <div class="pin-description">${pin.description}</div>
+        <div class="bio">
+            KPOP by SunnieJae
+            <span class="bio-tags">#kpop #bts #blackpink #newjeans #collectibles</span>
         </div>
-    `;
-    masonry.appendChild(pinElement);
-});
+        <div class="action-buttons">
+            <button class="follow-btn">Follow</button>
+            <button class="message-btn">Message</button>
+        </div>
+    </div>
 
-// Share functionality
-document.addEventListener('click', function(e) {
-    // Handle tags button clicks
-    if (e.target.classList.contains('tags-btn')) {
-        e.stopPropagation();
-        const pinId = e.target.dataset.pinId;
-        const menu = document.getElementById(`tags-${pinId}`);
-        
-        // Close all other menus
-        document.querySelectorAll('.tags-menu, .share-menu').forEach(m => {
-            if (m.id !== `tags-${pinId}`) {
-                m.classList.remove('active');
-            }
-        });
-        
-        menu.classList.toggle('active');
-    }
-    
-    // Handle tag clicks
-    if (e.target.classList.contains('tag-item')) {
-        const tag = e.target.dataset.tag;
-        const searchBox = document.querySelector('.search-box');
-        searchBox.value = tag;
-        searchBox.focus();
-        
-        // Trigger search
-        const event = new Event('input', { bubbles: true });
-        searchBox.dispatchEvent(event);
-        
-        // Close all menus
-        document.querySelectorAll('.tags-menu').forEach(menu => {
-            menu.classList.remove('active');
-        });
-        
-        // Show notification
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            background: var(--gradient-secondary);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            z-index: 10000;
-            font-size: 14px;
-            font-weight: 600;
-            box-shadow: var(--shadow-hover);
-            animation: slideIn 0.3s ease;
-        `;
-        notification.textContent = `🏷️ Searching for "${tag}"`;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 2000);
-    }
-    
-    // Handle share button clicks
-    if (e.target.classList.contains('share-btn')) {
-        e.stopPropagation();
-        const pinId = e.target.dataset.pinId;
-        const menu = document.getElementById(`menu-${pinId}`);
-        
-        // Close all other menus
-        document.querySelectorAll('.share-menu, .tags-menu').forEach(m => {
-            if (m.id !== `menu-${pinId}`) {
-                m.classList.remove('active');
-            }
-        });
-        
-        menu.classList.toggle('active');
-    }
-    
-    // Handle copy link
-    if (e.target.classList.contains('copy-link') || e.target.closest('.copy-link')) {
-        e.preventDefault();
-        const pinId = e.target.dataset.pinId || e.target.closest('.copy-link').dataset.pinId;
-        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
-        
-        navigator.clipboard.writeText(imageUrl).then(() => {
-            // Create temporary notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 30px;
-                background: var(--gradient);
-                color: white;
-                padding: 16px 24px;
-                border-radius: 12px;
-                z-index: 10000;
-                font-size: 14px;
-                font-weight: 600;
-                box-shadow: var(--shadow-hover);
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = '🔗 Link copied!';
-            document.body.appendChild(notification);
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+        <div class="reviews-header">
+            <div class="reviews-title">Reviews</div>
+            <div class="reviews-rating">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <span class="rating-text">4.9 (234)</span>
+            </div>
+        </div>
+        <div class="review-sample">
+            "Reviews will go here... so you should leave one"
+        </div>
+    </div>
+
+    <!-- Items Section -->
+    <div class="items-section">
+        <div class="items-header">
+            <div class="items-count">847 items</div>
+            <div class="sort-filter">
+                <div class="filter-btn active">All</div>
+                <div class="filter-btn">New</div>
+                <div class="filter-btn">Price ↓</div>
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "HYBE", "title": "BTS Official Army Bomb Ver.4", "price": "£42", "size": "One Size", "description": "Official BTS lightstick in perfect condition! Used only a few times for concerts. Comes with all original packaging, instructions, and strap. Bluetooth connectivity works perfectly. No scratches or damages.", "emoji": "🎤"}'>
+                <div class="product-image">
+                    🎤
+                    <div class="product-badge">SOLD</div>
+                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">HYBE</div>
+                    <div class="product-title">BTS Official Army Bomb Ver.4</div>
+                    <div class="product-size">One Size</div>
+                    <div class="product-price">£42</div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "YG", "title": "BLACKPINK Born Pink Tour Tee", "price": "£28", "size": "Size M", "description": "Official tour merchandise from London O2 show! Only worn once, excellent condition. 100% cotton, super soft and comfortable. Perfect for any BLINK!", "emoji": "👕"}'>
+                <div class="product-image">
+                    👕
+                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">YG</div>
+                    <div class="product-title">BLACKPINK Born Pink Tour Tee</div>
+                    <div class="product-size">Size M</div>
+                    <div class="product-price">£28</div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "ADOR", "title": "NewJeans Get Up Album Set", "price": "£22", "size": "All Versions", "description": "Complete album set with all 3 versions! All photocards included, never opened. Sealed and authentic. Perfect for collectors!", "emoji": "💿"}'>
+                <div class="product-image">
+                    💿
+                    <div class="product-badge">NEW</div>
+                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">ADOR</div>
+                    <div class="product-title">NewJeans Get Up Album Set</div>
+                    <div class="product-size">All Versions</div>
+                    <div class="product-price">£22</div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "JYP", "title": "TWICE Phone Case Collection", "price": "£18", "size": "iPhone 14", "description": "Official TWICE phone case with holographic design. Barely used, perfect condition. Fits iPhone 14 perfectly with full protection.", "emoji": "📱"}'>
+                <div class="product-image">
+                    📱
+                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">JYP</div>
+                    <div class="product-title">TWICE Phone Case Collection</div>
+                    <div class="product-size">iPhone 14</div>
+                    <div class="product-price">£18</div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "SM", "title": "aespa MY WORLD Photocards", "price": "£15", "size": "Complete Set", "description": "Full set of official photocards from MY WORLD album! All 4 members included, mint condition. Never bent or damaged, stored in sleeves.", "emoji": "📸"}'>
+                <div class="product-image">
+                    📸
+                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">SM</div>
+                    <div class="product-title">aespa MY WORLD Photocards</div>
+                    <div class="product-size">Complete Set</div>
+                    <div class="product-price">£15</div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "JYP", "title": "ITZY Checkmate Hoodie", "price": "£35", "size": "Size L", "description": "Official ITZY hoodie from Checkmate era. Worn a few times but in great condition. Super cozy and perfect for winter!", "emoji": "🧥"}'>
+                <div class="product-image">
+                    🧥
+                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">JYP</div>
+                    <div class="product-title">ITZY Checkmate Hoodie</div>
+                    <div class="product-size">Size L</div>
+                    <div class="product-price">£35</div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "HYBE", "title": "SEVENTEEN Carat Keychain", "price": "£12", "size": "One Size", "description": "Adorable official keychain! Perfect condition, never used. Comes with original packaging. Great for any Carat!", "emoji": "🔑"}'>
+                <div class="product-image">
+                    🔑
+                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">HYBE</div>
+                    <div class="product-title">SEVENTEEN Carat Keychain</div>
+                    <div class="product-size">One Size</div>
+                    <div class="product-price">£12</div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "STARSHIP", "title": "IVE Love Dive Poster Set", "price": "£16", "size": "A3 Size", "description": "Set of 3 official posters from Love Dive era. Never hung, rolled and stored safely. High quality print, perfect for room decor!", "emoji": "🖼️"}'>
+                <div class="product-image">
+                    🖼️
+                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">STARSHIP</div>
+                    <div class="product-title">IVE Love Dive Poster Set</div>
+                    <div class="product-size">A3 Size</div>
+                    <div class="product-price">£16</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more">
+            <button class="load-more-btn">Load more items</button>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="product-modal" id="product-modal">
+        <div class="modal-header">
+            <div class="modal-close" onclick="closeProduct()">×</div>
+            <div class="modal-title">Item details</div>
+        </div>
+        <div class="modal-image" id="modal-image">🎤</div>
+        <div class="modal-content">
+            <div class="modal-brand" id="modal-brand">BRAND</div>
+            <div class="modal-product-title" id="modal-title">Product Title</div>
+            <div class="modal-price" id="modal-price">£0</div>
             
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 2000);
-        });
-    }
-    
-    // Handle social sharing
-    if (e.target.classList.contains('social-share') || e.target.closest('.social-share')) {
-        e.preventDefault();
-        const link = e.target.closest('.social-share');
-        const platform = link.dataset.platform;
-        const pinId = link.dataset.pinId;
-        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
-        const pinTitle = pinData.find(p => p.id === pinId)?.title || `Art ${pinId}`;
-        const description = pinData.find(p => p.id === pinId)?.description || 'Check out this amazing artwork!';
-        
-        let shareUrl = '';
-        
-        switch(platform) {
-            case 'twitter':
-                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${pinTitle} - ${description}`)}&url=${encodeURIComponent(imageUrl)}`;
-                break;
-            case 'pinterest':
-                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
-                break;
-            case 'tumblr':
-                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pinTitle)}&caption=${encodeURIComponent(description)}&source=${encodeURIComponent(imageUrl)}&canonicalUrl=${encodeURIComponent(window.location.href)}`;
-                break;
-            case 'reddit':
-                shareUrl = `https://reddit.com/submit?url=${encodeURIComponent(imageUrl)}&title=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
-                break;
+            <div class="modal-details">
+                <div class="detail-row">
+                    <span>Category</span>
+                    <span id="modal-size">-</span>
+                </div>
+                <div class="detail-row">
+                    <span>Group</span>
+                    <span>-</span>
+                </div>
+                <div class="detail-row">
+                    <span>Color</span>
+                    <span>-</span>
+                </div>
+                <div class="detail-row">
+                    <span>Ships From</span>
+                    <span>TX, USA</span>
+                </div>
+            </div>
+
+            <div class="modal-description" id="modal-description">
+                Product description goes here...
+            </div>
+        </div>
+
+        <div class="modal-buttons">
+            <button class="buy-btn" onclick="buyNow()">Buy now</button>
+            <button class="add-bag-btn" onclick="addToBag()">Add to bag</button>
+        </div>
+    </div>
+
+    <script>
+        let bag = [];
+        let bagCount = 0;
+
+        function toggleLike(event, btn) {
+            event.stopPropagation();
+            if (btn.classList.contains('liked')) {
+                btn.classList.remove('liked');
+                btn.textContent = '♡';
+            } else {
+                btn.classList.add('liked');
+                btn.textContent = '❤️';
+            }
         }
-        
-        if (shareUrl) {
-            window.open(shareUrl, '_blank', 'width=600,height=600');
+
+        function openProduct(card) {
+            const productData = JSON.parse(card.dataset.product);
+            
+            document.getElementById('modal-image').textContent = productData.emoji;
+            document.getElementById('modal-brand').textContent = productData.brand;
+            document.getElementById('modal-title').textContent = productData.title;
+            document.getElementById('modal-price').textContent = productData.price;
+            document.getElementById('modal-size').textContent = productData.size;
+            document.getElementById('modal-description').textContent = productData.description;
+            
+            document.getElementById('product-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Store current product for purchase
+            window.currentProduct = productData;
         }
-    }
-    
-    // Close menus when clicking outside
-    if (!e.target.closest('.share-btn') && !e.target.closest('.share-menu') && 
-        !e.target.closest('.tags-btn') && !e.target.closest('.tags-menu')) {
-        document.querySelectorAll('.share-menu, .tags-menu').forEach(menu => {
-            menu.classList.remove('active');
-        });
-    }
-});
 
-// Chat functionality
-const chatButton = document.querySelector('.chat-button');
-const chatWindow = document.getElementById('chatWindow');
-const chatMessages = document.getElementById('chatMessages');
-let chatOpen = false;
-let chatIndex = 0;
+        function closeProduct() {
+            document.getElementById('product-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
 
-const chatMessagesList = [
-    "heeyyy, welcome to my digital art portfolio ✨",
-    "no pressure, but you can share any images using the share button on the post.",
-    "if you're looking for something special, you can use the search bar for keywords or titles",
-    "if you're bored of looking at these, i probably have something else you haven't checked out yet",
-    "you can go back to the home page and open more folders",
-    "or you can push random buttons on this feed and see if anything exciting happens",
-    "anyway i'm starting to infodump at this point 😅",
-    "enjoy looking at.. whatever you wanna look at on sunniejae.com",
-    "byeeeee 💖"
-];
-
-chatButton.addEventListener('click', () => {
-    if (!chatOpen) {
-        chatWindow.style.display = 'flex';
-        chatOpen = true;
-        
-        if (chatIndex < chatMessagesList.length) {
-            const interval = setInterval(() => {
-                if (chatIndex >= chatMessagesList.length) {
-                    clearInterval(interval);
-                    return;
-                }
+        function addToBag() {
+            if (window.currentProduct) {
+                bag.push(window.currentProduct);
+                bagCount++;
+                updateBagCount();
                 
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message';
-                messageDiv.textContent = chatMessagesList[chatIndex];
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                chatIndex++;
-            }, 1500);
+                // Show feedback
+                const btn = document.querySelector('.add-bag-btn');
+                btn.textContent = 'Added!';
+                btn.style.background = 'var(--accent)';
+                btn.style.color = 'white';
+                
+                setTimeout(() => {
+                    btn.textContent = 'Add to bag';
+                    btn.style.background = 'var(--white)';
+                    btn.style.color = 'var(--black)';
+                }, 1000);
+            }
         }
-    } else {
-        chatWindow.style.display = 'none';
-        chatOpen = false;
-    }
-});
 
-// Search functionality
-const searchBox = document.querySelector('.search-box');
-searchBox.addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    const pins = document.querySelectorAll('.pin');
-    
-    pins.forEach(pin => {
-        const title = pin.querySelector('.pin-title').textContent.toLowerCase();
-        const description = pin.querySelector('.pin-description').textContent.toLowerCase();
-        const pinId = pin.querySelector('.share-btn').dataset.pinId;
-        const pinTags = pinData.find(p => p.id === pinId)?.tags || [];
-        const tagsText = pinTags.join(' ').toLowerCase();
-        
-        if (title.includes(searchTerm) || description.includes(searchTerm) || 
-            tagsText.includes(searchTerm) || searchTerm === '') {
-            pin.style.display = 'block';
-        } else {
-            pin.style.display = 'none';
+        function buyNow() {
+            if (window.currentProduct) {
+                alert(`Thanks for shopping with @sunniejae! 💜\n\nYou're buying:\n${window.currentProduct.title}\nPrice: ${window.currentProduct.price}\n\nThis is a demo - your "order" has been placed! ✨`);
+                closeProduct();
+            }
         }
-    });
-});
 
-// Save button functionality
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('save-btn')) {
-        const btn = e.target;
-        const originalText = btn.textContent;
-        btn.textContent = 'Saved! ✓';
-        btn.style.background = 'var(--gradient-secondary)';
-        
-        setTimeout(() => {
-            btn.textContent = originalText;
-            btn.style.background = 'var(--gradient)';
-        }, 2500);
-    }
-});
-
-// Add CSS animation for slideOut
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideOut {
-        from {
-            opacity: 1;
-            transform: translateY(0);
+        function updateBagCount() {
+            document.getElementById('bag-count').textContent = bagCount;
+            
+            // Animate bag icon
+            const bagIcon = document.getElementById('bag-count').parentElement;
+            bagIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                bagIcon.style.transform = 'scale(1)';
+            }, 200);
         }
-        to {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-    }
-`;
-document.head.appendChild(style);
-</script>
 
-</body>
-</html>
+        // Follow button toggle
+        document.querySelector('.follow-btn').addEventListener('click', function() {
+            if (this.textContent === 'Follow') {
+                this.textContent = 'Following';
+                this.classList.add('following');
+                this.style.background = 'var(--accent)';
+                this.style.color = 'white';
+            } else {
+                this.textContent = 'Follow';
+                this.classList.remove('following');
+                this.style.background = 'var(--black)';
+                this.style.color = 'white';
+            }
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                this.classList.add('active');
+            });
+        });
+
+        // Load more button
+        document.querySelector('.load-more-btn').addEventListener('click', function() {
+            this.textContent = 'Loading...';
+            setTimeout(() => {
+                this.textContent = 'Load more items';
+                alert('This is a demo - no more items
