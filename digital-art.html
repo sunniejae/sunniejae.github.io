@@ -335,11 +335,6 @@ header {
     color: var(--white);
 }
 
-.share-option[data-platform="reddit"]:hover {
-    background: #ff4500;
-    color: var(--white);
-}
-
 .share-icon {
     width: 12px;
     height: 12px;
@@ -598,10 +593,6 @@ pinData.forEach(pin => {
                             <span class="share-icon">💜</span>
                             Share on Tumblr
                         </a>
-                        <a href="#" class="share-option social-share" data-platform="reddit" data-pin-id="${pin.id}">
-                            <span class="share-icon">🧡</span>
-                            Share on Reddit
-                        </a>
                     </div>
                 </div>
             </div>
@@ -688,9 +679,6 @@ document.addEventListener('click', function(e) {
                 break;
             case 'tumblr':
                 shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pinTitle)}&caption=${encodeURIComponent(description)}&source=${encodeURIComponent(imageUrl)}&canonicalUrl=${encodeURIComponent(window.location.href)}`;
-                break;
-            case 'reddit':
-                shareUrl = `https://reddit.com/submit?url=${encodeURIComponent(imageUrl)}&title=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
                 break;
         }
         
