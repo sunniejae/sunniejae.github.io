@@ -3,11 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae - Digital Art</title>
-<link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Sunnie Jae Portfolio</title>
 <style>
 :root {
     --black: #000010;
@@ -21,824 +17,317 @@
     --accent: #00c9c2;
     --secondary: #c13886;
     --primary: #9a9ad4;
-    --shadow: 0 2px 8px rgba(0,0,16,0.15);
-    --shadow-hover: 0 8px 32px rgba(0,0,16,0.25);
-    --gradient: linear-gradient(135deg, var(--accent), var(--primary));
-    --gradient-secondary: linear-gradient(135deg, var(--secondary), var(--pink));
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--teal);
-    color: var(--black);
-    line-height: 1.5;
-}
-
-/* Header */
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    font-family: 'Arial', sans-serif;
+    margin:0;
     background: var(--white);
-    border-bottom: 2px solid var(--silver);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: var(--shadow);
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-right: 20px;
-}
-
-.logo-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--gradient);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 20px;
+    background: var(--primary);
     color: var(--white);
-    font-weight: 700;
-    font-size: 18px;
-    box-shadow: var(--shadow);
 }
 
-.logo-text {
-    font-weight: 700;
-    font-size: 20px;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+header nav {
+    display:flex;
+    gap:20px;
 }
 
-.nav-pills {
-    display: flex;
-    gap: 8px;
-    margin-right: auto;
-}
-
-.nav-pill {
-    padding: 12px 20px;
-    border-radius: 25px;
-    background: var(--dark-purple);
+header nav a {
     color: var(--white);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 16px;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border: 2px solid transparent;
+    text-decoration:none;
+    font-weight:bold;
 }
 
-.nav-pill:first-child {
-    background: var(--gradient);
-    box-shadow: var(--shadow);
+header .search-bar {
+    flex:1;
+    margin:0 20px;
+    display:flex;
+    justify-content:center;
 }
 
-.nav-pill:not(:first-child) {
-    background: transparent;
-    color: var(--dark-purple);
-    border: 2px solid var(--gray);
-}
-
-.nav-pill:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.nav-pill:not(:first-child):hover {
-    background: var(--gray);
-    border-color: var(--primary);
-}
-
-.nav-pill:first-child:hover {
-    background: var(--gradient-secondary);
-}
-
-.search-container {
-    flex: 1;
-    max-width: 600px;
-    margin: 0 20px;
-    position: relative;
-}
-
-.search-box {
-    width: 100%;
-    padding: 16px 24px;
-    border: 2px solid var(--gray);
-    border-radius: 30px;
-    background: var(--silver);
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-    color: var(--black);
-}
-
-.search-box:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(0, 201, 194, 0.1);
-}
-
-.search-box::placeholder {
-    color: var(--gray);
-}
-
-.profile-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.profile-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--silver);
-    border: 2px solid var(--gray);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    color: var(--dark-purple);
-}
-
-.profile-btn:hover {
-    background: var(--accent);
-    color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-/* Masonry Layout */
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 24px;
+header .search-bar input {
+    width:50%;
+    padding:5px 10px;
+    border-radius:20px;
+    border:none;
 }
 
 .masonry {
-    columns: 5;
-    column-gap: 20px;
-    column-fill: balance;
+    column-count: 3;
+    column-gap: 15px;
+    padding: 20px;
 }
 
 .pin {
+    display:inline-block;
+    background: var(--silver);
+    margin-bottom:15px;
+    border-radius:10px;
+    width:100%;
+    position:relative;
     break-inside: avoid;
-    margin-bottom: 20px;
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    background: var(--black);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: zoom-in;
-    border: 1px solid var(--silver);
+    overflow:hidden;
+    transition: transform 0.2s ease;
 }
 
 .pin:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--gray);
-}
-
-.pin-image {
-    position: relative;
-    overflow: hidden;
+    transform: translateY(-5px);
 }
 
 .pin img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 20px 20px 0 0;
-    transition: transform 0.4s ease;
-}
-
-.pin:hover img {
-    transform: scale(1.08);
-}
-
-.pin-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(0,0,16,0.1) 0%, rgba(0,0,16,0.3) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-}
-
-.pin:hover .pin-overlay {
-    opacity: 1;
-}
-
-.pin-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.share-btn {
-    background: var(--gradient);
-    color: var(--white);
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
-}
-
-.share-btn:hover {
-    background: var(--gradient-secondary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.tag-btn {
-    background: var(--white);
-    color: var(--dark-purple);
-    border: 2px solid var(--gray);
-    padding: 10px;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    box-shadow: var(--shadow);
-}
-
-.tag-btn:hover {
-    background: var(--teal);
-    color: var(--white);
-    border-color: var(--teal);
-    transform: translateY(-2px);
-}
-
-.share-menu {
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    background: var(--white);
-    border: 2px solid var(--gray);
-    border-radius: 16px;
-    padding: 12px;
-    box-shadow: var(--shadow-hover);
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    min-width: 200px;
-    z-index: 100;
-}
-
-.share-menu.active {
-    display: flex;
-}
-
-.share-option {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--dark-purple);
-    transition: all 0.2s ease;
-    font-weight: 500;
-    border: 1px solid transparent;
-}
-
-.share-option:hover {
-    background: var(--silver);
-    border-color: var(--gray);
-    transform: translateX(4px);
-}
-
-.share-option.copy-link:hover {
-    background: var(--accent);
-    color: var(--white);
-}
-
-.share-option[data-platform="twitter"]:hover {
-    background: #1da1f2;
-    color: var(--white);
-}
-
-.share-option[data-platform="pinterest"]:hover {
-    background: var(--secondary);
-    color: var(--white);
-}
-
-.share-option[data-platform="tumblr"]:hover {
-    background: var(--dark-purple);
-    color: var(--white);
-}
-
-.share-option[data-platform="reddit"]:hover {
-    background: #ff4500;
-    color: var(--white);
-}
-
-.share-icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+    width:100%;
+    display:block;
+    cursor:pointer;
+    border-radius:10px 10px 0 0;
 }
 
 .pin-info {
-    padding: 16px;
-    background: var(--white);
+    padding:10px;
+    text-align:center;
 }
 
-.pin-title {
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--black);
-    margin-bottom: 8px;
+.pin-info h3 {
+    margin:5px 0;
 }
 
-.pin-description {
-    font-size: 14px;
-    color: var(--dark-gray);
-    line-height: 1.5;
+.pin-info p {
+    text-align: justify;
+    margin:0;
 }
 
-/* Chat Button */
-.chat-button {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 64px;
-    height: 64px;
-    background: var(--gradient);
-    color: var(--white);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: var(--shadow-hover);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    z-index: 1000;
+.pin-buttons {
+    display:flex;
+    justify-content:space-between;
+    padding:5px 10px;
 }
 
-.chat-button:hover {
-    background: var(--gradient-secondary);
-    transform: scale(1.1) rotate(10deg);
+button {
+    padding:5px 10px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover {
+    background: var(--accent);
+    color:#fff;
+}
+
+#savePopup, #overlay {
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+}
+
+#overlay {
+    background: rgba(0,0,0,0.5);
+    z-index:999;
+}
+
+#savePopup {
+    background:#fff;
+    width:300px;
+    padding:20px;
+    border-radius:10px;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    z-index:1000;
+}
+
+.chat-widget {
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:1001;
 }
 
 #chatWindow {
-    position: fixed;
-    bottom: 110px;
-    right: 30px;
-    width: 350px;
-    max-height: 450px;
-    background: var(--white);
-    border: 2px solid var(--gray);
-    border-radius: 20px;
-    box-shadow: var(--shadow-hover);
-    display: none;
-    flex-direction: column;
-    z-index: 1000;
-    overflow: hidden;
-}
-
-.chat-header {
-    background: var(--gradient);
-    color: var(--white);
-    padding: 20px;
-    font-weight: 600;
-    font-size: 18px;
-    text-align: center;
-}
-
-.chat-messages {
-    padding: 20px;
-    max-height: 350px;
-    overflow-y: auto;
-    flex: 1;
+    display:none;
+    position:fixed;
+    bottom:70px;
+    right:20px;
+    width:300px;
+    max-height:400px;
+    overflow-y:auto;
+    background:var(--white);
+    border:1px solid var(--gray);
+    border-radius:10px;
+    padding:10px;
 }
 
 .message {
     background: var(--silver);
-    padding: 16px 20px;
-    border-radius: 18px;
-    margin-bottom: 16px;
-    color: var(--black);
-    font-size: 15px;
-    line-height: 1.5;
-    border: 1px solid var(--gray);
-    animation: slideIn 0.3s ease;
-}
-
-.message:nth-child(even) {
-    background: var(--pink);
-    margin-left: 20px;
-}
-
-.message:nth-child(odd) {
-    background: var(--accent);
-    margin-left: 20px;
-    color: var(--white);
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .masonry { columns: 4; }
-}
-
-@media (max-width: 900px) {
-    .masonry { columns: 3; }
-    .nav-pills { display: none; }
-    .container { padding: 20px; }
-}
-
-@media (max-width: 600px) {
-    .masonry { columns: 2; }
-    .search-container { margin: 0 12px; }
-    header { padding: 12px 16px; }
-    .logo-text { display: none; }
-}
-
-@media (max-width: 480px) {
-    .masonry { columns: 1; }
-    .container { padding: 16px; }
-    #chatWindow { 
-        width: calc(100vw - 32px);
-        right: 16px;
-    }
-    .chat-button {
-        width: 56px;
-        height: 56px;
-        bottom: 20px;
-        right: 20px;
-    }
-}
-
-/* Custom scrollbar */
-.chat-messages::-webkit-scrollbar {
-    width: 6px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-    background: var(--silver);
-    border-radius: 10px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-    background: var(--gray);
-    border-radius: 10px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+    padding:5px 10px;
+    border-radius:10px;
+    margin-bottom:5px;
 }
 </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">
-        <div class="logo-icon">S</div>
-        <div class="logo-text">SunnieJae's Pinterest Feed</div>
-    </div>
-    
-    <nav class="nav-pills">
-        <a href="index.html" class="nav-pill">Home</a>
-        <a href="portfolio.html" class="nav-pill">Gallery</a>
-        <a href="profile.html" class="nav-pill">About</a>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Gallery</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
     </nav>
-    
-    <div class="search-container">
-        <input type="search" class="search-box" placeholder="Search keywords...">
-    </div>
-    
-    <div class="profile-actions">
-        <button class="profile-btn">🔔</button>
-        <button class="profile-btn">💬</button>
-        <button class="profile-btn">👤</button>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search...">
     </div>
 </header>
 
-<div class="container">
-    <div class="masonry" id="masonry-container">
-        <!-- Pins will be generated by JavaScript -->
-    </div>
+<div class="masonry" id="masonry"></div>
+
+<!-- Save popup -->
+<div id="overlay"></div>
+<div id="savePopup">
+    <h3 id="saveTitle"></h3>
+    <img id="saveImage" src="" width="100%">
+    <p id="saveTags"></p>
+    <input type="text" id="saveLink" readonly style="width:100%; margin-top:5px;">
+    <button onclick="closeSave()">Close</button>
 </div>
 
-<button class="chat-button">💬</button>
-
-<div id="chatWindow">
-    <div class="chat-header">
-        Chat with Sunnie Jae ✨
-    </div>
-    <div class="chat-messages" id="chatMessages">
-        <!-- Messages will appear here -->
-    </div>
+<!-- Chat widget -->
+<div class="chat-widget">
+    <button id="chatBubble">Chat</button>
 </div>
+<div id="chatWindow"></div>
 
 <script>
-// Pin data and generation
+// Pin data
 const pinData = [
     { id: "1", title: "Webcomic Style: Self Portrait", description: "Exploring techniques to bring simple webcomic art to life", tags: ['digital', 'portrait', 'self portrait', 'webcomic'] },
-    { id: "2", title: "Siberian", description: "Color block portrait of a siberian cat" },
-    { id: "3", title: "Winter", description: "Colorblock portrait of Winter from Aespa (smoothed)" },
-    { id: "4", title: "NingNing", description: "Colorblock portrait of NingNing from Aespa (smoothed)" },
-    { id: "5", title: "iLand 2: n/a Finale", description: "izna ot7 color block portrait" },
-    { id: "6", title: "Webcomic Portrait", description: "Hailey Reed from Not Just Another Werewolf Romance" },
-    { id: "7", title: "It's a Bubblegum, Bitch", description: "Colorblock portrait of Brittney Spears (holographic)" },
-    { id: "8", title: "Losing Feeling", description: "Exploring techniques for creative portraits (commissioned)" },
-    { id: "9", title: "MoonSun", description: "Colorblock portrait of Moonbyul and Solar from Mamamoo" },
-    { id: "10", title: "Blonde Bombshell", description: "Digital pastel portrait of Marilyn Monroe" },
-    { id: "11", title: "Seeing is Believing", description: "Digital pastel piece of a greco-roman bust" }
+    { id: "2", title: "Siberian", description: "Color block portrait of a siberian cat", tags: ['cat','portrait','digital'] },
+    { id: "3", title: "Winter", description: "Colorblock portrait of Winter from Aespa (smoothed)", tags:['portrait','aespa','digital'] },
+    { id: "4", title: "NingNing", description: "Colorblock portrait of NingNing from Aespa (smoothed)", tags:['portrait','aespa','digital'] },
+    { id: "5", title: "iLand 2: n/a Finale", description: "izna ot7 color block portrait", tags:['ot7','portrait'] },
+    { id: "6", title: "Webcomic Portrait", description: "Hailey Reed from Not Just Another Werewolf Romance", tags:['webcomic','portrait'] },
+    { id: "7", title: "It's a Bubblegum, Bitch", description: "Colorblock portrait of Brittney Spears (holographic)", tags:['portrait','celebrity','digital'] },
+    { id: "8", title: "Losing Feeling", description: "Exploring techniques for creative portraits (commissioned)", tags:['commission','portrait','digital'] },
+    { id: "9", title: "MoonSun", description: "Colorblock portrait of Moonbyul and Solar from Mamamoo", tags:['mamamoo','portrait','digital'] },
+    { id: "10", title: "Blonde Bombshell", description: "Digital pastel portrait of Marilyn Monroe", tags:['marilyn monroe','portrait','digital'] },
+    { id: "11", title: "Seeing is Believing", description: "Digital pastel piece of a greco-roman bust", tags:['greco-roman','bust','digital'] }
 ];
 
-const masonry = document.getElementById('masonry-container');
-
-pinData.forEach(pin => {
-    const pinElement = document.createElement('div');
-    pinElement.className = 'pin';
-    pinElement.innerHTML = `
-        <div class="pin-image">
-            <img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}" loading="lazy">
-            <div class="pin-overlay">
-                <div class="pin-actions">
-                <button class="share-btn" data-pin-id="${pin.id}">Share</button>
-                <div class="share-menu" id="menu-${pin.id}">
-                <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">
-                <span class="share-icon">🔗</span>
-                            Copy link
-                            </a>
-                        <a href="#" class="share-option social-share" data-platform="twitter" data-pin-id="${pin.id}">
-                            <span class="share-icon">🖤</span>
-                            Share on X
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="pinterest" data-pin-id="${pin.id}">
-                            <span class="share-icon">🧡</span>
-                            Share on Pinterest
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="tumblr" data-pin-id="${pin.id}">
-                            <span class="share-icon">💜</span>
-                            Share on Tumblr
-                        </a>
-                        <button class="tag-btn" data-pin-id="${pin.id}">#</button>
-                        <div id="tagPopup" class="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:var(--white); padding:20px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:2000; width:300px;">
-                        <h3 id="saveTitle"></h3>
-                        <img id="saveImage" src="" alt="Artwork" style="width:100%; border-radius:12px; margin:10px 0;">
-                        <p id="saveTags" style="font-size:0.75rem; color:var(--dark-gray);">Tags: </p>
-                        <input id="saveLink" type="text" readonly style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--gray); margin-top:5px;">
-                        <div style="margin-top:10px; display:flex; justify-content:flex-end; gap:10px;">
-                        <button onclick="copyLink()">Copy Link</button>
-                        <button onclick="closePopup()">Close</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+// Generate pins
+const masonry = document.getElementById('masonry');
+pinData.forEach(pin=>{
+    const div = document.createElement('div');
+    div.className='pin';
+    div.id = `pin${pin.id}`;
+    div.innerHTML = `
+        <img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}">
         <div class="pin-info">
-            <div class="pin-title">${pin.title}</div>
-            <div class="pin-description">${pin.description}</div>
+            <h3>${pin.title}</h3>
+            <p>${pin.description}</p>
+        </div>
+        <div class="pin-buttons">
+            <button class="social-share" data-platform="twitter" data-pin-id="${pin.id}">Share</button>
+            <button class="tag-btn" data-pin-id="${pin.id}">Save</button>
         </div>
     `;
-    masonry.appendChild(pinElement);
+    masonry.appendChild(div);
 });
 
-// Share functionality
-document.addEventListener('click', function(e) {
-    // Handle share button clicks
-    if (e.target.classList.contains('share-btn')) {
-        e.stopPropagation();
-        const pinId = e.target.dataset.pinId;
-        const menu = document.getElementById(`menu-${pinId}`);
-        
-        // Close all other menus
-        document.querySelectorAll('.share-menu').forEach(m => {
-            if (m.id !== `menu-${pinId}`) {
-                m.classList.remove('active');
-            }
-        });
-        
-        menu.classList.toggle('active');
-    }
-    
-    // Handle copy link
-    if (e.target.classList.contains('copy-link') || e.target.closest('.copy-link')) {
-        e.preventDefault();
-        const pinId = e.target.dataset.pinId || e.target.closest('.copy-link').dataset.pinId;
-        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
-        
-        navigator.clipboard.writeText(imageUrl).then(() => {
-            // Create temporary notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 30px;
-                background: var(--gradient);
-                color: white;
-                padding: 16px 24px;
-                border-radius: 12px;
-                z-index: 10000;
-                font-size: 14px;
-                font-weight: 600;
-                box-shadow: var(--shadow-hover);
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = '🔗 Link copied!';
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 2000);
-        });
-    }
-    
-    // Handle social sharing
-    if (e.target.classList.contains('social-share') || e.target.closest('.social-share')) {
-        e.preventDefault();
-        const link = e.target.closest('.social-share');
+// Social sharing
+document.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('social-share')){
+        const link = e.target;
         const platform = link.dataset.platform;
         const pinId = link.dataset.pinId;
-        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
-        const pinTitle = pinData.find(p => p.id === pinId)?.title || `Art ${pinId}`;
-        const description = pinData.find(p => p.id === pinId)?.description || 'Check out this amazing artwork!';
-        
+        const pin = pinData.find(p=>p.id===pinId);
+        if(!pin) return;
+        const pinUrl = window.location.href.split('#')[0] + '#pin' + pinId;
         let shareUrl = '';
-        
-        switch(platform) {
+        switch(platform){
             case 'twitter':
-                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${pinTitle} - ${description}`)}&url=${encodeURIComponent(imageUrl)}`;
+                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pin.title + ' - ' + pin.description)}&url=${encodeURIComponent(pinUrl)}`;
                 break;
             case 'pinterest':
-                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
+                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(pinUrl)}&media=${encodeURIComponent(`https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`)}&description=${encodeURIComponent(pin.title + ' - ' + pin.description)}`;
                 break;
             case 'tumblr':
-                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pinTitle)}&caption=${encodeURIComponent(description)}&source=${encodeURIComponent(imageUrl)}&canonicalUrl=${encodeURIComponent(window.location.href)}`;
+                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pin.title)}&caption=${encodeURIComponent(pin.description)}&source=${encodeURIComponent(`https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`)}&canonicalUrl=${encodeURIComponent(pinUrl)}`;
                 break;
         }
-        
-        if (shareUrl) {
-            window.open(shareUrl, '_blank', 'width=600,height=600');
+        if(shareUrl){
+            window.open(shareUrl,'_blank','width=600,height=600');
         }
     }
-    
-    // Close menus when clicking outside
-    if (!e.target.closest('.share-btn') && !e.target.closest('.share-menu')) {
-        document.querySelectorAll('.share-menu').forEach(menu => {
-            menu.classList.remove('active');
-        });
+
+    if(e.target.classList.contains('tag-btn')){
+        const pinId = e.target.dataset.pinId;
+        const pin = pinData.find(p=>p.id===pinId);
+        if(!pin) return;
+        document.getElementById('saveTitle').textContent = pin.title;
+        document.getElementById('saveImage').src = `https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`;
+        document.getElementById('saveTags').textContent = 'Tags: ' + (pin.tags.join(', ') || 'None');
+        document.getElementById('saveLink').value = `${window.location.href.split('#')[0]}#pin${pin.id}`;
+        document.getElementById('savePopup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
     }
 });
 
-// Chat functionality
-const chatButton = document.querySelector('.chat-button');
-const chatWindow = document.getElementById('chatWindow');
-const chatMessages = document.getElementById('chatMessages');
-let chatOpen = false;
-let chatIndex = 0;
+function closeSave(){
+    document.getElementById('savePopup').style.display='none';
+    document.getElementById('overlay').style.display='none';
+}
 
-const chatMessagesList = [
-    "heeyyy, welcome to my digital art portfolio ✨",
-    "if you're looking for something special, you can use the search bar for keywords or titles",
-    "there are also tags on each post to help decide what keywords to look for."
-    "no pressure, but you can share any images using the share button on the post.",
-    "if you get bored here, i probably have something else you haven't checked out yet",
-    "you can go back to the home page and open more folders",
-    "or you can push random buttons on this feed and see if anything exciting happens",
-    "anyway i'm starting to infodump at this point 😅",
-    "enjoy looking at.. whatever you wanna look at on sunniejae.com",
-    "byeeeee 💖"
+// Chat logic
+const chatBubble = document.getElementById('chatBubble');
+const chatWindow = document.getElementById('chatWindow');
+const chatMessages = [
+  "heeyyy, welcome to my digital art portfolio",
+  "no pressure, but you can share any images using the share button on the post.",
+  "if you're looking for something special, you can use the search bar for keywords or titles",
+  "if you're bored of looking at these, i probably have something else you haven't checked out yet",
+  "you can go back to the home page and open more folders",
+  "or you can push random buttons on this feed and see if anything exciting happens",
+  "anyway i'm starting to infodump at this point",
+  "enjoy looking at.. whatever you wanna look at on sunniejae.com",
+  "byeeeee"
 ];
 
-chatButton.addEventListener('click', () => {
-    if (!chatOpen) {
-        chatWindow.style.display = 'flex';
-        chatOpen = true;
-        
-        if (chatIndex < chatMessagesList.length) {
-            const interval = setInterval(() => {
-                if (chatIndex >= chatMessagesList.length) {
-                    clearInterval(interval);
-                    return;
-                }
-                
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message';
-                messageDiv.textContent = chatMessagesList[chatIndex];
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                chatIndex++;
-            }, 1500);
-        }
+let chatIndex = 0;
+let chatInterval;
+
+chatBubble.addEventListener('click', ()=>{
+    chatWindow.style.display = 'block';
+    chatBubble.style.display = 'none';
+    chatInterval = setInterval(()=>{
+        if(chatIndex>=chatMessages.length){ clearInterval(chatInterval); return; }
+        const div = document.createElement('div');
+        div.className='message';
+        div.textContent=chatMessages[chatIndex];
+        chatWindow.appendChild(div);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        chatIndex++;
+    },2000);
+});
+
+// Optional: Close chat
+function toggleChat(){
+    if(chatWindow.style.display==='none'){
+        chatWindow.style.display='block';
+        chatBubble.style.display='none';
     } else {
-        chatWindow.style.display = 'none';
-        chatOpen = false;
+        chatWindow.style.display='none';
+        chatBubble.style.display='inline-block';
+        clearInterval(chatInterval);
     }
-});
-
-// Search functionality
-const searchBox = document.querySelector('.search-box');
-searchBox.addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    const pins = document.querySelectorAll('.pin');
-    
-    pins.forEach(pin => {
-        const title = pin.querySelector('.pin-title').textContent.toLowerCase();
-        const description = pin.querySelector('.pin-description').textContent.toLowerCase();
-        
-        if (title.includes(searchTerm) || description.includes(searchTerm) || searchTerm === '') {
-            pin.style.display = 'block';
-        } else {
-            pin.style.display = 'none';
-        }
-    });
-});
-
-// Save button functionality
-ddocument.addEventListener('click', function(e) {
-    if(e.target.classList.contains('tag-btn')){
-    const pinId = e.target.dataset.pinId;
-    const pin = pinData.find(p=>p.id===pinId);
-    if(!pin) return;
-    document.getElementById('saveTitle').textContent = pin.title;
-    document.getElementById('saveImage').src = `https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png`;
-    document.getElementById('saveTags').textContent = 'Tags: ' + (pin.tags.join(', ') || 'None');
-    document.getElementById('saveLink').value = `${window.location.href.split('#')[0]}#${pin.id}`;
-    document.getElementById('savePopup').style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
-    };
-
-function copyLink() {
-    const input = document.getElementById('tagLink');
-    input.select();
-    document.execCommand('copy');
-    alert('tags copied!');
 }
-
-function closePopup() {
-    document.getElementById('tagPopup').style.display = 'none';
-}
-
-
-// Add CSS animation for slideOut
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideOut {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-    }
-`;
-document.head.appendChild(style);
 </script>
 
 </body>
