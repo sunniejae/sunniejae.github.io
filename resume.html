@@ -572,7 +572,7 @@
         <a href="index.html">Home</a>
         <a href="fakebookwall.html">Profile</a>
         <a href="studio-ken.html">Friends</a>
-        <a href="#" id="inbox-link">Inbox</a>
+        <a href="#" id="inbox-link">Inbox <span class="notif">!</span></a>
         <a href="#info-section">Settings</a>
         <a href="index.html">Logout</a>
       </nav>
@@ -610,7 +610,23 @@
         </div>
       </div>
     </div>
-
+    
+<!-- Inbox Chat Widget -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-header" id="chatHeader">Sunnie Jae 💬</div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-message from-bot">
+      Hi there! I can help you navigate this Fakebook page. 👋
+    </div>
+  </div>
+  <div class="chat-options">
+    <button onclick="sendResponse('Show me the Professional Resume', '#professional')">Professional Resume</button>
+    <button onclick="sendResponse('What about the Unprofessional Resume?', '#unprofessional')">Unprofessional Resume</button>
+    <button onclick="sendResponse('Where is the Education section?', '#education')">Education</button>
+    <button onclick="sendResponse('How do I check photos?', 'digital-art.html')">Photos</button>
+  </div>
+</div>
+    
     <!-- Main Content -->
     <div class="main-content">
       <!-- Profile Header -->
