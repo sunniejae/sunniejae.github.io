@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sunnie Jae - Fakebook Bio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
-  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+  <title>Sunnie Jae – Fakebook</title>
   <style>
     :root {
       --black: #000010;
@@ -21,176 +19,190 @@
       --primary: #9a9ad4;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      font-family: 'Tahoma', Arial, sans-serif;
-      font-size: 11px;
-      background: var(--white);
-      color: var(--black);
-      line-height: 1.28;
+      margin: 0;
+      font-family: Tahoma, sans-serif;
+      background: var(--silver);
     }
 
-    /* Header */
-    .facebook-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 82px;
-      background: var(--primary);
-      border-bottom: 1px solid var(--accent);
-      z-index: 1000;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-
-    .header-content {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      height: 100%;
-      padding: 0 15px;
-      justify-content: space-between;
-    }
-
-    .facebook-logo {
-      color: var(--white);
-      font-size: 16px;
-      font-weight: bold;
-      text-decoration: none;
-      font-family: 'Trebuchet MS', sans-serif;
-    }
-
-    .search-box {
+    /* Top bar */
+    .topbar {
       background: var(--dark-purple);
-      border: 1px solid var(--white);
-      padding: 3px 6px;
       color: var(--white);
-      font-size: 11px;
-      border-radius: 2px;
-      width: 300px;
-    }
-    .search-box::placeholder { color: var(--gray); }
-
-    .header-nav {
+      padding: 8px 12px;
       display: flex;
-      gap: 15px;
-      position: relative;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
     }
-
-    .header-nav a {
+    .topbar .nav {
+      display: flex;
+      gap: 16px;
+    }
+    .topbar a {
       color: var(--white);
       text-decoration: none;
-      font-size: 11px;
-      padding: 4px 8px;
+      font-weight: bold;
       position: relative;
     }
-
-    .header-nav a:hover {
-      background: rgba(255,255,255,0.1);
-      border-radius: 2px;
+    .topbar a:hover {
+      text-decoration: underline;
     }
 
-    /* Notification badge */
+    /* Page layout */
+    .container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 20px;
+    }
+    .sidebar {
+      width: 200px;
+      background: var(--white);
+      border: 1px solid var(--gray);
+      padding: 10px;
+      font-size: 13px;
+    }
+    .content {
+      width: 500px;
+    }
+    .profile-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .profile-body {
+      background: var(--white);
+      border: 1px solid var(--gray);
+      padding: 15px;
+      font-size: 14px;
+    }
+
+    /* Notification bubble */
     .notif {
       position: absolute;
       top: -6px;
       right: -8px;
-      background: var(--secondary);
-      color: var(--white);
+      background: #d9534f;
+      color: #fff;
       font-size: 10px;
       font-weight: bold;
       padding: 2px 5px;
-      border-radius: 50%;
+      border-radius: 10px;
       animation: blink 1s infinite;
     }
-
     @keyframes blink {
       0%, 50%, 100% { opacity: 1; }
       25%, 75% { opacity: 0; }
     }
 
-    /* Chat Widget */
+    /* Chat widget */
     .chat-widget {
       position: fixed;
-      bottom: 20px;
+      bottom: 0;
       right: 20px;
-      width: 280px;
+      width: 260px;
       background: var(--white);
-      border: 2px solid var(--primary);
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border: 1px solid var(--gray);
+      border-radius: 3px 3px 0 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
       display: none;
       flex-direction: column;
-      overflow: hidden;
       font-size: 12px;
       z-index: 2000;
     }
-
     .chat-header {
-      background: var(--primary);
-      color: var(--white);
-      padding: 8px;
-      font-weight: bold;
-    }
-
-    .chat-messages {
-      padding: 10px;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .chat-message {
-      margin-bottom: 8px;
-    }
-    .from-me { color: var(--dark-purple); font-weight: bold; }
-    .from-bot { background: var(--silver); padding: 6px; border-radius: 8px; display: inline-block; }
-
-    .chat-options {
-      padding: 8px;
-      border-top: 1px solid var(--silver);
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .chat-options button {
-      background: var(--accent);
-      border: none;
+      background: var(--dark-purple);
       color: var(--white);
       padding: 5px 8px;
-      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+    .chat-messages {
+      padding: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      background: var(--silver);
+    }
+    .chat-message {
+      margin-bottom: 6px;
+      max-width: 80%;
+      clear: both;
+      padding: 5px 8px;
+      border-radius: 12px;
+      line-height: 1.3;
+      font-size: 12px;
+    }
+    .from-bot {
+      background: #e5e5e5;
+      float: left;
+      color: var(--black);
+    }
+    .from-me {
+      background: #3578e5;
+      float: right;
+      color: #fff;
+    }
+    .chat-options {
+      padding: 6px;
+      border-top: 1px solid var(--gray);
+      background: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .chat-options button {
+      background: #f0f0f5;
+      border: 1px solid var(--gray);
+      color: var(--dark-gray);
+      padding: 4px 6px;
+      border-radius: 3px;
       cursor: pointer;
       font-size: 11px;
+      text-align: left;
     }
-
     .chat-options button:hover {
-      background: var(--teal);
+      background: #e6e6fa;
     }
-
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <div class="facebook-header">
-    <div class="header-content">
-      <a href="#" class="facebook-logo">fakebook</a>
-      <input type="text" class="search-box" placeholder="Search">
-      <nav class="header-nav">
-        <a href="index.html">Home</a>
-        <a href="fakebookwall.html">Profile</a>
-        <a href="studio-ken.html">Friends</a>
-        <a href="#" id="inbox-link">Inbox <span class="notif">!</span></a>
-        <a href="#info-section">Settings</a>
-        <a href="index.html">Logout</a>
-      </nav>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="logo">Fakebook</div>
+    <div class="nav">
+      <a href="#">Home</a>
+      <a href="#">Profile</a>
+      <a href="#" id="inbox-link">Inbox <span class="notif" id="notif">!</span></a>
     </div>
   </div>
 
-  <!-- Chat Widget -->
+  <!-- Page body -->
+  <div class="container">
+    <div class="sidebar">
+      <p><b>Friends</b></p>
+      <p>• Taylor</p>
+      <p>• Morgan</p>
+      <p>• Chris</p>
+    </div>
+    <div class="content">
+      <div class="profile-header">Sunnie Jae</div>
+      <div class="profile-body">
+        <p>🎨 Artist. Dreamer. Internet kid since the AIM days.</p>
+        <p>I make digital art, write songs, and design little websites that look like old-school social media. 💻✨</p>
+        <p>Check out my other pages for projects, shop links, and more.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat widget -->
   <div class="chat-widget" id="chatWidget">
-    <div class="chat-header">Inbox Assistant</div>
+    <div class="chat-header" id="chatHeader">Inbox • Sunnie Jae ✕</div>
     <div class="chat-messages" id="chatMessages">
       <div class="chat-message from-bot">👋 Hey, I’m Sunnie Jae! Need help finding your way around?</div>
     </div>
@@ -203,18 +215,33 @@
 
   <script>
     const inboxLink = document.getElementById("inbox-link");
+    const notif = document.getElementById("notif");
     const chatWidget = document.getElementById("chatWidget");
+    const chatHeader = document.getElementById("chatHeader");
     const chatMessages = document.getElementById("chatMessages");
 
     inboxLink.addEventListener("click", (e) => {
       e.preventDefault();
-      chatWidget.style.display = chatWidget.style.display === "flex" ? "none" : "flex";
+      toggleChat();
     });
+
+    chatHeader.addEventListener("click", () => {
+      chatWidget.style.display = "none";
+    });
+
+    function toggleChat() {
+      if (chatWidget.style.display === "flex") {
+        chatWidget.style.display = "none";
+      } else {
+        chatWidget.style.display = "flex";
+        notif.style.display = "none";
+      }
+    }
 
     function sendResponse(text, link) {
       let userMsg = document.createElement("div");
       userMsg.className = "chat-message from-me";
-      userMsg.textContent = "You: " + text;
+      userMsg.textContent = text;
       chatMessages.appendChild(userMsg);
 
       let reply = document.createElement("div");
@@ -225,5 +252,6 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
   </script>
+
 </body>
 </html>
