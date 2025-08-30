@@ -18,7 +18,7 @@
             --accent: #00c9c2;
             --secondary: #c13886;
             --primary: #9a9ad4;
-            --depop-bg: #f5f5f5;
+            --depop-bg: #ffb3d6;
         }
 
         * {
@@ -37,7 +37,7 @@
         /* Depop-style header */
         .depop-header {
             background: var(--white);
-            border-bottom: 1px solid #e8e8e8;
+            border-bottom: 1px solid var(--dark-gray);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -101,7 +101,7 @@
         .search-bar {
             display: flex;
             align-items: center;
-            background: #f8f8f8;
+            background: var(--silver);
             border-radius: 20px;
             padding: 8px 16px;
             margin-bottom: 8px;
@@ -116,11 +116,11 @@
         }
 
         .search-input::placeholder {
-            color: #999;
+            color: var(--accent);
         }
 
         .search-icon {
-            color: #999;
+            color: var(--accent);
             margin-right: 8px;
         }
 
@@ -640,7 +640,7 @@
 
             <div class="product-card" onclick="openLink('https://amazon.com/dp/your-product-id')" data-url="https://amazon.com/dp/your-product-id">
                 <div class="product-image">
-                    <img src="https://your-blob-storage.com/popsocket.jpg" alt="SunnieJae Logo Popsocket" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='📱';">
+                    <img src="https://sunniejae.blob.core.windows.net/sunniejae/amazon%20products.png" alt="SunnieJae Logo Popsocket" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='📱';">
                     <div class="product-badge">Ships via Vendor</div>
                     <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
                 </div>
@@ -668,7 +668,7 @@
 
             <div class="product-card" onclick="openLink('https://redbubble.com/people/sunniejae')" data-url="https://redbubble.com/people/sunniejae">
                 <div class="product-image">
-                    <img src="https://your-blob-storage.com/feral-sterile.jpg" alt="Feral and Sterile Design" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='🎨';">
+                    <img src="https://sunniejae.blob.core.windows.net/sunniejae/amazon%20products.png" alt="Feral and Sterile Design" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='🎨';">
                     <div class="product-badge">Ships via Vendor</div>
                     <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
                 </div>
