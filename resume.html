@@ -559,6 +559,79 @@
   0%, 50%, 100% { opacity: 1; }
   25%, 75% { opacity: 0; }
 }
+    .notif {
+  background: var(--secondary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 50%;
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+.chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 260px;
+  max-height: 400px;
+  background: var(--white);
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 9999;
+}
+
+.chat-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chat-messages {
+  padding: 8px;
+  flex-grow: 1;
+  overflow-y: auto;
+  background: var(--silver);
+}
+
+.chat-message {
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.from-bot { background: var(--teal); color: #fff; }
+.from-me { background: var(--secondary); color: #fff; }
+
+.chat-options {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 6px;
+  gap: 4px;
+}
+
+.chat-options button {
+  flex: 1 1 48%;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--primary);
+  color: #fff;
+}
+
 
   </style>
 </head>
@@ -572,7 +645,7 @@
         <a href="index.html">Home</a>
         <a href="fakebookwall.html">Profile</a>
         <a href="studio-ken.html">Friends</a>
-        <a href="#" id="inbox-link">Inbox <span class="notif">!</span></a>
+        <a href="#" id="inbox-link"> Inbox <span class="notif">!</span></a>
         <a href="#info-section">Settings</a>
         <a href="index.html">Logout</a>
       </nav>
@@ -808,18 +881,20 @@
   </div>
 
   <script>
-const inboxLink = document.getElementById("inbox-link");
+ const inboxLink = document.getElementById("inbox-link");
+const notif = inboxLink.querySelector(".notif");
 const chatWidget = document.getElementById("chatWidget");
 const chatHeader = document.getElementById("chatHeader");
 const chatMessages = document.getElementById("chatMessages");
 
-// Toggle chat on Inbox click
+// Toggle chat open/close
 inboxLink.addEventListener("click", (e) => {
   e.preventDefault();
   if (chatWidget.style.display === "flex") {
     chatWidget.style.display = "none";
   } else {
     chatWidget.style.display = "flex";
+    if (notif) notif.style.display = "none"; // hide alert
   }
 });
 
@@ -828,7 +903,7 @@ chatHeader.addEventListener("click", () => {
   chatWidget.style.display = "none";
 });
 
-// Handle button responses
+// Handle chat option responses
 function sendResponse(text, link) {
   const userMsg = document.createElement("div");
   userMsg.className = "chat-message from-me";
@@ -839,6 +914,7 @@ function sendResponse(text, link) {
   reply.className = "chat-message from-bot";
   if (link.startsWith("#")) {
     reply.innerHTML = "👉 Sure! Scroll down to <a href='" + link + "'>that section</a>.";
+    document.querySelector(link).scrollIntoView({ behavior: 'smooth' });
   } else {
     reply.innerHTML = "👉 Great! <a href='" + link + "'>Click here</a> to check it out.";
   }
@@ -847,7 +923,6 @@ function sendResponse(text, link) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 </script>
-
 </body>
 </div>
 </html>
