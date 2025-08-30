@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunnie Jae - Fakebook Bio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #000010;
+      --white: #ffffff;
+      --dark-gray: #404040;
+      --gray: #bfbfdc;
+      --silver: #f0f0f5;
+      --pink: #ffb3d6;
+      --teal: #00a8a3;
+      --dark-purple: #3f3d7a;
+      --accent: #00c9c2;
+      --secondary: #c13886;
+      --primary: #9a9ad4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Tahoma', Arial, sans-serif;
+      font-size: 11px;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.28;
+    }
+
+    /* Header */
+    .facebook-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 82px;
+      background: var(--primary);
+      border-bottom: 1px solid var(--accent);
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 15px;
+      justify-content: space-between;
+    }
+
+    .facebook-logo {
+      color: var(--white);
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .search-box {
+      background: var(--dark-purple);
+      border: 1px solid var(--white);
+      padding: 3px 6px;
+      color: var(--white);
+      font-size: 11px;
+      border-radius: 2px;
+      width: 300px;
+    }
+    .search-box::placeholder { color: var(--gray); }
+
+    .header-nav {
+      display: flex;
+      gap: 15px;
+      position: relative;
+    }
+
+    .header-nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 11px;
+      padding: 4px 8px;
+      position: relative;
+    }
+
+    .header-nav a:hover {
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+
+    /* Notification badge */
+    .notif {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: var(--secondary);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 5px;
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+
+    /* Chat Widget */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 280px;
+      background: var(--white);
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      font-size: 12px;
+      z-index: 2000;
+    }
+
+    .chat-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 8px;
+      font-weight: bold;
+    }
+
+    .chat-messages {
+      padding: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .chat-message {
+      margin-bottom: 8px;
+    }
+    .from-me { color: var(--dark-purple); font-weight: bold; }
+    .from-bot { background: var(--silver); padding: 6px; border-radius: 8px; display: inline-block; }
+
+    .chat-options {
+      padding: 8px;
+      border-top: 1px solid var(--silver);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .chat-options button {
+      background: var(--accent);
+      border: none;
+      color: var(--white);
+      padding: 5px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .chat-options button:hover {
+      background: var(--teal);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="facebook-header">
+    <div class="header-content">
+      <a href="#" class="facebook-logo">fakebook</a>
+      <input type="text" class="search-box" placeholder="Search">
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="fakebookwall.html">Profile</a>
+        <a href="studio-ken.html">Friends</a>
+        <a href="#" id="inbox-link">Inbox <span class="notif">!</span></a>
+        <a href="#info-section">Settings</a>
+        <a href="index.html">Logout</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Chat Widget -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">Inbox Assistant</div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message from-bot">👋 Hey, I’m Sunnie Jae! Need help finding your way around?</div>
+    </div>
+    <div class="chat-options" id="chatOptions">
+      <button onclick="sendResponse('Show me your art!', 'digital-art.html')">Show me your art!</button>
+      <button onclick="sendResponse('Where’s your shop?', 'shop.html')">Where’s your shop?</button>
+      <button onclick="sendResponse('Tell me about you', 'fakebookbio.html')">Tell me about you</button>
+    </div>
+  </div>
+
+  <script>
+    const inboxLink = document.getElementById("inbox-link");
+    const chatWidget = document.getElementById("chatWidget");
+    const chatMessages = document.getElementById("chatMessages");
+
+    inboxLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      chatWidget.style.display = chatWidget.style.display === "flex" ? "none" : "flex";
+    });
+
+    function sendResponse(text, link) {
+      let userMsg = document.createElement("div");
+      userMsg.className = "chat-message from-me";
+      userMsg.textContent = "You: " + text;
+      chatMessages.appendChild(userMsg);
+
+      let reply = document.createElement("div");
+      reply.className = "chat-message from-bot";
+      reply.innerHTML = "👉 Great! <a href='" + link + "'>Click here</a> to check it out.";
+      chatMessages.appendChild(reply);
+
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
