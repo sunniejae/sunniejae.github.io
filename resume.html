@@ -572,7 +572,7 @@
         <a href="index.html">Home</a>
         <a href="fakebookwall.html">Profile</a>
         <a href="studio-ken.html">Friends</a>
-        <a href="contact.html">Inbox</a>
+        <a href="#" id="inbox-link">Inbox</a>
         <a href="#info-section">Settings</a>
         <a href="index.html">Logout</a>
       </nav>
@@ -790,19 +790,48 @@
       </div>
     </div>
   </div>
+
+  <script>
+const inboxLink = document.getElementById("inbox-link");
+const chatWidget = document.getElementById("chatWidget");
+const chatHeader = document.getElementById("chatHeader");
+const chatMessages = document.getElementById("chatMessages");
+
+// Toggle chat on Inbox click
+inboxLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (chatWidget.style.display === "flex") {
+    chatWidget.style.display = "none";
+  } else {
+    chatWidget.style.display = "flex";
+  }
+});
+
+// Close chat when clicking header
+chatHeader.addEventListener("click", () => {
+  chatWidget.style.display = "none";
+});
+
+// Handle button responses
+function sendResponse(text, link) {
+  const userMsg = document.createElement("div");
+  userMsg.className = "chat-message from-me";
+  userMsg.textContent = text;
+  chatMessages.appendChild(userMsg);
+
+  const reply = document.createElement("div");
+  reply.className = "chat-message from-bot";
+  if (link.startsWith("#")) {
+    reply.innerHTML = "👉 Sure! Scroll down to <a href='" + link + "'>that section</a>.";
+  } else {
+    reply.innerHTML = "👉 Great! <a href='" + link + "'>Click here</a> to check it out.";
+  }
+  chatMessages.appendChild(reply);
+
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+</script>
+
 </body>
-  <!-- Inbox Chat Widget -->
-<div class="chat-widget" id="chatWidget">
-  <div class="chat-header" id="chatHeader">Inbox • Sunnie Jae ✕</div>
-  <div class="chat-messages" id="chatMessages">
-    <div class="chat-message from-bot">👋 Hey, I’m Sunnie Jae! Want me to show you around?</div>
-  </div>
-  <div class="chat-options" id="chatOptions">
-    <button onclick="sendResponse('Tell me about your work', '#professional')">Tell me about your work</button>
-    <button onclick="sendResponse('Unprofessional resume please', '#unprofessional')">Unprofessional resume please</button>
-    <button onclick="sendResponse('Education background?', '#education')">Education background?</button>
-    <button onclick="sendResponse('Take me to your art!', 'digital-art.html')">Take me to your art!</button>
-    <button onclick="sendResponse('Where’s your shop?', 'shop.html')">Where’s your shop?</button>
-  </div>
 </div>
 </html>
