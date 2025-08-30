@@ -8,20 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Y2K Bratz/Barbie Dream Palette */
-      --purple: #9a9ad4;               /* Primary color */
-      --pink: #ff66cc;                 /* Bright Y2K pink */
-      --cyan: #02d1ca;                 /* Electric cyan */
-      --magenta: #da70d6;              /* Soft magenta */
-      --dark-purple: #8b008b;          /* Rich purple */
-      --pale-pink: #ffb3e6;            /* Light pastel pink */
-      --lilac: #dda0dd;                /* Soft lilac */
-      --white: #ffffff;                /* Pure white */
-      --light-gray: #e6e6fa;           /* Lavender-tinted light */
-      --gray: #663399;                 /* Medium purple-gray */
-      --silver: #c0c0c0;               /* Metallic silver */
-      --dark-gray: #4b0082;            /* Dark purple-gray */
-      --black: #1a0d1f;                /* Deep purple-black */
+     
+      --primary: #9a9ad4;              
+      --pink: #ffb3d6;              
+      --teal: #00a8a3;             
+      --magenta: #c13886;          
+      --dark-purple: #3f3d7a;          
+      --light-pink: #ffb3e6;       
+      --lilac: #dda0dd;               
+      --white: #ffffff;              
+      --light-gray: #e6e6fa;           
+      --gray: #bfbfdc;            
+      --silver: #f0f0f5;          
+      --dark-gray: #404040;       
+      --black: #000010;           
     }
 
     * {
@@ -45,8 +45,8 @@
       left: 0;
       width: 100%;
       height: 82px;
-      background: var(--purple);
-      border-bottom: 1px solid var(--cyan);
+      background: var(--primary);
+      border-bottom: 1px solid var(--teal);
       z-index: 1000;
       box-shadow: 0 1px 3px rgba(26, 13, 31, 0.2);
     }
@@ -119,7 +119,7 @@
 
     .profile-info {
       background: var(--white);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       margin-bottom: 10px;
       padding: 8px;
     }
@@ -128,7 +128,7 @@
       width: 50px;
       height: 50px;
       border-radius: 2px;
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       display: block;
       margin-bottom: 8px;
     }
@@ -159,19 +159,28 @@
     .profile-links a:hover {
       text-decoration: underline;
     }
+    /* Chat Widget */
+    .chat-widget { position: fixed; bottom: 0; right: 20px; width: 260px; display: none; flex-direction: column; background: var(--silver); border: 1px solid var(--gray); border-radius: 3px 3px 0 0; font-family: Tahoma, sans-serif; z-index: 2000; }
+    .chat-header { background: var(--teal); color: #fff; padding: 5px 8px; font-size: 12px; font-weight: bold; cursor: pointer; user-select: none; }
+    .chat-messages { max-height: 200px; overflow-y: auto; padding: 8px; }
+    .chat-message { background: var(--white); border-radius: 3px; padding: 4px 6px; margin-bottom: 5px; font-size: 11px; }
+    .chat-message.from-bot { background: var(--pink); color: var(--black); }
+    .chat-options { display: flex; flex-direction: column; gap: 4px; padding: 5px; }
+    .chat-options button { font-size: 11px; padding: 4px; background: var(--primary); color: var(--white); border: none; border-radius: 2px; cursor: pointer; }
+    .chat-options button:hover { background: var(--dark-purple); }
 
     /* Main Content */
     .main-content {
       flex: 1;
       background: var(--white);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
     }
 
     /* Profile Header */
     .profile-header {
       background: var(--white);
       padding: 10px;
-      border-bottom: 1px solid var(--pale-pink);
+      border-bottom: 1px solid var(--light-pink);
     }
 
     .cover-photo {
@@ -180,7 +189,7 @@
       background-image: url('https://imgur.com/7BJknIY.png');
       background-size: cover;
       background-position: center;
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       margin-bottom: 10px;
     }
 
@@ -208,7 +217,7 @@
 
     .profile-tabs {
       background: var(--light-gray);
-      border-bottom: 1px solid var(--pale-pink);
+      border-bottom: 1px solid var(--light-pink);
       padding: 0;
       margin: 0;
     }
@@ -221,7 +230,7 @@
     }
 
     .profile-tabs li {
-      border-right: 1px solid var(--pale-pink);
+      border-right: 1px solid var(--light-pink);
     }
 
     .profile-tabs a {
@@ -247,18 +256,18 @@
 
     .info-section {
       background: var(--white);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       margin-bottom: 15px;
       border-radius: 3px;
     }
 
     .section-header {
-      background: linear-gradient(135deg, var(--pink), var(--pale-pink));
+      background: linear-gradient(135deg, var(--pink), var(--light-pink));
       color: var(--white);
       padding: 8px 12px;
       font-size: 16px;
       font-weight: bold;
-      border-bottom: 1px solid var(--pale-pink);
+      border-bottom: 1px solid var(--light-pink);
     }
 
     .section-content {
@@ -282,7 +291,7 @@
     }
 
     .project-title {
-      color: var(--purple);
+      color: var(--primary);
       font-weight: bold;
       font-size: 12px;
       margin-top: 10px;
@@ -297,7 +306,7 @@
 
     .work-entry {
       background: var(--light-gray);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       padding: 10px;
       margin-bottom: 10px;
       border-radius: 2px;
@@ -358,20 +367,20 @@
       background: rgba(2, 209, 202, 0.1);
       padding: 6px 8px;
       margin: 5px 0;
-      border-left: 3px solid var(--cyan);
+      border-left: 3px solid var(--teal);
       font-size: 11px;
       font-style: italic;
     }
 
     .education-box {
       background: var(--light-gray);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       padding: 12px;
       border-radius: 2px;
     }
 
     .degree {
-      color: var(--purple);
+      color: var(--primary);
       font-weight: bold;
       font-size: 11px;
     }
@@ -383,7 +392,7 @@
     }
 
     .quirky-note {
-      background: var(--pale-pink);
+      background: var(--light-pink);
       color: var(--black);
       padding: 8px 10px;
       border-radius: 15px;
@@ -401,14 +410,14 @@
 
     .sidebar-box {
       background: var(--white);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       margin-bottom: 10px;
     }
 
     .sidebar-header {
       background: var(--light-gray);
       padding: 6px 8px;
-      border-bottom: 1px solid var(--pale-pink);
+      border-bottom: 1px solid var(--light-pink);
       font-size: 11px;
       font-weight: bold;
       color: var(--black);
@@ -427,7 +436,7 @@
     .friend-pic {
       width: 50px;
       height: 50px;
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       border-radius: 2px;
     }
 
@@ -484,14 +493,27 @@
         <a href="index.html">Home</a>
         <a href="fakebookwall.html">Profile</a>
         <a href="studio-ken.html">Friends</a>
-        <a href="contact.html">Inbox</a>
+        <a href="#" id="inbox-link">Inbox <span class="notif">!</span></a>
         <a href="#info-section">Settings</a>
         <a href="index.html">Logout</a>
       </nav>
     </div>
   </div>
-
+<!-- Chat Widget -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-header" id="chatHeader">Sunnie Jae 💬</div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-message from-bot">Hi there! I can help you navigate this Fakebook page. 👋</div>
+  </div>
+  <div class="chat-options">
+    <button onclick="sendResponse('Show me the Professional Resume', '#professional')">Professional Resume</button>
+    <button onclick="sendResponse('What about the Unprofessional Resume?', '#unprofessional')">Unprofessional Resume</button>
+    <button onclick="sendResponse('Where is the Education section?', '#education')">Education</button>
+    <button onclick="sendResponse('How do I check photos?', 'digital-art.html')">Photos</button>
+  </div>
+</div>
   <div class="main-container">
+    
     <!-- Left Sidebar -->
     <div class="left-sidebar">
       <div class="profile-info">
@@ -702,5 +724,39 @@
       </div>
     </div>
   </div>
+
+  <script>
+   // Toggle Chat Widget
+  const inboxLink = document.getElementById('inbox-link');
+  const chatWidget = document.getElementById('chatWidget');
+  const chatHeader = document.getElementById('chatHeader');
+  const notif = inboxLink.querySelector('.notif');
+
+  inboxLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    chatWidget.style.display = chatWidget.style.display === 'flex' ? 'none' : 'flex';
+    if (notif) notif.style.display = 'none';
+  });
+
+  chatHeader.addEventListener('click', () => {
+    chatWidget.style.display = 'none';
+  });
+
+  function sendResponse(text, target) {
+    const chatMessages = document.getElementById('chatMessages');
+    const message = document.createElement('div');
+    message.className = 'chat-message from-bot';
+    message.textContent = text;
+    chatMessages.appendChild(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    if (target.startsWith('#')) {
+      const section = document.querySelector(target);
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = target;
+    }
+  }
+</script>
 </body>
 </html>
