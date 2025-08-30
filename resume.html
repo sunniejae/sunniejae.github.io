@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Sunnie Jae-Fakebook Bio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunnie Jae – Fakebook</title>
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+    /* 🎨 Updated Palette */
     :root {
       --black: #000010;
       --white: #ffffff;
@@ -20,67 +24,79 @@
     }
 
     body {
+      font-family: 'Tahoma', Arial, sans-serif;
+      font-size: 11px;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.28;
       margin: 0;
-      font-family: Tahoma, sans-serif;
-      background: var(--silver);
+      padding: 0;
     }
 
-    /* Top bar */
-    .topbar {
-      background: var(--dark-purple);
-      color: var(--white);
-      padding: 8px 12px;
+    /* ---------------- HEADER ---------------- */
+    .facebook-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 82px;
+      background: var(--primary);
+      border-bottom: 1px solid var(--accent);
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 14px;
+      height: 100%;
+      padding: 0 15px;
+      justify-content: space-between;
     }
-    .topbar .nav {
+
+    .facebook-logo {
+      color: var(--white);
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    .search-box {
+      background: var(--dark-purple);
+      border: 1px solid var(--white);
+      padding: 3px 6px;
+      color: var(--white);
+      font-size: 11px;
+      border-radius: 2px;
+      width: 300px;
+    }
+
+    .search-box::placeholder {
+      color: var(--gray);
+    }
+
+    .header-nav {
       display: flex;
-      gap: 16px;
+      gap: 15px;
     }
-    .topbar a {
+
+    .header-nav a {
       color: var(--white);
       text-decoration: none;
-      font-weight: bold;
+      font-size: 11px;
+      padding: 4px 8px;
       position: relative;
     }
-    .topbar a:hover {
-      text-decoration: underline;
+
+    .header-nav a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
     }
 
-    /* Page layout */
-    .container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      gap: 20px;
-    }
-    .sidebar {
-      width: 200px;
-      background: var(--white);
-      border: 1px solid var(--gray);
-      padding: 10px;
-      font-size: 13px;
-    }
-    .content {
-      width: 500px;
-    }
-    .profile-header {
-      background: var(--primary);
-      color: var(--white);
-      padding: 20px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .profile-body {
-      background: var(--white);
-      border: 1px solid var(--gray);
-      padding: 15px;
-      font-size: 14px;
-    }
-
-    /* Notification bubble */
+    /* ---------------- NOTIFICATION ---------------- */
     .notif {
       position: absolute;
       top: -6px;
@@ -98,7 +114,7 @@
       25%, 75% { opacity: 0; }
     }
 
-    /* Chat widget */
+    /* ---------------- CHAT WIDGET ---------------- */
     .chat-widget {
       position: fixed;
       bottom: 0;
@@ -111,8 +127,10 @@
       display: none;
       flex-direction: column;
       font-size: 12px;
+      font-family: Tahoma, sans-serif;
       z-index: 2000;
     }
+
     .chat-header {
       background: var(--dark-purple);
       color: var(--white);
@@ -122,12 +140,14 @@
       cursor: pointer;
       user-select: none;
     }
+
     .chat-messages {
       padding: 8px;
       max-height: 200px;
       overflow-y: auto;
       background: var(--silver);
     }
+
     .chat-message {
       margin-bottom: 6px;
       max-width: 80%;
@@ -147,6 +167,7 @@
       float: right;
       color: #fff;
     }
+
     .chat-options {
       padding: 6px;
       border-top: 1px solid var(--gray);
@@ -155,6 +176,7 @@
       flex-direction: column;
       gap: 4px;
     }
+
     .chat-options button {
       background: #f0f0f5;
       border: 1px solid var(--gray);
@@ -168,48 +190,115 @@
     .chat-options button:hover {
       background: #e6e6fa;
     }
+
+    /* ---------------- MAIN LAYOUT ---------------- */
+    .main-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-top: 100px;
+      display: flex;
+      gap: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
   </style>
 </head>
 <body>
-
-  <!-- Top bar -->
-  <div class="topbar">
-    <div class="logo">Fakebook</div>
-    <div class="nav">
-      <a href="#">Home</a>
-      <a href="#">Profile</a>
-      <a href="#" id="inbox-link">Inbox <span class="notif" id="notif">!</span></a>
+  <!-- Facebook Header -->
+  <div class="facebook-header">
+    <div class="header-content">
+      <a href="#" class="facebook-logo">fakebook</a>
+      <input type="text" class="search-box" placeholder="Search">
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="fakebookwall.html">Profile</a>
+        <a href="studio-ken.html">Friends</a>
+        <a href="#" id="inbox-link">Inbox <span class="notif" id="notif">!</span></a>
+        <a href="#info-section">Settings</a>
+        <a href="index.html">Logout</a>
+      </nav>
     </div>
   </div>
 
-  <!-- Page body -->
-  <div class="container">
-    <div class="sidebar">
-      <p><b>Friends</b></p>
-      <p>• Taylor</p>
-      <p>• Morgan</p>
-      <p>• Chris</p>
-    </div>
-    <div class="content">
-      <div class="profile-header">Sunnie Jae</div>
-      <div class="profile-body">
-        <p>🎨 Artist. Dreamer. Internet kid since the AIM days.</p>
-        <p>I make digital art, write songs, and design little websites that look like old-school social media. 💻✨</p>
-        <p>Check out my other pages for projects, shop links, and more.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Chat widget -->
+  <!-- Chat Widget -->
   <div class="chat-widget" id="chatWidget">
     <div class="chat-header" id="chatHeader">Inbox • Sunnie Jae ✕</div>
     <div class="chat-messages" id="chatMessages">
-      <div class="chat-message from-bot">👋 Hey, I’m Sunnie Jae! Need help finding your way around?</div>
+      <div class="chat-message from-bot">👋 Hey, I’m Sunnie Jae! Want me to show you around?</div>
     </div>
     <div class="chat-options" id="chatOptions">
-      <button onclick="sendResponse('Show me your art!', 'digital-art.html')">Show me your art!</button>
+      <button onclick="sendResponse('Tell me about your work', '#professional')">Tell me about your work</button>
+      <button onclick="sendResponse('Unprofessional resume please', '#unprofessional')">Unprofessional resume please</button>
+      <button onclick="sendResponse('Education background?', '#education')">Education background?</button>
+      <button onclick="sendResponse('Take me to your art!', 'digital-art.html')">Take me to your art!</button>
       <button onclick="sendResponse('Where’s your shop?', 'shop.html')">Where’s your shop?</button>
-      <button onclick="sendResponse('Tell me about you', 'fakebookbio.html')">Tell me about you</button>
+    </div>
+  </div>
+
+  <!-- Your Original Page Content -->
+  <div class="main-container">
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+      <div class="profile-info">
+        <img src="https://imgur.com/f3PHZ3I.png" alt="Profile" class="profile-pic">
+        <a href="fakebookwall.html" class="profile-name">Sunnie Jae</a>
+        <ul class="profile-links">
+          <li><a href="#">Edit My Profile</a></li>
+          <li><a href="#">Account Settings</a></li>
+          <li><a href="#">Privacy Settings</a></li>
+        </ul>
+      </div>
+      <!-- ... (rest of sidebar same as your version) -->
+    </div>
+
+    <!-- Main Content (same as your version, with IDs added for linking) -->
+    <div class="main-content">
+      <div class="profile-header">
+        <div class="cover-photo"></div>
+        <div class="profile-main">
+          <img src="https://imgur.com/f3PHZ3I.png" alt="Sunnie Jae" class="profile-pic-large">
+          <div class="profile-details">
+            <h1>Jayme Squire</h1>
+            <div>Creative Designer & Content Creator</div>
+            <div>CEO of Sunnie Jae Creates</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-tabs">
+        <ul>
+          <li><a href="fakebookwall.html">Wall</a></li>
+          <li><a href="#professional" class="active">Info</a></li>
+          <li><a href="digital-art.html">Photos</a></li>
+          <li><a href="videos.html">Videos</a></li>
+          <li><a href="shop.html">Shop</a></li>
+        </ul>
+      </div>
+
+      <div class="info-content">
+        <div class="info-section" id="professional">
+          <div class="section-header">Professional Resume</div>
+          <div class="section-content">
+            <!-- Professional Resume Content -->
+            <h3>Recent Work History</h3>
+            <!-- etc (same as your page) -->
+          </div>
+        </div>
+
+        <div class="info-section" id="unprofessional">
+          <div class="section-header">Unprofessional Resume</div>
+          <div class="section-content">
+            <!-- Unprofessional Resume Content -->
+          </div>
+        </div>
+
+        <div class="info-section" id="education">
+          <div class="section-header">Education</div>
+          <div class="section-content">
+            <!-- Education Content -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -246,12 +335,15 @@
 
       let reply = document.createElement("div");
       reply.className = "chat-message from-bot";
-      reply.innerHTML = "👉 Great! <a href='" + link + "'>Click here</a> to check it out.";
+      if (link.startsWith("#")) {
+        reply.innerHTML = "👉 Sure! Scroll down to <a href='" + link + "'>that section</a>.";
+      } else {
+        reply.innerHTML = "👉 Great! <a href='" + link + "'>Click here</a> to check it out.";
+      }
       chatMessages.appendChild(reply);
 
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
   </script>
-
 </body>
 </html>
