@@ -8,20 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Y2K Bratz/Barbie Dream Palette */
+      /* sunniejae creates newest */
       --purple: #9a9ad4;               /* Primary color */
-      --pink: #ff66cc;                 /* Bright Y2K pink */
-      --cyan: #02d1ca;                 /* Electric cyan */
-      --magenta: #da70d6;              /* Soft magenta */
-      --dark-purple: #8b008b;          /* Rich purple */
+      --pink: ##ffb3d6;                 /*updated*/
+      --cyan: ##00c9c2;                 /*accent*/
+      --magenta: ##c13886;              /* secondary */
+      --dark-purple: #3f3d7a;          /* dark purple */
       --pale-pink: #ffb3e6;            /* Light pastel pink */
       --lilac: #dda0dd;                /* Soft lilac */
-      --white: #ffffff;                /* Pure white */
-      --light-gray: #e6e6fa;           /* Lavender-tinted light */
-      --gray: #663399;                 /* Medium purple-gray */
+      --white: #ffffff;                /* white */
+      --light-gray: #f0f0f5;           /*silver */
+      --gray: #bfbfdc;                 /* gray*/
       --silver: #c0c0c0;               /* Metallic silver */
-      --dark-gray: #4b0082;            /* Dark purple-gray */
-      --black: #1a0d1f;                /* Deep purple-black */
+      --dark-gray: ##404040;            /* dark gray*/
+      --black: #000010;                /* black */
     }
 
     * {
@@ -478,7 +478,7 @@
   bottom: 0;
   right: 20px;
   width: 260px;
-  background: #fff;
+  background: var(--silver);
   border: 1px solid #bfbfdc;
   border-radius: 3px 3px 0 0;
   display: none;
@@ -489,7 +489,7 @@
 }
 
 .chat-header {
-  background: #3f3d7a;
+  background:var(--cyan);
   color: #fff;
   padding: 5px 8px;
   font-size: 12px;
@@ -502,7 +502,7 @@
   padding: 8px;
   max-height: 200px;
   overflow-y: auto;
-  background: #f0f0f5;
+  background: var(--light-pink);
 }
 
 .chat-message {
@@ -515,20 +515,20 @@
   font-size: 12px;
 }
 
-.from-bot { background: #e5e5e5; float: left; color: #000010; }
-.from-me { background: #3578e5; float: right; color: #fff; }
+.from-bot { background: var(--gray); float: left; color: #000010; }
+.from-me { background: var(--primary); float: right; color: #000010; }
 
 .chat-options {
   padding: 6px;
   border-top: 1px solid #bfbfdc;
-  background: #f7f7f7;
+  background: var(--silver);
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
 .chat-options button {
-  background: #f0f0f5;
+  background: var(--primary);
   border: 1px solid #bfbfdc;
   color: #404040;
   padding: 4px 6px;
@@ -539,7 +539,7 @@
 }
 
 .chat-options button:hover {
-  background: #e6e6fa;
+  background: var(--white);
 }
 
 /* Flashing notification */
@@ -547,7 +547,7 @@
   position: absolute;
   top: -6px;
   right: -8px;
-  background: #d9534f;
+  background: var(--magenta);
   color: #fff;
   font-size: 10px;
   font-weight: bold;
@@ -560,7 +560,7 @@
   25%, 75% { opacity: 0; }
 }
     .notif {
-  background: var(--secondary);
+  background: var(--pink);
   color: #fff;
   font-size: 10px;
   font-weight: bold;
@@ -574,65 +574,6 @@
   0%, 50%, 100% { opacity: 1; }
   25%, 75% { opacity: 0; }
 }
-
-.chat-widget {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 260px;
-  max-height: 400px;
-  background: var(--white);
-  border: 2px solid var(--primary);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  z-index: 9999;
-}
-
-.chat-header {
-  background: var(--primary);
-  color: var(--white);
-  padding: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.chat-messages {
-  padding: 8px;
-  flex-grow: 1;
-  overflow-y: auto;
-  background: var(--silver);
-}
-
-.chat-message {
-  margin-bottom: 8px;
-  padding: 6px 8px;
-  border-radius: 4px;
-}
-
-.from-bot { background: var(--teal); color: #fff; }
-.from-me { background: var(--secondary); color: #fff; }
-
-.chat-options {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 6px;
-  gap: 4px;
-}
-
-.chat-options button {
-  flex: 1 1 48%;
-  padding: 4px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background: var(--primary);
-  color: #fff;
-}
-
-
   </style>
 </head>
 <body>
