@@ -893,4 +893,23 @@
 
         // Add Sunnie's response after a short delay
         setTimeout(function() {
-          const sunnieMessage = document.createElement('
+          const sunnieMessage = document.createElement('div');
+          sunnieMessage.className = 'chat-message sunnie';
+          const response = responses[message] || responses["default"];
+          sunnieMessage.textContent = response;
+          chatBody.appendChild(sunnieMessage);
+          
+          // Scroll to bottom
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 1000);
+
+        // Scroll to bottom
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      // Make sendMessage function global so buttons can access it
+      window.sendMessage = sendMessage;
+    });
+  </script>
+</body>
+</html>
