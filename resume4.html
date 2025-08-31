@@ -486,6 +486,12 @@
     cursor: pointer;
     font-weight: bold;
     z-index: 1000;
+    font-size: 12px;
+}
+
+#inboxBtn:hover {
+    background-color: var(--pink);
+    transition: background-color 0.3s;
 }
 
 #notification {
@@ -524,15 +530,39 @@
     font-weight: bold;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#closeChat {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#closeChat:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
 }
 
 #chatBody {
     padding: 10px;
     flex: 1;
     overflow-y: auto;
-    background-color: var(--silver);
+    background-color: var(--light-gray);
     display: flex;
     flex-direction: column;
+    min-height: 200px;
+    max-height: 250px;
 }
 
 .chat-message {
@@ -540,9 +570,10 @@
     padding: 8px;
     border-radius: 10px;
     max-width: 80%;
+    font-size: 11px;
 }
 
-.chat-message.me {
+.chat-message.sunnie {
     background-color: var(--purple);
     color: var(--white);
     align-self: flex-start;
@@ -557,6 +588,9 @@
 #chatOptions {
     padding: 10px;
     border-top: 1px solid var(--gray);
+    background-color: var(--white);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 #chatOptions button {
@@ -568,6 +602,7 @@
     color: var(--white);
     cursor: pointer;
     transition: background 0.2s;
+    font-size: 11px;
 }
 
 #chatOptions button:hover {
@@ -585,7 +620,8 @@
         <a href="index.html">Home</a>
         <a href="fakebookwall.html">Profile</a>
         <a href="studio-ken.html">Friends</a>
-        <a href="contact.html">Inbox</a>
+        <button id="inboxBtn"> Inbox <span id="notification">!</span>
+        </button>
         <a href="#info-section">Settings</a>
         <a href="index.html">Logout</a>
       </nav>
@@ -802,5 +838,41 @@
       </div>
     </div>
   </div>
-</body>
-</html>
+
+  <!-- Chat Feature -->
+  <button id="inboxBtn">
+    Inbox <span id="notification">!</span>
+  </button>
+
+  <div id="chatWindow">
+    <div id="chatHeader">
+      Chat with Sunnie Jae
+      <button id="closeChat">×</button>
+    </div>
+    <div id="chatBody">
+      <div class="chat-message sunnie">
+        Hey! Thanks for checking out my profile! 💖
+      </div>
+    </div>
+    <div id="chatOptions">
+      <button onclick="sendMessage('Hi! Love your work!')">Hi! Love your work!</button>
+      <button onclick="sendMessage('Tell me about your projects!')">Tell me about your projects!</button>
+      <button onclick="sendMessage('Can we collaborate?')">Can we collaborate?</button>
+      <button onclick="sendMessage('What services do you offer?')">What services do you offer?</button>
+    </div>
+  </div>
+
+  <script>
+    // Chat functionality
+    const inboxBtn = document.getElementById('inboxBtn');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChat = document.getElementById('closeChat');
+    const chatBody = document.getElementById('chatBody');
+    const notification = document.getElementById('notification');
+
+    // Chat responses from Sunnie Jae
+    const responses = {
+      "Hi! Love your work!": "Aww thank you so much! That means the world to me! ✨ I put my heart into everything I create.",
+      "Tell me about your projects!": "I'm working on two webcomics right now! '16' is about college psych students based on MBTI types, and 'Not Just Another Werewolf Romance' is exactly what it sounds like - but better! 📚💜",
+      "Can we collaborate?": "I'd love to! I'm always open to creative collaborations. What did you have in mind? You can reach me through the contact page! 🤝",
+      "What services do you offer?": "I do graphic design, video editing, writing (stories & content), and I'm building
