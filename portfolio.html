@@ -9,7 +9,19 @@
   <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap');
-
+:root {
+            --black: #000010;
+            --white: #ffffff;
+            --dark-gray: #404040;
+            --gray: #bfbfdc;
+            --silver: #f0f0f5;
+            --pink: #ffb3d6;
+            --teal: #00a8a3;
+            --dark-purple: #3f3d7a;
+            --accent: #00c9c2;
+            --secondary: #c13886;
+            --primary: #9a9ad4;
+        }
     * {
       margin: 0;
       padding: 0;
@@ -23,7 +35,7 @@
 
     body {
       font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #442269;
+      background: var(--dark-purple);
       color: #89e6e0;
       overflow-x: hidden;
       padding-top: 100px;
@@ -251,22 +263,6 @@
       color: #ff66cc;
       margin-bottom: 25px;
       text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #007e8f, 3px 3px 6px rgba(0, 0, 0, 0.5);
-    }
-
-    .notebook-image {
-      width: 90%;
-      max-width: 800px;
-      height: auto;
-      border-radius: 0px;
-      transition: transform 0.1s ease;
-      display: block;
-      margin: 0 auto;
-      border: 3px outset #8f0fc8;
-    }
-
-    .notebook-image:hover {
-      transform: none;
-      border: 3px inset #8f0fc8;
     }
 
     /* Section 3: Computer with Pinterest */
@@ -769,10 +765,15 @@
       <!-- SECTION 1: TITLE -->
       <section class="section-title glow" id="home"></section>
 
-      <!-- SECTION 2: NOTEBOOK -->
+      <!-- SECTION 2: medium -->
       <section class="section-notebook">
-        <h2>...brattitude loading...</h2>
-        <img src="https://imgur.com/VuoO3dN.png" alt="Creative Notebook" class="notebook-image glow">
+        <div style="position: relative; width: 100%; padding-top: 177.78%; /* Aspect ratio: 1600/900 * 100 */">
+    <iframe 
+        src="https://rss.app/embed/v1/wall/mMwCeCIjuR96L6qv" 
+        frameborder="0" 
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;">
+    </iframe>
+</div>
       </section>
       
       <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
