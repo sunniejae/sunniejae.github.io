@@ -848,7 +848,7 @@ For some reason this link only has 50 instead of 333... Oh well
     </div>
   </div>
 
- <!-- Chat Feature -->
+<!-- Chat Feature -->
   <div id="chatWindow">
     <div id="chatHeader">
       Chat with Sunnie Jae
@@ -856,10 +856,15 @@ For some reason this link only has 50 instead of 333... Oh well
     </div>
     <div id="chatBody">
       <div class="chat-message sunnie">
-        Heyyyyyy it's Jayme! 
+        **SUNNIE JAE HAS ACCEPTED YOUR FRIEND REQUEST**
       </div>
     </div>
+    <div id="chatOptions">
+      <button onclick="sendMessage('rawr')">rawr</button>
+      <button onclick="sendMessage('i'm just here to judge your work')">i'm just here to judge your work</button>
+    </div>
   </div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -883,10 +888,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Conversation object
   const conversation = {
     start: {
-      reply: "heyyy it's jayme.. wazzup?",
+      reply: "heyyyyy wazzup",
       options: [
         { text: "rawr!", next: "rawr" },
-        { text: "i'm just here to judge your work ", next: "services" }
+        { text: "i'm just here to judge your work", next: "services" }
       ]
     },
     services: {
