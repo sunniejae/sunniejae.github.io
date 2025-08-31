@@ -828,195 +828,174 @@
   </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const inboxBtn = document.getElementById('inboxBtn');
-    const chatWindow = document.getElementById('chatWindow');
-    const closeChat = document.getElementById('closeChat');
-    const chatBody = document.getElementById('chatBody');
-    const chatOptions = document.getElementById('chatOptions');
-    const notification = document.getElementById('notification');
+document.addEventListener('DOMContentLoaded', function() {
+  const inboxBtn = document.getElementById('inboxBtn');
+  const chatWindow = document.getElementById('chatWindow');
+  const closeChat = document.getElementById('closeChat');
+  const chatBody = document.getElementById('chatBody');
+  const chatOptions = document.getElementById('chatOptions');
+  const notification = document.getElementById('notification');
 
-    // Show/hide chat window
-    if (inboxBtn && chatWindow) {
-      inboxBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const isVisible = chatWindow.style.display === 'flex';
-        chatWindow.style.display = isVisible ? 'none' : 'flex';
-        if (!isVisible && notification) notification.style.display = 'none';
-      });
-    }
-
-    if (closeChat && chatWindow) {
-      closeChat.addEventListener('click', function() {
-        chatWindow.style.display = 'none';
-      });
-    }
-
-    // Branching conversation structure
-const conversation = {
-  start: {
-    reply: "Hey! Thanks for checking out my info page! Interested in working together?",
-    options: [
-      { text: "Tell me about your services!", next: "services" },
-      { text: "Your projects sound amazing!", next: "projects" },
-      { text: "Can we collaborate?", next: "collab" },
-      { text: "What's your design process?", next: "process" }
-    ]
-  },
-
-  services: {
-    reply: "Oh.. okie... I have graphic design, video editing, writing, web design, and digital art... anything ur looking 4?",
-    options: [
-      { text: "Graphic design", next: "design" },
-      { text: "Video editing", next: "video" },
-      { text: "Web design", next: "web" },
-      { text: "Writing", next: "writing" },
-      { text: "Digital art", next: "digitalart" }
-    ]
-  },
-
-  design: {
-    reply: "Design is where I really blend storytelling with visuals. Colors and typography matter as much as layout!",
-    options: [
-      { text: "Cool! What about your video editing?", next: "video" },
-      { text: "Can we collaborate?", next: "collab" }
-    ]
-  },
-
-  video: {
-    reply: "Video editing is my playground—everything from TikTok virals to professional announcements. 🎬",
-    options: [
-      { text: "Nice! What about web design?", next: "web" },
-      { text: "That sounds awesome!", next: "endPositive" }
-    ]
-  },
-
-  web: {
-    reply: "Web design lets me combine all of my skills into one place. This profile is actually an example!",
-    options: [
-      { text: "That's impressive!", next: "endPositive" },
-      { text: "What's your process?", next: "process" }
-    ]
-  },
-
-  writing: {
-    reply: "cool cool, my english class isn't until 4th period... but i've uploaded my work here. you can find it in my notes folder",
-    options: [
-      { text: "What about digital art?", next: "digitalart" },
-      { text: "How can I get in touch if u log out", next: "collab" },
-      { text: "What will I find?", next: "writingoptions" }
-    ]
-  },
-
-  writingoptions: {
-    reply: "mostly short stories, a few scripts... nothing too serious. but i like mixing it with my design stuff",
-    options: [
-      { text: "Show me your digital art", next: "digitalart" },
-      { text: "That's really cool!", next: "endPositive" }
-    ]
-  },
-
-  digitalart: {
-    reply: "Digital art is my way of blending color, texture, and storytelling—whether it’s illustrations, character designs, or full pieces. 🎨",
-    options: [
-      { text: "That sounds awesome!", next: "endPositive" },
-      { text: "Can we collaborate?", next: "collab" }
-    ]
-  },
-
-  projects: {
-    reply: "Thanks! I’m currently creating two webcomics that mix writing and design. Want me to tell you about them?",
-    options: [
-      { text: "Yes, tell me more!", next: "webcomics" },
-      { text: "Actually, what services do you offer?", next: "services" }
-    ]
-  },
-
-  webcomics: {
-    reply: "One is *Sixteen*, inspired by MBTI archetypes, and the other is *Not Just Another Werewolf Romance*—full of love, friendship, and the supernatural. 🌙",
-    options: [
-      { text: "That’s so cool!", next: "endPositive" },
-      { text: "Can we collaborate?", next: "collab" }
-    ]
-  },
-
-  collab: {
-    reply: "Absolutely! I love working with other creatives. What kind of project do you have in mind?",
-    options: [
-      { text: "A personal website", next: "web" },
-      { text: "A video project", next: "video" },
-      { text: "Something design-heavy", next: "design" }
-    ]
-  },
-
-  process: {
-    reply: "My process starts with discovery, then sketching, refining, and building. I focus on color psychology to make everything cohesive. 🎨",
-    options: [
-      { text: "That makes sense!", next: "endPositive" },
-      { text: "Tell me about your services.", next: "services" }
-    ]
-  },
-
-  jokes: {
-    reply: "lawlz ur so random. wanna go to yogurtville? and a movie?",
-    options: [
-      { text: "no.. :( im free wednesday if someone gave me a ride", next: "ohwell" },
-      { text: "i'm just here to look at your portfolio", next: "services" }
-    ]
-  },
-
-  ohwell: {
-    reply: "i guess while ur online u could look at my other posts",
-    options: [
-      { text: "sure. where should i start?", next: "tour" },
-      { text: "i already know what i wanna see", next: "services" }
-    ]
-  },
-
-  tour: {
-    reply: "hmm... maybe check out my services first? or look at my latest projects 👀",
-    options: [
-      { text: "Okay, show me your services", next: "services" },
-      { text: "Tell me about your projects", next: "projects" }
-    ]
-  },
-
-  endPositive: {
-    reply: "I’m glad you’re interested! 💜 Feel free to reach out via my contact page so we can make it happen!",
-    options: []
+  // Show/hide chat window
+  if (inboxBtn && chatWindow) {
+    inboxBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const isVisible = chatWindow.style.display === 'flex';
+      chatWindow.style.display = isVisible ? 'none' : 'flex';
+      if (!isVisible && notification) notification.style.display = 'none';
+    });
   }
-};
-    // Helper functions
-    function addMessage(text, sender = "user") {
-      const msg = document.createElement("div");
-      msg.classList.add("chat-message", sender);
-      msg.textContent = text;
-      chatBody.appendChild(msg);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
 
-    function loadOptions(nodeKey) {
-      chatOptions.innerHTML = "";
-      const node = conversation[nodeKey];
-      if (!node) return;
-      if (node.reply) {
-        setTimeout(() => addMessage(node.reply, "sunnie"), 600);
-      }
-      node.options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.textContent = opt.text;
-        btn.onclick = () => {
-          addMessage(opt.text, "user");
-          loadOptions(opt.next);
-        };
-        chatOptions.appendChild(btn);
-      });
+  // Conversation object
+  const conversation = {
+    start: {
+      reply: "heyyy it's jayme.. wazzup?",
+      options: [
+        { text: "rawr!", next: "rawr" },
+        { text: "i'm just here to judge your work ", next: "services" }
+      ]
+    },
+    services: {
+      reply: "Oh.. okie... I have graphic design, video editing, writing, and web design... anything ur looking 4?",
+      options: [
+        { text: "Graphic design", next: "design" },
+        { text: "Video editing", next: "video" },
+        { text: "Web design", next: "web" },
+        { text: "writing", next: "writing" },
+        { text: "digital art", next: "digitalart" }
+      ]
+    },
+    design: {
+      reply: "graphic design is one of my favzz! i stored those in my graphiczz folder.",
+      options: [
+        { text: "hmm. what about videos?", next: "video" },
+        { text: "how can i get in touch if u log out", next: "collab" }
+      ]
+    },
+    digitalart: {
+      reply: "most of my digital art is just drawn on my ipad, but if you really want to see it... just check out my photos tab.",
+      options: [
+        { text: "hmm. what about videos?", next: "video" },
+        { text: "how can i get in touch if u log out", next: "collab" }
+      ]
+    },
+    writing: {
+      reply: "cool cool, my english class isn't until 4th period... but i've uploaded my work here. you can find it in my notes folder",
+      options: [
+        { text: "what about digital art?", next: "digitalart" },
+        { text: "how can i get in touch if u log out", next: "collab" },
+        { text: "what will i find?", next: "writingoptions" }
+      ]
+    },
+    video: {
+      reply: "Video editing is my playground—everything from TikTok virals to professional announcements. 🎬",
+      options: [
+        { text: "Nice! What about web design?", next: "web" },
+        { text: "That sounds awesome!", next: "endPositive" }
+      ]
+    },
+    web: {
+      reply: "tbh this is my first ever website. it's part of why the pages are all kinda random. i rly wanted to show off what i'm proud of. i'm still learning, but i'm a fast learner(;",
+      options: [
+        { text: "that's impressive! i cant wait to see what you'll do next", next: "endPositive" },
+        { text: "rawr", next: "rawr" }
+      ]
+    },
+    rawr: {
+      reply: "omggg you lurv me? wtc",
+      options: [
+        { text: "...", next: "awk" },
+        { text: "i'm just here to look at your portfolio", next: "services" }
+      ]
+    },
+    awk: {
+      reply: "well.. this is AWK!",
+      options: [
+        { text: "awkward is an awk word", next: "jokes" },
+        { text: "i'm just here to look at your portfolio", next: "services" }
+      ]
+    },
+    jokes: {
+      reply: "lawlz ur so random. wanna go to yogurtville? and a movie?",
+      options: [
+        { text: "no.. :( im free wednesday if someone gave me a ride", next: "ohwell" },
+        { text: "i'm just here to look at your portfolio", next: "services" }
+      ]
+    },
+    ohwell: {
+      reply: "i guess while ur online u could look at my other posts",
+      options: [
+        { text: "sure. where should i start?", next: "tour" },
+        { text: "i already know what i wanna see", next: "services" }
+      ]
+    },
+    tour: {
+      reply: "hmm... maybe check out my services first? or look at my latest projects 👀",
+      options: [
+        { text: "Okay, show me your services", next: "services" },
+        { text: "Tell me about your projects", next: "webcomics" }
+      ]
+    },
+    webcomics: {
+      reply: "One is *Sixteen*, inspired by MBTI archetypes. It follows 16 college students as a slice-of-life style serialized story. The other is *Not Just Another Werewolf Romance* - for fans of enemies-to-lovers, lovers-to-enemies, friends-to-lovers, and supernatural drama. Perfect for Sarah J Mass readers.",
+      options: [
+        { text: "i'll check them out", next: "endPositive" },
+        { text: "how can i get in touch if u log out", next: "collab" }
+      ]
+    },
+    collab: {
+      reply: "you can send me a message at sunniejae.creates@gmail.com - are you looking for help on something?",
+      options: [
+        { text: "A personal website", next: "web" },
+        { text: "A video project", next: "video" },
+        { text: "Something design-heavy", next: "design" }
+      ]
+    },
+    writingoptions: {
+      reply: "right now, you'll see a smattering of poetry and long term projects.",
+      options: [
+        { text: "what are your long term projects about?", next: "webcomics" },
+        { text: "Tell me about your services.", next: "services" }
+      ]
+    },
+    endPositive: {
+      reply: "I’m glad you’re interested! 💜 Feel free to reach out via my contact page so we can make it happen!",
+      options: []
     }
+  };
 
-    // Start conversation
-    loadOptions("start");
-  });
+  // Helper functions
+  function addMessage(text, sender = "user") {
+    const msg = document.createElement("div");
+    msg.classList.add("chat-message", sender);
+    msg.textContent = text;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  function loadOptions(nodeKey) {
+    chatOptions.innerHTML = "";
+    const node = conversation[nodeKey];
+    if (!node) return;
+    if (node.reply) {
+      setTimeout(() => addMessage(node.reply, "sunnie"), 600);
+    }
+    node.options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.textContent = opt.text;
+      btn.onclick = () => {
+        addMessage(opt.text, "user");
+        loadOptions(opt.next);
+      };
+      chatOptions.appendChild(btn);
+    });
+  }
+
+  // Start conversation
+  loadOptions("start");
+});
 </script>
+
 
 </body>
 </html>
