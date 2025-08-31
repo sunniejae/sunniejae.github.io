@@ -1,705 +1,1034 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Desktop</title>
-    <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
-    <style>
-        :root {
-            --black: #000010;
-            --white: #ffffff;
-            --dark-gray: #404040;
-            --gray: #bfbfdc;
-            --silver: #f0f0f5;
-            --pink: #ffb3d6;
-            --teal: #00a8a3;
-            --dark-purple: #3f3d7a;
-            --accent: #00c9c2;
-            --secondary: #c13886;
-            --primary: #9a9ad4;
-        }
+  <meta charset="UTF-8">
+  <title>Sunnie Jae-Fakebook Wall</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
+  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+    /* Y2K Bratz/Barbie Dream Palette */
+      --primary: #9a9ad4;  
+      --secondary: #c13886;
+      --accent: #00c9c2;
+      --teal: #00a8a3;
+      --dark-purple: #3f3d7a;
+      --light-pink: #ffb3d6;         
+      --lilac: #dda0dd;                /* Soft lilac */
+      --white: #ffffff;    
+      --light-gray: #e6e6fa;           /* Lavender-tinted light */
+      --gray: #bfbfdc;
+      --silver: #f0f0f5;
+      --dark-gray: #404040;
+      --black: #000010;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Tahoma', sans-serif;
-            background: var(--black) url('https://i.imgur.com/gxc6hdU.png') no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh;
-            overflow: hidden;
-            user-select: none;
-        }
+    body {
+      font-family: 'Tahoma', Arial, sans-serif;
+      font-size: 11px;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.28;
+    }
 
-        .desktop {
-            height: calc(100vh - 50px);
-            position: relative;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: flex-start;
-        }
+    /* Facebook Header Bar */
+    .facebook-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 82px;
+      background: var(--primary);
+      border-bottom: 1px solid var(--accent);
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.2);
+    }
 
-        .desktop-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            width: 80px;
-            height: 80px;
-        }
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 15px;
+      justify-content: space-between;
+    }
 
-        .desktop-icon:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+    .facebook-logo {
+      color: var(--white);
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
 
-        .desktop-icon img {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 4px;
-        }
+    .search-box {
+      background: var(--dark-purple);
+      border: 1px solid var(--white);
+      padding: 3px 6px;
+      color: var(--white);
+      font-size: 11px;
+      border-radius: 2px;
+      width: 300px;
+    }
 
-        .desktop-icon span {
-            color: var(--white);
-            font-size: 11px;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-            line-height: 1.2;
-        }
+    .search-box::placeholder {
+      color: var(--light-gray);
+    }
 
-        .window {
-            position: absolute;
-            background: var(--silver);
-            border: 2px outset var(--gray);
-            min-width: 300px;
-            min-height: 200px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 10;
-        }
+    .header-nav {
+      display: flex;
+      gap: 15px;
+    }
 
-        .window.active {
-            z-index: 100;
-        }
+    .header-nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 11px;
+      padding: 4px 8px;
+    }
 
-        .window.minimized {
-            display: none;
-        }
+    .header-nav a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+    }
 
-        .window-header {
-            background: linear-gradient(to bottom, var(--primary), var(--dark-purple));
-            color: var(--white);
-            padding: 4px 8px;
-            cursor: move;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
+    /* Main Content Area */
+    .main-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-top: 100px;
+      display: flex;
+      gap: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
 
-        .window-controls {
-            display: flex;
-            gap: 2px;
-        }
+    /* Left Sidebar */
+    .left-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+    }
 
-        .window-button {
-            width: 18px;
-            height: 18px;
-            background: var(--gray);
-            border: 1px outset var(--gray);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-        }
+    .profile-info {
+      background: var(--white);
+      border: 1px solid var(--light-pink);
+      margin-bottom: 10px;
+      padding: 8px;
+    }
 
-        .window-button:hover {
-            background: var(--white);
-        }
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 2px;
+      border: 1px solid var(--light-pink);
+      display: block;
+      margin-bottom: 8px;
+    }
 
-        .window-content {
-            padding: 8px;
-            height: calc(100% - 30px);
-            overflow: auto;
-            display: flex;
-            flex-direction: column;
-        }
+    .profile-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--secondary);
+      text-decoration: none;
+      margin-bottom: 5px;
+      display: block;
+    }
 
-        .taskbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
-            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
-            border-top: 2px outset var(--gray);
-            display: flex;
-            align-items: center;
-            padding: 0 8px;
-            z-index: 1000;
-        }
+    .profile-links {
+      list-style: none;
+      font-size: 13px;
+    }
 
-        .start-button {
-            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
-            border: 2px outset var(--gray);
-            color: var(--black);
-            font-weight: bold;
-            padding: 6px 12px;
-            cursor: pointer;
-            margin-right: 8px;
-            font-size: 12px;
-        }
+    .profile-links li {
+      margin-bottom: 3px;
+    }
 
-        .start-button:hover {
-            background: linear-gradient(to bottom, var(--white), var(--gray));
-        }
+    .profile-links a {
+      color: var(--dark-purple);
+      text-decoration: none;
+    }
 
-        .taskbar-buttons {
-            flex: 1;
-            display: flex;
-            gap: 4px;
-        }
+    .profile-links a:hover {
+      text-decoration: underline;
+    }
 
-        .taskbar-button {
-            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
-            border: 2px inset var(--gray);
-            color: var(--black);
-            padding: 6px 12px;
-            cursor: pointer;
-            font-size: 11px;
-            max-width: 150px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--light-pink);
+    }
 
-        .taskbar-button.active {
-            background: linear-gradient(to bottom, var(--dark-gray), var(--gray));
-            border: 2px inset var(--dark-gray);
-        }
+    /* Profile Header */
+    .profile-header {
+      background: var(--white);
+      padding: 10px;
+      border-bottom: 1px solid var(--light-pink);
+    }
 
-        .taskbar-button:hover {
-            background: linear-gradient(to bottom, var(--white), var(--silver));
-        }
+    .cover-photo {
+      width: 100%;
+      height: 180px;
+      background-image: url('https://imgur.com/7BJknIY.png');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--light-pink);
+      margin-bottom: 10px;
+    }
 
-        .clock {
-            color: var(--black);
-            font-size: 11px;
-            padding: 4px 8px;
-            background: var(--silver);
-            border: 1px inset var(--gray);
-            margin-left: 8px;
-        }
+    .profile-main {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
 
-        .start-menu {
-            position: fixed;
-            bottom: 50px;
-            left: 8px;
-            width: 250px;
-            background: var(--silver);
-            border: 2px outset var(--gray);
-            display: none;
-            z-index: 1001;
-        }
+    .profile-pic-large {
+      width: 125px;
+      height: 125px;
+      border: 3px solid var(--white);
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.3);
+    }
 
-        .start-menu.show {
-            display: block;
-        }
+    .profile-details h1 {
+      font-size: 24px;
+      color: var(--secondary);
+      font-weight: normal;
+      margin-bottom: 5px;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
 
-        .menu-item {
-            padding: 8px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--gray);
-            font-size: 12px;
-            position: relative;
-        }
+    .profile-tabs {
+      background: var(--light-gray);
+      border-bottom: 1px solid var(--light-pink);
+      padding: 0;
+      margin: 0;
+    }
 
-        .menu-item:hover {
-            background: var(--primary);
-            color: var(--white);
-        }
+    .profile-tabs ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
 
-        .menu-item.has-submenu::after {
-            content: '▶';
-            position: absolute;
-            right: 8px;
-        }
+    .profile-tabs li {
+      border-right: 1px solid var(--light-pink);
+    }
 
-        .submenu {
-            position: absolute;
-            left: 100%;
-            top: 0;
-            width: 200px;
-            background: var(--silver);
-            border: 2px outset var(--gray);
-            display: none;
-        }
+    .profile-tabs a {
+      display: block;
+      padding: 8px 15px;
+      color: var(--dark-purple);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+      background: var(--light-gray);
+    }
 
-        .menu-item:hover .submenu {
-            display: block;
-        }
+    .profile-tabs a.active,
+    .profile-tabs a:hover {
+      background: var(--white);
+      color: var(--black);
+    }
 
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
+    /* Wall Posts */
+    .wall-content {
+      padding: 10px;
+    }
 
-        .modal.show {
-            display: flex;
-        }
+    .status-update {
+      background: var(--light-gray);
+      border: 1px solid var(--light-pink);
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 2px;
+    }
 
-        .modal-content {
-            background: var(--silver);
-            border: 2px outset var(--gray);
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            max-width: 400px;
-        }
+    .post {
+      background: var(--white);
+      border: 1px solid var(--light-pink);
+      margin-bottom: 8px;
+      border-radius: 2px;
+    }
 
-        .modal-close {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
+    .post-header {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--light-pink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .shutdown-button {
-            background: linear-gradient(to bottom, var(--gray), var(--dark-gray));
-            border: 2px outset var(--gray);
-            padding: 8px 16px;
-            margin-top: 16px;
-            cursor: pointer;
-            font-size: 12px;
-        }
+    .post-profile-pic {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--light-pink);
+      border-radius: 2px;
+    }
 
-        .shutdown-button:hover {
-            background: linear-gradient(to bottom, var(--white), var(--silver));
-        }
+    .post-info {
+      flex: 1;
+    }
 
-        .notebook-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+    .post-author {
+      color: var(--dark-purple);
+      font-weight: bold;
+      font-size: 13px;
+      text-decoration: none;
+    }
 
-        .resize-handle {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 16px;
-            height: 16px;
-            background: var(--gray);
-            cursor: nw-resize;
-            border-left: 2px inset var(--gray);
-            border-top: 2px inset var(--gray);
-        }
+    .post-time {
+      color: var(--black);
+      font-size: 10px;
+      margin-left: 5px;
+      opacity: 0.7;
+    }
 
-        .header-banner {
-            width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
+    .post-content {
+      padding: 10px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
 
-        .pinterest-embed {
-            width: 100%;
-            flex: 1;
-            min-height: 200px;
-            position: relative;
-        }
+    .post-image {
+      width: 100%;
+      border-top: 1px solid var(--light-pink);
+      display: block;
+    }
 
-        .pinterest-embed iframe {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            border: none !important;
-        }
+    .post-actions {
+      padding: 6px 10px;
+      border-top: 1px solid var(--light-pink);
+      background: var(--light-gray);
+      display: flex;
+      gap: 10px;
+    }
 
-        .pinterest-embed [data-pin-do="embedBoard"] {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
+    .post-action {
+      color: var(--dark-purple);
+      text-decoration: none;
+      font-size: 10px;
+      padding: 2px 4px;
+    }
 
-        .music-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
+    .post-action:hover {
+      text-decoration: underline;
+    }
 
-        .music-button {
-            background: var(--gray);
-            border: 1px outset var(--gray);
-            padding: 4px 8px;
-            cursor: pointer;
-            font-size: 10px;
-        }
+    .comments-section {
+      background: var(--light-gray);
+      border-top: 1px solid var(--light-pink);
+      padding: 8px 10px;
+    }
 
-        .music-button:hover {
-            background: var(--white);
+    .comment {
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .comment-author {
+      color: var(--dark-purple);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .comment-text {
+      color: var(--black);
+    }
+
+    .comment-time {
+      color: var(--black);
+      font-size: 10px;
+      margin-left: 8px;
+      opacity: 0.7;
+    }
+
+    /* Right Sidebar */
+    .right-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-box {
+      background: var(--white);
+      border: 1px solid var(--light-pink);
+      margin-bottom: 10px;
+    }
+
+    .sidebar-header {
+      background: var(--light-gray);
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--light-pink);
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--black);
+    }
+
+    .sidebar-content {
+      padding: 8px;
+    }
+
+    .friends-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .friend-pic {
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--light-pink);
+      border-radius: 2px;
+    }
+
+    .app-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px;
+      color: var(--dark-purple);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .app-link:hover {
+      background: var(--light-gray);
+    }
+
+    .app-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Status Update Textarea */
+    .status-update textarea {
+      width: 100%;
+      margin-top: 5px;
+      padding: 5px;
+      border: 1px solid var(--light-pink);
+      font-size: 13px;
+      background: var(--white);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      
+      .left-sidebar,
+      .right-sidebar {
+        width: 100%;
+        order: 2;
+      }
+      
+      .main-content {
+        order: 1;
+      }
+      
+      .search-box {
+        width: 200px;
+      }
+    }
+    /* ================== CHAT WINDOW ================== */
+    #inboxBtn {
+        background: none;
+        border: none;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 11px;
+        padding: 4px 8px;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+
+    #inboxBtn:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    #notification {
+        display: inline-block;
+        margin-left: 8px;
+        color: var(--accent);
+        background: var(--black);
+        font-weight: bold;
+        font-size: 12px;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        animation: pulse 1.5s infinite;
+        box-shadow: 0 0 8px var(--accent);
+    }
+
+    @keyframes pulse {
+        0%, 100% { 
+            transform: scale(1); 
+            opacity: 1; 
         }
-    </style>
+        50% { 
+            transform: scale(1.1); 
+            opacity: 0.8; 
+        }
+    }
+
+   #chatWindow {
+  display: none; /* hidden until opened */
+  flex-direction: column;
+  width: 300px;
+  height: 400px;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  background: #fff;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-family: sans-serif;
+}
+#chatHeader {
+  background: var(--primary);
+  padding: 8px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#chatBody {
+  flex: 1;
+  padding: 8px;
+  overflow-y: auto;
+}
+.chat-message {
+  margin: 4px 0;
+  padding: 6px 10px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+.chat-message.user {
+  background: var(--accent);
+  align-self: flex-end;
+}
+.chat-message.sunnie {
+  background:var(--light-gray);
+  align-self: flex-start;
+}
+#chatOptions {
+  padding: 8px;
+  border-top: 1px solid var(--teal);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+#chatOptions button {
+  flex: 1;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--dark-purple);
+  cursor: pointer;
+}
+#chatOptions button:hover {
+  background: var(--secondary);
+}
+
+  </style>
 </head>
 <body>
-    <div class="desktop" id="desktop">
-        <div class="desktop-icon" data-target="recycle">
-            <img src="https://i.imgur.com/Jq0izu6.png" alt="Recycle">
-            <span>Recycle</span>
+  <!-- Facebook Header -->
+  <div class="facebook-header">
+    <div class="header-content">
+      <a href="#" class="facebook-logo">fakebook</a>
+      <input type="text" class="search-box" placeholder="Search">
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="profile-info.html">Profile</a>
+        <a href="studio-ken.html">Friends</a>
+        <button id="inboxBtn"> Inbox <span id="notification">(1)</span>
+        </button>
+        <a href="#">Settings</a>
+        <a href="javascript:history.back()" class="nav-button nav-back">Logout</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+      <div class="profile-info">
+        <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Profile" class="profile-pic">
+        <a href="#" class="profile-name">Sunnie Jae</a>
+        <ul class="profile-links">
+          <li><a href="#">Edit My Profile</a></li>
+          <li><a href="#">Account Settings</a></li>
+          <li><a href="#">Privacy Settings</a></li>
+        </ul>
+      </div>
+      
+      <div class="profile-info">
+        <div class="sidebar-header">Albums</div>
+        <div class="sidebar-content">
+          <a href="#" class="app-link">
+            <img src="https://imgur.com/5WZhwSa.png" alt="Photos" class="app-icon">
+            Ssummer09
+          </a>
+          <a href="graphic-design.html" class="app-link">
+            <img src="https://imgur.com/5WZhwSa.png" alt="Graphics" class="app-icon">
+            graphiczz
+          </a>
+          <a href="#" class="app-link">
+            <img src="https://imgur.com/5WZhwSa.png" alt="Notes" class="app-icon">
+            notes<3
+          </a>
         </div>
-        <div class="desktop-icon" data-target="documents">
-            <img src="https://i.imgur.com/Jq0izu6.png" alt="Documents">
-            <span>Documents</span>
-        </div>
-        <div class="desktop-icon" data-target="photos">
-            <img src="https://i.imgur.com/Jq0izu6.png" alt="Photos">
-            <span>Photos</span>
-        </div>
-        <div class="desktop-icon" data-target="videos">
-            <img src="https://i.imgur.com/Jq0izu6.png" alt="Videos">
-            <span>Videos</span>
-        </div>
-        <div class="desktop-icon" data-target="browser">
-            <img src="https://i.imgur.com/Jq0izu6.png" alt="Browser">
-            <span>Browser</span>
-        </div>
-        <div class="desktop-icon" data-target="summer2005">
-            <img src="https://i.imgur.com/Jq0izu6.png" alt="Summer 2005">
-            <span>Summer 2005</span>
-        </div>
-        <div class="desktop-icon" data-target="downloads">
-            <img src="https://i.imgur.com/Jq0izu6.png" alt="Downloads">
-            <span>Downloads</span>
-        </div>
+      </div>
     </div>
 
-    <!-- Windows -->
-    <div class="window" id="header-window" style="left: 50%; top: 50%; width: 1000px; height: 400px; transform: translate(-50%, -50%);">
-        <div class="window-header">
-            <span>Header Banner</span>
-            <div class="window-controls">
-                <div class="window-button minimize-btn">_</div>
-                <div class="window-button close-btn">×</div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="cover-photo"></div>
+        <div class="profile-main">
+          <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Sunnie Jae" class="profile-pic-large">
+          <div class="profile-details">
+            <h1>Jayme Squire</h1>
+            <div>Creative Designer & Content Creator</div>
+            <div>CEO of Sunnie Jae Creates</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Tabs -->
+      <div class="profile-tabs">
+        <ul>
+          <li><a href="fakebookwall.html" class="active">Wall</a></li>
+          <li><a href="profile-info.html">Info</a></li>
+          <li><a href="digital-art.html">Photos</a></li>
+          <li><a href="videos.html">Videos</a></li>
+          <li><a href="shop.html">Shop</a></li>
+        </ul>
+      </div>
+
+      <!-- Wall Content -->
+      <div class="wall-content">
+        <!-- Status Update Box -->
+        <div class="status-update">
+          <strong>What's on your mind?</strong>
+          <textarea rows="2" placeholder="Share something..."></textarea>
+        </div>
+
+        <!-- Wall Posts -->
+        <div class="post">
+          <div class="post-header">
+            <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">2 hours ago</span>
             </div>
-        </div>
-        <div class="window-content">
-            <img src="https://i.imgur.com/ixrv4gl.png" alt="Header Banner" class="header-banner">
-        </div>
-        <div class="resize-handle"></div>
-    </div>
-
-    <div class="window minimized" id="notebook-window" style="left: 100px; top: 100px; width: 600px; height: 500px;">
-        <div class="window-header">
-            <span>Personal Essay.doc</span>
-            <div class="window-controls">
-                <div class="window-button minimize-btn">_</div>
-                <div class="window-button close-btn">×</div>
+          </div>
+          <div class="post-content">
+           rawr means ily in dinosaur <4
+          </div>
+          <img src="https://sunniejae.blob.core.windows.net/sunniejae/rawrr.png" alt="iMessage" class="post-image">
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author"> Katie M </a>
+              <span class="comment-text">ommggggg :DDD </span>
+              <span class="comment-time">1 hour ago</span>
             </div>
-        </div>
-        <div class="window-content">
-            <img src="https://i.imgur.com/YBfxfzX.png" alt="Personal Essay" class="notebook-image">
-        </div>
-        <div class="resize-handle"></div>
-    </div>
-
-    <div class="window minimized" id="music-window" style="left: 200px; top: 150px; width: 300px; height: 200px;">
-        <div class="window-header">
-            <span>Music Player</span>
-            <div class="window-controls">
-                <div class="window-button minimize-btn">_</div>
-                <div class="window-button close-btn">×</div>
+            <div class="comment">
+              <a href="#" class="comment-author"> Andie Pandie A </a>
+              <span class="comment-text">rawr</span>
+              <span class="comment-time">45 minutes ago</span>
             </div>
+          </div>
         </div>
-        <div class="window-content">
-            <div class="music-controls">
-                <div class="music-button">⏮</div>
-                <div class="music-button">⏯</div>
-                <div class="music-button">⏭</div>
+
+        <div class="post">
+          <div class="post-header">
+            <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">5 hours ago</span>
             </div>
-            <div style="background: var(--black); color: var(--accent); padding: 8px; font-size: 11px; flex: 1;">
-                Now Playing: Summer Vibes Mix
+          </div>
+          <div class="post-content">
+            Thanks for all the support on my latest projects! You guys are amazing! 💖
+          </div>
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author">Emma L</a>
+              <span class="comment-text">your work always brightens my day!</span>
+              <span class="comment-time">3 hours ago</span>
             </div>
+          </div>
         </div>
-        <div class="resize-handle"></div>
-    </div>
-
-    <!-- Pinterest Window (minimized by default) -->
-    <div class="window minimized" id="pinterest-window" style="left: 300px; top: 200px; width: 400px; height: 400px;">
-        <div class="window-header">
-            <span>Pinterest - Portfolio Feed</span>
-            <div class="window-controls">
-                <div class="window-button minimize-btn">_</div>
-                <div class="window-button close-btn">×</div>
+<div class="post">
+          <div class="post-header">
+            <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">5 hours ago</span>
             </div>
-        </div>
-        <div class="window-content" style="padding:0;">
-            <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="500" data-pin-scale-width="80" href="https://www.pinterest.com/sunniejaecreates/mine/"></a>
-        </div>
-        <div class="resize-handle"></div>
-    </div>
-
-    <!-- Taskbar -->
-    <div class="taskbar">
-        <div class="start-button" id="start-button">Start</div>
-        <div class="taskbar-buttons" id="taskbar-buttons"></div>
-        <div class="clock" id="clock"></div>
-    </div>
-
-    <!-- Start Menu -->
-    <div class="start-menu" id="start-menu">
-        <div class="menu-item has-submenu">
-            Files
-            <div class="submenu">
-                <div class="menu-item" data-link="graphic-design.html">Graphic Design</div>
-                <div class="menu-item" data-link="digital-art.html">Digital Art</div>
-                <div class="menu-item" data-link="videos.html">Videos</div>
-                <div class="menu-item" data-link="writing.html">Writing</div>
+          </div>
+          <div class="post-content">
+            333 Ways To Get Kicked Out of Walmart www.listicle.com/number50willsurpriseyou
+I personally like 24 and 49
+For some reason this link only has 50 instead of 333... Oh well
+          </div>
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author">Katelyn T</a>
+              <span class="comment-text">hahaha I am GOING to do those. no, WE are going to.</span>
+              <span class="comment-time">3 hours ago</span>
             </div>
+          </div>
         </div>
-        <div class="menu-item" data-link="profile-info.html">About</div>
-        <div class="menu-item" data-link="contact.html">Contact</div>
-        <div class="menu-item" data-link="shop.html">Shop</div>
-        <div class="menu-item" data-link="studio-ken.html">Studio Ken</div>
-        <div class="menu-item" id="shutdown-item">Shut Down</div>
+          <div class="post">
+          <div class="post-header">
+            <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">2 hours ago</span>
+            </div>
+          </div>
+          <div class="post-content">
+            iNew haircuttttttt
+          </div>
+          <img src="https://sunniejae.blob.core.windows.net/sunniejae/haircut2011.png" alt="Collage Post" class="post-image">
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author"> Katie M </a>
+              <span class="comment-text"> So cute, Jayme! I loveee it(:</span>
+              <span class="comment-time">1 hour ago</span>
+            </div>
+            <div class="comment">
+              <a href="#" class="comment-author"> Andie Pandie A </a>
+              <span class="comment-text">OMG jayme I LOVE ur Haar!!!! It looks ammazing!!!!! ❤</span>
+              <span class="comment-time">45 minutes ago</span>
+            </div>
+             <div class="comment">
+              <a href="#" class="comment-author"> Sunnie J</a>
+              <span class="comment-text">Thanks guys:)</span>
+              <span class="comment-time">45 minutes ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="post">
+          <div class="post-header">
+            <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">1 day ago</span>
+            </div>
+          </div>
+          <div class="post-content">
+            feeling DERP and AWK lately.. comment for a tbh
+          </div>
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author">Alex G</a>
+              <span class="comment-text">tbh i think ur supper talented</span>
+              <span class="comment-time">18 hours ago</span>
+            </div>
+            <div class="comment">
+              <a href="#" class="comment-author">Jenny C</a>
+              <span class="comment-text">why didnt you tag me in any summer pics...</span>
+              <span class="comment-time">16 hours ago</span>
+            </div>
+            <div class="comment">
+              <a href="#" class="comment-author">Sunnie J</a>
+              <span class="comment-text">Lol wouldnt let me tag EVERYONE sorry</span>
+              <span class="comment-time">16 hours ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="post">
+          <div class="post-header">
+            <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Sunnie Jae" class="post-profile-pic">
+            <div class="post-info">
+              <a href="#" class="post-author">Sunnie Jae</a>
+              <span class="post-time">2 days ago</span>
+            </div>
+          </div>
+          <div class="post-content">
+            "All we do is win win win no matter what"
+~Majestics 2011-2012(;
+          </div>
+          <div class="post-actions">
+            <a href="#" class="post-action">Like</a>
+            <a href="#" class="post-action">Comment</a>
+            <a href="#" class="post-action">Share</a>
+          </div>
+          <div class="comments-section">
+            <div class="comment">
+              <a href="#" class="comment-author">Marianne W</a>
+              <span class="comment-text">Can't wait for nationals! We got this, #LoveItorLeaveIt</span>
+              <span class="comment-time">1 day ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Shutdown Modal -->
-    <div class="modal" id="shutdown-modal">
-        <div class="modal-content">
-            <div class="modal-close" id="modal-close">×</div>
-            <p>when we pull up, you know it's a …</p>
-            <div class="shutdown-button" id="shutdown-confirm">Shut Down</div>
+    <!-- Right Sidebar -->
+    <div class="right-sidebar">
+      <div class="sidebar-box">
+        <div class="sidebar-header">Friends (Random)</div>
+        <div class="sidebar-content">
+          <div class="friends-list">
+            <img src="https://imgur.com/48OZg40.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/FerQdt8.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/22Q9q4Q.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/U7lmcq2.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/22Q9q4Q.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/bnWCa9J.png" alt="Friend" class="friend-pic">
+          </div>
         </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">Sponsored</div>
+        <div class="sidebar-content">
+          <div style="font-size: 13px; color: var(--black);">
+            Products for Sale<br>
+            <small>shop Sunnie Jae Creates on the shop tab!</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-header">Birthdays</div>
+        <div class="sidebar-content">
+          <div style="font-size: 13px;">
+            🎂 <strong>3 friends</strong> have birthdays today
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
-    <script>
-        let draggedElement = null;
-        let dragOffset = { x: 0, y: 0 };
-        let isResizing = false;
-        let activeWindow = null;
-        let windowZIndex = 100;
+ <!-- Chat Feature -->
+  <div id="chatWindow">
+    <div id="chatHeader">
+      Chat with Sunnie Jae
+      <button id="closeChat">×</button>
+    </div>
+    <div id="chatBody">
+      <div class="chat-message sunnie">
+        Heyyyyyy it's Jayme! 
+      </div>
+    </div>
+  </div>
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            updateClock();
-            setInterval(updateClock, 1000);
-            updateTaskbar();
-            
-            // Open default windows - only header window visible
-            setTimeout(() => {
-                openWindow('header-window');
-            }, 500);
-        });
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const inboxBtn = document.getElementById('inboxBtn');
+  const chatWindow = document.getElementById('chatWindow');
+  const closeChat = document.getElementById('closeChat');
+  const chatBody = document.getElementById('chatBody');
+  const chatOptions = document.getElementById('chatOptions');
+  const notification = document.getElementById('notification');
 
-        // Clock
-        function updateClock() {
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('clock').textContent = `${month}/${day}/2006 ${time}`;
-        }
+  // Show/hide chat window
+  if (inboxBtn && chatWindow) {
+    inboxBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const isVisible = chatWindow.style.display === 'flex';
+      chatWindow.style.display = isVisible ? 'none' : 'flex';
+      if (!isVisible && notification) notification.style.display = 'none';
+    });
+  }
 
-        // Desktop icons
-        document.querySelectorAll('.desktop-icon').forEach(icon => {
-            icon.addEventListener('click', function() {
-                const target = this.dataset.target;
-                const links = {
-                    documents: 'documents.html',
-                    photos: 'photos.html',
-                    videos: 'videos.html',
-                    browser: 'browser.html',
-                    summer2005: 'summer2005.html',
-                    downloads: 'portfolio.html'
-                };
-                
-                if (links[target]) {
-                    window.open(links[target], '_blank');
-                }
-            });
-        });
+  // Conversation object
+  const conversation = {
+    start: {
+      reply: "heyyy it's jayme.. wazzup?",
+      options: [
+        { text: "rawr!", next: "rawr" },
+        { text: "i'm just here to judge your work ", next: "services" }
+      ]
+    },
+    services: {
+      reply: "Oh.. okie... I have graphic design, video editing, writing, and web design... anything ur looking 4?",
+      options: [
+        { text: "Graphic design", next: "design" },
+        { text: "Video editing", next: "video" },
+        { text: "Web design", next: "web" },
+        { text: "writing", next: "writing" },
+        { text: "digital art", next: "digitalart" }
+      ]
+    },
+    design: {
+      reply: "graphic design is one of my favzz! i stored those in my graphiczz folder.",
+      options: [
+        { text: "hmm. what about videos?", next: "video" },
+        { text: "how can i get in touch if u log out", next: "collab" }
+      ]
+    },
+    digitalart: {
+      reply: "most of my digital art is just drawn on my ipad, but if you really want to see it... just check out my photos tab.",
+      options: [
+        { text: "hmm. what about videos?", next: "video" },
+        { text: "how can i get in touch if u log out", next: "collab" }
+      ]
+    },
+    writing: {
+      reply: "cool cool, my english class isn't until 4th period... but i've uploaded my work here. you can find it in my notes folder",
+      options: [
+        { text: "what about digital art?", next: "digitalart" },
+        { text: "how can i get in touch if u log out", next: "collab" },
+        { text: "what will i find?", next: "writingoptions" }
+      ]
+    },
+    video: {
+      reply: "Video editing is my playground—everything from TikTok virals to professional announcements. 🎬",
+      options: [
+        { text: "Nice! What about web design?", next: "web" },
+        { text: "That sounds awesome!", next: "endPositive" }
+      ]
+    },
+    web: {
+      reply: "tbh this is my first ever website. it's part of why the pages are all kinda random. i rly wanted to show off what i'm proud of. i'm still learning, but i'm a fast learner(;",
+      options: [
+        { text: "that's impressive! i cant wait to see what you'll do next", next: "endPositive" },
+        { text: "rawr", next: "rawr" }
+      ]
+    },
+    rawr: {
+      reply: "omggg you lurv me? wtc",
+      options: [
+        { text: "...", next: "awk" },
+        { text: "i'm just here to look at your portfolio", next: "services" }
+      ]
+    },
+    awk: {
+      reply: "well.. this is AWK!",
+      options: [
+        { text: "awkward is an awk word", next: "jokes" },
+        { text: "i'm just here to look at your portfolio", next: "services" }
+      ]
+    },
+    jokes: {
+      reply: "lawlz ur so random. wanna go to yogurtville? and a movie?",
+      options: [
+        { text: "no.. :( im free wednesday if someone gave me a ride", next: "ohwell" },
+        { text: "i'm just here to look at your portfolio", next: "services" }
+      ]
+    },
+    ohwell: {
+      reply: "i guess while ur online u could look at my other posts",
+      options: [
+        { text: "sure. where should i start?", next: "tour" },
+        { text: "i already know what i wanna see", next: "services" }
+      ]
+    },
+    tour: {
+      reply: "hmm... maybe check out my services first? or look at my latest projects 👀",
+      options: [
+        { text: "Okay, show me your services", next: "services" },
+        { text: "Tell me about your projects", next: "webcomics" }
+      ]
+    },
+    webcomics: {
+      reply: "One is *Sixteen*, inspired by MBTI archetypes. It follows 16 college students as a slice-of-life style serialized story. The other is *Not Just Another Werewolf Romance* - for fans of enemies-to-lovers, lovers-to-enemies, friends-to-lovers, and supernatural drama. Perfect for Sarah J Mass readers.",
+      options: [
+        { text: "i'll check them out", next: "endPositive" },
+        { text: "how can i get in touch if u log out", next: "collab" }
+      ]
+    },
+    collab: {
+      reply: "you can send me a message at sunniejae.creates@gmail.com - are you looking for help on something?",
+      options: [
+        { text: "A personal website", next: "web" },
+        { text: "A video project", next: "video" },
+        { text: "Something design-heavy", next: "design" }
+      ]
+    },
+    writingoptions: {
+      reply: "right now, you'll see a smattering of poetry and long term projects.",
+      options: [
+        { text: "what are your long term projects about?", next: "webcomics" },
+        { text: "Tell me about your services.", next: "services" }
+      ]
+    },
+    endPositive: {
+      reply: "I’m glad you’re interested! 💜 Feel free to reach out via my contact page so we can make it happen!",
+      options: []
+    }
+  };
 
-        // Start menu
-        document.getElementById('start-button').addEventListener('click', function(e) {
-            e.stopPropagation();
-            const menu = document.getElementById('start-menu');
-            menu.classList.toggle('show');
-        });
+  // Helper functions
+  function addMessage(text, sender = "user") {
+    const msg = document.createElement("div");
+    msg.classList.add("chat-message", sender);
+    msg.textContent = text;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
 
-        document.addEventListener('click', function() {
-            document.getElementById('start-menu').classList.remove('show');
-        });
+  function loadOptions(nodeKey) {
+    chatOptions.innerHTML = "";
+    const node = conversation[nodeKey];
+    if (!node) return;
+    if (node.reply) {
+      setTimeout(() => addMessage(node.reply, "sunnie"), 600);
+    }
+    node.options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.textContent = opt.text;
+      btn.onclick = () => {
+        addMessage(opt.text, "user");
+        loadOptions(opt.next);
+      };
+      chatOptions.appendChild(btn);
+    });
+  }
 
-        // Menu items with links
-        document.querySelectorAll('.menu-item[data-link]').forEach(item => {
-            item.addEventListener('click', function() {
-                window.open(this.dataset.link, '_blank');
-            });
-        });
-
-        // Shutdown
-        document.getElementById('shutdown-item').addEventListener('click', function() {
-            document.getElementById('shutdown-modal').classList.add('show');
-            document.getElementById('start-menu').classList.remove('show');
-        });
-
-        document.getElementById('modal-close').addEventListener('click', function() {
-            document.getElementById('shutdown-modal').classList.remove('show');
-        });
-
-        document.getElementById('shutdown-confirm').addEventListener('click', function() {
-            history.back();
-        });
-
-        // Window management
-        function openWindow(windowId) {
-            const window = document.getElementById(windowId);
-            window.classList.remove('minimized');
-            setActiveWindow(window);
-            updateTaskbar();
-        }
-
-        function closeWindow(windowId) {
-            document.getElementById(windowId).classList.add('minimized');
-            updateTaskbar();
-        }
-
-        function minimizeWindow(windowId) {
-            document.getElementById(windowId).classList.add('minimized');
-            updateTaskbar();
-        }
-
-        function setActiveWindow(window) {
-            document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-            window.classList.add('active');
-            window.style.zIndex = ++windowZIndex;
-            activeWindow = window;
-            updateTaskbar();
-        }
-
-        function updateTaskbar() {
-            const taskbarButtons = document.getElementById('taskbar-buttons');
-            taskbarButtons.innerHTML = '';
-            
-            document.querySelectorAll('.window').forEach(window => {
-                const button = document.createElement('div');
-                button.className = 'taskbar-button';
-                if (window.classList.contains('active') && !window.classList.contains('minimized')) {
-                    button.classList.add('active');
-                }
-                button.textContent = window.querySelector('.window-header span').textContent;
-                button.addEventListener('click', function() {
-                    if (window.classList.contains('minimized')) {
-                        window.classList.remove('minimized');
-                    }
-                    setActiveWindow(window);
-                });
-                taskbarButtons.appendChild(button);
-            });
-        }
-
-        // Window controls
-        document.querySelectorAll('.window').forEach(window => {
-            const header = window.querySelector('.window-header');
-            const minimizeBtn = window.querySelector('.minimize-btn');
-            const closeBtn = window.querySelector('.close-btn');
-            const resizeHandle = window.querySelector('.resize-handle');
-
-            // Make window active on click
-            window.addEventListener('mousedown', function() {
-                setActiveWindow(this);
-            });
-
-            // Minimize
-            minimizeBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                minimizeWindow(window.id);
-            });
-
-            // Close
-            closeBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                closeWindow(window.id);
-            });
-
-            // Drag
-            header.addEventListener('mousedown', function(e) {
-                if (e.target.classList.contains('window-button')) return;
-                draggedElement = window;
-                const rect = window.getBoundingClientRect();
-                dragOffset.x = e.clientX - rect.left;
-                dragOffset.y = e.clientY - rect.top;
-                setActiveWindow(window);
-            });
-
-            // Resize
-            if (resizeHandle) {
-                resizeHandle.addEventListener('mousedown', function(e) {
-                    e.stopPropagation();
-                    isResizing = window;
-                    setActiveWindow(window);
-                });
-            }
-        });
-
-        // Mouse events
-        document.addEventListener('mousemove', function(e) {
-            if (draggedElement) {
-                const newLeft = e.clientX - dragOffset.x;
-                const newTop = e.clientY - dragOffset.y;
-                
-                // Keep window in viewport
-                const maxLeft = window.innerWidth - 100;
-                const maxTop = window.innerHeight - 100;
-                
-                draggedElement.style.left = Math.max(0, Math.min(newLeft, maxLeft)) + 'px';
-                draggedElement.style.top = Math.max(0, Math.min(newTop, maxTop)) + 'px';
-            }
-            
-            if (isResizing) {
-                const rect = isResizing.getBoundingClientRect();
-                const newWidth = e.clientX - rect.left;
-                const newHeight = e.clientY - rect.top;
-                
-                isResizing.style.width = Math.max(300, newWidth) + 'px';
-                isResizing.style.height = Math.max(200, newHeight) + 'px';
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            draggedElement = null;
-            isResizing = false;
-        });
-
-        // Prevent text selection while dragging
-        document.addEventListener('selectstart', function(e) {
-            if (draggedElement || isResizing) {
-                e.preventDefault();
-            }
-        });
-    </script>
+  // Start conversation
+  loadOptions("start");
+});
+</script>
+  </script>
 </body>
 </html>
