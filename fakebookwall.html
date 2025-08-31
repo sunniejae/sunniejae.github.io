@@ -9,12 +9,12 @@
   <style>
     :root {
     /* Y2K Bratz/Barbie Dream Palette */
-      --purple: #9a9ad4;  
-      --pink: #c13886;
-      --cyan: #00c9c2;
-      --magenta: #c13886;
+      --primary: #9a9ad4;  
+      --secondary: #c13886;
+      --accent: #00c9c2;
+      --teal: #00a8a3;
       --dark-purple: #3f3d7a;
-      --pale-pink: #ffb3d6;         
+      --light-pink: #ffb3d6;         
       --lilac: #dda0dd;                /* Soft lilac */
       --white: #ffffff;    
       --light-gray: #e6e6fa;           /* Lavender-tinted light */
@@ -45,8 +45,8 @@
       left: 0;
       width: 100%;
       height: 82px;
-      background: var(--purple);
-      border-bottom: 1px solid var(--cyan);
+      background: var(--primary);
+      border-bottom: 1px solid var(--accent);
       z-index: 1000;
       box-shadow: 0 1px 3px rgba(26, 13, 31, 0.2);
     }
@@ -119,7 +119,7 @@
 
     .profile-info {
       background: var(--white);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       margin-bottom: 10px;
       padding: 8px;
     }
@@ -128,7 +128,7 @@
       width: 50px;
       height: 50px;
       border-radius: 2px;
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       display: block;
       margin-bottom: 8px;
     }
@@ -136,7 +136,7 @@
     .profile-name {
       font-size: 13px;
       font-weight: bold;
-      color: var(--pink);
+      color: var(--secondary);
       text-decoration: none;
       margin-bottom: 5px;
       display: block;
@@ -164,14 +164,14 @@
     .main-content {
       flex: 1;
       background: var(--white);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
     }
 
     /* Profile Header */
     .profile-header {
       background: var(--white);
       padding: 10px;
-      border-bottom: 1px solid var(--pale-pink);
+      border-bottom: 1px solid var(--light-pink);
     }
 
     .cover-photo {
@@ -180,7 +180,7 @@
       background-image: url('https://imgur.com/7BJknIY.png');
       background-size: cover;
       background-position: center;
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       margin-bottom: 10px;
     }
 
@@ -200,7 +200,7 @@
 
     .profile-details h1 {
       font-size: 24px;
-      color: var(--pink);
+      color: var(--secondary);
       font-weight: normal;
       margin-bottom: 5px;
       font-family: 'Trebuchet MS', sans-serif;
@@ -208,7 +208,7 @@
 
     .profile-tabs {
       background: var(--light-gray);
-      border-bottom: 1px solid var(--pale-pink);
+      border-bottom: 1px solid var(--light-pink);
       padding: 0;
       margin: 0;
     }
@@ -221,7 +221,7 @@
     }
 
     .profile-tabs li {
-      border-right: 1px solid var(--pale-pink);
+      border-right: 1px solid var(--light-pink);
     }
 
     .profile-tabs a {
@@ -247,7 +247,7 @@
 
     .status-update {
       background: var(--light-gray);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       padding: 8px;
       margin-bottom: 10px;
       border-radius: 2px;
@@ -255,14 +255,14 @@
 
     .post {
       background: var(--white);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       margin-bottom: 8px;
       border-radius: 2px;
     }
 
     .post-header {
       padding: 8px 10px;
-      border-bottom: 1px solid var(--pale-pink);
+      border-bottom: 1px solid var(--light-pink);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -271,7 +271,7 @@
     .post-profile-pic {
       width: 32px;
       height: 32px;
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       border-radius: 2px;
     }
 
@@ -301,13 +301,13 @@
 
     .post-image {
       width: 100%;
-      border-top: 1px solid var(--pale-pink);
+      border-top: 1px solid var(--light-pink);
       display: block;
     }
 
     .post-actions {
       padding: 6px 10px;
-      border-top: 1px solid var(--pale-pink);
+      border-top: 1px solid var(--light-pink);
       background: var(--light-gray);
       display: flex;
       gap: 10px;
@@ -326,7 +326,7 @@
 
     .comments-section {
       background: var(--light-gray);
-      border-top: 1px solid var(--pale-pink);
+      border-top: 1px solid var(--light-pink);
       padding: 8px 10px;
     }
 
@@ -360,14 +360,14 @@
 
     .sidebar-box {
       background: var(--white);
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       margin-bottom: 10px;
     }
 
     .sidebar-header {
       background: var(--light-gray);
       padding: 6px 8px;
-      border-bottom: 1px solid var(--pale-pink);
+      border-bottom: 1px solid var(--light-pink);
       font-size: 13px;
       font-weight: bold;
       color: var(--black);
@@ -386,7 +386,7 @@
     .friend-pic {
       width: 50px;
       height: 50px;
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       border-radius: 2px;
     }
 
@@ -414,7 +414,7 @@
       width: 100%;
       margin-top: 5px;
       padding: 5px;
-      border: 1px solid var(--pale-pink);
+      border: 1px solid var(--light-pink);
       font-size: 13px;
       background: var(--white);
     }
@@ -460,7 +460,7 @@
     #notification {
         display: inline-block;
         margin-left: 8px;
-        color: var(--cyan);
+        color: var(--accent);
         background: var(--black);
         font-weight: bold;
         font-size: 12px;
@@ -470,7 +470,7 @@
         line-height: 18px;
         text-align: center;
         animation: pulse 1.5s infinite;
-        box-shadow: 0 0 8px var(--cyan);
+        box-shadow: 0 0 8px var(--accent);
     }
 
     @keyframes pulse {
@@ -502,7 +502,7 @@
 
     #chatHeader {
         padding: 10px;
-        background-color: var(--purple);
+        background-color: var(--primary);
         color: var(--white);
         font-weight: bold;
         border-top-left-radius: 10px;
@@ -551,13 +551,13 @@
     }
 
     .chat-message.sunnie {
-        background-color: var(--purple);
+        background-color: var(--primary);
         color: var(--white);
         align-self: flex-start;
     }
 
     .chat-message.user {
-        background-color: var(--cyan);
+        background-color: var(--accent);
         color: var(--white);
         align-self: flex-end;
     }
@@ -575,7 +575,7 @@
         padding: 5px 10px;
         border: none;
         border-radius: 5px;
-        background-color: var(--magenta);
+        background-color: var(--teal);
         color: var(--white);
         cursor: pointer;
         transition: background 0.2s;
@@ -583,7 +583,7 @@
     }
 
     #chatOptions button:hover {
-        background-color: var(--pink);
+        background-color: var(--secondary);
     }
   </style>
 </head>
