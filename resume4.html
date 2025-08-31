@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunnie Jae Profile</title>
+    <link rel="stylesheet" href="fakebook.css">
+    <style>
+        /* ===== CHAT WINDOW ===== */
+        #inboxBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        #notification {
+            display: inline-block;
+            margin-left: 8px;
+            color: var(--pink);
+            font-weight: bold;
+        }
+        #chatWindow {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            width: 300px;
+            max-height: 400px;
+            background-color: var(--white);
+            border: 1px solid var(--gray);
+            border-radius: 10px;
+            flex-direction: column;
+            z-index: 1000;
+            font-family: sans-serif;
+        }
+        #chatHeader {
+            padding: 10px;
+            background-color: var(--primary);
+            color: var(--white);
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        #chatBody {
+            padding: 10px;
+            flex: 1;
+            overflow-y: auto;
+            background-color: var(--silver);
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 10px;
+        }
+        .chat-message.me {
+            background-color: var(--primary);
+            color: var(--white);
+            align-self: flex-start;
+        }
+        .chat-message.user {
+            background-color: var(--accent);
+            color: var(--white);
+            align-self: flex-end;
+        }
+        #chatOptions {
+            padding: 10px;
+            border-top: 1px solid var(--gray);
+        }
+        #chatOptions button {
+            margin: 5px 5px 0 0;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--secondary);
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        /* ===== LAYOUT ===== */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: var(--silver);
+            color: var(--black);
+        }
+        .facebook-header {
+            background-color: var(--dark-purple);
+            color: var(--white);
+            padding: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .left-sidebar, .right-sidebar {
+            width: 200px;
+            background-color: var(--white);
+            padding: 10px;
+            border-right: 1px solid var(--gray);
+        }
+        .right-sidebar {
+            border-right: none;
+            border-left: 1px solid var(--gray);
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        .section-header {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .section-content {
+            margin-bottom: 30px;
+        }
+        .work-entry, .project-title, .project-description {
+            margin-bottom: 10px;
+        }
+        .quirky-note {
+            font-style: italic;
+            color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="facebook-header">Sunnie Jae Profile</div>
+
+    <div class="main-container">
+        <div class="left-sidebar">
+            <div>Navigation</div>
+            <ul>
+                <li>Home</li>
+                <li>Resume</li>
+                <li>Projects</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="info-section" id="unprofessional">
+                <div class="section-header">Unprofessional Resume</div>
+                <div class="section-content">
+                    <p>When you get Sunnie Jae, you get options. I'm a creative by nature; I take every chance to take an idea and make an experience.</p>
+                    <h4>Writing</h4>
+                    <p>I've been writing longer than anything. Language is my first love. (Sorry, Ken) If you have a short story you'd like to commission, that would be swell.</p>
+                    <h4>Current Projects</h4>
+                    <p>My inspiration always has a story, so my current passion has been the intersection of digital/graphic art and writing. I'm currently working on two WebComics:</p>
+                    <div class="project-title">16 (Sixteen)</div>
+                    <div class="project-description">Follows the college lives of 16 psych 101 students. Each main character is inspired by MBTI stereotypes.</div>
+                    <div class="project-title">Not Just Another Werewolf Romance</div>
+                    <div class="project-description">Starts as a serialized novel. Chapters published on my blog. Follows four young adults navigating romance, friendship, and the supernatural.</div>
+                    <h4>Video Content</h4>
+                    <p>I'm also always editing videos. My content ranges from viral cat tiktoks to department announcements for my 9-5 Desk Job.</p>
+                    <p>I've been vlogging since I was 13 (it's almost all been scrubbed). My job is not naturally creative, but I've found a way to incorporate my hobby into my day-to-day.</p>
+                    <div class="quirky-note">You can find me in the kpop-sphere making video compilations of favorite performances. You can find me on TikTok going viral for my cat being ornery. (ꈍᴗꈍ)♡</div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-header">Professional Resume</div>
+                <div class="section-content">
+                    <h3>Recent Work History</h3>
+                    <div class="work-entry">
+                        <div class="work-title">Senior Supervisor, Sales Operations</div>
+                        <div class="work-dates">Oct 2022 – Present</div>
+                        <h4>Responsibilities:</h4>
+                        <ul class="responsibility-list">
+                            <li>Spearheaded creation and implementation of a text line for the department.</li>
+                            <li>Created and led department competitions and incentives.</li>
+                            <li>Managed up to 15 agents at a time.</li>
+                            <li>Supported department-level branded projects through self-taught design.</li>
+                        </ul>
+                        <div class="design-integration"><strong>How I Integrated Design:</strong> All communications and competitions had color-coded branding and graphics for clarity and visual consistency.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-sidebar">
+            <div>Extras</div>
+        </div>
+    </div>
+
+    <!-- Floating Inbox Button -->
+    <button id="inboxBtn">Inbox <span id="notification">!</span></button>
+
+    <!-- Chat Window -->
+    <div id="chatWindow">
+        <div id="chatHeader">Chat with Sunnie</div>
+        <div id="chatBody"></div>
+        <div id="chatOptions"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
