@@ -98,6 +98,37 @@
     .section-content h4 {
       margin-top: 15px;
     }
+    .project-title {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .project-description {
+      margin-left: 10px;
+    }
+    .quirky-note {
+      font-style: italic;
+      margin-top: 10px;
+      color: var(--gray);
+    }
+    .work-entry {
+      margin-bottom: 15px;
+    }
+    .work-title {
+      font-weight: bold;
+    }
+    .work-dates {
+      font-style: italic;
+      margin-bottom: 5px;
+    }
+    .responsibility-list {
+      margin-left: 20px;
+    }
+    .design-integration {
+      background: var(--light-gray);
+      padding: 5px;
+      margin: 5px 0 10px 0;
+      border-radius: 5px;
+    }
 
     /* Chat styles */
     #inboxBtn {
@@ -201,7 +232,40 @@
             <div class="work-entry">
               <div class="work-title">Senior Supervisor, Sales Operations</div>
               <div class="work-dates">Oct 2022 – Present</div>
-              <p>Managed up to 15 agents, led competitions, built SharePoint sites, and integrated design into workflows.</p>
+
+              <h4>Responsibilities:</h4>
+              <ul class="responsibility-list">
+                <li>Spearheaded the creation and implementation of a text line for the department
+                  <ul>
+                    <li>Regularly met with superiors to develop policies and procedures.</li>
+                    <li>Communicated these policies and procedures using comprehensive Microsoft SharePoint pages.</li>
+                    <li>Built out a shift schedule that could accommodate for changing staffing.</li>
+                    <li>Trained each agent in groups of 1-3.</li>
+                  </ul>
+                </li>
+                <li>Created and led department competitions and incentives, contributing to employee engagement and culture
+                  <ul>
+                    <li>Communicated across departments to solidify timelines.</li>
+                    <li>Created four competitions and one raffle system to run through our busiest season.</li>
+                    <li>Started preparations several months ahead of the deadline; the competitions ran for around one month, with less than a week between each.</li>
+                    <li>Built each of the four with specific goals in mind.</li>
+                  </ul>
+                </li>
+                <li>Managed up to 15 agents at a time
+                  <ul>
+                    <li>Consistent one-to-one communication and coaching</li>
+                    <li>Delegating important projects and overseeing their completion</li>
+                    <li>Detail focused quality review</li>
+                    <li>Running meetings for trainings, competition proposals, management huddles, and more</li>
+                  </ul>
+                </li>
+                <li>Supported department-level branded projects through self-taught design, leveraging tools like Canva, Capcut, and SharePoint to create internal collateral and visual content</li>
+              </ul>
+
+              <div class="design-integration">
+                <strong>How I Integrated Design:</strong>
+                Every text department communication had a graphic heading. I created a thought-out color palette for the site, and used those primary colors for all imagery across the SharePoint site. I also "branded" competitions with logos, color palettes, and visuals, and used color-coding to organize agent-specific information.
+              </div>
             </div>
           </div>
         </div>
@@ -210,11 +274,36 @@
         <div class="info-section">
           <div class="section-header">Unprofessional Resume</div>
           <div class="section-content">
-            <p>When you get Sunnie Jae, you get options. I'm a creative by nature; I take every chance to turn an idea into an experience.</p>
+            <p>When you get Sunnie Jae, you get options. I'm a creative by nature; I take every chance to take an idea and make an experience.</p>
+
             <h4>Writing</h4>
-            <p>I've been writing longer than anything. Language is my first love. (Sorry, Ken)</p>
+            <p>I've been writing longer than anything. Language is my first love. (Sorry, Ken) If you have a short story you'd like to commission, that would be swell.</p>
+
+            <h4>Current Projects</h4>
+            <p>My inspiration always has a story, so my current passion has been the intersection of digital/graphic art and writing. I'm currently working on two WebComics:</p>
+            <div class="project-title">16 (Sixteen)</div>
+            <div class="project-description">
+              Follows the college lives of 16 psych 101 students.<br>
+              The concept comes from the MBTI archetypes. Each main character is inspired by MBTI stereotypes.
+            </div>
+            <div class="project-title">Not Just Another Werewolf Romance</div>
+            <div class="project-description">
+              Starts as a serialized novel.<br>
+              Chapters will be published on my blog.<br>
+              Follows four young adults navigating romance, friendship, and the supernatural.<br>
+              Recommended for readers who like enemies to lovers, friends to lovers, soulmates, and bisexual main characters.
+            </div>
+
+            <h4>Video Content</h4>
+            <p>I'm also always editing videos. My content ranges from viral cat TikToks to department announcements for my 9-5 desk job.</p>
+            <p>I've been vlogging since I was 13 (it's almost all been scrubbed, don't worry). It's become something close to a public journal for me. My job is not naturally creative, but I've found a way to incorporate my hobby into my day-to-day.</p>
+
+            <div class="quirky-note">
+              You can find me in the K-pop sphere making video compilations of favorite performances. You can find me on TikTok going viral for my cat being ornery. (ꈍᴗꈍ)♡
+            </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -245,7 +334,7 @@
     // Toggle chat window
     inboxBtn.addEventListener("click", () => {
       chatWindow.style.display = chatWindow.style.display === "flex" ? "none" : "flex";
-      notification.style.display = "none"; // clear alert when opened
+      notification.style.display = "none";
     });
 
     // Fake "new message" notification after delay
