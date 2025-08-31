@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sunnie Jae-Fakebook Bio</title>
+  <title>Sunnie Jae - Profile Info</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
   <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Y2K Bratz/Barbie Dream Palette */
+    /* Y2K Bratz/Barbie Dream Palette */
       --purple: #9a9ad4;  
       --pink: #c13886;
       --cyan: #00c9c2;
@@ -22,7 +22,6 @@
       --silver: #f0f0f5;
       --dark-gray: #404040;
       --black: #000010;
-
     }
 
     * {
@@ -175,7 +174,7 @@
       border-bottom: 1px solid var(--pale-pink);
     }
 
-     .cover-photo {
+    .cover-photo {
       width: 100%;
       height: 180px;
       background-image: url('https://imgur.com/7BJknIY.png');
@@ -241,7 +240,7 @@
       color: var(--black);
     }
 
-    /* Info Content */
+    /* Info Content Styles */
     .info-content {
       padding: 15px;
     }
@@ -473,137 +472,151 @@
         width: 200px;
       }
     }
-          
-/* ================== CHAT WINDOW ================== */
-#inboxBtn {
-    background: none;
-    border: none;
-    color: var(--white);
-    text-decoration: none;
-    font-size: 11px;
-    padding: 4px 8px;
-    cursor: pointer;
-    border-radius: 2px;
-}
 
-#inboxBtn:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
+    /* Chat Window Styles */
+    #inboxBtn {
+        background: none;
+        border: none;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 11px;
+        padding: 4px 8px;
+        cursor: pointer;
+        border-radius: 2px;
+    }
 
-#notification {
-    display: inline-block;
-    margin-left: 8px;
-    color: var(--pink);
-    font-weight: bold;
-    animation: flash 1s infinite;
-}
+    #inboxBtn:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
 
-@keyframes flash {
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0; }
-}
+    #notification {
+        display: inline-block;
+        margin-left: 8px;
+        color: var(--white);
+        background: var(--pink);
+        font-weight: bold;
+        font-size: 12px;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        animation: pulse 1.5s infinite;
+        box-shadow: 0 0 8px rgba(193, 56, 134, 0.6);
+    }
 
-#chatWindow {
-    display: none;
-    position: fixed;
-    top: 90px;
-    right: 20px;
-    width: 300px;
-    max-height: 400px;
-    background-color: var(--white);
-    border: 1px solid var(--gray);
-    border-radius: 10px;
-    flex-direction: column;
-    z-index: 1000;
-    font-family: sans-serif;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-}
+    @keyframes pulse {
+        0%, 100% { 
+            transform: scale(1); 
+            opacity: 1; 
+        }
+        50% { 
+            transform: scale(1.1); 
+            opacity: 0.8; 
+        }
+    }
 
-#chatHeader {
-    padding: 10px;
-    background-color: var(--purple);
-    color: var(--white);
-    font-weight: bold;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    #chatWindow {
+        display: none;
+        position: fixed;
+        top: 90px;
+        right: 20px;
+        width: 300px;
+        max-height: 400px;
+        background-color: var(--white);
+        border: 1px solid var(--gray);
+        border-radius: 10px;
+        flex-direction: column;
+        z-index: 1000;
+        font-family: sans-serif;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
 
-#closeChat {
-    background: none;
-    border: none;
-    color: var(--white);
-    font-size: 16px;
-    cursor: pointer;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    #chatHeader {
+        padding: 10px;
+        background-color: var(--purple);
+        color: var(--white);
+        font-weight: bold;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-#closeChat:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-}
+    #closeChat {
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-#chatBody {
-    padding: 10px;
-    flex: 1;
-    overflow-y: auto;
-    background-color: var(--light-gray);
-    display: flex;
-    flex-direction: column;
-    min-height: 200px;
-    max-height: 250px;
-}
+    #closeChat:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+    }
 
-.chat-message {
-    margin-bottom: 10px;
-    padding: 8px;
-    border-radius: 10px;
-    max-width: 80%;
-    font-size: 11px;
-}
+    #chatBody {
+        padding: 10px;
+        flex: 1;
+        overflow-y: auto;
+        background-color: var(--light-gray);
+        display: flex;
+        flex-direction: column;
+        min-height: 200px;
+        max-height: 250px;
+    }
 
-.chat-message.sunnie {
-    background-color: var(--purple);
-    color: var(--white);
-    align-self: flex-start;
-}
+    .chat-message {
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 10px;
+        max-width: 80%;
+        font-size: 11px;
+    }
 
-.chat-message.user {
-    background-color: var(--cyan);
-    color: var(--white);
-    align-self: flex-end;
-}
+    .chat-message.sunnie {
+        background-color: var(--purple);
+        color: var(--white);
+        align-self: flex-start;
+    }
 
-#chatOptions {
-    padding: 10px;
-    border-top: 1px solid var(--gray);
-    background-color: var(--white);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
+    .chat-message.user {
+        background-color: var(--cyan);
+        color: var(--white);
+        align-self: flex-end;
+    }
 
-#chatOptions button {
-    margin: 5px 5px 0 0;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--magenta);
-    color: var(--white);
-    cursor: pointer;
-    transition: background 0.2s;
-    font-size: 11px;
-}
+    #chatOptions {
+        padding: 10px;
+        border-top: 1px solid var(--gray);
+        background-color: var(--white);
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
 
-#chatOptions button:hover {
-    background-color: var(--pink);
-}
+    #chatOptions button {
+        margin: 5px 5px 0 0;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--magenta);
+        color: var(--white);
+        cursor: pointer;
+        transition: background 0.2s;
+        font-size: 11px;
+    }
+
+    #chatOptions button:hover {
+        background-color: var(--pink);
+    }
   </style>
 </head>
 <body>
@@ -614,12 +627,11 @@
       <input type="text" class="search-box" placeholder="Search">
       <nav class="header-nav">
         <a href="index.html">Home</a>
-        <a href="fakebookwall.html">Profile</a>
+        <a href="profile-info.html">Profile</a>
         <a href="studio-ken.html">Friends</a>
-        <button id="inboxBtn"> Inbox <span id="notification">!</span>
-        </button>
-        <a href="#info-section">Settings</a>
-        <a href="index.html">Logout</a>
+        <button id="inboxBtn">Inbox <span id="notification">!</span></button>
+        <a href="#">Settings</a>
+        <a href="javascript:history.back()" class="nav-button nav-back">Logout</a>
       </nav>
     </div>
   </div>
@@ -629,7 +641,7 @@
     <div class="left-sidebar">
       <div class="profile-info">
         <img src="https://imgur.com/f3PHZ3I.png" alt="Profile" class="profile-pic">
-        <a href="fakebookwall.html" class="profile-name">Sunnie Jae</a>
+        <a href="#" class="profile-name">Sunnie Jae</a>
         <ul class="profile-links">
           <li><a href="#">Edit My Profile</a></li>
           <li><a href="#">Account Settings</a></li>
@@ -644,7 +656,7 @@
             <img src="https://imgur.com/5WZhwSa.png" alt="Photos" class="app-icon">
             Summer 2009
           </a>
-          <a href="#" class="app-link">
+          <a href="videos.html" class="app-link">
             <img src="https://imgur.com/5WZhwSa.png" alt="Videos XD" class="app-icon">
             Videos XD
           </a>
@@ -681,13 +693,14 @@
           <li><a href="shop.html">Shop</a></li>
         </ul>
       </div>
+
       <!-- Info Content -->
       <div class="info-content">
-      
+        
         <!-- Professional Resume -->
         <div class="info-section">
           <div class="section-header">
-          Professional Resume 
+            Professional Resume 
           </div>
           <div class="section-content">
             <h3>Recent Work History</h3>
@@ -808,8 +821,8 @@
             <img src="https://imgur.com/FerQdt8.png" alt="Friend" class="friend-pic">
             <img src="https://imgur.com/22Q9q4Q.png" alt="Friend" class="friend-pic">
             <img src="https://imgur.com/U7lmcq2.png" alt="Friend" class="friend-pic">
+            <img src="https://imgur.com/22Q9q4Q.png" alt="Friend" class="friend-pic">
             <img src="https://imgur.com/bnWCa9J.png" alt="Friend" class="friend-pic">
-            <img src="https://imgur.com/5fjM6QN.png" alt="Friend" class="friend-pic">
           </div>
         </div>
       </div>
@@ -817,9 +830,9 @@
       <div class="sidebar-box">
         <div class="sidebar-header">Sponsored</div>
         <div class="sidebar-content">
-          <div style="font-size: 11px; color: var(--black);">
-            Shop Stickers & Apparel <br>
-            <small>Get Sunnie Jae Creations in the Shop tab</small>
+          <div style="font-size: 13px; color: var(--black);">
+            Products for Sale<br>
+            <small>shop Sunnie Jae Creates on the shop tab!</small>
           </div>
         </div>
       </div>
@@ -827,7 +840,7 @@
       <div class="sidebar-box">
         <div class="sidebar-header">Birthdays</div>
         <div class="sidebar-content">
-          <div style="font-size: 11px;">
+          <div style="font-size: 13px;">
             🎂 <strong>3 friends</strong> have birthdays today
           </div>
         </div>
@@ -835,8 +848,7 @@
     </div>
   </div>
 
-  <!-- Chat Feature moved to header -->
-
+  <!-- Chat Feature -->
   <div id="chatWindow">
     <div id="chatHeader">
       Chat with Sunnie Jae
@@ -844,14 +856,14 @@
     </div>
     <div id="chatBody">
       <div class="chat-message sunnie">
-        Hey! Thanks for checking out my profile! 💖
+        Hey! Thanks for checking out my info page! Interested in working together?
       </div>
     </div>
     <div id="chatOptions">
-      <button onclick="sendMessage('Hi! Love your work!')">Hi! Love your work!</button>
-      <button onclick="sendMessage('Tell me about your projects!')">Tell me about your projects!</button>
+      <button onclick="sendMessage('Tell me about your services!')">Tell me about your services!</button>
+      <button onclick="sendMessage('Your projects sound amazing!')">Your projects sound amazing!</button>
       <button onclick="sendMessage('Can we collaborate?')">Can we collaborate?</button>
-      <button onclick="sendMessage('What services do you offer?')">What services do you offer?</button>
+      <button onclick="sendMessage('What\'s your design process?')">What's your design process?</button>
     </div>
   </div>
 
@@ -865,13 +877,10 @@
       const chatBody = document.getElementById('chatBody');
       const notification = document.getElementById('notification');
 
-      console.log('Elements found:', {inboxBtn, chatWindow, closeChat}); // Debug log
-
       // Show/hide chat window
       if (inboxBtn && chatWindow) {
         inboxBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          console.log('Inbox clicked'); // Debug log
           const isVisible = chatWindow.style.display === 'flex';
           if (isVisible) {
             chatWindow.style.display = 'none';
@@ -891,11 +900,11 @@
 
       // Chat responses from Sunnie Jae
       const responses = {
-        "Hi! Love your work!": "Aww thank you so much! That means the world to me! ✨ I put my heart into everything I create.",
-        "Tell me about your projects!": "I'm working on two webcomics right now! '16' is about college psych students based on MBTI types, and 'Not Just Another Werewolf Romance' is exactly what it sounds like - but better! 📚💜",
-        "Can we collaborate?": "I'd love to! I'm always open to creative collaborations. What did you have in mind? You can reach me through the contact page! 🤝",
-        "What services do you offer?": "I do graphic design, video editing, writing (stories & content), and I'm building my portfolio for web design too! Check out my shop tab! 💼✨",
-        "default": "Thanks for reaching out! I love connecting with creative people. Feel free to browse around my profile! 🎨"
+        "Tell me about your services!": "I offer graphic design, video editing, writing, and web design! I love combining creativity with professional results. Check out my work examples! ✨",
+        "Your projects sound amazing!": "Thank you! I'm really passionate about storytelling through both writing and visual design. The webcomics are my current obsession! 💜",
+        "Can we collaborate?": "Absolutely! I love working with other creatives. What kind of project did you have in mind? Let's make something awesome together! 🤝",
+        "What's your design process?": "I always start with the story or message, then build the visual identity around that. Color psychology is huge for me - everything needs to feel cohesive! 🎨",
+        "default": "Thanks for reaching out! I'm always excited to talk about creative projects and collaborations! 🌟"
       };
 
       // Send message function
