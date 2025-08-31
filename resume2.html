@@ -174,7 +174,20 @@
   color: var(--white);
   align-self: flex-end;
 }
+.notif {
+  background: var(--magenta);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 50%;
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
 
+@keyframes blink {
+  50% { opacity: 0; }
+}
     /* Main Content */
     .main-content {
       flex: 1;
@@ -583,7 +596,6 @@
       
         <!-- Professional Resume -->
         <div class="info-section" id="professional">
-        <div class="info-section">
           <div class="section-header">
           Professional Resume 
           </div>
@@ -649,7 +661,6 @@
        
         <!-- Unprofessional Resume -->
           <div class="info-section" id="unprofessional">
-        <div class="info-section">
           <div class="section-header">
             Unprofessional Resume
           </div>
@@ -683,7 +694,6 @@
 
         <!-- Education Section -->
             <div class="info-section" id="education">
-        <div class="info-section">
           <div class="section-header">
             Education
           </div>
@@ -735,8 +745,8 @@
     </div>
   </div>
 
-  <script>
-   // Toggle Chat Widget
+ <script>
+  // Toggle Chat Widget
   const inboxLink = document.getElementById('inbox-link');
   const chatWidget = document.getElementById('chatWidget');
   const chatHeader = document.getElementById('chatHeader');
@@ -745,21 +755,32 @@
   inboxLink.addEventListener('click', (e) => {
     e.preventDefault();
     chatWidget.style.display = chatWidget.style.display === 'flex' ? 'none' : 'flex';
-    if (notif) notif.style.display = 'none';
+    if (notif) notif.style.display = 'none'; // hide notif when opened
   });
 
   chatHeader.addEventListener('click', () => {
     chatWidget.style.display = 'none';
   });
 
+  // Single clean sendResponse function
   function sendResponse(text, target) {
     const chatMessages = document.getElementById('chatMessages');
-    const message = document.createElement('div');
-    message.className = 'chat-message from-bot';
-    message.textContent = text;
-    chatMessages.appendChild(message);
+
+    // user message
+    const userMessage = document.createElement('div');
+    userMessage.className = 'chat-message from-user';
+    userMessage.textContent = text;
+    chatMessages.appendChild(userMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
+    // Sunnie auto-reply
+    const botMessage = document.createElement('div');
+    botMessage.className = 'chat-message from-bot';
+    botMessage.textContent = "Got it! Let me take you there. 👇";
+    chatMessages.appendChild(botMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // scroll or redirect
     if (target.startsWith('#')) {
       const section = document.querySelector(target);
       if (section) section.scrollIntoView({ behavior: 'smooth' });
@@ -767,26 +788,6 @@
       window.location.href = target;
     }
   }
-    function sendResponse(text, target) {
-  const chatMessages = document.getElementById('chatMessages');
-  
-  // user message
-  const userMessage = document.createElement('div');
-  userMessage.className = 'chat-message from-user';
-  userMessage.textContent = text;
-  chatMessages.appendChild(userMessage);
-
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-
-  // scroll or redirect
-  if (target.startsWith('#')) {
-    const section = document.querySelector(target);
-    if (section) section.scrollIntoView({ behavior: 'smooth' });
-  } else {
-    window.location.href = target;
-  }
-}
-
 </script>
 </body>
 </html>
