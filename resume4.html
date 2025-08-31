@@ -32,7 +32,7 @@
 
     body {
       font-family: 'Tahoma', Arial, sans-serif;
-      font-size: 13px;
+      font-size: 11px;
       background: var(--white);
       color: var(--black);
       line-height: 1.28;
@@ -74,7 +74,7 @@
       border: 1px solid var(--white);
       padding: 3px 6px;
       color: var(--white);
-      font-size: 13px;
+      font-size: 11px;
       border-radius: 2px;
       width: 300px;
     }
@@ -91,7 +91,7 @@
     .header-nav a {
       color: var(--white);
       text-decoration: none;
-      font-size: 13px;
+      font-size: 11px;
       padding: 4px 8px;
     }
 
@@ -263,7 +263,7 @@
 
     .section-content {
       padding: 12px 15px;
-      font-size: 13px;
+      font-size: 11px;
       line-height: 1.5;
     }
 
@@ -312,7 +312,7 @@
 
     .work-dates {
       color: var(--dark-purple);
-      font-size: 13px;
+      font-size: 11px;
       font-weight: bold;
       margin-bottom: 8px;
     }
@@ -344,7 +344,7 @@
     .responsibility-list ul li {
       margin-bottom: 3px;
       padding-left: 15px;
-      font-size: 13px;
+      font-size: 11px;
     }
 
     .responsibility-list ul li:before {
@@ -359,7 +359,7 @@
       padding: 6px 8px;
       margin: 5px 0;
       border-left: 3px solid var(--cyan);
-      font-size: 13px;
+      font-size: 11px;
       font-style: italic;
     }
 
@@ -373,7 +373,7 @@
     .degree {
       color: var(--purple);
       font-weight: bold;
-      font-size: 13px;
+      font-size: 11px;
     }
 
     .institution {
@@ -387,7 +387,7 @@
       color: var(--black);
       padding: 8px 10px;
       border-radius: 15px;
-      font-size: 13px;
+      font-size: 11px;
       margin: 10px 0;
       text-align: center;
       font-style: italic;
@@ -409,7 +409,7 @@
       background: var(--light-gray);
       padding: 6px 8px;
       border-bottom: 1px solid var(--pale-pink);
-      font-size: 13px;
+      font-size: 11px;
       font-weight: bold;
       color: var(--black);
     }
@@ -438,7 +438,7 @@
       padding: 5px;
       color: var(--dark-purple);
       text-decoration: none;
-      font-size: 13px;
+      font-size: 11px;
     }
 
     .app-link:hover {
@@ -479,7 +479,7 @@
     border: none;
     color: var(--white);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 11px;
     padding: 4px 8px;
     cursor: pointer;
     border-radius: 2px;
@@ -565,7 +565,7 @@
     padding: 8px;
     border-radius: 10px;
     max-width: 80%;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .chat-message.sunnie {
@@ -597,7 +597,7 @@
     color: var(--white);
     cursor: pointer;
     transition: background 0.2s;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 #chatOptions button:hover {
@@ -816,7 +816,7 @@
       <div class="sidebar-box">
         <div class="sidebar-header">Sponsored</div>
         <div class="sidebar-content">
-          <div style="font-size: 13px; color: var(--black);">
+          <div style="font-size: 11px; color: var(--black);">
             Shop Stickers & Apparel <br>
             <small>Get Sunnie Jae Creations in the Shop tab</small>
           </div>
@@ -826,7 +826,7 @@
       <div class="sidebar-box">
         <div class="sidebar-header">Birthdays</div>
         <div class="sidebar-content">
-          <div style="font-size: 13px;">
+          <div style="font-size: 11px;">
             🎂 <strong>3 friends</strong> have birthdays today
           </div>
         </div>
@@ -834,65 +834,98 @@
     </div>
   </div>
 
- <script>
-    // Chat functionality
-    const inboxBtn = document.getElementById('inboxBtn');
-    const chatWindow = document.getElementById('chatWindow');
-    const closeChat = document.getElementById('closeChat');
-    const chatBody = document.getElementById('chatBody');
-    const notification = document.getElementById('notification');
+  <!-- Chat Feature moved to header -->
 
-    // Show/hide chat window
-    inboxBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (chatWindow.style.display === 'flex') {
-        chatWindow.style.display = 'none';
-      } else {
-        chatWindow.style.display = 'flex';
-        notification.style.display = 'none'; // Hide notification when opened
+  <div id="chatWindow">
+    <div id="chatHeader">
+      Chat with Sunnie Jae
+      <button id="closeChat">×</button>
+    </div>
+    <div id="chatBody">
+      <div class="chat-message sunnie">
+        Hey! Thanks for checking out my profile! 💖
+      </div>
+    </div>
+    <div id="chatOptions">
+      <button onclick="sendMessage('Hi! Love your work!')">Hi! Love your work!</button>
+      <button onclick="sendMessage('Tell me about your projects!')">Tell me about your projects!</button>
+      <button onclick="sendMessage('Can we collaborate?')">Can we collaborate?</button>
+      <button onclick="sendMessage('What services do you offer?')">What services do you offer?</button>
+    </div>
+  </div>
+
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Chat functionality
+      const inboxBtn = document.getElementById('inboxBtn');
+      const chatWindow = document.getElementById('chatWindow');
+      const closeChat = document.getElementById('closeChat');
+      const chatBody = document.getElementById('chatBody');
+      const notification = document.getElementById('notification');
+
+      console.log('Elements found:', {inboxBtn, chatWindow, closeChat}); // Debug log
+
+      // Show/hide chat window
+      if (inboxBtn && chatWindow) {
+        inboxBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Inbox clicked'); // Debug log
+          const isVisible = chatWindow.style.display === 'flex';
+          if (isVisible) {
+            chatWindow.style.display = 'none';
+          } else {
+            chatWindow.style.display = 'flex';
+            if (notification) notification.style.display = 'none';
+          }
+        });
       }
-    });
 
-    // Close chat window
-    closeChat.addEventListener('click', function() {
-      chatWindow.style.display = 'none';
-    });
+      // Close chat window
+      if (closeChat && chatWindow) {
+        closeChat.addEventListener('click', function() {
+          chatWindow.style.display = 'none';
+        });
+      }
 
-    // Chat responses from Sunnie Jae
-    const responses = {
-      "Hi! Love your work!": "Aww thank you so much! That means the world to me! ✨ I put my heart into everything I create.",
-      "Tell me about your projects!": "I'm working on two webcomics right now! '16' is about college psych students based on MBTI types, and 'Not Just Another Werewolf Romance' is exactly what it sounds like - but better! 📚💜",
-      "Can we collaborate?": "I'd love to! I'm always open to creative collaborations. What did you have in mind? You can reach me through the contact page! 🤝",
-      "What services do you offer?": "I do graphic design, video editing, writing (stories & content), and I'm building my portfolio for web design too! Check out my shop tab! 💼✨",
-      "default": "Thanks for reaching out! I love connecting with creative people. Feel free to browse around my profile! 🎨"
-    };
+      // Chat responses from Sunnie Jae
+      const responses = {
+        "Hi! Love your work!": "Aww thank you so much! That means the world to me! ✨ I put my heart into everything I create.",
+        "Tell me about your projects!": "I'm working on two webcomics right now! '16' is about college psych students based on MBTI types, and 'Not Just Another Werewolf Romance' is exactly what it sounds like - but better! 📚💜",
+        "Can we collaborate?": "I'd love to! I'm always open to creative collaborations. What did you have in mind? You can reach me through the contact page! 🤝",
+        "What services do you offer?": "I do graphic design, video editing, writing (stories & content), and I'm building my portfolio for web design too! Check out my shop tab! 💼✨",
+        "default": "Thanks for reaching out! I love connecting with creative people. Feel free to browse around my profile! 🎨"
+      };
 
-    // Send message function
-    function sendMessage(message) {
-      // Add user message
-      const userMessage = document.createElement('div');
-      userMessage.className = 'chat-message user';
-      userMessage.textContent = message;
-      chatBody.appendChild(userMessage);
-
-      // Add Sunnie's response after a short delay
-      setTimeout(function() {
-        const sunnieMessage = document.createElement('div');
-        sunnieMessage.className = 'chat-message sunnie';
-        const response = responses[message] || responses["default"];
-        sunnieMessage.textContent = response;
-        chatBody.appendChild(sunnieMessage);
+      // Send message function
+      function sendMessage(message) {
+        if (!chatBody) return;
         
+        // Add user message
+        const userMessage = document.createElement('div');
+        userMessage.className = 'chat-message user';
+        userMessage.textContent = message;
+        chatBody.appendChild(userMessage);
+
+        // Add Sunnie's response after a short delay
+        setTimeout(function() {
+          const sunnieMessage = document.createElement('div');
+          sunnieMessage.className = 'chat-message sunnie';
+          const response = responses[message] || responses["default"];
+          sunnieMessage.textContent = response;
+          chatBody.appendChild(sunnieMessage);
+          
+          // Scroll to bottom
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 1000);
+
         // Scroll to bottom
         chatBody.scrollTop = chatBody.scrollHeight;
-      }, 1000);
+      }
 
-      // Scroll to bottom
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    // Make sendMessage function global so buttons can access it
-    window.sendMessage = sendMessage;
+      // Make sendMessage function global so buttons can access it
+      window.sendMessage = sendMessage;
+    });
   </script>
 </body>
 </html>
