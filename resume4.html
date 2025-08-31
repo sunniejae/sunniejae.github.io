@@ -834,33 +834,29 @@
     </div>
   </div>
 
-  <!-- Chat Feature moved to header -->
-
-  <div id="chatWindow">
-    <div id="chatHeader">
-      Chat with Sunnie Jae
-      <button id="closeChat">×</button>
-    </div>
-    <div id="chatBody">
-      <div class="chat-message sunnie">
-        Hey! Thanks for checking out my profile! 💖
-      </div>
-    </div>
-    <div id="chatOptions">
-      <button onclick="sendMessage('Hi! Love your work!')">Hi! Love your work!</button>
-      <button onclick="sendMessage('Tell me about your projects!')">Tell me about your projects!</button>
-      <button onclick="sendMessage('Can we collaborate?')">Can we collaborate?</button>
-      <button onclick="sendMessage('What services do you offer?')">What services do you offer?</button>
-    </div>
-  </div>
-
-  <script>
+ <script>
     // Chat functionality
     const inboxBtn = document.getElementById('inboxBtn');
     const chatWindow = document.getElementById('chatWindow');
     const closeChat = document.getElementById('closeChat');
     const chatBody = document.getElementById('chatBody');
     const notification = document.getElementById('notification');
+
+    // Show/hide chat window
+    inboxBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (chatWindow.style.display === 'flex') {
+        chatWindow.style.display = 'none';
+      } else {
+        chatWindow.style.display = 'flex';
+        notification.style.display = 'none'; // Hide notification when opened
+      }
+    });
+
+    // Close chat window
+    closeChat.addEventListener('click', function() {
+      chatWindow.style.display = 'none';
+    });
 
     // Chat responses from Sunnie Jae
     const responses = {
