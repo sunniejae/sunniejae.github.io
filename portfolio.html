@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Sunnie Jae Creates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+  <link rel="icon" type="image/png" href="https://imgur.com/5fjM6QN.png">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
   <style>
@@ -63,7 +63,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1400px;  
+      max-width: 1400px; /* Increased max width */
       margin: 0 auto;
       padding: 0 30px;
       width: 100%;
@@ -248,6 +248,21 @@
       bottom: 0;
       background: rgba(199, 62, 141, 0.1);
       border-radius: 0px;
+    }
+
+    /* Section 2: Notebook */
+    .section-notebook {
+      padding: 40px 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .section-notebook h2 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: #ff66cc;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #007e8f, 3px 3px 6px rgba(0, 0, 0, 0.5);
     }
 
     /* Section 3: Computer with Pinterest */
@@ -747,6 +762,19 @@
 
     <!-- MAIN CONTENT AREA -->
     <div class="content-area">
+      <!-- SECTION 1: TITLE -->
+      <section class="section-title glow" id="home"></section>
+
+      <!-- SECTION 2: medium -->
+      <section class="section-notebook">
+    <iframe 
+        src="https://rss.app/embed/v1/wall/mMwCeCIjuR96L6qv" 
+        frameborder="0" 
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;">
+    </iframe>
+</div>
+      </section>
+      
       <!-- SECTION 3: COMPUTER + PINTEREST EMBED -->
       <section class="section-computer">
         <h2>Follow Along: Live Content Updates</h2>
@@ -766,11 +794,6 @@
             ></a>
           </div>
         </div>
-        <iframe 
-        src="https://rss.app/embed/v1/wall/mMwCeCIjuR96L6qv" 
-        frameborder="0" 
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;">
-    </iframe>
       </section>
     </div>
   </div>
