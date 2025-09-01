@@ -250,7 +250,7 @@
     }
 
     .section-notebook {
-      padding: 20px 0;
+      padding: 10px 0;
       text-align: center;
       width: 100%;
       animation: fadeInUp 0.8s ease-out;
@@ -260,15 +260,8 @@
       font-family: 'Press Start 2P', monospace;
       font-size: clamp(1rem, 2.5vw, 1.4rem);
       color: var(--pink);
-      margin-bottom: 25px;
+      margin-bottom: 10px;
       text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 var(--teal), 3px 3px 6px rgba(0, 0, 0, 0.5);
-    }
-
-    .widget-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
     }
 
     .widget-container iframe {
@@ -286,6 +279,17 @@
       gap: 15px;
       width: 100%;
     }
+    
+.widget-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;   /* small gap instead of large spacing */
+  align-items: center;
+}
+
+.section-notebook {
+  padding: 10px 0; /* reduce vertical padding */
+}
 
     .folder-item {
       display: flex;
@@ -346,35 +350,6 @@
       flex-grow: 1;
     }
 
-    /* FOOTER / TASKBAR */
-    .taskbar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      z-index: 999;
-      background: var(--teal);
-      border-top: 2px solid var(--accent);
-      border-bottom: 1px solid var(--dark-purple);
-      height: 60px;
-      box-shadow: inset 0 1px 0 var(--teal), 0 -2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .taskbar-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-    }
-
-    .taskbar-image {
-      height: 50px;
-      width: auto;
-      object-fit: contain;
-    }
 
     /* Glow effect */
     .glow {
@@ -566,10 +541,13 @@
     <main class="content-area">
       <section class="section-title"></section>
 
-      <section class="section-notebook">
-        <h2>Latest Posts</h2>
-        <iframe width="900" height="1600" src="https://rss.app/embed/v1/imageboard/xzDVimyFzzudFngX" frameborder="0"></iframe>
-        <iframe width="900" height="1600" src="https://rss.app/embed/v1/imageboard/mMwCeCIjuR96L6qv" frameborder="0"></iframe>
+     <section class="section-notebook">
+  <h2>Latest Posts</h2>
+  <div class="widget-container">
+    <iframe width="900" height="1600" src="https://rss.app/embed/v1/imageboard/xzDVimyFzzudFngX" frameborder="0"></iframe>
+    <iframe width="900" height="1600" src="https://rss.app/embed/v1/imageboard/mMwCeCIjuR96L6qv" frameborder="0"></iframe>
+  </div>
+</section>
         
     </main>
   </div>
