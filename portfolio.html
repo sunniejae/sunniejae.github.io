@@ -8,20 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap');
-:root {
-            --black: #000010;
-            --white: #ffffff;
-            --dark-gray: #404040;
-            --gray: #bfbfdc;
-            --silver: #f0f0f5;
-            --pink: #ffb3d6;
-            --teal: #00a8a3;
-            --dark-purple: #3f3d7a;
-            --accent: #00c9c2;
-            --secondary: #c13886;
-            --primary: #9a9ad4;
-        }
+    :root {
+      --black: #000010;
+      --white: #ffffff;
+      --dark-gray: #404040;
+      --gray: #bfbfdc;
+      --silver: #f0f0f5;
+      --pink: #ffb3d6;
+      --teal: #00a8a3;
+      --dark-purple: #3f3d7a;
+      --accent: #00c9c2;
+      --secondary: #c13886;
+      --primary: #9a9ad4;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -29,19 +29,19 @@
     }
 
     html {
-      font-size: 16px; /* Explicit base font size */
+      font-size: 16px;
       scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--dark-purple);
-      color: #89e6e0;
+      color: var(--teal);
       overflow-x: hidden;
       padding-top: 100px;
       line-height: 1.6;
       min-height: 100vh;
-      font-size: 1rem; /* Explicit body font size */
+      font-size: 1rem;
     }
 
     /* HEADER NAVIGATION STYLES */
@@ -50,12 +50,12 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: #f0f0f5;
-      border-bottom: 3px solid #007e8f;
-      border-top: 1px solid #007e8f;
+      background: var(--silver);
+      border-bottom: 3px solid var(--teal);
+      border-top: 1px solid var(--teal);
       z-index: 1000;
       padding: 15px 0;
-      box-shadow: inset 0 1px 0 #89e6e0, 0 3px 6px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 1px 0 var(--teal), 0 3px 6px rgba(0, 0, 0, 0.4);
       min-height: 80px;
     }
 
@@ -63,7 +63,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1400px; /* Increased max width */
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 30px;
       width: 100%;
@@ -81,14 +81,14 @@
       height: 50px;
       width: auto;
       border-radius: 0px;
-      border: 2px solid #89e6e0;
-      box-shadow: inset 1px 1px 0 #02d1ca, 2px 2px 4px rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--teal);
+      box-shadow: inset 1px 1px 0 var(--accent), 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .logo-text {
       font-family: 'Press Start 2P', monospace;
       font-size: 1.2rem;
-      color: #404040;
+      color: var(--dark-gray);
       white-space: nowrap;
     }
 
@@ -101,7 +101,7 @@
     }
 
     .nav-link {
-      color: #404040;
+      color: var(--dark-gray);
       text-decoration: none;
       font-size: 1rem;
       font-weight: 500;
@@ -109,18 +109,18 @@
       border-radius: 0px;
       transition: all 0.15s ease;
       position: relative;
-      background: #9a9ad4;
-      border: 2px outset #9a9ad4;
+      background: var(--primary);
+      border: 2px outset var(--primary);
       white-space: nowrap;
       box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
       margin: 2px;
     }
 
     .nav-link:hover {
-      background: #c73e8d;
-      color: #404040;
+      background: var(--secondary);
+      color: var(--dark-gray);
       transform: none;
-      border: 2px inset #c73e8d;
+      border: 2px inset var(--secondary);
       box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
 
@@ -133,8 +133,8 @@
       position: absolute;
       top: calc(100% + 5px);
       left: 0;
-      background: #007e8f;
-      border: 2px outset #007e8f;
+      background: var(--teal);
+      border: 2px outset var(--teal);
       border-radius: 0px;
       min-width: 220px;
       opacity: 0;
@@ -154,7 +154,7 @@
 
     .dropdown-item {
       display: block;
-      color: #f0f0f5;
+      color: var(--silver);
       text-decoration: none;
       padding: 6px 12px;
       font-size: 0.9rem;
@@ -167,10 +167,10 @@
     }
 
     .dropdown-item:hover {
-      background: #9a9ad4;
-      color: #404040;
+      background: var(--primary);
+      color: var(--dark-gray);
       transform: none;
-      border: 1px outset #02d1ca;
+      border: 1px outset var(--accent);
     }
 
     /* Mobile toggle */
@@ -185,13 +185,14 @@
     .mobile-toggle span {
       width: 25px;
       height: 3px;
-      background: #404040;
+      background: var(--dark-gray);
       border-radius: 0px;
       transition: all 0.3s ease;
     }
 
+    /* MAIN CONTENT */
     .main-content {
-      max-width: 1400px; /* Increased max width */
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 30px;
       width: 100%;
@@ -200,7 +201,6 @@
       gap: 30px;
     }
 
-    /* Left sidebar for folders */
     .sidebar {
       position: sticky;
       top: 120px;
@@ -211,22 +211,21 @@
     .sidebar h2 {
       font-family: 'Press Start 2P', monospace;
       font-size: 0.8rem;
-      color: #9a9ad4;
+      color: var(--primary);
       margin-bottom: 20px;
       text-align: center;
-      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #007e8f, 3px 3px 6px rgba(0, 0, 0, 0.5);
+      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 var(--teal), 3px 3px 6px rgba(0, 0, 0, 0.5);
     }
 
-    /* Main content area */
     .content-area {
       display: flex;
       flex-direction: column;
     }
-    /* Section 1: Title Banner */
+
     .section-title {
       width: 100%;
       height: 400px;
-      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/social%20feed%20header.png);
+      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/social%20feed%20header.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -236,7 +235,7 @@
       position: relative;
       overflow: hidden;
       min-height: 350px;
-      border: 2px inset #9a9ad4;
+      border: 2px inset var(--primary);
     }
 
     .section-title::before {
@@ -250,74 +249,34 @@
       border-radius: 0px;
     }
 
-    /* Section 2: Notebook */
     .section-notebook {
       padding: 20px 0;
       text-align: center;
       width: 100%;
+      animation: fadeInUp 0.8s ease-out;
     }
 
     .section-notebook h2 {
       font-family: 'Press Start 2P', monospace;
       font-size: clamp(1rem, 2.5vw, 1.4rem);
-      color: #ff66cc;
+      color: var(--pink);
       margin-bottom: 25px;
-      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 #007e8f, 3px 3px 6px rgba(0, 0, 0, 0.5);
+      text-shadow: 1px 1px 0 #6e0b41, 2px 2px 0 var(--teal), 3px 3px 6px rgba(0, 0, 0, 0.5);
     }
 
-    /* Section 3: Computer with Pinterest */
-    .section-computer {
-      padding: 20px 0;
-      text-align: center;
-      width: 100%;
-    }
-
-    .section-computer h2 {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      color: #f0f0f5;
-      margin-bottom: 25px;
-      text-shadow: 1px 1px 0 #007e8f, 2px 2px 0 #6e0b41, 3px 3px 6px rgba(0, 0, 0, 0.5);
-    }
-
-    .computer-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .computer-image {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 0px;
-      border: 3px outset #007e8f;
-    }
-
-    .pinterest-embed {
-      position: absolute;
-      top: 14.5%;
-      left: 8.3%;
-      width: 42.7%;
-      height: 50%;
+    .widget-container {
       display: flex;
+      flex-direction: column;
+      gap: 20px;
       align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border-radius: 0px;
-      background: #6e0b41;
     }
 
-    .pinterest-embed > * {
+    .widget-container iframe {
       max-width: 100%;
-      max-height: 100%;
-    }
-
-    .pinterest-embed > a {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
+      border: 3px outset var(--teal);
+      border-radius: 0px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+      background: #6e0b41;
     }
 
     /* Folders Sidebar */
@@ -333,12 +292,12 @@
       flex-direction: row;
       align-items: center;
       text-decoration: none;
-      color: #404040;
+      color: var(--dark-gray);
       padding: 8px 12px;
       border-radius: 0px;
       transition: all 0.1s ease;
-      background: #9a9ad4;
-      border: 2px outset #9a9ad4;
+      background: var(--primary);
+      border: 2px outset var(--primary);
       box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
       margin: 1px 0;
       width: 100%;
@@ -346,16 +305,16 @@
 
     .folder-item:hover {
       transform: none;
-      background: #ff66cc;
-      border: 2px inset #ff66cc;
+      background: var(--pink);
+      border: 2px inset var(--pink);
       box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .social-item:hover {
-      background: #02d1ca;
-      border: 2px inset #02d1ca;
+      background: var(--accent);
+      border: 2px inset var(--accent);
       box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
-      color: #404040;
+      color: var(--dark-gray);
     }
 
     .folder-item img {
@@ -365,16 +324,16 @@
       margin-right: 12px;
       transition: transform 0.1s ease;
       object-fit: contain;
-      background: #89e6e0;
+      background: var(--teal);
       padding: 4px;
-      border: 1px outset #89e6e0;
+      border: 1px outset var(--teal);
       box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
       flex-shrink: 0;
     }
 
     .folder-item:hover img {
       transform: none;
-      border: 1px inset #404040;
+      border: 1px inset var(--dark-gray);
       box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
 
@@ -394,15 +353,15 @@
       left: 0;
       width: 100%;
       z-index: 999;
-      background: #007e8f;
-      border-top: 2px solid #02d1ca;
-      border-bottom: 1px solid #6e0b41;
+      background: var(--teal);
+      border-top: 2px solid var(--accent);
+      border-bottom: 1px solid var(--dark-purple);
       height: 60px;
-      box-shadow: inset 0 1px 0 #89e6e0, 0 -2px 4px rgba(0, 0, 0, 0.3);
+      box-shadow: inset 0 1px 0 var(--teal), 0 -2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .taskbar-content {
-      max-width: 1400px; /* Increased max width */
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 30px;
       display: flex;
@@ -417,20 +376,7 @@
       object-fit: contain;
     }
 
-    /* Loading animation for Pinterest embed */
-    .pinterest-embed::before {
-      content: "Loading Live Feed...";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #9a9ad4;
-      font-size: 0.9rem;
-      z-index: -1;
-      font-weight: 300;
-    }
-
-    /* Enhanced Visual Effects */
+    /* Glow effect */
     .glow {
       position: relative;
     }
@@ -442,23 +388,15 @@
       left: -1px;
       right: -1px;
       bottom: -1px;
-      background: #ff66cc;
+      background: var(--pink);
       border-radius: inherit;
-      opacity: 0;
+      opacity: 0.3;
       transition: opacity 0.1s ease;
       z-index: -1;
-      border: 1px solid #02d1ca;
+      border: 1px solid var(--accent);
     }
 
-    .glow:hover::before {
-      opacity: 1;
-    }
-
-    .glow:hover::before {
-      opacity: 0.3;
-    }
-
-    /* Responsive Design */
+    /* Responsive design */
     @media (max-width: 1200px) {
       .nav-container,
       .main-content,
@@ -466,7 +404,7 @@
         max-width: 100%;
         padding: 0 25px;
       }
-      
+
       .main-content {
         grid-template-columns: 180px 1fr;
         gap: 20px;
@@ -478,36 +416,36 @@
         grid-template-columns: 1fr;
         gap: 20px;
       }
-      
+
       .sidebar {
         position: static;
         order: -1;
       }
-      
+
       .sidebar h2 {
         font-size: 1rem;
         margin-bottom: 15px;
       }
-      
+
       .folders-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 10px;
       }
-      
+
       .folder-item {
         flex-direction: column;
         padding: 10px;
         text-align: center;
       }
-      
+
       .folder-item img {
         width: 32px;
         height: 32px;
         margin-right: 0;
         margin-bottom: 8px;
       }
-      
+
       .folder-label {
         text-align: center;
         font-size: 0.75rem;
@@ -519,13 +457,13 @@
         top: 100%;
         left: 0;
         width: 100%;
-        background: #02d1ca;
-        border-top: 2px solid #007e8f;
-        border-bottom: 2px solid #007e8f;
+        background: var(--accent);
+        border-top: 2px solid var(--teal);
+        border-bottom: 2px solid var(--teal);
         flex-direction: column;
         padding: 10px;
         gap: 5px;
-        box-shadow: inset 0 1px 0 #89e6e0, 0 4px 8px rgba(0, 0, 0, 0.4);
+        box-shadow: inset 0 1px 0 var(--teal), 0 4px 8px rgba(0, 0, 0, 0.4);
       }
 
       .nav-menu.active {
@@ -535,156 +473,61 @@
       .mobile-toggle {
         display: flex;
       }
-
-      .dropdown-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        box-shadow: none;
-        border: none;
-        background: transparent;
-        margin-left: 0;
-        margin-top: 10px;
-      }
-
-      .folders-container {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      }
     }
 
     @media (max-width: 768px) {
-      body {
-        padding-top: 80px;
-      }
-
-      .section-title {
-        height: 250px;
-        margin: 15px 0;
-      }
-
-      .pinterest-embed {
-        position: static;
-        width: 100%;
-        height: 250px;
-        margin: 15px 0;
-        border-radius: 0px;
-      }
-
-      .computer-image {
-        margin-bottom: 15px;
-      }
-
-      .taskbar {
-        height: 50px;
-      }
-
-      .taskbar-image {
-        height: 40px;
-      }
-
-      .main-content {
-        padding: 0 20px;
-      }
-
-      .nav-container {
-        padding: 0 20px;
-      }
+      body { padding-top: 80px; }
+      .section-title { height: 250px; margin: 15px 0; }
+      .taskbar { height: 50px; }
+      .taskbar-image { height: 40px; }
+      .main-content { padding: 0 20px; }
+      .nav-container { padding: 0 20px; }
+      .widget-container iframe { height: 350px !important; }
     }
 
     @media (max-width: 480px) {
-      .main-content {
-        padding: 0 15px;
-      }
-
-      .nav-container {
-        padding: 0 15px;
-      }
-
-      .logo-text {
-        font-size: 0.9rem;
-      }
-
-      .logo img {
-        height: 40px;
-      }
-
-      .folders-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-      }
-
-      .taskbar-content {
-        padding: 0 15px;
-      }
-
-      .taskbar {
-        height: 45px;
-      }
-
-      .taskbar-image {
-        height: 35px;
-      }
+      .main-content { padding: 0 15px; }
+      .nav-container { padding: 0 15px; }
+      .logo-text { font-size: 0.9rem; }
+      .logo img { height: 40px; }
+      .folders-container { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+      .taskbar-content { padding: 0 15px; }
+      .taskbar { height: 45px; }
+      .taskbar-image { height: 35px; }
+      .widget-container iframe { height: 300px !important; }
     }
 
-    /* Force minimum sizes to prevent shrinking */
-    @media (min-width: 1400px) {
-      .nav-container,
-      .main-content,
-      .taskbar-content {
-        max-width: 1400px;
-      }
-    }
-
-    /* Smooth scrolling and animations */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
+    /* Section 1: Title Banner */
+.section-title {
+  width: 100%;
+  height: 400px;
+  background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/social%20feed%20header.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0px;
+  margin: 20px 0;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), 2px 2px 8px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  min-height: 350px;
+  border: 2px inset var(--primary);
+}
 
-    .section-notebook,
-    .section-computer,
-    .section-folders {
-      animation: fadeInUp 0.8s ease-out;
-    }
-
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 16px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #9a9ad4;
-      border: 1px inset #9a9ad4;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #c73e8d;
-      border: 2px outset #c73e8d;
-      border-radius: 0px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #8f0fc8;
-      border: 2px inset #8f0fc8;
-    }
-
-    ::-webkit-scrollbar-button {
-      background: #02d1ca;
-      border: 1px outset #02d1ca;
-      height: 16px;
-    }
-
-    ::-webkit-scrollbar-button:hover {
-      background: #007e8f;
-      border: 1px inset #007e8f;
-    }
+.section-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(199, 62, 141, 0.1); /* subtle overlay */
+  border-radius: 0px;
+}
   </style>
 </head>
 <body>
@@ -697,18 +540,10 @@
       </a>
       
       <ul class="nav-menu" id="navMenu">
-        <li class="nav-item">
-          <a href="index.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="contact.html" class="nav-link">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a href="profile-info.html" class="nav-link">About</a>
-        </li>
-        <li class="nav-item">
-          <a href="shop.html" class="nav-link">Shop</a>
-        </li>
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+        <li class="nav-item"><a href="profile-info.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
         <li class="nav-item dropdown">
           <a href="#portfolio" class="nav-link dropdown-toggle">Categories ▼</a>
           <div class="dropdown-menu">
@@ -718,9 +553,7 @@
             <a href="writing.html" class="dropdown-item">Writing</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a href="studio-ken.html" class="nav-link">Studio Ken</a>
-        </li>
+        <li class="nav-item"><a href="studio.html" class="nav-link">Studio</a></li>
       </ul>
 
       <div class="mobile-toggle" id="mobileToggle">
@@ -733,104 +566,59 @@
 
   <!-- MAIN CONTENT -->
   <div class="main-content">
-    <!-- SIDEBAR WITH FOLDERS -->
-    <div class="sidebar">
-      <h2>Desktop</h2>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h2>Folders</h2>
       <div class="folders-container">
-        <a href="writing.html" class="folder-item glow">
-          <img src="https://imgur.com/XRXG5tA.png" alt="Fanfiction">
-          <span class="folder-label">Documents</span>
+        <a href="#" class="folder-item glow">
+          <img src="https://imgur.com/nP4DNvF.png" alt="Design Folder">
+          <span class="folder-label">Graphic Design</span>
         </a>
-        
-        <a href="videos.html" class="folder-item glow">
-          <img src="https://imgur.com/XRXG5tA.png" alt="Videos">
+        <a href="#" class="folder-item glow">
+          <img src="https://imgur.com/yH0I95O.png" alt="Art Folder">
+          <span class="folder-label">Digital Art</span>
+        </a>
+        <a href="#" class="folder-item glow">
+          <img src="https://imgur.com/8mPLF2s.png" alt="Writing Folder">
+          <span class="folder-label">Writing</span>
+        </a>
+        <a href="#" class="folder-item glow">
+          <img src="https://imgur.com/4tLr9yD.png" alt="Video Folder">
           <span class="folder-label">Videos</span>
         </a>
-  
-        <a href="youtube.html" class="folder-item social-item glow">
-          <img src="https://imgur.com/Bh4p6mj.png" alt="YouTube">
-          <span class="folder-label">YouTube</span>
-        </a>
-        
-        <a href="tiktok.html" class="folder-item social-item glow">
-          <img src="https://imgur.com/MhKNywk.png" alt="TikTok">
-          <span class="folder-label">TikTok</span>
-        </a>
       </div>
-    </div>
+    </aside>
+    
 
-    <!-- MAIN CONTENT AREA -->
-    <div class="content-area">
+    <!-- CONTENT AREA -->
+    <main class="content-area">
       <!-- SECTION 1: TITLE -->
-      <section class="section-title glow" id="home"></section>
+<section class="section-title glow" id="home"></section>
 
-      <!-- SECTION 2: widgets -->
+ <!-- SECTION 2: WIDGETS -->
       <section class="section-notebook">
-    <iframe width="900" height="1600" src="https://rss.app/embed/v1/imageboard/mMwCeCIjuR96L6qv" frameborder="0"></iframe>
-<iframe width="900" height="1600" src="https://rss.app/embed/v1/wall/E0vm2Ei5m6Va0gzu" frameborder="0"></iframe>
-<iframe width="900" height="1600" src="https://rss.app/embed/v1/imageboard/xzDVimyFzzudFngX" frameborder="0"></iframe>
-        </section>
-
-    </div>
+        <h2>Latest Posts</h2>
+        <div class="widget-container">
+          <iframe src="https://sunniejaecreates.blogspot.com/feeds/posts/default?alt=rss" frameborder="0"></iframe>
+        </div>
+      </section>
+    </main>
   </div>
-  
-  <!-- Mobile Navigation Toggle -->
+
+  <!-- TASKBAR -->
+  <footer class="taskbar">
+    <div class="taskbar-content">
+      <img src="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" alt="Taskbar Logo" class="taskbar-image glow">
+    </div>
+  </footer>
+
   <script>
-    document.getElementById('mobileToggle').addEventListener('click', function() {
-      const navMenu = document.getElementById('navMenu');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    mobileToggle.addEventListener('click', () => {
       navMenu.classList.toggle('active');
-      
-      // Animate hamburger menu
-      const spans = this.getElementsByTagName('span');
-      if (navMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-      } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-      }
     });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        const navMenu = document.getElementById('navMenu');
-        const mobileToggle = document.getElementById('mobileToggle');
-        navMenu.classList.remove('active');
-        
-        // Reset hamburger menu
-        const spans = mobileToggle.getElementsByTagName('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-      });
-    });
-
-    // Smooth reveal animations on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationDelay = '0.2s';
-          entry.target.style.animationFillMode = 'forwards';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.section-notebook, .section-computer, .section-folders').forEach(section => {
-      observer.observe(section);
-    });
-
-    // Debug zoom detection
-    console.log('Browser zoom level:', Math.round(window.devicePixelRatio * 100) + '%');
-    console.log('Viewport width:', window.innerWidth);
-    console.log('Screen width:', screen.width);
   </script>
 </body>
 </html>
