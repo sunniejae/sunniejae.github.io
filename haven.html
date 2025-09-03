@@ -19,57 +19,58 @@
       --gold: #E4C287;
       --paper: #FDF6F0;
     }
-.book-tabs {
-  background: var(--deep-blue);
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  border-bottom: 4px solid var(--gold);
-  font-family: 'Playfair Display', serif;
-}
-
-.book-tabs ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.book-tabs li {
-  margin: 0 5px;
-}
-
-.book-tabs a {
-  display: block;
-  padding: 14px 28px;
-  background: var(--rose);
-  color: var(--black);
-  text-decoration: none;
-  font-weight: bold;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  box-shadow: 0 -4px 6px rgba(0,0,0,0.1) inset;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.book-tabs a:hover {
-  background: var(--gold);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.book-tabs a.active {
-  background: var(--lavender);
-  border-bottom: 4px solid var(--paper);
-  transform: translateY(-5px);
-}
 
     body {
       margin: 0;
       font-family: 'Playfair Display', serif;
       background: var(--paper);
       color: var(--black);
+    }
+
+    /* ===== NAVIGATION (BOOK TABS) ===== */
+    .book-tabs {
+      background: var(--deep-blue);
+      display: flex;
+      justify-content: center;
+      border-bottom: 4px solid var(--gold);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .book-tabs ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .book-tabs li {
+      margin: 0 5px;
+    }
+
+    .book-tabs a {
+      display: block;
+      padding: 14px 28px;
+      background: var(--rose);
+      color: var(--black);
+      text-decoration: none;
+      font-weight: bold;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      box-shadow: 0 -4px 6px rgba(0,0,0,0.1) inset;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .book-tabs a:hover {
+      background: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .book-tabs a.active {
+      background: var(--lavender);
+      border-bottom: 4px solid var(--paper);
+      transform: translateY(-5px);
     }
 
     /* ===== HEADER: BOOK OPEN ===== */
@@ -95,13 +96,13 @@
     .book-cover.left { 
       left: 0; 
       transform-origin: left center; 
-      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/cover.png');
+      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/23.png');
     }
 
     .book-cover.right { 
       left: 50%; 
       transform-origin: right center; 
-      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/backcover.png');
+      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/24.png');
     }
 
     .book-content {
@@ -202,28 +203,29 @@
     .storybook-video h2 { font-size: 2.5rem; margin-bottom: 40px; }
 
     .video-frame {
-  position: relative;
-  display: inline-block;
-  margin: 20px;
-}
+      position: relative;
+      display: inline-block;
+      margin: 20px;
+    }
 
-.video-frame img.book-frame {
-  display: block;
-  width: 350px;
-  height: auto;
-  z-index: 1;
-}
+    .video-frame img.book-frame {
+      display: block;
+      width: 350px;
+      height: auto;
+      position: relative;
+      z-index: 1; /* stays behind */
+    }
 
-.video-frame video {
-  position: absolute;
-  top: 12%;   /* adjust so it lines up nicely */
-  left: 12%;
-  width: 76%;
-  height: 76%;
-  object-fit: cover;
-  border-radius: 8px;
-  z-index: 2; /* ensures video is above the frame */
-}
+    .video-frame video {
+      position: absolute;
+      top: 12%;   /* adjust so it lines up inside frame */
+      left: 12%;
+      width: 76%;
+      height: 76%;
+      object-fit: cover;
+      border-radius: 8px;
+      z-index: 2; /* ensures video is above frame */
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
@@ -236,18 +238,19 @@
   </style>
 </head>
 <body>
-<!-- ===== NAVIGATION (BOOK TABS) ===== -->
-<nav class="book-tabs">
-  <ul>
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="photography.html">Photography</a></li>
-    <li><a href="videography.html">Videography</a></li>
-    <li><a href="packages.html">Packages</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="booking.html">Booking</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="book-tabs">
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="videography.html">Videography</a></li>
+      <li><a href="packages.html">Packages</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
   <!-- ===== HEADER / OPENING BOOK ===== -->
   <header>
@@ -276,27 +279,24 @@
     </div>
   </section>
 
- <!-- ===== STORYBOOK VIDEO SECTION ===== -->
-<section class="storybook-video">
-  <h2>Captured Moments</h2>
+  <!-- ===== STORYBOOK VIDEO SECTION ===== -->
+  <section class="storybook-video">
+    <h2>Captured Moments</h2>
 
-  <div class="video-frame">
-    <!-- Frame as background -->
-    <img class="book-frame" src="https://sunniejae.blob.core.windows.net/sunniejae/photo%20page.png" alt="Decorative Frame">
-    <!-- Video on top -->
-    <video autoplay loop muted playsinline></video>
-      <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%201.mp4" type="video/mp4">
-    </video>
-  </div>
+    <div class="video-frame">
+      <img class="book-frame" src="https://sunniejae.blob.core.windows.net/sunniejae/photo%20page.png" alt="Decorative Frame">
+      <video autoplay loop muted playsinline>
+        <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%201.mp4" type="video/mp4">
+      </video>
+    </div>
 
-  <div class="video-frame">
-    <img class="book-frame" src="https://sunniejae.blob.core.windows.net/sunniejae/photo%20page.png" alt="Decorative Frame">
-    <video autoplay loop muted playsinline>
-      <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%202.mp4" type="video/mp4">
-    </video>
-  </div>
-</section>
-
+    <div class="video-frame">
+      <img class="book-frame" src="https://sunniejae.blob.core.windows.net/sunniejae/photo%20page.png" alt="Decorative Frame">
+      <video autoplay loop muted playsinline>
+        <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%202.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
 
   <script>
     window.addEventListener('load', () => {
