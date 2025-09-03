@@ -19,6 +19,51 @@
       --gold: #E4C287;
       --paper: #FDF6F0;
     }
+.book-tabs {
+  background: var(--deep-blue);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  border-bottom: 4px solid var(--gold);
+  font-family: 'Playfair Display', serif;
+}
+
+.book-tabs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.book-tabs li {
+  margin: 0 5px;
+}
+
+.book-tabs a {
+  display: block;
+  padding: 14px 28px;
+  background: var(--rose);
+  color: var(--black);
+  text-decoration: none;
+  font-weight: bold;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 -4px 6px rgba(0,0,0,0.1) inset;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.book-tabs a:hover {
+  background: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.book-tabs a.active {
+  background: var(--lavender);
+  border-bottom: 4px solid var(--paper);
+  transform: translateY(-5px);
+}
 
     body {
       margin: 0;
@@ -191,6 +236,18 @@
   </style>
 </head>
 <body>
+<!-- ===== NAVIGATION (BOOK TABS) ===== -->
+<nav class="book-tabs">
+  <ul>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="videography.html">Videography</a></li>
+    <li><a href="packages.html">Packages</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="booking.html">Booking</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
 
   <!-- ===== HEADER / OPENING BOOK ===== -->
   <header>
