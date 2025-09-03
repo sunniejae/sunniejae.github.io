@@ -17,7 +17,7 @@
   --baby-blue: #A7C7E7;
   --mauve: #B38B94;
   --gold: #E4C287;
-  --paper: #FFF8F2; /* soft paper background */
+  --paper: #FFF8F2;
 }
 
 body {
@@ -25,6 +25,7 @@ body {
   font-family: 'Lato', sans-serif;
   background: var(--paper);
   color: var(--black);
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
@@ -52,16 +53,58 @@ nav a:hover, nav a.active {
   color: var(--gold);
 }
 
-/* Hero Section */
+/* Header - Storybook Book Open Animation */
 header {
-  min-height: 100vh;
-  background: linear-gradient(to bottom, rgba(4,68,118,0.8), rgba(231,197,201,0.5)), url('hero-image.jpg') center/cover no-repeat;
+  position: relative;
+  width: 100%;
+  height: 775px;
+  perspective: 1500px; 
+  overflow: hidden;
+}
+
+.book-cover {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: url('https://sunniejae.blob.core.windows.net/sunniejae/haven.png') center/cover no-repeat;
+  transform-origin: left center;
+  transition: transform 2s ease-in-out;
+  z-index: 10;
+}
+
+.book-cover.right {
+  left: 50%;
+  transform-origin: right center;
+}
+
+.book-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(4,68,118,0.6), rgba(231,197,201,0.4)), url('https://sunniejae.blob.core.windows.net/sunniejae/haven.png') center/cover no-repeat;
   color: var(--rose);
-  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 20px;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s ease 2s; 
+}
+
+header.open .book-cover.left {
+  transform: rotateY(-120deg);
+}
+
+header.open .book-cover.right {
+  transform: rotateY(120deg);
+}
+
+header.open .book-content {
+  opacity: 1;
 }
 
 header h1 {
@@ -96,13 +139,12 @@ header p {
 section {
   padding: 100px 20px;
   max-width: 900px;
-  margin: 0 auto;
+  margin: 60px auto;
   position: relative;
   background: var(--paper);
   border-left: 10px solid var(--gold);
   border-right: 10px solid var(--gold);
   box-shadow: 0 0 40px rgba(0,0,0,0.1);
-  margin-bottom: 60px;
 }
 
 /* Drop Cap for headings */
@@ -115,8 +157,7 @@ section h2::first-letter {
   font-family: 'Playfair Display', serif;
 }
 
-/* Sample About Section */
-.about p {
+section p {
   font-size: 1.2rem;
   line-height: 1.8;
   text-align: justify;
@@ -162,7 +203,6 @@ footer {
 
 .flourish.top-left { top: 10px; left: 10px; }
 .flourish.bottom-right { bottom: 10px; right: 10px; }
-
 </style>
 </head>
 <body>
@@ -178,15 +218,19 @@ footer {
 </nav>
 
 <header>
-  <h1>Haven</h1>
-  <p>The Safe Choice</p>
-  <p>No risk, just romance for your magical day</p>
-  <button class="cta-button">See Our Work</button>
+  <div class="book-cover left"></div>
+  <div class="book-cover right"></div>
+  <div class="book-content">
+    <h1>Haven</h1>
+    <p>The Safe Choice</p>
+    <p>No risk, just romance for your magical day</p>
+    <button class="cta-button">See Our Work</button>
+  </div>
 </header>
 
 <section class="about">
-  <h2>About Us</h2>
-  <p>We’re a couple who lives for storybook love. With Haven, your memories are safe in hands that care — every glance, every kiss, every laugh. Every wedding we capture is a chapter in your own love story, written with care and preserved for a lifetime.</p>
+  <h2>no risk, only romance on your magical day</h2>
+  <p>you deserve to focus on your love story, not the quality of your media package..</p>
   <div class="flourish top-left"></div>
   <div class="flourish bottom-right"></div>
 </section>
@@ -201,6 +245,12 @@ footer {
 <footer>
   <p>&copy; 2025 Haven. All Rights Reserved.</p>
 </footer>
+
+<script>
+  window.addEventListener('load', () => {
+    document.querySelector('header').classList.add('open');
+  });
+</script>
 
 </body>
 </html>
