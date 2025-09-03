@@ -27,7 +27,7 @@
       color: var(--black);
     }
 
-    /* ===== HEADER: SINGLE COVER BOOK ===== */
+    /* ===== HEADER: OPENING BOOK ===== */
     header {
       position: relative;
       width: 100%;
@@ -39,15 +39,15 @@
     .book-cover {
       position: absolute;
       top: 0;
-      left: 0;
-      width: 100%;
+      width: 50%;
       height: 100%;
-      background: url('https://sunniejae.blob.core.windows.net/sunniejae/haven.png') center/cover no-repeat;
-      transform-origin: left center;
+      background: url('https://sunniejae.blob.core.windows.net/sunniejae/cover.png') center/cover no-repeat;
       transition: transform 2s ease-in-out;
       z-index: 10;
-      box-shadow: 10px 0 40px rgba(0,0,0,0.2);
     }
+
+    .book-cover.left { left: 0; transform-origin: left center; }
+    .book-cover.right { left: 50%; transform-origin: right center; }
 
     .book-content {
       position: absolute;
@@ -67,24 +67,18 @@
       padding: 0 20px;
     }
 
-    header.open .book-cover {
-      transform: rotateY(-150deg);
-    }
-
-    header.open .book-content {
-      opacity: 1;
-    }
+    header.open .book-cover.left { transform: rotateY(-120deg); }
+    header.open .book-cover.right { transform: rotateY(120deg); }
+    header.open .book-content { opacity: 1; }
 
     header h1 {
       font-size: 4rem;
       margin: 0;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
     }
 
     header p {
       font-size: 1.5rem;
       margin: 10px 0;
-      max-width: 800px;
     }
 
     .cta-button {
@@ -130,7 +124,6 @@
       border-radius: 15px;
       font-style: italic;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      position: relative;
     }
 
     .review-card span {
@@ -140,8 +133,8 @@
       text-align: right;
     }
 
-    /* ===== STORYBOOK GIF SECTION ===== */
-    .storybook-gif {
+    /* ===== STORYBOOK VIDEO SECTION ===== */
+    .storybook-video {
       padding: 100px 20px;
       max-width: 900px;
       margin: 60px auto;
@@ -152,39 +145,22 @@
       text-align: center;
     }
 
-    .storybook-gif h2 { font-size: 2.5rem; margin-bottom: 40px; }
+    .storybook-video h2 { font-size: 2.5rem; margin-bottom: 40px; }
 
-    .gif-frame {
+    .video-frame {
       position: relative;
       display: inline-block;
-      perspective: 1000px;
+      margin: 20px;
     }
 
-    /* Book page frame */
-    .gif-frame img.book-frame {
-      display: block;
-      width: 100%;
-      max-width: 600px;
-      border-radius: 10px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    }
-
-    /* GIF embedded inside the book page */
-    .gif-frame .embedded-gif {
+    .video-frame img.book-frame { display: block; width: 100%; max-width: 600px; }
+    .video-frame video {
       position: absolute;
       top: 20px;
       left: 20px;
       width: calc(100% - 40px);
-      height: auto;
       border-radius: 5px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(0px); }
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -193,8 +169,8 @@
       header h1 { font-size: 3rem; }
       header p { font-size: 1.2rem; }
       .cta-button { font-size: 1rem; padding: 10px 24px; }
-      .gif-frame img.book-frame { max-width: 90%; }
-      .gif-frame .embedded-gif { top: 15px; left: 15px; width: calc(100% - 30px); }
+      .video-frame img.book-frame,
+      .video-frame video { max-width: 90%; }
     }
   </style>
 </head>
@@ -202,11 +178,12 @@
 
   <!-- ===== HEADER / OPENING BOOK ===== -->
   <header>
-    <div class="book-cover"></div>
+    <div class="book-cover left"></div>
+    <div class="book-cover right"></div>
     <div class="book-content">
       <h1>Haven</h1>
       <p>No risk, just romance for your magical day</p>
-      <p>Focus on your love story, not the stress of capturing it.</p>
+      <p>Focus on your love story, not the media quality.</p>
       <button class="cta-button">See Our Work</button>
     </div>
   </header>
@@ -216,23 +193,34 @@
     <h2>What Couples Say</h2>
     <div class="review-cards">
       <div class="review-card">
-        <p>lorem ipsum blah blah</p>
-        <span>-customer</span>
+        <p>"Absolutely magical! Haven captured our day perfectly."</p>
+        <span>- Alex & Jamie</span>
       </div>
       <div class="review-card">
-        <p>"peanut butter watermelon peanut butter watermelon"</p>
-        <span>-that extra in the back</span>
+        <p>"Professional, artistic, and so easy to work with. Highly recommend!"</p>
+        <span>- Sam & Taylor</span>
       </div>
     </div>
   </section>
 
-  <!-- ===== STORYBOOK GIF SECTION ===== -->
-  <section class="storybook-gif">
+  <!-- ===== STORYBOOK VIDEO SECTION ===== -->
+  <section class="storybook-video">
     <h2>Captured Moments</h2>
-    <div class="gif-frame">
+
+    <div class="video-frame">
       <img class="book-frame" src="book-frame.png" alt="Book Page Frame">
-      <img class="embedded-gif" src="wedding-clip.gif" alt="Wedding GIF">
+      <video autoplay loop muted playsinline>
+        <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%201.mp4" type="video/mp4">
+      </video>
     </div>
+
+    <div class="video-frame">
+      <img class="book-frame" src="book-frame.png" alt="Book Page Frame">
+      <video autoplay loop muted playsinline>
+        <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%202.mp4" type="video/mp4">
+      </video>
+    </div>
+
   </section>
 
   <script>
