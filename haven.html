@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven - The Safe Choice</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-blue: #044476;
+  --dark-green: #2F4633;
+  --dark: #4B2C40;
+  --rose: #E7C5C9;
+  --lavender: #C3B6D9;
+  --green: #8C9A88;
+  --black: #2F2F2F;
+  --baby-blue: #A7C7E7;
+  --mauve: #B38B94;
+  --gold: #E4C287;
+}
+
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  background-color: var(--lavender);
+  color: var(--black);
+}
+
+nav {
+  background: var(--deep-blue);
+  color: var(--rose);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav a {
+  color: var(--rose);
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+nav a:hover, nav a.active {
+  color: var(--gold);
+}
+
+header {
+  text-align: center;
+  padding: 120px 20px;
+  background: var(--deep-blue);
+  color: var(--rose);
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  margin: 0;
+}
+
+header p {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.cta-button {
+  background: var(--gold);
+  color: var(--deep-blue);
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.cta-button:hover {
+  background: var(--rose);
+  color: var(--deep-blue);
+}
+
+section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.portfolio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.portfolio img, .video-thumb {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.portfolio img:hover, .video-thumb:hover {
+  transform: scale(1.05);
+  border: 3px solid var(--gold);
+}
+
+footer {
+  background: var(--dark-green);
+  color: var(--rose);
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea, select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--dark);
+  font-size: 1rem;
+}
+
+button.submit-btn {
+  background: var(--gold);
+  color: var(--deep-blue);
+  border: none;
+  padding: 15px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button.submit-btn:hover {
+  background: var(--rose);
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="active">Home</a>
+  <a href="photography.html">Photography</a>
+  <a href="videography.html">Videography</a>
+  <a href="packages.html">Packages</a>
+  <a href="about.html">About</a>
+  <a href="booking.html">Booking</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<header>
+  <h1>Haven</h1>
+  <p>The Safe Choice</p>
+  <p>No risk, just romance for your magical day</p>
+  <button class="cta-button">See Our Work</button>
+</header>
+
+<section class="portfolio">
+  <!-- Sample images, replace per page -->
+  <img src="photo1.jpg" alt="Sample Wedding Photo">
+  <img src="photo2.jpg" alt="Sample Wedding Photo">
+  <img src="photo3.jpg" alt="Sample Wedding Photo">
+</section>
+
+<footer>
+  <p>&copy; 2025 Haven. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
