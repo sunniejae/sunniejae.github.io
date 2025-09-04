@@ -2,74 +2,89 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Haven - Storybook Romance</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
-  
-  <!-- Google Font: Cinzel -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-
+  <title>Haven | Wedding Photography & Videography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    /* ===== ROOT PALETTE ===== */
+    /* ===== PALETTE ===== */
     :root {
       --deep-blue: #366e9f;
-      --warm-tan: #9e7f57;
+      --muted-gold: #9e7f57;
       --rosewood: #6e4d58;
-      --black: #110f0f;
-      --dark-brown: #4e2e21;
-      --charcoal: #383930;
-      --midnight: #1c1920;
-      --burnt-orange: #97562e;
-      --navy: #22204b;
-      --brick: #7c260d;
-      --deep-red: #9c140c;
+      --dark-black: #110f0f;
+      --chocolate: #4e2e21;
+      --slate: #383930;
+      --dark-purple: #22204b;
+      --maroon: #7c260d;
+      --crimson: #9c140c;
       --lavender: #af92ba;
       --mauve: #9a7aa4;
-      --silver: #b9b8b4;
-      --steel-blue: #465d69;
-      --dusty-rose: #937186;
-      --forest: #294353;
-      --deep-indigo: #164978;
-      --soft-beige: #bbb2ac;
-      --paper: #fdf6f0;
-    }
-
-    /* ===== GLOBAL STYLES ===== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      --stone: #b9b8b4;
+      --teal: #465d69;
+      --dusty-pink: #937186;
+      --navy: #294353;
+      --royal-blue: #164978;
+      --cream: #bbb2ac;
+      --highlight: #97562e;
     }
 
     body {
-      font-family: 'Cinzel', serif;
-      background-color: var(--paper);
-      color: var(--charcoal);
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--cream);
+      color: var(--dark-black);
       overflow-x: hidden;
     }
 
-    a {
-      text-decoration: none;
+    h1, h2, h3 {
+      font-family: 'Cinzel', serif;
       color: var(--deep-blue);
     }
 
-    .cta-button {
-      margin-top: 20px;
-      padding: 12px 28px;
-      background-color: var(--deep-blue);
-      color: var(--paper);
-      border-radius: 12px;
+    /* ===== NAVIGATION ===== */
+    .book-tabs {
+      background: var(--deep-blue);
+      display: flex;
+      justify-content: center;
+      border-bottom: 4px solid var(--muted-gold);
+    }
+
+    .book-tabs ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .book-tabs li {
+      margin: 0 5px;
+    }
+
+    .book-tabs a {
+      display: block;
+      padding: 14px 28px;
+      background: var(--highlight);
+      color: var(--cream);
+      text-decoration: none;
       font-weight: bold;
-      transition: transform 0.3s, box-shadow 0.3s;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    .book-tabs a:hover {
+      background: var(--muted-gold);
+      transform: translateY(-3px);
     }
 
-    /* ===== HEADER / STORYBOOK OPENING ===== */
+    .book-tabs a.active {
+      background: var(--rosewood);
+      border-bottom: 4px solid var(--cream);
+      transform: translateY(-3px);
+    }
+
+    /* ===== HEADER: BOOK OPEN ===== */
     header {
       position: relative;
       width: 100%;
@@ -78,80 +93,43 @@
       overflow: hidden;
     }
 
-    /* Front cover */
-    .book-cover.right {
+    .book-cover, .book-page {
       position: absolute;
       top: 0;
-      left: 50%;
       width: 50%;
       height: 100%;
-      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/cover.png');
       background-size: cover;
       background-position: center;
-      transform-origin: left center;
-      transform-style: preserve-3d;
       backface-visibility: hidden;
-      z-index: 40;
-      box-shadow: -5px 0 30px rgba(0,0,0,0.5);
-      transition: transform 1s ease-in-out;
+      transform-style: preserve-3d;
+      transition: transform 2s ease;
+    }
+
+    /* Front cover */
+    .book-cover {
+      right: 0;
+      transform-origin: right center;
+      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/23.png');
+      z-index: 3;
     }
 
     /* First inner page */
-    .page1 {
-      position: absolute;
-      top: 0;
+    .book-page.first {
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to right, var(--paper) 0%, #f7f2eb 100%);
       transform-origin: left center;
-      transform: rotateY(90deg);
-      z-index: 30;
-      box-shadow: 0 0 50px rgba(0,0,0,0.2);
-      border-left: 1px solid #e0dcd3;
+      background-color: var(--paper, var(--cream));
+      z-index: 2;
     }
 
     /* Second inner page */
-    .page2 {
-      position: absolute;
-      top: 0;
+    .book-page.second {
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to right, var(--paper) 0%, #f9f5ef 100%);
       transform-origin: left center;
-      transform: rotateY(90deg);
-      z-index: 20;
-      box-shadow: 0 0 30px rgba(0,0,0,0.15);
-      border-left: 1px solid #e0dcd3;
+      background-color: var(--paper, var(--cream));
+      z-index: 1;
     }
 
-    /* Flip animations */
-    .flip {
-      animation: pageFlip 1s forwards;
-    }
-
-    .flip2 {
-      animation: pageFlip2 1s forwards;
-    }
-
-    @keyframes pageFlip {
-      0% { transform: rotateY(90deg) translateZ(0); }
-      50% { transform: rotateY(-15deg) translateZ(20px); }
-      100% { transform: rotateY(0deg) translateZ(0); }
-    }
-
-    @keyframes pageFlip2 {
-      0% { transform: rotateY(90deg) translateZ(0); }
-      50% { transform: rotateY(-10deg) translateZ(10px); }
-      100% { transform: rotateY(0deg) translateZ(0); }
-    }
-
-    /* Content fade-in */
     .book-content {
-      opacity: 0;
-      transition: opacity 1s ease;
-      z-index: 10;
       position: absolute;
       top: 0;
       left: 0;
@@ -162,33 +140,162 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      opacity: 0;
+      transition: opacity 1s ease 2.5s;
       padding: 0 20px;
+      z-index: 0;
     }
 
-    .book-content h1 {
+    /* Open animations */
+    header.open .book-cover {
+      transform: rotateY(-180deg);
+    }
+
+    header.open .book-page.first {
+      transform: rotateY(-180deg);
+    }
+
+    header.open .book-page.second {
+      transform: rotateY(-180deg);
+    }
+
+    header.open .book-content {
+      opacity: 1;
+    }
+
+    header h1 {
       font-size: 4rem;
-      color: var(--deep-blue);
-      margin-bottom: 20px;
+      margin: 0;
     }
 
-    .book-content p {
+    header p {
       font-size: 1.5rem;
-      color: var(--rosewood);
-      max-width: 600px;
+      margin: 10px 0;
     }
 
-    @media (max-width: 768px) {
-      .book-content h1 { font-size: 2.5rem; }
-      .book-content p { font-size: 1.2rem; }
+    .cta-button {
+      margin-top: 20px;
+      padding: 12px 28px;
+      font-size: 1.2rem;
+      background: var(--muted-gold);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--dark-black);
+      font-weight: bold;
+      transition: transform 0.3s ease;
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== REVIEWS SECTION ===== */
+    .reviews {
+      padding: 100px 20px;
+      max-width: 900px;
+      margin: 60px auto;
+      background: var(--cream);
+      border-left: 10px solid var(--muted-gold);
+      border-right: 10px solid var(--muted-gold);
+      box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .reviews h2 { font-size: 2.5rem; margin-bottom: 40px; }
+
+    .review-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .review-card {
+      background: var(--lavender);
+      padding: 30px;
+      border-radius: 15px;
+      font-style: italic;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .review-card span {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    /* ===== STORYBOOK VIDEO SECTION ===== */
+    .storybook-video {
+      padding: 100px 20px;
+      max-width: 1000px;
+      margin: 60px auto;
+      background: var(--cream);
+      border-left: 10px solid var(--muted-gold);
+      border-right: 10px solid var(--muted-gold);
+      box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .storybook-video h2 { font-size: 2.5rem; margin-bottom: 40px; }
+
+    .video-frame {
+      position: relative;
+      display: inline-block;
+      margin: 20px;
+    }
+
+    .video-frame img.book-frame {
+      display: block;
+      width: 350px;
+      height: auto;
+      position: relative;
+      z-index: 1; /* stays behind */
+    }
+
+    .video-frame video {
+      position: absolute;
+      top: 12%;   /* adjust so it lines up inside frame */
+      left: 12%;
+      width: 76%;
+      height: 76%;
+      object-fit: cover;
+      border-radius: 8px;
+      z-index: 2; /* ensures video is above frame */
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .review-cards { grid-template-columns: 1fr; }
+      header h1 { font-size: 3rem; }
+      header p { font-size: 1.2rem; }
+      .cta-button { font-size: 1rem; padding: 10px 24px; }
+      .video-frame img.book-frame { width: 250px; }
     }
 
   </style>
 </head>
 <body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="book-tabs">
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="videography.html">Videography</a></li>
+      <li><a href="packages.html">Packages</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HEADER / OPENING BOOK ===== -->
   <header>
-    <div class="book-cover right"></div>
-    <div class="page1"></div>
-    <div class="page2"></div>
+    <div class="book-cover"></div>
+    <div class="book-page first"></div>
+    <div class="book-page second"></div>
     <div class="book-content">
       <h1>Haven</h1>
       <p>No risk, just romance for your magical day</p>
@@ -197,33 +304,45 @@
     </div>
   </header>
 
+  <!-- ===== REVIEWS SECTION ===== -->
+  <section class="reviews">
+    <h2>What Couples Say</h2>
+    <div class="review-cards">
+      <div class="review-card">
+        <p>"lorem ipsum amen"</p>
+        <span>- customer</span>
+      </div>
+      <div class="review-card">
+        <p>"peanut butter watermelon peanut butter watermelon peanut butter watermelon"</p>
+        <span>- that theater kid from high school who finally landed a background character on a C list tv show</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STORYBOOK VIDEO SECTION ===== -->
+  <section class="storybook-video">
+    <h2>Captured Moments</h2>
+
+    <div class="video-frame">
+      <img class="book-frame" src="https://sunniejae.blob.core.windows.net/sunniejae/photo%20page.png" alt="Decorative Frame">
+      <video autoplay loop muted playsinline>
+        <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%201.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="video-frame">
+      <img class="book-frame" src="https://sunniejae.blob.core.windows.net/sunniejae/photo%20page.png" alt="Decorative Frame">
+      <video autoplay loop muted playsinline>
+        <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%202.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
   <script>
     window.addEventListener('load', () => {
-      const cover = document.querySelector('.book-cover.right');
-      const page1 = document.querySelector('.page1');
-      const page2 = document.querySelector('.page2');
-      const content = document.querySelector('.book-content');
-
-      // Step 1: Open front cover
-      setTimeout(() => {
-        cover.style.transform = 'rotateY(-160deg)';
-      }, 500);
-
-      // Step 2: Flip first page
-      setTimeout(() => {
-        page1.classList.add('flip');
-      }, 1700);
-
-      // Step 3: Flip second page
-      setTimeout(() => {
-        page2.classList.add('flip2');
-      }, 2800);
-
-      // Step 4: Show content
-      setTimeout(() => {
-        content.style.opacity = 1;
-      }, 4000);
+      document.querySelector('header').classList.add('open');
     });
   </script>
+
 </body>
 </html>
