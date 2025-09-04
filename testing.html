@@ -2,1000 +2,321 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sunnie Jae - Profile Info</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+  <title>Haven | Wedding Photography & Videography</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* ===== STORYBOOK ROMANCE PALETTE ===== */
     :root {
-    
-      --primary: #9a9ad4;  
-      --secondary: #c13886;
-      --accent: #00c9c2;
-      --teal: #00a8a3;
-      --dark-purple: #3f3d7a;
-      --light-pink: #ffb3d6;         
-      --lilac: #dda0dd;                /* Soft lilac */
-      --white: #ffffff;    
-      --light-gray: #e6e6fa;           /* Lavender-tinted light */
-      --gray: #bfbfdc;
-      --silver: #f0f0f5;
-      --dark-gray: #404040;
-      --black: #000010;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      --deep-blue: #366e9f;
+      --muted-rose: #9e7f57;
+      --warm-brown: #6e4d58;
+      --dark-bg: #110f0f;
+      --soft-beige: #bbb2ac;
+      --lavender-mauve: #af92ba;
+      --highlight: #97562e;
+      --text-dark: #1c1920;
+      --paper: #fdf6f0;
     }
 
     body {
-      font-family: 'Tahoma', Arial, sans-serif;
-      font-size: 11px;
-      background: var(--white);
-      color: var(--black);
-      line-height: 1.28;
+      margin: 0;
+      font-family: 'Cinzel', serif;
+      background: var(--paper);
+      color: var(--text-dark);
     }
 
-    /* Facebook Header Bar */
-    .facebook-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 82px;
-      background: var(--primary);
-      border-bottom: 1px solid var(--accent);
-      z-index: 1000;
-      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.2);
-    }
-
-    .header-content {
-      max-width: 1000px;
-      margin: 0 auto;
+    /* ===== NAVIGATION (BOOK TABS) ===== */
+    .book-tabs {
+      background: var(--deep-blue);
       display: flex;
-      align-items: center;
-      height: 100%;
-      padding: 0 15px;
-      justify-content: space-between;
+      justify-content: center;
+      border-bottom: 4px solid var(--highlight);
     }
 
-    .facebook-logo {
-      color: var(--white);
-      font-size: 16px;
-      font-weight: bold;
-      text-decoration: none;
-      font-family: 'Trebuchet MS', sans-serif;
-    }
-
-    .search-box {
-      background: var(--dark-purple);
-      border: 1px solid var(--white);
-      padding: 3px 6px;
-      color: var(--white);
-      font-size: 11px;
-      border-radius: 2px;
-      width: 300px;
-    }
-
-    .search-box::placeholder {
-      color: var(--light-gray);
-    }
-
-    .header-nav {
-      display: flex;
-      gap: 15px;
-    }
-
-    .header-nav a {
-      color: var(--white);
-      text-decoration: none;
-      font-size: 11px;
-      padding: 4px 8px;
-    }
-
-    .header-nav a:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 2px;
-    }
-
-    /* Main Content Area */
-    .main-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding-top: 100px;
-      display: flex;
-      gap: 10px;
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-
-    /* Left Sidebar */
-    .left-sidebar {
-      width: 180px;
-      flex-shrink: 0;
-    }
-
-    .profile-info {
-      background: var(--white);
-      border: 1px solid var(--light-pink);
-      margin-bottom: 10px;
-      padding: 8px;
-    }
-
-    .profile-pic {
-      width: 50px;
-      height: 50px;
-      border-radius: 2px;
-      border: 1px solid var(--light-pink);
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .profile-name {
-      font-size: 13px;
-      font-weight: bold;
-      color: var(--secondary);
-      text-decoration: none;
-      margin-bottom: 5px;
-      display: block;
-    }
-
-    .profile-links {
+    .book-tabs ul {
       list-style: none;
-      font-size: 13px;
+      margin: 0;
+      padding: 0;
+      display: flex;
     }
 
-    .profile-links li {
-      margin-bottom: 3px;
+    .book-tabs li {
+      margin: 0 5px;
     }
 
-    .profile-links a {
-      color: var(--dark-purple);
+    .book-tabs a {
+      display: block;
+      padding: 14px 28px;
+      background: var(--muted-rose);
+      color: var(--text-dark);
       text-decoration: none;
+      font-weight: bold;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      box-shadow: 0 -4px 6px rgba(0,0,0,0.1) inset;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .profile-links a:hover {
-      text-decoration: underline;
+    .book-tabs a:hover {
+      background: var(--highlight);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
-    /* Main Content */
-    .main-content {
-      flex: 1;
-      background: var(--white);
-      border: 1px solid var(--light-pink);
+    .book-tabs a.active {
+      background: var(--lavender-mauve);
+      border-bottom: 4px solid var(--paper);
+      transform: translateY(-5px);
     }
 
-    /* Profile Header */
-    .profile-header {
-      background: var(--white);
-      padding: 10px;
-      border-bottom: 1px solid var(--light-pink);
-    }
-
-    .cover-photo {
+    /* ===== HEADER / STORYBOOK OPENING ===== */
+    header {
+      position: relative;
       width: 100%;
-      height: 180px;
-      background-image: url('https://imgur.com/7BJknIY.png');
+      height: 775px;
+      perspective: 1500px;
+      overflow: hidden;
+    }
+
+    .book-cover.right,
+    .page {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      transition: transform 1s ease-in-out;
+    }
+
+    /* Front cover opens first from right */
+    .book-cover.right {
+      left: 50%;
+      width: 50%;
+      background-image: url('https://sunniejae.blob.core.windows.net/sunniejae/24.png');
       background-size: cover;
       background-position: center;
-      border: 1px solid var(--light-pink);
-      margin-bottom: 10px;
+      transform-origin: left center;
+      z-index: 30;
     }
 
-    .profile-main {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .profile-pic-large {
-      width: 125px;
-      height: 125px;
-      border: 3px solid var(--white);
-      border-radius: 2px;
-      box-shadow: 0 1px 3px rgba(26, 13, 31, 0.3);
-    }
-
-    .profile-details h1 {
-      font-size: 24px;
-      color: var(--secondary);
-      font-weight: normal;
-      margin-bottom: 5px;
-      font-family: 'Trebuchet MS', sans-serif;
-    }
-
-    .profile-tabs {
-      background: var(--light-gray);
-      border-bottom: 1px solid var(--light-pink);
-      padding: 0;
-      margin: 0;
-    }
-
-    .profile-tabs ul {
-      list-style: none;
-      display: flex;
-      margin: 0;
-      padding: 0;
-    }
-
-    .profile-tabs li {
-      border-right: 1px solid var(--light-pink);
-    }
-
-    .profile-tabs a {
-      display: block;
-      padding: 8px 15px;
-      color: var(--dark-purple);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: bold;
-      background: var(--light-gray);
-    }
-
-    .profile-tabs a.active,
-    .profile-tabs a:hover {
-      background: var(--white);
-      color: var(--black);
-    }
-
-    /* Info Content Styles */
-    .info-content {
-      padding: 15px;
-    }
-
-    .info-section {
-      background: var(--white);
-      border: 1px solid var(--light-pink);
-      margin-bottom: 15px;
-      border-radius: 3px;
-    }
-
-    .section-header {
-      background: linear-gradient(135deg, var(--secondary), var(--light-pink));
-      color: var(--white);
-      padding: 8px 12px;
-      font-size: 16px;
-      font-weight: bold;
-      border-bottom: 1px solid var(--light-pink);
-    }
-
-    .section-content {
-      padding: 12px 15px;
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    .section-content h3 {
-      color: var(--dark-purple);
-      font-size: 13px;
-      margin-bottom: 8px;
-      font-family: 'Trebuchet MS', sans-serif;
-    }
-
-    .section-content h4 {
-      color: var(--secondary);
-      font-size: 12px;
-      font-weight: bold;
-      margin: 10px 0 5px 0;
-    }
-
-    .project-title {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 12px;
-      margin-top: 10px;
-    }
-
-    .project-description {
-      margin-left: 10px;
-      font-style: italic;
-      color: var(--black);
-      margin-bottom: 8px;
-    }
-
-    .work-entry {
-      background: var(--light-gray);
-      border: 1px solid var(--light-pink);
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 2px;
-    }
-
-    .work-title {
-      color: var(--secondary);
-      font-weight: bold;
-      font-size: 13px;
-      margin-bottom: 5px;
-    }
-
-    .work-dates {
-      color: var(--dark-purple);
-      font-size: 11px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .responsibility-list {
-      margin: 8px 0;
-    }
-
-    .responsibility-list li {
-      margin-bottom: 5px;
-      list-style: none;
-      position: relative;
-      padding-left: 12px;
-    }
-
-    .responsibility-list li:before {
-      content: "•";
-      color: var(--secondary);
-      font-weight: bold;
-      position: absolute;
+    /* Page flips after cover */
+    .page {
       left: 0;
+      width: 100%;
+      background: var(--paper);
+      transform-origin: left center;
+      transform: rotateY(90deg); /* starts hidden */
+      z-index: 20;
     }
 
-    .responsibility-list ul {
-      margin: 5px 0 8px 15px;
-      padding: 0;
-    }
-
-    .responsibility-list ul li {
-      margin-bottom: 3px;
-      padding-left: 15px;
-      font-size: 11px;
-    }
-
-    .responsibility-list ul li:before {
-      content: "◦";
-      color: var(--dark-purple);
-      font-weight: normal;
-      left: 0;
-    }
-
-    .design-integration {
-      background: rgba(2, 209, 202, 0.1);
-      padding: 6px 8px;
-      margin: 5px 0;
-      border-left: 3px solid var(--accent);
-      font-size: 11px;
-      font-style: italic;
-    }
-
-    .education-box {
-      background: var(--light-gray);
-      border: 1px solid var(--light-pink);
-      padding: 12px;
-      border-radius: 2px;
-    }
-
-    .degree {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 11px;
-    }
-
-    .institution {
-      color: var(--dark-purple);
-      font-size: 10px;
-      margin-top: 3px;
-    }
-
-    .quirky-note {
-      background: var(--light-pink);
-      color: var(--black);
-      padding: 8px 10px;
-      border-radius: 15px;
-      font-size: 11px;
-      margin: 10px 0;
-      text-align: center;
-      font-style: italic;
-    }
-
-    /* Right Sidebar */
-    .right-sidebar {
-      width: 180px;
-      flex-shrink: 0;
-    }
-
-    .sidebar-box {
-      background: var(--white);
-      border: 1px solid var(--light-pink);
-      margin-bottom: 10px;
-    }
-
-    .sidebar-header {
-      background: var(--light-gray);
-      padding: 6px 8px;
-      border-bottom: 1px solid var(--light-pink);
-      font-size: 13px;
-      font-weight: bold;
-      color: var(--black);
-    }
-
-    .sidebar-content {
-      padding: 8px;
-    }
-
-    .friends-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3px;
-    }
-
-    .friend-pic {
-      width: 50px;
-      height: 50px;
-      border: 1px solid var(--light-pink);
-      border-radius: 2px;
-    }
-
-    .app-link {
+    .book-content {
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 10;
       display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 8px;
-      padding: 5px;
-      color: var(--dark-purple);
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    header h1 {
+      font-size: 4rem;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.5rem;
+      margin: 10px 0;
+    }
+
+    .cta-button {
+      margin-top: 20px;
+      padding: 12px 28px;
+      font-size: 1.2rem;
+      background: var(--highlight);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--paper);
+      font-weight: bold;
+      transition: transform 0.3s ease;
       text-decoration: none;
-      font-size: 13px;
     }
 
-    .app-link:hover {
-      background: var(--light-gray);
+    .cta-button:hover {
+      transform: scale(1.05);
     }
 
-    .app-icon {
-      width: 16px;
-      height: 16px;
+    /* ===== REVIEWS SECTION ===== */
+    .reviews {
+      padding: 100px 20px;
+      max-width: 900px;
+      margin: 60px auto;
+      background: var(--paper);
+      border-left: 10px solid var(--highlight);
+      border-right: 10px solid var(--highlight);
+      box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      text-align: center;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .main-container {
-        flex-direction: column;
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-      
-      .left-sidebar,
-      .right-sidebar {
-        width: 100%;
-        order: 2;
-      }
-      
-      .main-content {
-        order: 1;
-      }
-      
-      .search-box {
-        width: 200px;
-      }
+    .reviews h2 { font-size: 2.5rem; margin-bottom: 40px; }
+
+    .review-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
     }
 
-    /* Chat Window Styles */
-    #inboxBtn {
-        background: none;
-        border: none;
-        color: var(--white);
-        text-decoration: none;
-        font-size: 11px;
-        padding: 4px 8px;
-        cursor: pointer;
-        border-radius: 2px;
+    .review-card {
+      background: var(--lavender-mauve);
+      padding: 30px;
+      border-radius: 15px;
+      font-style: italic;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
-    #inboxBtn:hover {
-        background: rgba(255, 255, 255, 0.1);
+    .review-card span {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: right;
     }
 
-    #notification {
-        display: inline-block;
-        margin-left: 8px;
-        color: var(--accent);
-        background: var(--black);
-        font-weight: bold;
-        font-size: 12px;
-        border-radius: 50%;
-        width: 18px;
-        height: 18px;
-        line-height: 18px;
-        text-align: center;
-        animation: pulse 1.5s infinite;
-        box-shadow: 0 0 8px var(--accent);
+    /* ===== STORYBOOK VIDEO SECTION ===== */
+    .storybook-video {
+      padding: 100px 20px;
+      max-width: 1000px;
+      margin: 60px auto;
+      background: var(--paper);
+      border-left: 10px solid var(--highlight);
+      border-right: 10px solid var(--highlight);
+      box-shadow: 0 0 40px rgba(0,0,0,0.1);
+      text-align: center;
     }
 
-    @keyframes pulse {
-        0%, 100% { 
-            transform: scale(1); 
-            opacity: 1; 
-        }
-        50% { 
-            transform: scale(1.1); 
-            opacity: 0.8; 
-        }
+    .storybook-video h2 { font-size: 2.5rem; margin-bottom: 40px; }
+
+    .video-frame {
+      position: relative;
+      display: inline-block;
+      margin: 20px;
     }
 
-    #chatWindow {
-  display: none; /* hidden until opened */
-  flex-direction: column;
-  width: 300px;
-  height: 400px;
-  border: 1px solid #aaa;
-  border-radius: 10px;
-  background: #fff;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  font-family: sans-serif;
-}
-#chatHeader {
-  background: var(--primary);
-  padding: 8px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#chatBody {
-  flex: 1;
-  padding: 8px;
-  overflow-y: auto;
-}
-.chat-message {
-  margin: 4px 0;
-  padding: 6px 10px;
-  border-radius: 12px;
-  max-width: 80%;
-}
-.chat-message.user {
-  background: var(--accent);
-  align-self: flex-end;
-}
-.chat-message.sunnie {
-  background:var(--light-gray);
-  align-self: flex-start;
-}
-#chatOptions {
-  padding: 8px;
-  border-top: 1px solid var(--teal);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-#chatOptions button {
-  flex: 1;
-  padding: 6px;
-  border: none;
-  border-radius: 6px;
-  background: var(--accent);
-  color: var(--dark-purple);
-  cursor: pointer;
-}
-#chatOptions button:hover {
-  background: var(--secondary);
-}
+    .video-frame img.book-frame {
+      display: block;
+      width: 350px;
+      height: auto;
+      position: relative;
+      z-index: 1;
+    }
 
+    .video-frame video {
+      position: absolute;
+      top: 12%;
+      left: 12%;
+      width: 76%;
+      height: 76%;
+      object-fit: cover;
+      border-radius: 8px;
+      z-index: 2;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .review-cards { grid-template-columns: 1fr; }
+      header h1 { font-size: 3rem; }
+      header p { font-size: 1.2rem; }
+      .cta-button { font-size: 1rem; padding: 10px 24px; }
+      .video-frame img.book-frame { width: 250px; }
+    }
   </style>
 </head>
 <body>
-  <!-- Facebook Header -->
-  <div class="facebook-header">
-    <div class="header-content">
-      <a href="#" class="facebook-logo">fakebook</a>
-      <input type="text" class="search-box" placeholder="Search">
-      <nav class="header-nav">
-        <a href="index.html">Home</a>
-        <a href="profile-info.html">Profile</a>
-        <a href="studio-ken.html">Friends</a>
-        <button id="inboxBtn">Inbox <span id="notification">(1)</span></button>
-        <a href="#">Settings</a>
-        <a href="javascript:history.back()" class="nav-button nav-back">Logout</a>
-      </nav>
-    </div>
-  </div>
 
-  <div class="main-container">
-    <!-- Left Sidebar -->
-    <div class="left-sidebar">
-      <div class="profile-info">
-        <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Profile" class="profile-pic">
-        <a href="#" class="profile-name">Sunnie Jae</a>
-        <ul class="profile-links">
-          <li><a href="#">Edit My Profile</a></li>
-          <li><a href="#">Account Settings</a></li>
-          <li><a href="#">Privacy Settings</a></li>
-        </ul>
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="book-tabs">
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="videography.html">Videography</a></li>
+      <li><a href="packages.html">Packages</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HEADER / OPENING BOOK ===== -->
+  <header>
+    <div class="book-cover right"></div>
+    <div class="page"></div>
+    <div class="book-content">
+      <h1>Haven</h1>
+      <p>No risk, just romance for your magical day</p>
+      <p>You deserve to focus on your love story, not the quality of your media package.</p>
+      <a href="https://sunniejae.my.canva.site/haven" class="cta-button">Explore</a>
+    </div>
+  </header>
+
+  <!-- ===== REVIEWS SECTION ===== -->
+  <section class="reviews">
+    <h2>What Couples Say</h2>
+    <div class="review-cards">
+      <div class="review-card">
+        <p>"Absolutely magical experience!"</p>
+        <span>- Anna & Tom</span>
       </div>
-      
-      <div class="profile-info">
-        <div class="sidebar-header">Albums</div>
-        <div class="sidebar-content">
-          <a href="#" class="app-link">
-            <img src="https://imgur.com/5WZhwSa.png" alt="Photos" class="app-icon">
-            Summer 2009
-          </a>
-          <a href="videos.html" class="app-link">
-            <img src="https://imgur.com/5WZhwSa.png" alt="Videos XD" class="app-icon">
-            Videos XD
-          </a>
-          <a href="#" class="app-link">
-            <img src="https://imgur.com/5WZhwSa.png" alt="Games" class="app-icon">
-            Musical!1!!
-          </a>
-        </div>
+      <div class="review-card">
+        <p>"Every moment captured beautifully."</p>
+        <span>- Claire & John</span>
       </div>
     </div>
+  </section>
 
-    <!-- Main Content -->
-    <div class="main-content">
-      <!-- Profile Header -->
-      <div class="profile-header">
-        <div class="cover-photo"></div>
-        <div class="profile-main">
-          <img src="https://sunniejae.blob.core.windows.net/sunniejae/fakebookprofile.png" alt="Sunnie Jae" class="profile-pic-large">
-          <div class="profile-details">
-            <h1>Jayme Squire</h1>
-            <div>Creative Designer & Content Creator</div>
-            <div>CEO of Sunnie Jae Creates</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Profile Tabs -->
-      <div class="profile-tabs">
-        <ul>
-          <li><a href="fakebookwall.html">Wall</a></li>
-          <li><a href="#professional" class="active">Info</a></li>
-          <li><a href="digital-art.html">Photos</a></li>
-          <li><a href="videos.html">Videos</a></li>
-          <li><a href="shop.html">Shop</a></li>
-        </ul>
-      </div>
-
-      <!-- Info Content -->
-      <div class="info-content">
-        
-        <!-- Professional Resume -->
-        <div class="info-section">
-          <div class="section-header">
-            Professional Resume 
-          </div>
-          <div class="section-content">
-            <h3>Recent Work History</h3>
-            
-            <div class="work-entry">
-              <div class="work-title">Senior Supervisor, Sales Operations</div>
-              <div class="work-dates">Oct 2022 – Present</div>
-              
-              <h4>Responsibilities:</h4>
-              <ul class="responsibility-list">
-                <li>Spearheaded the creation and implementation of a text line for the department
-                  <ul>
-                    <li>Regularly met with superiors to develop policies and procedures.</li>
-                    <li>Communicated these policies and procedures using comprehensive Microsoft Sharepoint pages.</li>
-                    <li>Built out a shift schedule that could accommodate for changing staffing.</li>
-                    <li>Trained each agent in groups of 1-3.</li>
-                  </ul>
-                </li>
-              </ul>
-              
-              <div class="design-integration">
-                <strong>How I Integrated Design:</strong> Every text department communication had a graphic heading. I created a thought out color palette for the site, and used those purple colors for all imagery across the Sharepoint site. This has allowed me to practice creating graphics with text, as well as creating graphics with a professional audience.
-              </div>
-              
-              <ul class="responsibility-list">
-                <li>Created and led department competitions and incentives, contributing to employee engagement and culture
-                  <ul>
-                    <li>Communicated across departments to solidify timelines</li>
-                    <li>Created four competitions and one raffle system to run through our busiest season</li>
-                    <li>Started preparations several months ahead of the deadline; the competitions ran for around one month, with less than a week between each</li>
-                    <li>Built each of the four with specific goals in mind</li>
-                  </ul>
-                </li>
-              </ul>
-              
-              <div class="design-integration">
-                <strong>How I integrated Design:</strong> I "branded" each competition to create physical and atmospheric consistency. Each competition had a logo, a color palette, and visual graphics for all activities.
-              </div>
-              
-              <ul class="responsibility-list">
-                <li>Managed up to 15 agents at a time
-                  <ul>
-                    <li>Consistent one-to-one communication and coaching</li>
-                    <li>Delegating important projects and overseeing their completion</li>
-                    <li>Detail focused quality review</li>
-                    <li>Running meetings for trainings, competition proposals, management huddles, and more</li>
-                  </ul>
-                </li>
-              </ul>
-              
-              <div class="design-integration">
-                <strong>How I Integrated Design:</strong> All organization was color-coded by agent to create visual consistency across platforms. From excel sheets to calendar tags, I was able to easily recognize the context based on color.
-              </div>
-              
-              <ul class="responsibility-list">
-                <li>Supported department-level branded projects through self-taught design, leveraging tools like Canva, Capcut, and SharePoint to create internal collateral and visual content</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-       
-        <!-- Unprofessional Resume -->
-        <div class="info-section">
-          <div class="section-header">
-            Unprofessional Resume
-          </div>
-          <div class="section-content">
-            <p>When you get Sunnie Jae, you get options. I'm a creative by nature; I take every chance to take an idea and make an experience.</p>
-            
-            <h4>Writing</h4>
-            <p>I've been writing longer than anything. Language is my first love. (Sorry, Ken) If you have a short story you'd like to commission, that would be swell.</p>
-            
-            <h4>Current Projects</h4>
-            <p>My inspiration always has a story, so my current passion has been the intersection of digital/graphic art and writing. I'm currently working on two WebComics:</p>
-            
-            <div class="project-title">16 (Sixteen)</div>
-            <div class="project-description">follows the college lives of 16 psych 101 students<br>
-            the concept comes from the MBTI archetypes. each main character is inspired by MBTI stereotypes</div>
-            
-            <div class="project-title">Not Just Another Werewolf Romance</div>
-            <div class="project-description">starts as a serialized novel<br>
-            chapters will be published on my blog<br>
-            follows four young adults navigating romance, friendship, and the supernatural<br>
-            recommended for readers who like enemies to lovers, friends to lovers, soulmates, and bisexual main characters.</div>
-            
-            <h4>Video Content</h4>
-            <p>I'm also always editing videos. My content ranges from viral cat tiktoks to department announcements for my 9-5 Desk Job.</p>
-            
-            <p>I've been vlogging since I was 13 (it's almost all been scrubbed, don't worry). It's become something close to a public journal for me. My job is not naturally creative, but I've found a way to incorporate my hobby into my day-to-day.</p>
-            
-            <div class="quirky-note">you can find me in the kpop-sphere making video compilations of favorite performances. you can find me on tiktok going viral for my cat being ornery. (ꈍᴗꈍ)♡</div>
-          </div>
-        </div>
-
-        <!-- Education Section -->
-        <div class="info-section">
-          <div class="section-header">
-            Education
-          </div>
-          <div class="section-content">
-            <h3>Education</h3>
-            <div class="education-box">
-              <div class="degree">Associate of Arts, studying English Education</div>
-              <div class="institution">Brigham Young University- Idaho Campus</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- ===== STORYBOOK VIDEO SECTION ===== -->
+  <section class="storybook-video">
+    <h2>Captured Moments</h2>
+    <div class="video-frame">
+      <img class="book-frame" src="https://sunniejae.blob.core.windows.net/sunniejae/photo%20page.png" alt="Decorative Frame">
+      <video autoplay loop muted playsinline>
+        <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%201.mp4" type="video/mp4">
+      </video>
     </div>
-
-    <!-- Right Sidebar -->
-    <div class="right-sidebar">
-      <div class="sidebar-box">
-        <div class="sidebar-header">Friends (Random)</div>
-        <div class="sidebar-content">
-          <div class="friends-list">
-            <img src="https://imgur.com/48OZg40.png" alt="Friend" class="friend-pic">
-            <img src="https://imgur.com/FerQdt8.png" alt="Friend" class="friend-pic">
-            <img src="https://imgur.com/22Q9q4Q.png" alt="Friend" class="friend-pic">
-            <img src="https://imgur.com/U7lmcq2.png" alt="Friend" class="friend-pic">
-            <img src="https://imgur.com/22Q9q4Q.png" alt="Friend" class="friend-pic">
-            <img src="https://imgur.com/bnWCa9J.png" alt="Friend" class="friend-pic">
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar-box">
-        <div class="sidebar-header">Sponsored</div>
-        <div class="sidebar-content">
-          <div style="font-size: 13px; color: var(--black);">
-            Products for Sale<br>
-            <small>shop Sunnie Jae Creates on the shop tab!</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar-box">
-        <div class="sidebar-header">Birthdays</div>
-        <div class="sidebar-content">
-          <div style="font-size: 13px;">
-            🎂 <strong>3 friends</strong> have birthdays today
-          </div>
-        </div>
-      </div>
+    <div class="video-frame">
+      <img class="book-frame" src="https://sunniejae.blob.core.windows.net/sunniejae/photo%20page.png" alt="Decorative Frame">
+      <video autoplay loop muted playsinline>
+        <source src="https://sunniejae.blob.core.windows.net/sunniejae/haven%20video%202.mp4" type="video/mp4">
+      </video>
     </div>
-  </div>
+  </section>
 
-  <!-- Chat Feature -->
-  <div id="chatWindow">
-    <div id="chatHeader">
-      Chat with Sunnie Jae
-      <button id="closeChat">×</button>
-    </div>
-    <div id="chatBody">
-      <div class="chat-message sunnie">
-        Heyyyyyy it's Jayme! 
-      </div>
-    </div>
-    <div id="chatOptions">
-      <button onclick="sendMessage('rawr')">rawr</button>
-      <button onclick="sendMessage('Your projects sound amazing!')">Your projects sound amazing!</button>
-      <button onclick="sendMessage('how can i get in touch if u log out')">how can i get in touch if u log out</button>
-      <button onclick="sendMessage('What\'s your design process?')">What's your design process?</button>
-    </div>
-  </div>
+  <script>
+    window.addEventListener('load', () => {
+      const coverRight = document.querySelector('.book-cover.right');
+      const page = document.querySelector('.page');
+      const content = document.querySelector('.book-content');
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const inboxBtn = document.getElementById('inboxBtn');
-  const chatWindow = document.getElementById('chatWindow');
-  const closeChat = document.getElementById('closeChat');
-  const chatBody = document.getElementById('chatBody');
-  const chatOptions = document.getElementById('chatOptions');
-  const notification = document.getElementById('notification');
+      // Step 1: Open front cover
+      setTimeout(() => {
+        coverRight.style.transform = 'rotateY(-160deg)';
+      }, 500);
 
-  // Show/hide chat window
-  if (inboxBtn && chatWindow) {
-    inboxBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const isVisible = chatWindow.style.display === 'flex';
-      chatWindow.style.display = isVisible ? 'none' : 'flex';
-      if (!isVisible && notification) notification.style.display = 'none';
+      // Step 2: Flip the page after cover opens
+      setTimeout(() => {
+        page.style.transform = 'rotateY(0deg)';
+      }, 1700);
+
+      // Step 3: Show content
+      setTimeout(() => {
+        content.style.opacity = 1;
+      }, 2800);
     });
-  }
-
-  // Conversation object
-  const conversation = {
-    start: {
-      reply: "heyyy it's jayme.. wazzup?",
-      options: [
-        { text: "rawr!", next: "rawr" },
-        { text: "i'm just here to judge your work ", next: "services" }
-      ]
-    },
-    services: {
-      reply: "Oh.. okie... I have graphic design, video editing, writing, and web design... anything ur looking 4?",
-      options: [
-        { text: "Graphic design", next: "design" },
-        { text: "Video editing", next: "video" },
-        { text: "Web design", next: "web" },
-        { text: "writing", next: "writing" },
-        { text: "digital art", next: "digitalart" }
-      ]
-    },
-    design: {
-      reply: "graphic design is one of my favzz! i stored those in my graphiczz folder.",
-      options: [
-        { text: "hmm. what about videos?", next: "video" },
-        { text: "how can i get in touch if u log out", next: "collab" }
-      ]
-    },
-    digitalart: {
-      reply: "most of my digital art is just drawn on my ipad, but if you really want to see it... just check out my photos tab.",
-      options: [
-        { text: "hmm. what about videos?", next: "video" },
-        { text: "how can i get in touch if u log out", next: "collab" }
-      ]
-    },
-    writing: {
-      reply: "cool cool, my english class isn't until 4th period... but i've uploaded my work here. you can find it in my notes folder",
-      options: [
-        { text: "what about digital art?", next: "digitalart" },
-        { text: "how can i get in touch if u log out", next: "collab" },
-        { text: "what will i find?", next: "writingoptions" }
-      ]
-    },
-    video: {
-      reply: "Video editing is my playground—everything from TikTok virals to professional announcements. 🎬",
-      options: [
-        { text: "Nice! What about web design?", next: "web" },
-        { text: "That sounds awesome!", next: "endPositive" }
-      ]
-    },
-    web: {
-      reply: "tbh this is my first ever website. it's part of why the pages are all kinda random. i rly wanted to show off what i'm proud of. i'm still learning, but i'm a fast learner(;",
-      options: [
-        { text: "that's impressive! i cant wait to see what you'll do next", next: "endPositive" },
-        { text: "rawr", next: "rawr" }
-      ]
-    },
-    rawr: {
-      reply: "omggg you lurv me? wtc",
-      options: [
-        { text: "...", next: "awk" },
-        { text: "i'm just here to look at your portfolio", next: "services" }
-      ]
-    },
-    awk: {
-      reply: "well.. this is AWK!",
-      options: [
-        { text: "awkward is an awk word", next: "jokes" },
-        { text: "i'm just here to look at your portfolio", next: "services" }
-      ]
-    },
-    jokes: {
-      reply: "lawlz ur so random. wanna go to yogurtville? and a movie?",
-      options: [
-        { text: "no.. :( im free wednesday if someone gave me a ride", next: "ohwell" },
-        { text: "i'm just here to look at your portfolio", next: "services" }
-      ]
-    },
-    ohwell: {
-      reply: "i guess while ur online u could look at my other posts",
-      options: [
-        { text: "sure. where should i start?", next: "tour" },
-        { text: "i already know what i wanna see", next: "services" }
-      ]
-    },
-    tour: {
-      reply: "hmm... maybe check out my services first? or look at my latest projects 👀",
-      options: [
-        { text: "Okay, show me your services", next: "services" },
-        { text: "Tell me about your projects", next: "webcomics" }
-      ]
-    },
-    webcomics: {
-      reply: "One is *Sixteen*, inspired by MBTI archetypes. It follows 16 college students as a slice-of-life style serialized story. The other is *Not Just Another Werewolf Romance* - for fans of enemies-to-lovers, lovers-to-enemies, friends-to-lovers, and supernatural drama. Perfect for Sarah J Mass readers.",
-      options: [
-        { text: "i'll check them out", next: "endPositive" },
-        { text: "how can i get in touch if u log out", next: "collab" }
-      ]
-    },
-    collab: {
-      reply: "you can send me a message at sunniejae.creates@gmail.com - are you looking for help on something?",
-      options: [
-        { text: "A personal website", next: "web" },
-        { text: "A video project", next: "video" },
-        { text: "Something design-heavy", next: "design" }
-      ]
-    },
-    writingoptions: {
-      reply: "right now, you'll see a smattering of poetry and long term projects.",
-      options: [
-        { text: "what are your long term projects about?", next: "webcomics" },
-        { text: "Tell me about your services.", next: "services" }
-      ]
-    },
-    endPositive: {
-      reply: "I’m glad you’re interested! 💜 Feel free to reach out via my contact page so we can make it happen!",
-      options: []
-    }
-  };
-
-  // Helper functions
-  function addMessage(text, sender = "user") {
-    const msg = document.createElement("div");
-    msg.classList.add("chat-message", sender);
-    msg.textContent = text;
-    chatBody.appendChild(msg);
-    chatBody.scrollTop = chatBody.scrollHeight;
-  }
-
-  function loadOptions(nodeKey) {
-    chatOptions.innerHTML = "";
-    const node = conversation[nodeKey];
-    if (!node) return;
-    if (node.reply) {
-      setTimeout(() => addMessage(node.reply, "sunnie"), 600);
-    }
-    node.options.forEach(opt => {
-      const btn = document.createElement("button");
-      btn.textContent = opt.text;
-      btn.onclick = () => {
-        addMessage(opt.text, "user");
-        loadOptions(opt.next);
-      };
-      chatOptions.appendChild(btn);
-    });
-  }
-
-  // Start conversation
-  loadOptions("start");
-});
-</script>
-
+  </script>
 
 </body>
 </html>
