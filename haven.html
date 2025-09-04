@@ -7,32 +7,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --deep-blue: #044476;
-      --dark-green: #2F4633;
-      --dark: #4B2C40;
-      --rose: #E7C5C9;
-      --lavender: #C3B6D9;
-      --green: #8C9A88;
-      --black: #2F2F2F;
-      --baby-blue: #A7C7E7;
-      --mauve: #B38B94;
-      --gold: #E4C287;
-      --paper: #FDF6F0;
+      /* ===== Storybook Romance Palette ===== */
+      /* Primary Colors */
+      --color-primary-blue: #366e9f;
+      --color-primary-warm: #9e7f57;
+
+      /* Secondary Colors */
+      --color-secondary-rosewood: #6e4d58;
+      --color-secondary-teal: #294353;
+      --color-secondary-terracotta: #97562e;
+
+      /* Accent Colors */
+      --color-accent-brick: #7c260d;
+      --color-accent-lavender: #af92ba;
+      --color-accent-dusty-purple: #9a7aa4;
+      --color-accent-blush: #f2c1c1;
+      --color-accent-cream: #f3ebe7;
+
+      /* Neutrals */
+      --color-neutral-light-grey: #b9b8b4;
+      --color-neutral-warm-grey: #bbb2ac;
+      --color-black: #110f0f;
     }
 
     body {
       margin: 0;
       font-family: 'Playfair Display', serif;
-      background: var(--paper);
-      color: var(--black);
+      background: var(--color-accent-cream);
+      color: var(--color-black);
     }
 
     /* ===== NAVIGATION (BOOK TABS) ===== */
     .book-tabs {
-      background: var(--deep-blue);
+      background: var(--color-primary-blue);
       display: flex;
       justify-content: center;
-      border-bottom: 4px solid var(--gold);
+      border-bottom: 4px solid var(--color-primary-warm);
       font-family: 'Playfair Display', serif;
     }
 
@@ -50,8 +60,8 @@
     .book-tabs a {
       display: block;
       padding: 14px 28px;
-      background: var(--rose);
-      color: var(--black);
+      background: var(--color-accent-blush);
+      color: var(--color-black);
       text-decoration: none;
       font-weight: bold;
       border-top-left-radius: 12px;
@@ -62,14 +72,14 @@
     }
 
     .book-tabs a:hover {
-      background: var(--gold);
+      background: var(--color-primary-warm);
       transform: translateY(-3px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
     .book-tabs a.active {
-      background: var(--lavender);
-      border-bottom: 4px solid var(--paper);
+      background: var(--color-accent-lavender);
+      border-bottom: 4px solid var(--color-accent-cream);
       transform: translateY(-5px);
     }
 
@@ -111,7 +121,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--dark));
+      background: var(--color-secondary-rosewood);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -120,6 +130,7 @@
       opacity: 0;
       transition: opacity 1s ease 2s;
       padding: 0 20px;
+      color: var(--color-accent-cream);
     }
 
     header.open .book-cover.left { transform: rotateY(-120deg); }
@@ -140,17 +151,18 @@
       margin-top: 20px;
       padding: 12px 28px;
       font-size: 1.2rem;
-      background: var(--gold);
+      background: var(--color-accent-blush);
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      color: var(--black);
+      color: var(--color-black);
       font-weight: bold;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
 
     .cta-button:hover {
       transform: scale(1.05);
+      background: var(--color-accent-lavender);
     }
 
     /* ===== REVIEWS SECTION ===== */
@@ -158,9 +170,9 @@
       padding: 100px 20px;
       max-width: 900px;
       margin: 60px auto;
-      background: var(--paper);
-      border-left: 10px solid var(--gold);
-      border-right: 10px solid var(--gold);
+      background: var(--color-accent-cream);
+      border-left: 10px solid var(--color-primary-warm);
+      border-right: 10px solid var(--color-primary-warm);
       box-shadow: 0 0 40px rgba(0,0,0,0.1);
       text-align: center;
     }
@@ -174,11 +186,12 @@
     }
 
     .review-card {
-      background: var(--lavender);
+      background: var(--color-accent-lavender);
       padding: 30px;
       border-radius: 15px;
       font-style: italic;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      color: var(--color-accent-cream);
     }
 
     .review-card span {
@@ -193,9 +206,9 @@
       padding: 100px 20px;
       max-width: 1000px;
       margin: 60px auto;
-      background: var(--paper);
-      border-left: 10px solid var(--gold);
-      border-right: 10px solid var(--gold);
+      background: var(--color-accent-cream);
+      border-left: 10px solid var(--color-primary-warm);
+      border-right: 10px solid var(--color-primary-warm);
       box-shadow: 0 0 40px rgba(0,0,0,0.1);
       text-align: center;
     }
@@ -213,18 +226,18 @@
       width: 350px;
       height: auto;
       position: relative;
-      z-index: 1; /* stays behind */
+      z-index: 1;
     }
 
     .video-frame video {
       position: absolute;
-      top: 12%;   /* adjust so it lines up inside frame */
+      top: 12%;
       left: 12%;
       width: 76%;
       height: 76%;
       object-fit: cover;
       border-radius: 8px;
-      z-index: 2; /* ensures video is above frame */
+      z-index: 2;
     }
 
     /* ===== RESPONSIVE ===== */
@@ -260,8 +273,7 @@
       <h1>Haven</h1>
       <p>No risk, just romance for your magical day</p>
       <p>You deserve to focus on your love story, not the quality of your media package.</p>
-     <a href="https://sunniejae.my.canva.site/haven" class="cta-button">psst ..logo ideas and color palettes here</a>
-
+      <a href="https://sunniejae.my.canva.site/haven" class="cta-button">psst ..logo ideas and color palettes here</a>
     </div>
   </header>
 
