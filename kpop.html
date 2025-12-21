@@ -1,199 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FANDOM SHOP - K-POP</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* ===== ROOT COLORS ===== */
-    :root {
-      --black: #000010;
-      --white: #ffffff;
-      --dark-gray: #404040;
-      --gray: #bfbfdc;
-      --silver: #f0f0f5;
-      --pink: #ffb3d6;
-      --teal: #00a8a3;
-      --accent: #00c9c2;
-      --dark-purple: #3f3d7a;
-      --secondary: #c13886;
-      --primary: #9a9ad4;
-    }
-
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: radial-gradient(circle at top, var(--dark-purple), var(--black));
-      color: var(--silver);
-      overflow-x: hidden;
-    }
-
-    h1,h2,h3{
-      font-family: 'Orbitron', sans-serif;
-      color: var(--white);
-      text-shadow:0 0 12px var(--primary),0 0 24px rgba(154,154,212,0.4);
-    }
-
-    a{ color:inherit; text-decoration:none; }
-
-    /* ===== HERO ===== */
-    .hero{
-      position:relative; height:90vh;
-      display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden;
-    }
-    .hero video{
-      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.35;
-    }
-    .hero-content{
-      z-index:2; max-width:800px;
-    }
-    .hero h1{
-      font-size:clamp(3rem,6vw,5rem); letter-spacing:0.2em;
-    }
-    .hero p{
-      margin:1.5rem 0 2.5rem; opacity:0.85;
-    }
-    .btn{
-      padding:0.8rem 2.4rem; margin:0.5rem; border-radius:40px; border:none;
-      cursor:pointer; font-weight:700; color:var(--white);
-      background:linear-gradient(135deg,var(--primary),var(--secondary));
-      box-shadow:0 0 20px rgba(154,154,212,0.6);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .btn:hover{
-      transform:scale(1.06);
-      background:linear-gradient(135deg,var(--accent),var(--teal));
-      box-shadow:0 0 35px rgba(0,201,194,0.9);
-    }
-
-    section{ padding:6rem 8%; }
-
-    .section-title{ text-align:center; font-size:2.5rem; margin-bottom:3rem; }
-
-    /* ===== ERA / BIAS PICKER ===== */
-    .eras{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:2rem; }
-    .era-card{
-      padding:2.5rem; border-radius:22px; text-align:center; cursor:pointer;
-      background:rgba(255,255,255,0.06); border:1px solid rgba(191,191,220,0.3);
-      backdrop-filter:blur(10px); transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .era-card:hover{
-      transform:translateY(-10px);
-      box-shadow:0 0 25px rgba(193,56,134,0.6), inset 0 0 15px rgba(255,179,214,0.3);
-    }
-
-    /* ===== VIDEO ===== */
-    .video-wrapper{
-      position:relative; padding-top:56.25%; border-radius:24px; overflow:hidden;
-      box-shadow:0 0 35px rgba(154,154,212,0.6);
-    }
-    .video-wrapper iframe{ position:absolute; inset:0; width:100%; height:100%; }
-
-    /* ===== SHOP ===== */
-    .shop-grid{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2.5rem;
-    }
-    .product{
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(63,61,122,0.25));
-      padding:1.8rem; border-radius:24px; border:1px solid rgba(191,191,220,0.25);
-      text-align:center; transition: transform 0.3s;
-    }
-    .product:hover{ transform:scale(1.04); }
-    .product img{ width:100%; border-radius:16px; margin-bottom:1.2rem; }
-    .price{ color:var(--accent); font-weight:700; margin:0.8rem 0; text-shadow:0 0 10px rgba(0,201,194,0.6); }
-
-    /* ===== CART ===== */
-    .cart{
-      position:fixed; top:20px; right:20px; padding:0.7rem 1.4rem; border-radius:40px; font-weight:700;
-      color:var(--white); background:linear-gradient(135deg,var(--secondary),var(--primary));
-      box-shadow:0 0 25px rgba(193,56,134,0.9); z-index:10;
-    }
-
-    footer{text-align:center; padding:3rem 1rem; opacity:0.6;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LE SSERAFIM Fandom Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #000010;
+  --white: #ffffff;
+  --dark-gray: #404040;
+  --gray: #bfbfdc;
+  --silver: #f0f0f5;
+  --pink: #ffb3d6;
+  --teal: #00a8a3;
+  --dark-purple: #3f3d7a;
+  --accent: #00c9c2;
+  --secondary: #c13886;
+  --primary: #9a9ad4;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat',sans-serif; background: radial-gradient(circle at top,var(--dark-purple),var(--black)); color: var(--silver); }
+h1,h2,h3{ font-family:'Orbitron',sans-serif; color: var(--white); text-shadow:0 0 12px var(--primary),0 0 24px rgba(154,154,212,0.4);}
+a{color:inherit;text-decoration:none;}
+.hero{position:relative;height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;}
+.hero-content{z-index:2; max-width:800px;}
+.hero h1{font-size:clamp(3rem,6vw,5rem);letter-spacing:0.2em;}
+.hero p{margin:1.5rem 0 2.5rem;opacity:0.85;}
+.btn{padding:0.8rem 2.4rem;margin:0.5rem;border-radius:40px;border:none;cursor:pointer;font-weight:700;color:var(--white);background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 0 20px rgba(154,154,212,0.6);transition: transform 0.3s, box-shadow 0.3s;}
+.btn:hover{transform:scale(1.06);background:linear-gradient(135deg,var(--accent),var(--primary));box-shadow:0 0 35px rgba(0,201,194,0.9);}
+section{padding:4rem 8%;}
+.section-title{text-align:center;font-size:2rem;margin-bottom:2rem;}
+.eras{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:3rem;}
+.era-card{padding:1.5rem;border-radius:18px;text-align:center;cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(191,191,220,0.3);backdrop-filter:blur(10px);transition: transform 0.3s, box-shadow 0.3s;}
+.era-card:hover{transform:translateY(-8px);box-shadow:0 0 20px rgba(193,56,134,0.6), inset 0 0 12px rgba(255,179,214,0.3);}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;}
+.product{background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(63,61,122,0.25));padding:1rem;border-radius:18px;border:1px solid rgba(191,191,220,0.25);text-align:center;transition: transform 0.3s;}
+.product img{width:100%;border-radius:12px;margin-bottom:0.8rem;}
+.product h3{font-size:1.1rem;}
+.product .price{color:var(--accent);font-weight:700;margin:0.5rem 0;}
+.product.featured{transform:scale(1.08);box-shadow:0 0 25px var(--accent), 0 0 15px var(--primary) inset;border:2px solid var(--accent);}
+.wishlist{position:fixed;top:20px;right:20px;padding:0.7rem 1.4rem;border-radius:40px;font-weight:700;color:var(--white);background:linear-gradient(135deg,var(--secondary),var(--primary));box-shadow:0 0 25px rgba(193,56,134,0.9);cursor:pointer;z-index:10;}
+#wishlistModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);justify-content:center;align-items:center;z-index:100;}
+#wishlistModalContent{background:var(--black);padding:2rem;border-radius:16px;width:90%;max-width:500px;color:var(--white);position:relative;}
+#wishlistModalContent span{position:absolute;top:1rem;right:1rem;cursor:pointer;font-size:1.5rem;}
+#wishlistModalContent input{width:100%;padding:0.5rem;margin-bottom:0.5rem;border-radius:8px;border:none;}
+</style>
 </head>
 <body>
 
-  <!-- CART -->
-  <div class="cart">🛒 Cart: <span id="cartCount">0</span></div>
+<!-- Wishlist Button -->
+<div class="wishlist" onclick="openWishlist()">
+  📋 Wishlist (<span id="wishlistCount">0</span>)
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <video autoplay muted loop>
-      <source src="https://cdn.coverr.co/videos/coverr-dancing-girl-under-neon-lights-9007/1080p.mp4" type="video/mp4">
-    </video>
-    <div class="hero-content">
-      <h1>FANDOM SHOP</h1>
-      <p>Your one-stop K-pop merch universe!</p>
-      <button class="btn">Explore Products</button>
+<!-- Wishlist Modal -->
+<div id="wishlistModal">
+  <div id="wishlistModalContent">
+    <span onclick="closeWishlist()">✖</span>
+    <h2 style="text-align:center;margin-bottom:1rem;">Your Wishlist</h2>
+    <ul id="wishlistItems" style="list-style:none;margin-bottom:1rem;"></ul>
+    <div style="margin-bottom:1rem;">
+      <input type="text" id="userName" placeholder="Enter your name">
+      <input type="email" id="userEmail" placeholder="Enter your email">
     </div>
-  </section>
+    <button class="btn" style="width:100%;" onclick="requestOrder()">Request Order</button>
+  </div>
+</div>
 
-  <!-- BIAS PICKER -->
-  <section>
-    <h2 class="section-title">PICK YOUR BIAS</h2>
-    <div class="eras">
-      <div class="era-card">💖 Member A</div>
-      <div class="era-card">⚡ Member B</div>
-      <div class="era-card">🖤 Member C</div>
-      <div class="era-card">🌟 Member D</div>
-    </div>
-  </section>
+<section class="hero">
+  <video autoplay muted loop>
+    <source src="https://cdn.coverr.co/videos/coverr-dancing-girl-under-neon-lights-9007/1080p.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1>LE SSERAFIM SHOP</h1>
+    <p>Featured items for your favorite member!</p>
+  </div>
+</section>
 
-  <!-- VIDEO -->
-  <section>
-    <h2 class="section-title">LATEST PERFORMANCE</h2>
-    <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
+<section>
+  <h2 class="section-title">PICK YOUR BIAS</h2>
+  <div class="eras">
+    <div class="era-card" onclick="setMemberTheme('Chaewon')">🐯 Chaewon</div>
+    <div class="era-card" onclick="setMemberTheme('Sakura')">🌸 Sakura</div>
+    <div class="era-card" onclick="setMemberTheme('Kazuha')">🦢 Kazuha</div>
+    <div class="era-card" onclick="setMemberTheme('Yunjin')">🐍 Yunjin</div>
+    <div class="era-card" onclick="setMemberTheme('Eunchae')">🐣 Eunchae</div>
+  </div>
+</section>
 
-  <!-- SHOP -->
-  <section>
-    <h2 class="section-title">MERCH DROP</h2>
-    <div class="shop-grid">
-      <div class="product">
-        <img src="https://via.placeholder.com/300x300.png?text=Album+Ver+A">
-        <h3>Album Ver. A</h3>
-        <p class="price">$25</p>
-        <button class="btn" onclick="addToCart()">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/300x300.png?text=Lightstick">
-        <h3>Lightstick</h3>
-        <p class="price">$45</p>
-        <button class="btn" onclick="addToCart()">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/300x300.png?text=Hoodie">
-        <h3>Group Hoodie</h3>
-        <p class="price">$60</p>
-        <button class="btn" onclick="addToCart()">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/300x300.png?text=Photocard+Set">
-        <h3>Photocard Set</h3>
-        <p class="price">$15</p>
-        <button class="btn" onclick="addToCart()">Add to Cart</button>
-      </div>
-    </div>
-  </section>
+<!-- KEY CHAINS -->
+<section>
+  <h2 class="section-title">KEY CHAINS</h2>
+  <div class="shop-grid">
+    <div class="product featured" data-member="OT6"><h3>OT6 Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('OT6 Spaghetti Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Chaewon"><h3>Chaewon Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Chaewon Spaghetti Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Sakura"><h3>Sakura Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Sakura Spaghetti Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Kazuha"><h3>Kazuha Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Kazuha Spaghetti Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Yunjin"><h3>Yunjin Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Yunjin Spaghetti Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Eunchae"><h3>Eunchae Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Eunchae Spaghetti Key Chain')">Add to Wishlist</button></div>
+    <div class="product featured" data-member="OT6"><h3>OT6 Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('OT6 Light Stick Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Chaewon"><h3>Chaewon Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Chaewon Light Stick Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Sakura"><h3>Sakura Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Sakura Light Stick Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Kazuha"><h3>Kazuha Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Kazuha Light Stick Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Yunjin"><h3>Yunjin Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Yunjin Light Stick Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Eunchae"><h3>Eunchae Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Eunchae Light Stick Key Chain')">Add to Wishlist</button></div>
+    <div class="product featured" data-member="OT6"><h3>OT6 FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('OT6 FIM\'s Club Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Chaewon"><h3>Chaewon FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Chaewon FIM\'s Club Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Sakura"><h3>Sakura FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Sakura FIM\'s Club Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Kazuha"><h3>Kazuha FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Kazuha FIM\'s Club Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Yunjin"><h3>Yunjin FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Yunjin FIM\'s Club Key Chain')">Add to Wishlist</button></div>
+    <div class="product" data-member="Eunchae"><h3>Eunchae FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Eunchae FIM\'s Club Key Chain')">Add to Wishlist</button></div>
+  </div>
+</section>
 
-  <footer>
-    © 2025 FANDOM SHOP · All Rights Reserved
-  </footer>
+<!-- STICKERS -->
+<section>
+  <h2 class="section-title">STICKERS</h2>
+  <div class="shop-grid">
+    <div class="product featured" data-member="OT6"><h3>OT6 Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('OT6 Spaghetti Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Chaewon"><h3>Chaewon Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Chaewon Spaghetti Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Sakura"><h3>Sakura Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Sakura Spaghetti Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Kazuha"><h3>Kazuha Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Kazuha Spaghetti Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Yunjin"><h3>Yunjin Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Yunjin Spaghetti Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Eunchae"><h3>Eunchae Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Eunchae Spaghetti Sticker')">Add to Wishlist</button></div>
+    <div class="product featured" data-member="OT6"><h3>OT6 Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('OT6 Light Stick Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Chaewon"><h3>Chaewon Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Chaewon Light Stick Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Sakura"><h3>Sakura Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Sakura Light Stick Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Kazuha"><h3>Kazuha Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Kazuha Light Stick Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Yunjin"><h3>Yunjin Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Yunjin Light Stick Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Eunchae"><h3>Eunchae Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Eunchae Light Stick Sticker')">Add to Wishlist</button></div>
+    <div class="product featured" data-member="OT6"><h3>OT6 FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('OT6 FIM\'s Club Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Chaewon"><h3>Chaewon FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('Chaewon FIM\'s Club Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Sakura"><h3>Sakura FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('Sakura FIM\'s Club Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Kazuha"><h3>Kazuha FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('Kazuha FIM\'s Club Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Yunjin"><h3>Yunjin FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('Yunjin FIM\'s Club Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="Eunchae"><h3>Eunchae FIM's Club Sticker</h3><p class="price">$12</p><<p class="price">$12</p><button class="btn" onclick="addToWishlist('Eunchae FIM\'s Club Sticker')">Add to Wishlist</button></div>
+    <div class="product" data-member="OT6"><h3>FearNot Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('FearNot Sticker')">Add to Wishlist</button></div>
+  </div>
+</section>
 
-  <script>
-    let cartCount = 0;
-    function addToCart() {
-      cartCount++;
-      document.getElementById('cartCount').textContent = cartCount;
+<footer style="text-align:center;padding:2rem 0;opacity:0.6;">
+© 2025 LE SSERAFIM Fandom Shop
+</footer>
+
+<script>
+let wishlist = [];
+
+function addToWishlist(itemName){
+  if(!wishlist.includes(itemName)){
+    wishlist.push(itemName);
+    document.getElementById('wishlistCount').textContent = wishlist.length;
+  }
+}
+
+function openWishlist(){
+  const ul = document.getElementById('wishlistItems');
+  ul.innerHTML = '';
+  wishlist.forEach(item=>{
+    const li = document.createElement('li');
+    li.textContent = item;
+    li.style.marginBottom = '0.5rem';
+    ul.appendChild(li);
+  });
+  document.getElementById('wishlistModal').style.display = 'flex';
+}
+
+function closeWishlist(){
+  document.getElementById('wishlistModal').style.display = 'none';
+}
+
+function requestOrder(){
+  const name = document.getElementById('userName').value;
+  const email = document.getElementById('userEmail').value;
+  if(!name || !email || wishlist.length === 0){
+    alert('Please fill in your name, email, and add at least one item.');
+    return;
+  }
+  const subject = encodeURIComponent('LE SSERAFIM Wishlist Order');
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nItems:\n- ${wishlist.join('\n- ')}`);
+  window.location.href = `mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
+}
+
+function setMemberTheme(member){
+  const root = document.documentElement;
+  const colors = {
+    'Chaewon': ['#ffffff','#f0f0f5','#00c9c2'],
+    'Sakura': ['#ffb3d6','#c13886','#ffffff'],
+    'Kazuha': ['#00a8ff','#004c99','#ffffff'],
+    'Yunjin': ['#00c000','#007a00','#ffffff'],
+    'Eunchae': ['#ff4b4b','#990000','#ffffff'],
+  };
+  if(colors[member]){
+    root.style.setProperty('--primary', colors[member][0]);
+    root.style.setProperty('--secondary', colors[member][1]);
+    root.style.setProperty('--accent', colors[member][2]);
+  }
+  // Highlight featured items
+  document.querySelectorAll('.product').forEach(p=>{
+    if(p.dataset.member === member){
+      p.classList.add('featured');
+    } else if(p.dataset.member === 'OT6'){
+      p.classList.add('featured'); // OT6 default featured remains visible
+    } else {
+      p.classList.remove('featured');
     }
-  </script>
-
+  });
+}
+</script>
 </body>
 </html>
