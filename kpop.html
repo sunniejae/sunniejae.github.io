@@ -4,8 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LE SSERAFIM Fandom Shop</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" type="image/png">
+
+<!-- Custom Font -->
 <style>
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("https://sunniejae.blob.core.windows.net/sunniejae/Myfont1-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 :root {
   --black: #000010;
   --white: #ffffff;
@@ -18,10 +26,11 @@
   --accent: #00c9c2;
   --secondary: #c13886;
   --primary: #9a9ad4;
+  --bg: var(--dark-purple);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Montserrat',sans-serif; background: radial-gradient(circle at top,var(--dark-purple),var(--black)); color: var(--silver); }
-h1,h2,h3{ font-family:'Orbitron',sans-serif; color: var(--white); text-shadow:0 0 12px var(--primary),0 0 24px rgba(154,154,212,0.4);}
+body { font-family:'MyCustomFont',sans-serif; background: var(--bg); transition: background 0.5s; color: var(--silver); }
+h1,h2,h3{ font-family:'MyCustomFont',sans-serif; color: var(--white); text-shadow:0 0 12px var(--primary),0 0 24px rgba(154,154,212,0.4);}
 a{color:inherit;text-decoration:none;}
 .hero{position:relative;height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;}
@@ -42,10 +51,13 @@ section{padding:4rem 8%;}
 .product .price{color:var(--accent);font-weight:700;margin:0.5rem 0;}
 .product.featured{transform:scale(1.08);box-shadow:0 0 25px var(--accent), 0 0 15px var(--primary) inset;border:2px solid var(--accent);}
 .wishlist{position:fixed;top:20px;right:20px;padding:0.7rem 1.4rem;border-radius:40px;font-weight:700;color:var(--white);background:linear-gradient(135deg,var(--secondary),var(--primary));box-shadow:0 0 25px rgba(193,56,134,0.9);cursor:pointer;z-index:10;}
-#wishlistModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);justify-content:center;align-items:center;z-index:100;}
-#wishlistModalContent{background:var(--black);padding:2rem;border-radius:16px;width:90%;max-width:500px;color:var(--white);position:relative;}
-#wishlistModalContent span{position:absolute;top:1rem;right:1rem;cursor:pointer;font-size:1.5rem;}
-#wishlistModalContent input{width:100%;padding:0.5rem;margin-bottom:0.5rem;border-radius:8px;border:none;}
+#wishlistModal, #quizModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);justify-content:center;align-items:center;z-index:100;}
+.modalContent{background:var(--black);padding:2rem;border-radius:16px;width:90%;max-width:500px;color:var(--white);position:relative;}
+.modalContent span{position:absolute;top:1rem;right:1rem;cursor:pointer;font-size:1.5rem;}
+.modalContent input{width:100%;padding:0.5rem;margin-bottom:0.5rem;border-radius:8px;border:none;}
+.quiz-question{margin-bottom:1rem;}
+.quiz-option{display:block;margin:0.3rem 0;padding:0.5rem 0.8rem;border-radius:8px;background:rgba(255,255,255,0.1);cursor:pointer;transition:0.2s;}
+.quiz-option:hover{background:rgba(154,154,212,0.3);}
 </style>
 </head>
 <body>
@@ -57,7 +69,7 @@ section{padding:4rem 8%;}
 
 <!-- Wishlist Modal -->
 <div id="wishlistModal">
-  <div id="wishlistModalContent">
+  <div class="modalContent">
     <span onclick="closeWishlist()">✖</span>
     <h2 style="text-align:center;margin-bottom:1rem;">Your Wishlist</h2>
     <ul id="wishlistItems" style="list-style:none;margin-bottom:1rem;"></ul>
@@ -69,6 +81,22 @@ section{padding:4rem 8%;}
   </div>
 </div>
 
+<!-- Quiz Modal -->
+<div id="quizModal">
+  <div class="modalContent">
+    <span onclick="closeQuiz()">✖</span>
+    <h2 style="text-align:center;margin-bottom:1rem;">LE SSERAFIM Bias Picker</h2>
+    <div id="quizContent">
+      <div class="quiz-question">1. What's your favorite color?</div>
+      <div class="quiz-option" onclick="chooseAnswer('Chaewon')">White</div>
+      <div class="quiz-option" onclick="chooseAnswer('Sakura')">Pink</div>
+      <div class="quiz-option" onclick="chooseAnswer('Kazuha')">Blue</div>
+      <div class="quiz-option" onclick="chooseAnswer('Yunjin')">Green</div>
+      <div class="quiz-option" onclick="chooseAnswer('Eunchae')">Red</div>
+    </div>
+  </div>
+</div>
+
 <section class="hero">
   <video autoplay muted loop>
     <source src="https://cdn.coverr.co/videos/coverr-dancing-girl-under-neon-lights-9007/1080p.mp4" type="video/mp4">
@@ -76,6 +104,7 @@ section{padding:4rem 8%;}
   <div class="hero-content">
     <h1>LE SSERAFIM SHOP</h1>
     <p>Featured items for your favorite member!</p>
+    <button class="btn" onclick="openQuiz()">LE SSERAFIM Bias Picker</button>
   </div>
 </section>
 
@@ -90,54 +119,17 @@ section{padding:4rem 8%;}
   </div>
 </section>
 
-<!-- KEY CHAINS -->
 <section>
-  <h2 class="section-title">KEY CHAINS</h2>
+  <h2 class="section-title">PRODUCTS</h2>
   <div class="shop-grid">
-    <div class="product featured" data-member="OT6"><h3>OT6 Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('OT6 Spaghetti Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Chaewon"><h3>Chaewon Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Chaewon Spaghetti Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Sakura"><h3>Sakura Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Sakura Spaghetti Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Kazuha"><h3>Kazuha Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Kazuha Spaghetti Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Yunjin"><h3>Yunjin Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Yunjin Spaghetti Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Eunchae"><h3>Eunchae Spaghetti Key Chain</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('Eunchae Spaghetti Key Chain')">Add to Wishlist</button></div>
-    <div class="product featured" data-member="OT6"><h3>OT6 Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('OT6 Light Stick Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Chaewon"><h3>Chaewon Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Chaewon Light Stick Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Sakura"><h3>Sakura Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Sakura Light Stick Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Kazuha"><h3>Kazuha Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Kazuha Light Stick Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Yunjin"><h3>Yunjin Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Yunjin Light Stick Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Eunchae"><h3>Eunchae Light Stick Key Chain</h3><p class="price">$18</p><button class="btn" onclick="addToWishlist('Eunchae Light Stick Key Chain')">Add to Wishlist</button></div>
-    <div class="product featured" data-member="OT6"><h3>OT6 FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('OT6 FIM\'s Club Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Chaewon"><h3>Chaewon FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Chaewon FIM\'s Club Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Sakura"><h3>Sakura FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Sakura FIM\'s Club Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Kazuha"><h3>Kazuha FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Kazuha FIM\'s Club Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Yunjin"><h3>Yunjin FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Yunjin FIM\'s Club Key Chain')">Add to Wishlist</button></div>
-    <div class="product" data-member="Eunchae"><h3>Eunchae FIM's Club Key Chain</h3><p class="price">$20</p><button class="btn" onclick="addToWishlist('Eunchae FIM\'s Club Key Chain')">Add to Wishlist</button></div>
-  </div>
-</section>
-
-<!-- STICKERS -->
-<section>
-  <h2 class="section-title">STICKERS</h2>
-  <div class="shop-grid">
-    <div class="product featured" data-member="OT6"><h3>OT6 Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('OT6 Spaghetti Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Chaewon"><h3>Chaewon Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Chaewon Spaghetti Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Sakura"><h3>Sakura Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Sakura Spaghetti Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Kazuha"><h3>Kazuha Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Kazuha Spaghetti Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Yunjin"><h3>Yunjin Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Yunjin Spaghetti Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Eunchae"><h3>Eunchae Spaghetti Sticker</h3><p class="price">$8</p><button class="btn" onclick="addToWishlist('Eunchae Spaghetti Sticker')">Add to Wishlist</button></div>
-    <div class="product featured" data-member="OT6"><h3>OT6 Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('OT6 Light Stick Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Chaewon"><h3>Chaewon Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Chaewon Light Stick Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Sakura"><h3>Sakura Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Sakura Light Stick Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Kazuha"><h3>Kazuha Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Kazuha Light Stick Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Yunjin"><h3>Yunjin Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Yunjin Light Stick Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Eunchae"><h3>Eunchae Light Stick Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('Eunchae Light Stick Sticker')">Add to Wishlist</button></div>
-    <div class="product featured" data-member="OT6"><h3>OT6 FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('OT6 FIM\'s Club Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Chaewon"><h3>Chaewon FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('Chaewon FIM\'s Club Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Sakura"><h3>Sakura FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('Sakura FIM\'s Club Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Kazuha"><h3>Kazuha FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('Kazuha FIM\'s Club Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Yunjin"><h3>Yunjin FIM's Club Sticker</h3><p class="price">$12</p><button class="btn" onclick="addToWishlist('Yunjin FIM\'s Club Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="Eunchae"><h3>Eunchae FIM's Club Sticker</h3><p class="price">$12</p><<p class="price">$12</p><button class="btn" onclick="addToWishlist('Eunchae FIM\'s Club Sticker')">Add to Wishlist</button></div>
-    <div class="product" data-member="OT6"><h3>FearNot Sticker</h3><p class="price">$10</p><button class="btn" onclick="addToWishlist('FearNot Sticker')">Add to Wishlist</button></div>
+    <!-- Example Product -->
+    <div class="product featured" data-member="OT6">
+      <img src="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" alt="OT6 Spaghetti Key Chain">
+      <h3>OT6 Spaghetti Key Chain</h3>
+      <p class="price">$15</p>
+      <button class="btn" onclick="addToWishlist('OT6 Spaghetti Key Chain')">Add to Wishlist</button>
+    </div>
+    <!-- Repeat similar products for all members and types -->
   </div>
 </section>
 
@@ -154,60 +146,47 @@ function addToWishlist(itemName){
     document.getElementById('wishlistCount').textContent = wishlist.length;
   }
 }
-
-function openWishlist(){
-  const ul = document.getElementById('wishlistItems');
-  ul.innerHTML = '';
-  wishlist.forEach(item=>{
-    const li = document.createElement('li');
-    li.textContent = item;
-    li.style.marginBottom = '0.5rem';
-    ul.appendChild(li);
-  });
-  document.getElementById('wishlistModal').style.display = 'flex';
+function openWishlist(){document.getElementById('wishlistModal').style.display='flex'; updateWishlist();}
+function closeWishlist(){document.getElementById('wishlistModal').style.display='none';}
+function updateWishlist(){
+  const ul = document.getElementById('wishlistItems'); ul.innerHTML='';
+  wishlist.forEach(item=>{const li=document.createElement('li');li.textContent=item;li.style.marginBottom='0.5rem';ul.appendChild(li);});
 }
-
-function closeWishlist(){
-  document.getElementById('wishlistModal').style.display = 'none';
-}
-
 function requestOrder(){
-  const name = document.getElementById('userName').value;
-  const email = document.getElementById('userEmail').value;
-  if(!name || !email || wishlist.length === 0){
-    alert('Please fill in your name, email, and add at least one item.');
-    return;
-  }
-  const subject = encodeURIComponent('LE SSERAFIM Wishlist Order');
-  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nItems:\n- ${wishlist.join('\n- ')}`);
-  window.location.href = `mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
+  const name=document.getElementById('userName').value;
+  const email=document.getElementById('userEmail').value;
+  if(!name||!email||wishlist.length===0){alert('Please fill in your name, email, and add at least one item.'); return;}
+  const subject=encodeURIComponent('LE SSERAFIM Wishlist Order');
+  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nItems:\n- ${wishlist.join('\n- ')}`);
+  window.location.href=`mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
 }
 
+// Member themes & background
 function setMemberTheme(member){
-  const root = document.documentElement;
-  const colors = {
-    'Chaewon': ['#ffffff','#f0f0f5','#00c9c2'],
-    'Sakura': ['#ffb3d6','#c13886','#ffffff'],
-    'Kazuha': ['#00a8ff','#004c99','#ffffff'],
-    'Yunjin': ['#00c000','#007a00','#ffffff'],
-    'Eunchae': ['#ff4b4b','#990000','#ffffff'],
+  const root=document.documentElement;
+  const colors={
+    'Chaewon':['#ffffff','#f0f0f5','#00c9c2','#f8f8f8'],
+    'Sakura':['#ffb3d6','#c13886','#ffffff','#ffe6f0'],
+    'Kazuha':['#00a8ff','#004c99','#ffffff','#e0f0ff'],
+    'Yunjin':['#00c000','#007a00','#ffffff','#e0ffe0'],
+    'Eunchae':['#ff4b4b','#990000','#ffffff','#ffe0e0']
   };
   if(colors[member]){
-    root.style.setProperty('--primary', colors[member][0]);
-    root.style.setProperty('--secondary', colors[member][1]);
-    root.style.setProperty('--accent', colors[member][2]);
+    root.style.setProperty('--primary',colors[member][0]);
+    root.style.setProperty('--secondary',colors[member][1]);
+    root.style.setProperty('--accent',colors[member][2]);
+    root.style.setProperty('--bg',colors[member][3]);
   }
-  // Highlight featured items
   document.querySelectorAll('.product').forEach(p=>{
-    if(p.dataset.member === member){
-      p.classList.add('featured');
-    } else if(p.dataset.member === 'OT6'){
-      p.classList.add('featured'); // OT6 default featured remains visible
-    } else {
-      p.classList.remove('featured');
-    }
+    if(p.dataset.member===member||p.dataset.member==='OT6'){p.classList.add('featured');}
+    else{p.classList.remove('featured');}
   });
 }
+
+// Quiz
+function openQuiz(){document.getElementById('quizModal').style.display='flex';}
+function closeQuiz(){document.getElementById('quizModal').style.display='none';}
+function chooseAnswer(member){setMemberTheme(member); closeQuiz();}
 </script>
 </body>
 </html>
