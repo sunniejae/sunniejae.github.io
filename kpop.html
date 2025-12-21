@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LE SSERAFIM Fandom Shop</title>
+<title>Sunnie Jae - FEARNOT SHOP</title>
 <link rel="icon" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" type="image/png">
 
 <style>
-/* CUSTOM FONT */
+/* Custom Font */
 @font-face {
   font-family: "MyCustomFont";
   src: url("https://sunniejae.blob.core.windows.net/sunniejae/Myfont1-Regular.woff2") format("woff2"),
@@ -68,7 +68,7 @@ section{padding:4rem 8%;}
 
 <!-- Wishlist Button -->
 <div class="wishlist" onclick="openWishlist()">
-  📋 Wishlist (<span id="wishlistCount">0</span>)
+  Wishlist (<span id="wishlistCount">0</span>)
 </div>
 
 <!-- Wishlist Modal -->
@@ -109,14 +109,14 @@ section{padding:4rem 8%;}
     <source src="https://cdn.coverr.co/videos/coverr-dancing-girl-under-neon-lights-9007/1080p.mp4" type="video/mp4">
   </video>
   <div class="hero-content">
-    <h1>LE SSERAFIM SHOP</h1>
+    <h1>SUNNIE JAE'S FEARNOT SHOP</h1>
     <p>Featured items for your favorite member!</p>
     <button class="btn" onclick="openQuiz()">LE SSERAFIM Bias Picker</button>
   </div>
 </section>
 
 <section>
-  <h2 class="section-title">PICK YOUR BIAS</h2>
+  <h2 class="section-title">CHOOSE YOUR BIAS</h2>
   <div class="eras">
     <div class="era-card" onclick="setMemberTheme('Chaewon')">🐯 Chaewon</div>
     <div class="era-card" onclick="setMemberTheme('Sakura')">🌸 Sakura</div>
@@ -128,14 +128,7 @@ section{padding:4rem 8%;}
 
 <section>
   <h2 class="section-title">PRODUCTS</h2>
-  <div class="shop-grid">
-    <div class="product featured" data-member="OT6">
-      <img src="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" alt="OT6 Spaghetti Key Chain">
-      <h3>OT6 Spaghetti Key Chain</h3>
-      <p class="price">$15</p>
-      <button class="btn" onclick="addToWishlist('OT6 Spaghetti Key Chain')">Add to Wishlist</button>
-    </div>
-  </div>
+  <div class="shop-grid" id="shopGrid"></div>
 </section>
 
 <footer style="text-align:center;padding:2rem 0;opacity:0.6;">
@@ -145,14 +138,21 @@ section{padding:4rem 8%;}
 <script>
 // Wishlist
 let wishlist = [];
-function addToWishlist(item){if(!wishlist.includes(item)){wishlist.push(item);document.getElementById('wishlistCount').textContent=wishlist.length;}}
+function addToWishlist(item){
+  if(!wishlist.includes(item)){wishlist.push(item);document.getElementById('wishlistCount').textContent=wishlist.length;}
+}
 function openWishlist(){updateWishlist();document.getElementById('wishlistModal').style.display='flex';}
 function closeWishlist(){document.getElementById('wishlistModal').style.display='none';}
-function updateWishlist(){const ul=document.getElementById('wishlistItems');ul.innerHTML='';wishlist.forEach(item=>{let li=document.createElement('li');li.textContent=item;li.style.marginBottom='0.5rem';ul.appendChild(li);});}
+function updateWishlist(){
+  const ul=document.getElementById('wishlistItems');ul.innerHTML='';
+  wishlist.forEach(item=>{let li=document.createElement('li');li.textContent=item;li.style.marginBottom='0.5rem';ul.appendChild(li);});
+}
 function requestOrder(){
-  const name=document.getElementById('userName').value;
-  const email=document.getElementById('userEmail').value;
-  if(!name||!email||wishlist.length===0){alert('Please fill in name, email, and add items.');return;}
+  const name=document.getElementById('userName').value.trim();
+  const email=document.getElementById('userEmail').value.trim();
+  if(!name || !email || wishlist.length===0){alert('Please fill in name, email, and add items.'); return;}
+  const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRegex.test(email)){alert('Please enter a valid email.'); return;}
   const subject=encodeURIComponent('LE SSERAFIM Wishlist Order');
   const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nItems:\n- ${wishlist.join('\n- ')}`);
   window.location.href=`mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
@@ -178,6 +178,40 @@ function setMemberTheme(member){
     if(p.dataset.member===member||p.dataset.member==='OT6'){p.classList.add('featured');}else{p.classList.remove('featured');}
   });
 }
+
+// Products Data
+const members=["Chaewon","Sakura","Kazuha","Yunjin","Eunchae"];
+const productTypes=[
+  {type:"Key Chain", items:["Spaghetti","Light Stick","FIM's Club"]},
+  {type:"Sticker", items:["Spaghetti","Light Stick","FIM's Club","FearNot"]}
+];
+const shopGrid=document.getElementById('shopGrid');
+
+function populateProducts(){
+  // OT6 default
+  productTypes.forEach(pt=>{
+    pt.items.forEach(item=>{
+      const div=document.createElement('div');
+      div.className='product featured';
+      div.dataset.member='OT6';
+      div.innerHTML=`<img src="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" alt="OT6 ${item} ${pt.type}"><h3>OT6 ${item} ${pt.type}</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('OT6 ${item} ${pt.type}')">Add to Wishlist</button>`;
+      shopGrid.appendChild(div);
+    });
+  });
+  // Member versions
+  members.forEach(member=>{
+    productTypes.forEach(pt=>{
+      pt.items.forEach(item=>{
+        const div=document.createElement('div');
+        div.className='product';
+        div.dataset.member=member;
+        div.innerHTML=`<img src="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" alt="${member} ${item} ${pt.type}"><h3>${member} ${item} ${pt.type}</h3><p class="price">$15</p><button class="btn" onclick="addToWishlist('${member} ${item} ${pt.type}')">Add to Wishlist</button>`;
+        shopGrid.appendChild(div);
+      });
+    });
+  });
+}
+populateProducts();
 
 // Multi-question Bias Quiz
 const quizQuestions=[
