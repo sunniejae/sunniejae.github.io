@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-POP ERA</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===============================
+       ROOT COLOR SYSTEM (YOURS)
+    =============================== */
+    :root {
+      --black: #000010;
+      --white: #ffffff;
+      --dark-gray: #404040;
+      --gray: #bfbfdc;
+      --silver: #f0f0f5;
+
+      --pink: #ffb3d6;
+      --teal: #00a8a3;
+      --accent: #00c9c2;
+
+      --dark-purple: #3f3d7a;
+      --secondary: #c13886;
+      --primary: #9a9ad4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(circle at top, var(--dark-purple), var(--black));
+      color: var(--silver);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--white);
+      text-shadow:
+        0 0 12px var(--primary),
+        0 0 24px rgba(154,154,212,0.4);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===============================
+       HERO
+    =============================== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.35;
+    }
+
+    .hero-content {
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      letter-spacing: 0.2em;
+    }
+
+    .hero p {
+      margin: 1.5rem 0 2.5rem;
+      opacity: 0.85;
+    }
+
+    .btn {
+      padding: 0.8rem 2.4rem;
+      margin: 0.5rem;
+      border-radius: 40px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 0 20px rgba(154,154,212,0.6);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.06);
+      background: linear-gradient(135deg, var(--accent), var(--teal));
+      box-shadow: 0 0 35px rgba(0,201,194,0.9);
+    }
+
+    /* ===============================
+       SECTIONS
+    =============================== */
+    section {
+      padding: 6rem 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ===============================
+       ERA SELECTOR
+    =============================== */
+    .eras {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .era-card {
+      padding: 2.5rem;
+      border-radius: 22px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(191,191,220,0.3);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .era-card:hover {
+      transform: translateY(-10px);
+      box-shadow:
+        0 0 25px rgba(193,56,134,0.6),
+        inset 0 0 15px rgba(255,179,214,0.3);
+    }
+
+    /* ===============================
+       VIDEO
+    =============================== */
+    .video-wrapper {
+      position: relative;
+      padding-top: 56.25%;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 0 35px rgba(154,154,212,0.6);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===============================
+       SHOP
+    =============================== */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .product {
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.06),
+        rgba(63,61,122,0.25)
+      );
+      padding: 1.8rem;
+      border-radius: 24px;
+      border: 1px solid rgba(191,191,220,0.25);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .product:hover {
+      transform: scale(1.04);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 1.2rem;
+    }
+
+    .price {
+      color: var(--accent);
+      font-weight: 700;
+      margin: 0.8rem 0;
+      text-shadow: 0 0 10px rgba(0,201,194,0.6);
+    }
+
+    /* ===============================
+       CART
+    =============================== */
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 0.7rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 700;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      box-shadow: 0 0 25px rgba(193,56,134,0.9);
+      z-index: 10;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CART -->
+  <div class="cart">🛒 Cart: <span id="cartCount">0</span></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video autoplay muted loop>
+      <source src="https://cdn.coverr.co/videos/coverr-dancing-girl-under-neon-lights-9007/1080p.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-content">
+      <h1>NEW ERA</h1>
+      <p>The comeback begins now.</p>
+      <button class="btn">Watch MV</button>
+      <button class="btn">Shop Drop</button>
+    </div>
+  </section>
+
+  <!-- ERA SELECTOR -->
+  <section>
+    <h2 class="section-title">CHOOSE YOUR ERA</h2>
+    <div class="eras">
+      <div class="era-card">💖 SOFT</div>
+      <div class="era-card">⚡ NEON</div>
+      <div class="era-card">🖤 DARK</div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section>
+    <h2 class="section-title">OFFICIAL MV</h2>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              frameborder="0"
+              allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section>
+    <h2 class="section-title">MERCH DROP</h2>
+    <div class="shop-grid">
+      <div class="product">
+        <img src="https://via.placeholder.com/300x300.png?text=Album+Ver+A">
