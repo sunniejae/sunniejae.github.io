@@ -134,11 +134,11 @@ section{padding:4rem 8%;}
 <section>
   <h2 class="section-title">PICK YOUR BIAS</h2>
   <div class="eras">
-    <div class="era-card" onclick="setMemberTheme('NAYA')">🐯 NAYA</div>
-    <div class="era-card" onclick="setMemberTheme('FEARNOT')">🌸 FEARNOT</div>
-    <div class="era-card" onclick="setMemberTheme('TOMOON')">🦢 TOMOON</div>
-    <div class="era-card" onclick="setMemberTheme('SWITH')">🐍 SWITH</div>
-    <div class="era-card" onclick="setMemberTheme('MULTI')">🐣 MULTI</div>
+    <a class="era-card" href="naya.html">🐯 NAYA</a>
+    <a class="era-card" href="fearnot.html">🌸 FEARNOT</a>
+    <a class="era-card" href="tomoon.html">🦢 TOMOON</a>
+    <a class="era-card" href="swith.html">🐍 SWITH</a>
+    <a class="era-card" href="multi.html">🐣 MULTI</a>
   </div>
 </section>
 
