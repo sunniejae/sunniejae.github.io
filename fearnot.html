@@ -146,6 +146,16 @@ section{padding:4rem 8%;}
   <h2 class="section-title">PRODUCTS</h2>
   <div class="shop-grid" id="shopGrid"></div>
 </section>
+  
+<section>
+  <h2 class="section-title">COMMENTS</h2>
+  <div style="max-width:600px;margin:0 auto;">
+    <div id="commentList" style="margin-bottom:1rem;"></div>
+    <input type="text" id="commentName" placeholder="Your Name" style="width:100%;padding:0.5rem;margin-bottom:0.5rem;border-radius:8px;border:none;">
+    <textarea id="commentText" placeholder="Write a comment..." style="width:100%;padding:0.5rem;margin-bottom:0.5rem;border-radius:8px;border:none;resize:vertical;"></textarea>
+    <button class="btn" onclick="addComment()">Submit Comment</button>
+  </div>
+</section>
 
 <footer style="text-align:center;padding:2rem 0;opacity:0.6;">
 © 2025 LE SSERAFIM Fandom Shop
@@ -275,6 +285,43 @@ function showResult(){
   document.getElementById('quizResultModal').style.display='flex';
 }
 function closeResult(){document.getElementById('quizResultModal').style.display='none';}
+
+  // Comments functionality
+let comments = [];
+
+function addComment() {
+  const name = document.getElementById('commentName').value.trim();
+  const text = document.getElementById('commentText').value.trim();
+  
+  if (!name || !text) {
+    alert("Please enter your name and comment.");
+    return;
+  }
+
+  const comment = { name, text, time: new Date().toLocaleString() };
+  comments.push(comment);
+  updateCommentList();
+  
+  // Clear inputs
+  document.getElementById('commentName').value = '';
+  document.getElementById('commentText').value = '';
+}
+
+function updateCommentList() {
+  const list = document.getElementById('commentList');
+  list.innerHTML = '';
+  
+  comments.forEach(c => {
+    const div = document.createElement('div');
+    div.style.padding = "0.8rem";
+    div.style.marginBottom = "0.5rem";
+    div.style.borderRadius = "12px";
+    div.style.background = "rgba(255,255,255,0.05)";
+    div.innerHTML = `<strong>${c.name}</strong> <em style="font-size:0.8rem;color:var(--accent);">[${c.time}]</em><p style="margin:0.2rem 0 0 0;">${c.text}</p>`;
+    list.appendChild(div);
+  });
+}
+
 </script>
 
 </body>
