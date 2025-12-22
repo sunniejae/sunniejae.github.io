@@ -4,35 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sunnie Jae's Fearnot Fandom Store</title>
-<link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" />
-<link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-<meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
 <style>
 :root {
     --black: #000010;
     --white: #ffffff;
-
     --chaewon: #f0f0f5;
     --chaewon-dark: #342f38;
-
     --sakura: #ffb3d6;
     --sakura-dark: #c13886;
-
     --yunjin: #73e3bd;
     --yunjin-dark: #0d5c2d;
-
     --kazuha: #00c9c2;
     --kazuha-dark: #2a3055;
-
     --eunchae: #bf3851;
     --eunchae-dark: #880d1e;
-
     --base: #3f3d7a;
 }
 
 body {
     margin: 0;
-    font-family: 'Helvetica Neue', system-ui, sans-serif;
+    font-family: system-ui, sans-serif;
     background-color: var(--black);
     color: var(--base);
     transition: background-color 0.5s, color 0.5s;
@@ -151,8 +142,7 @@ h1 {
 }
 
 #quiz-content button {
-    margin-top: 0.5rem;
-    margin-right: 0.3rem;
+    margin-top: 1rem;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 1rem;
@@ -161,27 +151,28 @@ h1 {
 }
 
 /* Wishlist */
-#wishlist-container {
+#wishlist-form {
     max-width: 600px;
     margin: 2rem auto;
-    background: rgba(255,255,255,0.05);
     padding: 1rem;
+    background: rgba(255,255,255,0.05);
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-#wishlist-container input, #wishlist-container textarea {
-    width: 100%;
+#wishlist-form input, #wishlist-form textarea, #wishlist-form button {
     padding: 0.5rem;
-    margin-bottom: 1rem;
     border-radius: 0.5rem;
     border: none;
 }
-#wishlist-container button {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 1rem;
-    cursor: pointer;
+
+#wishlist-form button {
+    background: var(--base);
+    color: var(--white);
     font-weight: bold;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -204,7 +195,6 @@ h1 {
 </div>
 
 <div class="store-container">
-    <!-- Keychain Collection -->
     <div class="collection" data-collection="keychain">
         <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/keychain-chaewon.png" alt="Keychain Collection Preview">
         <div class="collection-info">
@@ -221,7 +211,6 @@ h1 {
         </div>
     </div>
 
-    <!-- Sticker Collection -->
     <div class="collection" data-collection="sticker">
         <img id="preview-sticker" src="https://sunniejae.blob.core.windows.net/sunniejae/sticker-chaewon.png" alt="Sticker Collection Preview">
         <div class="collection-info">
@@ -240,16 +229,15 @@ h1 {
 </div>
 
 <!-- Wishlist -->
-<div id="wishlist-container">
-    <h2>Wishlist</h2>
-    <input type="text" id="wishlist-name" placeholder="Your Name">
-    <input type="email" id="wishlist-email" placeholder="Your Email">
-    <textarea id="wishlist-items" placeholder="Your selected items will appear here..." readonly></textarea>
-    <button onclick="submitWishlist()">Request Order</button>
-</div>
+<form id="wishlist-form" onsubmit="event.preventDefault(); submitWishlist();">
+    <h2>Your Wishlist</h2>
+    <textarea id="wishlist-items" readonly placeholder="Your selected items will appear here..."></textarea>
+    <input type="text" id="wishlist-name" placeholder="Your Name" required>
+    <input type="email" id="wishlist-email" placeholder="Your Email" required>
+    <button type="submit">Request Order</button>
+</form>
 
-
-<!-- Bias Quiz Modal -->
+<!-- Quiz Modal -->
 <div id="quiz-modal">
     <div id="quiz-content">
         <h2>Find Your Bias!</h2>
@@ -281,5 +269,10 @@ h1 {
 </div>
 
 <script src="piona.js"></script>
+<script>
+// Initialize default theme
+setBias('chaewon');
+</script>
+
 </body>
 </html>
