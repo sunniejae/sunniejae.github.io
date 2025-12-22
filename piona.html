@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LE SSERAFIM Wiki · Fan Shop</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root {
+  --black:#000010;
+  --silver:#f0f0f5;
+  --dark-purple:#3f3d7a;
+  --primary:#9a9ad4;
+
+  --member-main: var(--silver);
+  --member-accent: var(--dark-purple);
+}
+
+/* MEMBER THEMES */
+.theme-chaewon {--member-main:#f0f0f5;--member-accent:#342f38;}
+.theme-sakura  {--member-main:#ffb3d6;--member-accent:#c13886;}
+.theme-yunjin  {--member-main:#73e3bd;--member-accent:#0d5c2d;}
+.theme-kazuha  {--member-main:#00c9c2;--member-accent:#2a3055;}
+.theme-eunchae {--member-main:#bf3851;--member-accent:#880d1e;}
+
+body {
+  background:linear-gradient(135deg,var(--black),var(--dark-purple),var(--black));
+  color:var(--silver);
+}
+
+.glass {
+  background:rgba(63,61,122,.35);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(154,154,212,.25);
+}
+
+/* HERO HEADER */
+.hero {
+  height: min(60vh, 775px);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,16,.15),
+    rgba(0,0,16,.85)
+  );
+}
+
+.hero-content {
+  position:relative;
+  z-index:1;
+}
+
+.member-bg {
+  background:var(--member-main);
+  color:var(--member-accent);
+}
+
+.carousel-track {
+  display:flex;
+  transition:.4s ease;
+}
+.carousel-slide {
+  min-width:100%;
+  font-size:3rem;
+}
+</style>
+</head>
+
+<body class="transition-colors duration-300">
+
+<!-- HERO HEADER -->
+<header id="hero"
+  class="hero flex items-end"
+  style="background-image:url('https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png')">
+  <div class="hero-content max-w-7xl mx-auto px-6 py-10">
+    <p class="text-sm text-[var(--primary)]">LE SSERAFIM</p>
+    <h1 id="heroName" class="text-4xl md:text-6xl font-bold">
+      Chaewon
+    </h1>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="glass sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+    <p class="font-semibold">Wiki · Merch · Bias Hub</p>
+    <button onclick="openQuiz()" class="glass px-4 py-2 rounded-full">
+      🎯 Bias Quiz
+    </button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-3 gap-8">
+
+<!-- SIDEBAR -->
+<aside class="glass rounded-2xl p-6">
+  <h2 class="text-xl font-bold mb-4" style="color:var(--member-accent)">
+    Pick Your Bias
+  </h2>
+  <div class="grid grid-cols-2 gap-2">
+    <button onclick="setTheme('chaewon')" class="glass">🐯 Chaewon</button>
+    <button onclick="setTheme('sakura')"  class="glass">🌸 Sakura</button>
+    <button onclick="setTheme('kazuha')"  class="glass">🦢 Kazuha</button>
+    <button onclick="setTheme('yunjin')"  class="glass">🐍 Yunjin</button>
+    <button onclick="setTheme('eunchae')" class="glass">🐣 Eunchae</button>
+  </div>
+</aside>
+
+<!-- CONTENT -->
+<section class="lg:col-span-2 space-y-8">
+
+<!-- CAROUSEL -->
+<div class="glass rounded-2xl p-6 overflow-hidden">
+  <h2 class="text-xl font-bold mb-3" style="color:var(--member-accent)">
+    Member Spotlight
+  </h2>
+  <div class="relative">
+    <div id="carousel" class="carousel-track" data-index="0">
+      <div class="carousel-slide">🐯</div>
+      <div class="carousel-slide">🌸</div>
+      <div class="carousel-slide">🦢</div>
+      <div class="carousel-slide">🐍</div>
+      <div class="carousel-slide">🐣</div>
+    </div>
+    <button onclick="moveCarousel(-1)" class="absolute left-2 top-1/2">‹</button>
+    <button onclick="moveCarousel(1)" class="absolute right-2 top-1/2">›</button>
+  </div>
+</div>
+
+</section>
+</main>
+
+<!-- QUIZ -->
+<div id="quiz" class="fixed inset-0 bg-black/60 hidden items-center justify-center">
+  <div class="glass p-6 rounded-xl max-w-sm w-full">
+    <h2 class="text-xl font-bold mb-4">Who are you drawn to?</h2>
+    <div class="space-y-2">
+      <button onclick="quizResult('chaewon')" class="glass w-full">🐯 Elegant & Strong</button>
+      <button onclick="quizResult('sakura')"  class="glass w-full">🌸 Soft but Powerful</button>
+      <button onclick="quizResult('kazuha')"  class="glass w-full">🦢 Calm & Graceful</button>
+      <button onclick="quizResult('yunjin')"  class="glass w-full">🐍 Creative & Bold</button>
+      <button onclick="quizResult('eunchae')" class="glass w-full">🐣 Bright & Playful</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const members = {
+  chaewon:{name:'Chaewon',img:'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png'},
+  sakura:{name:'Sakura',img:'https://sunniejae.blob.core.windows.net/sunniejae/sakura.png'},
+  kazuha:{name:'Kazuha',img:'https://sunniejae.blob.core.windows.net/sunniejae/kazuha.png'},
+  yunjin:{name:'Yunjin',img:'https://sunniejae.blob.core.windows.net/sunniejae/yunjin.png'},
+  eunchae:{name:'Eunchae',img:'https://sunniejae.blob.core.windows.net/sunniejae/eunchae.png'}
+}
+
+function setTheme(m){
+  document.body.className = `theme-${m} transition-colors duration-300`
+  hero.style.backgroundImage = `url('${members[m].img}')`
+  heroName.textContent = members[m].name
+}
+
+function moveCarousel(d){
+  let i = +carousel.dataset.index
+  const keys = Object.keys(members)
+  i = (i + d + keys.length) % keys.length
+  carousel.dataset.index = i
+  carousel.style.transform = `translateX(-${i*100}%)`
+  setTheme(keys[i])
+}
+
+function openQuiz(){quiz.classList.remove('hidden')}
+function quizResult(m){setTheme(m);quiz.classList.add('hidden')}
+</script>
+
+</body>
+</html>
