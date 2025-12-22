@@ -32,11 +32,11 @@
   --primary: #9a9ad4;
   --bg: var(--dark-purple);
 
-  --Chaewon-color: #00c9c2;
-  --Sakura-color: #c13886;
-  --Kazuha-color: #00a8ff;
-  --Yunjin-color: #00c000;
-  --Eunchae-color: #ff4b4b;
+  --Chaewon-color: #f0f0f5;
+  --Sakura-color: #ffb3d6;
+  --Kazuha-color: #00bfb9;
+  --Yunjin-color: #73e3bd;
+  --Eunchae-color: #c13851;
 }
 
 /* Global Styles */
@@ -178,11 +178,11 @@ function requestOrder(){
 function setMemberTheme(member){
   const root=document.documentElement;
   const colors={
-    'Chaewon':['#ffffff','#f0f0f5','#00c9c2','#f8f8f8'],
-    'Sakura':['#ffb3d6','#c13886','#ffffff','#ffe6f0'],
-    'Kazuha':['#00a8ff','#004c99','#ffffff','#e0f0ff'],
-    'Yunjin':['#00c000','#007a00','#ffffff','#e0ffe0'],
-    'Eunchae':['#ff4b4b','#990000','#ffffff','#ffe0e0']
+    'Chaewon':['#404040','#f0f0f5','#ffffff','#000010'],
+    'Sakura':['#c13886','#ffb3d6','#ffffff','#000010'],
+    'Kazuha':['#2a3055','#004c99','#ffffff','#000010'],
+    'Yunjin':['#00c000','#00bfb9','#ffffff','#000010'],
+    'Eunchae':['#880d1e','#c13851','#ffffff','#000010']
   };
   if(colors[member]){
     root.style.setProperty('--primary',colors[member][0]);
