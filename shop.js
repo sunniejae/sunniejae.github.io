@@ -1,158 +1,139 @@
-// -----------------------------
-// CONFIG: PRODUCTS & MEMBERS
-// -----------------------------
-const members = ['Chaewon', 'Sakura', 'Yunjin', 'Kazuha', 'Eunchae'];
+// ======== OT5 Shop.js ========
 
-const products = [
-  { id: 1, name: 'OT5 Sticker Pack', img: 'images/ot5_sticker.png', members: ['OT5'], price: 10 },
-  { id: 2, name: 'OT5 Keychain', img: 'images/ot5_keychain.png', members: ['OT5'], price: 15 },
-  { id: 3, name: 'Chaewon Poster', img: 'images/chaewon_poster.png', members: ['Chaewon'], price: 12 },
-  { id: 4, name: 'Sakura Poster', img: 'images/sakura_poster.png', members: ['Sakura'], price: 12 },
-  { id: 5, name: 'Yunjin Poster', img: 'images/yunjin_poster.png', members: ['Yunjin'], price: 12 },
-  { id: 6, name: 'Kazuha Poster', img: 'images/kazuha_poster.png', members: ['Kazuha'], price: 12 },
-  { id: 7, name: 'Eunchae Poster', img: 'images/eunchae_poster.png', members: ['Eunchae'], price: 12 },
+// Example Product Data
+const allProducts = [
+  { id: 'fearnot-ot5', name: 'FEARNOT OT5 Version', member: 'OT5', price: '$25', emoji: '🌸' },
+  { id: 'fearnot-chaewon', name: 'Chaewon Version', member: 'Chaewon', price: '$30', emoji: '🦊' },
+  { id: 'fearnot-Sakura', name: 'Sakura Version', member: 'Sakura', price: '$30', emoji: '🐻' },
+  { id: 'fearnot-Kazuha', name: 'Kazuha Version', member: 'Kazuha', price: '$30', emoji: '🐈‍⬛' },
+  { id: 'fearnot-eunchae', name: 'eunchae Version', member: 'eunchae', price: '$30', emoji: '🐶' },
+  { id: 'fearnot-yunjin', name: 'yunjin Version', member: 'yunjin', price: '$30', emoji: '🐆' },
+  { id: 'fearnot-logo', name: 'logo Version', member: 'logo', price: '$30', emoji: '🐰' },
 ];
 
-// -----------------------------
-// WISHLIST LOGIC
-// -----------------------------
-let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+// ======== Wishlist ========
+let wishlistData = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-const wishlistCount = document.getElementById('wishlist-count');
-function updateWishlistCount() {
-  wishlistCount.textContent = wishlist.length;
-}
-updateWishlistCount();
-
-document.getElementById('wishlist-btn').addEventListener('click', () => {
-  alert(`Your wishlist contains ${wishlist.length} items:\n` + wishlist.map(p => p.name).join('\n'));
-});
-
-// -----------------------------
-// RENDER PRODUCTS
-// -----------------------------
-const productsGrid = document.getElementById('products-grid');
-function renderProducts(filter='all') {
-  productsGrid.innerHTML = '';
-  let filtered = products;
-  if(filter !== 'all') {
-    filtered = products.filter(p => p.members.includes(filter));
-  }
-  filtered.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'product-card glass-effect p-4 rounded-3xl flex flex-col items-center transition-transform cursor-pointer';
-    card.innerHTML = `
-      <img src="${p.img}" alt="${p.name}" class="w-64 h-64 object-contain mb-4">
-      <h3 class="text-lg font-bold mb-2">${p.name}</h3>
-      <p class="text-gray-300 mb-2">$${p.price}</p>
-      <button class="px-4 py-2 rounded-full text-white font-bold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, var(--accent), var(--teal));">Add to Wishlist</button>
-    `;
-    const btn = card.querySelector('button');
-    btn.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      if(!wishlist.some(item => item.id===p.id)) {
-        wishlist.push(p);
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
-        updateWishlistCount();
-      }
-    });
-    productsGrid.appendChild(card);
-  });
-}
-renderProducts();
-
-// -----------------------------
-// MEMBER FILTER
-// -----------------------------
-document.getElementById('member-filter').addEventListener('change', e => {
-  renderProducts(e.target.value);
-});
-
-// -----------------------------
-// QUIZ LOGIC
-// -----------------------------
-const quizQuestions = [
-  { question: "What's your ideal weekend activity?", options: [
-      { text: "Chill with friends", member: "Chaewon" },
-      { text: "Shop & fashion", member: "Sakura" },
-      { text: "Study or work", member: "Yunjin" },
-      { text: "Dance & practice", member: "Kazuha" },
-      { text: "Try something new", member: "Eunchae" },
-  ]},
-  { question: "Pick a favorite color:", options: [
-      { text: "Purple", member: "Chaewon" },
-      { text: "Pink", member: "Sakura" },
-      { text: "Green", member: "Yunjin" },
-      { text: "Teal", member: "Kazuha" },
-      { text: "Red", member: "Eunchae" },
-  ]},
-  { question: "Your ideal snack?", options: [
-      { text: "Chocolate", member: "Chaewon" },
-      { text: "Cake", member: "Sakura" },
-      { text: "Fruit", member: "Yunjin" },
-      { text: "Cookies", member: "Kazuha" },
-      { text: "Spicy snacks", member: "Eunchae" },
-  ]}
-];
-
-const quizContainer = document.getElementById('quiz-container');
-const quizStart = document.getElementById('quiz-start');
-const quizQuestionsDiv = document.getElementById('quiz-questions');
-const quizResultDiv = document.getElementById('quiz-result');
-const resultMember = document.getElementById('result-member');
-
-document.getElementById('start-quiz-btn').addEventListener('click', () => {
-  quizStart.classList.add('hidden');
-  quizQuestionsDiv.classList.remove('hidden');
-  startQuiz();
-});
-
-document.getElementById('restart-quiz-btn').addEventListener('click', () => {
-  quizResultDiv.classList.add('hidden');
-  quizStart.classList.remove('hidden');
-});
-
-function startQuiz() {
-  quizQuestionsDiv.innerHTML = '';
-  let scores = {};
-  members.forEach(m => scores[m]=0);
-
-  quizQuestions.forEach((q, qi)=>{
-    const qDiv = document.createElement('div');
-    qDiv.className = 'mb-6';
-    const qText = document.createElement('h4');
-    qText.className = 'text-gray-300 mb-2';
-    qText.textContent = q.question;
-    qDiv.appendChild(qText);
-
-    q.options.forEach(opt=>{
-      const btn = document.createElement('button');
-      btn.className = 'block w-full text-left mb-2 px-4 py-2 rounded-full hover:bg-gray-700 transition-all';
-      btn.style.color = '#ffffff';
-      btn.textContent = opt.text;
-      btn.addEventListener('click', ()=>{
-        scores[opt.member]++;
-        qDiv.style.display='none';
-        if(qi===quizQuestions.length-1){
-          showResult(scores);
-        }
-      });
-      qDiv.appendChild(btn);
-    });
-    quizQuestionsDiv.appendChild(qDiv);
-  });
+function toggleWishlist(productId) {
+  const index = wishlistData.findIndex(item => item.product_id === productId);
+  if (index === -1) wishlistData.push({ product_id: productId });
+  else wishlistData.splice(index, 1);
+  localStorage.setItem('wishlist', JSON.stringify(wishlistData));
+  renderWishlist();
 }
 
-function showResult(scores){
-  quizQuestionsDiv.classList.add('hidden');
-  quizResultDiv.classList.remove('hidden');
-  let maxScore = -1;
-  let winner = '';
-  for(const m in scores){
-    if(scores[m]>maxScore){
-      maxScore = scores[m];
-      winner = m;
+// ======== Render Products ========
+function renderProducts() {
+  const container = document.getElementById('product-list');
+  container.innerHTML = allProducts.map(p => `
+    <div class="product-card glass-effect p-6 rounded-2xl">
+      <div class="text-center mb-4" style="font-size: 3rem;">${p.emoji}</div>
+      <span class="member-badge inline-block mb-3">${p.member}</span>
+      <h3 class="mb-2" style="color: var(--accent); font-size: 1.125rem;">${p.name}</h3>
+      <p class="mb-4" style="color: var(--gray); font-size: 1rem; font-weight: 600;">${p.price}</p>
+      <button onclick="toggleWishlist('${p.id}')" class="w-full glass-effect px-4 py-2 rounded-xl border" style="color: var(--accent); border-color: var(--accent); font-size: 0.875rem;">
+        ${wishlistData.find(item => item.product_id === p.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
+      </button>
+    </div>
+  `).join('');
+}
+
+// ======== Render Wishlist ========
+function renderWishlist() {
+  const container = document.getElementById('wishlist-items');
+  const emptyState = document.getElementById('wishlist-empty');
+  const requestButtonContainer = document.getElementById('request-button-container');
+
+  if (wishlistData.length === 0) {
+    container.innerHTML = '';
+    emptyState.classList.remove('hidden');
+    requestButtonContainer?.classList.add('hidden');
+  } else {
+    emptyState.classList.add('hidden');
+
+    container.innerHTML = wishlistData.map(item => {
+      const product = allProducts.find(p => p.id === item.product_id);
+      if (!product) return '';
+      return `
+        <div class="glass-effect p-6 rounded-2xl">
+          <div class="text-center mb-4" style="font-size: 3rem;">${product.emoji}</div>
+          <span class="member-badge inline-block mb-3">${product.member}</span>
+          <h3 class="mb-2" style="color: var(--accent); font-size: 1.125rem;">${product.name}</h3>
+          <p class="mb-4" style="color: var(--gray); font-size: 1rem; font-weight: 600;">${product.price}</p>
+          <button onclick="toggleWishlist('${product.id}')" class="w-full glass-effect px-4 py-2 rounded-xl border" style="color: var(--accent); border-color: var(--accent); font-size: 0.875rem;">
+            Remove
+          </button>
+        </div>
+      `;
+    }).join('');
+
+    // Show Request Order button
+    if (!requestButtonContainer) {
+      const requestDiv = document.createElement('div');
+      requestDiv.id = 'request-button-container';
+      requestDiv.className = 'mt-6 text-center';
+      requestDiv.innerHTML = `
+        <button id="request-items-btn" class="px-8 py-4 rounded-full text-white font-bold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, var(--secondary), var(--accent)); font-size: 1rem;">
+          📧 Request Order
+        </button>
+      `;
+      container.parentNode.appendChild(requestDiv);
+
+      document.getElementById('request-items-btn').addEventListener('click', openRequestForm);
     }
   }
-  resultMember.textContent = winner;
 }
+
+// ======== Request Order Form ========
+function openRequestForm() {
+  const formDiv = document.createElement('div');
+  formDiv.id = 'request-form-container';
+  formDiv.className = 'glass-effect p-6 rounded-2xl mt-6';
+  formDiv.innerHTML = `
+    <h3 style="color: var(--accent); font-size: 1.25rem; margin-bottom: 12px;">Request Your Order</h3>
+    <input id="customer-name" type="text" placeholder="Your Name" class="w-full glass-effect px-4 py-3 rounded-xl mb-4" required>
+    <input id="customer-eChaewonl" type="eChaewonl" placeholder="Your EChaewonl" class="w-full glass-effect px-4 py-3 rounded-xl mb-4" required>
+    <div class="flex gap-3">
+      <button id="submit-request-btn" class="flex-1 px-6 py-3 rounded-full text-white font-bold" style="background: linear-gradient(135deg, var(--secondary), var(--accent));">Send Request</button>
+      <button id="cancel-request-btn" class="flex-1 px-6 py-3 rounded-full text-gray-400 border border-gray-400">Cancel</button>
+    </div>
+  `;
+  document.getElementById('app').appendChild(formDiv);
+
+  document.getElementById('submit-request-btn').addEventListener('click', submitRequest);
+  document.getElementById('cancel-request-btn').addEventListener('click', () => formDiv.remove());
+}
+
+// ======== Submit Wishlist Request ========
+function submitRequest() {
+  const name = document.getElementById('customer-name').value.trim();
+  const eChaewonl = document.getElementById('customer-eChaewonl').value.trim();
+
+  if (!name || !eChaewonl) {
+    alert('Please fill in your name and eChaewonl.');
+    return;
+  }
+
+  let itemsList = '';
+  wishlistData.forEach((item, index) => {
+    const product = allProducts.find(p => p.id === item.product_id);
+    if (product) {
+      itemsList += `${index + 1}. ${product.name} (${product.member}) - ${product.price}%0D%0A`;
+    }
+  });
+
+  const recipientEChaewonl = 'jayme@sunniejae.com';
+  const subject = `LE SSERAFIM Shop Order Request from ${name}`;
+  const body = `Hello!%0D%0A%0D%0AI would like to request the following items:%0D%0A%0D%0A${itemsList}%0D%0ACustomer Name: ${name}%0D%0AContact EChaewonl: ${eChaewonl}%0D%0A%0D%0AThank you!`;
+
+  window.open(`Chaewonlto:${recipientEChaewonl}?subject=${encodeURIComponent(subject)}&body=${body}`, '_blank');
+
+  document.getElementById('request-form-container').remove();
+  alert('EChaewonl client opened! Check your eChaewonl to send the request.');
+}
+
+// ======== Initialize ========
+document.addEventListener('DOMContentLoaded', () => {
+  renderProducts();
+  renderWishlist();
+});
