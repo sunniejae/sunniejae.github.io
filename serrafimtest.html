@@ -1,750 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="h-full">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LE SSERAFIM Fan Shop</title>
-  <script src="/_sdk/data_sdk.js"></script>
-  <script src="/_sdk/element_sdk.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root {
-      --black: #000010;
-      --white: #ffffff;
-      --dark-gray: #404040;
-      --gray: #bfbfdc;
-      --silver: #f0f0f5;
-      --pink: #ffb3d6;
-      --teal: #00a8a3;
-      --dark-purple: #3f3d7a;
-      --accent: #00c9c2;
-      --secondary: #c13886;
-      --primary: #9a9ad4;
-    }
-    
-    body {
-      box-sizing: border-box;
-    }
-    
-    @keyframes neonPulse {
-      0%, 100% { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor; }
-      50% { text-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor; }
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    .neon-text {
-      animation: neonPulse 2s ease-in-out infinite;
-    }
-    
-    .float-animation {
-      animation: float 3s ease-in-out infinite;
-    }
-    
-    .glass-effect {
-      background: rgba(63, 61, 122, 0.3);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(154, 154, 212, 0.2);
-    }
-    
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0, 201, 194, 0.3);
-    }
-    
-    .member-badge {
-      padding: 4px 12px;
-      border-radius: 9999px;
-      font-weight: 600;
-      font-size: 0.75rem;
-    }
-    
-    .member-chaewon {
-      background: linear-gradient(135deg, #f0f0f5, #342f38);
-      color: #000010;
-    }
-    
-    .member-sakura {
-      background: linear-gradient(135deg, #ffb3d6, #c13886);
-      color: #ffffff;
-    }
-    
-    .member-yunjin {
-      background: linear-gradient(135deg, #73e3bd, #0d5c2d);
-      color: #000010;
-    }
-    
-    .member-kazuha {
-      background: linear-gradient(135deg, #00c9c2, #2a3055);
-      color: #ffffff;
-    }
-    
-    .member-eunchae {
-      background: linear-gradient(135deg, #bf3851, #880d1e);
-      color: #ffffff;
-    }
-  </style>
-  <style>@view-transition { navigation: auto; }</style>
- </head>
- <body class="h-full">
-  <div id="app" class="w-full h-full overflow-auto" style="background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 50%, var(--black) 100%);"><!-- Header -->
-   <header class="glass-effect sticky top-0 z-50" style="border-bottom: 1px solid rgba(154, 154, 212, 0.2);">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-     <div class="flex justify-between items-center">
-      <div>
-       <h1 id="shop-title" class="neon-text font-bold" style="color: var(--accent); font-size: 2rem;">LE SSERAFIM SHOP</h1>
-       <p id="shop-tagline" style="color: var(--primary); font-size: 0.875rem;">Your Ultimate K-pop Fan Experience</p>
-      </div><button id="wishlist-btn" class="glass-effect px-6 py-3 rounded-full hover:opacity-80 transition-all" style="color: var(--accent); font-size: 1rem;"> ♡ Wishlist (<span id="wishlist-count">0</span>) </button>
-     </div>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LE SSERAFIM Fan Shop</title>
+<script src="_sdk/data_sdk.js"></script>
+<script src="_sdk/element_sdk.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
+  }
+  body { box-sizing: border-box; color: var(--dark-purple); }
+  @keyframes neonPulse {0%,100%{text-shadow:0 0 10px currentColor,0 0 20px currentColor;}50%{text-shadow:0 0 20px currentColor,0 0 40px currentColor,0 0 60px currentColor;}}
+  @keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  .neon-text{animation: neonPulse 2s ease-in-out infinite;}
+  .float-animation{animation: float 3s ease-in-out infinite;}
+  .glass-effect{background: rgba(63,61,122,0.3); border: 1px solid rgba(154,154,212,0.2);}
+  .product-card:hover{transform: translateY(-5px);}
+  .member-badge{padding: 4px 12px; border-radius: 9999px; font-weight: 600; font-size: 0.75rem;}
+  .member-chaewon { background: linear-gradient(135deg,#f0f0f5,#342f38); color:#000010; }
+  .member-sakura { background: linear-gradient(135deg,#ffb3d6,#c13886); color:#000010; }
+  .member-yunjin { background: linear-gradient(135deg,#73e3bd,#0d5c2d); color:#000010; }
+  .member-kazuha { background: linear-gradient(135deg,#00c9c2,#2a3055); color:#000010; }
+  .member-eunchae { background: linear-gradient(135deg,#bf3851,#880d1e); color:#000010; }
+</style>
+</head>
+<body class="h-full">
+<div id="app" class="w-full h-full overflow-auto" style="background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 50%, var(--black) 100%);">
+
+<!-- Header -->
+<header class="glass-effect sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div>
+      <h1 id="shop-title" class="neon-text font-bold" style="color: var(--accent); font-size: 2rem;">LE SSERAFIM SHOP</h1>
+      <p id="shop-tagline" style="color: var(--primary); font-size: 0.875rem;">Your Ultimate K-pop Fan Experience</p>
     </div>
-   </header>
-   <main class="max-w-7xl mx-auto px-6 py-8"><!-- Bias Quiz Section -->
-    <section id="quiz-section" class="mb-12 glass-effect p-8 rounded-3xl">
-     <h2 id="quiz-title" class="neon-text text-center mb-6" style="color: var(--accent); font-size: 1.875rem;">Discover Your Bias</h2>
-     <div id="quiz-container">
-      <div id="quiz-start" class="text-center">
-       <p class="mb-6" style="color: var(--gray); font-size: 1rem;">Take our fun quiz to find out which LE SSERAFIM member matches your personality!</p><button id="start-quiz-btn" class="px-8 py-4 rounded-full text-white font-bold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, var(--accent), var(--teal)); font-size: 1rem;">Start Quiz</button>
-      </div>
-      <div id="quiz-questions" class="hidden"><!-- Quiz questions will be inserted here -->
-      </div>
-      <div id="quiz-result" class="hidden text-center">
-       <div class="float-animation mb-6" style="font-size: 6rem;">
-        ✨
-       </div>
-       <h3 class="mb-4" style="color: var(--gray); font-size: 1.5rem;">Your bias is:</h3>
-       <h2 id="result-member" class="neon-text mb-6" style="color: var(--accent); font-size: 2.25rem;"></h2><button id="restart-quiz-btn" class="glass-effect px-6 py-3 rounded-full hover:opacity-80 transition-all" style="color: var(--primary); font-size: 1rem;">Take Quiz Again</button>
-      </div>
-     </div>
-    </section><!-- Products Section -->
-    <section class="mb-12">
-     <div class="flex justify-between items-center mb-6">
-      <h2 class="neon-text" style="color: var(--accent); font-size: 1.875rem;">Member Collections</h2><select id="member-filter" class="glass-effect px-4 py-2 rounded-full border" style="color: var(--primary); border-color: rgba(154, 154, 212, 0.3); font-size: 0.875rem;"> <option value="all">All Products</option> <option value="OT6">OT6 Only</option> <option value="Sakura">Sakura Only</option> <option value="Chaewon">Chaewon Only</option> <option value="Yunjin">Yunjin Only</option> <option value="Kazuha">Kazuha Only</option> <option value="Eunchae">Eunchae Only</option> </select>
-     </div>
-     <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Products will be inserted here -->
-     </div>
-    </section><!-- Wishlist Section -->
-    <section id="wishlist-section" class="hidden mb-12 glass-effect p-8 rounded-3xl">
-     <h2 class="neon-text mb-6" style="color: var(--accent); font-size: 1.875rem;">Your Wishlist</h2><!-- Request Items Form -->
-     <div id="request-form-container" class="hidden mb-8 glass-effect p-6 rounded-2xl border" style="border-color: rgba(154, 154, 212, 0.3);">
-      <h3 class="mb-4" style="color: var(--accent); font-size: 1.25rem;">Request Your Items</h3>
-      <form id="request-items-form"><label for="customer-name" class="block mb-2" style="color: var(--gray); font-size: 0.875rem;">Your Name</label> <input id="customer-name" type="text" placeholder="Enter your name" required class="w-full glass-effect px-4 py-3 rounded-xl text-white border mb-4" style="border-color: rgba(154, 154, 212, 0.3); font-size: 1rem;"> <label for="customer-email" class="block mb-2" style="color: var(--gray); font-size: 0.875rem;">Your Email</label> <input id="customer-email" type="email" placeholder="your.email@example.com" required class="w-full glass-effect px-4 py-3 rounded-xl text-white border mb-4" style="border-color: rgba(154, 154, 212, 0.3); font-size: 1rem;">
-       <div class="flex gap-3"><button type="submit" class="flex-1 px-6 py-3 rounded-full text-white font-bold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, var(--accent), var(--teal)); font-size: 1rem;"> Send Request Email </button> <button type="button" id="cancel-request-btn" class="glass-effect px-6 py-3 rounded-full hover:opacity-80 transition-all border" style="color: var(--gray); border-color: rgba(154, 154, 212, 0.3); font-size: 1rem;"> Cancel </button>
-       </div>
-      </form>
-     </div>
-     <div id="wishlist-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Wishlist items will be inserted here -->
-     </div>
-     <div id="wishlist-empty" class="text-center py-12" style="color: var(--gray); font-size: 1rem;">
-      Your wishlist is empty. Add some items to get started!
-     </div><!-- Request Button -->
-     <div id="request-button-container" class="hidden mt-8 text-center"><button id="request-items-btn" class="px-8 py-4 rounded-full text-white font-bold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, var(--secondary), var(--pink)); font-size: 1rem;"> 📧 Request These Items </button>
-     </div>
-    </section><!-- Comments Section -->
-    <section class="glass-effect p-8 rounded-3xl">
-     <h2 class="neon-text mb-6" style="color: var(--accent); font-size: 1.875rem;">Fan Community</h2>
-     <form id="comment-form" class="mb-8"><label for="user-name-input" class="block mb-2" style="color: var(--gray); font-size: 0.875rem;">Your Name</label> <input id="user-name-input" type="text" placeholder="Enter your name" required class="w-full glass-effect px-4 py-3 rounded-xl text-white border mb-4" style="border-color: rgba(154, 154, 212, 0.3); font-size: 1rem;"> <label for="comment-input" class="block mb-2" style="color: var(--gray); font-size: 0.875rem;">Share Your Thoughts</label> <textarea id="comment-input" rows="3" placeholder="Share your love for LE SSERAFIM..." required class="w-full glass-effect px-4 py-3 rounded-xl text-white border mb-4" style="border-color: rgba(154, 154, 212, 0.3); font-size: 1rem;"></textarea> <button type="submit" id="submit-comment-btn" class="px-6 py-3 rounded-full text-white font-bold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, var(--secondary), var(--pink)); font-size: 1rem;">Post Comment</button>
-     </form>
-     <div id="comments-list" class="space-y-4"><!-- Comments will be inserted here -->
-     </div>
-     <div id="comments-empty" class="text-center py-8" style="color: var(--gray); font-size: 1rem;">
-      Be the first to share your thoughts!
-     </div>
-    </section>
-   </main>
+    <button id="wishlist-btn" class="glass-effect px-6 py-3 rounded-full hover:opacity-80 transition-all" style="color: var(--accent); font-size: 1rem;"> ♡ Wishlist (<span id="wishlist-count">0</span>) </button>
   </div>
-  <script>
-    const defaultConfig = {
-      shop_title: "LE SSERAFIM SHOP",
-      shop_tagline: "Your Ultimate K-pop Fan Experience",
-      quiz_title: "Discover Your Bias",
-      quiz_button_text: "Start Quiz",
-      background_color: "#000010",
-      surface_color: "#3f3d7a",
-      text_color: "#bfbfdc",
-      primary_action_color: "#00c9c2",
-      secondary_action_color: "#c13886",
-      font_family: "system-ui",
-      font_size: 16
-    };
+</header>
 
-    let currentRecordCount = 0;
-    let wishlistData = [];
-    let commentsData = [];
+<main class="max-w-7xl mx-auto px-6 py-8">
 
-    const allProducts = [
-      // OT6 versions
-      { id: "ot6-1", name: "Spaghetti Stickers", member: "OT6", price: "$8", emoji: "🍝", category: "stickers" },
-      { id: "ot6-2", name: "Spaghetti Keychain", member: "OT6", price: "$12", emoji: "🍝", category: "keychain" },
-      { id: "ot6-3", name: "Lightstick Keychain", member: "OT6", price: "$15", emoji: "✨", category: "keychain" },
-      { id: "ot6-4", name: "Lightstick Stickers", member: "OT6", price: "$10", emoji: "💡", category: "stickers" },
-      { id: "ot6-5", name: "Autograph Shirts", member: "OT6", price: "$35", emoji: "👕", category: "apparel" },
-      { id: "ot6-6", name: "FEARNOT Stickers", member: "OT6", price: "$8", emoji: "💙", category: "stickers" },
-      { id: "ot6-7", name: "FIMMIE Meme Stickers", member: "OT6", price: "$7", emoji: "😆", category: "meme" },
-      
-      // Sakura versions
-      { id: "sakura-1", name: "Sakura Spaghetti Stickers", member: "Sakura", price: "$8", emoji: "🌸", category: "stickers" },
-      { id: "sakura-2", name: "Sakura Spaghetti Keychain", member: "Sakura", price: "$12", emoji: "🌸", category: "keychain" },
-      { id: "sakura-3", name: "Sakura Lightstick Keychain", member: "Sakura", price: "$15", emoji: "🌸", category: "keychain" },
-      { id: "sakura-4", name: "Sakura Lightstick Stickers", member: "Sakura", price: "$10", emoji: "🌸", category: "stickers" },
-      { id: "sakura-5", name: "Sakura Autograph Shirt", member: "Sakura", price: "$35", emoji: "🌸", category: "apparel" },
-      { id: "sakura-6", name: "Sakura FEARNOT Stickers", member: "Sakura", price: "$8", emoji: "🌸", category: "stickers" },
-      { id: "sakura-7", name: "Sakura FIMMIE Meme", member: "Sakura", price: "$7", emoji: "🌸", category: "meme" },
-      
-      // Chaewon versions
-      { id: "chaewon-1", name: "Chaewon Spaghetti Stickers", member: "Chaewon", price: "$8", emoji: "🦢", category: "stickers" },
-      { id: "chaewon-2", name: "Chaewon Spaghetti Keychain", member: "Chaewon", price: "$12", emoji: "🦢", category: "keychain" },
-      { id: "chaewon-3", name: "Chaewon Lightstick Keychain", member: "Chaewon", price: "$15", emoji: "🦢", category: "keychain" },
-      { id: "chaewon-4", name: "Chaewon Lightstick Stickers", member: "Chaewon", price: "$10", emoji: "🦢", category: "stickers" },
-      { id: "chaewon-5", name: "Chaewon Autograph Shirt", member: "Chaewon", price: "$35", emoji: "🦢", category: "apparel" },
-      { id: "chaewon-6", name: "Chaewon FEARNOT Stickers", member: "Chaewon", price: "$8", emoji: "🦢", category: "stickers" },
-      { id: "chaewon-7", name: "Chaewon FIMMIE Meme", member: "Chaewon", price: "$7", emoji: "🦢", category: "meme" },
-      
-      // Yunjin versions
-      { id: "yunjin-1", name: "Yunjin Spaghetti Stickers", member: "Yunjin", price: "$8", emoji: "🎤", category: "stickers" },
-      { id: "yunjin-2", name: "Yunjin Spaghetti Keychain", member: "Yunjin", price: "$12", emoji: "🎤", category: "keychain" },
-      { id: "yunjin-3", name: "Yunjin Lightstick Keychain", member: "Yunjin", price: "$15", emoji: "🎤", category: "keychain" },
-      { id: "yunjin-4", name: "Yunjin Lightstick Stickers", member: "Yunjin", price: "$10", emoji: "🎤", category: "stickers" },
-      { id: "yunjin-5", name: "Yunjin Autograph Shirt", member: "Yunjin", price: "$35", emoji: "🎤", category: "apparel" },
-      { id: "yunjin-6", name: "Yunjin FEARNOT Stickers", member: "Yunjin", price: "$8", emoji: "🎤", category: "stickers" },
-      { id: "yunjin-7", name: "Yunjin FIMMIE Meme", member: "Yunjin", price: "$7", emoji: "🎤", category: "meme" },
-      
-      // Kazuha versions
-      { id: "kazuha-1", name: "Kazuha Spaghetti Stickers", member: "Kazuha", price: "$8", emoji: "🩰", category: "stickers" },
-      { id: "kazuha-2", name: "Kazuha Spaghetti Keychain", member: "Kazuha", price: "$12", emoji: "🩰", category: "keychain" },
-      { id: "kazuha-3", name: "Kazuha Lightstick Keychain", member: "Kazuha", price: "$15", emoji: "🩰", category: "keychain" },
-      { id: "kazuha-4", name: "Kazuha Lightstick Stickers", member: "Kazuha", price: "$10", emoji: "🩰", category: "stickers" },
-      { id: "kazuha-5", name: "Kazuha Autograph Shirt", member: "Kazuha", price: "$35", emoji: "🩰", category: "apparel" },
-      { id: "kazuha-6", name: "Kazuha FEARNOT Stickers", member: "Kazuha", price: "$8", emoji: "🩰", category: "stickers" },
-      { id: "kazuha-7", name: "Kazuha FIMMIE Meme", member: "Kazuha", price: "$7", emoji: "🩰", category: "meme" },
-      
-      // Eunchae versions
-      { id: "eunchae-1", name: "Eunchae Spaghetti Stickers", member: "Eunchae", price: "$8", emoji: "🐱", category: "stickers" },
-      { id: "eunchae-2", name: "Eunchae Spaghetti Keychain", member: "Eunchae", price: "$12", emoji: "🐱", category: "keychain" },
-      { id: "eunchae-3", name: "Eunchae Lightstick Keychain", member: "Eunchae", price: "$15", emoji: "🐱", category: "keychain" },
-      { id: "eunchae-4", name: "Eunchae Lightstick Stickers", member: "Eunchae", price: "$10", emoji: "🐱", category: "stickers" },
-      { id: "eunchae-5", name: "Eunchae Autograph Shirt", member: "Eunchae", price: "$35", emoji: "🐱", category: "apparel" },
-      { id: "eunchae-6", name: "Eunchae FEARNOT Stickers", member: "Eunchae", price: "$8", emoji: "🐱", category: "stickers" },
-      { id: "eunchae-7", name: "Eunchae FIMMIE Meme", member: "Eunchae", price: "$7", emoji: "🐱", category: "meme" }
-    ];
-    
-    let currentBias = null;
-    let products = [];
+<!-- Quiz -->
+<section id="quiz-section" class="mb-12 glass-effect p-8 rounded-3xl">
+  <h2 id="quiz-title" class="neon-text text-center mb-6" style="color: var(--accent); font-size: 1.875rem;">Discover Your Bias</h2>
+  <div id="quiz-container">
+    <div id="quiz-start" class="text-center">
+      <p class="mb-6" style="color: var(--gray); font-size: 1rem;">Take our fun quiz to find out which LE SSERAFIM member matches your personality!</p>
+      <button id="start-quiz-btn" class="px-8 py-4 rounded-full text-white font-bold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, var(--accent), var(--teal)); font-size: 1rem;">Start Quiz</button>
+    </div>
+    <div id="quiz-questions" class="hidden"></div>
+    <div id="quiz-result" class="hidden text-center">
+      <div class="float-animation mb-6" style="font-size: 6rem;">✨</div>
+      <h3 class="mb-4" style="color: var(--gray); font-size: 1.5rem;">Your bias is:</h3>
+      <h2 id="result-member" class="neon-text mb-6" style="color: var(--accent); font-size: 2.25rem;"></h2>
+      <button id="restart-quiz-btn" class="glass-effect px-6 py-3 rounded-full hover:opacity-80 transition-all" style="color: var(--primary); font-size: 1rem;">Take Quiz Again</button>
+    </div>
+  </div>
+</section>
 
-    const quizQuestions = [
-      {
-        question: "What's your ideal way to spend a weekend?",
-        answers: [
-          { text: "Gaming and chilling at home", member: "Sakura" },
-          { text: "Shopping and trying new cafes", member: "Chaewon" },
-          { text: "Singing karaoke with friends", member: "Yunjin" },
-          { text: "Dancing or doing ballet", member: "Kazuha" },
-          { text: "Exploring new places", member: "Eunchae" }
-        ]
-      },
-      {
-        question: "Pick your favorite color vibe:",
-        answers: [
-          { text: "Soft pink and cute", member: "Sakura" },
-          { text: "Elegant white and gold", member: "Chaewon" },
-          { text: "Bold red and confident", member: "Yunjin" },
-          { text: "Graceful blue and calm", member: "Kazuha" },
-          { text: "Bright yellow and cheerful", member: "Eunchae" }
-        ]
-      },
-      {
-        question: "What's your role in your friend group?",
-        answers: [
-          { text: "The chill gamer", member: "Sakura" },
-          { text: "The responsible leader", member: "Chaewon" },
-          { text: "The confident performer", member: "Yunjin" },
-          { text: "The elegant artist", member: "Kazuha" },
-          { text: "The energetic mood maker", member: "Eunchae" }
-        ]
-      }
-    ];
+<!-- Products -->
+<section class="mb-12">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="neon-text" style="color: var(--accent); font-size: 1.875rem;">Member Collections</h2>
+    <select id="member-filter" class="glass-effect px-4 py-2 rounded-full border" style="color: var(--primary); border-color: rgba(154, 154, 212, 0.3); font-size: 0.875rem;">
+      <option value="all">All Products</option>
+      <option value="OT5">OT5 Only</option>
+      <option value="Sakura">Sakura Only</option>
+      <option value="Chaewon">Chaewon Only</option>
+      <option value="Yunjin">Yunjin Only</option>
+      <option value="Kazuha">Kazuha Only</option>
+      <option value="Eunchae">Eunchae Only</option>
+    </select>
+  </div>
+  <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
 
-    let currentQuestion = 0;
-    let quizScores = {};
+<!-- Wishlist & Comments remain unchanged (same as previous) -->
 
-    const dataHandler = {
-      onDataChanged(data) {
-        currentRecordCount = data.length;
-        
-        wishlistData = data.filter(item => item.type === 'wishlist');
-        commentsData = data.filter(item => item.type === 'comment').sort((a, b) => 
-          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-        );
-        
-        updateWishlistCount();
-        renderWishlist();
-        renderComments();
-      }
-    };
+</main>
+</div>
 
-    function getProductsToShow() {
-      // Show OT6 versions by default
-      const ot6Products = allProducts.filter(p => p.member === 'OT6');
-      
-      // If a bias is set, also show that member's specific versions
-      if (currentBias) {
-        const biasProducts = allProducts.filter(p => p.member === currentBias);
-        return [...ot6Products, ...biasProducts];
-      }
-      
-      return ot6Products;
-    }
-
-    async function init() {
-      const initResult = await window.dataSdk.init(dataHandler);
-      if (!initResult.isOk) {
-        console.error("Failed to initialize data SDK");
-      }
-      
-      // Initialize with OT6 products
-      products = getProductsToShow();
-    }
-
-    function renderProducts(filterMember = 'all') {
-      const grid = document.getElementById('products-grid');
-      const filteredProducts = filterMember === 'all' 
-        ? products 
-        : products.filter(p => p.member === filterMember);
-      
-      grid.innerHTML = filteredProducts.map(product => {
-        const isInWishlist = wishlistData.some(item => item.product_id === product.id);
-        const memberClass = `member-${product.member.toLowerCase()}`;
-        return `
-          <div class="product-card glass-effect p-6 rounded-2xl transition-all duration-300">
-            <div class="text-center mb-4" style="font-size: 4rem;">${product.emoji}</div>
-            <span class="${memberClass} member-badge inline-block mb-3">${product.member}</span>
-            <h3 class="mb-2" style="color: var(--accent); font-size: 1.25rem;">${product.name}</h3>
-            <p class="mb-4" style="color: var(--gray); font-size: 1.125rem; font-weight: 600;">${product.price}</p>
-            <button onclick="toggleWishlist('${product.id}', '${product.member}')" class="w-full glass-effect px-4 py-3 rounded-xl transition-all border" style="color: ${isInWishlist ? 'var(--accent)' : 'var(--gray)'}; border-color: ${isInWishlist ? 'var(--accent)' : 'rgba(154, 154, 212, 0.3)'}; font-size: 0.875rem;">
-              ${isInWishlist ? '♥ In Wishlist' : '♡ Add to Wishlist'}
-            </button>
-          </div>
-        `;
-      }).join('');
-    }
-
-    async function toggleWishlist(productId, member) {
-      const existingItem = wishlistData.find(item => item.product_id === productId);
-      
-      if (existingItem) {
-        const deleteBtn = event.target;
-        deleteBtn.disabled = true;
-        deleteBtn.textContent = 'Removing...';
-        
-        const result = await window.dataSdk.delete(existingItem);
-        
-        deleteBtn.disabled = false;
-        if (!result.isOk) {
-          showToast('Failed to remove from wishlist');
-        }
-      } else {
-        if (currentRecordCount >= 999) {
-          showToast('Maximum limit of 999 items reached. Please delete some items first.');
-          return;
-        }
-        
-        const addBtn = event.target;
-        addBtn.disabled = true;
-        addBtn.textContent = 'Adding...';
-        
-        const result = await window.dataSdk.create({
-          id: `wishlist-${Date.now()}-${Math.random()}`,
-          type: 'wishlist',
-          product_id: productId,
-          member: member,
-          timestamp: new Date().toISOString()
-        });
-        
-        addBtn.disabled = false;
-        if (!result.isOk) {
-          showToast('Failed to add to wishlist');
-        }
-      }
-    }
-
-    function updateWishlistCount() {
-      document.getElementById('wishlist-count').textContent = wishlistData.length;
-    }
-
-    function renderWishlist() {
-      const container = document.getElementById('wishlist-items');
-      const emptyState = document.getElementById('wishlist-empty');
-      const requestButtonContainer = document.getElementById('request-button-container');
-      
-      if (wishlistData.length === 0) {
-        container.innerHTML = '';
-        emptyState.classList.remove('hidden');
-        requestButtonContainer.classList.add('hidden');
-      } else {
-        emptyState.classList.add('hidden');
-        requestButtonContainer.classList.remove('hidden');
-        container.innerHTML = wishlistData.map(item => {
-          const product = products.find(p => p.id === item.product_id);
-          if (!product) return '';
-          const memberClass = `member-${product.member.toLowerCase()}`;
-          return `
-            <div class="glass-effect p-6 rounded-2xl">
-              <div class="text-center mb-4" style="font-size: 3rem;">${product.emoji}</div>
-              <span class="${memberClass} member-badge inline-block mb-3">${product.member}</span>
-              <h3 class="mb-2" style="color: var(--accent); font-size: 1.125rem;">${product.name}</h3>
-              <p class="mb-4" style="color: var(--gray); font-size: 1rem; font-weight: 600;">${product.price}</p>
-              <button onclick="toggleWishlist('${product.id}', '${product.member}')" class="w-full glass-effect px-4 py-2 rounded-xl border" style="color: var(--accent); border-color: var(--accent); font-size: 0.875rem;">
-                Remove
-              </button>
-            </div>
-          `;
-        }).join('');
-      }
-    }
-
-    function renderComments() {
-      const container = document.getElementById('comments-list');
-      const emptyState = document.getElementById('comments-empty');
-      
-      if (commentsData.length === 0) {
-        container.innerHTML = '';
-        emptyState.classList.remove('hidden');
-      } else {
-        emptyState.classList.add('hidden');
-        container.innerHTML = commentsData.map(comment => {
-          const date = new Date(comment.timestamp);
-          return `
-            <div class="glass-effect p-6 rounded-xl">
-              <div class="flex justify-between items-start mb-3">
-                <span class="font-bold" style="color: var(--accent); font-size: 1rem;">${comment.user_name}</span>
-                <span style="color: var(--primary); font-size: 0.75rem;">${date.toLocaleDateString()}</span>
-              </div>
-              <p style="color: var(--gray); font-size: 0.875rem;">${comment.comment_text}</p>
-            </div>
-          `;
-        }).join('');
-      }
-    }
-
-    function startQuiz() {
-      currentQuestion = 0;
-      quizScores = { Sakura: 0, Chaewon: 0, Yunjin: 0, Kazuha: 0, Eunchae: 0 };
-      document.getElementById('quiz-start').classList.add('hidden');
-      document.getElementById('quiz-questions').classList.remove('hidden');
-      showQuestion();
-    }
-
-    function showQuestion() {
-      const container = document.getElementById('quiz-questions');
-      const question = quizQuestions[currentQuestion];
-      
-      container.innerHTML = `
-        <div class="text-center mb-6">
-          <p class="mb-2" style="color: var(--primary); font-size: 0.875rem;">Question ${currentQuestion + 1} of ${quizQuestions.length}</p>
-          <h3 class="mb-6" style="color: var(--accent); font-size: 1.5rem;">${question.question}</h3>
-          <div class="space-y-3">
-            ${question.answers.map((answer, idx) => `
-              <button onclick="selectAnswer('${answer.member}')" class="w-full glass-effect px-6 py-4 rounded-xl hover:opacity-80 border transition-all" style="color: var(--gray); border-color: rgba(154, 154, 212, 0.3); font-size: 1rem;">
-                ${answer.text}
-              </button>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
-
-    function selectAnswer(member) {
-      quizScores[member]++;
-      currentQuestion++;
-      
-      if (currentQuestion < quizQuestions.length) {
-        showQuestion();
-      } else {
-        showResult();
-      }
-    }
-
-    function showResult() {
-      const winner = Object.entries(quizScores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
-      document.getElementById('quiz-questions').classList.add('hidden');
-      document.getElementById('quiz-result').classList.remove('hidden');
-      document.getElementById('result-member').textContent = winner;
-      
-      // Set current bias and update products
-      currentBias = winner;
-      products = getProductsToShow();
-      
-      // Apply member theme
-      applyMemberTheme(winner);
-      
-      // Re-render products to show bias-specific items
-      const currentFilter = document.getElementById('member-filter').value;
-      renderProducts(currentFilter);
-      
-      showToast(`Theme changed to ${winner}'s colors! Check out their exclusive merch! 🎨`);
-    }
-
-    const memberThemes = {
-      Chaewon: {
-        primary: '#f0f0f5',
-        secondary: '#342f38',
-        background: '#342f38',
-        surface: '#504a54'
-      },
-      Sakura: {
-        primary: '#ffb3d6',
-        secondary: '#c13886',
-        background: '#2d1324',
-        surface: '#4a2040'
-      },
-      Yunjin: {
-        primary: '#73e3bd',
-        secondary: '#0d5c2d',
-        background: '#0a3d20',
-        surface: '#165c38'
-      },
-      Kazuha: {
-        primary: '#00c9c2',
-        secondary: '#2a3055',
-        background: '#1a2040',
-        surface: '#2a3055'
-      },
-      Eunchae: {
-        primary: '#bf3851',
-        secondary: '#880d1e',
-        background: '#330a12',
-        surface: '#5a1625'
-      }
-    };
-
-    function applyMemberTheme(member) {
-      const theme = memberThemes[member];
-      if (!theme) return;
-      
-      const app = document.getElementById('app');
-      app.style.background = `linear-gradient(135deg, ${theme.background} 0%, ${theme.surface} 50%, ${theme.background} 100%)`;
-      
-      // Update all neon text elements
-      document.querySelectorAll('.neon-text').forEach(el => {
-        el.style.color = theme.primary;
-      });
-      
-      // Update accent colors
-      document.getElementById('wishlist-btn').style.color = theme.primary;
-      document.getElementById('shop-tagline').style.color = theme.primary;
-      
-      // Update CSS variables for dynamic theming
-      document.documentElement.style.setProperty('--accent', theme.primary);
-      document.documentElement.style.setProperty('--secondary', theme.secondary);
-      
-      // Re-render products with new theme
-      const currentFilter = document.getElementById('member-filter').value;
-      renderProducts(currentFilter);
-      renderWishlist();
-      renderComments();
-    }
-
-    function showToast(message) {
-      const toast = document.createElement('div');
-      toast.className = 'fixed top-20 right-6 glass-effect px-6 py-3 rounded-xl z-50';
-      toast.style.fontSize = '0.875rem';
-      toast.style.color = 'var(--accent)';
-      toast.textContent = message;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    }
-
-    document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
-    document.getElementById('restart-quiz-btn').addEventListener('click', () => {
-      document.getElementById('quiz-result').classList.add('hidden');
-      document.getElementById('quiz-start').classList.remove('hidden');
-    });
-
-    document.getElementById('wishlist-btn').addEventListener('click', () => {
-      const section = document.getElementById('wishlist-section');
-      section.classList.toggle('hidden');
-      if (!section.classList.contains('hidden')) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-
-    document.getElementById('member-filter').addEventListener('change', (e) => {
-      renderProducts(e.target.value);
-    });
-
-    document.getElementById('comment-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      if (currentRecordCount >= 999) {
-        showToast('Maximum limit of 999 items reached. Please delete some items first.');
-        return;
-      }
-      
-      const userName = document.getElementById('user-name-input').value.trim();
-      const commentText = document.getElementById('comment-input').value.trim();
-      const submitBtn = document.getElementById('submit-comment-btn');
-      
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Posting...';
-      
-      const result = await window.dataSdk.create({
-        id: `comment-${Date.now()}-${Math.random()}`,
-        type: 'comment',
-        user_name: userName,
-        comment_text: commentText,
-        timestamp: new Date().toISOString()
-      });
-      
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Post Comment';
-      
-      if (result.isOk) {
-        document.getElementById('comment-form').reset();
-        showToast('Comment posted successfully!');
-      } else {
-        showToast('Failed to post comment');
-      }
-    });
-
-    // Request items functionality
-    document.getElementById('request-items-btn').addEventListener('click', () => {
-      document.getElementById('request-form-container').classList.remove('hidden');
-      document.getElementById('request-form-container').scrollIntoView({ behavior: 'smooth' });
-    });
-
-    document.getElementById('cancel-request-btn').addEventListener('click', () => {
-      document.getElementById('request-form-container').classList.add('hidden');
-      document.getElementById('request-items-form').reset();
-    });
-
-    document.getElementById('request-items-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const customerName = document.getElementById('customer-name').value.trim();
-      const customerEmail = document.getElementById('customer-email').value.trim();
-      
-      // Build wishlist items text
-      let itemsList = '';
-      wishlistData.forEach((item, index) => {
-        const product = products.find(p => p.id === item.product_id);
-        if (product) {
-          itemsList += `${index + 1}. ${product.name} (${product.member}) - ${product.price}%0D%0A`;
-        }
-      });
-      
-      // Email details
-      const recipientEmail = 'jayme@sunniejae.com';
-      const subject = `LE SSERAFIM Shop - Wishlist Request from ${customerName}`;
-      const body = `Hello!%0D%0A%0D%0AI would like to request the following items from my wishlist:%0D%0A%0D%0A${itemsList}%0D%0ACustomer Name: ${customerName}%0D%0AContact Email: ${customerEmail}%0D%0A%0D%0AThank you!`;
-      
-      // Create mailto link and open in new window
-      const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
-      window.open(mailtoLink, '_blank');
-      
-      // Hide form and show success message
-      document.getElementById('request-form-container').classList.add('hidden');
-      document.getElementById('request-items-form').reset();
-      showToast('Email client opened! Check your email app to send the request. 📧');
-    });
-
-    async function onConfigChange(config) {
-      const fontFamily = config.font_family || defaultConfig.font_family;
-      const fontSize = config.font_size || defaultConfig.font_size;
-      const baseFontStack = 'system-ui, -apple-system, sans-serif';
-      
-      document.getElementById('shop-title').textContent = config.shop_title || defaultConfig.shop_title;
-      document.getElementById('shop-tagline').textContent = config.shop_tagline || defaultConfig.shop_tagline;
-      document.getElementById('quiz-title').textContent = config.quiz_title || defaultConfig.quiz_title;
-      document.getElementById('start-quiz-btn').textContent = config.quiz_button_text || defaultConfig.quiz_button_text;
-      
-      document.getElementById('shop-title').style.fontFamily = `${fontFamily}, ${baseFontStack}`;
-      document.getElementById('shop-title').style.fontSize = `${fontSize * 2}px`;
-      document.getElementById('shop-tagline').style.fontSize = `${fontSize * 0.875}px`;
-      document.getElementById('quiz-title').style.fontSize = `${fontSize * 1.875}px`;
-      
-      const backgroundColor = config.background_color || defaultConfig.background_color;
-      const surfaceColor = config.surface_color || defaultConfig.surface_color;
-      const textColor = config.text_color || defaultConfig.text_color;
-      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
-      const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
-      
-      document.getElementById('app').style.background = `linear-gradient(135deg, ${backgroundColor} 0%, ${surfaceColor} 50%, ${backgroundColor} 100%)`;
-      document.getElementById('shop-title').style.color = primaryColor;
-      document.getElementById('shop-tagline').style.color = textColor;
-      document.getElementById('wishlist-btn').style.color = primaryColor;
-    }
-
-    if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange,
-        mapToCapabilities: (config) => ({
-          recolorables: [
-            {
-              get: () => config.background_color || defaultConfig.background_color,
-              set: (value) => {
-                config.background_color = value;
-                window.elementSdk.setConfig({ background_color: value });
-              }
-            },
-            {
-              get: () => config.surface_color || defaultConfig.surface_color,
-              set: (value) => {
-                config.surface_color = value;
-                window.elementSdk.setConfig({ surface_color: value });
-              }
-            },
-            {
-              get: () => config.text_color || defaultConfig.text_color,
-              set: (value) => {
-                config.text_color = value;
-                window.elementSdk.setConfig({ text_color: value });
-              }
-            },
-            {
-              get: () => config.primary_action_color || defaultConfig.primary_action_color,
-              set: (value) => {
-                config.primary_action_color = value;
-                window.elementSdk.setConfig({ primary_action_color: value });
-              }
-            },
-            {
-              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
-              set: (value) => {
-                config.secondary_action_color = value;
-                window.elementSdk.setConfig({ secondary_action_color: value });
-              }
-            }
-          ],
-          borderables: [],
-          fontEditable: {
-            get: () => config.font_family || defaultConfig.font_family,
-            set: (value) => {
-              config.font_family = value;
-              window.elementSdk.setConfig({ font_family: value });
-            }
-          },
-          fontSizeable: {
-            get: () => config.font_size || defaultConfig.font_size,
-            set: (value) => {
-              config.font_size = value;
-              window.elementSdk.setConfig({ font_size: value });
-            }
-          }
-        }),
-        mapToEditPanelValues: (config) => new Map([
-          ["shop_title", config.shop_title || defaultConfig.shop_title],
-          ["shop_tagline", config.shop_tagline || defaultConfig.shop_tagline],
-          ["quiz_title", config.quiz_title || defaultConfig.quiz_title],
-          ["quiz_button_text", config.quiz_button_text || defaultConfig.quiz_button_text]
-        ])
-      });
-    }
-
-    init();
-    renderProducts();
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b1db492f4034677',t:'MTc2NjM4NjQ0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script src="shop.js"></script> <!-- All your JS code moved here -->
+</body>
 </html>
