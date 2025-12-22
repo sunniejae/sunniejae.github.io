@@ -41,13 +41,13 @@ body {
 header {
     text-align: center;
     margin-bottom: 2rem;
-    padding-bottom: 1rem;
     transition: background-color 0.5s;
+    padding-bottom: 1rem;
 }
 
 header img {
     width: 100%;
-    max-width: 480px;
+    max-width: 960px;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -151,7 +151,32 @@ h1 {
 }
 
 #quiz-content button {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    margin-right: 0.3rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Wishlist */
+#wishlist-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: rgba(255,255,255,0.05);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+#wishlist-container input, #wishlist-container textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+#wishlist-container button {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 1rem;
@@ -179,10 +204,9 @@ h1 {
 </div>
 
 <div class="store-container">
-
     <!-- Keychain Collection -->
     <div class="collection" data-collection="keychain">
-        <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/keychain-chaewon.png" alt="Keychain Preview">
+        <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/chaewonkeychainpieces.png" alt="Keychain Collection Preview">
         <div class="collection-info">
             <h2>FEARLESS KEYCHAIN COLLECTION</h2>
             <p class="member-bg" id="collection-keychain-active">🐯 Chaewon Version</p>
@@ -190,8 +214,8 @@ h1 {
                 <option value="ot5">OT5 Version</option>
                 <option value="chaewon">🐯 Chaewon</option>
                 <option value="sakura">🌸 Sakura</option>
-                <option value="yunjin">🐍 Yunjin</option>
                 <option value="kazuha">🦢 Kazuha</option>
+                <option value="yunjin">🐍 Yunjin</option>
                 <option value="eunchae">🐣 Eunchae</option>
             </select>
         </div>
@@ -199,7 +223,7 @@ h1 {
 
     <!-- Sticker Collection -->
     <div class="collection" data-collection="sticker">
-        <img id="preview-sticker" src="https://sunniejae.blob.core.windows.net/sunniejae/sticker-chaewon.png" alt="Sticker Preview">
+        <img id="preview-sticker" src="https://sunniejae.blob.core.windows.net/sunniejae/butjustonegun.png" alt="Sticker Collection Preview">
         <div class="collection-info">
             <h2>STICKER COLLECTION</h2>
             <p class="member-bg" id="collection-sticker-active">🐯 Chaewon Version</p>
@@ -207,13 +231,21 @@ h1 {
                 <option value="ot5">OT5 Version</option>
                 <option value="chaewon">🐯 Chaewon</option>
                 <option value="sakura">🌸 Sakura</option>
-                <option value="yunjin">🐍 Yunjin</option>
                 <option value="kazuha">🦢 Kazuha</option>
+                <option value="yunjin">🐍 Yunjin</option>
                 <option value="eunchae">🐣 Eunchae</option>
             </select>
         </div>
     </div>
+</div>
 
+<!-- Wishlist -->
+<div id="wishlist-container">
+    <h2>Wishlist</h2>
+    <input type="text" id="wishlist-name" placeholder="Your Name">
+    <input type="email" id="wishlist-email" placeholder="Your Email">
+    <textarea id="wishlist-items" placeholder="List the items you want"></textarea>
+    <button onclick="submitWishlist()">Request Order</button>
 </div>
 
 <!-- Bias Quiz Modal -->
@@ -223,31 +255,30 @@ h1 {
         <p>Answer a few questions:</p>
         <div id="quiz-questions">
             <p>1. Your favorite color?</p>
-            <button onclick="answerQuiz('chaewon')">Light / Pastel</button>
-            <button onclick="answerQuiz('sakura')">Pink / Bright</button>
-            <button onclick="answerQuiz('yunjin')">Green / Earthy</button>
-            <button onclick="answerQuiz('kazuha')">Blue / Calm</button>
-            <button onclick="answerQuiz('eunchae')">Red / Bold</button>
+            <button onclick="answerQuiz('chaewon', this)">Light / Pastel</button>
+            <button onclick="answerQuiz('sakura', this)">Pink / Bright</button>
+            <button onclick="answerQuiz('yunjin', this)">Green / Earthy</button>
+            <button onclick="answerQuiz('kazuha', this)">Blue / Calm</button>
+            <button onclick="answerQuiz('eunchae', this)">Red / Bold</button>
 
             <p>2. Your ideal hobby?</p>
-            <button onclick="answerQuiz('chaewon')">Reading</button>
-            <button onclick="answerQuiz('sakura')">Art / Craft</button>
-            <button onclick="answerQuiz('yunjin')">Nature Walk</button>
-            <button onclick="answerQuiz('kazuha')">Swimming / Calm</button>
-            <button onclick="answerQuiz('eunchae')">Dancing / Active</button>
+            <button onclick="answerQuiz('chaewon', this)">Reading</button>
+            <button onclick="answerQuiz('sakura', this)">Art / Craft</button>
+            <button onclick="answerQuiz('yunjin', this)">Nature Walk</button>
+            <button onclick="answerQuiz('kazuha', this)">Swimming / Calm</button>
+            <button onclick="answerQuiz('eunchae', this)">Dancing / Active</button>
 
             <p>3. Your personality?</p>
-            <button onclick="answerQuiz('chaewon')">Calm</button>
-            <button onclick="answerQuiz('sakura')">Cute / Cheerful</button>
-            <button onclick="answerQuiz('yunjin')">Smart / Strategic</button>
-            <button onclick="answerQuiz('kazuha')">Graceful</button>
-            <button onclick="answerQuiz('eunchae')">Energetic / Bold</button>
+            <button onclick="answerQuiz('chaewon', this)">Calm</button>
+            <button onclick="answerQuiz('sakura', this)">Cute / Cheerful</button>
+            <button onclick="answerQuiz('yunjin', this)">Smart / Strategic</button>
+            <button onclick="answerQuiz('kazuha', this)">Graceful</button>
+            <button onclick="answerQuiz('eunchae', this)">Energetic / Bold</button>
         </div>
         <button onclick="closeQuiz()">Close Quiz</button>
     </div>
 </div>
 
-<!-- JS File -->
 <script src="piona.js"></script>
 </body>
 </html>
