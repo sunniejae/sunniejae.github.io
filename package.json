@@ -1,9 +1,10 @@
 {
   "name": "portfolio-functions",
   "version": "1.0.0",
-  "dependencies": {
-    "nodemailer": "^6.9.3",
-    "@azure/cosmos": "^3.24.0"
+ "dependencies": {
+  "nodemailer": "^6.9.3",
+  "@azure/cosmos": "^3.27.0"
+}
   },
   "scripts": {
     "build": "echo 'No build needed'"
