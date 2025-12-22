@@ -1,0 +1,11 @@
+{
+  "name": "sunniejae-portfolio",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo 'No frontend build required'"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.3",
+    "@azure/cosmos": "^4.9.0"
+  }
+}
