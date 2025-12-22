@@ -245,14 +245,125 @@ function submitWishlist() {
         return;
     }
 
-    const subject = encodeURIComponent(`Wishlist Request from ${name}`);
-    const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\n` +
-        `Wishlist:\n${wishlistItems.join('\n')}\n\n` +
-        `---\nSent from Sunnie Jae's Fearnot Fandom Store`
-    );
+    // Create ticket object
+    const ticket = {
+        name: name,
+        email: email,
+        items: wishlistItems,
+        timestamp: new Date().toISOString(),
+        ticketId: 'TICKET-' + Date.now()
+    };
+
+    // Submit to your backend
+    submitTicket(ticket);
+}
+
+async function submitTicket(ticket) {
+    const submitButton = document.querySelector('#wishlist-section button');
+    const originalText = submitButton.textContent;
     
-    window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+    try {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+
+        // Replace this URL with your actual backend endpoint
+        const response = await fetch('/api/submit-wishlist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(ticket)
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            showTicketConfirmation(result.ticketId || ticket.ticketId);
+            
+            // Clear form
+            document.getElementById('wishlist-name').value = '';
+            document.getElementById('wishlist-email').value = '';
+            wishlistItems = [];
+            updateWishlistDisplay();
+        } else {
+            throw new Error('Submission failed');
+        }
+    } catch (error) {
+        console.error('Error submitting ticket:', error);
+        alert('There was an error submitting your wishlist. Please try again or contact support.');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+    }
+}
+
+function showTicketConfirmation(ticketId) {
+    // Create confirmation modal
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        backdrop-filter: blur(10px);
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 3rem 2rem;
+            border-radius: 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        ">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">✨</div>
+            <h2 style="font-family: 'Pacifico', cursive; color: #ff6b9d; font-size: 2rem; margin: 0 0 1rem;">
+                Wishlist Received!
+            </h2>
+            <p style="font-size: 1.1rem; margin-bottom: 0.5rem; color: #333;">
+                Your ticket number is:
+            </p>
+            <div style="
+                background: linear-gradient(135deg, #ff6b9d, #c06c84);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 1rem;
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin: 1rem 0 1.5rem;
+                font-family: 'Comfortaa', sans-serif;
+            ">
+                ${ticketId}
+            </div>
+            <p style="color: #666; margin-bottom: 2rem;">
+                We'll review your wishlist and get back to you soon! 💖
+            </p>
+            <button onclick="this.closest('div').parentElement.remove()" style="
+                padding: 1rem 2.5rem;
+                border: none;
+                border-radius: 2rem;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 1.1rem;
+                background: linear-gradient(135deg, #ff6b9d, #c06c84);
+                color: white;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+                transition: transform 0.2s;
+            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                Close
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
 }
 
 // ===== QUIZ FUNCTIONS =====
