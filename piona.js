@@ -1,217 +1,131 @@
-// ==== Variables ====
+// ===== MEMBER THEME DATA =====
 let currentBias = 'chaewon';
-let quizScores = { chaewon: 0, sakura: 0, yunjin: 0, kazuha: 0, eunchae: 0 };
-let wishlist = [];
+let quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
 
-// ==== Member Theme Data ====
 const memberData = {
-    chaewon: {
-        color: 'var(--chaewon)',
-        accent: 'var(--chaewon-dark)',
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png',
-        emoji: '🐯'
-    },
-    sakura: {
-        color: 'var(--sakura)',
-        accent: 'var(--sakura-dark)',
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/sakura.png',
-        emoji: '🌸'
-    },
-    yunjin: {
-        color: 'var(--yunjin)',
-        accent: 'var(--yunjin-dark)',
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/yunjin.png',
-        emoji: '🐍'
-    },
-    kazuha: {
-        color: 'var(--kazuha)',
-        accent: 'var(--kazuha-dark)',
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/kazuha.png',
-        emoji: '🦢'
-    },
-    eunchae: {
-        color: 'var(--eunchae)',
-        accent: 'var(--eunchae-dark)',
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/eunchae.png',
-        emoji: '🐣'
-    }
+    chaewon: { color: 'var(--chaewon)', accent: 'var(--chaewon-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png', emoji: '🐯' },
+    sakura:  { color: 'var(--sakura)', accent: 'var(--sakura-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/sakura.png', emoji: '🌸' },
+    yunjin:  { color: 'var(--yunjin)', accent: 'var(--yunjin-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/yunjin.png', emoji: '🐍' },
+    kazuha:  { color: 'var(--kazuha)', accent: 'var(--kazuha-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/kazuha.png', emoji: '🦢' },
+    eunchae: { color: 'var(--eunchae)', accent: 'var(--eunchae-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/eunchae.png', emoji: '🐣' }
 };
 
-// ==== Set Bias / Theme ====
+// ===== WISHLIST DATA =====
+let wishlistItems = [];
+
+// ===== BIAS THEME FUNCTION =====
 function setBias(member) {
     currentBias = member;
     const data = memberData[member];
 
-    // Body
     document.body.style.backgroundColor = data.color;
     document.body.style.color = data.accent;
 
-    // Header
     const header = document.getElementById('page-header');
     header.style.backgroundColor = data.accent;
     document.getElementById('header-image').src = data.header;
 
-    // Collections
     document.querySelectorAll('.collection').forEach(coll => {
         const collection = coll.dataset.collection;
         const previewImg = document.getElementById(`preview-${collection}`);
         const activeLabel = document.getElementById(`collection-${collection}-active`);
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-${member}.png`;
         activeLabel.textContent = `${data.emoji} ${capitalize(member)} Version`;
+
         coll.style.backgroundColor = data.accent;
         coll.style.color = data.color;
-
-        const selectEl = coll.querySelector('select');
-        selectEl.style.backgroundColor = data.color;
-        selectEl.style.color = data.accent;
+        coll.querySelector('select').style.backgroundColor = data.color;
+        coll.querySelector('select').style.color = data.accent;
         activeLabel.style.backgroundColor = data.color;
         activeLabel.style.color = data.accent;
+
+        // Update wishlist for initial load
+        updateWishlist(collection, activeLabel.textContent);
     });
 
-    // Bias buttons
     document.querySelectorAll('.bias-selector button').forEach(btn => {
         btn.style.backgroundColor = data.color;
         btn.style.color = data.accent;
     });
-
-    // Wishlist button
-    const wishlistBtn = document.getElementById('wishlist-request-btn');
-    if (wishlistBtn) {
-        wishlistBtn.style.backgroundColor = data.color;
-        wishlistBtn.style.color = data.accent;
-    }
 }
 
-// ==== Collection Version Selection ====
+// ===== PRODUCT SELECTION FUNCTION =====
 function selectVersion(select) {
     const collection = select.dataset.collection;
     const previewImg = document.getElementById(`preview-${collection}`);
     const activeLabel = document.getElementById(`collection-${collection}-active`);
     const value = select.value;
+    let versionLabel = '';
 
-    if (value === 'ot5') {
+    if(value === 'ot5'){
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-ot5.png`;
-        activeLabel.textContent = 'OT5 Version';
+        versionLabel = 'OT5 Version';
+        activeLabel.textContent = versionLabel;
     } else {
         const data = memberData[value];
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-${value}.png`;
-        activeLabel.textContent = `${data.emoji} ${capitalize(value)} Version`;
+        versionLabel = `${data.emoji} ${capitalize(value)} Version`;
+        activeLabel.textContent = versionLabel;
     }
 
-    addToWishlist(collection, value);
+    // Update wishlist automatically
+    updateWishlist(collection, versionLabel);
 }
 
-// ==== Wishlist Functionality ====
-function addToWishlist(collection, version) {
-    const exists = wishlist.find(item => item.collection === collection);
-    if (exists) {
-        exists.version = version;
-    } else {
-        wishlist.push({ collection, version });
+// ===== WISHLIST FUNCTIONS =====
+function updateWishlist(collection, versionLabel) {
+    wishlistItems = wishlistItems.filter(item => !item.startsWith(collection + ':'));
+    wishlistItems.push(`${collection}: ${versionLabel}`);
+    const wishlistTextarea = document.getElementById('wishlist-items');
+    if(wishlistTextarea){
+        wishlistTextarea.value = wishlistItems.join('\n');
     }
 }
 
-// Send Wishlist via mailto
-function requestOrder() {
-    const name = prompt("Enter your name:");
-    const email = prompt("Enter your email:");
+function submitWishlist() {
+    const name = document.getElementById('wishlist-name').value.trim();
+    const email = document.getElementById('wishlist-email').value.trim();
 
-    if (!name || !email) {
-        alert("Name and email are required!");
+    if(!name || !email || wishlistItems.length === 0){
+        alert("Please fill in your name, email, and select at least one item.");
         return;
     }
 
-    if (wishlist.length === 0) {
-        alert("Your wishlist is empty!");
-        return;
-    }
-
-    let body = `Wishlist for ${name} (${email}):\n\n`;
-    wishlist.forEach(item => {
-        body += `${capitalize(item.collection)} - ${item.version}\n`;
-    });
-
-    const subject = encodeURIComponent("Fandom Store Wishlist Request");
-    const mailBody = encodeURIComponent(body);
-    window.location.href = `mailto:your-email@example.com?subject=${subject}&body=${mailBody}`;
+    const subject = encodeURIComponent(`Wishlist from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nWishlist:\n${wishlistItems.join('\n')}`);
+    window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
 }
 
-// ==== Bias Quiz Functions ====
+// ===== QUIZ FUNCTIONS =====
 function openQuiz() {
     document.getElementById('quiz-modal').style.display = 'flex';
 }
 
 function closeQuiz() {
     document.getElementById('quiz-modal').style.display = 'none';
-    quizScores = { chaewon: 0, sakura: 0, yunjin: 0, kazuha: 0, eunchae: 0 };
+    quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
+
+    // Reset quiz button colors
+    document.querySelectorAll('#quiz-content button').forEach(btn => btn.style.backgroundColor = '');
 }
 
-function answerQuiz(member) {
+function answerQuiz(member, button) {
     quizScores[member]++;
-    const totalAnswers = Object.values(quizScores).reduce((a, b) => a + b, 0);
-    if (totalAnswers >= 3) { // quiz has 3 questions
-        const winner = Object.keys(quizScores).reduce((a, b) =>
-            quizScores[a] >= quizScores[b] ? a : b
-        );
+
+    // Highlight selected answer
+    button.style.backgroundColor = memberData[member].accent;
+    button.style.color = memberData[member].color;
+
+    const totalAnswers = Object.values(quizScores).reduce((a,b)=>a+b,0);
+    if(totalAnswers >= 3){ // 3 questions
+        const winner = Object.keys(quizScores).reduce((a,b)=> quizScores[a]>=quizScores[b]?a:b);
         setBias(winner);
         closeQuiz();
         alert(`Your bias match is ${memberData[winner].emoji} ${capitalize(winner)}!`);
     }
 }
-// Keep track of selected answers per question
-let selectedQuizButtons = {};
 
-// Update answerQuiz function
-function answerQuiz(member, btn) {
-    // Deselect previously selected button for this question
-    const questionIndex = btn.parentNode.querySelectorAll('button').indexOf(btn);
-    if(selectedQuizButtons[questionIndex]){
-        selectedQuizButtons[questionIndex].style.backgroundColor = '';
-        selectedQuizButtons[questionIndex].style.color = '';
-    }
-
-    // Highlight current button with member theme
-    btn.style.backgroundColor = memberData[member].accent;
-    btn.style.color = memberData[member].color;
-    selectedQuizButtons[questionIndex] = btn;
-
-    // Add score
-    quizScores[member]++;
-    const totalAnswers = Object.values(quizScores).reduce((a,b)=>a+b,0);
-    if(totalAnswers >= 3){ // quiz has 3 questions
-        const winner = Object.keys(quizScores).reduce((a,b)=> quizScores[a]>=quizScores[b]?a:b);
-        setBias(winner);
-        closeQuiz();
-        alert(`Your bias match is ${memberData[winner].emoji} ${winner.charAt(0).toUpperCase() + winner.slice(1)}!`);
-    }
-}
-
-// ==== Helper ====
-function capitalize(str) {
+// ===== HELPER =====
+function capitalize(str){
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-// ==== Initialize ====
-document.addEventListener("DOMContentLoaded", () => {
-    setBias(currentBias);
-
-    // Add Request Order Button
-    const storeContainer = document.querySelector('.store-container');
-    if (storeContainer && !document.getElementById('wishlist-request-btn')) {
-        const btn = document.createElement('button');
-        btn.id = 'wishlist-request-btn';
-        btn.textContent = 'Request Order';
-        btn.style.marginTop = '2rem';
-        btn.onclick = requestOrder;
-        storeContainer.appendChild(btn);
-
-        // Apply current bias colors
-        const data = memberData[currentBias];
-        btn.style.backgroundColor = data.color;
-        btn.style.color = data.accent;
-        btn.style.padding = '0.5rem 1rem';
-        btn.style.borderRadius = '1rem';
-        btn.style.border = 'none';
-        btn.style.cursor = 'pointer';
-    }
-});
