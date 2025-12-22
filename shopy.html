@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="icon" type="image/png" href="https://i.imgur.com/wHDx7cE.png">
+   <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+    <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
     <title>Sunnie Jae - Shop</title>
     <style>
         :root {
@@ -18,7 +19,7 @@
             --accent: #00c9c2;
             --secondary: #c13886;
             --primary: #9a9ad4;
-            --depop-bg: #f5f5f5;
+            --depop-bg: #ffb3d6;
         }
 
         * {
@@ -37,7 +38,7 @@
         /* Depop-style header */
         .depop-header {
             background: var(--white);
-            border-bottom: 1px solid #e8e8e8;
+            border-bottom: 1px solid var(--dark-gray);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -101,7 +102,7 @@
         .search-bar {
             display: flex;
             align-items: center;
-            background: #f8f8f8;
+            background: var(--silver);
             border-radius: 20px;
             padding: 8px 16px;
             margin-bottom: 8px;
@@ -116,11 +117,11 @@
         }
 
         .search-input::placeholder {
-            color: #999;
+            color: var(--accent);
         }
 
         .search-icon {
-            color: #999;
+            color: var(--accent);
             margin-right: 8px;
         }
 
@@ -324,13 +325,15 @@
         .product-image {
             width: 100%;
             aspect-ratio: 1;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
             position: relative;
             overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
         }
 
         .product-badge {
@@ -340,7 +343,7 @@
             background: var(--secondary);
             color: white;
             font-size: 10px;
-            padding: 2px 6px;
+            padding: 5px 10px;
             border-radius: 4px;
             font-weight: bold;
         }
@@ -401,6 +404,122 @@
             color: var(--black);
         }
 
+        /* Sale Modal */
+        .sale-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .sale-modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .sale-modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px 24px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .sale-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+
+        .sale-emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .sale-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+
+        .sale-subtitle {
+            font-size: 16px;
+            color: var(--dark-gray);
+            margin-bottom: 24px;
+        }
+
+        .sale-code {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .copied-message {
+            font-size: 12px;
+            color: var(--teal);
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .sale-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .sale-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .etsy-btn {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .close-btn {
+            background: var(--white);
+            color: var(--black);
+            border: 1px solid #ddd;
+        }
+
         /* Loading more button */
         .load-more {
             background: var(--white);
@@ -416,132 +535,6 @@
             padding: 12px 24px;
             border-radius: 6px;
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Product modal */
-        .product-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--white);
-            z-index: 1000;
-            display: none;
-            overflow-y: auto;
-        }
-
-        .product-modal.active {
-            display: block;
-        }
-
-        .modal-header {
-            position: sticky;
-            top: 0;
-            background: var(--white);
-            padding: 16px;
-            border-bottom: 1px solid #e8e8e8;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            z-index: 10;
-        }
-
-        .modal-close {
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .modal-title {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .modal-image {
-            width: 100%;
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-        }
-
-        .modal-content {
-            padding: 20px;
-        }
-
-        .modal-brand {
-            font-size: 12px;
-            color: var(--dark-gray);
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .modal-product-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .modal-price {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .modal-details {
-            background: #f9f9f9;
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .modal-description {
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        .modal-buttons {
-            position: sticky;
-            bottom: 0;
-            background: var(--white);
-            padding: 16px;
-            border-top: 1px solid #e8e8e8;
-            display: flex;
-            gap: 12px;
-        }
-
-        .buy-btn {
-            flex: 2;
-            background: var(--black);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .add-bag-btn {
-            flex: 1;
-            background: var(--white);
-            color: var(--black);
-            border: 1px solid #ddd;
-            padding: 16px;
-            border-radius: 6px;
-            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
         }
@@ -623,7 +616,7 @@
     <!-- Items Section -->
     <div class="items-section">
         <div class="items-header">
-            <div class="items-count">847 items</div>
+            <div class="items-count">4 items</div>
             <div class="sort-filter">
                 <div class="filter-btn active">All</div>
                 <div class="filter-btn">New</div>
@@ -632,37 +625,37 @@
         </div>
 
         <div class="products-grid">
-            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "etsy", "title": "izna I-Land 2 n/a finale", "price": "$45", "size": "Men's S - XXL", "description": "Printed through canva, sold through etsy. Designed using procreate.", "emoji": "🎤"}'>
+            <div class="product-card" onclick="openLink('https://etsy.com/shop/sunniejae')" data-url="https://etsy.com/shop/sunniejae">
                 <div class="product-image">
-                    -enter link to image-
+                    <img src="https://sunniejae.blob.core.windows.net/sunniejae/iznaot7finale.png" alt="izna I-Land 2 finale shirt" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='🎤';">
                     <div class="product-badge">Ships via USPS</div>
                     <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
                 </div>
                 <div class="product-info">
                     <div class="product-brand">ETSY</div>
                     <div class="product-title">izna I-Land 2 n/a finale</div>
-                    <div class="product-size">Men's S - XXL</div>
+                    <div class="product-size">Men's S - XXL | White & Black</div>
                     <div class="product-price">$44</div>
                 </div>
             </div>
 
-            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "AMAZON", "title": "SunnieJae Logo Popsocket", "price": "$28.99", "size":"One Size", "description": "Popsocket sold and manufactured via Amazon.", "emoji": "👕"}'>
+            <div class="product-card" onclick="openLink('https://www.amazon.com/dp/B0GB5KCGRJ/ref=sr_1_1?crid=3M0VRWO0T1RCM&dib=eyJ2IjoiMSJ9.LoASpZjdUcRnLz4eaflKyWGAs1aZaNcP4mUVjB3O2jjGjHj071QN20LucGBJIEps.uA5uOAit7eB7J1KzSsvg8_u7LzgNsA6PqOvclXYWOh0&dib_tag=se&keywords=sunnie+jae&qid=1766351636&sprefix=sunnie+jae%2Caps%2C266&sr=8-1')" data-url="https://amazon.com/dp/your-product-id">
                 <div class="product-image">
-                    👕
+                    <img src="https://sunniejae.blob.core.windows.net/sunniejae/popsocket.png" alt="SunnieJae Logo Popsocket" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='📱';">
                     <div class="product-badge">Ships via Vendor</div>
                     <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
                 </div>
                 <div class="product-info">
                     <div class="product-brand">AMAZON</div>
                     <div class="product-title">SunnieJae Logo Popsocket</div>
-                    <div class="product-size">One Size</div>
+                    <div class="product-size">One Size | One Color</div>
                     <div class="product-price">$28.99</div>
                 </div>
             </div>
 
-            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "AMAZON PUBLISHING", "title": "Amazon Bookstore", "price": "$5.55-$8.88", "size": "All Versions", "description": "Published written works (under psuedonym Lisa Taylor). Can be purchased as eBook or printed.", "emoji": "💿"}'>
+            <div class="product-card" onclick="openLink('https://www.amazon.com/dp/B0GB5KCGRJ/ref=sr_1_1?crid=3M0VRWO0T1RCM&dib=eyJ2IjoiMSJ9.LoASpZjdUcRnLz4eaflKyWGAs1aZaNcP4mUVjB3O2jjGjHj071QN20LucGBJIEps.uA5uOAit7eB7J1KzSsvg8_u7LzgNsA6PqOvclXYWOh0&dib_tag=se&keywords=sunnie+jae&qid=1766351636&sprefix=sunnie+jae%2Caps%2C266&sr=8-1')" data-url="https://amazon.com/author/lisa-taylor">
                 <div class="product-image">
-                    💿
+                    <img src="https://sunniejae.blob.core.windows.net/sunniejae/sunniesite%20proucts.png" alt="Amazon Books" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='📚';">
                     <div class="product-badge">Ships via Vendor</div>
                     <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
                 </div>
@@ -674,9 +667,9 @@
                 </div>
             </div>
 
-            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "REDBUBBLE", "title": "Feral and Sterile" Product Design", "price": "$1.88+", "size": "iPhone 14", "description": "Official TWICE phone case with holographic design. Barely used, perfect condition. Fits iPhone 14 perfectly with full protection.", "emoji": "📱"}'>
+            <div class="product-card" onclick="openLink('https://redbubble.com/people/sunniejae')" data-url="https://redbubble.com/people/sunniejae">
                 <div class="product-image">
-                    📱
+                    <img src="https://sunniejae.blob.core.windows.net/sunniejae/feralandsterile.png" alt="Feral and Sterile Design" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='🎨';">
                     <div class="product-badge">Ships via Vendor</div>
                     <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
                 </div>
@@ -687,110 +680,113 @@
                     <div class="product-price">$1.88+</div>
                 </div>
             </div>
-
-            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "SunnieJae", "title": "aespa MY WORLD Photocards", "price": "$15", "size": "Complete Set", "description": "Full set of official photocards from MY WORLD album! All 4 members included, mint condition. Never bent or damaged, stored in sleeves.", "emoji": "📸"}'>
-                <div class="product-image">
-                    📸
+            
+ <div class="product-card" onclick="openLink('https://www.amazon.com/dp/B0GB5KCGRJ/ref=sr_1_1?crid=3M0VRWO0T1RCM&dib=eyJ2IjoiMSJ9.LoASpZjdUcRnLz4eaflKyWGAs1aZaNcP4mUVjB3O2jjGjHj071QN20LucGBJIEps.uA5uOAit7eB7J1KzSsvg8_u7LzgNsA6PqOvclXYWOh0&dib_tag=se&keywords=sunnie+jae&qid=1766351636&sprefix=sunnie+jae%2Caps%2C266&sr=8-1')" data-url="https://amazon.com/dp/your-product-id">
+     <div class="product-image">
+         <img src="https://sunniejae.blob.core.windows.net/sunniejae/redbubble%20misc.png" alt="SunnieJae Rednunn;e" onerror="this.style.background='linear-gradient(135deg, var(--primary), var(--accent))'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='📱';">
+                    <div class="product-badge">Ships via Vendor</div>
                     <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
                 </div>
+     
                 <div class="product-info">
-                    <div class="product-brand">SunnieJae</div>
-                    <div class="product-title">aespa MY WORLD Photocards</div>
-                    <div class="product-size">Complete Set</div>
-                    <div class="product-price">$15</div>
+                    <div class="product-brand">AMAZON</div>
+                    <div class="product-title">SunnieJae Redbubble Shop</div>
+                    <div class="product-size">All Versions</div>
+                    <div class="product-price">$21.88+</div>
                 </div>
             </div>
-
-            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "Amazon", "title": "ITZY Checkmate Hoodie", "price": "$35", "size": "Size L", "description": "Official ITZY hoodie from Checkmate era. Worn a few times but in great condition. Super cozy and perfect for winter!", "emoji": "🧥"}'>
-                <div class="product-image">
-                    🧥
-                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
-                </div>
-                <div class="product-info">
-                    <div class="product-brand">Amazon</div>
-                    <div class="product-title">ITZY Checkmate Hoodie</div>
-                    <div class="product-size">Size L</div>
-                    <div class="product-price">$35</div>
-                </div>
-            </div>
-
-            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "REDBUBBLE", "title": "SEVENTEEN Carat Keychain", "price": "$12", "size": "One Size", "description": "Adorable official keychain! Perfect condition, never used. Comes with original packaging. Great for any Carat!", "emoji": "🔑"}'>
-                <div class="product-image">
-                    🔑
-                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
-                </div>
-                <div class="product-info">
-                    <div class="product-brand">REDBUBBLE</div>
-                    <div class="product-title">SEVENTEEN Carat Keychain</div>
-                    <div class="product-size">One Size</div>
-                    <div class="product-price">$12</div>
-                </div>
-            </div>
-
-            <div class="product-card" onclick="openProduct(this)" data-product='{"brand": "ETSY", "title": "IVE Love Dive Poster Set", "price": "$16", "size": "A3 Size", "description": "Set of 3 official posters from Love Dive era. Never hung, rolled and stored safely. High quality print, perfect for room decor!", "emoji": "🖼️"}'>
-                <div class="product-image">
-                    🖼️
-                    <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
-                </div>
-                <div class="product-info">
-                    <div class="product-brand">ETSY</div>
-                    <div class="product-title">IVE Love Dive Poster Set</div>
-                    <div class="product-size">A3 Size</div>
-                    <div class="product-price">$16</div>
-                </div>
-            </div>
-        </div>
-
         <div class="load-more">
             <button class="load-more-btn">Load more items</button>
         </div>
     </div>
-
-    <!-- Product Modal -->
-    <div class="product-modal" id="product-modal">
-        <div class="modal-header">
-            <div class="modal-close" onclick="closeProduct()">×</div>
-            <div class="modal-title">Item details</div>
-        </div>
-        <div class="modal-image" id="modal-image">🎤</div>
-        <div class="modal-content">
-            <div class="modal-brand" id="modal-brand">BRAND</div>
-            <div class="modal-product-title" id="modal-title">Product Title</div>
-            <div class="modal-price" id="modal-price">$0</div>
-            
-            <div class="modal-details">
-                <div class="detail-row">
-                    <span>Category</span>
-                    <span id="modal-size">-</span>
-                </div>
-                <div class="detail-row">
-                    <span>Group</span>
-                    <span>-</span>
-                </div>
-                <div class="detail-row">
-                    <span>Color</span>
-                    <span>-</span>
-                </div>
-                <div class="detail-row">
-                    <span>Ships From</span>
-                    <span>TX, USA</span>
-                </div>
+<!-- WISHLIST -->
+<div id="wishlist-section">
+    <h2>Your Wishlist</h2>
+    <textarea id="wishlist-items" rows="5" readonly></textarea>
+    <input type="text" id="wishlist-name" placeholder="Your Name">
+    <input type="email" id="wishlist-email" placeholder="Your Email">
+    <button onclick="submitWishlist()">Request Order</button>
+</div>
+    <!-- Sale Modal -->
+    <div class="sale-modal" id="sale-modal">
+        <div class="sale-modal-content">
+            <button class="sale-close" onclick="closeSaleModal()">×</button>
+            <div class="sale-emoji">🎉</div>
+            <div class="sale-title">Limited Time Sale!</div>
+            <div class="sale-subtitle">Get 20% off everything in the Etsy shop</div>
+            <div class="sale-code" id="sale-code">SUNNIE20</div>
+            <div class="copied-message" id="copied-message">✅ Code copied to clipboard!</div>
+            <div class="sale-buttons">
+                <button class="sale-btn etsy-btn" onclick="goToEtsy()">Shop on Etsy</button>
+                <button class="sale-btn close-btn" onclick="closeSaleModal()">Close</button>
             </div>
-
-            <div class="modal-description" id="modal-description">
-                Product description goes here...
-            </div>
-        </div>
-
-        <div class="modal-buttons">
-            <button class="buy-btn" onclick="buyNow()">Buy now</button>
-            <button class="add-bag-btn" onclick="addToBag()">Add to bag</button>
         </div>
     </div>
 
     <script>
         let bag = [];
         let bagCount = 0;
+
+        // Show sale modal after 1.5 seconds
+        setTimeout(() => {
+            showSaleModal();
+        }, 1500);
+
+        function showSaleModal() {
+            document.getElementById('sale-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Auto copy code to clipboard
+            copyToClipboard('SUNNIE20');
+        }
+
+        function closeSaleModal() {
+            document.getElementById('sale-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    document.getElementById('copied-message').style.opacity = '1';
+                }).catch(() => {
+                    // Fallback for older browsers
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(text);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                document.getElementById('copied-message').style.opacity = '1';
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function goToEtsy() {
+            window.open('https://etsy.com/shop/sunniejae', '_blank');
+            closeSaleModal();
+        }
+
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
 
         function toggleLike(event, btn) {
             event.stopPropagation();
@@ -800,55 +796,6 @@
             } else {
                 btn.classList.add('liked');
                 btn.textContent = '❤️';
-            }
-        }
-
-        function openProduct(card) {
-            const productData = JSON.parse(card.dataset.product);
-            
-            document.getElementById('modal-image').textContent = productData.emoji;
-            document.getElementById('modal-brand').textContent = productData.brand;
-            document.getElementById('modal-title').textContent = productData.title;
-            document.getElementById('modal-price').textContent = productData.price;
-            document.getElementById('modal-size').textContent = productData.size;
-            document.getElementById('modal-description').textContent = productData.description;
-            
-            document.getElementById('product-modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Store current product for purchase
-            window.currentProduct = productData;
-        }
-
-        function closeProduct() {
-            document.getElementById('product-modal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function addToBag() {
-            if (window.currentProduct) {
-                bag.push(window.currentProduct);
-                bagCount++;
-                updateBagCount();
-                
-                // Show feedback
-                const btn = document.querySelector('.add-bag-btn');
-                btn.textContent = 'Added!';
-                btn.style.background = 'var(--accent)';
-                btn.style.color = 'white';
-                
-                setTimeout(() => {
-                    btn.textContent = 'Add to bag';
-                    btn.style.background = 'var(--white)';
-                    btn.style.color = 'var(--black)';
-                }, 1000);
-            }
-        }
-
-        function buyNow() {
-            if (window.currentProduct) {
-                alert(`Thanks for shopping with @sunniejae! 💜\n\nYou're buying:\n${window.currentProduct.title}\nPrice: ${window.currentProduct.price}\n\nThis is a demo - your "order" has been placed! ✨`);
-                closeProduct();
             }
         }
 
@@ -869,26 +816,48 @@
                 this.textContent = 'Following';
                 this.classList.add('following');
                 this.style.background = 'var(--accent)';
-                this.style.color = 'white';
-            } else {
-                this.textContent = 'Follow';
-                this.classList.remove('following');
-                this.style.background = 'var(--black)';
-                this.style.color = 'white';
-            }
-        });
+/* Wishlist */
+function addToWishlist(collection){
+    const select = document.querySelector(`.collection[data-collection="${collection}"] select`);
+    const version = select.value;
+    const label = document.getElementById(`collection-${collection}-active`).textContent;
+    const wishlistItem = `${collection}: ${label}`;
+    wishlist.push(wishlistItem);
+    alert(`${wishlistItem} added to your wishlist!`);
+}
 
-        // Filter buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelector('.filter-btn.active').classList.remove('active');
-                this.classList.add('active');
-            });
-        });
+function sendWishlist(){
+    const name = prompt("Enter your name:");
+    const email = prompt("Enter your contact email:");
+    if(!name || !email){
+        alert("Name and email are required.");
+        return;
+    }
+    const body = `Wishlist for ${name} (${email}):\n\n` + wishlist.join("\n");
+    window.location.href = `mailto:youremail@example.com?subject=Wishlist&body=${encodeURIComponent(body)}`;
+}
 
-        // Load more button
-        document.querySelector('.load-more-btn').addEventListener('click', function() {
-            this.textContent = 'Loading...';
-            setTimeout(() => {
-                this.textContent = 'Load more items';
-                alert('This is a demo - no more items
+/* Redbubble */
+function openRedbubble(button){
+    const collectionDiv = button.closest('.collection');
+    const url = collectionDiv.dataset.redbubble;
+    if(url) window.open(url,'_blank');
+    else alert('This item is not available on Redbubble.');
+}
+
+                function submitWishlist() {
+    const name = document.getElementById('wishlist-name').value.trim();
+    const email = document.getElementById('wishlist-email').value.trim();
+
+    if(!name || !email || wishlistItems.length === 0){
+        alert("Please fill in your name, email, and select at least one item.");
+        return;
+    }
+
+    const subject = encodeURIComponent(`Wishlist from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nWishlist:\n${wishlistItems.join('\n')}`);
+    window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+}
+
+            </script>
+                
