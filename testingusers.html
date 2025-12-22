@@ -1,23 +1,138 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>My Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comments demo (Giscus + Utterances)</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;max-width:800px;margin:48px auto;padding:0 16px;color:#111}
+    header{margin-bottom:24px}
+    section{margin:32px 0}
+    .hint{font-size:0.9rem;color:#555}
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Comments demo</h1>
+    <p class="hint">This page shows two easy ways to store comments using GitHub: <strong>Giscus</strong> (GitHub Discussions) and <strong>Utterances</strong> (GitHub Issues).</p>
+  </header>
 
-<h1>Project One</h1>
+  <section id="giscus-demo">
+    <h2>Giscus (GitHub Discussions)</h2>
+    <p class="hint">Replace the attributes below with your repo and category. See README for steps.</p>
+    <!-- Giscus embed: replace data-repo / data-repo-id / data-category as described in README -->
+    <div id="giscus-container"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="sunniejae/sunniejae.github.io"
+      data-category="General"
+      data-mapping="pathname"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
 
-<div id="comments"></div>
+  <section id="utterances-demo">
+    <h2>Utterances (GitHub Issues)</h2>
+    <p class="hint">Replace the `repo` attribute with your repository in the script below.</p>
+    <!-- Utterances embed: replace repo attribute with OWNER/REPO -->
+    <div id="utterances-container"></div>
+    <script src="https://utteranc.es/client.js"
+      repo="sunniejae/sunniejae.github.io"
+      issue-term="pathname"
+      label="comment"
+      theme="github-light"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
 
-<form id="commentForm">
-  <textarea id="commentText" required></textarea>
-  <label>
-    <input type="checkbox" id="anonymous" checked />
-    Post anonymously
-  </label>
-  <button type="submit">Post</button>
-</form>
+  <section id="azure-comments">
+    <h2>Comments (Azure Functions)</h2>
+    <p class="hint">Anonymous comments supported. Configure `API_BASE_URL` below to point to your function app (e.g., https://<your-app>.azurewebsites.net/api/comments).</p>
+    <div id="comments-list">Loading comments...</div>
+    <form id="comment-form">
+      <input id="author" placeholder="Name (optional)" />
+      <br/>
+      <textarea id="text" placeholder="Write a comment" rows="4" style="width:100%"></textarea>
+      <br/>
+      <button type="submit">Post comment</button>
+    </form>
+    <p class="hint">Comments are created unapproved by default. Use the Azure Portal or Cosmos DB to moderate (set `approved=true`).</p>
+    <script>
+      (function(){
+        // Load non-secret runtime config from repo (edit config.comments.json in your repo)
+        async function loadConfig(){
+          try{
+            const r = await fetch('/config.comments.json', {cache: 'no-cache'});
+            if(!r.ok) throw new Error('config missing');
+            return await r.json();
+          }catch(e){
+            return { API_BASE_URL: 'https://<your-function-app>.azurewebsites.net/api/comments', RECAPTCHA_SITE_KEY: '' };
+          }
+        }
 
-<script src="comments.js"></script>
+        let API_BASE_URL = 'https://<your-function-app>.azurewebsites.net/api/comments';
+        let RECAPTCHA_SITE_KEY = '';
+        loadConfig().then(cfg => { API_BASE_URL = cfg.API_BASE_URL || API_BASE_URL; RECAPTCHA_SITE_KEY = cfg.RECAPTCHA_SITE_KEY || RECAPTCHA_SITE_KEY; if(RECAPTCHA_SITE_KEY) addRecaptchaScript(RECAPTCHA_SITE_KEY); init(); });
+
+        function addRecaptchaScript(key){
+          const s = document.createElement('script'); s.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(key); s.async = true; document.head.appendChild(s);
+        }
+
+        function init(){
+        const page = window.location.pathname || "/";
+        const page = window.location.pathname || "/";
+
+        async function fetchComments(){
+          try{
+            const res = await fetch(API_BASE_URL + '?page=' + encodeURIComponent(page));
+            if(!res.ok) throw new Error('Failed to load');
+            const items = await res.json();
+            const list = items.length ? items.map(i=>`<article style="border-bottom:1px solid #eee;padding:8px 0"><strong>${escapeHtml(i.author)}</strong> <small>${new Date(i.createdAt).toLocaleString()}</small><p>${escapeHtml(i.text)}</p></article>`).join('') : '<p>No comments yet.</p>';
+            document.getElementById('comments-list').innerHTML = list;
+          }catch(e){ document.getElementById('comments-list').innerText = 'Comments unavailable.' }
+        }
+
+        function escapeHtml(s){ return String(s).replace(/[&<>\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+        async function postComment(payload){
+          try{
+            const r = await fetch(API_BASE_URL, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+            if(r.status===201){ alert('Comment submitted for moderation'); document.getElementById('text').value=''; }
+            else { const b = await r.json(); alert('Error: '+(b.error||r.status)); }
+          }catch(err){ alert('Network error'); }
+        }
+
+        document.getElementById('comment-form').addEventListener('submit', function(e){
+          e.preventDefault();
+          const author = document.getElementById('author').value || 'Anonymous';
+          const text = document.getElementById('text').value;
+          if(!text.trim()) return alert('Enter a comment');
+          const payload = { author, text, page };
+
+          if (RECAPTCHA_SITE_KEY && window.grecaptcha) {
+            grecaptcha.ready(function(){
+              grecaptcha.execute(RECAPTCHA_SITE_KEY, {action: 'comment'}).then(function(token){
+                payload.recaptchaToken = token;
+                postComment(payload);
+              }).catch(()=>{ alert('Recaptcha error'); });
+            });
+          } else {
+            postComment(payload);
+          }
+        });
+
+        fetchComments(); }
+      })();
+    </script>
+  </section>
+
+  <footer>
+    <p class="hint">Open this file locally to preview. To deploy, add these snippets into your page template on GitHub Pages.</p>
+  </footer>
 </body>
 </html>
