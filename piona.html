@@ -1,190 +1,230 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LE SSERAFIM · Fan Store</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LE SSERAFIM Fandom Store</title>
 <style>
-/* ======================
-   GLOBAL + MEMBER THEMES
-====================== */
 :root {
-  --black:#000010;
-  --silver:#f0f0f5;
-  --dark-purple:#3f3d7a;
-  --primary:#9a9ad4;
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
 
-  --member-main: var(--silver);
-  --member-accent: var(--dark-purple);
+    --chaewon: #f0f0f5;
+    --chaewon-dark: #342f38;
+    --sakura: #ffb3d6;
+    --sakura-dark: #c13886;
+    --yunjin: #73e3bd;
+    --yunjin-dark: #0d5c2d;
+    --kazuha: #00c9c2;
+    --kazuha-dark: #2a3055;
+    --eunchae: #bf3851;
+    --eunchae-dark: #880d1e;
 }
-
-.theme-chaewon {--member-main:#f0f0f5;--member-accent:#342f38;}
-.theme-sakura  {--member-main:#ffb3d6;--member-accent:#c13886;}
-.theme-yunjin  {--member-main:#73e3bd;--member-accent:#0d5c2d;}
-.theme-kazuha  {--member-main:#00c9c2;--member-accent:#2a3055;}
-.theme-eunchae {--member-main:#bf3851;--member-accent:#880d1e;}
 
 body {
-  background:linear-gradient(135deg,var(--black),var(--dark-purple),var(--black));
-  color:var(--silver);
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background-color: var(--black);
+    color: var(--white);
 }
 
-.glass {
-  background:rgba(63,61,122,.35);
-  backdrop-filter:blur(14px);
-  border:1px solid rgba(154,154,212,.25);
+header {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.hero {
-  height:min(55vh,775px);
-  background-size:cover;
-  background-position:center;
-  position:relative;
+header img {
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
 }
-.hero::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,16,.15),rgba(0,0,16,.9));
+
+h1 {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+.store-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: grid;
+    gap: 3rem;
+}
+
+.collection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 1.5rem;
+}
+
+.collection img {
+    width: 500px;
+    height: 500px;
+    object-fit: contain;
+    border-radius: 1rem;
+    background: rgba(255,255,255,0.1);
+}
+
+.collection-info h2 {
+    margin: 0;
+}
+
+.collection-info select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    font-size: 1rem;
 }
 
 .member-bg {
-  background:var(--member-main);
-  color:var(--member-accent);
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    font-weight: bold;
 }
+
+.bias-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.bias-selector button {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--white);
+    font-weight: bold;
+}
+
 </style>
 </head>
+<body>
 
-<body class="transition-colors duration-300">
-
-<!-- HERO -->
-<header id="hero" class="hero flex items-end"
-  style="background-image:url('https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png')">
-  <div class="relative z-10 max-w-7xl mx-auto px-6 py-10">
-    <h1 id="heroName" class="text-5xl font-bold">Chaewon Collection</h1>
-    <p class="text-sm text-[var(--primary)]">LE SSERAFIM Official Fan Store</p>
-  </div>
+<header>
+    <h1>LE SSERAFIM Fandom Store</h1>
+    <p>Choose your bias to customize your experience!</p>
 </header>
 
-<!-- NAV -->
-<nav class="glass sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-    <strong>COLLECTION STORE</strong>
-    <div class="flex gap-2">
-      <button onclick="setBias('chaewon')" class="glass">🐯</button>
-      <button onclick="setBias('sakura')"  class="glass">🌸</button>
-      <button onclick="setBias('kazuha')"  class="glass">🦢</button>
-      <button onclick="setBias('yunjin')"  class="glass">🐍</button>
-      <button onclick="setBias('eunchae')" class="glass">🐣</button>
+<div class="bias-selector">
+    <button onclick="setBias('chaewon')" style="background: var(--chaewon); color: var(--chaewon-dark)">🐯 Chaewon</button>
+    <button onclick="setBias('sakura')" style="background: var(--sakura); color: var(--sakura-dark)">🌸 Sakura</button>
+    <button onclick="setBias('yunjin')" style="background: var(--yunjin); color: var(--yunjin-dark)">🐍 Yunjin</button>
+    <button onclick="setBias('kazuha')" style="background: var(--kazuha); color: var(--kazuha-dark)">🦢 Kazuha</button>
+    <button onclick="setBias('eunchae')" style="background: var(--eunchae); color: var(--eunchae-dark)">🐣 Eunchae</button>
+</div>
+
+<div class="store-container">
+
+    <!-- Example Collection: Keychains -->
+    <div class="collection" data-collection="keychain">
+        <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/keychain-chaewon.png" alt="Keychain Collection Preview">
+        <div class="collection-info">
+            <h2>FEARLESS KEYCHAIN COLLECTION</h2>
+            <p class="member-bg" id="collection-keychain-active">🐯 Chaewon Version</p>
+            <select onchange="selectVersion(this)" data-collection="keychain">
+                <option value="ot5">OT5 Version</option>
+                <option value="chaewon">🐯 Chaewon</option>
+                <option value="sakura">🌸 Sakura</option>
+                <option value="kazuha">🦢 Kazuha</option>
+                <option value="yunjin">🐍 Yunjin</option>
+                <option value="eunchae">🐣 Eunchae</option>
+            </select>
+        </div>
     </div>
-  </div>
-</nav>
 
-<!-- STORE -->
-<main class="max-w-7xl mx-auto px-6 py-12 space-y-10">
+    <!-- Example Collection: Stickers -->
+    <div class="collection" data-collection="sticker">
+        <img id="preview-sticker" src="https://sunniejae.blob.core.windows.net/sunniejae/sticker-chaewon.png" alt="Sticker Collection Preview">
+        <div class="collection-info">
+            <h2>STICKER COLLECTION</h2>
+            <p class="member-bg" id="collection-sticker-active">🐯 Chaewon Version</p>
+            <select onchange="selectVersion(this)" data-collection="sticker">
+                <option value="ot5">OT5 Version</option>
+                <option value="chaewon">🐯 Chaewon</option>
+                <option value="sakura">🌸 Sakura</option>
+                <option value="kazuha">🦢 Kazuha</option>
+                <option value="yunjin">🐍 Yunjin</option>
+                <option value="eunchae">🐣 Eunchae</option>
+            </select>
+        </div>
+    </div>
 
-<!-- COLLECTION CARD -->
-<div class="glass rounded-2xl p-6">
-  <div class="flex justify-between items-center mb-4">
-    <h2 class="text-2xl font-bold" style="color:var(--member-accent)">
-      FEARLESS STICKER COLLECTION
-    </h2>
-    <span class="text-sm text-[var(--primary)]">$8</span>
-  </div>
-
-  <div class="member-bg rounded-xl p-4 mb-4">
-    <p class="font-semibold">
-      Currently viewing:
-      <span id="collection-stickers-active">Chaewon Version</span>
-    </p>
-  </div>
-
-  <select
-    class="w-full p-3 rounded text-black"
-    data-collection="stickers"
-    onchange="selectVersion(this)">
-    <option value="ot5">OT5 Version</option>
-    <option value="chaewon">🐯 Chaewon</option>
-    <option value="sakura">🌸 Sakura</option>
-    <option value="kazuha">🦢 Kazuha</option>
-    <option value="yunjin">🐍 Yunjin</option>
-    <option value="eunchae">🐣 Eunchae</option>
-  </select>
 </div>
-
-<!-- COLLECTION CARD -->
-<div class="glass rounded-2xl p-6">
-  <div class="flex justify-between items-center mb-4">
-    <h2 class="text-2xl font-bold" style="color:var(--member-accent)">
-      SIGNATURE KEYCHAIN COLLECTION
-    </h2>
-    <span class="text-sm text-[var(--primary)]">$12</span>
-  </div>
-
-  <div class="member-bg rounded-xl p-4 mb-4">
-    <p class="font-semibold">
-      Currently viewing:
-      <span id="collection-keychain-active">Chaewon Version</span>
-    </p>
-  </div>
-
-  <select
-    class="w-full p-3 rounded text-black"
-    data-collection="keychain"
-    onchange="selectVersion(this)">
-    <option value="ot5">OT5 Version</option>
-    <option value="chaewon">🐯 Chaewon</option>
-    <option value="sakura">🌸 Sakura</option>
-    <option value="kazuha">🦢 Kazuha</option>
-    <option value="yunjin">🐍 Yunjin</option>
-    <option value="eunchae">🐣 Eunchae</option>
-  </select>
-</div>
-
-</main>
 
 <script>
-const members = {
-  chaewon:{name:'Chaewon',img:'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png'},
-  sakura:{name:'Sakura',img:'https://sunniejae.blob.core.windows.net/sunniejae/sakura.png'},
-  kazuha:{name:'Kazuha',img:'https://sunniejae.blob.core.windows.net/sunniejae/kazuha.png'},
-  yunjin:{name:'Yunjin',img:'https://sunniejae.blob.core.windows.net/sunniejae/yunjin.png'},
-  eunchae:{name:'Eunchae',img:'https://sunniejae.blob.core.windows.net/sunniejae/eunchae.png'}
+let currentBias = 'chaewon';
+
+function setBias(member) {
+    currentBias = member;
+
+    const memberMap = {
+        chaewon: {accent:'var(--chaewon-dark)'},
+        sakura: {accent:'var(--sakura-dark)'},
+        yunjin: {accent:'var(--yunjin-dark)'},
+        kazuha: {accent:'var(--kazuha-dark)'},
+        eunchae: {accent:'var(--eunchae-dark)'},
+    };
+
+    // Update all collection previews to selected bias
+    document.querySelectorAll('.collection').forEach(coll => {
+        const collection = coll.dataset.collection;
+        const previewImg = document.getElementById(`preview-${collection}`);
+        const activeLabel = document.getElementById(`collection-${collection}-active`);
+        previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-${member}.png`;
+        const emojiMap = {
+            chaewon: '🐯',
+            sakura: '🌸',
+            yunjin: '🐍',
+            kazuha: '🦢',
+            eunchae: '🐣'
+        };
+        activeLabel.textContent = `${emojiMap[member]} ${member.charAt(0).toUpperCase() + member.slice(1)} Version`;
+    });
 }
 
-let activeBias = 'chaewon'
+function selectVersion(select) {
+    const collection = select.dataset.collection;
+    const previewImg = document.getElementById(`preview-${collection}`);
+    const activeLabel = document.getElementById(`collection-${collection}-active`);
+    const value = select.value;
 
-function setBias(member){
-  activeBias = member
-  document.body.className = `theme-${member} transition-colors duration-300`
-  hero.style.backgroundImage = `url('${members[member].img}')`
-  heroName.textContent = `${members[member].name} Collection`
+    const emojiMap = {
+        chaewon: '🐯',
+        sakura: '🌸',
+        yunjin: '🐍',
+        kazuha: '🦢',
+        eunchae: '🐣',
+        ot5: ''
+    };
 
-  document.querySelectorAll('select[data-collection]').forEach(sel=>{
-    sel.value = member
-    updateCollectionLabel(sel)
-  })
+    if(value === 'ot5'){
+        previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-ot5.png`;
+        activeLabel.textContent = 'OT5 Version';
+    } else {
+        previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-${value}.png`;
+        activeLabel.textContent = `${emojiMap[value]} ${value.charAt(0).toUpperCase() + value.slice(1)} Version`;
+    }
 }
 
-function selectVersion(select){
-  updateCollectionLabel(select)
-}
-
-function updateCollectionLabel(select){
-  const collection = select.dataset.collection
-  const val = select.value
-  const label = document.getElementById(`collection-${collection}-active`)
-  label.textContent =
-    val === 'ot5'
-    ? 'OT5 Version'
-    : `${members[val].name} Version`
-}
-
-/* init */
-setBias('chaewon')
 </script>
 
 </body>
