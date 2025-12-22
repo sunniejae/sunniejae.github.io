@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KPOP Fandom Shop</title>
+<link rel="icon" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" type="image/png">
+
+<style>
+/* Custom Font */
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("https://sunniejae.blob.core.windows.net/sunniejae/Myfont1-Regular.woff2") format("woff2"),
+       url("https://sunniejae.blob.core.windows.net/sunniejae/Myfont1-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Root palette + member colors */
+:root {
+  --black: #000010;
+  --white: #ffffff;
+  --dark-gray: #404040;
+  --gray: #bfbfdc;
+  --silver: #f0f0f5;
+  --pink: #ffb3d6;
+  --teal: #00a8a3;
+  --dark-purple: #3f3d7a;
+  --accent: #00c9c2;
+  --secondary: #c13886;
+  --primary: #9a9ad4;
+  --bg: var(--dark-purple);
+
+  --NAYA-color: #00c9c2;
+  --FEARNOT-color: #c13886;
+  --TOMOON-color: #00a8ff;
+  --SWITH-color: #00c000;
+  --MULTI-color: #ff4b4b;
+}
+
+/* Global Styles */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'MyCustomFont',sans-serif; background: var(--bg); transition: background 0.5s; color: var(--silver); }
+h1,h2,h3{ font-family:'MyCustomFont',sans-serif; color: var(--white); text-shadow:0 0 12px var(--primary),0 0 24px rgba(154,154,212,0.4);}
+a{color:inherit;text-decoration:none;}
+.hero{position:relative;height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;}
+.hero-content{z-index:2; max-width:800px;}
+.hero h1{font-size:clamp(3rem,6vw,5rem);letter-spacing:0.2em;}
+.hero p{margin:1.5rem 0 2.5rem;opacity:0.85;}
+.btn{padding:0.8rem 2.4rem;margin:0.5rem;border-radius:40px;border:none;cursor:pointer;font-weight:700;color:var(--white);background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 0 20px rgba(154,154,212,0.6);transition: transform 0.3s, box-shadow 0.3s;}
+.btn:hover{transform:scale(1.06);background:linear-gradient(135deg,var(--accent),var(--primary));box-shadow:0 0 35px rgba(0,201,194,0.9);}
+section{padding:4rem 8%;}
+.section-title{text-align:center;font-size:2rem;margin-bottom:2rem;}
+.eras{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:3rem;}
+.era-card{padding:1.5rem;border-radius:18px;text-align:center;cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(191,191,220,0.3);backdrop-filter:blur(10px);transition: transform 0.3s, box-shadow 0.3s;}
+.era-card:hover{transform:translateY(-8px);box-shadow:0 0 20px rgba(193,56,134,0.6), inset 0 0 12px rgba(255,179,214,0.3);}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;}
+.product{background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(63,61,122,0.25));padding:1rem;border-radius:18px;border:1px solid rgba(191,191,220,0.25);text-align:center;transition: transform 0.3s;}
+.product img{width:100%; height:220px; object-fit:contain; border-radius:12px; margin-bottom:0.8rem; background:rgba(255,255,255,0.05);}
+.product h3{font-size:1.1rem;}
+.product .price{color:var(--accent);font-weight:700;margin:0.5rem 0;}
+.product.featured{transform:scale(1.08);box-shadow:0 0 25px var(--accent), 0 0 15px var(--primary) inset;border:2px solid var(--accent);}
+
+/* Member-specific highlights */
+.product[data-member="NAYA"] { border: 2px solid var(--NAYA-color); box-shadow: 0 0 12px var(--NAYA-color); }
+.product[data-member="FEARNOT"] { border: 2px solid var(--FEARNOT-color); box-shadow: 0 0 12px var(--FEARNOT-color); }
+.product[data-member="TOMOON"] { border: 2px solid var(--TOMOON-color); box-shadow: 0 0 12px var(--TOMOON-color); }
+.product[data-member="SWITH"] { border: 2px solid var(--SWITH-color); box-shadow: 0 0 12px var(--SWITH-color); }
+.product[data-member="MULTI"] { border:2px solid var(--MULTI-color); box-shadow: 0 0 12px var(--MULTI-color); }
+
+.wishlist{position:fixed;top:20px;right:20px;padding:0.7rem 1.4rem;border-radius:40px;font-weight:700;color:var(--white);background:linear-gradient(135deg,var(--secondary),var(--primary));box-shadow:0 0 25px rgba(193,56,134,0.9);cursor:pointer;z-index:10;}
+#wishlistModal, #quizModal, #quizResultModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);justify-content:center;align-items:center;z-index:100;}
+.modalContent{background:var(--black);padding:2rem;border-radius:16px;width:90%;max-width:500px;color:var(--white);position:relative;}
+.modalContent span{position:absolute;top:1rem;right:1rem;cursor:pointer;font-size:1.5rem;}
+.modalContent input{width:100%;padding:0.5rem;margin-bottom:0.5rem;border-radius:8px;border:none;}
+.quiz-question{margin-bottom:1rem;}
+.quiz-option{display:block;margin:0.3rem 0;padding:0.5rem 0.8rem;border-radius:8px;background:rgba(255,255,255,0.1);cursor:pointer;transition:0.2s;}
+.quiz-option:hover{background:rgba(154,154,212,0.3);}
+</style>
+</head>
+<body>
+
+<!-- Wishlist Button -->
+<div class="wishlist" onclick="openWishlist()">
+  📋 Wishlist (<span id="wishlistCount">0</span>)
+</div>
+
+<!-- Wishlist Modal -->
+<div id="wishlistModal">
+  <div class="modalContent">
+    <span onclick="closeWishlist()">✖</span>
+    <h2 style="text-align:center;margin-bottom:1rem;">Your Wishlist</h2>
+    <ul id="wishlistItems" style="list-style:none;margin-bottom:1rem;"></ul>
+    <div style="margin-bottom:1rem;">
+      <input type="text" id="userName" placeholder="Enter your name">
+      <input type="email" id="userEmail" placeholder="Enter your email">
+    </div>
+    <button class="btn" style="width:100%;" onclick="requestOrder()">Request Order</button>
+  </div>
+</div>
+
+<!-- Quiz Modal -->
+<div id="quizModal">
+  <div class="modalContent">
+    <span onclick="closeQuiz()">✖</span>
+    <h2 style="text-align:center;margin-bottom:1rem;">KPOP Bias Picker</h2>
+    <div id="quizContent"></div>
+  </div>
+</div>
+
+<!-- Quiz Result Modal -->
+<div id="quizResultModal">
+  <div class="modalContent">
+    <span onclick="closeResult()">✖</span>
+    <h2 style="text-align:center;margin-bottom:1rem;">Your Bias Result</h2>
+    <p id="quizResultText" style="text-align:center;font-size:1.3rem;"></p>
+    <button class="btn" style="width:100%;" onclick="closeResult()">Close</button>
+  </div>
+</div>
+
+<section class="hero">
+  <video autoplay muted loop>
+    <source src="https://cdn.coverr.co/videos/coverr-dancing-girl-under-neon-lights-9007/1080p.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1>KPOP SHOP</h1>
+    <p>Featured items for your favorite member!</p>
+    <button class="btn" onclick="openQuiz()">KPOP Bias Picker</button>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">PICK YOUR BIAS</h2>
+  <div class="eras">
+    <div class="era-card" onclick="setMemberTheme('NAYA')">🐯 NAYA</div>
+    <div class="era-card" onclick="setMemberTheme('FEARNOT')">🌸 FEARNOT</div>
+    <div class="era-card" onclick="setMemberTheme('TOMOON')">🦢 TOMOON</div>
+    <div class="era-card" onclick="setMemberTheme('SWITH')">🐍 SWITH</div>
+    <div class="era-card" onclick="setMemberTheme('MULTI')">🐣 MULTI</div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">PRODUCTS</h2>
+  <div class="shop-grid" id="shopGrid"></div>
+</section>
+
+<footer style="text-align:center;padding:2rem 0;opacity:0.6;">
+© 2025 KPOP Fandom Shop
+</footer>
+
+<script>
+// Wishlist
+let wishlist = [];
+function addToWishlist(item){
+  if(!wishlist.includes(item)){wishlist.push(item);document.getElementById('wishlistCount').textContent=wishlist.length;}
+}
+function openWishlist(){updateWishlist();document.getElementById('wishlistModal').style.display='flex';}
+function closeWishlist(){document.getElementById('wishlistModal').style.display='none';}
+function updateWishlist(){
+  const ul=document.getElementById('wishlistItems');ul.innerHTML='';
+  wishlist.forEach(item=>{let li=document.createElement('li');li.textContent=item;li.style.marginBottom='0.5rem';ul.appendChild(li);});
+}
+function requestOrder(){
+  const name=document.getElementById('userName').value.trim();
+  const email=document.getElementById('userEmail').value.trim();
+  if(!name || !email || wishlist.length===0){alert('Please fill in name, email, and add items.'); return;}
+  const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRegex.test(email)){alert('Please enter a valid email.'); return;}
+  const subject=encodeURIComponent('KPOP Wishlist Order');
+  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nItems:\n- ${wishlist.join('\n- ')}`);
+  window.location.href=`mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
+}
+
+// Member themes
+function setMemberTheme(member){
+  const root=document.documentElement;
+  const colors={
+    'NAYA':['#ffffff','#f0f0f5','#00c9c2','#f8f8f8'],
+    'FEARNOT':['#ffb3d6','#c13886','#ffffff','#ffe6f0'],
+    'TOMOON':['#00a8ff','#004c99','#ffffff','#e0f0ff'],
+    'SWITH':['#00c000','#007a00','#ffffff','#e0ffe0'],
+    'MULTI':['#ff4b4b','#990000','#ffffff','#ffe0e0']
+  };
+  if(colors[member]){
+    root.style.setProperty('--primary',colors[member][0]);
+    root.style.setProperty('--secondary',colors[member][1]);
+    root.style.setProperty('--accent',colors[member][2]);
+    root.style.setProperty('--bg',colors[member][3]);
+  }
+}
+
+// Products Carousel by Collection
+const collections = [
+  { name: "Spaghetti", type: "Key Chain" },
+  { name: "Light Stick", type: "Key Chain" },
+  { name: "FIM's Club", type: "Key Chain" },
+  { name: "Spaghetti", type: "Sticker" },
+  { name: "Light Stick", type: "Sticker" },
+  { name: "FIM's Club", type: "Sticker" },
+  { name: "KPOP", type: "Sticker" }
+];
+const members=["OT6","NAYA","FEARNOT","TOMOON","SWITH","MULTI"];
+
+const shopGrid=document.getElementById('shopGrid');
+function createCollectionCard(collection){
+  let index=0;
+  const versions=members.map(member=>({
+    member,
+    name:`${member} ${collection.name} ${collection.type}`,
+    img:'https://sunniejae.blob.core.windows.net/sunniejae/logo.png'
+  }));
+  const div=document.createElement('div');
+  div.className='product';
+  div.dataset.member=versions[0].member;
+  div.innerHTML=`
+    <img src="${versions[0].img}" alt="${versions[0].name}">
+    <h3>${versions[0].name}</h3>
+    <p class="price">$15</p>
+    <button class="btn">Add to Wishlist</button>
+  `;
+  const imgEl=div.querySelector('img');
+  const titleEl=div.querySelector('h3');
+  const btnEl=div.querySelector('button');
+  btnEl.onclick=()=>addToWishlist(versions[index].name);
+  div.addEventListener('mouseenter',()=>{
+    div.carouselInterval=setInterval(()=>{
+      index=(index+1)%versions.length;
+      imgEl.src=versions[index].img;
+      titleEl.textContent=versions[index].name;
+      div.dataset.member=versions[index].member;
+    },800);
+  });
+  div.addEventListener('mouseleave',()=>{
+    clearInterval(div.carouselInterval);
+    index=0;
+    imgEl.src=versions[index].img;
+    titleEl.textContent=versions[index].name;
+    div.dataset.member=versions[index].member;
+  });
+  return div;
+}
+collections.forEach(col=>shopGrid.appendChild(createCollectionCard(col)));
+
+// Multi-question Bias Quiz
+const quizQuestions=[
+  {question:"What's your favorite color?", options:[{text:"White",member:"NAYA"},{text:"Pink",member:"FEARNOT"},{text:"Blue",member:"TOMOON"},{text:"Green",member:"SWITH"},{text:"Red",member:"MULTI"}]},
+  {question:"Which personality matches you best?", options:[{text:"Leader",member:"NAYA"},{text:"Cute & Bright",member:"FEARNOT"},{text:"Graceful",member:"TOMOON"},{text:"Mysterious",member:"SWITH"},{text:"Cheerful",member:"MULTI"}]},
+  {question:"Favorite hobby?", options:[{text:"Singing",member:"FEARNOT"},{text:"Dancing",member:"TOMOON"},{text:"Reading",member:"SWITH"},{text:"Gaming",member:"MULTI"},{text:"All-rounder",member:"NAYA"}]}
+];
+let memberScores={NAYA:0,FEARNOT:0,TOMOON:0,SWITH:0,MULTI:0};
+let currentQuestion=0;
+function openQuiz(){currentQuestion=0; memberScores={NAYA:0,FEARNOT:0,TOMOON:0,SWITH:0,MULTI:0}; showQuestion(currentQuestion); document.getElementById('quizModal').style.display='flex';}
+function closeQuiz(){document.getElementById('quizModal').style.display='none';}
+function showQuestion(index){
+  const quizContent=document.getElementById('quizContent');
+  quizContent.innerHTML=`<div class="quiz-question">${quizQuestions[index].question}</div>`;
+  quizQuestions[index].options.forEach(opt=>{
+    const btn=document.createElement('div');
+    btn.className='quiz-option';
+    btn.textContent=opt.text;
+    btn.onclick=()=>chooseOption(opt.member);
+    quizContent.appendChild(btn);
+  });
+}
+function chooseOption(member){memberScores[member]++; currentQuestion++; if(currentQuestion<quizQuestions.length){showQuestion(currentQuestion);}else{showResult();}}
+function showResult(){
+  let maxScore=0; let topMember="OT6";
+  for(const member in memberScores){if(memberScores[member]>maxScore){maxScore=memberScores[member]; topMember=member;}}
+  document.getElementById('quizResultText').textContent=`Your bias is ${topMember}! 🥰`;
+  setMemberTheme(topMember);
+  document.getElementById('quizModal').style.display='none';
+  document.getElementById('quizResultModal').style.display='flex';
+}
+function closeResult(){document.getElementById('quizResultModal').style.display='none';}
+</script>
+
+</body>
+</html>
