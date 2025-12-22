@@ -1,109 +1,91 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae's LE SSERAFIM Fan Shop</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LE SSERAFIM OT5 Shop</title>
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" />
 
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- Pinterest / Domain verification -->
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Domain Verify -->
   <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
-<script src="_sdk/data_sdk.js"></script>
-<script src="_sdk/element_sdk.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-  :root {
-    --black: #000010;
-    --white: #ffffff;
-    --dark-gray: #404040;
-    --gray: #bfbfdc;
-    --silver: #f0f0f5;
-    --pink: #ffb3d6;
-    --teal: #00a8a3;
-    --dark-purple: #3f3d7a;
-    --accent: #00c9c2;
-    --secondary: #c13886;
-    --primary: #9a9ad4;
-  }
-  body { box-sizing: border-box; color: var(--dark-purple); }
-  @keyframes neonPulse {0%,100%{text-shadow:0 0 10px currentColor,0 0 20px currentColor;}50%{text-shadow:0 0 20px currentColor,0 0 40px currentColor,0 0 60px currentColor;}}
-  @keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-  .neon-text{animation: neonPulse 2s ease-in-out infinite;}
-  .float-animation{animation: float 3s ease-in-out infinite;}
-  .glass-effect{background: rgba(63,61,122,0.3); border: 1px solid rgba(154,154,212,0.2);}
-  .product-card:hover{transform: translateY(-5px);}
-  .member-badge{padding: 4px 12px; border-radius: 9999px; font-weight: 600; font-size: 0.75rem;}
-  .member-chaewon { background: linear-gradient(135deg,#f0f0f5,#342f38); color:#000010; }
-  .member-sakura { background: linear-gradient(135deg,#ffb3d6,#c13886); color:#000010; }
-  .member-yunjin { background: linear-gradient(135deg,#73e3bd,#0d5c2d); color:#000010; }
-  .member-kazuha { background: linear-gradient(135deg,#00c9c2,#2a3055); color:#000010; }
-  .member-eunchae { background: linear-gradient(135deg,#bf3851,#880d1e); color:#000010; }
-</style>
+
+  <style>
+    :root {
+      --accent: #66ff66;
+      --secondary: #00ffcc;
+      --gray: #ccc;
+    }
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 24px;
+    }
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+    }
+    .product-card {
+      display: inline-block;
+      width: 220px;
+      margin: 12px;
+      padding: 12px;
+      text-align: center;
+      vertical-align: top;
+    }
+    .member-badge {
+      font-weight: bold;
+    }
+    #wishlist-items {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    #wishlist-empty {
+      color: var(--gray);
+      font-style: italic;
+    }
+    input {
+      background: rgba(255,255,255,0.05);
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+    }
+    input::placeholder {
+      color: #aaa;
+    }
+    button {
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body class="h-full">
-<div id="app" class="w-full h-full overflow-auto" style="background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 50%, var(--black) 100%);">
+<body>
+  <h1 style="text-align:center; font-size:2rem; color: var(--accent); margin-bottom:24px;">LE SSERAFIM OT5 Shop</h1>
 
-<!-- Header -->
-<header class="glass-effect sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <div>
-      <h1 id="shop-title" class="neon-text font-bold" style="color: var(--accent); font-size: 2rem;">LE SSERAFIM SHOP</h1>
-      <p id="shop-tagline" style="color: var(--primary); font-size: 0.875rem;">Your Ultimate K-pop Fan Experience</p>
-    </div>
-    <button id="wishlist-btn" class="glass-effect px-6 py-3 rounded-full hover:opacity-80 transition-all" style="color: var(--accent); font-size: 1rem;"> ♡ Wishlist (<span id="wishlist-count">0</span>) </button>
-  </div>
-</header>
+  <!-- Product List -->
+  <section>
+    <h2 style="color: var(--accent); margin-bottom:12px;">Products</h2>
+    <div id="product-list"></div>
+  </section>
 
-<main class="max-w-7xl mx-auto px-6 py-8">
+  <!-- Wishlist -->
+  <section style="margin-top:36px;">
+    <h2 style="color: var(--accent); margin-bottom:12px;">Your Wishlist</h2>
+    <div id="wishlist-empty">Your wishlist is empty.</div>
+    <div id="wishlist-items"></div>
+  </section>
 
-<!-- Quiz -->
-<section id="quiz-section" class="mb-12 glass-effect p-8 rounded-3xl">
-  <h2 id="quiz-title" class="neon-text text-center mb-6" style="color: var(--accent); font-size: 1.875rem;">Discover Your Bias</h2>
-  <div id="quiz-container">
-    <div id="quiz-start" class="text-center">
-      <p class="mb-6" style="color: var(--gray); font-size: 1rem;">Take our fun quiz to find out which LE SSERAFIM member matches your personality!</p>
-      <button id="start-quiz-btn" class="px-8 py-4 rounded-full text-white font-bold hover:opacity-90 transition-all" style="background: linear-gradient(135deg, var(--accent), var(--teal)); font-size: 1rem;">Start Quiz</button>
-    </div>
-    <div id="quiz-questions" class="hidden"></div>
-    <div id="quiz-result" class="hidden text-center">
-      <div class="float-animation mb-6" style="font-size: 6rem;">✨</div>
-      <h3 class="mb-4" style="color: var(--gray); font-size: 1.5rem;">Your bias is:</h3>
-      <h2 id="result-member" class="neon-text mb-6" style="color: var(--accent); font-size: 2.25rem;"></h2>
-      <button id="restart-quiz-btn" class="glass-effect px-6 py-3 rounded-full hover:opacity-80 transition-all" style="color: var(--primary); font-size: 1rem;">Take Quiz Again</button>
-    </div>
-  </div>
-</section>
+  <!-- App container for forms -->
+  <div id="app"></div>
 
-<!-- Products -->
-<section class="mb-12">
-  <div class="flex justify-between items-center mb-6">
-    <h2 class="neon-text" style="color: var(--accent); font-size: 1.875rem;">Member Collections</h2>
-    <select id="member-filter" class="glass-effect px-4 py-2 rounded-full border" style="color: var(--primary); border-color: rgba(154, 154, 212, 0.3); font-size: 0.875rem;">
-      <option value="all">All Products</option>
-      <option value="OT5">OT5 Only</option>
-      <option value="Sakura">Sakura Only</option>
-      <option value="Chaewon">Chaewon Only</option>
-      <option value="Yunjin">Yunjin Only</option>
-      <option value="Kazuha">Kazuha Only</option>
-      <option value="Eunchae">Eunchae Only</option>
-    </select>
-  </div>
-  <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-</section>
-
-<!-- Wishlist & Comments remain unchanged (same as previous) -->
-
-</main>
-</div>
-
-<script src="shop.js"></script> <!-- All your JS code moved here -->
+  <!-- Shop JS -->
+  <script src="shop.js"></script>
 </body>
 </html>
