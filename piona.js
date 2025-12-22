@@ -39,7 +39,6 @@ function setBias(member) {
         activeLabel.style.backgroundColor = data.color;
         activeLabel.style.color = data.accent;
 
-        // Update wishlist for initial load
         updateWishlist(collection, activeLabel.textContent);
     });
 
@@ -47,6 +46,9 @@ function setBias(member) {
         btn.style.backgroundColor = data.color;
         btn.style.color = data.accent;
     });
+
+    // Redbubble buttons
+    updateRedbubbleButtonsTheme();
 }
 
 // ===== PRODUCT SELECTION FUNCTION =====
@@ -60,15 +62,12 @@ function selectVersion(select) {
     if(value === 'ot5'){
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-ot5.png`;
         versionLabel = 'OT5 Version';
-        activeLabel.textContent = versionLabel;
     } else {
         const data = memberData[value];
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-${value}.png`;
         versionLabel = `${data.emoji} ${capitalize(value)} Version`;
-        activeLabel.textContent = versionLabel;
     }
-
-    // Update wishlist automatically
+    activeLabel.textContent = versionLabel;
     updateWishlist(collection, versionLabel);
 }
 
@@ -77,16 +76,14 @@ function updateWishlist(collection, versionLabel) {
     wishlistItems = wishlistItems.filter(item => !item.startsWith(collection + ':'));
     wishlistItems.push(`${collection}: ${versionLabel}`);
     const wishlistTextarea = document.getElementById('wishlist-items');
-    if(wishlistTextarea){
-        wishlistTextarea.value = wishlistItems.join('\n');
-    }
+    if(wishlistTextarea){ wishlistTextarea.value = wishlistItems.join('\n'); }
 }
 
 function submitWishlist() {
     const name = document.getElementById('wishlist-name').value.trim();
     const email = document.getElementById('wishlist-email').value.trim();
 
-    if(!name || !email || wishlistItems.length === 0){
+    if(!name || !email || wishlistItems.length===0){
         alert("Please fill in your name, email, and select at least one item.");
         return;
     }
@@ -97,27 +94,19 @@ function submitWishlist() {
 }
 
 // ===== QUIZ FUNCTIONS =====
-function openQuiz() {
-    document.getElementById('quiz-modal').style.display = 'flex';
+function openQuiz(){document.getElementById('quiz-modal').style.display='flex';}
+function closeQuiz(){
+    document.getElementById('quiz-modal').style.display='none';
+    quizScores={chaewon:0,sakura:0,yunjin:0,kazuha:0,eunchae:0};
+    document.querySelectorAll('#quiz-content button').forEach(btn=>btn.style.backgroundColor='');
 }
-
-function closeQuiz() {
-    document.getElementById('quiz-modal').style.display = 'none';
-    quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
-
-    // Reset quiz button colors
-    document.querySelectorAll('#quiz-content button').forEach(btn => btn.style.backgroundColor = '');
-}
-
-function answerQuiz(member, button) {
+function answerQuiz(member, button){
     quizScores[member]++;
-
-    // Highlight selected answer
     button.style.backgroundColor = memberData[member].accent;
     button.style.color = memberData[member].color;
 
     const totalAnswers = Object.values(quizScores).reduce((a,b)=>a+b,0);
-    if(totalAnswers >= 3){ // 3 questions
+    if(totalAnswers >= 3){
         const winner = Object.keys(quizScores).reduce((a,b)=> quizScores[a]>=quizScores[b]?a:b);
         setBias(winner);
         closeQuiz();
@@ -125,7 +114,19 @@ function answerQuiz(member, button) {
     }
 }
 
-// ===== HELPER =====
-function capitalize(str){
-    return str.charAt(0).toUpperCase() + str.slice(1);
+// ===== REDBUBBLE BUTTONS =====
+function openRedbubble(button){
+    const coll = button.closest('.collection');
+    const url = coll.dataset.redbubble;
+    if(url) window.open(url,'_blank');
+    else alert("This item is not available on Redbubble.");
 }
+function updateRedbubbleButtonsTheme(){
+    document.querySelectorAll('.redbubble-btn').forEach(btn=>{
+        btn.style.backgroundColor = memberData[currentBias].accent;
+        btn.style.color = memberData[currentBias].color;
+    });
+}
+
+// ===== HELPER =====
+function capitalize(str){return str.charAt(0).toUpperCase()+str.slice(1);}
