@@ -8,33 +8,252 @@
 :root {
     --black: #000010;
     --white: #ffffff;
-    --chaewon: #f0f0f5; --chaewon-dark: #342f38;
-    --sakura: #ffb3d6; --sakura-dark: #c13886;
-    --yunjin: #73e3bd; --yunjin-dark: #0d5c2d;
-    --kazuha: #00c9c2; --kazuha-dark: #2a3055;
-    --eunchae: #bf3851; --eunchae-dark: #880d1e;
+    --chaewon: #f0f0f5; 
+    --chaewon-dark: #342f38;
+    --sakura: #ffb3d6; 
+    --sakura-dark: #c13886;
+    --yunjin: #73e3bd; 
+    --yunjin-dark: #0d5c2d;
+    --kazuha: #00c9c2; 
+    --kazuha-dark: #2a3055;
+    --eunchae: #bf3851; 
+    --eunchae-dark: #880d1e;
     --base: #3f3d7a;
 }
 
-body {margin:0;font-family:system-ui,sans-serif;background-color:var(--black);color:var(--base);transition:0.5s;}
-header{text-align:center;margin-bottom:2rem;padding-bottom:1rem;transition:0.5s;}
-header img{width:100%;max-width:960px;height:auto;display:block;margin:0 auto;}
-h1{font-size:2rem;margin:1rem 0;}
-.store-container{max-width:1200px;margin:0 auto;padding:1rem;display:grid;gap:3rem;}
-.collection{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem;border-radius:1.5rem;transition:0.5s;}
-.collection img{width:250px;height:250px;object-fit:contain;border-radius:1rem;background:rgba(255,255,255,0.1);}
-.collection-info h2{margin:0;}
-.collection-info select{width:100%;padding:0.5rem;border-radius:0.5rem;margin-top:1rem;font-size:1rem;transition:0.5s;}
-.member-bg{margin-top:1rem;padding:0.5rem;border-radius:1rem;text-align:center;font-weight:bold;transition:0.5s;}
-.bias-selector{display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;}
-.bias-selector button{padding:0.5rem 1rem;border-radius:1rem;border:none;cursor:pointer;font-size:1rem;font-weight:bold;transition:0.2s, 0.5s;}
-.bias-selector button:hover{transform:scale(1.05);}
-#quiz-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;z-index:1000;}
-#quiz-content{background:var(--white);color:var(--black);padding:2rem;border-radius:1rem;max-width:500px;width:90%;text-align:center;}
-#quiz-content button{margin-top:0.5rem;padding:0.5rem 1rem;border:none;border-radius:1rem;cursor:pointer;font-weight:bold;}
-#wishlist-section{background:var(--white);color:var(--black);padding:1rem;border-radius:1rem;margin-top:2rem;max-width:500px;margin-left:auto;margin-right:auto;}
-#wishlist-section input, #wishlist-section textarea{width:100%;padding:0.5rem;margin-top:0.5rem;border-radius:0.5rem;border:1px solid #ccc;}
-.redbubble-btn{margin-top:0.5rem;padding:0.5rem 1rem;border:none;border-radius:0.5rem;cursor:pointer;font-weight:bold;}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background-color: var(--black);
+    color: var(--base);
+    transition: background-color 0.5s, color 0.5s;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem 1rem 1rem;
+    transition: background-color 0.5s;
+}
+
+header img {
+    width: 100%;
+    max-width: 960px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 1rem 0 0.5rem;
+}
+
+header p {
+    margin: 0.25rem 0;
+}
+
+.store-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: grid;
+    gap: 3rem;
+}
+
+.collection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    transition: background-color 0.5s;
+}
+
+@media (max-width: 768px) {
+    .collection {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+.collection img {
+    width: 100%;
+    max-width: 250px;
+    height: 250px;
+    object-fit: contain;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 auto;
+}
+
+.collection-info h2 {
+    margin: 0 0 1rem;
+}
+
+.collection-info select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--base);
+    background: var(--white);
+    transition: border-color 0.5s;
+}
+
+.member-bg {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.bias-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+}
+
+.bias-selector button {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.bias-selector button:hover {
+    transform: scale(1.05);
+}
+
+#quiz-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#quiz-modal.active {
+    display: flex;
+}
+
+#quiz-content {
+    background: var(--white);
+    color: var(--black);
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#quiz-content h2 {
+    margin-top: 0;
+}
+
+#quiz-content button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    background: var(--base);
+    color: var(--white);
+    transition: transform 0.2s;
+}
+
+#quiz-content button:hover {
+    transform: scale(1.05);
+}
+
+#quiz-questions p {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+#wishlist-section {
+    background: var(--white);
+    color: var(--black);
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#wishlist-section h2 {
+    margin-top: 0;
+}
+
+#wishlist-section input, 
+#wishlist-section textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-family: inherit;
+}
+
+#wishlist-section button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    background: var(--base);
+    color: var(--white);
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+
+#wishlist-section button:hover {
+    transform: scale(1.02);
+}
+
+.redbubble-btn {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    background: #e41321;
+    color: var(--white);
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+
+.redbubble-btn:hover {
+    transform: scale(1.02);
+}
 </style>
 </head>
 <body>
@@ -57,37 +276,38 @@ h1{font-size:2rem;margin:1rem 0;}
 
 <div class="store-container">
     <!-- KEYCHAIN -->
-    <div class="collection" data-collection="keychain" data-redbubble="https://www.redbubble.com/i/keychain/example-link">
+    <div class="collection" id="collection-keychain" data-collection="keychain">
         <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/keychain-chaewon.png" alt="Keychain">
         <div class="collection-info">
             <h2>Keychain Collection</h2>
             <p class="member-bg" id="collection-keychain-active">🐯 Chaewon Version</p>
             <select onchange="selectVersion(this)" data-collection="keychain">
                 <option value="ot5">OT5 Version</option>
-                <option value="chaewon">🐯 Chaewon</option>
+                <option value="chaewon" selected>🐯 Chaewon</option>
                 <option value="sakura">🌸 Sakura</option>
                 <option value="kazuha">🦢 Kazuha</option>
                 <option value="yunjin">🐍 Yunjin</option>
                 <option value="eunchae">🐣 Eunchae</option>
             </select>
-            <button class="redbubble-btn" onclick="openRedbubble(this)">Buy on Redbubble</button>
+            <button class="redbubble-btn" onclick="openRedbubble('keychain')">Buy on Redbubble</button>
         </div>
     </div>
 
     <!-- STICKER -->
-    <div class="collection" data-collection="sticker">
+    <div class="collection" id="collection-sticker" data-collection="sticker">
         <img id="preview-sticker" src="https://sunniejae.blob.core.windows.net/sunniejae/sticker-chaewon.png" alt="Sticker">
         <div class="collection-info">
             <h2>Sticker Collection</h2>
             <p class="member-bg" id="collection-sticker-active">🐯 Chaewon Version</p>
             <select onchange="selectVersion(this)" data-collection="sticker">
                 <option value="ot5">OT5 Version</option>
-                <option value="chaewon">🐯 Chaewon</option>
+                <option value="chaewon" selected>🐯 Chaewon</option>
                 <option value="sakura">🌸 Sakura</option>
                 <option value="kazuha">🦢 Kazuha</option>
                 <option value="yunjin">🐍 Yunjin</option>
                 <option value="eunchae">🐣 Eunchae</option>
             </select>
+            <button class="redbubble-btn" onclick="openRedbubble('sticker')">Buy on Redbubble</button>
         </div>
     </div>
 </div>
@@ -119,14 +339,14 @@ h1{font-size:2rem;margin:1rem 0;}
             <button onclick="answerQuiz('kazuha', this)">Graceful</button>
             <button onclick="answerQuiz('eunchae', this)">Energetic / Bold</button>
         </div>
-        <button onclick="closeQuiz()">Close Quiz</button>
+        <button onclick="closeQuiz()" style="margin-top: 1.5rem; background: #666;">Close Quiz</button>
     </div>
 </div>
 
 <!-- WISHLIST -->
 <div id="wishlist-section">
     <h2>Your Wishlist</h2>
-    <textarea id="wishlist-items" rows="5" readonly></textarea>
+    <textarea id="wishlist-items" rows="5" readonly placeholder="Selected items will appear here..."></textarea>
     <input type="text" id="wishlist-name" placeholder="Your Name">
     <input type="email" id="wishlist-email" placeholder="Your Email">
     <button onclick="submitWishlist()">Request Order</button>
