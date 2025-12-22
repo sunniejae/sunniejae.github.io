@@ -30,13 +30,14 @@ body {
     font-family: system-ui, sans-serif;
     background-color: var(--black);
     color: var(--white);
-    transition: background-color 0.5s;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 header {
     text-align: center;
     margin-bottom: 2rem;
     transition: background-color 0.5s;
+    padding-bottom: 1rem;
 }
 
 header img {
@@ -65,14 +66,13 @@ h1 {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     padding: 2rem;
-    background: rgba(255,255,255,0.05);
     border-radius: 1.5rem;
-    transition: background-color 0.5s;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .collection img {
-    width: 500px;
-    height: 500px;
+    width: 250px;
+    height: 250px;
     object-fit: contain;
     border-radius: 1rem;
     background: rgba(255,255,255,0.1);
@@ -88,6 +88,7 @@ h1 {
     border-radius: 0.5rem;
     margin-top: 1rem;
     font-size: 1rem;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .member-bg {
@@ -96,6 +97,7 @@ h1 {
     border-radius: 1rem;
     text-align: center;
     font-weight: bold;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .bias-selector {
@@ -111,15 +113,46 @@ h1 {
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    color: var(--white);
     font-weight: bold;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background-color 0.5s, color 0.5s;
 }
 
 .bias-selector button:hover {
     transform: scale(1.05);
 }
 
+/* Bias Quiz Modal */
+#quiz-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#quiz-content {
+    background: var(--white);
+    color: var(--black);
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+}
+
+#quiz-content button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -131,11 +164,12 @@ h1 {
 </header>
 
 <div class="bias-selector">
-    <button onclick="setBias('chaewon')" style="background: var(--chaewon); color: var(--chaewon-dark)">🐯 Chaewon</button>
-    <button onclick="setBias('sakura')" style="background: var(--sakura); color: var(--sakura-dark)">🌸 Sakura</button>
-    <button onclick="setBias('yunjin')" style="background: var(--yunjin); color: var(--yunjin-dark)">🐍 Yunjin</button>
-    <button onclick="setBias('kazuha')" style="background: var(--kazuha); color: var(--kazuha-dark)">🦢 Kazuha</button>
-    <button onclick="setBias('eunchae')" style="background: var(--eunchae); color: var(--eunchae-dark)">🐣 Eunchae</button>
+    <button onclick="setBias('chaewon')">🐯 Chaewon</button>
+    <button onclick="setBias('sakura')">🌸 Sakura</button>
+    <button onclick="setBias('yunjin')">🐍 Yunjin</button>
+    <button onclick="setBias('kazuha')">🦢 Kazuha</button>
+    <button onclick="setBias('eunchae')">🐣 Eunchae</button>
+    <button onclick="openQuiz()">🎯 Bias Quiz</button>
 </div>
 
 <div class="store-container">
@@ -176,8 +210,40 @@ h1 {
 
 </div>
 
+<!-- Bias Quiz Modal -->
+<div id="quiz-modal">
+    <div id="quiz-content">
+        <h2>Find Your Bias!</h2>
+        <p>Answer a few questions:</p>
+        <div id="quiz-questions">
+            <p>1. Your favorite color?</p>
+            <button onclick="answerQuiz('chaewon')">Light / Pastel</button>
+            <button onclick="answerQuiz('sakura')">Pink / Bright</button>
+            <button onclick="answerQuiz('yunjin')">Green / Earthy</button>
+            <button onclick="answerQuiz('kazuha')">Blue / Calm</button>
+            <button onclick="answerQuiz('eunchae')">Red / Bold</button>
+
+            <p>2. Your ideal hobby?</p>
+            <button onclick="answerQuiz('chaewon')">Reading</button>
+            <button onclick="answerQuiz('sakura')">Art / Craft</button>
+            <button onclick="answerQuiz('yunjin')">Nature Walk</button>
+            <button onclick="answerQuiz('kazuha')">Swimming / Calm</button>
+            <button onclick="answerQuiz('eunchae')">Dancing / Active</button>
+
+            <p>3. Your personality?</p>
+            <button onclick="answerQuiz('chaewon')">Calm</button>
+            <button onclick="answerQuiz('sakura')">Cute / Cheerful</button>
+            <button onclick="answerQuiz('yunjin')">Smart / Strategic</button>
+            <button onclick="answerQuiz('kazuha')">Graceful</button>
+            <button onclick="answerQuiz('eunchae')">Energetic / Bold</button>
+        </div>
+        <button onclick="closeQuiz()">Close Quiz</button>
+    </div>
+</div>
+
 <script>
 let currentBias = 'chaewon';
+let quizScores = {chaewon:0,sakura:0,yunjin:0,kazuha:0,eunchae:0};
 
 const memberData = {
     chaewon: {
@@ -216,19 +282,30 @@ function setBias(member) {
     currentBias = member;
     const data = memberData[member];
 
-    // Update page background and header
     document.body.style.backgroundColor = data.color;
+    document.body.style.color = data.accent;
+
     const header = document.getElementById('page-header');
     header.style.backgroundColor = data.accent;
     document.getElementById('header-image').src = data.header;
 
-    // Update all collections to selected bias
     document.querySelectorAll('.collection').forEach(coll => {
         const collection = coll.dataset.collection;
         const previewImg = document.getElementById(`preview-${collection}`);
         const activeLabel = document.getElementById(`collection-${collection}-active`);
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-${member}.png`;
         activeLabel.textContent = `${data.emoji} ${member.charAt(0).toUpperCase() + member.slice(1)} Version`;
+        coll.style.backgroundColor = data.accent;
+        coll.style.color = data.color;
+        coll.querySelector('select').style.backgroundColor = data.color;
+        coll.querySelector('select').style.color = data.accent;
+        activeLabel.style.backgroundColor = data.color;
+        activeLabel.style.color = data.accent;
+    });
+
+    document.querySelectorAll('.bias-selector button').forEach(btn => {
+        btn.style.backgroundColor = data.color;
+        btn.style.color = data.accent;
     });
 }
 
@@ -248,7 +325,26 @@ function selectVersion(select) {
     }
 }
 
-</script>
+/* Quiz */
+function openQuiz() {
+    document.getElementById('quiz-modal').style.display = 'flex';
+}
 
+function closeQuiz() {
+    document.getElementById('quiz-modal').style.display = 'none';
+    quizScores = {chaewon:0,sakura:0,yunjin:0,kazuha:0,eunchae:0};
+}
+
+function answerQuiz(member) {
+    quizScores[member]++;
+    const totalAnswers = Object.values(quizScores).reduce((a,b)=>a+b,0);
+    if(totalAnswers >= 3){ // quiz has 3 questions
+        const winner = Object.keys(quizScores).reduce((a,b)=> quizScores[a]>=quizScores[b]?a:b);
+        setBias(winner);
+        closeQuiz();
+        alert(`Your bias match is ${memberData[winner].emoji} ${winner.charAt(0).toUpperCase() + winner.slice(1)}!`);
+    }
+}
+</script>
 </body>
 </html>
