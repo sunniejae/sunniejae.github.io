@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunnie Jae's Fearnot Fandom Store</title>
+<title>Fandom Store with Wishlist & Quiz</title>
 <style>
 :root {
     --black: #000010;
@@ -37,9 +37,8 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 2rem;
-    transition: background-color 0.5s;
     padding-bottom: 1rem;
+    transition: background-color 0.5s;
 }
 
 header img {
@@ -50,10 +49,7 @@ header img {
     margin: 0 auto;
 }
 
-h1 {
-    font-size: 2rem;
-    margin: 1rem 0;
-}
+h1 { font-size: 2rem; margin: 1rem 0; }
 
 .store-container {
     max-width: 1200px;
@@ -80,21 +76,20 @@ h1 {
     background: rgba(255,255,255,0.1);
 }
 
-.collection-info h2 {
-    margin: 0;
+.collection-info select, .collection-info button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.collection-info select {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    font-size: 1rem;
-    transition: background-color 0.5s, color 0.5s;
-}
+.collection-info button:hover { transform: scale(1.05); }
 
 .member-bg {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     padding: 0.5rem;
     border-radius: 1rem;
     text-align: center;
@@ -102,57 +97,30 @@ h1 {
     transition: background-color 0.5s, color 0.5s;
 }
 
-.collection-info button {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 1rem;
-    cursor: pointer;
-    font-weight: bold;
-    margin-right: 0.5rem;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
-}
-
-.collection-info button:hover {
-    transform: scale(1.05);
-}
-
-/* Bias Selector */
-.bias-selector {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
+.bias-selector { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
 
 .bias-selector button {
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
     font-weight: bold;
     transition: transform 0.2s, background-color 0.5s, color 0.5s;
 }
 
-.bias-selector button:hover {
-    transform: scale(1.05);
-}
+.bias-selector button:hover { transform: scale(1.05); }
 
 /* Quiz Modal */
 #quiz-modal {
     display: none;
     position: fixed;
-    top: 0;
-    left:0;
-    width: 100%;
-    height: 100%;
+    top: 0; left:0;
+    width: 100%; height: 100%;
     background: rgba(0,0,0,0.7);
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
-
 #quiz-content {
     background: var(--white);
     color: var(--black);
@@ -162,28 +130,33 @@ h1 {
     width: 90%;
     text-align: center;
 }
+#quiz-content button { margin-top: 0.5rem; margin-right:0.5rem; padding:0.5rem 1rem; border:none; border-radius:1rem; cursor:pointer; font-weight:bold;}
+.selected-answer { outline: 3px solid yellow; }
 
-#quiz-content button {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: none;
+/* Wishlist Form */
+#wishlist-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: rgba(255,255,255,0.05);
     border-radius: 1rem;
-    cursor: pointer;
+}
+#wishlist-form input, #wishlist-form textarea, #wishlist-form button {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
     font-weight: bold;
-    margin-right: 0.5rem;
 }
-.selected-answer {
-    outline: 3px solid #ff0;
-}
+#wishlist-form button { cursor: pointer; margin-top:1rem; }
 </style>
 </head>
 <body>
 
 <header id="page-header">
-    <img id="header-image" src="https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png" alt="Member Header">
-    <h1>LE SSERAFIM Fandom Store</h1>
-    <p>Choose your bias to customize your experience!</p>
-    <p>or use our Bias Matcher</p>
+    <img id="header-image" src="https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png" alt="Header">
+    <h1>Fandom Store</h1>
 </header>
 
 <div class="bias-selector">
@@ -196,11 +169,10 @@ h1 {
 </div>
 
 <div class="store-container">
-    <!-- Example Keychain Collection -->
     <div class="collection" data-collection="keychain" data-redbubble="https://www.redbubble.com/i/keychain/example-link">
-        <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/keychain-chaewon.png" alt="Keychain Preview">
+        <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/keychain-chaewon.png" alt="Keychain">
         <div class="collection-info">
-            <h2>KEYCHAIN COLLECTION</h2>
+            <h2>Keychain Collection</h2>
             <p class="member-bg" id="collection-keychain-active">🐯 Chaewon Version</p>
             <select onchange="selectVersion(this)" data-collection="keychain">
                 <option value="ot5">OT5 Version</option>
@@ -210,170 +182,164 @@ h1 {
                 <option value="yunjin">🐍 Yunjin</option>
                 <option value="eunchae">🐣 Eunchae</option>
             </select>
-            <button onclick="addToWishlist('keychain')">Add to Wishlist</button>
-            <button onclick="openRedbubble(this)" class="redbubble-btn">Buy on Redbubble</button>
         </div>
     </div>
+</div>
 
-    <!-- Example Sticker Collection -->
-    <div class="collection" data-collection="sticker" data-redbubble="">
-        <img id="preview-sticker" src="https://sunniejae.blob.core.windows.net/sunniejae/sticker-chaewon.png" alt="Sticker Preview">
-        <div class="collection-info">
-            <h2>STICKER COLLECTION</h2>
-            <p class="member-bg" id="collection-sticker-active">🐯 Chaewon Version</p>
-            <select onchange="selectVersion(this)" data-collection="sticker">
-                <option value="ot5">OT5 Version</option>
-                <option value="chaewon">🐯 Chaewon</option>
-                <option value="sakura">🌸 Sakura</option>
-                <option value="kazuha">🦢 Kazuha</option>
-                <option value="yunjin">🐍 Yunjin</option>
-                <option value="eunchae">🐣 Eunchae</option>
-            </select>
-            <button onclick="addToWishlist('sticker')">Add to Wishlist</button>
-        </div>
-    </div>
+<!-- Wishlist Form -->
+<div id="wishlist-form">
+    <h3>Your Wishlist</h3>
+    <textarea id="wishlist-items" readonly rows="5"></textarea>
+    <input type="text" id="wishlist-name" placeholder="Your Name">
+    <input type="email" id="wishlist-email" placeholder="Your Email">
+    <button onclick="submitWishlist()">Send Wishlist</button>
 </div>
 
 <!-- Quiz Modal -->
 <div id="quiz-modal">
     <div id="quiz-content">
-        <h2>Find Your Bias!</h2>
-        <p>Answer a few questions:</p>
-        <div id="quiz-questions">
-            <p>1. Your favorite color?</p>
-            <button onclick="answerQuiz('chaewon', this)">Light / Pastel</button>
-            <button onclick="answerQuiz('sakura', this)">Pink / Bright</button>
-            <button onclick="answerQuiz('yunjin', this)">Green / Earthy</button>
-            <button onclick="answerQuiz('kazuha', this)">Blue / Calm</button>
-            <button onclick="answerQuiz('eunchae', this)">Red / Bold</button>
+        <h2>Find Your Bias</h2>
+        <p>1. Favorite Color?</p>
+        <button onclick="answerQuiz('chaewon', this)">Light / Pastel</button>
+        <button onclick="answerQuiz('sakura', this)">Pink / Bright</button>
+        <button onclick="answerQuiz('yunjin', this)">Green / Earthy</button>
+        <button onclick="answerQuiz('kazuha', this)">Blue / Calm</button>
+        <button onclick="answerQuiz('eunchae', this)">Red / Bold</button>
 
-            <p>2. Your ideal hobby?</p>
-            <button onclick="answerQuiz('chaewon', this)">Reading</button>
-            <button onclick="answerQuiz('sakura', this)">Art / Craft</button>
-            <button onclick="answerQuiz('yunjin', this)">Nature Walk</button>
-            <button onclick="answerQuiz('kazuha', this)">Swimming / Calm</button>
-            <button onclick="answerQuiz('eunchae', this)">Dancing / Active</button>
+        <p>2. Ideal Hobby?</p>
+        <button onclick="answerQuiz('chaewon', this)">Reading</button>
+        <button onclick="answerQuiz('sakura', this)">Art / Craft</button>
+        <button onclick="answerQuiz('yunjin', this)">Nature Walk</button>
+        <button onclick="answerQuiz('kazuha', this)">Swimming</button>
+        <button onclick="answerQuiz('eunchae', this)">Dancing</button>
 
-            <p>3. Your personality?</p>
-            <button onclick="answerQuiz('chaewon', this)">Calm</button>
-            <button onclick="answerQuiz('sakura', this)">Cute / Cheerful</button>
-            <button onclick="answerQuiz('yunjin', this)">Smart / Strategic</button>
-            <button onclick="answerQuiz('kazuha', this)">Graceful</button>
-            <button onclick="answerQuiz('eunchae', this)">Energetic / Bold</button>
-        </div>
+        <p>3. Personality?</p>
+        <button onclick="answerQuiz('chaewon', this)">Calm</button>
+        <button onclick="answerQuiz('sakura', this)">Cheerful</button>
+        <button onclick="answerQuiz('yunjin', this)">Strategic</button>
+        <button onclick="answerQuiz('kazuha', this)">Graceful</button>
+        <button onclick="answerQuiz('eunchae', this)">Bold</button>
+
         <button onclick="closeQuiz()">Close Quiz</button>
     </div>
 </div>
 
 <script>
+// ===== MEMBER THEME DATA =====
 let currentBias = 'chaewon';
 let quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
-let wishlist = [];
-
 const memberData = {
-    chaewon: {color:'var(--chaewon)', accent:'var(--chaewon-dark)', header:'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png', emoji:'🐯'},
-    sakura: {color:'var(--sakura)', accent:'var(--sakura-dark)', header:'https://sunniejae.blob.core.windows.net/sunniejae/sakura.png', emoji:'🌸'},
-    yunjin: {color:'var(--yunjin)', accent:'var(--yunjin-dark)', header:'https://sunniejae.blob.core.windows.net/sunniejae/yunjin.png', emoji:'🐍'},
-    kazuha: {color:'var(--kazuha)', accent:'var(--kazuha-dark)', header:'https://sunniejae.blob.core.windows.net/sunniejae/kazuha.png', emoji:'🦢'},
-    eunchae: {color:'var(--eunchae)', accent:'var(--eunchae-dark)', header:'https://sunniejae.blob.core.windows.net/sunniejae/eunchae.png', emoji:'🐣'}
+    chaewon: { color: 'var(--chaewon)', accent: 'var(--chaewon-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png', emoji: '🐯' },
+    sakura:  { color: 'var(--sakura)', accent: 'var(--sakura-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/sakura.png', emoji: '🌸' },
+    yunjin:  { color: 'var(--yunjin)', accent: 'var(--yunjin-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/yunjin.png', emoji: '🐍' },
+    kazuha:  { color: 'var(--kazuha)', accent: 'var(--kazuha-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/kazuha.png', emoji: '🦢' },
+    eunchae: { color: 'var(--eunchae)', accent: 'var(--eunchae-dark)', header: 'https://sunniejae.blob.core.windows.net/sunniejae/eunchae.png', emoji: '🐣' }
 };
 
-function setBias(member){
-    currentBias=member;
-    const data=memberData[member];
-    document.body.style.backgroundColor=data.color;
-    document.body.style.color=data.accent;
-    const header=document.getElementById('page-header');
-    header.style.backgroundColor=data.accent;
-    document.getElementById('header-image').src=data.header;
+// ===== WISHLIST DATA =====
+let wishlistItems = [];
 
-    document.querySelectorAll('.collection').forEach(coll=>{
+// ===== BIAS THEME FUNCTION =====
+function setBias(member) {
+    currentBias = member;
+    const data = memberData[member];
+
+    document.body.style.backgroundColor = data.color;
+    document.body.style.color = data.accent;
+
+    const header = document.getElementById('page-header');
+    header.style.backgroundColor = data.accent;
+    document.getElementById('header-image').src = data.header;
+
+    document.querySelectorAll('.collection').forEach(coll => {
         const collection = coll.dataset.collection;
         const previewImg = document.getElementById(`preview-${collection}`);
         const activeLabel = document.getElementById(`collection-${collection}-active`);
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-${member}.png`;
-        activeLabel.textContent=`${data.emoji} ${member.charAt(0).toUpperCase()+member.slice(1)} Version`;
-        coll.style.backgroundColor=data.accent;
-        coll.style.color=data.color;
-        coll.querySelector('select').style.backgroundColor=data.color;
-        coll.querySelector('select').style.color=data.accent;
-        activeLabel.style.backgroundColor=data.color;
-        activeLabel.style.color=data.accent;
-        coll.querySelectorAll('button').forEach(btn=>{
-            btn.style.backgroundColor=data.color;
-            btn.style.color=data.accent;
-        });
+        activeLabel.textContent = `${data.emoji} ${capitalize(member)} Version`;
+        coll.style.backgroundColor = data.accent;
+        coll.style.color = data.color;
+        coll.querySelector('select').style.backgroundColor = data.color;
+        coll.querySelector('select').style.color = data.accent;
+        activeLabel.style.backgroundColor = data.color;
+        activeLabel.style.color = data.accent;
+
+        updateWishlist(collection, activeLabel.textContent);
     });
 
-    document.querySelectorAll('.bias-selector button').forEach(btn=>{
-        btn.style.backgroundColor=data.color;
-        btn.style.color=data.accent;
+    document.querySelectorAll('.bias-selector button').forEach(btn => {
+        btn.style.backgroundColor = data.color;
+        btn.style.color = data.accent;
     });
 }
 
-function selectVersion(select){
+// ===== PRODUCT SELECTION FUNCTION =====
+function selectVersion(select) {
     const collection = select.dataset.collection;
     const previewImg = document.getElementById(`preview-${collection}`);
     const activeLabel = document.getElementById(`collection-${collection}-active`);
     const value = select.value;
-    if(value==='ot5'){
+    let versionLabel = '';
+
+    if(value === 'ot5'){
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-ot5.png`;
-        activeLabel.textContent='OT5 Version';
+        versionLabel = 'OT5 Version';
     } else {
         const data = memberData[value];
         previewImg.src = `https://sunniejae.blob.core.windows.net/sunniejae/${collection}-${value}.png`;
-        activeLabel.textContent = `${data.emoji} ${value.charAt(0).toUpperCase()+value.slice(1)} Version`;
+        versionLabel = `${data.emoji} ${capitalize(value)} Version`;
+    }
+    activeLabel.textContent = versionLabel;
+    updateWishlist(collection, versionLabel);
+}
+
+// ===== WISHLIST FUNCTIONS =====
+function updateWishlist(collection, versionLabel) {
+    wishlistItems = wishlistItems.filter(item => !item.startsWith(collection + ':'));
+    wishlistItems.push(`${collection}: ${versionLabel}`);
+    const wishlistTextarea = document.getElementById('wishlist-items');
+    if(wishlistTextarea){
+        wishlistTextarea.value = wishlistItems.join('\n');
     }
 }
 
-/* Wishlist */
-function addToWishlist(collection){
-    const select = document.querySelector(`.collection[data-collection="${collection}"] select`);
-    const version = select.value;
-    const label = document.getElementById(`collection-${collection}-active`).textContent;
-    const wishlistItem = `${collection}: ${label}`;
-    wishlist.push(wishlistItem);
-    alert(`${wishlistItem} added to your wishlist!`);
-}
+function submitWishlist() {
+    const name = document.getElementById('wishlist-name').value.trim();
+    const email = document.getElementById('wishlist-email').value.trim();
 
-function sendWishlist(){
-    const name = prompt("Enter your name:");
-    const email = prompt("Enter your contact email:");
-    if(!name || !email){
-        alert("Name and email are required.");
+    if(!name || !email || wishlistItems.length === 0){
+        alert("Please fill in your name, email, and select at least one item.");
         return;
     }
-    const body = `Wishlist for ${name} (${email}):\n\n` + wishlist.join("\n");
-    window.location.href = `mailto:youremail@example.com?subject=Wishlist&body=${encodeURIComponent(body)}`;
+
+    const subject = encodeURIComponent(`Wishlist from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nWishlist:\n${wishlistItems.join('\n')}`);
+    window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
 }
 
-/* Redbubble */
-function openRedbubble(button){
-    const collectionDiv = button.closest('.collection');
-    const url = collectionDiv.dataset.redbubble;
-    if(url) window.open(url,'_blank');
-    else alert('This item is not available on Redbubble.');
-}
-
-/* Quiz */
-function openQuiz(){ document.getElementById('quiz-modal').style.display='flex'; }
-function closeQuiz(){ 
+// ===== QUIZ FUNCTIONS =====
+function openQuiz() { document.getElementById('quiz-modal').style.display='flex'; }
+function closeQuiz() { 
     document.getElementById('quiz-modal').style.display='none';
-    quizScores={chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
-    document.querySelectorAll('#quiz-content button').forEach(btn=>btn.classList.remove('selected-answer'));
+    quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
+    document.querySelectorAll('#quiz-content button').forEach(btn => btn.style.backgroundColor = '');
 }
-function answerQuiz(member, btn){
+function answerQuiz(member, button) {
     quizScores[member]++;
-    btn.classList.add('selected-answer');
+    button.style.backgroundColor = memberData[member].accent;
+    button.style.color = memberData[member].color;
+
     const totalAnswers = Object.values(quizScores).reduce((a,b)=>a+b,0);
-    if(totalAnswers>=3){
-        const winner=Object.keys(quizScores).reduce((a,b)=>quizScores[a]>=quizScores[b]?a:b);
+    if(totalAnswers >= 3){
+        const winner = Object.keys(quizScores).reduce((a,b)=> quizScores[a]>=quizScores[b]?a:b);
         setBias(winner);
         closeQuiz();
-        alert(`Your bias match is ${memberData[winner].emoji} ${winner.charAt(0).toUpperCase()+winner.slice(1)}!`);
+        alert(`Your bias match is ${memberData[winner].emoji} ${capitalize(winner)}!`);
     }
 }
 
+// ===== HELPER =====
+function capitalize(str){ return str.charAt(0).toUpperCase() + str.slice(1); }
 </script>
 </body>
 </html>
