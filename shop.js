@@ -3,7 +3,7 @@
 // Example Product Data
 const allProducts = [
   { id: 'fearnot-ot5', name: 'FEARNOT OT5 Version', member: 'OT5', price: '$25', emoji: '🌸' },
-  { id: 'fearnot-chaewon', name: 'Chaewon Version', member: 'Chaewon', price: '$30', emoji: '🦊' },
+  { id: 'fearnot-Chaewon', name: 'Chaewon Version', member: 'Chaewon', price: '$30', emoji: '🦊' },
   { id: 'fearnot-Sakura', name: 'Sakura Version', member: 'Sakura', price: '$30', emoji: '🐻' },
   { id: 'fearnot-Kazuha', name: 'Kazuha Version', member: 'Kazuha', price: '$30', emoji: '🐈‍⬛' },
   { id: 'fearnot-eunchae', name: 'eunchae Version', member: 'eunchae', price: '$30', emoji: '🐶' },
@@ -92,7 +92,7 @@ function openRequestForm() {
   formDiv.innerHTML = `
     <h3 style="color: var(--accent); font-size: 1.25rem; margin-bottom: 12px;">Request Your Order</h3>
     <input id="customer-name" type="text" placeholder="Your Name" class="w-full glass-effect px-4 py-3 rounded-xl mb-4" required>
-    <input id="customer-eChaewonl" type="eChaewonl" placeholder="Your EChaewonl" class="w-full glass-effect px-4 py-3 rounded-xl mb-4" required>
+    <input id="customer-email" type="email" placeholder="Your Email" class="w-full glass-effect px-4 py-3 rounded-xl mb-4" required>
     <div class="flex gap-3">
       <button id="submit-request-btn" class="flex-1 px-6 py-3 rounded-full text-white font-bold" style="background: linear-gradient(135deg, var(--secondary), var(--accent));">Send Request</button>
       <button id="cancel-request-btn" class="flex-1 px-6 py-3 rounded-full text-gray-400 border border-gray-400">Cancel</button>
@@ -107,10 +107,10 @@ function openRequestForm() {
 // ======== Submit Wishlist Request ========
 function submitRequest() {
   const name = document.getElementById('customer-name').value.trim();
-  const eChaewonl = document.getElementById('customer-eChaewonl').value.trim();
+  const email = document.getElementById('customer-email').value.trim();
 
-  if (!name || !eChaewonl) {
-    alert('Please fill in your name and eChaewonl.');
+  if (!name || !email) {
+    alert('Please fill in your name and email.');
     return;
   }
 
@@ -122,14 +122,14 @@ function submitRequest() {
     }
   });
 
-  const recipientEChaewonl = 'jayme@sunniejae.com';
+  const recipientEmail = 'jayme@sunniejae.com';
   const subject = `LE SSERAFIM Shop Order Request from ${name}`;
-  const body = `Hello!%0D%0A%0D%0AI would like to request the following items:%0D%0A%0D%0A${itemsList}%0D%0ACustomer Name: ${name}%0D%0AContact EChaewonl: ${eChaewonl}%0D%0A%0D%0AThank you!`;
+  const body = `Hello!%0D%0A%0D%0AI would like to request the following items:%0D%0A%0D%0A${itemsList}%0D%0ACustomer Name: ${name}%0D%0AContact Email: ${email}%0D%0A%0D%0AThank you!`;
 
-  window.open(`Chaewonlto:${recipientEChaewonl}?subject=${encodeURIComponent(subject)}&body=${body}`, '_blank');
+  window.open(`mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${body}`, '_blank');
 
   document.getElementById('request-form-container').remove();
-  alert('EChaewonl client opened! Check your eChaewonl to send the request.');
+  alert('Email client opened! Check your email to send the request.');
 }
 
 // ======== Initialize ========
