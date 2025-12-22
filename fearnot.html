@@ -173,14 +173,14 @@
     let commentsData = [];
 
     const allProducts = [
-      // OT6 versions
-      { id: "ot6-1", name: "Spaghetti Stickers", member: "OT6", price: "$8", emoji: "🍝", category: "stickers" },
-      { id: "ot6-2", name: "Spaghetti Keychain", member: "OT6", price: "$12", emoji: "🍝", category: "keychain" },
-      { id: "ot6-3", name: "Lightstick Keychain", member: "OT6", price: "$15", emoji: "✨", category: "keychain" },
-      { id: "ot6-4", name: "Lightstick Stickers", member: "OT6", price: "$10", emoji: "💡", category: "stickers" },
-      { id: "ot6-5", name: "Autograph Shirts", member: "OT6", price: "$35", emoji: "👕", category: "apparel" },
-      { id: "ot6-6", name: "FEARNOT Stickers", member: "OT6", price: "$8", emoji: "💙", category: "stickers" },
-      { id: "ot6-7", name: "FIMMIE Meme Stickers", member: "OT6", price: "$7", emoji: "😆", category: "meme" },
+      // OT5 versions
+      { id: "ot6-1", name: "Spaghetti Stickers", member: "OT5", price: "$8", emoji: "🍝", category: "stickers" },
+      { id: "ot6-2", name: "Spaghetti Keychain", member: "OT5", price: "$12", emoji: "🍝", category: "keychain" },
+      { id: "ot6-3", name: "Lightstick Keychain", member: "OT5", price: "$15", emoji: "✨", category: "keychain" },
+      { id: "ot6-4", name: "Lightstick Stickers", member: "OT5", price: "$10", emoji: "💡", category: "stickers" },
+      { id: "ot6-5", name: "Autograph Shirts", member: "OT5", price: "$35", emoji: "👕", category: "apparel" },
+      { id: "ot6-6", name: "FEARNOT Stickers", member: "OT5", price: "$8", emoji: "💙", category: "stickers" },
+      { id: "ot6-7", name: "FIMMIE Meme Stickers", member: "OT5", price: "$7", emoji: "😆", category: "meme" },
       
       // Sakura versions
       { id: "sakura-1", name: "Sakura Spaghetti Stickers", member: "Sakura", price: "$8", emoji: "🌸", category: "stickers" },
@@ -201,31 +201,31 @@
       { id: "chaewon-7", name: "Chaewon FIMMIE Meme", member: "Chaewon", price: "$7", emoji: "🦢", category: "meme" },
       
       // Yunjin versions
-      { id: "yunjin-1", name: "Yunjin Spaghetti Stickers", member: "Yunjin", price: "$8", emoji: "🎤", category: "stickers" },
-      { id: "yunjin-2", name: "Yunjin Spaghetti Keychain", member: "Yunjin", price: "$12", emoji: "🎤", category: "keychain" },
-      { id: "yunjin-3", name: "Yunjin Lightstick Keychain", member: "Yunjin", price: "$15", emoji: "🎤", category: "keychain" },
-      { id: "yunjin-4", name: "Yunjin Lightstick Stickers", member: "Yunjin", price: "$10", emoji: "🎤", category: "stickers" },
-      { id: "yunjin-5", name: "Yunjin Autograph Shirt", member: "Yunjin", price: "$35", emoji: "🎤", category: "apparel" },
-      { id: "yunjin-6", name: "Yunjin FEARNOT Stickers", member: "Yunjin", price: "$8", emoji: "🎤", category: "stickers" },
-      { id: "yunjin-7", name: "Yunjin FIMMIE Meme", member: "Yunjin", price: "$7", emoji: "🎤", category: "meme" },
+      { id: "yunjin-1", name: "Yunjin Spaghetti Stickers", member: "Yunjin", price: "$8", emoji: "🐍", category: "stickers" },
+      { id: "yunjin-2", name: "Yunjin Spaghetti Keychain", member: "Yunjin", price: "$12", emoji: "🐍", category: "keychain" },
+      { id: "yunjin-3", name: "Yunjin Lightstick Keychain", member: "Yunjin", price: "$15", emoji: "🐍", category: "keychain" },
+      { id: "yunjin-4", name: "Yunjin Lightstick Stickers", member: "Yunjin", price: "$10", emoji: "🐍", category: "stickers" },
+      { id: "yunjin-5", name: "Yunjin Autograph Shirt", member: "Yunjin", price: "$35", emoji: "🐍", category: "apparel" },
+      { id: "yunjin-6", name: "Yunjin FEARNOT Stickers", member: "Yunjin", price: "$8", emoji: "🐍", category: "stickers" },
+      { id: "yunjin-7", name: "Yunjin FIMMIE Meme", member: "Yunjin", price: "$7", emoji: "🐍", category: "meme" },
       
       // Kazuha versions
-      { id: "kazuha-1", name: "Kazuha Spaghetti Stickers", member: "Kazuha", price: "$8", emoji: "🩰", category: "stickers" },
-      { id: "kazuha-2", name: "Kazuha Spaghetti Keychain", member: "Kazuha", price: "$12", emoji: "🩰", category: "keychain" },
-      { id: "kazuha-3", name: "Kazuha Lightstick Keychain", member: "Kazuha", price: "$15", emoji: "🩰", category: "keychain" },
-      { id: "kazuha-4", name: "Kazuha Lightstick Stickers", member: "Kazuha", price: "$10", emoji: "🩰", category: "stickers" },
-      { id: "kazuha-5", name: "Kazuha Autograph Shirt", member: "Kazuha", price: "$35", emoji: "🩰", category: "apparel" },
-      { id: "kazuha-6", name: "Kazuha FEARNOT Stickers", member: "Kazuha", price: "$8", emoji: "🩰", category: "stickers" },
-      { id: "kazuha-7", name: "Kazuha FIMMIE Meme", member: "Kazuha", price: "$7", emoji: "🩰", category: "meme" },
+      { id: "kazuha-1", name: "Kazuha Spaghetti Stickers", member: "Kazuha", price: "$8", emoji: "🦢", category: "stickers" },
+      { id: "kazuha-2", name: "Kazuha Spaghetti Keychain", member: "Kazuha", price: "$12", emoji: "🦢", category: "keychain" },
+      { id: "kazuha-3", name: "Kazuha Lightstick Keychain", member: "Kazuha", price: "$15", emoji: "🦢", category: "keychain" },
+      { id: "kazuha-4", name: "Kazuha Lightstick Stickers", member: "Kazuha", price: "$10", emoji: "🦢", category: "stickers" },
+      { id: "kazuha-5", name: "Kazuha Autograph Shirt", member: "Kazuha", price: "$35", emoji: "🦢", category: "apparel" },
+      { id: "kazuha-6", name: "Kazuha FEARNOT Stickers", member: "Kazuha", price: "$8", emoji: "🦢", category: "stickers" },
+      { id: "kazuha-7", name: "Kazuha FIMMIE Meme", member: "Kazuha", price: "$7", emoji: "🦢", category: "meme" },
       
       // Eunchae versions
-      { id: "eunchae-1", name: "Eunchae Spaghetti Stickers", member: "Eunchae", price: "$8", emoji: "🐱", category: "stickers" },
-      { id: "eunchae-2", name: "Eunchae Spaghetti Keychain", member: "Eunchae", price: "$12", emoji: "🐱", category: "keychain" },
-      { id: "eunchae-3", name: "Eunchae Lightstick Keychain", member: "Eunchae", price: "$15", emoji: "🐱", category: "keychain" },
-      { id: "eunchae-4", name: "Eunchae Lightstick Stickers", member: "Eunchae", price: "$10", emoji: "🐱", category: "stickers" },
-      { id: "eunchae-5", name: "Eunchae Autograph Shirt", member: "Eunchae", price: "$35", emoji: "🐱", category: "apparel" },
-      { id: "eunchae-6", name: "Eunchae FEARNOT Stickers", member: "Eunchae", price: "$8", emoji: "🐱", category: "stickers" },
-      { id: "eunchae-7", name: "Eunchae FIMMIE Meme", member: "Eunchae", price: "$7", emoji: "🐱", category: "meme" }
+      { id: "eunchae-1", name: "Eunchae Spaghetti Stickers", member: "Eunchae", price: "$8", emoji: "🐣", category: "stickers" },
+      { id: "eunchae-2", name: "Eunchae Spaghetti Keychain", member: "Eunchae", price: "$12", emoji: "🐣", category: "keychain" },
+      { id: "eunchae-3", name: "Eunchae Lightstick Keychain", member: "Eunchae", price: "$15", emoji: "🐣", category: "keychain" },
+      { id: "eunchae-4", name: "Eunchae Lightstick Stickers", member: "Eunchae", price: "$10", emoji: "🐣", category: "stickers" },
+      { id: "eunchae-5", name: "Eunchae Autograph Shirt", member: "Eunchae", price: "$35", emoji: "🐣", category: "apparel" },
+      { id: "eunchae-6", name: "Eunchae FEARNOT Stickers", member: "Eunchae", price: "$8", emoji: "🐣", category: "stickers" },
+      { id: "eunchae-7", name: "Eunchae FIMMIE Meme", member: "Eunchae", price: "$7", emoji: "🐣", category: "meme" }
     ];
     
     let currentBias = null;
