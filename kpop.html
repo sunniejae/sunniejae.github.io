@@ -271,10 +271,7 @@ function showResult(){
   for(const member in memberScores){if(memberScores[member]>maxScore){maxScore=memberScores[member]; topMember=member;}}
   document.getElementById('quizResultText').textContent=`Your bias is ${topMember}! 🥰`;
   setMemberTheme(topMember);
-  document.getElementById('quizModalIt looks like the message was cut off before the end of the file. I can finish the HTML and JS so that your **bias quiz results modal works** and the file is fully functional with the carousel-per-collection setup. Here’s the completion for the end of the script and closing tags:
-
-```html
-.style.display='none';
+  document.getElementById('quizModal').style.display='none';
   document.getElementById('quizResultModal').style.display='flex';
 }
 function closeResult(){document.getElementById('quizResultModal').style.display='none';}
