@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sunnie Jae's Fearnot Fandom Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
 :root {
     --black: #000010;
@@ -27,10 +30,13 @@
 
 body {
     margin: 0;
-    font-family: system-ui, sans-serif;
+    font-family: 'Quicksand', 'Comfortaa', system-ui, sans-serif;
     background-color: var(--black);
     color: var(--base);
     transition: background-color 0.5s, color 0.5s;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
 }
 
 header {
@@ -38,6 +44,30 @@ header {
     margin-bottom: 2rem;
     padding: 2rem 1rem 1rem;
     transition: background-color 0.5s;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '✨';
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+header::after {
+    content: '💫';
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.1;
+    right: 10%;
+    animation: float 5s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
 }
 
 header img {
@@ -46,16 +76,67 @@ header img {
     height: auto;
     display: block;
     margin: 0 auto;
-    border-radius: 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+header img:hover {
+    transform: scale(1.02);
 }
 
 h1 {
-    font-size: 2rem;
-    margin: 1rem 0 0.5rem;
+    font-family: 'Pacifico', 'Comfortaa', cursive;
+    font-size: 2.5rem;
+    margin: 1.5rem 0 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+}
+
+h3 {
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
 }
 
 header p {
     margin: 0.25rem 0;
+}
+
+header p:last-of-type {
+    margin-bottom: 1rem;
+}
+
+.bias-section {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding: 0 1rem;
+}
+
+.bias-selection {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.bias-selection h3 {
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+}
+
+.bias-matcher {
+    text-align: center;
+    padding: 1.5rem 0;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.bias-matcher p {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    opacity: 0.9;
 }
 
 .store-container {
@@ -71,8 +152,27 @@ header p {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     padding: 2rem;
-    border-radius: 1.5rem;
-    transition: background-color 0.5s;
+    border-radius: 2rem;
+    transition: background-color 0.5s, transform 0.3s;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.collection::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.collection:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -87,9 +187,43 @@ header p {
     max-width: 250px;
     height: 250px;
     object-fit: contain;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     background: rgba(255, 255, 255, 0.1);
     margin: 0 auto;
+    transition: opacity 0.3s, transform 0.3s;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+}
+
+.collection img:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+.collection img[src=""] {
+    opacity: 0.3;
+}
+
+.collection img:not([src]), .collection img[src=""] {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    background-size: 200% 200%;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .collection-info h2 {
@@ -120,23 +254,42 @@ header p {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     flex-wrap: wrap;
     padding: 0 1rem;
 }
 
 .bias-selector button {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 1rem;
-    border: none;
+    border: 2px solid transparent;
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
-    transition: transform 0.2s, background-color 0.3s;
+    transition: transform 0.2s, background-color 0.3s, border-color 0.3s;
 }
 
 .bias-selector button:hover {
     transform: scale(1.05);
+    border-color: currentColor;
+}
+
+.bias-matcher-btn {
+    padding: 0.75rem 2rem;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #6c5b7b 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bias-matcher-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 #quiz-modal {
@@ -160,12 +313,167 @@ header p {
     background: var(--white);
     color: var(--black);
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: 2rem;
     max-width: 500px;
     width: 90%;
     text-align: center;
     max-height: 90vh;
     overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: popIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#result-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    backdrop-filter: blur(10px);
+}
+
+#result-modal.active {
+    display: flex;
+}
+
+#result-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: var(--black);
+    padding: 3rem 2rem;
+    border-radius: 2.5rem;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+    animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    overflow: hidden;
+}
+
+#result-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(135deg, var(--result-color, #ff6b9d) 0%, var(--result-accent, #c06c84) 100%);
+    border-radius: 2.5rem 2.5rem 0 0;
+    z-index: 0;
+}
+
+#result-content h2 {
+    position: relative;
+    z-index: 1;
+    color: white;
+    font-size: 2rem;
+    margin: 0 0 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#result-emoji {
+    position: relative;
+    z-index: 1;
+    font-size: 4rem;
+    margin: 0.5rem 0;
+    animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+#result-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 6px solid white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin: 1.5rem auto;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+}
+
+#result-name {
+    position: relative;
+    z-index: 1;
+    font-size: 2.5rem;
+    font-family: 'Pacifico', cursive;
+    margin: 1rem 0 0.5rem;
+    background: linear-gradient(135deg, var(--result-color, #ff6b9d), var(--result-accent, #c06c84));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#result-description {
+    position: relative;
+    z-index: 1;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    margin: 1.5rem 0;
+    padding: 0 1rem;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#result-traits {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.trait-tag {
+    background: var(--result-color, #ff6b9d);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#result-content button {
+    position: relative;
+    z-index: 1;
+    margin-top: 1.5rem;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, var(--result-color, #ff6b9d), var(--result-accent, #c06c84));
+    color: white;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#result-content button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 #quiz-content h2 {
@@ -254,6 +562,55 @@ header p {
 .redbubble-btn:hover {
     transform: scale(1.02);
 }
+
+.wishlist-btn {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: 2px solid currentColor;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    background: transparent;
+    color: inherit;
+    font-size: 1rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.wishlist-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.2;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.wishlist-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.02);
+}
+
+.wishlist-btn.added {
+    background: currentColor;
+    color: white;
+    border-color: currentColor;
+}
+
+.wishlist-btn.added::after {
+    content: ' ✓';
+}
 </style>
 </head>
 <body>
@@ -261,23 +618,31 @@ header p {
 <header id="page-header">
     <img id="header-image" src="https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png" alt="Member Header">
     <h1>LE SSERAFIM Fandom Store</h1>
-    <p>Choose your bias to customize your experience!</p>
-    <p>or use our Bias Matcher</p>
+    <p>Welcome to the official Fearnot merch experience!</p>
 </header>
 
-<div class="bias-selector">
-    <button onclick="setBias('chaewon')">🐯 Chaewon</button>
-    <button onclick="setBias('sakura')">🌸 Sakura</button>
-    <button onclick="setBias('yunjin')">🐍 Yunjin</button>
-    <button onclick="setBias('kazuha')">🦢 Kazuha</button>
-    <button onclick="setBias('eunchae')">🐣 Eunchae</button>
-    <button onclick="openQuiz()">💞 Bias Matcher</button>
+<div class="bias-section">
+    <div class="bias-selection">
+        <h3>Choose Your Bias</h3>
+        <div class="bias-selector">
+            <button onclick="setBias('chaewon')">🐯 Chaewon</button>
+            <button onclick="setBias('sakura')">🌸 Sakura</button>
+            <button onclick="setBias('yunjin')">🐍 Yunjin</button>
+            <button onclick="setBias('kazuha')">🦢 Kazuha</button>
+            <button onclick="setBias('eunchae')">🐣 Eunchae</button>
+        </div>
+    </div>
+    
+    <div class="bias-matcher">
+        <p>Not sure who your bias is?</p>
+        <button class="bias-matcher-btn" onclick="openQuiz()">💞 Take the Bias Matcher Quiz</button>
+    </div>
 </div>
 
 <div class="store-container">
     <!-- KEYCHAIN -->
     <div class="collection" id="collection-keychain" data-collection="keychain">
-        <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/keychain-chaewon.png" alt="Keychain">
+        <img id="preview-keychain" src="https://sunniejae.blob.core.windows.net/sunniejae/keychain-chaewon.png" alt="Keychain" onerror="this.src='https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png'">
         <div class="collection-info">
             <h2>Keychain Collection</h2>
             <p class="member-bg" id="collection-keychain-active">🐯 Chaewon Version</p>
@@ -289,13 +654,14 @@ header p {
                 <option value="yunjin">🐍 Yunjin</option>
                 <option value="eunchae">🐣 Eunchae</option>
             </select>
+            <button class="wishlist-btn" onclick="addToWishlist('keychain')">💖 Add to Wishlist</button>
             <button class="redbubble-btn" onclick="openRedbubble('keychain')">Buy on Redbubble</button>
         </div>
     </div>
 
     <!-- STICKER -->
     <div class="collection" id="collection-sticker" data-collection="sticker">
-        <img id="preview-sticker" src="https://sunniejae.blob.core.windows.net/sunniejae/sticker-chaewon.png" alt="Sticker">
+        <img id="preview-sticker" src="https://sunniejae.blob.core.windows.net/sunniejae/sticker-chaewon.png" alt="Sticker" onerror="this.src='https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png'">
         <div class="collection-info">
             <h2>Sticker Collection</h2>
             <p class="member-bg" id="collection-sticker-active">🐯 Chaewon Version</p>
@@ -307,8 +673,98 @@ header p {
                 <option value="yunjin">🐍 Yunjin</option>
                 <option value="eunchae">🐣 Eunchae</option>
             </select>
+            <button class="wishlist-btn" onclick="addToWishlist('sticker')">💖 Add to Wishlist</button>
             <button class="redbubble-btn" onclick="openRedbubble('sticker')">Buy on Redbubble</button>
         </div>
+    </div>
+
+    <!-- POSTER -->
+    <div class="collection" id="collection-poster" data-collection="poster">
+        <img id="preview-poster" src="https://sunniejae.blob.core.windows.net/sunniejae/poster-chaewon.png" alt="Poster" onerror="this.src='https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png'">
+        <div class="collection-info">
+            <h2>Poster Collection</h2>
+            <p class="member-bg" id="collection-poster-active">🐯 Chaewon Version</p>
+            <select onchange="selectVersion(this)" data-collection="poster">
+                <option value="ot5">OT5 Version</option>
+                <option value="chaewon" selected>🐯 Chaewon</option>
+                <option value="sakura">🌸 Sakura</option>
+                <option value="kazuha">🦢 Kazuha</option>
+                <option value="yunjin">🐍 Yunjin</option>
+                <option value="eunchae">🐣 Eunchae</option>
+            </select>
+            <button class="wishlist-btn" onclick="addToWishlist('poster')">💖 Add to Wishlist</button>
+            <button class="redbubble-btn" onclick="openRedbubble('poster')">Buy on Redbubble</button>
+        </div>
+    </div>
+
+    <!-- PHONE CASE -->
+    <div class="collection" id="collection-phonecase" data-collection="phonecase">
+        <img id="preview-phonecase" src="https://sunniejae.blob.core.windows.net/sunniejae/phonecase-chaewon.png" alt="Phone Case" onerror="this.src='https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png'">
+        <div class="collection-info">
+            <h2>Phone Case Collection</h2>
+            <p class="member-bg" id="collection-phonecase-active">🐯 Chaewon Version</p>
+            <select onchange="selectVersion(this)" data-collection="phonecase">
+                <option value="ot5">OT5 Version</option>
+                <option value="chaewon" selected>🐯 Chaewon</option>
+                <option value="sakura">🌸 Sakura</option>
+                <option value="kazuha">🦢 Kazuha</option>
+                <option value="yunjin">🐍 Yunjin</option>
+                <option value="eunchae">🐣 Eunchae</option>
+            </select>
+            <button class="wishlist-btn" onclick="addToWishlist('phonecase')">💖 Add to Wishlist</button>
+            <button class="redbubble-btn" onclick="openRedbubble('phonecase')">Buy on Redbubble</button>
+        </div>
+    </div>
+
+    <!-- TOTE BAG -->
+    <div class="collection" id="collection-totebag" data-collection="totebag">
+        <img id="preview-totebag" src="https://sunniejae.blob.core.windows.net/sunniejae/totebag-chaewon.png" alt="Tote Bag" onerror="this.src='https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png'">
+        <div class="collection-info">
+            <h2>Tote Bag Collection</h2>
+            <p class="member-bg" id="collection-totebag-active">🐯 Chaewon Version</p>
+            <select onchange="selectVersion(this)" data-collection="totebag">
+                <option value="ot5">OT5 Version</option>
+                <option value="chaewon" selected>🐯 Chaewon</option>
+                <option value="sakura">🌸 Sakura</option>
+                <option value="kazuha">🦢 Kazuha</option>
+                <option value="yunjin">🐍 Yunjin</option>
+                <option value="eunchae">🐣 Eunchae</option>
+            </select>
+            <button class="wishlist-btn" onclick="addToWishlist('totebag')">💖 Add to Wishlist</button>
+            <button class="redbubble-btn" onclick="openRedbubble('totebag')">Buy on Redbubble</button>
+        </div>
+    </div>
+
+    <!-- T-SHIRT -->
+    <div class="collection" id="collection-tshirt" data-collection="tshirt">
+        <img id="preview-tshirt" src="https://sunniejae.blob.core.windows.net/sunniejae/tshirt-chaewon.png" alt="T-Shirt" onerror="this.src='https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png'">
+        <div class="collection-info">
+            <h2>T-Shirt Collection</h2>
+            <p class="member-bg" id="collection-tshirt-active">🐯 Chaewon Version</p>
+            <select onchange="selectVersion(this)" data-collection="tshirt">
+                <option value="ot5">OT5 Version</option>
+                <option value="chaewon" selected>🐯 Chaewon</option>
+                <option value="sakura">🌸 Sakura</option>
+                <option value="kazuha">🦢 Kazuha</option>
+                <option value="yunjin">🐍 Yunjin</option>
+                <option value="eunchae">🐣 Eunchae</option>
+            </select>
+            <button class="wishlist-btn" onclick="addToWishlist('tshirt')">💖 Add to Wishlist</button>
+            <button class="redbubble-btn" onclick="openRedbubble('tshirt')">Buy on Redbubble</button>
+        </div>
+    </div>
+</div>
+
+<!-- RESULT MODAL -->
+<div id="result-modal">
+    <div id="result-content">
+        <h2>Your Perfect Match!</h2>
+        <div id="result-emoji">💖</div>
+        <img id="result-image" src="" alt="Your Bias">
+        <div id="result-name"></div>
+        <p id="result-description"></p>
+        <div id="result-traits"></div>
+        <button onclick="closeResult()">Start Shopping! ✨</button>
     </div>
 </div>
 
