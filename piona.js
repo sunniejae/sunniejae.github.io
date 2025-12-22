@@ -158,6 +158,33 @@ function answerQuiz(member) {
         alert(`Your bias match is ${memberData[winner].emoji} ${capitalize(winner)}!`);
     }
 }
+// Keep track of selected answers per question
+let selectedQuizButtons = {};
+
+// Update answerQuiz function
+function answerQuiz(member, btn) {
+    // Deselect previously selected button for this question
+    const questionIndex = btn.parentNode.querySelectorAll('button').indexOf(btn);
+    if(selectedQuizButtons[questionIndex]){
+        selectedQuizButtons[questionIndex].style.backgroundColor = '';
+        selectedQuizButtons[questionIndex].style.color = '';
+    }
+
+    // Highlight current button with member theme
+    btn.style.backgroundColor = memberData[member].accent;
+    btn.style.color = memberData[member].color;
+    selectedQuizButtons[questionIndex] = btn;
+
+    // Add score
+    quizScores[member]++;
+    const totalAnswers = Object.values(quizScores).reduce((a,b)=>a+b,0);
+    if(totalAnswers >= 3){ // quiz has 3 questions
+        const winner = Object.keys(quizScores).reduce((a,b)=> quizScores[a]>=quizScores[b]?a:b);
+        setBias(winner);
+        closeQuiz();
+        alert(`Your bias match is ${memberData[winner].emoji} ${winner.charAt(0).toUpperCase() + winner.slice(1)}!`);
+    }
+}
 
 // ==== Helper ====
 function capitalize(str) {
