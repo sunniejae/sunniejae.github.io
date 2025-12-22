@@ -1,13 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LE SSERAFIM Wiki · Fan Shop</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LE SSERAFIM · Fan Store</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
+/* ======================
+   GLOBAL + MEMBER THEMES
+====================== */
 :root {
   --black:#000010;
   --silver:#f0f0f5;
@@ -18,7 +21,6 @@
   --member-accent: var(--dark-purple);
 }
 
-/* MEMBER THEMES */
 .theme-chaewon {--member-main:#f0f0f5;--member-accent:#342f38;}
 .theme-sakura  {--member-main:#ffb3d6;--member-accent:#c13886;}
 .theme-yunjin  {--member-main:#73e3bd;--member-accent:#0d5c2d;}
@@ -36,124 +38,113 @@ body {
   border:1px solid rgba(154,154,212,.25);
 }
 
-/* HERO HEADER */
 .hero {
-  height: min(60vh, 775px);
-  background-size: cover;
-  background-position: center;
-  position: relative;
+  height:min(55vh,775px);
+  background-size:cover;
+  background-position:center;
+  position:relative;
 }
-
 .hero::after {
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,16,.15),
-    rgba(0,0,16,.85)
-  );
-}
-
-.hero-content {
-  position:relative;
-  z-index:1;
+  background:linear-gradient(to bottom,rgba(0,0,16,.15),rgba(0,0,16,.9));
 }
 
 .member-bg {
   background:var(--member-main);
   color:var(--member-accent);
 }
-
-.carousel-track {
-  display:flex;
-  transition:.4s ease;
-}
-.carousel-slide {
-  min-width:100%;
-  font-size:3rem;
-}
 </style>
 </head>
 
 <body class="transition-colors duration-300">
 
-<!-- HERO HEADER -->
-<header id="hero"
-  class="hero flex items-end"
+<!-- HERO -->
+<header id="hero" class="hero flex items-end"
   style="background-image:url('https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png')">
-  <div class="hero-content max-w-7xl mx-auto px-6 py-10">
-    <p class="text-sm text-[var(--primary)]">LE SSERAFIM</p>
-    <h1 id="heroName" class="text-4xl md:text-6xl font-bold">
-      Chaewon
-    </h1>
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-10">
+    <h1 id="heroName" class="text-5xl font-bold">Chaewon Collection</h1>
+    <p class="text-sm text-[var(--primary)]">LE SSERAFIM Official Fan Store</p>
   </div>
 </header>
 
 <!-- NAV -->
 <nav class="glass sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-    <p class="font-semibold">Wiki · Merch · Bias Hub</p>
-    <button onclick="openQuiz()" class="glass px-4 py-2 rounded-full">
-      🎯 Bias Quiz
-    </button>
+    <strong>COLLECTION STORE</strong>
+    <div class="flex gap-2">
+      <button onclick="setBias('chaewon')" class="glass">🐯</button>
+      <button onclick="setBias('sakura')"  class="glass">🌸</button>
+      <button onclick="setBias('kazuha')"  class="glass">🦢</button>
+      <button onclick="setBias('yunjin')"  class="glass">🐍</button>
+      <button onclick="setBias('eunchae')" class="glass">🐣</button>
+    </div>
   </div>
 </nav>
 
-<!-- MAIN -->
-<main class="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-3 gap-8">
+<!-- STORE -->
+<main class="max-w-7xl mx-auto px-6 py-12 space-y-10">
 
-<!-- SIDEBAR -->
-<aside class="glass rounded-2xl p-6">
-  <h2 class="text-xl font-bold mb-4" style="color:var(--member-accent)">
-    Pick Your Bias
-  </h2>
-  <div class="grid grid-cols-2 gap-2">
-    <button onclick="setTheme('chaewon')" class="glass">🐯 Chaewon</button>
-    <button onclick="setTheme('sakura')"  class="glass">🌸 Sakura</button>
-    <button onclick="setTheme('kazuha')"  class="glass">🦢 Kazuha</button>
-    <button onclick="setTheme('yunjin')"  class="glass">🐍 Yunjin</button>
-    <button onclick="setTheme('eunchae')" class="glass">🐣 Eunchae</button>
+<!-- COLLECTION CARD -->
+<div class="glass rounded-2xl p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold" style="color:var(--member-accent)">
+      FEARLESS STICKER COLLECTION
+    </h2>
+    <span class="text-sm text-[var(--primary)]">$8</span>
   </div>
-</aside>
 
-<!-- CONTENT -->
-<section class="lg:col-span-2 space-y-8">
-
-<!-- CAROUSEL -->
-<div class="glass rounded-2xl p-6 overflow-hidden">
-  <h2 class="text-xl font-bold mb-3" style="color:var(--member-accent)">
-    Member Spotlight
-  </h2>
-  <div class="relative">
-    <div id="carousel" class="carousel-track" data-index="0">
-      <div class="carousel-slide">🐯</div>
-      <div class="carousel-slide">🌸</div>
-      <div class="carousel-slide">🦢</div>
-      <div class="carousel-slide">🐍</div>
-      <div class="carousel-slide">🐣</div>
-    </div>
-    <button onclick="moveCarousel(-1)" class="absolute left-2 top-1/2">‹</button>
-    <button onclick="moveCarousel(1)" class="absolute right-2 top-1/2">›</button>
+  <div class="member-bg rounded-xl p-4 mb-4">
+    <p class="font-semibold">
+      Currently viewing:
+      <span id="collection-stickers-active">Chaewon Version</span>
+    </p>
   </div>
+
+  <select
+    class="w-full p-3 rounded text-black"
+    data-collection="stickers"
+    onchange="selectVersion(this)">
+    <option value="ot5">OT5 Version</option>
+    <option value="chaewon">🐯 Chaewon</option>
+    <option value="sakura">🌸 Sakura</option>
+    <option value="kazuha">🦢 Kazuha</option>
+    <option value="yunjin">🐍 Yunjin</option>
+    <option value="eunchae">🐣 Eunchae</option>
+  </select>
 </div>
 
-</section>
+<!-- COLLECTION CARD -->
+<div class="glass rounded-2xl p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold" style="color:var(--member-accent)">
+      SIGNATURE KEYCHAIN COLLECTION
+    </h2>
+    <span class="text-sm text-[var(--primary)]">$12</span>
+  </div>
+
+  <div class="member-bg rounded-xl p-4 mb-4">
+    <p class="font-semibold">
+      Currently viewing:
+      <span id="collection-keychain-active">Chaewon Version</span>
+    </p>
+  </div>
+
+  <select
+    class="w-full p-3 rounded text-black"
+    data-collection="keychain"
+    onchange="selectVersion(this)">
+    <option value="ot5">OT5 Version</option>
+    <option value="chaewon">🐯 Chaewon</option>
+    <option value="sakura">🌸 Sakura</option>
+    <option value="kazuha">🦢 Kazuha</option>
+    <option value="yunjin">🐍 Yunjin</option>
+    <option value="eunchae">🐣 Eunchae</option>
+  </select>
+</div>
+
 </main>
-
-<!-- QUIZ -->
-<div id="quiz" class="fixed inset-0 bg-black/60 hidden items-center justify-center">
-  <div class="glass p-6 rounded-xl max-w-sm w-full">
-    <h2 class="text-xl font-bold mb-4">Who are you drawn to?</h2>
-    <div class="space-y-2">
-      <button onclick="quizResult('chaewon')" class="glass w-full">🐯 Elegant & Strong</button>
-      <button onclick="quizResult('sakura')"  class="glass w-full">🌸 Soft but Powerful</button>
-      <button onclick="quizResult('kazuha')"  class="glass w-full">🦢 Calm & Graceful</button>
-      <button onclick="quizResult('yunjin')"  class="glass w-full">🐍 Creative & Bold</button>
-      <button onclick="quizResult('eunchae')" class="glass w-full">🐣 Bright & Playful</button>
-    </div>
-  </div>
-</div>
 
 <script>
 const members = {
@@ -164,23 +155,36 @@ const members = {
   eunchae:{name:'Eunchae',img:'https://sunniejae.blob.core.windows.net/sunniejae/eunchae.png'}
 }
 
-function setTheme(m){
-  document.body.className = `theme-${m} transition-colors duration-300`
-  hero.style.backgroundImage = `url('${members[m].img}')`
-  heroName.textContent = members[m].name
+let activeBias = 'chaewon'
+
+function setBias(member){
+  activeBias = member
+  document.body.className = `theme-${member} transition-colors duration-300`
+  hero.style.backgroundImage = `url('${members[member].img}')`
+  heroName.textContent = `${members[member].name} Collection`
+
+  document.querySelectorAll('select[data-collection]').forEach(sel=>{
+    sel.value = member
+    updateCollectionLabel(sel)
+  })
 }
 
-function moveCarousel(d){
-  let i = +carousel.dataset.index
-  const keys = Object.keys(members)
-  i = (i + d + keys.length) % keys.length
-  carousel.dataset.index = i
-  carousel.style.transform = `translateX(-${i*100}%)`
-  setTheme(keys[i])
+function selectVersion(select){
+  updateCollectionLabel(select)
 }
 
-function openQuiz(){quiz.classList.remove('hidden')}
-function quizResult(m){setTheme(m);quiz.classList.add('hidden')}
+function updateCollectionLabel(select){
+  const collection = select.dataset.collection
+  const val = select.value
+  const label = document.getElementById(`collection-${collection}-active`)
+  label.textContent =
+    val === 'ot5'
+    ? 'OT5 Version'
+    : `${members[val].name} Version`
+}
+
+/* init */
+setBias('chaewon')
 </script>
 
 </body>
