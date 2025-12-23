@@ -8,13 +8,14 @@
 
 <style>
 /* Custom Font */
-@font-face {
-  font-family: "MyCustomFont";
-  src: url("https://sunniejae.blob.core.windows.net/sunniejae/Myfont1-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+ @font-face {
+            font-family: 'JaeWriting';
+            src: url('https://raw.githubusercontent.com/sunniejae/sunniejae.github.io/main/Jaewriting-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
 
 /* Root palette + member colors */
 :root {
@@ -40,8 +41,8 @@
 
 /* Global Styles */
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'MyCustomFont',sans-serif; background: var(--bg); transition: background 0.5s; color: var(--silver); }
-h1,h2,h3{ font-family:'MyCustomFont',sans-serif; color: var(--white); text-shadow:0 0 12px var(--primary),0 0 24px rgba(154,154,212,0.4);}
+body { font-family:'JaeWriting',sans-serif; background: var(--bg); transition: background 0.5s; color: var(--silver); }
+h1,h2,h3{ font-family:'JaeWriting',sans-serif; color: var(--white); text-shadow:0 0 12px var(--primary),0 0 24px rgba(154,154,212,0.4);}
 a{color:inherit;text-decoration:none;}
 .hero{position:relative;height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;}
