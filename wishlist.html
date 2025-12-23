@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sunnie Jae – Email Signup</title>
+
+  <!-- Custom Font -->
+  <style>
+    @font-face {
+      font-family: 'JaeWriting';
+      src: url('Jaewriting-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'JaeWriting', system-ui, sans-serif;
+      background: #fff;
+      color: #111;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    form {
+      margin-top: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      margin-top: 4px;
+      accent-color: #e63946;
+    }
+
+    button {
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .success {
+      margin-top: 20px;
+      color: green;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .error {
+      margin-top: 20px;
+      color: red;
+      font-size: 0.95rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Stay in the loop ✨</h1>
+  <p>Sign up to hear from Sunnie Jae.</p>
+
+  <form id="emailForm">
+    <label for="emailInput">Email address</label>
+    <input
+      type="email"
+      id="emailInput"
+      name="email"
+      placeholder="you@example.com"
+      required
+    />
+
+    <label class="checkbox-label">
+      <input type="checkbox" id="subscribeOptIn" name="subscribeOptIn">
+      <span>
+        Do you want to subscribe to emails from <strong>Sunnie Jae</strong>?<br>
+        Get first access to promotional deals, collection drops, and more.
+      </span>
+    </label>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="success" id="successMessage">
+    Thanks! Your email has been recorded 💖
+  </div>
+
+  <div class="error" id="errorMessage">
+    Please enter a valid email address.
+  </div>
+
+  <script src="wishlist.js"></script>
+</body>
+</html>
