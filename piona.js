@@ -40,15 +40,6 @@ const memberData = {
         description: 'You possess serene beauty and inner peace! Like Kazuha, you move through life with grace and poise. Your calm wisdom and elegant presence inspire everyone around you.',
         traits: ['Graceful', 'Serene', 'Wise', 'Elegant']
     },
-    ot6: { 
-        color: 'var(--fearnot)', 
-        accent: 'var(--fearnot-dark)', 
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png', 
-        emoji: '🐦‍🔥',
-        personality: 'The Long Suffering Stan',
-        description: 'Here through thick and thin, you're a FEARNOT through and through. No former CEO and her shaman can keep you away. Like a phoenix from a hate train's ashes, you rise.',
-        traits: ['Leader', 'Perfectionist', 'Graceful', 'Determined']
-    },
     eunchae: { 
         color: 'var(--eunchae)', 
         accent: 'var(--eunchae-dark)', 
@@ -64,11 +55,12 @@ const memberData = {
 const products = [
     {
         id: 'keychain',
-        brand: 'Sunnie Jae',
+        brand: 'REDBUBBLE',
         title: 'Member Keychains',
         size: 'All Members Available',
         price: '$12.99',
         image: 'https://sunniejae.blob.core.windows.net/sunniejae/keychain-{member}.png',
+        redbubble: 'https://www.redbubble.com/shop/lesserafim+keychains'
     },
     {
         id: 'sticker',
@@ -203,7 +195,7 @@ function submitWishlist() {
     const body = encodeURIComponent(
         `Name: ${name}\nEmail: ${email}\nBias: ${memberData[currentBias].emoji} ${capitalize(currentBias)}\n\nWishlist:\n${wishlistItems.join('\n')}\n\n---\nSent from LE SSERAFIM Fearnot Shop by Sunnie Jae ✨`
     );
-    window.location.href = `orders@sunniejae.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
 }
 
 // ===== LIKE =====
