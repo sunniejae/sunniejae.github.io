@@ -7,7 +7,7 @@ const memberData = {
     chaewon: { 
         color: 'var(--chaewon)', 
         accent: 'var(--chaewon-dark)', 
-        header: 'assets/chaewon.png', 
+        header: 'assets/totebag-chaewon.png', 
         emoji: '🐯',
         personality: 'The Leader & Perfectionist',
         description: 'You embody grace, determination, and natural leadership! Like Chaewon, you have an eye for detail and strive for excellence in everything you do. Your calm demeanor hides a fierce inner strength.',
@@ -16,7 +16,7 @@ const memberData = {
     sakura: { 
         color: 'var(--sakura)', 
         accent: 'var(--sakura-dark)', 
-        header: 'assets/sakura.png', 
+        header: 'assets/autograph-sakura.png', 
         emoji: '🌸',
         personality: 'The Elegant Dreamer',
         description: 'You shine with elegance and charm! Like Sakura, you have a gentle yet captivating presence. Your creative spirit and positive energy light up any room you enter.',
@@ -25,7 +25,7 @@ const memberData = {
     yunjin: { 
         color: 'var(--yunjin)', 
         accent: 'var(--yunjin-dark)', 
-        header: 'assets/yunjin.png', 
+        header: 'assets/autograph-yunjin.png', 
         emoji: '🐍',
         personality: 'The Confident Artist',
         description: 'You radiate confidence and passion! Like Yunjin, you\'re bold, expressive, and not afraid to stand out. Your artistic soul and strategic mind make you unstoppable.',
@@ -34,7 +34,7 @@ const memberData = {
     kazuha: { 
         color: 'var(--kazuha)', 
         accent: 'var(--kazuha-dark)', 
-        header: 'assets/kazuha.png', 
+        header: 'assets/autograph-kazuha.png', 
         emoji: '🦢',
         personality: 'The Graceful Soul',
         description: 'You possess serene beauty and inner peace! Like Kazuha, you move through life with grace and poise. Your calm wisdom and elegant presence inspire everyone around you.',
@@ -43,7 +43,7 @@ const memberData = {
     eunchae: { 
         color: 'var(--eunchae)', 
         accent: 'var(--eunchae-dark)', 
-        header: 'assets/eunchae.png', 
+        header: 'assets/autograph-eunchae.png', 
         emoji: '🐣',
         personality: 'The Energetic Sunshine',
         description: 'You\'re pure energy and joy! Like Eunchae, you bring sunshine wherever you go with your infectious enthusiasm and bright personality. Your bold spirit and playful nature are irresistible!',
