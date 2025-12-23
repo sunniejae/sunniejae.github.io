@@ -1,262 +1,88 @@
-// ===== MEMBER DATA =====
-const members = {
-    ot5: { 
-        display: "Fearnot", 
-        subtitle: "Piona", 
-        color: "var(--primary)", 
-        accent: "var(--dark-purple)" 
-    },
-    chaewon: { 
-        display: "Chaewon", 
-        subtitle: "Ssamudan", 
-        color: "var(--chaewon)", 
-        accent: "var(--chaewon-dark)" 
-    },
-    sakura: { 
-        display: "Sakura", 
-        subtitle: "39er", 
-        color: "var(--sakura)", 
-        accent: "var(--sakura-dark)" 
-    },
-    yunjin: { 
-        display: "Yunjin", 
-        subtitle: "Burned Passport", 
-        color: "var(--yunjin)", 
-        accent: "var(--yunjin-dark)" 
-    },
-    kazuha: { 
-        display: "Kazuha", 
-        subtitle: "Komorebis", 
-        color: "var(--kazuha)", 
-        accent: "var(--kazuha-dark)" 
-    },
-    eunchae: { 
-        display: "Eunchae", 
-        subtitle: "Member of the Eunchae Mother Association", 
-        color: "var(--eunchae)", 
-        accent: "var(--eunchae-dark)" 
-    }
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fandom Shop | Sunnie Jae</title>
+<link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
 
-// ===== PRODUCT DATA =====
-const products = [
-    { name: "Hangul Members", image: "hangul.png", brand: "Redbubble", price: "$5", size:"5pcs" },
-    { name: "Keychain", image: "keychain.png", brand: "SunnieJae", price: "$8", size:"1pc" },
-    { name: "Poster", image: "poster.png", brand: "Fearnot", price: "$12", size:"A4" },
-    { name: "T-Shirt", image: "tshirt.png", brand: "Fearnot", price: "$20", size:"M" },
-    { name: "Pin", image: "pin.png", brand: "Fearnot", price: "$4", size:"1pc" },
-    { name: "Notebook", image: "notebook.png", brand: "SunnieJae", price: "$10", size:"A5" },
-];
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
-// ===== QUIZ DATA =====
-const quizQuestions = [
-    { question: "Favorite Color", answers: [
-        { text: "White", members: ["chaewon"] },
-        { text: "Pink", members: ["sakura"] },
-        { text: "Blue", members: ["kazuha"] },
-        { text: "Green", members: ["yunjin"] },
-        { text: "Red", members: ["eunchae"] },
-    ]},
-    { question: "Are you an introvert or an extrovert?", answers: [
-        { text: "Introvert", members: ["sakura","eunchae","kazuha"] },
-        { text: "Extrovert", members: ["yunjin","chaewon"] },
-    ]},
-    { question: "Down to Earth vs Head in the Clouds", answers: [
-        { text: "Down to Earth", members: ["chaewon","eunchae"] },
-        { text: "Head in the Clouds", members: ["sakura","yunjin","kazuha"] },
-    ]},
-    { question: "Head vs Heart", answers: [
-        { text: "Head", members: ["sakura","eunchae","chaewon"] },
-        { text: "Heart", members: ["kazuha","yunjin"] },
-    ]},
-    { question: "Order vs Chaos", answers: [
-        { text: "Order", members: ["yunjin","kazuha","eunchae"] },
-        { text: "Chaos", members: ["chaewon","sakura"] },
-    ]},
-    { question: "Favorite Animal", answers: [
-        { text: "Cheetah", members: ["chaewon"] },
-        { text: "Cat", members: ["sakura"] },
-        { text: "Swan", members: ["kazuha"] },
-        { text: "Baby Chick", members: ["eunchae"] },
-        { text: "Snake", members: ["yunjin"] },
-    ]},
-    { question: "Favorite English Name", answers: [
-        { text: "Anna", members:["chaewon"] },
-        { text: "Sebastian", members:["sakura"] },
-        { text: "Jennifer", members:["yunjin"] },
-        { text: "Ava", members:["sakura"] },
-        { text: "Elle", members:["kazuha"] },
-        { text: "Ruby", members:["eunchae"] },
-    ]},
-    { question: "Favorite English Idiom", answers: [
-        { text: "Have a good one!", members:["sakura"] },
-        { text: "Easy peasy lemon squeezy", members:["chaewon"] },
-        { text: "It girl energy", members:["yunjin"] },
-        { text: "She ate with no crumbs", members:["eunchae"] },
-        { text: "Freeze to death", members:["kazuha"] },
-    ]},
-    { question: "Dark Chocolate or Milk Chocolate?", answers: [
-        { text: "Dark", members:["sakura","kazuha","chaewon","yunjin"] },
-        { text: "Milk", members:["eunchae"] },
-    ]},
-    { question: "Another group you like:", answers: [
-        { text: "Red Velvet", members:["sakura"] },
-        { text: "BTS", members:["yunjin"] },
-        { text: "BlackPink", members:["kazuha"] },
-        { text: "Seventeen", members:["eunchae"] },
-        { text: "Girl's Generation", members:["chaewon"] },
-        { text: "iz*One", members:["sakura","chaewon"] },
-    ]},
-    { question: "Can you handle spicy food?", answers: [
-        { text: "Yes", members:["chaewon","yunjin"] },
-        { text: "No", members:["sakura","kazuha"] },
-        { text: "Depends on the day", members:["eunchae"] },
-    ]},
-    { question: "Favorite LE SSERAFIM Era?", answers: [
-        { text: "Unforgiven", members:["yunjin"] },
-        { text: "Crazy", members:["eunchae"] },
-        { text: "Spaghetti", members:["sakura","chaewon","eunchae","kazuha","yunjin"] },
-        { text: "Hot", members:["sakura"] },
-        { text: "Easy", members:["chaewon"] },
-        { text: "Come Over", members:["kazuha"] },
-    ]},
-];
+<style>
+/* ===== FONTS ===== */
+@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Cheri'; src: url('tan-mon-cheri.woff') format('truetype'); }
 
-// ===== GLOBAL STATE =====
-let currentBias = "ot5";
-let wishlist = [];
-let quizIndex = 0;
-let score = {};
+/* ===== ROOT COLORS ===== */
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --secondary: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary-accent: #c13886;
+    --primary: #9a9ad4;
 
-// ===== SET BIAS =====
-function setBias(member) {
-    currentBias = member;
+    --chaewon:#f0f0f5; --chaewon-dark:#342f38;
+    --sakura:#ffb3d6; --sakura-dark:#c13886;
+    --yunjin:#73e3bd; --yunjin-dark:#0d5c2d;
+    --kazuha:#00c9c2; --kazuha-dark:#2a3055;
+    --eunchae:#bf3851; --eunchae-dark:#880d1e;
 
-    // Profile Pic
-    const profileImg = document.querySelector("#profile-pic img");
-    profileImg.src = `/assets/profile-${member}.png`;
-
-    // Profile Info
-    document.querySelector(".profile-info h1").innerHTML = `${members[member].display} <span class="verified-badge">${members[member].subtitle}</span>`;
-
-    // Theme colors
-    document.documentElement.style.setProperty('--current-bg', members[member].color);
-    document.documentElement.style.setProperty('--current-accent', members[member].accent);
-
-    // Highlight active bias button
-    document.querySelectorAll(".bias-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.textContent.includes(members[member].display));
-    });
+    --current-bg: var(--primary);
+    --current-accent: var(--dark-purple);
 }
 
-// ===== RENDER PRODUCTS =====
-function renderProducts() {
-    const grid = document.getElementById("products-grid");
-    grid.innerHTML = "";
-    products.forEach(prod => {
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-            <div class="product-image">
-                <img src="/assets/${prod.image}" width="250" height="250" alt="${prod.name}">
-            </div>
-            <div class="product-info">
-                <div class="product-brand">${prod.brand}</div>
-                <div class="product-title">${prod.name}</div>
-                <div class="product-size">${prod.size}</div>
-                <div class="product-price">${prod.price}</div>
-                <button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">Add to Wishlist</button>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
+/* ===== RESET ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Jaewriting', sans-serif; background:var(--current-bg); color:var(--black); line-height:1.4; transition:0.5s; }
+
+/* ===== HEADINGS & TITLES ===== */
+h1, h2, h3, h4, h5, h6, .header-title, .product-title, .product-brand, .bias-btn, .bias-matcher-btn, .wishlist-section button {
+    font-family: 'Cheri', sans-serif;
 }
 
-// ===== WISHLIST =====
-function addToWishlist(item) {
-    if (!wishlist.includes(item)) wishlist.push(item);
-    document.getElementById("wishlist-items").value = wishlist.join("\n");
-}
+/* ===== HEADER ===== */
+.depop-header { width:100%; background: var(--white); padding: 8px 16px; position: sticky; top:0; z-index:1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+.header-top { display:flex; justify-content:space-between; align-items:center; }
+.header-left { display:flex; align-items:center; gap:12px; }
+.header-title { font-weight:700; font-size:16px; }
+.header-icons { display:flex; gap:12px; font-size:16px; position:relative; }
+.header-icon { cursor:pointer; position:relative; }
+.bag-count { position:absolute; top:-6px; right:-6px; background:var(--current-accent); color:#fff; font-size:10px; padding:1px 5px; border-radius:50%; }
+.search-bar { display:flex; align-items:center; margin-top:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; }
+.search-bar input { border:none; outline:none; background:transparent; flex:1; padding:4px; font-size:14px; }
 
-function submitWishlist() {
-    alert(`Wishlist submitted!\n\nName: ${document.getElementById("wishlist-name").value}\nEmail: ${document.getElementById("wishlist-email").value}\nItems:\n${wishlist.join("\n")}`);
-    wishlist = [];
-    document.getElementById("wishlist-items").value = "";
-}
+/* ===== PROFILE SECTION ===== */
+.profile-section { padding:16px; background:rgba(255,255,255,0.1); margin-bottom:16px; }
+.profile-header { display:flex; align-items:center; gap:12px; }
+.profile-pic { width:60px; height:60px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; overflow:hidden; }
+.profile-pic img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.profile-info h1 { font-size:24px; margin-bottom:4px; }
+.verified-badge { font-size:12px; color: var(--current-accent); margin-left:6px; }
+.profile-stats { font-size:12px; color: var(--secondary); display:flex; gap:12px; }
+.bio { margin-top:8px; font-size:13px; color: var(--secondary); font-family:'Jaewriting',sans-serif; }
+.bio-tags { display:block; margin-top:4px; }
 
-// ===== QUIZ =====
-function openQuiz() {
-    quizIndex = 0;
-    score = {};
-    document.getElementById("quiz-modal").classList.add("active");
-    renderQuiz();
-}
+/* ===== BIAS SECTION ===== */
+.bias-section { padding:16px; background:rgba(255,255,255,0.05); margin-bottom:16px; }
+.bias-buttons { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+.bias-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:#fff; transition:0.3s; }
+.bias-btn.active { background:var(--current-accent); color:#fff; }
+.bias-matcher-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:var(--current-accent); color:#fff; }
 
-function closeQuiz() {
-    document.getElementById("quiz-modal").classList.remove("active");
-}
-
-function renderQuiz() {
-    const container = document.getElementById("quiz-questions");
-    container.innerHTML = "";
-
-    if (quizIndex >= quizQuestions.length) return;
-
-    const q = quizQuestions[quizIndex];
-    const questionEl = document.createElement("div");
-    questionEl.innerHTML = `<p><strong>${q.question}</strong></p>`;
-    q.answers.forEach(ans => {
-        const btn = document.createElement("button");
-        btn.textContent = ans.text;
-        btn.onclick = () => selectAnswer(ans.members);
-        questionEl.appendChild(btn);
-    });
-    container.appendChild(questionEl);
-}
-
-// ===== QUIZ LOGIC =====
-function selectAnswer(membersArray) {
-    // Increment score
-    membersArray.forEach(m => score[m] = (score[m] || 0) + 1);
-
-    quizIndex++;
-    if (quizIndex < quizQuestions.length) {
-        renderQuiz();
-    } else {
-        showResult();
-    }
-}
-
-function showResult() {
-    let maxScore = 0;
-    let topMember = currentBias;
-    for (const m in score) {
-        if (score[m] > maxScore) {
-            maxScore = score[m];
-            topMember = m;
-        }
-    }
-
-    // Update Result Modal
-    document.getElementById("result-image").src = `/assets/profile-${topMember}.png`;
-    document.getElementById("result-name").textContent = members[topMember].display;
-    document.getElementById("result-description").textContent = `You match best with ${members[topMember].display}!`;
-    document.getElementById("result-traits").innerHTML = `Fandom Subtitle: <span class="trait-tag">${members[topMember].subtitle}</span>`;
-
-    document.getElementById("result-modal").classList.add("active");
-
-    // Reset quiz
-    score = {};
-    quizIndex = 0;
-    closeQuiz();
-}
-
-function closeResult() {
-    document.getElementById("result-modal").classList.remove("active");
-}
-
-// ===== INITIALIZE =====
-window.onload = () => {
-    setBias(currentBias);
-    renderProducts();
-};
+/* ===== PRODUCTS GRID ===== */
+.products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; padding:0 16px; margin-bottom:16px; }
+.product-card { background:#fff; border-radius:8px; overflow:hidden; cursor:pointer; transition:0.3s; position:relative; }
+.product-card:hover { transform:scale(1.03); }
+.product-image img { width:250px; height:250px; object-fit:cover; }
+.product-info { padding:6px 8px; font-family:'Jaewriting',sans-serif; }
+.product-brand, .product-title { font-weight:700; }
+.product-size, .product-price { font-family:'Jaewriting',sans-serif; font-size:12
