@@ -79,10 +79,25 @@ function renderProducts() {
 }
 
 // ===== WISHLIST =====
+function loadWishlist() {
+    const saved = localStorage.getItem("fearnotWishlist");
+    if (saved) {
+        wishlist = JSON.parse(saved);
+    } else {
+        wishlist = {};
+    }
+    renderWishlist();
+}
+
+function saveWishlist() {
+    localStorage.setItem("fearnotWishlist", JSON.stringify(wishlist));
+}
+
 function addToWishlist(item) {
     const memberVersion = currentBias === "ot5" ? "OT5" : members[currentBias].display;
     if (!wishlist[memberVersion]) wishlist[memberVersion] = [];
     if (!wishlist[memberVersion].includes(item)) wishlist[memberVersion].push(item);
+    saveWishlist();
     renderWishlist();
 }
 
@@ -112,14 +127,25 @@ function submitWishlist() {
         `Name: ${name}\nEmail: ${email}\nSubscribed to promos: ${optin}\n\nWishlist:\n${wishlistText}`
     );
 
+    // Open email
     window.location.href = `mailto:orders@sunniejae.com?subject=FEARNOT SHOP- Request&body=${body}`;
 
+    // Clear wishlist and save
     wishlist = {};
+    saveWishlist();
     renderWishlist();
+
+    // Clear form
     document.getElementById("wishlist-name").value = "";
     document.getElementById("wishlist-email").value = "";
     document.getElementById("email-optin").checked = false;
 }
+
+// ===== INITIALIZE =====
+window.onload = () => {
+    loadWishlist();      // Load wishlist from localStorage
+    setBias(currentBias); // Initialize products & bias
+};
 
 // ===== QUIZ =====
 function openQuiz() {
