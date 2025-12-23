@@ -2,11 +2,4 @@
   "navigationFallback": {
     "rewrite": "/404.html"
   },
-  "routes": [
-    { "route": "/shop", "rewrite": "/shop.html" },
-    { "route": "/quiz", "rewrite": "/quiz.html" },
-    { "route": "/about", "rewrite": "/about.html" },
-    { "route": "/fearnot", "rewrite": "/fearnot.html" },
-    { "route": "/naya", "rewrite": "/naya.html" }
-  ]
-}
+
