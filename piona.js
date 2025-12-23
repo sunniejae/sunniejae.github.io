@@ -111,7 +111,7 @@ const products = [
 
 // ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', function() {
-    setBias('sakura'); // Set default bias
+    setBias('sakura'); // default bias
     renderProducts();
     updateBagCount();
 });
@@ -120,23 +120,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function setBias(member) {
     currentBias = member;
     const data = memberData[member];
-    
-    // Update CSS variables
     document.documentElement.style.setProperty('--current-bg', data.color);
     document.documentElement.style.setProperty('--current-accent', data.accent);
-    
-    // Update profile pic
     document.getElementById('profile-pic').textContent = data.emoji;
-    
-    // Update bias buttons
     document.querySelectorAll('.bias-btn').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.textContent.includes(capitalize(member))) {
-            btn.classList.add('active');
-        }
+        if (btn.textContent.includes(capitalize(member))) btn.classList.add('active');
     });
-    
-    // Re-render products with new member
     renderProducts();
 }
 
@@ -144,17 +134,13 @@ function setBias(member) {
 function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
-    
     products.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
-        
-        // Replace {member} placeholder with current bias
         const imageUrl = product.image.replace('{member}', currentBias);
-        
         card.innerHTML = `
             <div class="product-image">
-                <img src="${imageUrl}" alt="${product.title}" onerror="this.src='https://sunniejae.blob.core.windows.net/sunniejae/${currentBias}.png'">
+                <img src="${imageUrl}" alt="${product.title}" onerror="this.src='${memberData[currentBias].header}'">
                 <div class="product-badge">${memberData[currentBias].emoji} ${capitalize(currentBias)}</div>
                 <button class="like-btn" onclick="toggleLike(event, this)">♡</button>
             </div>
@@ -166,52 +152,32 @@ function renderProducts() {
                 <button class="wishlist-btn" data-product-id="${product.id}" onclick="addToWishlist('${product.id}', this)">💖 Add to Wishlist</button>
             </div>
         `;
-        
-        // Add click to open Redbubble
-        card.addEventListener('click', (e) => {
+        card.addEventListener('click', e => {
             if (!e.target.classList.contains('wishlist-btn') && !e.target.classList.contains('like-btn')) {
                 window.open(product.redbubble, '_blank');
             }
         });
-        
         grid.appendChild(card);
     });
 }
 
-// ===== WISHLIST FUNCTIONS =====
+// ===== WISHLIST =====
 function addToWishlist(productId, button) {
     const product = products.find(p => p.id === productId);
     const member = memberData[currentBias];
     const itemText = `${product.title} - ${member.emoji} ${capitalize(currentBias)} Version`;
-    
-    // Check if already in wishlist
     const existingIndex = wishlistItems.findIndex(item => item.startsWith(product.title));
-    
-    if (existingIndex !== -1) {
-        // Replace existing
-        wishlistItems[existingIndex] = itemText;
-    } else {
-        // Add new
-        wishlistItems.push(itemText);
-    }
-    
-    // Update display
+    if (existingIndex !== -1) wishlistItems[existingIndex] = itemText;
+    else wishlistItems.push(itemText);
     updateWishlistDisplay();
     updateBagCount();
-    
-    // Visual feedback
     button.classList.add('added');
     button.textContent = '💖 Added!';
-    
-    setTimeout(() => {
-        button.textContent = '💖 Add to Wishlist';
-        button.classList.remove('added');
-    }, 2000);
+    setTimeout(() => { button.textContent = '💖 Add to Wishlist'; button.classList.remove('added'); }, 2000);
 }
 
 function updateWishlistDisplay() {
-    const textarea = document.getElementById('wishlist-items');
-    textarea.value = wishlistItems.join('\n');
+    document.getElementById('wishlist-items').value = wishlistItems.join('\n');
 }
 
 function updateBagCount() {
@@ -221,92 +187,44 @@ function updateBagCount() {
 function submitWishlist() {
     const name = document.getElementById('wishlist-name').value.trim();
     const email = document.getElementById('wishlist-email').value.trim();
-    
-    if (!name || !email) {
-        alert('Please fill in your name and email! 💖');
-        return;
-    }
-    
-    if (wishlistItems.length === 0) {
-        alert('Your wishlist is empty! Add some items first. ✨');
-        return;
-    }
-    
-    // Email validation
+    if (!name || !email) { alert('Please fill in your name and email! 💖'); return; }
+    if (wishlistItems.length === 0) { alert('Your wishlist is empty! Add some items first. ✨'); return; }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Please enter a valid email address! 📧');
-        return;
-    }
-    
-    // Create mailto link
+    if (!emailRegex.test(email)) { alert('Please enter a valid email address! 📧'); return; }
     const subject = encodeURIComponent(`LE SSERAFIM Wishlist from ${name}`);
     const body = encodeURIComponent(
-        `Name: ${name}\n` +
-        `Email: ${email}\n` +
-        `Bias: ${memberData[currentBias].emoji} ${capitalize(currentBias)}\n\n` +
-        `Wishlist:\n${wishlistItems.join('\n')}\n\n` +
-        `---\n` +
-        `Sent from LE SSERAFIM Fearnot Shop by Sunnie Jae ✨`
+        `Name: ${name}\nEmail: ${email}\nBias: ${memberData[currentBias].emoji} ${capitalize(currentBias)}\n\nWishlist:\n${wishlistItems.join('\n')}\n\n---\nSent from LE SSERAFIM Fearnot Shop by Sunnie Jae ✨`
     );
-    
     window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
 }
 
-// ===== LIKE FUNCTION =====
+// ===== LIKE =====
 function toggleLike(event, btn) {
     event.stopPropagation();
-    if (btn.classList.contains('liked')) {
-        btn.classList.remove('liked');
-        btn.textContent = '♡';
-    } else {
-        btn.classList.add('liked');
-        btn.textContent = '❤️';
-    }
+    if (btn.classList.contains('liked')) { btn.classList.remove('liked'); btn.textContent = '♡'; }
+    else { btn.classList.add('liked'); btn.textContent = '❤️'; }
 }
 
-// ===== QUIZ FUNCTIONS =====
+// ===== QUIZ =====
 function openQuiz() {
     const modal = document.getElementById('quiz-modal');
     modal.classList.add('active');
-    
-    // Reset quiz
-    quizScores = {chaewon: 0, sakura: 0, yunjin: 0, kazuha: 0, eunchae: 0};
-    document.querySelectorAll('#quiz-questions button').forEach(btn => {
-        btn.style.backgroundColor = '';
-        btn.style.color = '';
-    });
+    quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
+    document.querySelectorAll('#quiz-questions button').forEach(btn => { btn.style.backgroundColor=''; btn.style.color=''; });
 }
 
-function closeQuiz() {
-    const modal = document.getElementById('quiz-modal');
-    modal.classList.remove('active');
-    
-    quizScores = {chaewon: 0, sakura: 0, yunjin: 0, kazuha: 0, eunchae: 0};
-}
+function closeQuiz() { document.getElementById('quiz-modal').classList.remove('active'); quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0}; }
 
 function answerQuiz(member, button) {
     quizScores[member]++;
-    
-    // Highlight selection
     const data = memberData[member];
     button.style.backgroundColor = data.accent;
     button.style.color = 'white';
-    
-    const totalAnswers = Object.values(quizScores).reduce((a, b) => a + b, 0);
-    
-    if (totalAnswers >= 3) {
-        // Find winner
-        const winner = Object.keys(quizScores).reduce((a, b) => 
-            quizScores[a] >= quizScores[b] ? a : b
-        );
-        
+    const totalAnswers = Object.values(quizScores).reduce((a,b)=>a+b,0);
+    if (totalAnswers>=3) {
+        const winner = Object.keys(quizScores).reduce((a,b)=> quizScores[a]>=quizScores[b]?a:b );
         closeQuiz();
-        
-        setTimeout(() => {
-            showResult(winner);
-            setBias(winner);
-        }, 300);
+        setTimeout(()=>{ showResult(winner); setBias(winner); },300);
     }
 }
 
@@ -314,45 +232,25 @@ function answerQuiz(member, button) {
 function showResult(member) {
     const data = memberData[member];
     const modal = document.getElementById('result-modal');
-    const content = document.getElementById('result-content');
-    
-    // Set colors
-    content.style.setProperty('--result-color', data.color);
-    content.style.setProperty('--result-accent', data.accent);
-    
-    // Set content
     document.getElementById('result-emoji').textContent = data.emoji;
     document.getElementById('result-image').src = data.header;
     document.getElementById('result-name').textContent = capitalize(member);
     document.getElementById('result-description').textContent = data.description;
-    
-    // Set traits
     const traitsContainer = document.getElementById('result-traits');
     traitsContainer.innerHTML = '';
-    data.traits.forEach(trait => {
-        const tag = document.createElement('div');
-        tag.className = 'trait-tag';
-        tag.textContent = trait;
-        traitsContainer.appendChild(tag);
-    });
-    
+    data.traits.forEach(trait=>{ const tag=document.createElement('div'); tag.className='trait-tag'; tag.textContent=trait; traitsContainer.appendChild(tag); });
     modal.classList.add('active');
 }
 
-function closeResult() {
-    document.getElementById('result-modal').classList.remove('active');
-}
+function closeResult() { document.getElementById('result-modal').classList.remove('active'); }
 
-// ===== HELPER FUNCTIONS =====
-function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
+// ===== HELPERS =====
+function capitalize(str){ return str.charAt(0).toUpperCase() + str.slice(1); }
 
-// ===== SEARCH FUNCTIONALITY =====
-document.querySelector('.search-input').addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    // Could add search filtering here if needed
-    console.log('Searching for:', searchTerm);
+// ===== SEARCH (console only) =====
+document.querySelector('.search-input').addEventListener('input', e=>{
+    const searchTerm=e.target.value.toLowerCase();
+    console.log('Searching for:',searchTerm);
 });
 
 console.log('✨ LE SSERAFIM Fearnot Shop loaded! 💖');
