@@ -7,7 +7,7 @@ const memberData = {
     chaewon: { 
         color: 'var(--chaewon)', 
         accent: 'var(--chaewon-dark)', 
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png', 
+        header: 'chaewon.png', 
         emoji: '🐯',
         personality: 'The Leader & Perfectionist',
         description: 'You embody grace, determination, and natural leadership! Like Chaewon, you have an eye for detail and strive for excellence in everything you do. Your calm demeanor hides a fierce inner strength.',
@@ -65,28 +65,28 @@ const products = [
     {
         id: 'sticker',
         brand: 'REDBUBBLE',
-        title: 'Holographic Stickers',
+        title: 'Autograph Stickers',
         size: 'Member Designs',
         price: '$2.99+',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/sticker-{member}.png',
+        image: 'https://sunniejae.blob.core.windows.net/sunniejae/autograph-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+stickers'
     },
     {
         id: 'poster',
         brand: 'REDBUBBLE',
-        title: 'Member Posters',
+        title: 'Memes',
         size: 'Multiple Sizes',
         price: '$15.99+',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/poster-{member}.png',
+        image: 'https://sunniejae.blob.core.windows.net/sunniejae/memesticker-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+posters'
     },
     {
         id: 'phonecase',
         brand: 'REDBUBBLE',
-        title: 'Phone Cases',
+        title: 'Name Reading',
         size: 'iPhone & Samsung',
         price: '$24.99+',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/phonecase-{member}.png',
+        image: 'https://sunniejae.blob.core.windows.net/sunniejae/namereading-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+phone-cases'
     },
     {
