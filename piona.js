@@ -75,10 +75,10 @@ const products = [
         id: 'poster',
         brand: 'REDBUBBLE',
         title: 'Memes',
-        size: 'Multiple Sizes',
+        size: '',
         price: '$15.99+',
         image: 'assets/memesticker-{member}.png',
-        redbubble: 'https://www.redbubble.com/shop/lesserafim+posters'
+        redbubble: 'https://www.redbubble.com/people/sunniejae/shop?artistUserName=SunnieJae&collections=4M402531&iaCode=all-departments&sortOrder=top%20selling'
     },
     {
         id: 'phonecase',
@@ -87,13 +87,13 @@ const products = [
         size: 'member variation',
         price: '$5+',
         image: 'assets/namereading-{member}.png',
-        redbubble: 'https://www.redbubble.com/shop/{member}-hangul'
+        redbubble: 'https:https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling'
     },
     {
         id: 'totebag',
         brand: 'REDBUBBLE',
-        title: 'Tote Bags',
-        size: 'Cotton Canvas',
+        title: 'Spaghetti Era',
+        size: 'Multiple Products',
         price: '$18.99+',
         image: 'assets/totebag-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+tote-bags'
