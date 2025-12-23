@@ -20,8 +20,17 @@
       --accent: #00c9c2;
       --secondary: #c13886;
       --primary: #9a9ad4;
+     --chaewon:#f0f0f5; --chaewon-dark:#342f38;
+        --sakura:#ffb3d6; --sakura-dark:#c13886;
+        --yunjin:#73e3bd; --yunjin-dark:#0d5c2d;
+        --kazuha:#00c9c2; --kazuha-dark:#2a3055;
+        --eunchae:#bf3851; --eunchae-dark:#880d1e;
+        --current-bg: var(--primary);
+        --current-accent: var(--dark-purple);
     }
-    
+        @font-face { font-family:'Jaewriting'; src:url('Jaewriting-Regular.ttf') format('truetype'); }
+    @font-face { font-family:'Milky'; src:url('tan-mon-cheri.woff') format('truetype'); }
+   
     body {
       box-sizing: border-box;
      color: var(--dark-purple);
@@ -37,7 +46,10 @@
       50% { transform: translateY(-10px); }
     }
     
-    .neon-text {
+   .theme-active {
+  outline: 2px solid var(--accent);
+}
+ .neon-text {
       animation: neonPulse 2s ease-in-out infinite;
     }
     
@@ -62,27 +74,27 @@
     }
     
     .member-chaewon {
-      background: linear-gradient(135deg, #f0f0f5, #342f38);
+      background: var(--chaewon);
       color: #000010;
     }
     
     .member-sakura {
-      background: linear-gradient(135deg, #ffb3d6, #c13886);
+      background: var(--sakura);
       color: #000010;
     }
     
     .member-yunjin {
-      background: linear-gradient(135deg, #73e3bd, #0d5c2d);
+      background: var(--yunjin);
       color: #000010;
     }
     
     .member-kazuha {
-      background: linear-gradient(135deg, #00c9c2, #2a3055);
+      background: var(--kazuha);
       color: #000010;
     }
     
     .member-eunchae {
-      background: linear-gradient(135deg, #bf3851, #880d1e);
+      background:  var(--eunchae);
       color: #000010;
     }
   </style>
@@ -100,6 +112,35 @@
      </div>
     </div>
    </header>
+   <!-- Theme Switcher -->
+<section class="mb-10 glass-effect p-6 rounded-3xl">
+  <h2 class="neon-text mb-4 text-center" style="color: var(--accent); font-size: 1.5rem;">
+    Choose Your Theme
+  </h2>
+
+  <div class="flex flex-wrap justify-center gap-3">
+    <button onclick="setTheme('Chaewon')" class="member-chaewon member-badge">
+      🐯Chaewon
+    </button>
+
+    <button onclick="setTheme('Sakura')" class="member-sakura member-badge">
+      🐱Sakura
+    </button>
+
+    <button onclick="setTheme('Yunjin')" class="member-yunjin member-badge">
+      🐍Yunjin
+    </button>
+
+    <button onclick="setTheme('Kazuha')" class="member-kazuha member-badge">
+     🦢Kazuha
+    </button>
+
+    <button onclick="setTheme('Eunchae')" class="member-eunchae member-badge">
+      🐣Eunchae
+    </button>
+  </div>
+</section>
+
    <main class="max-w-7xl mx-auto px-6 py-8"><!-- Bias Quiz Section -->
     <section id="quiz-section" class="mb-12 glass-effect p-8 rounded-3xl">
      <h2 id="quiz-title" class="neon-text text-center mb-6" style="color: var(--accent); font-size: 1.875rem;">Discover Your Bias</h2>
@@ -478,7 +519,22 @@
       // Apply member theme
       applyMemberTheme(winner);
       
-      // Re-render products to show bias-specific items
+    function setTheme(member) {
+  currentBias = member;
+
+  // Update products to show OT6 + selected member
+  products = getProductsToShow();
+
+  // Apply colors
+  applyMemberTheme(member);
+
+  // Reset filter to show everything relevant
+  document.getElementById('member-filter').value = 'all';
+  renderProducts('all');
+
+  showToast(`Theme manually changed to ${member} 🎨`);
+}
+  // Re-render products to show bias-specific items
       const currentFilter = document.getElementById('member-filter').value;
       renderProducts(currentFilter);
       
@@ -544,6 +600,38 @@
       renderWishlist();
       renderComments();
     }
+function setTheme(member) {
+  currentBias = member;
+  products = getProductsToShow();
+  applyMemberTheme(member);
+
+  document.querySelectorAll('[onclick^="setTheme"]').forEach(btn =>
+    btn.classList.remove('theme-active')
+  );
+
+  event.target.classList.add('theme-active');
+
+  document.getElementById('member-filter').value = 'all';
+  renderProducts('all');
+
+  showToast(`Theme manually changed to ${member} 🎨`);
+}
+function setTheme(member) {
+  currentBias = member;
+  products = getProductsToShow();
+  applyMemberTheme(member);
+
+  document.querySelectorAll('[onclick^="setTheme"]').forEach(btn =>
+    btn.classList.remove('theme-active')
+  );
+
+  event.target.classList.add('theme-active');
+
+  document.getElementById('member-filter').value = 'all';
+  renderProducts('all');
+
+  showToast(`Theme manually changed to ${member} 🎨`);
+}
 
     function showToast(message) {
       const toast = document.createElement('div');
