@@ -85,6 +85,19 @@ body {
     transition: background 0.5s ease;
 }
 
+.checkbox-label {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 1.3;
+    margin: 6px 0 10px;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    margin-top: 3px;
+    accent-color: var(--current-accent);
+}
 /* --- Header --- */
 .depop-header {
     width: 100%;
@@ -177,11 +190,26 @@ body {
 }
 .wishlist-btn.added { background:#444; }
 
-/* --- Wishlist Section --- */
-.wishlist-section { padding:16px; background:rgba(255,255,255,0.05); margin-bottom:16px; display:flex; flex-direction:column; gap:8px; }
-#wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; }
-#wishlist-name, #wishlist-email { padding:6px 8px; border-radius:6px; border:1px solid #ccc; }
-.wishlist-section button { background:var(--current-accent); color:#fff; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; }
+<div class="wishlist-section">
+    <h2>💖 Your Wishlist</h2>
+
+    <textarea id="wishlist-items" rows="5" readonly
+        placeholder="Your selected items will appear here..."></textarea>
+
+    <input type="text" id="wishlist-name" placeholder="Your Name">
+    <input type="email" id="wishlist-email" placeholder="Your Email">
+
+    <label class="checkbox-label">
+        <input type="checkbox" id="email-optin">
+        <span>
+            Do you want to subscribe to emails from <strong>Sunnie Jae</strong>?<br>
+            Get first access to promotional deals, collection drops, and more.
+        </span>
+    </label>
+
+    <button onclick="submitWishlist()">Request Order 🛍️</button>
+</div>
+
 
 /* --- Modal --- */
 #quiz-modal, #result-modal {
