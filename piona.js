@@ -84,10 +84,10 @@ const products = [
         id: 'phonecase',
         brand: 'REDBUBBLE',
         title: 'Name Reading',
-        size: 'iPhone & Samsung',
-        price: '$24.99+',
+        size: 'member variation',
+        price: '$5+',
         image: 'assets/namereading-{member}.png',
-        redbubble: 'https://www.redbubble.com/shop/lesserafim+phone-cases'
+        redbubble: 'https://www.redbubble.com/shop/{member}-hangul'
     },
     {
         id: 'totebag',
