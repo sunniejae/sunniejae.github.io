@@ -105,7 +105,7 @@ section{padding:4rem 8%;}
 <div id="quizModal">
   <div class="modalContent">
     <span onclick="closeQuiz()">✖</span>
-    <h2 style="text-align:center;margin-bottom:1rem;">KPOP Bias Picker</h2>
+    <h2 style="text-align:center;margin-bottom:1rem;">KPOP ult group Picker</h2>
     <div id="quizContent"></div>
   </div>
 </div>
@@ -114,7 +114,7 @@ section{padding:4rem 8%;}
 <div id="quizResultModal">
   <div class="modalContent">
     <span onclick="closeResult()">✖</span>
-    <h2 style="text-align:center;margin-bottom:1rem;">Your Bias Result</h2>
+    <h2 style="text-align:center;margin-bottom:1rem;">Your ult group Result</h2>
     <p id="quizResultText" style="text-align:center;font-size:1.3rem;"></p>
     <button class="btn" style="width:100%;" onclick="closeResult()">Close</button>
   </div>
@@ -127,18 +127,18 @@ section{padding:4rem 8%;}
   <div class="hero-content">
     <h1>KPOP SHOP</h1>
     <p>Featured items for your favorite member!</p>
-    <button class="btn" onclick="openQuiz()">KPOP Bias Picker</button>
+    <button class="btn" onclick="openQuiz()">KPOP ult group Picker</button>
   </div>
 </section>
 
 <section>
-  <h2 class="section-title">PICK YOUR BIAS</h2>
+  <h2 class="section-title">PICK YOUR ult group</h2>
   <div class="eras">
-    <a class="era-card" href="naya.html">🐯 NAYA</a>
-    <a class="era-card" href="fearnot.html">🌸 FEARNOT</a>
-    <a class="era-card" href="tomoon.html">🦢 TOMOON</a>
-    <a class="era-card" href="swith.html">🐍 SWITH</a>
-    <a class="era-card" href="multi.html">🐣 MULTI</a>
+    <a class="era-card" href="naya.html">🎀IZNA</a>
+    <a class="era-card" href="fearnot.html">🐦‍🔥LE SSERAFIM</a>
+    <a class="era-card" href="tomoon.html">🌏TOMOON</a>
+    <a class="era-card" href="swith.html">☁️SWITH</a>
+    <a class="era-card" href="multi.html"> 🫧MULTI</a>
   </div>
 </section>
 
@@ -244,7 +244,7 @@ function createCollectionCard(collection){
 }
 collections.forEach(col=>shopGrid.appendChild(createCollectionCard(col)));
 
-// Multi-question Bias Quiz
+// Multi-question ult group Quiz
 const quizQuestions=[
   {question:"What's your favorite color?", options:[{text:"White",member:"NAYA"},{text:"Pink",member:"FEARNOT"},{text:"Blue",member:"TOMOON"},{text:"Green",member:"SWITH"},{text:"Red",member:"MULTI"}]},
   {question:"Which personality matches you best?", options:[{text:"Leader",member:"NAYA"},{text:"Cute & Bright",member:"FEARNOT"},{text:"Graceful",member:"TOMOON"},{text:"Mysterious",member:"SWITH"},{text:"Cheerful",member:"MULTI"}]},
@@ -269,7 +269,7 @@ function chooseOption(member){memberScores[member]++; currentQuestion++; if(curr
 function showResult(){
   let maxScore=0; let topMember="OT6";
   for(const member in memberScores){if(memberScores[member]>maxScore){maxScore=memberScores[member]; topMember=member;}}
-  document.getElementById('quizResultText').textContent=`Your bias is ${topMember}! 🥰`;
+  document.getElementById('quizResultText').textContent=`Your ult group is ${topMember}! 🥰`;
   setMemberTheme(topMember);
   document.getElementById('quizModal').style.display='none';
   document.getElementById('quizResultModal').style.display='flex';
