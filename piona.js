@@ -7,27 +7,32 @@ const memberData = {
     chaewon: { 
         color:'var(--chaewon)', accent:'var(--chaewon-dark)', header:'assets/chaewon.png', emoji:'🐯', 
         description:'Leader & perfectionist', traits:['Leader','Perfectionist'],
-        profileImage:'assets/profile-chaewon.png', fandomName:'Ssamudan'
+        profileImage:'assets/profile-chaewon.png', fandomName:'Ssamudan',
+        stats: { items: 6, followers: '2.22k', following: 222 }
     },
     sakura: { 
         color:'var(--sakura)', accent:'var(--sakura-dark)', header:'assets/sakura.png', emoji:'🌸', 
         description:'Elegant dreamer', traits:['Elegant','Creative'],
-        profileImage:'assets/profile-sakura.png', fandomName:'39er'
+        profileImage:'assets/profile-sakura.png', fandomName:'39er',
+        stats: { items: 5, followers: '1.8k', following: 198 }
     },
     yunjin: { 
         color:'var(--yunjin)', accent:'var(--yunjin-dark)', header:'assets/yunjin.png', emoji:'🐍', 
         description:'Confident artist', traits:['Confident','Artistic'],
-        profileImage:'assets/profile-yunjin.png', fandomName:'Burned Passport'
+        profileImage:'assets/profile-yunjin.png', fandomName:'Burned Passport',
+        stats: { items: 7, followers: '3k', following: 305 }
     },
     kazuha: { 
         color:'var(--kazuha)', accent:'var(--kazuha-dark)', header:'assets/kazuha.png', emoji:'🦢', 
         description:'Graceful soul', traits:['Graceful','Serene'],
-        profileImage:'assets/profile-kazuha.png', fandomName:'Komorebis'
+        profileImage:'assets/profile-kazuha.png', fandomName:'Komorebis',
+        stats: { items: 4, followers: '1.5k', following: 180 }
     },
     eunchae: { 
         color:'var(--eunchae)', accent:'var(--eunchae-dark)', header:'assets/eunchae.png', emoji:'🐣', 
         description:'Energetic sunshine', traits:['Energetic','Playful'],
-        profileImage:'assets/profile-eunchae.png', fandomName:'Member of the Eunchae Mother Association'
+        profileImage:'assets/profile-eunchae.png', fandomName:'Member of the Eunchae Mother Association',
+        stats: { items: 6, followers: '2.5k', following: 250 }
     }
 };
 
@@ -88,6 +93,10 @@ function setBias(member){
     // Update name and fandom subtitle
     const profileInfo = document.querySelector('.profile-info h1');
     profileInfo.innerHTML = `Fearnot <span class="verified-badge">${data.fandomName}</span>`;
+
+    // Update profile stats
+    const statsElem = document.querySelector('.profile-stats');
+    statsElem.innerHTML = `<span>${data.stats.items} items</span><span>${data.stats.followers} followers</span><span>${data.stats.following} following</span>`;
 
     // Update active bias button
     document.querySelectorAll('.bias-btn').forEach(btn=>{
