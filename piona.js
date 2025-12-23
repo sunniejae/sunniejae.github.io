@@ -34,7 +34,7 @@ const products = [
         },
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
- { 
+    { 
         name: "AutoGraphics", 
         images: {
             ot5: "autograph.png",
@@ -56,9 +56,9 @@ const products = [
             kazuha: "blank-kazuha.png",
             eunchae: "blank-eunchae.png"
         },
-     brand: "SunnieJae", price: "$8", size:"1pc" 
+        brand: "SunnieJae", price: "$8", size:"1pc" 
     },
-   { 
+    { 
         name: "Lightstick Keychains", 
         images: {
             ot5: "blank.png",
@@ -68,9 +68,9 @@ const products = [
             kazuha: "blank-kazuha.png",
             eunchae: "blank-eunchae.png"
         },
-     brand: "SunnieJae", price: "$8", size:"1pc" 
+        brand: "SunnieJae", price: "$8", size:"1pc" 
     },
-       { 
+    { 
         name: "Phone Case", 
         images: {
             ot5: "blank.png",
@@ -80,10 +80,9 @@ const products = [
             kazuha: "blank-kazuha.png",
             eunchae: "blank-eunchae.png"
         },
-     brand: "SunnieJae", price: "$15", size:"1pc" 
+        brand: "SunnieJae", price: "$15", size:"1pc" 
     },
 ];
-
 
 // ===== QUIZ DATA =====
 const quizQuestions = [
@@ -140,12 +139,16 @@ function setBias(member) {
     document.querySelectorAll(".bias-btn").forEach(btn => {
         btn.classList.toggle("active", btn.textContent.includes(members[member].display));
     });
+
+    // Update products for current bias
+    renderProducts();
 }
 
 // ===== RENDER PRODUCTS =====
 function renderProducts() {
     const grid = document.getElementById("products-grid");
     grid.innerHTML = "";
+
     products.forEach(prod => {
         const imgSrc = prod.images[currentBias] || prod.images.ot5;
         const card = document.createElement("div");
@@ -169,14 +172,12 @@ function renderProducts() {
 
 // ===== WISHLIST =====
 function addToWishlist(item) {
-    // Include member/bias in wishlist name
     const memberVersion = currentBias === "ot5" ? "OT5" : members[currentBias].display;
     const entry = `${item} (${memberVersion})`;
 
     if (!wishlist.includes(entry)) wishlist.push(entry);
     document.getElementById("wishlist-items").value = wishlist.join("\n");
 }
-
 
 function submitWishlist() {
     alert(`Wishlist submitted!\n\nName: ${document.getElementById("wishlist-name").value}\nEmail: ${document.getElementById("wishlist-email").value}\nItems:\n${wishlist.join("\n")}`);
@@ -199,8 +200,8 @@ function closeQuiz() {
 function renderCurrentQuestion() {
     const container = document.getElementById("quiz-questions");
     container.innerHTML = "";
-    const q = quizQuestions[currentQuestionIndex];
 
+    const q = quizQuestions[currentQuestionIndex];
     const questionEl = document.createElement("div");
     questionEl.innerHTML = `<p><strong>${q.question}</strong></p>`;
 
@@ -216,7 +217,6 @@ function renderCurrentQuestion() {
 
 // ===== QUIZ LOGIC =====
 function selectAnswer(membersArray) {
-    // Increment score for each member selected
     membersArray.forEach(m => {
         quizScore[m] = (quizScore[m] || 0) + 1;
     });
@@ -231,7 +231,6 @@ function selectAnswer(membersArray) {
 }
 
 function showResult() {
-    // Find member with highest score
     let maxScore = 0;
     let topMember = currentBias;
 
@@ -242,7 +241,6 @@ function showResult() {
         }
     }
 
-    // Update Result Modal
     document.getElementById("result-image").src = `/assets/profile-${topMember}.png`;
     document.getElementById("result-name").textContent = members[topMember].display;
     document.getElementById("result-description").textContent = `Mostly chose ${members[topMember].display}! You match best with them.`;
