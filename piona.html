@@ -44,6 +44,7 @@
     .profile-section { padding:16px; background:rgba(255,255,255,0.1); margin-bottom:16px; }
     .profile-header { display:flex; align-items:center; gap:12px; }
     .profile-pic { font-size:40px; width:60px; height:60px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; }
+    .profile-header img { width:60px; height:60px; border-radius:50%; object-fit:cover; }
     .profile-info h1 { font-family:'Milky','Quicksand',sans-serif; font-size:24px; margin-bottom:4px; }
     .verified-badge { font-size:12px; color:var(--current-accent); margin-left:6px; }
     .profile-stats { font-size:12px; color:var(--dark-gray); display:flex; gap:12px; }
@@ -112,7 +113,7 @@
     <div class="profile-header">
         <div class="profile-pic" id="profile-pic">🌸</div>
         <div class="profile-info">
-            <h1>sunniejae <span class="verified-badge">FEARNOT</span></h1>
+            <h1>Fearnot <span class="verified-badge">39er</span></h1>
             <div class="profile-stats"><span>6 items</span><span>2.22k followers</span><span>222 following</span></div>
         </div>
     </div>
@@ -125,11 +126,11 @@
 <div class="bias-section">
     <h2>✨ Choose Your Bias ✨</h2>
     <div class="bias-buttons">
-        <button class="bias-btn" onclick="setBias('chaewon')">🐯 Chaewon</button>
-        <button class="bias-btn" onclick="setBias('sakura')">🌸 Sakura</button>
-        <button class="bias-btn" onclick="setBias('yunjin')">🐍 Yunjin</button>
-        <button class="bias-btn" onclick="setBias('kazuha')">🦢 Kazuha</button>
-        <button class="bias-btn" onclick="setBias('eunchae')">🐣 Eunchae</button>
+        <button class="bias-btn" data-member="chaewon" onclick="setBias('chaewon')">🐯 Chaewon</button>
+        <button class="bias-btn" data-member="sakura" onclick="setBias('sakura')">🌸 Sakura</button>
+        <button class="bias-btn" data-member="yunjin" onclick="setBias('yunjin')">🐍 Yunjin</button>
+        <button class="bias-btn" data-member="kazuha" onclick="setBias('kazuha')">🦢 Kazuha</button>
+        <button class="bias-btn" data-member="eunchae" onclick="setBias('eunchae')">🐣 Eunchae</button>
     </div>
     <button class="bias-matcher-btn" onclick="openQuiz()">💞 Take Bias Matcher Quiz</button>
 </div>
@@ -144,7 +145,7 @@
     <input type="text" id="wishlist-name" placeholder="Your Name">
     <input type="email" id="wishlist-email" placeholder="Your Email">
     <label><input type="checkbox" id="email-optin"> Subscribe to Sunnie Jae emails for first access to promos & collections</label>
-    <button onclick="submitWishlist()">Request Order 🛍️</button>
+    <button type="button" onclick="submitWishlist()">Request Order 🛍️</button>
 </div>
 
 <!-- Quiz Modal -->
