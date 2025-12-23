@@ -64,6 +64,35 @@ header {
   cursor:pointer;
 }
 
+.bias-btn.active {
+  border:2px solid var(--current-accent);
+}
+
+.profile {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+}
+
+.profile img {
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--current-accent);
+}
+
+.profile-info h1 {
+  margin:0;
+  font-size:20px;
+}
+
+.profile-info .verified-badge {
+  font-size:14px;
+  color:var(--current-accent);
+}
+
 .products-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
@@ -83,7 +112,7 @@ header {
   border-radius:8px;
 }
 
-.product-btn {
+.product-btn, .wishlist-btn {
   margin-top:10px;
   padding:10px;
   border-radius:999px;
@@ -99,12 +128,7 @@ header {
   gap:6px;
 }
 
-.product-btn:hover { transform:scale(1.05); }
-
-.redbubble-btn::after {
-  content:"↗";
-  font-size:12px;
-}
+.product-btn:hover, .wishlist-btn:hover { transform:scale(1.05); }
 
 #wishlist {
   padding:16px;
@@ -132,6 +156,9 @@ header {
   width:90%;
   text-align:center;
 }
+.modal-content button {
+  margin-top:12px;
+}
 </style>
 </head>
 
@@ -143,13 +170,20 @@ header {
 </header>
 
 <div class="bias-buttons">
-  <button class="bias-btn" onclick="setBias('ot5')">OT5</button>
-  <button class="bias-btn" onclick="setBias('chaewon')">Chaewon</button>
-  <button class="bias-btn" onclick="setBias('sakura')">Sakura</button>
-  <button class="bias-btn" onclick="setBias('yunjin')">Yunjin</button>
-  <button class="bias-btn" onclick="setBias('kazuha')">Kazuha</button>
-  <button class="bias-btn" onclick="setBias('eunchae')">Eunchae</button>
+  <button class="bias-btn" data-member="ot5" onclick="setBias('ot5')">OT5</button>
+  <button class="bias-btn" data-member="chaewon" onclick="setBias('chaewon')">Chaewon</button>
+  <button class="bias-btn" data-member="sakura" onclick="setBias('sakura')">Sakura</button>
+  <button class="bias-btn" data-member="yunjin" onclick="setBias('yunjin')">Yunjin</button>
+  <button class="bias-btn" data-member="kazuha" onclick="setBias('kazuha')">Kazuha</button>
+  <button class="bias-btn" data-member="eunchae" onclick="setBias('eunchae')">Eunchae</button>
   <button class="bias-btn" onclick="openQuiz()">💫 Bias Matcher</button>
+</div>
+
+<div class="profile">
+  <img id="profile-img" src="/assets/profile-ot5.png" alt="Profile">
+  <div class="profile-info">
+    <h1>OT5 <span class="verified-badge">Fearnot</span></h1>
+  </div>
 </div>
 
 <div id="products-grid" class="products-grid"></div>
@@ -162,15 +196,19 @@ header {
 <!-- QUIZ MODAL -->
 <div id="quiz-modal" class="modal">
   <div class="modal-content">
-    <h3 id="quiz-question"></h3>
-    <div id="quiz-answers"></div>
+    <h3>Quiz</h3>
+    <div id="quiz-questions"></div>
+    <button onclick="closeQuiz()">Close Quiz</button>
   </div>
 </div>
 
 <!-- RESULT MODAL -->
 <div id="result-modal" class="modal">
   <div class="modal-content">
-    <h2 id="result-name"></h2>
+    <img id="result-image" src="/assets/profile-ot5.png" alt="Result" width="120" height="120" style="border-radius:50%; border:2px solid var(--current-accent);">
+    <h2 id="result-name">OT5</h2>
+    <p id="result-description"></p>
+    <div id="result-traits"></div>
     <button onclick="closeResult()">Start Shopping ✨</button>
   </div>
 </div>
