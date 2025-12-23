@@ -44,13 +44,88 @@ const products = [
     { id:'totebag', brand:'Sunnie Jae', title:'Bias Tote Bag', size:'Canvas', price:'$18', image:'assets/hangul/{member}.png', redbubble:'https://www.redbubble.com/people/sunniejae/shop' }
 ];
 
+// ===== QUIZ QUESTIONS =====
+const quizQuestions = [
+    { question: "Favorite Color", answers: [
+        { text: "White", members: ["chaewon"] },
+        { text: "Pink", members: ["sakura"] },
+        { text: "Blue", members: ["kazuha"] },
+        { text: "Green", members: ["yunjin"] },
+        { text: "Red", members: ["eunchae"] }
+    ]},
+    { question: "Are you an introvert or an extrovert?", answers: [
+        { text: "Introvert", members: ["sakura","eunchae","kazuha"] },
+        { text: "Extrovert", members: ["yunjin","chaewon"] }
+    ]},
+    { question: "Down to Earth vs Head in the Clouds", answers: [
+        { text: "Down to Earth", members: ["chaewon","eunchae"] },
+        { text: "Head in the Clouds", members: ["sakura","yunjin","kazuha"] }
+    ]},
+    { question: "Head vs Heart", answers: [
+        { text: "Head", members: ["sakura","eunchae","chaewon"] },
+        { text: "Heart", members: ["kazuha","yunjin"] }
+    ]},
+    { question: "Order vs Chaos", answers: [
+        { text: "Order", members: ["yunjin","kazuha","eunchae"] },
+        { text: "Chaos", members: ["chaewon","sakura"] }
+    ]},
+    { question: "Favorite Animal", answers: [
+        { text: "Cheetah", members: ["chaewon"] },
+        { text: "Cat", members: ["sakura"] },
+        { text: "Swan", members: ["kazuha"] },
+        { text: "Baby Chick", members: ["eunchae"] },
+        { text: "Snake", members: ["yunjin"] }
+    ]},
+    { question: "Favorite English Name", answers: [
+        { text: "Anna", members: ["chaewon"] },
+        { text: "Sebastian", members: ["sakura"] },
+        { text: "Jennifer", members: ["yunjin"] },
+        { text: "Ava", members: ["sakura"] },
+        { text: "Elle", members: ["kazuha"] },
+        { text: "Ruby", members: ["eunchae"] }
+    ]},
+    { question: "Favorite English Idiom", answers: [
+        { text: "Have a good one!", members: ["sakura"] },
+        { text: "Easy peasy lemon squeezy", members: ["chaewon"] },
+        { text: "It girl energy", members: ["yunjin"] },
+        { text: "She ate with no crumbs", members: ["eunchae"] },
+        { text: "Freeze to death", members: ["kazuha"] }
+    ]},
+    { question: "Dark Chocolate or Milk Chocolate?", answers: [
+        { text: "Dark", members: ["sakura","kazuha","chaewon","yunjin"] },
+        { text: "Milk", members: ["eunchae"] }
+    ]},
+    { question: "Another group you like", answers: [
+        { text: "Red Velvet", members: ["sakura"] },
+        { text: "BTS", members: ["yunjin"] },
+        { text: "BlackPink", members: ["kazuha"] },
+        { text: "Seventeen", members: ["eunchae"] },
+        { text: "Girl's Generation", members: ["chaewon"] },
+        { text: "iz*One", members: ["sakura","chaewon"] }
+    ]},
+    { question: "Can you handle spicy food?", answers: [
+        { text: "Yes", members: ["chaewon","yunjin"] },
+        { text: "No", members: ["sakura","kazuha"] },
+        { text: "Depends on the day", members: ["eunchae"] }
+    ]},
+    { question: "Favorite LE SSERAFIM era", answers: [
+        { text: "Unforgiven", members: ["yunjin"] },
+        { text: "Crazy", members: ["eunchae"] },
+        { text: "Spaghetti", members: ["sakura","chaewon","eunchae","kazuha","yunjin"] },
+        { text: "Hot", members: ["sakura"] },
+        { text: "Easy", members: ["chaewon"] },
+        { text: "Come Over", members: ["kazuha"] }
+    ]}
+];
+
+let currentQuestionIndex = 0;
+
 // ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', () => {
     setBias(currentBias);
     renderProducts();
     updateBagCount();
 
-    // Search listener
     const searchInput = document.querySelector('.search-input');
     if(searchInput){
         searchInput.addEventListener('input', e => {
@@ -64,15 +139,14 @@ function setBias(member){
     currentBias = member;
     const data = memberData[member];
 
-    // Update theme colors
+    // Update theme
     document.documentElement.style.setProperty('--current-bg', data.color);
     document.documentElement.style.setProperty('--current-accent', data.accent);
 
-    // Update profile pic emoji
+    // Update profile emoji and image
     const profilePic = document.getElementById('profile-pic');
     profilePic.textContent = data.emoji;
 
-    // Update profile image
     const profileHeader = document.querySelector('.profile-header');
     let img = profileHeader.querySelector('img');
     if(img){
@@ -86,19 +160,17 @@ function setBias(member){
         img.style.borderRadius = '50%';
         profileHeader.insertBefore(img, profilePic);
     }
-
-    // Hide emoji if profile image exists
     profilePic.style.display = img ? 'none' : 'flex';
 
-    // Update name and fandom subtitle
+    // Name and fandom
     const profileInfo = document.querySelector('.profile-info h1');
     profileInfo.innerHTML = `Fearnot <span class="verified-badge">${data.fandomName}</span>`;
 
-    // Update profile stats
+    // Stats
     const statsElem = document.querySelector('.profile-stats');
     statsElem.innerHTML = `<span>${data.stats.items} items</span><span>${data.stats.followers} followers</span><span>${data.stats.following} following</span>`;
 
-    // Update active bias button
+    // Active button
     document.querySelectorAll('.bias-btn').forEach(btn=>{
         btn.classList.toggle('active', btn.dataset.member === member);
     });
@@ -156,12 +228,44 @@ function submitWishlist(){
 function toggleLike(e, btn){ e.stopPropagation(); btn.classList.toggle('liked'); btn.textContent=btn.classList.contains('liked')?'❤️':'♡'; }
 
 // ===== QUIZ =====
-function openQuiz(){ document.getElementById('quiz-modal').classList.add('active'); quizScores={chaewon:0,sakura:0,yunjin:0,kazuha:0,eunchae:0}; }
-function closeQuiz(){ document.getElementById('quiz-modal').classList.remove('active'); quizScores={chaewon:0,sakura:0,yunjin:0,kazuha:0,eunchae:0}; }
-function answerQuiz(member, btn){
-    quizScores[member]++; btn.style.backgroundColor=memberData[member].accent; btn.style.color='#fff';
-    const total=Object.values(quizScores).reduce((a,b)=>a+b,0);
-    if(total>=3){ const winner=Object.keys(quizScores).reduce((a,b)=> quizScores[a]>=quizScores[b]?a:b ); closeQuiz(); setTimeout(()=>{ showResult(winner); setBias(winner); },300); }
+function openQuiz(){
+    document.getElementById('quiz-modal').classList.add('active');
+    quizScores = {chaewon:0,sakura:0,yunjin:0,kazuha:0,eunchae:0};
+    currentQuestionIndex = 0;
+    renderQuizQuestion();
+}
+
+function closeQuiz(){ document.getElementById('quiz-modal').classList.remove('active'); }
+
+function renderQuizQuestion(){
+    const quizContent = document.getElementById('quiz-questions');
+    quizContent.innerHTML = '';
+
+    if(currentQuestionIndex >= quizQuestions.length){
+        const winner = Object.keys(quizScores).reduce((a,b) => quizScores[a]>=quizScores[b]?a:b );
+        closeQuiz();
+        setTimeout(()=>{ showResult(winner); setBias(winner); },300);
+        return;
+    }
+
+    const q = quizQuestions[currentQuestionIndex];
+    const questionElem = document.createElement('p');
+    questionElem.textContent = q.question;
+    quizContent.appendChild(questionElem);
+
+    q.answers.forEach(a => {
+        const btn = document.createElement('button');
+        btn.textContent = a.text;
+        btn.onclick = () => answerQuiz(a.members);
+        quizContent.appendChild(btn);
+    });
+}
+
+function answerQuiz(members){
+    if(!Array.isArray(members)) members = [members];
+    members.forEach(m => quizScores[m]++);
+    currentQuestionIndex++;
+    renderQuizQuestion();
 }
 
 // ===== RESULT MODAL =====
