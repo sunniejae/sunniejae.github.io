@@ -3,306 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NAYA Fandom Shop</title>
-<link rel="icon" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png" type="image/png">
+<title>Fandom Shop | Sunnie Jae</title>
+<link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-/* Custom Font */
-@font-face {
-  font-family: "MyCustomFont";
-  src: url("https://sunniejae.blob.core.windows.net/sunniejae/Myfont1-Regular.woff2") format("woff2"),
-       url("https://sunniejae.blob.core.windows.net/sunniejae/Myfont1-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+/* ===== FONTS ===== */
+@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Cheri'; src: url('tan-mon-cheri.woff') format('truetype'); }
 
-/* Root palette + member colors */
+/* ===== ROOT COLORS ===== */
 :root {
-  --black: #000010;
-  --white: #ffffff;
-  --dark-gray: #404040;
-  --gray: #bfbfdc;
-  --silver: #f0f0f5;
-  --pink: #ffb3d6;
-  --teal: #00a8a3;
-  --dark-purple: #3f3d7a;
-  --accent: #00c9c2;
-  --secondary: #c13886;
-  --primary: #9a9ad4;
-  --bg: var(--dark-purple);
+    --black: #000010;
+    --white: #ffffff;
+    --secondary: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary-accent: #c13886;
+    --primary: #9a9ad4;
 
-  /* NAYA Members */
-  --Mai-color: #ff0000;
-  --Jeemin-color: #000080;
-  --Koko-color: #ffa500;
-  --Sarang-color: #00ff00;
-  --Jungeun-color: #800080;
-  --Saebi-color: #ff69b4;
+    --mai:#f0f0f5; --mai-dark:#342f38;
+    --jeemin:#ffb3d6; --jeemin-dark:#c13886;
+    --koko:#73e3bd; --koko-dark:#0d5c2d;
+    --sarang:#00c9c2; --sarang-dark:#2a3055;
+    --jungeun:#bf3851; --jungeun-dark:#880d1e;
+  --saebi:#ffb3d6; --saebi-dark: #3f3d7a;
+
+    --current-bg: var(--primary);
+    --current-accent: var(--dark-purple);
 }
 
-/* Global Styles */
+/* ===== RESET ===== */
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'MyCustomFont',sans-serif; background: var(--bg); transition: background 0.5s; color: var(--silver); }
-h1,h2,h3{ font-family:'MyCustomFont',sans-serif; color: var(--white); text-shadow:0 0 12px var(--primary),0 0 24px rgba(154,154,212,0.4);}
-a{color:inherit;text-decoration:none;}
-.hero{position:relative;height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
-.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;}
-.hero-content{z-index:2; max-width:800px;}
-.hero h1{font-size:clamp(3rem,6vw,5rem);letter-spacing:0.2em;}
-.hero p{margin:1.5rem 0 2.5rem;opacity:0.85;}
-.btn{padding:0.8rem 2.4rem;margin:0.5rem;border-radius:40px;border:none;cursor:pointer;font-weight:700;color:var(--white);background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 0 20px rgba(154,154,212,0.6);transition: transform 0.3s, box-shadow 0.3s;}
-.btn:hover{transform:scale(1.06);background:linear-gradient(135deg,var(--accent),var(--primary));box-shadow:0 0 35px rgba(0,201,194,0.9);}
-section{padding:4rem 8%;}
-.section-title{text-align:center;font-size:2rem;margin-bottom:2rem;}
-.eras{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:3rem;}
-.era-card{padding:1.5rem;border-radius:18px;text-align:center;cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(191,191,220,0.3);backdrop-filter:blur(10px);transition: transform 0.3s, box-shadow 0.3s;}
-.era-card:hover{transform:translateY(-8px);box-shadow:0 0 20px rgba(193,56,134,0.6), inset 0 0 12px rgba(255,179,214,0.3);}
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;}
-.product{background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(63,61,122,0.25));padding:1rem;border-radius:18px;border:1px solid rgba(191,191,220,0.25);text-align:center;transition: transform 0.3s;}
-.product img{width:100%; height:220px; object-fit:contain; border-radius:12px; margin-bottom:0.8rem; background:rgba(255,255,255,0.05);}
-.product h3{font-size:1.1rem;}
-.product .price{color:var(--accent);font-weight:700;margin:0.5rem 0;}
-.product.featured{transform:scale(1.08);box-shadow:0 0 25px var(--accent), 0 0 15px var(--primary) inset;border:2px solid var(--accent);}
+body { font-family:'Jaewriting', sans-serif; background:var(--current-bg); color:var(--black); line-height:1.4; transition:0.5s; }
 
-/* Member-specific highlights */
-.product[data-member="Mai"] { border: 2px solid var(--Mai-color); box-shadow: 0 0 12px var(--Mai-color); }
-.product[data-member="Jeemin"] { border: 2px solid var(--Jeemin-color); box-shadow: 0 0 12px var(--Jeemin-color); }
-.product[data-member="Koko"] { border: 2px solid var(--Koko-color); box-shadow: 0 0 12px var(--Koko-color); }
-.product[data-member="Sarang"] { border: 2px solid var(--Sarang-color); box-shadow: 0 0 12px var(--Sarang-color); }
-.product[data-member="Jungeun"] { border: 2px solid var(--Jungeun-color); box-shadow: 0 0 12px var(--Jungeun-color); }
-.product[data-member="Saebi"] { border: 2px solid var(--Saebi-color); box-shadow: 0 0 12px var(--Saebi-color); }
+/* ===== HEADINGS & TITLES ===== */
+h1, h2, h3, h4, h5, h6, .header-title, .product-title, .bias-btn, .bias-matcher-btn, .wishlist-section button {
+    font-family: 'Cheri', sans-serif;
+}
 
-.wishlist{position:fixed;top:20px;right:20px;padding:0.7rem 1.4rem;border-radius:40px;font-weight:700;color:var(--white);background:linear-gradient(135deg,var(--secondary),var(--primary));box-shadow:0 0 25px rgba(193,56,134,0.9);cursor:pointer;z-index:10;}
-#wishlistModal, #quizModal, #quizResultModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);justify-content:center;align-items:center;z-index:100;}
-.modalContent{background:var(--black);padding:2rem;border-radius:16px;width:90%;max-width:500px;color:var(--white);position:relative;}
-.modalContent span{position:absolute;top:1rem;right:1rem;cursor:pointer;font-size:1.5rem;}
-.modalContent input{width:100%;padding:0.5rem;margin-bottom:0.5rem;border-radius:8px;border:none;}
-.quiz-question{margin-bottom:1rem;}
-.quiz-option{display:block;margin:0.3rem 0;padding:0.5rem 0.8rem;border-radius:8px;background:rgba(255,255,255,0.1);cursor:pointer;transition:0.2s;}
-.quiz-option:hover{background:rgba(154,154,212,0.3);}
+/* ===== HEADER ===== */
+.depop-header { width:100%; background: var(--white); padding: 8px 16px; position: sticky; top:0; z-index:1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+.header-top { display:flex; justify-content:space-between; align-items:center; }
+.header-left { display:flex; align-items:center; gap:12px; }
+.header-title { font-weight:700; font-size:16px; }
+.header-icons { display:flex; gap:12px; font-size:16px; position:relative; }
+.header-icon { cursor:pointer; position:relative; }
+.bag-count { position:absolute; top:-6px; right:-6px; background:var(--current-accent); color:#fff; font-size:10px; padding:1px 5px; border-radius:50%; }
+.search-bar { display:flex; align-items:center; margin-top:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; }
+.search-bar input { border:none; outline:none; background:transparent; flex:1; padding:4px; font-size:14px; }
+
+/* ===== PROFILE SECTION ===== */
+.profile-section { padding:16px; background:rgba(255,255,255,0.1); margin-bottom:16px; }
+.profile-header { display:flex; align-items:center; gap:12px; }
+.profile-pic { width:100px; height:100px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; overflow:hidden; }
+.profile-pic img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.profile-info h1 { font-size:24px; margin-bottom:4px; }
+.verified-badge { font-size:12px; color: var(--current-accent); margin-left:6px; }
+.profile-stats { font-size:12px; color: var(--secondary); display:flex; gap:12px; }
+.bio { margin-top:8px; font-size:8px; color: var(--secondary); font-family:'Jaewriting',sans-serif; }
+.bio-tags { display:block; margin-top:4px; }
+
+/* ===== BIAS SECTION ===== */
+.bias-section { padding:16px; background:rgba(255,255,255,0.05); margin-bottom:16px; }
+.bias-buttons { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+.bias-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:#fff; transition:0.3s; }
+.bias-btn.active { background:var(--current-accent); color:#fff; }
+.bias-matcher-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:var(--current-accent); color:#fff; }
+
+/* ===== PRODUCTS GRID ===== */
+.products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; padding:0 16px; margin-bottom:16px; }
+.product-card { background:#fff; border-radius:8px; overflow:hidden; cursor:pointer; transition:0.3s; position:relative; }
+.product-card:hover { transform:scale(1.03); }
+.product-image img { width:250px; height:250px; object-fit:cover; }
+.product-info { padding:6px 8px; font-family:'Jaewriting',sans-serif; }
+.product-title { font-weight:700; }
+.product-brand {font-family:'Jaewriting',sans-serif; font-size:10px;}
+.product-size, .product-price { font-family:'Jaewriting',sans-serif; font-size:12px; }
+.wishlist-btn { border:none; background:var(--current-accent); color:#fff; padding:4px 6px; border-radius:6px; cursor:pointer; font-size:12px; }
+
+/* ===== WISHLIST ===== */
+.wishlist-section { padding:16px; background:rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:8px; }
+#wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; font-family:'Jaewriting',sans-serif; }
+#wishlist-name, #wishlist-email, #email-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; }
+.wishlist-section button { font-family:'Cheri',sans-serif; }
+
+/* ===== QUIZ & RESULT MODALS ===== */
+#quiz-modal, #result-modal { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.7); visibility:hidden; opacity:0; transition:0.3s; z-index:2000; }
+#quiz-modal.active, #result-modal.active { visibility:visible; opacity:1; }
+#quiz-content, #result-content { font-family:'Jaewriting',sans-serif; background:#fff; padding:16px; border-radius:12px; max-width:400px; width:90%; text-align:center; position:relative; }
+#quiz-questions button, .quiz-close-btn, #result-content button { font-family:'Cheri',sans-serif; margin:4px; padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
+#result-image { width:120px; height:120px; border-radius:50%; margin:8px 0; }
+.trait-tag { display:inline-block; background:var(--current-accent); color:#fff; padding:2px 6px; margin:2px; border-radius:4px; font-size:11px; }
 </style>
 </head>
 <body>
 
-<!-- Wishlist Button -->
-<div class="wishlist" onclick="openWishlist()">
-  📋 Wishlist (<span id="wishlistCount">0</span>)
+<!-- Header -->
+<div class="depop-header">
+    <div class="header-top">
+        <div class="header-left">
+<a href="index.html" class="back-arrow">←</a>
+            <div class="header-title">NAYA Shop</div>
+        </div>
+        <div class="header-icons">
+            <div class="header-icon">💖<span class="bag-count" id="bag-count">0</span></div>
+        </div>
+    </div>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search merch...">
+    </div>
 </div>
 
-<!-- Wishlist Modal -->
-<div id="wishlistModal">
-  <div class="modalContent">
-    <span onclick="closeWishlist()">✖</span>
-    <h2 style="text-align:center;margin-bottom:1rem;">Your Wishlist</h2>
-    <ul id="wishlistItems" style="list-style:none;margin-bottom:1rem;"></ul>
-    <div style="margin-bottom:1rem;">
-      <input type="text" id="userName" placeholder="Enter your name">
-      <input type="email" id="userEmail" placeholder="Enter your email">
-       <input type="text" id="userBias" placeholder="Your Ult Bias">
+<!-- Profile Section -->
+<div class="profile-section">
+    <div class="profile-header">
+        <div class="profile-pic" id="profile-pic">
+            <img src="" alt="profile picture">
+        </div>
+        <div class="profile-info">
+            <h1 id="profile-name">Fandom Name <span class="verified-badge">Subtitle</span></h1>
+            </div>
+        </div>
     </div>
-    <button class="btn" style="width:100%;" onclick="requestOrder()">Request Order</button>
-  </div>
+    <div class="bio">
+        Sunnie Jae's Fandom Store ✨ Custom designs for FEARNOT
+    </div>
+</div>
+
+<!-- Bias Section -->
+<div class="bias-section">
+    <h2>✨ Choose Your Bias ✨</h2>
+    <div class="bias-buttons">
+        <button class="bias-btn" onclick="setBias('ot6')">✨ ot6</button>
+        <button class="bias-btn" onclick="setBias('mai')">🐯 mai</button>
+        <button class="bias-btn" onclick="setBias('jeemin')">🌸 jeemin</button>
+        <button class="bias-btn" onclick="setBias('koko')">🐍 koko</button>
+        <button class="bias-btn" onclick="setBias('sarang')">🦢 sarang</button>
+        <button class="bias-btn" onclick="setBias('jungeun')">🐣 jungeun</button>
+      <button class="bias-btn" onclick="setBias('jungeun')">🐣 saebi</button>
+    </div>
+    <button class="bias-matcher-btn" onclick="openQuiz()">💞 Take Bias Matcher Quiz</button>
+</div>
+
+<!-- Products Grid -->
+<div class="products-grid" id="products-grid"></div>
+
+<!-- Wishlist -->
+<div class="wishlist-section">
+    <h2>💖 Your Wishlist</h2>
+    <textarea id="wishlist-items" rows="5" readonly></textarea>
+    <input type="text" id="wishlist-name" placeholder="Your Name">
+    <input type="email" id="wishlist-email" placeholder="Your Email">
+    <label><input type="checkbox" id="email-optin"> Subscribe for promos, newsletters, new collection drops, and more</label>
+    <button onclick="submitWishlist()">Request Order 🛍️</button>
 </div>
 
 <!-- Quiz Modal -->
-<div id="quizModal">
-  <div class="modalContent">
-    <span onclick="closeQuiz()">✖</span>
-    <h2 style="text-align:center;margin-bottom:1rem;">NAYA Bias Picker</h2>
-    <div id="quizContent"></div>
-  </div>
+<div id="quiz-modal">
+    <div id="quiz-content">
+        <h2>Find Your Bias!</h2>
+        <div id="quiz-questions"></div>
+        <button onclick="closeQuiz()" class="quiz-close-btn">Close Quiz</button>
+    </div>
 </div>
 
-<!-- Quiz Result Modal -->
-<div id="quizResultModal">
-  <div class="modalContent">
-    <span onclick="closeResult()">✖</span>
-    <h2 style="text-align:center;margin-bottom:1rem;">Your Bias Result</h2>
-    <p id="quizResultText" style="text-align:center;font-size:1.3rem;"></p>
-    <button class="btn" style="width:100%;" onclick="closeResult()">Close</button>
-  </div>
+<!-- Result Modal -->
+<div id="result-modal">
+    <div id="result-content">
+        <h2>Your Perfect Match!</h2>
+        <img id="result-image" src="" alt="Your Bias">
+        <div id="result-name"></div>
+        <p id="result-description"></p>
+        <div id="result-traits"></div>
+        <button onclick="closeResult()">Start Shopping! ✨</button>
+    </div>
 </div>
 
-<section class="hero">
-  <video autoplay muted loop>
-    <source src="https://cdn.coverr.co/videos/coverr-dancing-girl-under-neon-lights-9007/1080p.mp4" type="video/mp4">
-  </video>
-  <div class="hero-content">
-    <h1>NAYA SHOP</h1>
-    <p>Featured items for your favorite member!</p>
-    <button class="btn" onclick="openQuiz()">NAYA Bias Picker</button>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">PICK YOUR BIAS</h2>
-  <div class="eras">
-    <div class="era-card" onclick="setMemberTheme('Mai')">🦊 Mai</div>
-    <div class="era-card" onclick="setMemberTheme('Jeemin')">🐻 Jeemin</div>
-    <div class="era-card" onclick="setMemberTheme('Koko')">🐈‍⬛ Koko</div>
-    <div class="era-card" onclick="setMemberTheme('Sarang')">🐶 Sarang</div>
-    <div class="era-card" onclick="setMemberTheme('Jungeun')">🐆 Jungeun</div>
-    <div class="era-card" onclick="setMemberTheme('Saebi')">🐰 Saebi</div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">PRODUCTS</h2>
-  <div class="shop-grid" id="shopGrid"></div>
-</section>
-
-<footer style="text-align:center;padding:2rem 0;opacity:0.6;">
-© 2025 NAYA Fandom Shop
-</footer>
-
-<script>
-// Wishlist
-let wishlist = [];
-function addToWishlist(item){
-  if(!wishlist.includes(item)){wishlist.push(item);document.getElementById('wishlistCount').textContent=wishlist.length;}
-}
-function openWishlist(){updateWishlist();document.getElementById('wishlistModal').style.display='flex';}
-function closeWishlist(){document.getElementById('wishlistModal').style.display='none';}
-function updateWishlist(){
-  const ul=document.getElementById('wishlistItems');ul.innerHTML='';
-  wishlist.forEach(item=>{let li=document.createElement('li');li.textContent=item;li.style.marginBottom='0.5rem';ul.appendChild(li);});
-}
-function requestOrder(){
-  const name=document.getElementById('userBias').value.trim();
-  const name=document.getElementById('userName').value.trim();
-  const email=document.getElementById('userEmail').value.trim();
-  if(!name || !email || wishlist.length===0){alert('Please fill in name, email, and add items.'); return;}
-  const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRegex.test(email)){alert('Please enter a valid email.'); return;}
-  const subject=encodeURIComponent('NAYA Wishlist Order');
-  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\nBias: ${bias}\nItems:\n- ${wishlist.join('\n- ')}`);
-  window.location.href=`mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
-}
-
-// Member themes
-function setMemberTheme(member){
-  const root=document.documentElement;
-  const colors={
-    'Mai':['#ff0000','#ff4d4d','#ffffff','#ffe6e6'],
-    'Jeemin':['#000080','#00004d','#ffffff','#e0e0ff'],
-    'Koko':['#ffa500','#ffcc66','#000000','#fff4e0'],
-    'Sarang':['#00ff00','#00cc00','#000000','#e0ffe0'],
-    'Jungeun':['#800080','#660066','#ffffff','#f0e0f0'],
-    'Saebi':['#ff69b4','#ff99c2','#ffffff','#ffe0f0']
-  };
-  if(colors[member]){
-    root.style.setProperty('--primary',colors[member][0]);
-    root.style.setProperty('--secondary',colors[member][1]);
-    root.style.setProperty('--accent',colors[member][2]);
-    root.style.setProperty('--bg',colors[member][3]);
-  }
-}
-
-// Products Carousel by Collection
-const collections = [
-  { name: "Spaghetti", type: "Key Chain" },
-  { name: "Light Stick", type: "Key Chain" },
-  { name: "Izna Club", type: "Key Chain" },
-  { name: "Spaghetti", type: "Sticker" },
-  { name: "Light Stick", type: "Sticker" },
-  { name: "Izna Club", type: "Sticker" }
-];
-const members=["OT6","Mai","Jeemin","Koko","Sarang","Jungeun","Saebi"];
-
-const shopGrid=document.getElementById('shopGrid');
-function createCollectionCard(collection){
-  let index=0;
-  const versions=members.map(member=>({
-    member,
-    name:`${member} ${collection.name} ${collection.type}`,
-    img:'https://sunniejae.blob.core.windows.net/sunniejae/logo.png'
-  }));
-  const div=document.createElement('div');
-  div.className='product';
-  div.dataset.member=versions[0].member;
-  div.innerHTML=`
-    <img src="${versions[0].img}" alt="${versions[0].name}">
-    <h3>${versions[0].name}</h3>
-    <p class="price">$15</p>
-    <button class="btn">Add to Wishlist</button>
-  `;
-  const imgEl=div.querySelector('img');
-  const titleEl=div.querySelector('h3');
-  const btnEl=div.querySelector('button');
-  btnEl.onclick=()=>addToWishlist(versions[index].name);
-  div.addEventListener('mouseenter',()=>{
-    div.carouselInterval=setInterval(()=>{
-      index=(index+1)%versions.length;
-      imgEl.src=versions[index].img;
-      titleEl.textContent=versions[index].name;
-      div.dataset.member=versions[index].member;
-    },800);
-  });
-  div.addEventListener('mouseleave',()=>{
-    clearInterval(div.carouselInterval);
-    index=0;
-    imgEl.src=versions[index].img;
-    titleEl.textContent=versions[index].name;
-    div.dataset.member=versions[index].member;
-  });
-  return div;
-}
-collections.forEach(col=>shopGrid.appendChild(createCollectionCard(col)));
-
-// Multi-question Bias Quiz
-const quizQuestions=[
-  {question:"What's your favorite color?", options:[
-    {text:"Red",member:"Mai"},
-    {text:"Navy",member:"Jeemin"},
-    {text:"Yellow/Orange",member:"Koko"},
-    {text:"Green",member:"Sarang"},
-    {text:"Purple",member:"Jungeun"},
-    {text:"Pink",member:"Saebi"}
-  ]},
-  {question:"Which personality matches you best?", options:[
-    {text:"Energetic & Bold",member:"Mai"},
-    {text:"Reliable & Calm",member:"Jeemin"},
-    {text:"Playful & Creative",member:"Koko"},
-    {text:"Friendly & Supportive",member:"Sarang"},
-    {text:"Charming & Strong",member:"Jungeun"},
-    {text:"Cute & Sweet",member:"Saebi"}
-  ]},
-  {question:"Favorite hobby?", options:[
-    {text:"Singing",member:"Saebi"},
-    {text:"Dancing",member:"Mai"},
-    {text:"Gaming",member:"Sarang"},
-    {text:"Reading",member:"Jeemin"},
-    {text:"Drawing",member:"Koko"},
-    {text:"Photography",member:"Jungeun"}
-  ]}
-];
-let memberScores={Mai:0,Jeemin:0,Koko:0,Sarang:0,Jungeun:0,Saebi:0};
-let currentQuestion=0;
-function openQuiz(){currentQuestion=0; memberScores={Mai:0,Jeemin:0,Koko:0,Sarang:0,Jungeun:0,Saebi:0}; showQuestion(currentQuestion); document.getElementById('quizModal').style.display='flex';}
-function closeQuiz(){document.getElementById('quizModal').style.display='none';}
-function showQuestion(index){
-  const quizContent=document.getElementById('quizContent');
-  quizContent.innerHTML=`<div class="quiz-question">${quizQuestions[index].question}</div>`;
-  quizQuestions[index].options.forEach(opt=>{
-    const btn=document.createElement('div');
-    btn.className='quiz-option';
-    btn.textContent=opt.text;
-    btn.onclick=()=>chooseOption(opt.member);
-    quizContent.appendChild(btn);
-  });
-}
-function chooseOption(member){memberScores[member]++; currentQuestion++; if(currentQuestion<quizQuestions.length){showQuestion(currentQuestion);}else{showResult();}}
-function showResult(){
-  let maxScore=0; let topMember="OT6";
-  for(const member in memberScores){if(memberScores[member]>maxScore){maxScore=memberScores[member]; topMember=member;}}
-  document.getElementById('quizResultText').textContent=`Your bias is ${topMember}! 🥰`;
-  setMemberTheme(topMember);
-  document.getElementById('quizModal').style.display='none';
-  document.getElementById('quizResultModal').style.display='flex';
-}
-function closeResult(){document.getElementById('quizResultModal').style.display='none';}
-</script>
-
+<script src="naya.js"></script>
 </body>
 </html>
