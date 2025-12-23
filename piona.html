@@ -39,6 +39,42 @@
     
 }
 
+
+<style>
+/* Custom Fonts */
+@font-face { 
+    font-family: 'JaeWriting'; 
+    src: url('Jaewriting-Regular.ttf') format('truetype'); 
+}
+@font-face { 
+    font-family: 'Cheri'; 
+    src: url('tan-mon-cheri.woff') format('truetype'); 
+}           
+
+/* Root Variables */
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --secondary: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary-accent: #c13886;
+    --primary: #9a9ad4;
+
+    --chaewon:#f0f0f5; --chaewon-dark:#342f38;
+    --sakura:#ffb3d6; --sakura-dark:#c13886;
+    --yunjin:#73e3bd; --yunjin-dark:#0d5c2d;
+    --kazuha:#00c9c2; --kazuha-dark:#2a3055;
+    --eunchae:#bf3851; --eunchae-dark:#880d1e;
+
+    --current-bg: var(--primary);
+    --current-accent: var(--accent);
+}
+
 /* Reset */
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Cheri','JaeWriting',sans-serif; background:var(--current-bg); color:var(--black); line-height:1.4; transition:0.5s; }
@@ -59,9 +95,9 @@ body { font-family:'Cheri','JaeWriting',sans-serif; background:var(--current-bg)
 .profile-header { display:flex; align-items:center; gap:12px; }
 .profile-pic { font-size:40px; width:60px; height:60px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; }
 .profile-info h1 { font-family:'Cheri','JaeWriting',sans-serif; font-size:24px; margin-bottom:4px; }
-.verified-badge { font-size:12px; color:(--current-accent); margin-left:6px; }
-.profile-stats { font-size:12px; color:(--secondary); display:flex; gap:12px; }
-.bio { margin-top:8px; font-size:13px; color:(--secondary); }
+.verified-badge { font-size:12px; color: var(--current-accent); margin-left:6px; }
+.profile-stats { font-size:12px; color: var(--secondary); display:flex; gap:12px; }
+.bio { margin-top:8px; font-size:13px; color: var(--secondary); }
 .bio-tags { display:block; margin-top:4px; font-family:'Cheri','JaeWriting',sans-serif; }
 
 /* Bias Section */
@@ -129,7 +165,7 @@ body { font-family:'Cheri','JaeWriting',sans-serif; background:var(--current-bg)
     <div class="profile-header">
         <div class="profile-pic" id="profile-pic">🌸</div>
         <div class="profile-info">
-            <h1>Fearnot <span class="verified-badge">39er</span></h1>
+            <h1>Fearnot <span class="verified-badge" id="profile-fandom">39er</span></h1>
             <div class="profile-stats"><span>6 items</span><span>2.22k followers</span><span>222 following</span></div>
         </div>
     </div>
@@ -138,7 +174,7 @@ body { font-family:'Cheri','JaeWriting',sans-serif; background:var(--current-bg)
     </div>
 </div>
 
-<!-- Bias Selection -->
+<!-- Bias Section -->
 <div class="bias-section">
     <h2>✨ Choose Your Bias ✨</h2>
     <div class="bias-buttons">
