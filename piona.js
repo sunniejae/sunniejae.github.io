@@ -12,30 +12,71 @@ const members = {
 const products = [
     { 
         name: "Hangul Member Names", 
-        images: { ot5: "hangul-member.png", chaewon: "hangul-chaewon.png", sakura: "hangul-sakura.png", yunjin: "hangul-yunjin.png", kazuha: "hangul-kazuha.png", eunchae: "hangul-eunchae.png" },
+        images: {
+            ot5: "hangul-member.png",
+            chaewon: "hangul-chaewon.png",
+            sakura: "hangul-sakura.png",
+            yunjin: "hangul-yunjin.png",
+            kazuha: "hangul-kazuha.png",
+            eunchae: "hangul-eunchae.png"
+        },
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
         name: "Spaghetti Era Stickers", 
-        images: { ot5: "spaghetti-member.png", chaewon: "spaghetti-chaewon.png", sakura: "spaghetti-sakura.png", yunjin: "spaghetti-yunjin.png", kazuha: "spaghetti-kazuha.png", eunchae: "spaghetti-eunchae.png" },
+        images: {
+            ot5: "spaghetti-member.png",
+            chaewon: "spaghetti-chaewon.png",
+            sakura: "spaghetti-sakura.png",
+            yunjin: "spaghetti-yunjin.png",
+            kazuha: "spaghetti-kazuha.png",
+            eunchae: "spaghetti-eunchae.png"
+        },
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
         name: "Lightstick Keychains", 
-        images: { ot5: "lightstick-member.png", chaewon: "lightstick-chaewon.png", sakura: "lightstick-sakura.png", yunjin: "lightstick-yunjin.png", kazuha: "lightstick-kazuha.png", eunchae: "lightstick-eunchae.png" },
+        images: {
+            ot5: "lightstick-member.png",
+            chaewon: "lightstick-chaewon.png",
+            sakura: "lightstick-sakura.png",
+            yunjin: "lightstick-yunjin.png",
+            kazuha: "lightstick-kazuha.png",
+            eunchae: "lightstick-eunchae.png"
+        },
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
         name: "Phone Case", 
-        images: { ot5: "phonecase-member.png", chaewon: "phonecase-chaewon.png", sakura: "phonecase-sakura.png", yunjin: "phonecase-yunjin.png", kazuha: "phonecase-kazuha.png", eunchae: "phonecase-eunchae.png" },
+        images: {
+            ot5: "phonecase-member.png",
+            chaewon: "phonecase-chaewon.png",
+            sakura: "phonecase-sakura.png",
+            yunjin: "phonecase-yunjin.png",
+            kazuha: "phonecase-kazuha.png",
+            eunchae: "phonecase-eunchae.png"
+        },
         brand: "Sunnie Jae", price: "$25", size:"1pc" 
     },
     { 
         name: "AutoGraphics", 
-        images: { ot5: "autograph-member.png", chaewon: "autograph-chaewon.png", sakura: "autograph-sakura.png", yunjin: "autograph-yunjin.png", kazuha: "autograph-kazuha.png", eunchae: "autograph-eunchae.png" },
+        images: {
+            ot5: "autograph-member.png",
+            chaewon: "autograph-chaewon.png",
+            sakura: "autograph-sakura.png",
+            yunjin: "autograph-yunjin.png",
+            kazuha: "autograph-kazuha.png",
+            eunchae: "autograph-eunchae.png"
+        },
         brand: "Redbubble", price: "$1.79+", size:"1pc" 
     }
 ];
+
+let currentBias = "ot5";
+let wishlist = {};
+let currentQuestionIndex = 0;
+let quizScore = {};
+
 
 // ===== QUIZ DATA =====
 const quizQuestions = [
