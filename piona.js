@@ -21,11 +21,6 @@ const products = [
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
-        name: "Meme Stickers", 
-        images: { ot5: "memesticker-ot5.png", chaewon: "memesticker-chaewon.png", sakura: "memesticker-sakura.png", yunjin: "memesticker-yunjin.png", kazuha: "memesticker-kazuha.png", eunchae: "memesticker-eunchae.png" }, 
-        brand: "Redbubble", price: "$1.79+", size:"Multi" 
-    },
-    { 
         name: "Lightstick Keychains", 
         images: { ot5: "lightstick-member.png", chaewon: "lightstick-chaewon.png", sakura: "lightstick-sakura.png", yunjin: "lightstick-yunjin.png", kazuha: "lightstick-kazuha.png", eunchae: "lightstick-eunchae.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
@@ -69,6 +64,7 @@ function setBias(member) {
     if (!members[member]) return;
 
     currentBias = member;
+
     const profileImg = document.querySelector("#profile-pic img");
     profileImg.src = `/assets/profile-${member}.png`;
 
@@ -77,7 +73,7 @@ function setBias(member) {
     document.documentElement.style.setProperty('--current-accent', members[member].accent);
 
     document.querySelectorAll(".bias-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.member === member);
+        btn.classList.toggle("active", btn.textContent.includes(members[member].display));
     });
 
     renderProducts();
@@ -119,13 +115,18 @@ function addToWishlist(item) {
 function renderWishlist() {
     const textarea = document.getElementById("wishlist-items");
     textarea.value = "";
+    let totalItems = 0;
+
     for (const member in wishlist) {
         textarea.value += `--- ${member} ---\n`;
-        wishlist[member].forEach(item => textarea.value += `${item}\n`);
+        wishlist[member].forEach(item => {
+            textarea.value += `${item}\n`;
+            totalItems++;
+        });
         textarea.value += "\n";
     }
-}
-   // Update the top-right wishlist count
+
+    // Update top-right bag count
     const bagCountEl = document.getElementById("bag-count");
     if (bagCountEl) {
         bagCountEl.textContent = totalItems;
@@ -173,37 +174,37 @@ function closeQuiz() {
 function renderCurrentQuestion() {
     const container = document.getElementById("quiz-questions");
     container.innerHTML = "";
-    const q = quizQuestions[currentQuestionIndex];
 
+    const q = quizQuestions[currentQuestionIndex];
     const questionEl = document.createElement("div");
     questionEl.innerHTML = `<p><strong>${q.question}</strong></p>`;
+
     q.answers.forEach(ans => {
         const btn = document.createElement("button");
         btn.textContent = ans.text;
-        btn.onclick = () => selectAnswer(ans.members);
+        btn.onclick = () => {
+            ans.members.forEach(m => quizScore[m] = (quizScore[m] || 0) + 1);
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                renderCurrentQuestion();
+            } else {
+                showResult();
+            }
+        };
         questionEl.appendChild(btn);
     });
+
     container.appendChild(questionEl);
 }
 
 // ===== QUIZ LOGIC =====
-function selectAnswer(membersArray) {
-    membersArray.forEach(m => quizScore[m] = (quizScore[m] || 0) + 1);
-    currentQuestionIndex++;
-    if (currentQuestionIndex < quizQuestions.length) renderCurrentQuestion();
-    else showResult();
-}
-
 function showResult() {
-    // Find max score
     let maxScore = 0;
     for (const m in quizScore) if (quizScore[m] > maxScore) maxScore = quizScore[m];
 
-    // Collect members with max score
     let topMembers = [];
     for (const m in quizScore) if (quizScore[m] === maxScore) topMembers.push(m);
-
-    if (topMembers.length === 0) topMembers = ["ot5"]; // Default if no score
+    if (topMembers.length === 0) topMembers = ["ot5"];
 
     const topMember = topMembers[Math.floor(Math.random() * topMembers.length)];
 
