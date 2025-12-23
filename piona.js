@@ -1,93 +1,67 @@
-// ===== MEMBER DATA WITH PROFILE INFO =====
-const memberData = {
-    chaewon: { 
-        color: 'var(--chaewon)', 
-        accent: 'var(--chaewon-dark)', 
-        emoji: '🐯',
-        fandom: 'Ssamudan'
-    },
-    sakura: { 
-        color: 'var(--sakura)', 
-        accent: 'var(--sakura-dark)', 
-        emoji: '🌸',
-        fandom: '39er'
-    },
-    yunjin: { 
-        color: 'var(--yunjin)', 
-        accent: 'var(--yunjin-dark)', 
-        emoji: '🐍',
-        fandom: 'Burned Passport'
-    },
-    kazuha: { 
-        color: 'var(--kazuha)', 
-        accent: 'var(--kazuha-dark)', 
-        emoji: '🦢',
-        fandom: 'Komorebis'
-    },
-    eunchae: { 
-        color: 'var(--eunchae)', 
-        accent: 'var(--eunchae-dark)', 
-        emoji: '🐣',
-        fandom: 'Member of the Eunchae Mother Association'
-    }
-};
+// ===== MEMBER DATA =====
+let currentBias = '';
+let quizScores = {};
+let wishlistItems = [];
 
-let currentBias = null;
+const members = {
+    chaewon: { color: 'var(--chaewon)', accent: 'var(--chaewon-dark)', profile: '/assets/profile-chaewon.png' },
+    sakura: { color: 'var(--sakura)', accent: 'var(--sakura-dark)', profile: '/assets/profile-sakura.png' },
+    yunjin: { color: 'var(--yunjin)', accent: 'var(--yunjin-dark)', profile: '/assets/profile-yunjin.png' },
+    kazuha: { color: 'var(--kazuha)', accent: 'var(--kazuha-dark)', profile: '/assets/profile-kazuha.png' },
+    eunchae: { color: 'var(--eunchae)', accent: 'var(--eunchae-dark)', profile: '/assets/profile-eunchae.png' }
+};
 
 // ===== PRODUCTS DATA =====
 const products = [
-    { name:'Fearnot Keychain', image:'https://sunniejae.blob.core.windows.net/sunniejae/chaewonkeychainpieces.png', price:'$12', member:'chaewon' },
-    { name:'Fearnot Sticker Pack', image:'https://sunniejae.blob.core.windows.net/sunniejae/fearnotstickers.png', price:'$8', member:'sakura' },
-    // Add more products per member here
+    // Example product template
+    // { name:'Keychain', brand:'Fearnot', price:'$12', image:'/assets/product1.png' },
 ];
 
-// ===== WISHLIST =====
-let wishlistItems = [];
-
-// ===== SET BIAS FUNCTION =====
+// ===== SET BIAS =====
 function setBias(member) {
     currentBias = member;
+    document.documentElement.style.setProperty('--current-bg', members[member].color);
+    document.documentElement.style.setProperty('--current-accent', members[member].accent);
 
-    // Update CSS theme colors
-    document.documentElement.style.setProperty('--current-bg', memberData[member].color);
-    document.documentElement.style.setProperty('--current-accent', memberData[member].accent);
+    // Update profile pic
+    const profilePicDiv = document.getElementById('profile-pic');
+    profilePicDiv.innerHTML = `<img src="${members[member].profile}" alt="${member} profile">`;
 
-    // Update profile section
-    document.getElementById('profile-pic').textContent = memberData[member].emoji;
-    document.getElementById('profile-fandom').textContent = memberData[member].fandom;
+    // Update profile colors, optional
+    const profileHeader = document.querySelector('.profile-section');
+    profileHeader.style.background = members[member].color + '20'; // light alpha
 
     // Highlight active button
     document.querySelectorAll('.bias-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelector(`.bias-btn[onclick="setBias('${member}')"]`).classList.add('active');
-
-    // Render products for this member
-    renderProducts(member);
 }
 
 // ===== RENDER PRODUCTS =====
-function renderProducts(member) {
+function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
-    const filtered = member ? products.filter(p => p.member === member) : products;
-    filtered.forEach(prod => {
+    products.forEach(prod => {
         const card = document.createElement('div');
         card.className = 'product-card';
+
         card.innerHTML = `
-            <div class="product-image"><img src="${prod.image}" alt="${prod.name}"></div>
+            <div class="product-image">
+                <img src="${prod.image}" alt="${prod.name}" width="250" height="250" style="width:250px; height:250px; object-fit:cover;">
+            </div>
             <div class="product-info">
-                <div class="product-brand">Fearnot</div>
+                <div class="product-brand">${prod.brand}</div>
                 <div class="product-title">${prod.name}</div>
                 <div class="product-price">${prod.price}</div>
-                <button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">💖 Add to Wishlist</button>
+                <button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">💖 Add</button>
             </div>
         `;
         grid.appendChild(card);
     });
 }
 
-// ===== WISHLIST FUNCTIONS =====
-function addToWishlist(itemName) {
-    wishlistItems.push(itemName);
+// ===== WISHLIST =====
+function addToWishlist(item) {
+    wishlistItems.push(item);
     document.getElementById('wishlist-items').value = wishlistItems.join('\n');
 }
 
@@ -95,80 +69,35 @@ function submitWishlist() {
     const name = document.getElementById('wishlist-name').value;
     const email = document.getElementById('wishlist-email').value;
     const optin = document.getElementById('email-optin').checked;
-    alert(`Thank you ${name}! Your wishlist has been submitted.\nEmail Opt-in: ${optin ? 'Yes' : 'No'}\nItems:\n${wishlistItems.join('\n')}`);
-    // Here you can connect to backend or email service
+    if (!name || !email) {
+        alert('Please enter your name and email.');
+        return;
+    }
+    alert(`Wishlist submitted! Thank you, ${name}.`);
 }
 
 // ===== QUIZ MODAL =====
-const quizModal = document.getElementById('quiz-modal');
-const resultModal = document.getElementById('result-modal');
-const quizQuestions = document.getElementById('quiz-questions');
-
-const quizData = [
-    { question:"Favorite Color?", answers:[
-        { text:"White", members:["chaewon"] },
-        { text:"Pink", members:["sakura"] },
-        { text:"Blue", members:["kazuha"] },
-        { text:"Green", members:["yunjin"] },
-        { text:"Red", members:["eunchae"] }
-    ]},
-    { question:"Are you an introvert or extrovert?", answers:[
-        { text:"Introvert", members:["sakura","eunchae","kazuha"] },
-        { text:"Extrovert", members:["chaewon","yunjin"] }
-    ]},
-    { question:"Down to Earth or Head in the Clouds?", answers:[
-        { text:"Down to Earth", members:["chaewon","eunchae"] },
-        { text:"Head in the Clouds", members:["sakura","yunjin","kazuha"] }
-    ]}
-    // Add more questions as desired
-];
-
-let quizScores = {chaewon:0,sakura:0,yunjin:0,kazuha:0,eunchae:0};
-
 function openQuiz() {
-    quizModal.classList.add('active');
-    quizQuestions.innerHTML = '';
-    quizData.forEach((q, i) => {
-        const qDiv = document.createElement('div');
-        qDiv.innerHTML = `<p><b>${q.question}</b></p>`;
-        q.answers.forEach(ans => {
-            const btn = document.createElement('button');
-            btn.textContent = ans.text;
-            btn.onclick = () => selectAnswer(ans.members);
-            qDiv.appendChild(btn);
-        });
-        quizQuestions.appendChild(qDiv);
+    document.getElementById('quiz-modal').classList.add('active');
+}
+function closeQuiz() {
+    document.getElementById('quiz-modal').classList.remove('active');
+}
+function closeResult() {
+    document.getElementById('result-modal').classList.remove('active');
+}
+
+// ===== INITIAL SETUP =====
+window.onload = () => {
+    // Add bias buttons dynamically if needed
+    const biasContainer = document.querySelector('.bias-buttons');
+    Object.keys(members).forEach(mem => {
+        const btn = document.createElement('button');
+        btn.className = 'bias-btn';
+        btn.textContent = mem.charAt(0).toUpperCase() + mem.slice(1);
+        btn.onclick = () => setBias(mem);
+        biasContainer.appendChild(btn);
     });
-}
 
-function selectAnswer(members) {
-    members.forEach(m => quizScores[m]++);
-    checkQuizCompletion();
-}
-
-function checkQuizCompletion() {
-    const totalScore = Object.values(quizScores).reduce((a,b)=>a+b,0);
-    if(totalScore >= quizData.length) { showResult(); }
-}
-
-function closeQuiz() { quizModal.classList.remove('active'); }
-
-function showResult() {
-    closeQuiz();
-    const maxScore = Math.max(...Object.values(quizScores));
-    const winners = Object.keys(quizScores).filter(m => quizScores[m] === maxScore);
-    const winner = winners[Math.floor(Math.random()*winners.length)];
-
-    document.getElementById('result-image').src = ''; // You can set a profile image URL
-    document.getElementById('result-name').textContent = winner.charAt(0).toUpperCase() + winner.slice(1);
-    document.getElementById('result-description').textContent = `Your perfect bias match is ${winner}!`;
-    resultModal.classList.add('active');
-
-    // Reset quizScores
-    quizScores = {chaewon:0,sakura:0,yunjin:0,kazuha:0,eunchae:0};
-}
-
-function closeResult() { resultModal.classList.remove('active'); }
-
-// ===== INITIAL RENDER =====
-renderProducts(); 
+    renderProducts();
+};
