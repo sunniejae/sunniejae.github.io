@@ -13,16 +13,112 @@ const products = [
 ];
 
 const quizQuestions = [
-  {question:"Favorite color?",answers:[
-    {text:"Pink",members:["sakura"]},
-    {text:"White",members:["chaewon"]},
-    {text:"Green",members:["yunjin"]}
-  ]},
-  {question:"Introvert or extrovert?",answers:[
-    {text:"Introvert",members:["kazuha","sakura"]},
-    {text:"Extrovert",members:["yunjin","chaewon"]}
-  ]}
+  {
+    question: "Favorite Color?",
+    answers: [
+      { text: "White", members: ["chaewon"] },
+      { text: "Pink", members: ["sakura"] },
+      { text: "Blue", members: ["kazuha"] },
+      { text: "Green", members: ["yunjin"] },
+      { text: "Red", members: ["eunchae"] }
+    ]
+  },
+  {
+    question: "MBTI – Introvert or Extrovert?",
+    answers: [
+      { text: "Introvert", members: ["sakura","eunchae","kazuha"] },
+      { text: "Extrovert", members: ["yunjin","chaewon"] }
+    ]
+  },
+  {
+    question: "MBTI – Down to Earth or Head in the Clouds?",
+    answers: [
+      { text: "Down to Earth", members: ["chaewon","eunchae"] },
+      { text: "Head in the Clouds", members: ["sakura","yunjin","kazuha"] }
+    ]
+  },
+  {
+    question: "MBTI – Head or Heart?",
+    answers: [
+      { text: "Head", members: ["sakura","eunchae","chaewon"] },
+      { text: "Heart", members: ["kazuha","yunjin"] }
+    ]
+  },
+  {
+    question: "MBTI – Order or Chaos?",
+    answers: [
+      { text: "Order", members: ["yunjin","kazuha","eunchae"] },
+      { text: "Chaos", members: ["chaewon","sakura"] }
+    ]
+  },
+  {
+    question: "Favorite Animal?",
+    answers: [
+      { text: "Cheetah", members: ["chaewon"] },
+      { text: "Cat", members: ["sakura"] },
+      { text: "Swan", members: ["kazuha"] },
+      { text: "Baby Chick", members: ["eunchae"] },
+      { text: "Snake", members: ["yunjin"] }
+    ]
+  },
+  {
+    question: "Favorite English Name?",
+    answers: [
+      { text: "Anna", members: ["chaewon"] },
+      { text: "Sebastian", members: ["sakura"] },
+      { text: "Jennifer", members: ["yunjin"] },
+      { text: "Elle", members: ["kazuha"] },
+      { text: "Ruby", members: ["eunchae"] }
+    ]
+  },
+  {
+    question: "Favorite Idiom?",
+    answers: [
+      { text: "Easy peasy lemon squeezy", members: ["chaewon"] },
+      { text: "It girl energy", members: ["yunjin"] },
+      { text: "She ate with no crumbs", members: ["eunchae"] },
+      { text: "Freeze to death", members: ["kazuha"] }
+    ]
+  },
+  {
+    question: "Dark or Milk Chocolate?",
+    answers: [
+      { text: "Dark", members: ["sakura","kazuha","chaewon","yunjin"] },
+      { text: "Milk", members: ["eunchae"] }
+    ]
+  },
+  {
+    question: "Another group you like?",
+    answers: [
+      { text: "Red Velvet", members: ["sakura"] },
+      { text: "BTS", members: ["yunjin"] },
+      { text: "BLACKPINK", members: ["kazuha"] },
+      { text: "SEVENTEEN", members: ["eunchae"] },
+      { text: "Girls’ Generation", members: ["chaewon"] },
+      { text: "IZ*ONE", members: ["sakura","chaewon"] }
+    ]
+  },
+  {
+    question: "Can you handle spicy food?",
+    answers: [
+      { text: "Yes", members: ["chaewon","yunjin"] },
+      { text: "No", members: ["sakura","kazuha"] },
+      { text: "Depends", members: ["eunchae"] }
+    ]
+  },
+  {
+    question: "Favorite LE SSERAFIM era?",
+    answers: [
+      { text: "Unforgiven", members: ["yunjin"] },
+      { text: "Crazy", members: ["eunchae"] },
+      { text: "Spaghetti", members: ["chaewon","sakura","yunjin","kazuha","eunchae"] },
+      { text: "Hot", members: ["sakura"] },
+      { text: "Easy", members: ["chaewon"] },
+      { text: "Come Over", members: ["kazuha"] }
+    ]
+  }
 ];
+
 
 let currentBias="ot5";
 let wishlist=[];
