@@ -40,12 +40,12 @@ const members = {
 
 // ===== PRODUCT DATA =====
 const products = [
-    { name: "Sticker Pack", image: "sticker.png", brand: "Fearnot", price: "$5", size:"5pcs" },
-    { name: "Keychain", image: "keychain.png", brand: "Fearnot", price: "$8", size:"1pc" },
+    { name: "Hangul Members", image: "hangul.png", brand: "Redbubble", price: "$5", size:"5pcs" },
+    { name: "Keychain", image: "keychain.png", brand: "SunnieJae", price: "$8", size:"1pc" },
     { name: "Poster", image: "poster.png", brand: "Fearnot", price: "$12", size:"A4" },
     { name: "T-Shirt", image: "tshirt.png", brand: "Fearnot", price: "$20", size:"M" },
     { name: "Pin", image: "pin.png", brand: "Fearnot", price: "$4", size:"1pc" },
-    { name: "Notebook", image: "notebook.png", brand: "Fearnot", price: "$10", size:"A5" },
+    { name: "Notebook", image: "notebook.png", brand: "SunnieJae", price: "$10", size:"A5" },
 ];
 
 // ===== QUIZ DATA =====
@@ -159,7 +159,7 @@ const quizQuestions = [
 ];
 
 // ===== GLOBAL STATE =====
-let currentBias = "chaewon";
+let currentBias = "ot5";
 let wishlist = [];
 
 // ===== SET BIAS =====
