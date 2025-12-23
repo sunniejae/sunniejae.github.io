@@ -1,5 +1,20 @@
 {
+  "routes": [
+    {
+      "route": "/",
+      "serve": "/index.html"
+    },
+    {
+      "route": "/piona.html",
+      "serve": "/piona.html"
+    }
+  ],
   "navigationFallback": {
-    "rewrite": "/404.html"
+    "rewrite": "/index.html"
   },
-
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html"
+    }
+  }
+}
