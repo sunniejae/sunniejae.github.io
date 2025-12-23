@@ -7,7 +7,7 @@ const memberData = {
     chaewon: { 
         color: 'var(--chaewon)', 
         accent: 'var(--chaewon-dark)', 
-        header: 'chaewon.png', 
+        header: 'assets/chaewon.png', 
         emoji: '🐯',
         personality: 'The Leader & Perfectionist',
         description: 'You embody grace, determination, and natural leadership! Like Chaewon, you have an eye for detail and strive for excellence in everything you do. Your calm demeanor hides a fierce inner strength.',
@@ -16,7 +16,7 @@ const memberData = {
     sakura: { 
         color: 'var(--sakura)', 
         accent: 'var(--sakura-dark)', 
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/sakura.png', 
+        header: 'assets/sakura.png', 
         emoji: '🌸',
         personality: 'The Elegant Dreamer',
         description: 'You shine with elegance and charm! Like Sakura, you have a gentle yet captivating presence. Your creative spirit and positive energy light up any room you enter.',
@@ -25,7 +25,7 @@ const memberData = {
     yunjin: { 
         color: 'var(--yunjin)', 
         accent: 'var(--yunjin-dark)', 
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/yunjin.png', 
+        header: 'assets/yunjin.png', 
         emoji: '🐍',
         personality: 'The Confident Artist',
         description: 'You radiate confidence and passion! Like Yunjin, you\'re bold, expressive, and not afraid to stand out. Your artistic soul and strategic mind make you unstoppable.',
@@ -34,7 +34,7 @@ const memberData = {
     kazuha: { 
         color: 'var(--kazuha)', 
         accent: 'var(--kazuha-dark)', 
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/kazuha.png', 
+        header: 'assets/kazuha.png', 
         emoji: '🦢',
         personality: 'The Graceful Soul',
         description: 'You possess serene beauty and inner peace! Like Kazuha, you move through life with grace and poise. Your calm wisdom and elegant presence inspire everyone around you.',
@@ -43,7 +43,7 @@ const memberData = {
     eunchae: { 
         color: 'var(--eunchae)', 
         accent: 'var(--eunchae-dark)', 
-        header: 'https://sunniejae.blob.core.windows.net/sunniejae/eunchae.png', 
+        header: 'assets/eunchae.png', 
         emoji: '🐣',
         personality: 'The Energetic Sunshine',
         description: 'You\'re pure energy and joy! Like Eunchae, you bring sunshine wherever you go with your infectious enthusiasm and bright personality. Your bold spirit and playful nature are irresistible!',
@@ -59,7 +59,7 @@ const products = [
         title: 'Member Keychains',
         size: 'All Members Available',
         price: '$12.99',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/keychain-{member}.png',
+        image: 'assets/keychain-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+keychains'
     },
     {
@@ -68,7 +68,7 @@ const products = [
         title: 'Autograph Stickers',
         size: 'Member Designs',
         price: '$2.99+',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/autograph-{member}.png',
+        image: 'assets/autograph-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+stickers'
     },
     {
@@ -77,7 +77,7 @@ const products = [
         title: 'Memes',
         size: 'Multiple Sizes',
         price: '$15.99+',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/memesticker-{member}.png',
+        image: 'assets/memesticker-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+posters'
     },
     {
@@ -86,7 +86,7 @@ const products = [
         title: 'Name Reading',
         size: 'iPhone & Samsung',
         price: '$24.99+',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/namereading-{member}.png',
+        image: 'assets/namereading-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+phone-cases'
     },
     {
@@ -95,7 +95,7 @@ const products = [
         title: 'Tote Bags',
         size: 'Cotton Canvas',
         price: '$18.99+',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/totebag-{member}.png',
+        image: 'assets/totebag-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+tote-bags'
     },
     {
@@ -104,7 +104,7 @@ const products = [
         title: 'T-Shirts',
         size: 'XS - 3XL',
         price: '$21.99+',
-        image: 'https://sunniejae.blob.core.windows.net/sunniejae/tshirt-{member}.png',
+        image: 'assets/tshirt-{member}.png',
         redbubble: 'https://www.redbubble.com/shop/lesserafim+t-shirts'
     }
 ];
