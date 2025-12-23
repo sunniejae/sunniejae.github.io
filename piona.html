@@ -41,9 +41,9 @@
 
 
 <style>
-/* Custom Fonts */
+/* ===== FONTS ===== */
 @font-face { 
-    font-family: 'JaeWriting'; 
+    font-family: 'Jaewriting'; 
     src: url('Jaewriting-Regular.ttf') format('truetype'); 
 }
 @font-face { 
@@ -51,7 +51,7 @@
     src: url('tan-mon-cheri.woff') format('truetype'); 
 }           
 
-/* Root Variables */
+/* ===== ROOT COLORS ===== */
 :root {
     --black: #000010;
     --white: #ffffff;
@@ -65,22 +65,42 @@
     --secondary-accent: #c13886;
     --primary: #9a9ad4;
 
-    --chaewon:#f0f0f5; --chaewon-dark:#342f38;
-    --sakura:#ffb3d6; --sakura-dark:#c13886;
-    --yunjin:#73e3bd; --yunjin-dark:#0d5c2d;
-    --kazuha:#00c9c2; --kazuha-dark:#2a3055;
-    --eunchae:#bf3851; --eunchae-dark:#880d1e;
+    --chaewon: #f0f0f5; --chaewon-dark: #342f38;
+    --sakura: #ffb3d6; --sakura-dark: #c13886;
+    --yunjin: #73e3bd; --yunjin-dark: #0d5c2d;
+    --kazuha: #00c9c2; --kazuha-dark: #2a3055;
+    --eunchae: #bf3851; --eunchae-dark: #880d1e;
 
     --current-bg: var(--primary);
-    --current-accent: var(--accent);
+    --current-accent: var(--dark-purple);
 }
 
-/* Reset */
+/* ===== RESET ===== */
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'JaeWriting',sans-serif; background:var(--current-bg); color:var(--black); line-height:1.4; transition:0.5s; }
+body { 
+    font-family:'Jaewriting', sans-serif; /* body/content font */
+    background: var(--current-bg);
+    color: var(--black);
+    line-height: 1.4;
+    transition: 0.5s;
+}
 
-/* Header */
-.depop-header { width:100%; background:var(--white); padding:8px 16px; position:sticky; top:0; z-index:1000; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+/* ===== HEADINGS & TITLES ===== */
+h1, h2, h3, h4, h5, h6, .header-title, .product-title, .product-brand, 
+.bias-btn, .bias-matcher-btn, .wishlist-section button {
+    font-family: 'Cheri', sans-serif; /* headings/buttons font */
+}
+
+/* ===== HEADER ===== */
+.depop-header { 
+    width:100%; 
+    background: var(--white); 
+    padding: 8px 16px; 
+    position: sticky; 
+    top:0; 
+    z-index:1000; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 .header-top { display:flex; justify-content:space-between; align-items:center; }
 .header-left { display:flex; align-items:center; gap:12px; }
 .header-title { font-weight:700; font-size:16px; }
@@ -90,24 +110,25 @@ body { font-family:'JaeWriting',sans-serif; background:var(--current-bg); color:
 .search-bar { display:flex; align-items:center; margin-top:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; }
 .search-bar input { border:none; outline:none; background:transparent; flex:1; padding:4px; font-size:14px; }
 
-/* Profile Section */
+/* ===== PROFILE SECTION ===== */
 .profile-section { padding:16px; background:rgba(255,255,255,0.1); margin-bottom:16px; }
 .profile-header { display:flex; align-items:center; gap:12px; }
-.profile-pic { font-size:40px; width:60px; height:60px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; }
+.profile-pic { font-size:40px; width:60px; height:60px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; overflow:hidden; }
+.profile-pic img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
 .profile-info h1 { font-family:'Cheri', sans-serif; font-size:24px; margin-bottom:4px; }
 .verified-badge { font-size:12px; color: var(--current-accent); margin-left:6px; }
 .profile-stats { font-size:12px; color: var(--secondary); display:flex; gap:12px; }
-.bio { margin-top:8px; font-size:13px; color: var(--secondary); }
-.bio-tags { display:block; margin-top:4px; font-family:'JaeWriting',sans-serif; }
+.bio { margin-top:8px; font-size:13px; color: var(--secondary); font-family:'Jaewriting', sans-serif; }
+.bio-tags { display:block; margin-top:4px; font-family:'Jaewriting', sans-serif; }
 
-/* Bias Section */
+/* ===== BIAS SECTION ===== */
 .bias-section { padding:16px; background:rgba(255,255,255,0.05); margin-bottom:16px; }
 .bias-buttons { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
-.bias-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:#fff; transition:0.3s; }
+.bias-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:#fff; transition:0.3s; font-family:'Cheri', sans-serif; }
 .bias-btn.active { background:var(--current-accent); color:#fff; }
-.bias-matcher-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:var(--current-accent); color:#fff; }
+.bias-matcher-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:var(--current-accent); color:#fff; font-family:'Cheri', sans-serif; }
 
-/* Products Grid */
+/* ===== PRODUCTS GRID ===== */
 .products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; padding:0 16px; margin-bottom:16px; }
 .product-card { background:#fff; border-radius:8px; overflow:hidden; cursor:pointer; transition:0.3s; position:relative; }
 .product-card:hover { transform:scale(1.03); }
@@ -115,29 +136,28 @@ body { font-family:'JaeWriting',sans-serif; background:var(--current-bg); color:
 .product-badge { position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.6); color:#fff; padding:2px 6px; border-radius:4px; font-size:12px; }
 .like-btn { position:absolute; top:8px; right:8px; background:none; border:none; font-size:16px; cursor:pointer; }
 .like-btn.liked { color:red; }
-.product-info { padding:6px 8px; font-size:12px; }
-.product-brand { font-family:'Cheri','JaeWriting',sans-serif; font-weight:700; margin-bottom:2px; }
-.product-title { font-weight:700; margin-bottom:2px; }
-.product-size { font-size:10px; color:var(--secondary); margin-bottom:2px; }
-.product-price { font-weight:700; margin-bottom:4px; }
-.wishlist-btn { border:none; background:var(--current-accent); color:#fff; padding:4px 6px; border-radius:6px; cursor:pointer; font-size:12px; transition:0.3s; }
+.product-info { padding:6px 8px; font-size:12px; font-family:'Jaewriting', sans-serif; }
+.product-brand { font-weight:700; margin-bottom:2px; font-family:'Cheri', sans-serif; }
+.product-title { font-weight:700; margin-bottom:2px; font-family:'Cheri', sans-serif; }
+.product-size { font-size:10px; color:var(--secondary); margin-bottom:2px; font-family:'Jaewriting', sans-serif; }
+.product-price { font-weight:700; margin-bottom:4px; font-family:'Jaewriting', sans-serif; }
+.wishlist-btn { border:none; background:var(--current-accent); color:#fff; padding:4px 6px; border-radius:6px; cursor:pointer; font-size:12px; transition:0.3s; font-family:'Cheri', sans-serif; }
 
-/* Wishlist Section */
+/* ===== WISHLIST SECTION ===== */
 .wishlist-section { padding:16px; background:rgba(255,255,255,0.05); margin-bottom:16px; display:flex; flex-direction:column; gap:8px; }
-#wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; }
-#wishlist-name, #wishlist-email, #email-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; }
-.wishlist-section button { background:var(--current-accent); color:#fff; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; }
+#wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; font-family:'Jaewriting', sans-serif; }
+#wishlist-name, #wishlist-email, #email-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; font-family:'Jaewriting', sans-serif; }
+.wishlist-section button { font-family:'Cheri', sans-serif; }
 
-/* Quiz & Result Modals */
+/* ===== QUIZ & RESULT MODALS ===== */
 #quiz-modal, #result-modal { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.7); visibility:hidden; opacity:0; transition:0.3s; z-index:2000; }
 #quiz-modal.active, #result-modal.active { visibility:visible; opacity:1; }
-#quiz-content, #result-content { font-family:'JaeWriting',sans-serif; background:#fff; padding:16px; border-radius:12px; max-width:400px; width:90%; text-align:center; position:relative; }
-#quiz-questions button { margin:4px; padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
-.quiz-close-btn, #result-content button { margin-top:12px; padding:6px 12px; border:none; border-radius:6px; background:var(--current-accent); color:#fff; cursor:pointer; }
+#quiz-content, #result-content { font-family:'Jaewriting', sans-serif; background:#fff; padding:16px; border-radius:12px; max-width:400px; width:90%; text-align:center; position:relative; }
+#quiz-questions button, .quiz-close-btn, #result-content button { font-family:'Cheri', sans-serif; margin:4px; padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
 #result-image { width:120px; height:120px; border-radius:50%; margin:8px 0; }
-.trait-tag { display:inline-block; background:var(--current-accent); color:#fff; padding:2px 6px; margin:2px; border-radius:4px; font-size:11px; }
-
+.trait-tag { display:inline-block; background:var(--current-accent); color:#fff; padding:2px 6px; margin:2px; border-radius:4px; font-size:11px; font-family:'Jaewriting', sans-serif; }
 </style>
+
 </head>
 <body>
 
