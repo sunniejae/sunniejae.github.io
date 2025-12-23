@@ -1,4 +1,7 @@
 {
+  "navigationFallback": {
+    "rewrite": "/404.html"
+  },
   "routes": [
     {
       "route": "/",
@@ -7,14 +10,15 @@
     {
       "route": "/piona.html",
       "serve": "/piona.html"
+    },
+    {
+      "route": "/404.html",
+      "serve": "/404.html"
     }
   ],
-  "navigationFallback": {
-    "rewrite": "/index.html"
-  },
   "responseOverrides": {
     "404": {
-      "rewrite": "/index.html"
+      "rewrite": "/404.html"
     }
   }
 }
