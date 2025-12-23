@@ -100,9 +100,14 @@ function renderProducts() {
 
 // ===== WISHLIST =====
 function addToWishlist(item) {
-    if (!wishlist.includes(item)) wishlist.push(item);
+    // Include member/bias in wishlist name
+    const memberVersion = currentBias === "ot5" ? "OT5" : members[currentBias].display;
+    const entry = `${item} (${memberVersion})`;
+
+    if (!wishlist.includes(entry)) wishlist.push(entry);
     document.getElementById("wishlist-items").value = wishlist.join("\n");
 }
+
 
 function submitWishlist() {
     alert(`Wishlist submitted!\n\nName: ${document.getElementById("wishlist-name").value}\nEmail: ${document.getElementById("wishlist-email").value}\nItems:\n${wishlist.join("\n")}`);
