@@ -21,6 +21,11 @@ const products = [
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
+        name: "Meme Stickers", 
+        images: { ot5: "memesticker-ot5.png", chaewon: "memesticker-chaewon.png", sakura: "memesticker-sakura.png", yunjin: "memesticker-yunjin.png", kazuha: "memesticker-kazuha.png", eunchae: "memesticker-eunchae.png" }, 
+        brand: "Redbubble", price: "$1.79+", size:"Multi" 
+    },
+    { 
         name: "Lightstick Keychains", 
         images: { ot5: "lightstick-member.png", chaewon: "lightstick-chaewon.png", sakura: "lightstick-sakura.png", yunjin: "lightstick-yunjin.png", kazuha: "lightstick-kazuha.png", eunchae: "lightstick-eunchae.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
