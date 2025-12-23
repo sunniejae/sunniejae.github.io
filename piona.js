@@ -44,9 +44,9 @@ const memberData = {
         color: 'var(--fearnot)', 
         accent: 'var(--fearnot-dark)', 
         header: 'https://sunniejae.blob.core.windows.net/sunniejae/chaewon.png', 
-        emoji: '🐯',
-        personality: 'The Leader & Perfectionist',
-        description: 'You embody grace, determination, and natural leadership! Like Chaewon, you have an eye for detail and strive for excellence in everything you do. Your calm demeanor hides a fierce inner strength.',
+        emoji: '🐦‍🔥',
+        personality: 'The Long Suffering Stan',
+        description: 'Here through thick and thin, you're a FEARNOT through and through. No former CEO and her shaman can keep you away. Like a phoenix from a hate train's ashes, you rise.',
         traits: ['Leader', 'Perfectionist', 'Graceful', 'Determined']
     },
     eunchae: { 
