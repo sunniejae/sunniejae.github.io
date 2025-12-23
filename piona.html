@@ -85,4 +85,113 @@ h1, h2, h3, h4, h5, h6, .header-title, .product-title, .product-brand, .bias-btn
 .product-image img { width:250px; height:250px; object-fit:cover; }
 .product-info { padding:6px 8px; font-family:'Jaewriting',sans-serif; }
 .product-brand, .product-title { font-weight:700; }
-.product-size, .product-price { font-family:'Jaewriting',sans-serif; font-size:12
+.product-size, .product-price { font-family:'Jaewriting',sans-serif; font-size:12px; }
+.wishlist-btn { border:none; background:var(--current-accent); color:#fff; padding:4px 6px; border-radius:6px; cursor:pointer; font-size:12px; }
+
+/* ===== WISHLIST ===== */
+.wishlist-section { padding:16px; background:rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:8px; }
+#wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; font-family:'Jaewriting',sans-serif; }
+#wishlist-name, #wishlist-email, #email-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; }
+.wishlist-section button { font-family:'Cheri',sans-serif; }
+
+/* ===== QUIZ & RESULT MODALS ===== */
+#quiz-modal, #result-modal { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.7); visibility:hidden; opacity:0; transition:0.3s; z-index:2000; }
+#quiz-modal.active, #result-modal.active { visibility:visible; opacity:1; }
+#quiz-content, #result-content { font-family:'Jaewriting',sans-serif; background:#fff; padding:16px; border-radius:12px; max-width:400px; width:90%; text-align:center; position:relative; }
+#quiz-questions button, .quiz-close-btn, #result-content button { font-family:'Cheri',sans-serif; margin:4px; padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
+#result-image { width:120px; height:120px; border-radius:50%; margin:8px 0; }
+.trait-tag { display:inline-block; background:var(--current-accent); color:#fff; padding:2px 6px; margin:2px; border-radius:4px; font-size:11px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="depop-header">
+    <div class="header-top">
+        <div class="header-left">
+            <div class="back-arrow">←</div>
+            <div class="header-title">Fandom Shop</div>
+        </div>
+        <div class="header-icons">
+            <div class="header-icon">🔍</div>
+            <div class="header-icon">💖<span class="bag-count" id="bag-count">0</span></div>
+            <div class="header-icon">⋮</div>
+        </div>
+    </div>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search merch...">
+    </div>
+</div>
+
+<!-- Profile Section -->
+<div class="profile-section">
+    <div class="profile-header">
+        <div class="profile-pic" id="profile-pic">
+            <img src="" alt="profile picture">
+        </div>
+        <div class="profile-info">
+            <h1 id="profile-name">Fandom Name <span class="verified-badge">Subtitle</span></h1>
+            <div class="profile-stats">
+                <span>6 items</span>
+                <span>2.22k followers</span>
+                <span>222 following</span>
+            </div>
+        </div>
+    </div>
+    <div class="bio">
+        Official Fandom Store ✨ Custom designs
+        <span class="bio-tags">#fandom #kpop #merch</span>
+    </div>
+</div>
+
+<!-- Bias Section -->
+<div class="bias-section">
+    <h2>✨ Choose Your Bias ✨</h2>
+    <div class="bias-buttons">
+        <button class="bias-btn" onclick="setBias('ot5')">✨ OT5</button>
+        <button class="bias-btn" onclick="setBias('chaewon')">🐯 Chaewon</button>
+        <button class="bias-btn" onclick="setBias('sakura')">🌸 Sakura</button>
+        <button class="bias-btn" onclick="setBias('yunjin')">🐍 Yunjin</button>
+        <button class="bias-btn" onclick="setBias('kazuha')">🦢 Kazuha</button>
+        <button class="bias-btn" onclick="setBias('eunchae')">🐣 Eunchae</button>
+    </div>
+    <button class="bias-matcher-btn" onclick="openQuiz()">💞 Take Bias Matcher Quiz</button>
+</div>
+
+<!-- Products Grid -->
+<div class="products-grid" id="products-grid"></div>
+
+<!-- Wishlist -->
+<div class="wishlist-section">
+    <h2>💖 Your Wishlist</h2>
+    <textarea id="wishlist-items" rows="5" readonly></textarea>
+    <input type="text" id="wishlist-name" placeholder="Your Name">
+    <input type="email" id="wishlist-email" placeholder="Your Email">
+    <label><input type="checkbox" id="email-optin"> Subscribe for promos</label>
+    <button onclick="submitWishlist()">Request Order 🛍️</button>
+</div>
+
+<!-- Quiz Modal -->
+<div id="quiz-modal">
+    <div id="quiz-content">
+        <h2>Find Your Bias!</h2>
+        <div id="quiz-questions"></div>
+        <button onclick="closeQuiz()" class="quiz-close-btn">Close Quiz</button>
+    </div>
+</div>
+
+<!-- Result Modal -->
+<div id="result-modal">
+    <div id="result-content">
+        <h2>Your Perfect Match!</h2>
+        <img id="result-image" src="" alt="Your Bias">
+        <div id="result-name"></div>
+        <p id="result-description"></p>
+        <div id="result-traits"></div>
+        <button onclick="closeResult()">Start Shopping! ✨</button>
+    </div>
+</div>
+
+<script src="piona.js"></script>
+</body>
+</html>
