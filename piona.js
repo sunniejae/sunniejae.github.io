@@ -4,11 +4,11 @@ let wishlistItems = [];
 let quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
 
 const memberData = {
-    chaewon: { color:'var(--chaewon)', accent:'var(--chaewon-dark)', header:'assets/hangul/chaewon.png', emoji:'🐯', description:'Leader & perfectionist', traits:['Leader','Perfectionist'] },
-    sakura: { color:'var(--sakura)', accent:'var(--sakura-dark)', header:'assets/hangul/sakura.png', emoji:'🌸', description:'Elegant dreamer', traits:['Elegant','Creative'] },
-    yunjin: { color:'var(--yunjin)', accent:'var(--yunjin-dark)', header:'assets/hangul/yunjin.png', emoji:'🐍', description:'Confident artist', traits:['Confident','Artistic'] },
-    kazuha: { color:'var(--kazuha)', accent:'var(--kazuha-dark)', header:'assets/hangul/kazuha.png', emoji:'🦢', description:'Graceful soul', traits:['Graceful','Serene'] },
-    eunchae: { color:'var(--eunchae)', accent:'var(--eunchae-dark)', header:'assets/hangul/eunchae.png', emoji:'🐣', description:'Energetic sunshine', traits:['Energetic','Playful'] }
+    chaewon: { color:'var(--chaewon)', accent:'var(--chaewon-dark)', header:'assets/chaewon.png', emoji:'🐯', description:'Leader & perfectionist', traits:['Leader','Perfectionist'] },
+    sakura: { color:'var(--sakura)', accent:'var(--sakura-dark)', header:'assets/sakura.png', emoji:'🌸', description:'Elegant dreamer', traits:['Elegant','Creative'] },
+    yunjin: { color:'var(--yunjin)', accent:'var(--yunjin-dark)', header:'assets/yunjin.png', emoji:'🐍', description:'Confident artist', traits:['Confident','Artistic'] },
+    kazuha: { color:'var(--kazuha)', accent:'var(--kazuha-dark)', header:'assets/kazuha.png', emoji:'🦢', description:'Graceful soul', traits:['Graceful','Serene'] },
+    eunchae: { color:'var(--eunchae)', accent:'var(--eunchae-dark)', header:'assets/eunchae.png', emoji:'🐣', description:'Energetic sunshine', traits:['Energetic','Playful'] }
 };
 
 // ===== PRODUCTS =====
