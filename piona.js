@@ -1,7 +1,7 @@
 // ===== MEMBER DATA =====
 const members = {
     chaewon: { display: "Chaewon", subtitle: "Ssamudan", color: "var(--chaewon)", accent: "var(--chaewon-dark)" },
-    ot5: { display: "OT5", subtitle: "Fandom", color: "var(--primary)", accent: "var(--dark-purple)" },
+    ot5: { display: "OT5", subtitle: "Fearnot", color: "var(--primary)", accent: "var(--dark-purple)" },
     sakura: { display: "Sakura", subtitle: "39er", color: "var(--sakura)", accent: "var(--sakura-dark)" },
     yunjin: { display: "Yunjin", subtitle: "Burned Passport", color: "var(--yunjin)", accent: "var(--yunjin-dark)" },
     kazuha: { display: "Kazuha", subtitle: "Komorebis", color: "var(--kazuha)", accent: "var(--kazuha-dark)" },
@@ -10,12 +10,12 @@ const members = {
 
 // ===== PRODUCT DATA =====
 const products = [
-    { name: "Hangul Members", image: "hangul.png", brand: "Redbubble", price: "$5", size:"5pcs" },
-    { name: "Keychain", image: "keychain.png", brand: "SunnieJae", price: "$8", size:"1pc" },
-    { name: "Poster", image: "poster.png", brand: "Fearnot", price: "$12", size:"A4" },
-    { name: "T-Shirt", image: "tshirt.png", brand: "Fearnot", price: "$20", size:"M" },
-    { name: "Pin", image: "pin.png", brand: "Fearnot", price: "$4", size:"1pc" },
-    { name: "Notebook", image: "notebook.png", brand: "SunnieJae", price: "$10", size:"A5" }
+    { name: "Hangul Member Names", image: "hangul.png", brand: "Redbubble", price: "$5", size:"5pcs" },
+    { name: "Autograph Graphics", image: "autpgraph.png", brand: "SunnieJae", price: "$8", size:"1pc" },
+    { name: "Lightstick Keychains", image: "blank.png", brand: "Fearnot", price: "$12", size:"A4" },
+    { name: "Spaghetti Keychains", image: "blank.png", brand: "Fearnot", price: "$20", size:"M" },
+    { name: "Spaghetti Era Stickers", image: "blank.png", brand: "Fearnot", price: "$4", size:"1pc" },
+    { name: "Notebook", image: "blank.png", brand: "SunnieJae", price: "$10", size:"A5" }
 ];
 
 // ===== QUIZ DATA =====
@@ -80,11 +80,13 @@ function renderProducts() {
     const grid = document.getElementById("products-grid");
     grid.innerHTML = "";
     products.forEach(prod => {
+        const imgSrc = prod.images[currentBias] || prod.images.ot5;
         const card = document.createElement("div");
         card.className = "product-card";
+
         card.innerHTML = `
             <div class="product-image">
-                <img src="/assets/${prod.image}" width="250" height="250" alt="${prod.name}">
+                <img src="/assets/${imgSrc}" width="250" height="250" alt="${prod.name}">
             </div>
             <div class="product-info">
                 <div class="product-brand">${prod.brand}</div>
