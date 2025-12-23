@@ -99,6 +99,7 @@ section{padding:4rem 8%;}
     <div style="margin-bottom:1rem;">
       <input type="text" id="userName" placeholder="Enter your name">
       <input type="email" id="userEmail" placeholder="Enter your email">
+       <input type="text" id="userBias" placeholder="Your Ult Bias">
     </div>
     <button class="btn" style="width:100%;" onclick="requestOrder()">Request Order</button>
   </div>
@@ -168,13 +169,14 @@ function updateWishlist(){
   wishlist.forEach(item=>{let li=document.createElement('li');li.textContent=item;li.style.marginBottom='0.5rem';ul.appendChild(li);});
 }
 function requestOrder(){
+  const name=document.getElementById('userBias').value.trim();
   const name=document.getElementById('userName').value.trim();
   const email=document.getElementById('userEmail').value.trim();
   if(!name || !email || wishlist.length===0){alert('Please fill in name, email, and add items.'); return;}
   const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if(!emailRegex.test(email)){alert('Please enter a valid email.'); return;}
   const subject=encodeURIComponent('NAYA Wishlist Order');
-  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nItems:\n- ${wishlist.join('\n- ')}`);
+  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\nBias: ${bias}\nItems:\n- ${wishlist.join('\n- ')}`);
   window.location.href=`mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
 }
 
