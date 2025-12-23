@@ -185,18 +185,30 @@ function updateBagCount() {
 }
 
 function submitWishlist() {
+    const items = document.getElementById('wishlist-items').value.trim();
     const name = document.getElementById('wishlist-name').value.trim();
     const email = document.getElementById('wishlist-email').value.trim();
-    if (!name || !email) { alert('Please fill in your name and email! 💖'); return; }
-    if (wishlistItems.length === 0) { alert('Your wishlist is empty! Add some items first. ✨'); return; }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) { alert('Please enter a valid email address! 📧'); return; }
-    const subject = encodeURIComponent(`LE SSERAFIM Wishlist from ${name}`);
+    const optedIn = document.getElementById('email-optin').checked;
+
+    if (!items || !email) {
+        alert('Please add items and enter your email 💖');
+        return;
+    }
+
+    const subject = encodeURIComponent('New Sunnie Jae Wishlist Request');
+
     const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\nBias: ${memberData[currentBias].emoji} ${capitalize(currentBias)}\n\nWishlist:\n${wishlistItems.join('\n')}\n\n---\nSent from LE SSERAFIM Fearnot Shop by Sunnie Jae ✨`
+        `Wishlist Request\n\n` +
+        `Name: ${name || 'N/A'}\n` +
+        `Email: ${email}\n\n` +
+        `Items Requested:\n${items}\n\n` +
+        `Subscribed to Sunnie Jae emails: ${optedIn ? 'YES' : 'NO'}`
     );
-    window.location.href = `mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
+
+    window.location.href =
+        `mailto:sunniejae@gmail.com?subject=${subject}&body=${body}`;
 }
+
 
 // ===== LIKE =====
 function toggleLike(event, btn) {
