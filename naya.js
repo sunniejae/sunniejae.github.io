@@ -1,11 +1,12 @@
 // ===== MEMBER DATA =====
 const members = {
-    mai: { display: "mai", subtitle: "Ssamudan", color: "var(--mai)", accent: "var(--mai-dark)" },
-    ot6: { display: "ot6", subtitle: "Fearnot", color: "var(--primary)", accent: "var(--dark-purple)" },
-    jeemin: { display: "jeemin", subtitle: "39er", color: "var(--jeemin)", accent: "var(--jeemin-dark)" },
-    koko: { display: "koko", subtitle: "Burned Passport", color: "var(--koko)", accent: "var(--koko-dark)" },
-    sarang: { display: "sarang", subtitle: "Komorebis", color: "var(--sarang)", accent: "var(--sarang-dark)" },
-    jungeun: { display: "jungeun", subtitle: "jungeun Mother Association", color: "var(--jungeun)", accent: "var(--jungeun-dark)" }
+    mai: { display: "Mai", subtitle: "Maieumi", color: "var(--mai)", accent: "var(--mai-dark)" },
+    ot6: { display: "ot6", subtitle: "NAYA", color: "var(--primary)", accent: "var(--dark-purple)" },
+    jeemin: { display: "jeemin", subtitle: "Jeely", color: "var(--jeemin)", accent: "var(--jeemin-dark)" },
+    koko: { display: "koko", subtitle: "Kkomet", color: "var(--koko)", accent: "var(--koko-dark)" },
+    sarang: { display: "sarang", subtitle: "Maeryu", color: "var(--sarang)", accent: "var(--sarang-dark)" },
+    jungeun: { display: "jungeun", subtitle: "Chiun", color: "var(--jungeun)", accent: "var(--jungeun-dark)" },
+    saebi: { display: "saebi", subtitle: "Saebbon", color: "var(--jungeun)", accent: "var(--jungeun-dark)" }
 };
 
 // ===== PRODUCT DATA =====
