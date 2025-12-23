@@ -195,7 +195,7 @@ function submitWishlist() {
     const body = encodeURIComponent(
         `Name: ${name}\nEmail: ${email}\nBias: ${memberData[currentBias].emoji} ${capitalize(currentBias)}\n\nWishlist:\n${wishlistItems.join('\n')}\n\n---\nSent from LE SSERAFIM Fearnot Shop by Sunnie Jae ✨`
     );
-    window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+    window.location.href = `orders@sunniejae.com?subject=${subject}&body=${body}`;
 }
 
 // ===== LIKE =====
