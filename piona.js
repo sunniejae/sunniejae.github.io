@@ -4,11 +4,31 @@ let wishlistItems = [];
 let quizScores = {chaewon:0, sakura:0, yunjin:0, kazuha:0, eunchae:0};
 
 const memberData = {
-    chaewon: { color:'var(--chaewon)', accent:'var(--chaewon-dark)', header:'assets/chaewon.png', emoji:'🐯', description:'Leader & perfectionist', traits:['Leader','Perfectionist'] },
-    sakura: { color:'var(--sakura)', accent:'var(--sakura-dark)', header:'assets/sakura.png', emoji:'🌸', description:'Elegant dreamer', traits:['Elegant','Creative'] },
-    yunjin: { color:'var(--yunjin)', accent:'var(--yunjin-dark)', header:'assets/yunjin.png', emoji:'🐍', description:'Confident artist', traits:['Confident','Artistic'] },
-    kazuha: { color:'var(--kazuha)', accent:'var(--kazuha-dark)', header:'assets/kazuha.png', emoji:'🦢', description:'Graceful soul', traits:['Graceful','Serene'] },
-    eunchae: { color:'var(--eunchae)', accent:'var(--eunchae-dark)', header:'assets/eunchae.png', emoji:'🐣', description:'Energetic sunshine', traits:['Energetic','Playful'] }
+    chaewon: { 
+        color:'var(--chaewon)', accent:'var(--chaewon-dark)', header:'assets/chaewon.png', emoji:'🐯', 
+        description:'Leader & perfectionist', traits:['Leader','Perfectionist'],
+        profileImage:'assets/profile-chaewon.png', fandomName:'Ssamudan'
+    },
+    sakura: { 
+        color:'var(--sakura)', accent:'var(--sakura-dark)', header:'assets/sakura.png', emoji:'🌸', 
+        description:'Elegant dreamer', traits:['Elegant','Creative'],
+        profileImage:'assets/profile-sakura.png', fandomName:'39er'
+    },
+    yunjin: { 
+        color:'var(--yunjin)', accent:'var(--yunjin-dark)', header:'assets/yunjin.png', emoji:'🐍', 
+        description:'Confident artist', traits:['Confident','Artistic'],
+        profileImage:'assets/profile-yunjin.png', fandomName:'Burned Passport'
+    },
+    kazuha: { 
+        color:'var(--kazuha)', accent:'var(--kazuha-dark)', header:'assets/kazuha.png', emoji:'🦢', 
+        description:'Graceful soul', traits:['Graceful','Serene'],
+        profileImage:'assets/profile-kazuha.png', fandomName:'Komorebis'
+    },
+    eunchae: { 
+        color:'var(--eunchae)', accent:'var(--eunchae-dark)', header:'assets/eunchae.png', emoji:'🐣', 
+        description:'Energetic sunshine', traits:['Energetic','Playful'],
+        profileImage:'assets/profile-eunchae.png', fandomName:'Member of the Eunchae Mother Association'
+    }
 };
 
 // ===== PRODUCTS =====
@@ -20,17 +40,60 @@ const products = [
 ];
 
 // ===== INITIALIZE =====
-document.addEventListener('DOMContentLoaded', () => { setBias(currentBias); renderProducts(); updateBagCount(); });
+document.addEventListener('DOMContentLoaded', () => {
+    setBias(currentBias);
+    renderProducts();
+    updateBagCount();
+
+    // Search listener
+    const searchInput = document.querySelector('.search-input');
+    if(searchInput){
+        searchInput.addEventListener('input', e => {
+            console.log('Searching for:', e.target.value);
+        });
+    }
+});
 
 // ===== BIAS =====
 function setBias(member){
-    currentBias=member;
-    const data=memberData[member];
-    document.documentElement.style.setProperty('--current-bg',data.color);
-    document.documentElement.style.setProperty('--current-accent',data.accent);
-    document.getElementById('profile-pic').textContent=data.emoji;
-    document.querySelectorAll('.bias-btn').forEach(btn=>btn.classList.remove('active'));
-    document.querySelectorAll('.bias-btn').forEach(btn=>{ if(btn.textContent.includes(capitalize(member))) btn.classList.add('active'); });
+    currentBias = member;
+    const data = memberData[member];
+
+    // Update theme colors
+    document.documentElement.style.setProperty('--current-bg', data.color);
+    document.documentElement.style.setProperty('--current-accent', data.accent);
+
+    // Update profile pic emoji
+    const profilePic = document.getElementById('profile-pic');
+    profilePic.textContent = data.emoji;
+
+    // Update profile image
+    const profileHeader = document.querySelector('.profile-header');
+    let img = profileHeader.querySelector('img');
+    if(img){
+        img.src = data.profileImage;
+    } else {
+        img = document.createElement('img');
+        img.src = data.profileImage;
+        img.alt = capitalize(member);
+        img.style.width = '60px';
+        img.style.height = '60px';
+        img.style.borderRadius = '50%';
+        profileHeader.insertBefore(img, profilePic);
+    }
+
+    // Hide emoji if profile image exists
+    profilePic.style.display = img ? 'none' : 'flex';
+
+    // Update name and fandom subtitle
+    const profileInfo = document.querySelector('.profile-info h1');
+    profileInfo.innerHTML = `Fearnot <span class="verified-badge">${data.fandomName}</span>`;
+
+    // Update active bias button
+    document.querySelectorAll('.bias-btn').forEach(btn=>{
+        btn.classList.toggle('active', btn.dataset.member === member);
+    });
+
     renderProducts();
 }
 
@@ -109,6 +172,4 @@ function closeResult(){ document.getElementById('result-modal').classList.remove
 // ===== HELPERS =====
 function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
 
-// ===== SEARCH (console only) =====
-document.querySelector('.search-input').addEventListener('input', e=>{ console.log('Searching for:', e.target.value); });
 console.log('✨ LE SSERAFIM Fearnot Shop loaded! 💖');
