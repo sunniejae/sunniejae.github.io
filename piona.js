@@ -10,13 +10,80 @@ const members = {
 
 // ===== PRODUCT DATA =====
 const products = [
-    { name: "Hangul Member Names", image: "hangul.png", brand: "Redbubble", price: "$5", size:"5pcs" },
-    { name: "Autograph Graphics", image: "autpgraph.png", brand: "SunnieJae", price: "$8", size:"1pc" },
-    { name: "Lightstick Keychains", image: "blank.png", brand: "Fearnot", price: "$12", size:"A4" },
-    { name: "Spaghetti Keychains", image: "blank.png", brand: "Fearnot", price: "$20", size:"M" },
-    { name: "Spaghetti Era Stickers", image: "blank.png", brand: "Fearnot", price: "$4", size:"1pc" },
-    { name: "Notebook", image: "blank.png", brand: "SunnieJae", price: "$10", size:"A5" }
+    { 
+        name: "Hangul Member Names", 
+        images: {
+            ot5: "hangul.png",
+            chaewon: "hangul-chaewon.png",
+            sakura: "hangul-sakura.png",
+            yunjin: "hangul-yunjin.png",
+            kazuha: "hangul-kazuha.png",
+            eunchae: "hangul-eunchae.png"
+        },
+        brand: "Redbubble", price: "$1.79+", size:"Multi" 
+    },
+    { 
+        name: "Spaghetti Era Stickers", 
+        images: {
+            ot5: "blank.png",
+            chaewon: "blank-chaewon.png",
+            sakura: "blank-sakura.png",
+            yunjin: "blank-yunjin.png",
+            kazuha: "blank-kazuha.png",
+            eunchae: "blank-eunchae.png"
+        },
+        brand: "Redbubble", price: "$1.79+", size:"Multi" 
+    },
+ { 
+        name: "AutoGraphics", 
+        images: {
+            ot5: "autograph.png",
+            chaewon: "autograph-chaewon.png",
+            sakura: "autograph-sakura.png",
+            yunjin: "autograph-yunjin.png",
+            kazuha: "autograph-kazuha.png",
+            eunchae: "autograph-eunchae.png"
+        },
+        brand: "SunnieJae", price: "$8", size:"1pc" 
+    },
+    { 
+        name: "Blank", 
+        images: {
+            ot5: "blank.png",
+            chaewon: "blank-chaewon.png",
+            sakura: "blank-sakura.png",
+            yunjin: "blank-yunjin.png",
+            kazuha: "blank-kazuha.png",
+            eunchae: "blank-eunchae.png"
+        },
+     brand: "SunnieJae", price: "$8", size:"1pc" 
+    },
+   { 
+        name: "Lightstick Keychains", 
+        images: {
+            ot5: "blank.png",
+            chaewon: "blank-chaewon.png",
+            sakura: "blank-sakura.png",
+            yunjin: "blank-yunjin.png",
+            kazuha: "blank-kazuha.png",
+            eunchae: "blank-eunchae.png"
+        },
+     brand: "SunnieJae", price: "$8", size:"1pc" 
+    },
+       { 
+        name: "Phone Case", 
+        images: {
+            ot5: "blank.png",
+            chaewon: "blank-chaewon.png",
+            sakura: "blank-sakura.png",
+            yunjin: "blank-yunjin.png",
+            kazuha: "blank-kazuha.png",
+            eunchae: "blank-eunchae.png"
+        },
+     brand: "SunnieJae", price: "$15", size:"1pc" 
+    },
 ];
+
 
 // ===== QUIZ DATA =====
 const quizQuestions = [
