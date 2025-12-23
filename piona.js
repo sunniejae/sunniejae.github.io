@@ -125,6 +125,13 @@ function renderWishlist() {
         textarea.value += "\n";
     }
 }
+   // Update the top-right wishlist count
+    const bagCountEl = document.getElementById("bag-count");
+    if (bagCountEl) {
+        bagCountEl.textContent = totalItems;
+        bagCountEl.style.display = totalItems > 0 ? "inline" : "none";
+    }
+}
 
 function submitWishlist() {
     const name = document.getElementById("wishlist-name").value;
