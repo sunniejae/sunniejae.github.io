@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Fandom Shop | Sunnie Jae</title>
-
+<link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
 <style>
 /* ===== FONTS ===== */
 @font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.ttf') format('truetype'); }
@@ -24,12 +24,11 @@
     --secondary-accent: #c13886;
     --primary: #9a9ad4;
     
-   --chaewon:#c13851; --chaewon-dark:#880d1e;
-    --sakura:#84a6cf; --sakura-dark:#0d036f;
-    --yunjin:#fff4ac; --yunjin-dark:#daa12b;
-    --kazuha:#73e3bd; --kazuha-dark:#075237;
-    --eunchae:#9a9ad4; --eunchae-dark:#844796;
-  --saebi:#ffbee3; --saebi-dark: #c33d89;
+   --chaewon:#f0f0f5; --chaewon-dark:#404040;
+    --sakura:#ffb3d6; --sakura-dark:#c13886;
+    --yunjin:#73e3bd; --yunjin-dark:#0d5c2d;
+    --kazuha:#00bfb9; --kazuha-dark:#2a3055;
+    --eunchae:#c13851; --eunchae-dark:#880d1e;
     --current-bg: var(--primary);
     --current-accent: var(--dark-purple);
 }
@@ -86,7 +85,7 @@ h1, h2, h3, h4, h5, h6, .header-title, .product-title, .bias-btn, .bias-matcher-
 /* ===== WISHLIST ===== */
 .wishlist-section { padding:16px; background:rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:8px; }
 #wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; font-family:'Jaewriting',sans-serif; }
-#wishlist-name, #wishlist-echaewonl, #echaewonl-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; }
+#wishlist-name, #wishlist-email, #email-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; }
 .wishlist-section button { font-family:'Cheri',sans-serif; }
 
 
@@ -167,7 +166,7 @@ h1, h2, h3, h4, h5, h6, .header-title, .product-title, .bias-btn, .bias-matcher-
   height:120px;
 }
 
-#wishlist input[type="text"], #wishlist input[type="echaewonl"] {
+#wishlist input[type="text"], #wishlist input[type="email"] {
   width:100%;
   padding:6px;
   margin-top:6px;
@@ -294,11 +293,11 @@ h1, h2, h3, h4, h5, h6, .header-title, .product-title, .bias-btn, .bias-matcher-
   <label for="wishlist-name">Your Name:</label>
   <input type="text" id="wishlist-name" placeholder="Enter your name">
   
-  <label for="wishlist-echaewonl">Your Echaewonl:</label>
-  <input type="echaewonl" id="wishlist-echaewonl" placeholder="Enter your echaewonl">
+  <label for="wishlist-email">Your Email:</label>
+  <input type="email" id="wishlist-email" placeholder="Enter your email">
   
   <label>
-    <input type="checkbox" id="echaewonl-optin">
+    <input type="checkbox" id="email-optin">
     Subscribe to promotions
   </label>
   
