@@ -29,7 +29,7 @@ const products = [
     },
     { 
         name: "Phone Case", 
-        images: { ot5: "phonecase-member.png", chaewon: "phonecase-chaewon.png", sakura: "phonecase-sakura.png", yunjin: "phonecase-yunjin.png", kazuha: "phonecase-kazuha.png", eunchae: "phonecase-eunchae.png" }, 
+        images: { ot5: "phonecase-member.png", chaewon: "blank-chaewon.png", sakura: "blank-sakura.png", yunjin: "blank-yunjin.png", kazuha: "blank-kazuha.png", eunchae: "blank-eunchae.png" }, 
         brand: "Sunnie Jae", price: "$25", size:"1pc" 
     },
     { 
