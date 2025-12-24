@@ -7,8 +7,19 @@
 
 <!-- 90s-style fonts -->
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
-
+    @font-face { font-family:'Jaewriting'; src:url('Jaewriting-Regular.ttf') format('truetype'); }
+    @font-face { font-family:'Milky'; src:url('tan-mon-cheri.woff') format('truetype'); }
+  @font-face { font-family:'Astro'; src:url('Astro4-Regular.ttf') format('truetype'); }
 <style>
+  :root {
+            --black: #000010;
+            --white: #ffffff;
+            --primary: #9a9ad4;
+            --capricorn:#633223;
+           --naccent:#312262;
+           --ndark:#0e0705;
+           --nlight:#eeebf8;
+        }
 /* ===== GLOBAL RESET ===== */
 * {
   box-sizing: border-box;
@@ -18,7 +29,7 @@
 body {
   margin: 0;
   font-family: 'VT323', monospace;
-  color: #d6d6ff;
+  color: var(--ndark);
   background: black;
   overflow-x: hidden;
 }
@@ -37,21 +48,21 @@ body {
   max-width: 900px;
   margin: auto;
   padding: 20px;
-  border: 3px double #8a8aff;
+  border: 3px double var(--ndark);
   background: rgba(10, 10, 30, 0.9);
 }
 
 /* ===== HEADER ===== */
 header {
   text-align: center;
-  border-bottom: 2px dashed #8a8aff;
+  border-bottom: 2px dashed var(--nlight);
   padding-bottom: 15px;
 }
 
 header h1 {
   font-family: 'Press Start 2P', cursive;
   font-size: 26px;
-  color: #b6b6ff;
+  color: var(--nlight);
   text-shadow: 2px 2px #000;
 }
 
@@ -67,9 +78,9 @@ header h1 {
 marquee {
   margin: 15px 0;
   padding: 8px;
-  background: #000;
-  border: 2px inset #8a8aff;
-  color: #ffffff;
+  background: var(--naccent);
+  border: 2px inset var(--dark);
+  color: var(--nlight);
 }
 
 /* ===== CONTENT BOXES ===== */
