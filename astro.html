@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Starry Jae- Astrology Homepage</title>
     <style>
@@ -11,7 +12,7 @@
         }
         @font-face { 
             font-family: 'jaewriting'; 
-            src: url('jaewriting-regular.ttf') format('truetype'); 
+            src: url('Jaewriting-regular.ttf') format('truetype'); 
         }
 
         :root {
@@ -616,9 +617,9 @@ Today's Placements                    </p>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                     </svg>
                     <div>
-                        <h3 class="about-title">Daily Cosmic Message</h3>
+                        <h3 class="about-title">Today's Transits</h3>
                         <p style="color: var(--primary); font-size: 0.875rem; margin-bottom: 0.5rem; font-style: italic;" id="dailyMessageDate"></p>
-                        <p class="about-text" id="dailyMessageText"></p>
+                        <p class="about-text" id="dailyMessageText">Venus Square Neptune | Venus enters Capricorn</p>
                     </div>
                 </div>
 
@@ -628,8 +629,8 @@ Today's Placements                    </p>
                     </svg>
                     <div>
                         <h3 class="about-title">About These Placements</h3>
-                        <p class="about-text"> Venus in Capricorn squares Neptune in Pisces today. Life, romance, and fantasy are at odds with each other. It's the perfect astro-storm for over romanticizing the new year. Take advantage of the delulu and start mapping out your 2026.'
-                            
+                        <p class="about-text">
+                           Venus in Capricorn squares Neptune in Pisces today. Life, romance, and fantasy are at odds with each other. It's the perfect astro-storm for over romanticizing the new year. Take advantage of the delulu and start mapping out your 2026.
                         </p>
                     </div>
                 </div>
@@ -675,15 +676,15 @@ Today's Placements                    </p>
             { planet: 'Uranus', sign: 'Taurus', retrograde: 'Yes', element: 'Earth', icon: '♅' },
             { planet: 'Neptune', sign: 'Pisces', retrograde: 'Yes', element: 'Water', icon: '♆' },
             { planet: 'Pluto', sign: 'Aquarius', retrograde: 'No', element: 'Air', icon: '♇' },
-            { planet: 'Chiron', sign: 'Aries', retrograde: 'No', element: 'Fire', icon: '⚷' },
-            { planet: 'Lilith', sign: 'Virgo', retrograde: 'No', element: 'Earth', icon: '⚸' },
+            { planet: 'Chiron', sign: 'Aries', retrograde: 'Yes', element: 'Fire', icon: '⚷' },
+            { planet: 'Lilith', sign: 'Scorpio', retrograde: 'No', element: 'Earth', icon: '⚸' },
             { planet: 'North Node', sign: 'Pisces', retrograde: 'Yes', element: 'Water', icon: '☊' }
         ];
         
         // Daily planetary message - UPDATE THIS DAILY
         const dailyMessage = {
-            date: 'December 23, 2025',
-            message: 'Today\'s Major Transits: | Venus Square Neptune | Venus enters Capricorn"
+            date: 'December 23, 2024',
+            message: 'Today\'s cosmic energy invites deep reflection as Saturn, Uranus, and Neptune continue their retrograde journeys. The Moon in Pisces heightens our intuition and emotional sensitivity. Mercury in Sagittarius encourages bold communication and philosophical thinking. With the Sun freshly in Capricorn, we\'re called to ground our visions into practical reality. Pay special attention to Chiron\'s healing energy and the North Node\'s karmic lessons guiding us toward spiritual evolution.'
         };
 
         // Medium Blog Configuration
@@ -698,7 +699,7 @@ Today's Placements                    </p>
                 title: 'The Great Conjunction: Jupiter Meets Saturn',
                 date: 'December 15, 2024',
                 excerpt: 'A rare celestial event that occurs once every 20 years, marking significant shifts in collective consciousness and societal structures...',
-                author: 'Luna Starweaver',
+                author: 'Sunnie Jae',
                 category: 'Transits',
                 link: '#'
             },
@@ -707,7 +708,7 @@ Today's Placements                    </p>
                 title: 'Mercury Retrograde Survival Guide',
                 date: 'December 10, 2024',
                 excerpt: 'Navigate the trickster planet\'s backward dance with grace and wisdom. Learn how to turn communication chaos into spiritual growth...',
-                author: 'Luna Starweaver',
+                author: 'Sunnie Jae',
                 category: 'Practical Magic',
                 link: '#'
             },
@@ -716,17 +717,17 @@ Today's Placements                    </p>
                 title: 'Full Moon in Cancer: Emotional Tides',
                 date: 'December 5, 2024',
                 excerpt: 'The luminous Cancer moon invites us to dive deep into our emotional waters, honoring our sensitivity and nurturing our inner child...',
-                author: 'Luna Starweaver',
+                author: 'Sunnie Jae',
                 category: 'Lunar Wisdom',
                 link: '#'
             },
             {
                 id: 4,
-                title: 'Looks like our blog isn\'t working',
-                date: 'Oops, Sorry',
-                excerpt: 'check out Starry Jae on Medium for more astrology related articles',
-                author: 'Sunnnie Jae',
-                category: 'it\'s not you, it\s me',
+                title: 'Winter Solstice: Capricorn Season Begins',
+                date: 'December 1, 2024',
+                excerpt: 'As the Sun enters Capricorn, we\'re called to honor structure, ambition, and the slow, steady climb toward our highest peaks...',
+                author: 'Sunnie Jae',
+                category: 'Seasonal Magic',
                 link: '#'
             }
         ];
