@@ -42,18 +42,76 @@ const products = [
 
 // ===== QUIZ DATA =====
 const quizQuestions = [
-    { question: "Favorite Color", answers: [ {text: "White", members:["chaewon"]}, {text:"Pink", members:["sakura"]}, {text:"Blue", members:["kazuha"]}, {text:"Green", members:["yunjin"]}, {text:"Red", members:["eunchae"]} ] },
-    { question: "Are you an introvert or an extrovert?", answers: [ {text:"Introvert", members:["sakura","eunchae","kazuha"]}, {text:"Extrovert", members:["yunjin","chaewon"]} ] },
-    { question: "Down to Earth vs Head in the Clouds", answers: [ {text:"Down to Earth", members:["chaewon","eunchae"]}, {text:"Head in the Clouds", members:["sakura","yunjin","kazuha"]} ] },
-    { question: "Head vs Heart", answers: [ {text:"Head", members:["sakura","eunchae","chaewon"]}, {text:"Heart", members:["kazuha","yunjin"]} ] },
-    { question: "Order vs Chaos", answers: [ {text:"Order", members:["yunjin","kazuha","eunchae"]}, {text:"Chaos", members:["chaewon","sakura"]} ] },
-    { question: "Favorite Animal", answers: [ {text:"Cheetah", members:["chaewon"]}, {text:"Cat", members:["sakura"]}, {text:"Swan", members:["kazuha"]}, {text:"Baby Chick", members:["eunchae"]}, {text:"Snake", members:["yunjin"]} ] },
-    { question: "Favorite English Name", answers: [ {text:"Anna", members:["chaewon"]}, {text:"Sebastian", members:["sakura"]}, {text:"Jennifer", members:["yunjin"]}, {text:"Ava", members:["sakura"]}, {text:"Elle", members:["kazuha"]}, {text:"Ruby", members:["eunchae"]} ] },
-    { question: "Favorite English Idiom", answers: [ {text:"Have a good one!", members:["sakura"]}, {text:"Easy peasy lemon squeezy", members:["chaewon"]}, {text:"It girl energy", members:["yunjin"]}, {text:"She ate with no crumbs", members:["eunchae"]}, {text:"Freeze to death", members:["kazuha"]} ] },
-    { question: "Dark Chocolate or Milk Chocolate?", answers: [ {text:"Dark", members:["sakura","kazuha","chaewon","yunjin"]}, {text:"Milk", members:["eunchae"]} ] },
-    { question: "Another group you like", answers: [ {text:"Red Velvet", members:["sakura"]}, {text:"BTS", members:["yunjin"]}, {text:"BlackPink", members:["kazuha"]}, {text:"Seventeen", members:["eunchae"]}, {text:"Girl's Generation", members:["chaewon"]}, {text:"iz*One", members:["sakura","chaewon"]} ] },
-    { question: "Can you handle spicy food?", answers: [ {text:"Yes", members:["chaewon","yunjin"]}, {text:"No", members:["sakura","kazuha"]}, {text:"Depends on the day", members:["eunchae"]} ] },
-    { question: "Favorite LE SSERAFIM era", answers: [ {text:"Unforgiven", members:["yunjin"]}, {text:"Crazy", members:["eunchae"]}, {text:"Spaghetti", members:["sakura","chaewon","eunchae","kazuha","yunjin"]}, {text:"Hot", members:["sakura"]}, {text:"Easy", members:["chaewon"]}, {text:"Come Over", members:["kazuha"]} ] }
+    { question: "Favorite Color", answers: [ 
+        {text: "White", members:["chaewon"]}, 
+        {text:"Pink", members:["sakura"]}, 
+        {text:"Blue", members:["kazuha"]}, 
+        {text:"Green", members:["yunjin"]}, 
+        {text:"Red", members:["eunchae"]} 
+    ] },
+    { question: "Are you an introvert or an extrovert?", answers: [ 
+        {text:"Introvert", members:["sakura","eunchae","kazuha"]}, 
+        {text:"Extrovert", members:["yunjin","chaewon"]} 
+    ] },
+    { question: "Down to Earth vs Head in the Clouds", answers: [ 
+        {text:"Down to Earth", members:["chaewon","eunchae"]}, 
+        {text:"Head in the Clouds", members:["sakura","yunjin","kazuha"]} 
+    ] },
+    { question: "Head vs Heart", answers: [ 
+        {text:"Head", members:["sakura","eunchae","chaewon"]}, 
+        {text:"Heart", members:["kazuha","yunjin"]} 
+    ] },
+    { question: "Order vs Chaos", answers: [ 
+        {text:"Order", members:["yunjin","kazuha","eunchae"]}, 
+        {text:"Chaos", members:["chaewon","sakura"]} 
+    ] },
+    { question: "Favorite Animal", answers: [ 
+        {text:"Cheetah", members:["chaewon"]}, 
+        {text:"Cat", members:["sakura"]}, 
+        {text:"Swan", members:["kazuha"]}, 
+        {text:"Baby Chick", members:["eunchae"]}, 
+        {text:"Snake", members:["yunjin"]} 
+    ] },
+    { question: "Favorite English Name", answers: [ 
+        {text:"Anna", members:["chaewon"]}, 
+        {text:"Sebastian", members:["sakura"]}, 
+        {text:"Jennifer", members:["yunjin"]}, 
+        {text:"Ava", members:["sakura"]}, 
+        {text:"Elle", members:["kazuha"]}, 
+        {text:"Ruby", members:["eunchae"]} 
+    ] },
+    { question: "Favorite English Idiom", answers: [ 
+        {text:"Have a good one!", members:["sakura"]}, 
+        {text:"Easy peasy lemon squeezy", members:["chaewon"]}, 
+        {text:"It girl energy", members:["yunjin"]}, 
+        {text:"She ate with no crumbs", members:["eunchae"]}, 
+        {text:"Freeze to death", members:["kazuha"]} 
+    ] },
+    { question: "Dark Chocolate or Milk Chocolate?", answers: [ 
+        {text:"Dark", members:["sakura","kazuha","chaewon","yunjin"]}, 
+        {text:"Milk", members:["eunchae"]} 
+    ] },
+    { question: "Another group you like", answers: [ 
+        {text:"Red Velvet", members:["sakura"]}, 
+        {text:"BTS", members:["yunjin"]}, 
+        {text:"BlackPink", members:["kazuha"]}, 
+        {text:"Seventeen", members:["eunchae"]}, 
+        {text:"Girl's Generation", members:["chaewon"]}, 
+        {text:"iz*One", members:["sakura","chaewon"]} 
+    ] },
+    { question: "Can you handle spicy food?", answers: [ 
+        {text:"Yes", members:["chaewon","yunjin"]}, 
+        {text:"No", members:["sakura","kazuha"]}, 
+        {text:"Depends on the day", members:["eunchae"]} 
+    ] },
+    { question: "Favorite LE SSERAFIM era", answers: [ 
+        {text:"Unforgiven", members:["yunjin"]}, 
+        {text:"Crazy", members:["eunchae"]}, 
+        {text:"Spaghetti", members:["sakura","chaewon","eunchae","kazuha","yunjin"]}, 
+        {text:"Hot", members:["sakura"]}, 
+        {text:"Easy", members:["chaewon"]}, 
+        {text:"Come Over", members:["kazuha"]} 
+    ] }
 ];
 
 // ===== STATE =====
@@ -66,50 +124,48 @@ let quizScore = {};
 function setBias(member) {
     currentBias = member;
 
-    // Profile Pic
     const profileImg = document.querySelector("#profile-pic img");
     profileImg.src = `/assets/profile-${member}.png`;
 
-    // Profile Info
-    document.querySelector(".profile-info h1").innerHTML = `${members[member].display} <span class="verified-badge">${members[member].subtitle}</span>`;
+    const displayName = member === "ot5" ? "OT5" : members[member].display;
+    const subtitle = member === "ot5" ? "Fearnot" : members[member].subtitle;
 
-    // Theme colors
-    document.documentElement.style.setProperty('--current-bg', members[member].color);
-    document.documentElement.style.setProperty('--current-accent', members[member].accent);
+    document.querySelector(".profile-info h1").innerHTML = `${displayName} <span class="verified-badge">${subtitle}</span>`;
 
-    // Highlight active bias button
+    if (member !== "ot5") {
+        document.documentElement.style.setProperty('--current-bg', members[member].color);
+        document.documentElement.style.setProperty('--current-accent', members[member].accent);
+    }
+
     document.querySelectorAll(".bias-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.textContent.includes(members[member].display));
+        btn.classList.toggle("active", btn.textContent.includes(displayName));
     });
+
+    renderProducts();
+    renderWishlist();
+}
+
 // ===== RENDER PRODUCTS =====
 function renderProducts() {
     const grid = document.getElementById("products-grid");
     grid.innerHTML = "";
 
     products.forEach(prod => {
-        const imgSrc = prod.images[currentBias] || prod.images.ot6;
-
+        const imgSrc = prod.images[currentBias] || prod.images.ot5;
         const card = document.createElement("div");
         card.className = "product-card";
 
-        // Determine button
         let buttonHTML = "";
-        if (prod.brand.toLowerCase() === "redbubble") {
-            // Map Redbubble links (replace these with your actual URLs)
-            const redbubbleLinks = {
-                "Hangul Member Names": "https://www.redbubble.com/hangul-member",
-                "Mamma Mia Era Stickers": "https://www.redbubble.com/mamma-mia-stickers",
-                "AutoGraphics": "https://www.redbubble.com/autographics"
-            };
-            const link = redbubbleLinks[prod.name] || "#";
-            buttonHTML = `<a class="wishlist-btn" href="${link}" target="_blank" rel="noopener">Shop Redbubble</a>`;
+        if(prod.brand === "Redbubble") {
+            const url = prod.url?.[currentBias] || prod.url?.ot5 || "#";
+            buttonHTML = `<a class="product-btn" href="${url}" target="_blank" rel="noopener noreferrer">Shop Redbubble</a>`;
         } else {
             buttonHTML = `<button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">Add to Wishlist</button>`;
         }
 
         card.innerHTML = `
             <div class="product-image">
-                <img src="${imgSrc}" width="250" height="250" alt="${prod.name}">
+                <img src="/assets/${imgSrc}" width="250" height="250" alt="${prod.name}">
             </div>
             <div class="product-info">
                 <div class="product-brand">${prod.brand}</div>
@@ -123,22 +179,32 @@ function renderProducts() {
     });
 }
 
-
 // ===== WISHLIST =====
 function addToWishlist(item) {
-    const memberVersion = currentBias === "ot5" ? "OT5" : members[currentBias].display;
-    if (!wishlist[memberVersion]) wishlist[memberVersion] = [];
-    if (!wishlist[memberVersion].includes(item)) wishlist[memberVersion].push(item);
+    const memberKey = currentBias === "ot5" ? "OT5" : members[currentBias].display;
+    if (!wishlist[memberKey]) wishlist[memberKey] = [];
+    if (!wishlist[memberKey].includes(item)) wishlist[memberKey].push(item);
     renderWishlist();
 }
 
 function renderWishlist() {
     const textarea = document.getElementById("wishlist-items");
     textarea.value = "";
+    let totalItems = 0;
+
     for (const member in wishlist) {
         textarea.value += `--- ${member} ---\n`;
-        wishlist[member].forEach(item => textarea.value += `${item}\n`);
+        wishlist[member].forEach(item => {
+            textarea.value += `${item}\n`;
+            totalItems++;
+        });
         textarea.value += "\n";
+    }
+
+    const bagCountEl = document.getElementById("bag-count");
+    if (bagCountEl) {
+        bagCountEl.textContent = totalItems;
+        bagCountEl.style.display = totalItems > 0 ? "inline" : "none";
     }
 }
 
@@ -213,10 +279,13 @@ function showResult() {
 
     const topMember = topMembers[Math.floor(Math.random() * topMembers.length)];
 
+    const displayName = topMember === "ot5" ? "OT5" : members[topMember].display;
+    const subtitle = topMember === "ot5" ? "Fearnot" : members[topMember].subtitle;
+
     document.getElementById("result-image").src = `/assets/profile-${topMember}.png`;
-    document.getElementById("result-name").textContent = members[topMember].display;
-    document.getElementById("result-description").textContent = `Mostly chose ${members[topMember].display}! You match best with them.`;
-    document.getElementById("result-traits").innerHTML = `Fandom Subtitle: <span class="trait-tag">${members[topMember].subtitle}</span>`;
+    document.getElementById("result-name").textContent = displayName;
+    document.getElementById("result-description").textContent = `Mostly chose ${displayName}! You match best with them.`;
+    document.getElementById("result-traits").innerHTML = `Fandom Subtitle: <span class="trait-tag">${subtitle}</span>`;
 
     document.getElementById("result-modal").classList.add("active");
     closeQuiz();
