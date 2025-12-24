@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starry Jae - Astrology Homepage</title>
-    <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+    <title>Starry Jae- Astrology Homepage</title>
     <style>
         @font-face { 
             font-family: 'Cheri'; 
@@ -577,8 +576,8 @@
         <header>
             <div class="header-content">
                 <div>
-                    <h1>Starry Jae</h1>
-                    <p class="tagline">Where Sunnie Jae gets nerdy about the stars</p>
+                    <h1>✦ Starry Jae ✦</h1>
+                    <p class="tagline">Sunnie Jae but in space</p>
                 </div>
                 <div class="date-time">
                     <div class="date-label">RIGHT NOW</div>
@@ -595,7 +594,7 @@
                     ⭐ Current Placements
                 </button>
                 <button class="nav-button" onclick="showSection('blog')">
-                    ✨ Musings
+                    ✨ Cosmic Journal
                 </button>
             </div>
         </nav>
@@ -607,8 +606,7 @@
                 <div class="section-header">
                     <h2 class="section-title">Current Planetary Positions</h2>
                     <p class="section-description">
-                        Today's Astrological Placements
-                    </p>
+Today's Placements                    </p>
                 </div>
 
                 <div class="placements-grid" id="placementsGrid"></div>
@@ -645,14 +643,14 @@
                 <div class="section-header">
                     <h2 class="section-title">Cosmic Journal</h2>
                     <p class="section-description">
-                        Long winded explanations about the things on this page
+                        Musings on the celestial dance, lunar wisdom, and the eternal conversation between heaven and earth
                     </p>
                 </div>
 
                 <div class="blog-container" id="blogContainer"></div>
 
                 <div class="view-all-button">
-                    <button class="cta-button">View All Posts</button>
+                    <button class="cta-button" onclick="window.open('https://medium.com/@' + MEDIUM_USERNAME, '_blank')">View All Posts</button>
                 </div>
             </section>
         </main>
@@ -661,7 +659,7 @@
         <footer>
             <div class="footer-content">
                 <div class="footer-icon">✦ ☽ ✦</div>
-                <p class="footer-text">visit taliasterology.tumblr.com for more</p>
+                <p class="footer-text">All Data Manually Updated</p>
                 <p class="footer-copyright">© Sunnie Jae</p>
             </div>
         </footer>
@@ -691,14 +689,21 @@
             message: 'Today\'s cosmic energy invites deep reflection as Saturn, Uranus, and Neptune continue their retrograde journeys. The Moon in Pisces heightens our intuition and emotional sensitivity. Mercury in Sagittarius encourages bold communication and philosophical thinking. With the Sun freshly in Capricorn, we\'re called to ground our visions into practical reality. Pay special attention to Chiron\'s healing energy and the North Node\'s karmic lessons guiding us toward spiritual evolution.'
         };
 
-        const blogPosts = [
+        // Medium Blog Configuration
+        // Replace 'your-username' with your actual Medium username
+        const MEDIUM_USERNAME = 'starryjae';
+        const MEDIUM_RSS_URL = `https://medium.com/feed/@${MEDIUM_USERNAME}`;
+        
+        // Fallback blog posts (used if Medium feed fails to load)
+        const fallbackBlogPosts = [
             {
                 id: 1,
-                title: 'All About Aries',
+                title: 'The Great Conjunction: Jupiter Meets Saturn',
                 date: 'December 15, 2024',
-                excerpt: 'The first zodiac sign',
-                author: 'Talia Aster',
-                category: 'Signs'
+                excerpt: 'A rare celestial event that occurs once every 20 years, marking significant shifts in collective consciousness and societal structures...',
+                author: 'Luna Starweaver',
+                category: 'Transits',
+                link: '#'
             },
             {
                 id: 2,
@@ -706,7 +711,8 @@
                 date: 'December 10, 2024',
                 excerpt: 'Navigate the trickster planet\'s backward dance with grace and wisdom. Learn how to turn communication chaos into spiritual growth...',
                 author: 'Luna Starweaver',
-                category: 'Practical Magic'
+                category: 'Practical Magic',
+                link: '#'
             },
             {
                 id: 3,
@@ -714,7 +720,8 @@
                 date: 'December 5, 2024',
                 excerpt: 'The luminous Cancer moon invites us to dive deep into our emotional waters, honoring our sensitivity and nurturing our inner child...',
                 author: 'Luna Starweaver',
-                category: 'Lunar Wisdom'
+                category: 'Lunar Wisdom',
+                link: '#'
             },
             {
                 id: 4,
@@ -722,9 +729,12 @@
                 date: 'December 1, 2024',
                 excerpt: 'As the Sun enters Capricorn, we\'re called to honor structure, ambition, and the slow, steady climb toward our highest peaks...',
                 author: 'Luna Starweaver',
-                category: 'Seasonal Magic'
+                category: 'Seasonal Magic',
+                link: '#'
             }
         ];
+
+        let blogPosts = [...fallbackBlogPosts];
 
         const elementColors = {
             Fire: '#c13886',
@@ -807,9 +817,60 @@
             });
         }
 
+        // Fetch Medium blog posts
+        async function fetchMediumPosts() {
+            try {
+                // Using RSS2JSON service to convert Medium RSS to JSON
+                const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(MEDIUM_RSS_URL)}`);
+                const data = await response.json();
+                
+                if (data.status === 'ok' && data.items && data.items.length > 0) {
+                    blogPosts = data.items.slice(0, 4).map((item, index) => {
+                        // Extract first category or use default
+                        const category = item.categories && item.categories.length > 0 
+                            ? item.categories[0] 
+                            : 'Astrology';
+                        
+                        // Clean up the description (remove HTML tags for excerpt)
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = item.description;
+                        const excerpt = tempDiv.textContent.slice(0, 200) + '...';
+                        
+                        // Format date
+                        const date = new Date(item.pubDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        
+                        return {
+                            id: index + 1,
+                            title: item.title,
+                            date: date,
+                            excerpt: excerpt,
+                            author: item.author || 'Luna Starweaver',
+                            category: category,
+                            link: item.link
+                        };
+                    });
+                    
+                    // Re-render blog posts with Medium data
+                    renderBlogPosts();
+                    console.log('Medium posts loaded successfully');
+                } else {
+                    console.log('Using fallback blog posts');
+                }
+            } catch (error) {
+                console.error('Error fetching Medium posts:', error);
+                console.log('Using fallback blog posts');
+            }
+        }
+
         // Render blog posts
         function renderBlogPosts() {
             const container = document.getElementById('blogContainer');
+            container.innerHTML = ''; // Clear existing posts
+            
             blogPosts.forEach(post => {
                 const card = document.createElement('article');
                 card.className = 'blog-card';
@@ -843,6 +904,13 @@
                     </div>
                 `;
                 
+                // Make card clickable to open Medium article
+                card.addEventListener('click', () => {
+                    if (post.link && post.link !== '#') {
+                        window.open(post.link, '_blank');
+                    }
+                });
+                
                 container.appendChild(card);
             });
         }
@@ -871,6 +939,9 @@
         updateDateTime();
         renderPlacements();
         renderBlogPosts();
+        
+        // Fetch Medium posts (will use fallback if fails)
+        fetchMediumPosts();
         
         // Render daily message
         document.getElementById('dailyMessageDate').textContent = dailyMessage.date;
