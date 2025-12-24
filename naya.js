@@ -13,27 +13,27 @@ const members = {
 const products = [
     { 
         name: "Hangul Member Names", 
-        images: { ot6: "hangul-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
+        images: { ot6: "assets/hangul-member.png", mai: "assets/blank-mai.png", jeemin: "assets/blank-jeemin.png", koko: "assets/blank-koko.png", sarang: "assets/blank-sarang.png", jungeun: "assets/blank-jungeun.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
         name: "mamma mia Era Stickers", 
-        images: { ot6: "blank-mai.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
+        images: { ot6: "assets/blank-mai.png", mai: "assets/blank-mai.png", jeemin: "assets/blank-jeemin.png", koko: "assets/blank-koko.png", sarang: "assets/blank-sarang.png", jungeun: "assets/blank-jungeun.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
         name: "Lightstick Keychains", 
-        images: { ot6: "blank-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "lightstick-jungeun.png" }, 
+        images: { ot6: "assets/blank-member.png", mai: "assets/blank-mai.png", jeemin: "assets/blank-jeemin.png", koko: "assets/blank-koko.png", sarang: "assets/blank-sarang.png", jungeun: "assets/lightstick-jungeun.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
         name: "Phone Case", 
-        images: { ot6: "phonecase-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
+        images: { ot6: "assets/phonecase-member.png", mai: "assets/blank-mai.png", jeemin: "assets/blank-jeemin.png", koko: "assets/blank-koko.png", sarang: "assets/blank-sarang.png", jungeun: "assets/blank-jungeun.png" }, 
         brand: "Sunnie Jae", price: "$25", size:"1pc" 
     },
     { 
         name: "AutoGraphics", 
-        images: { ot6: "autograph-izna.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
+        images: { ot6: "assets/autograph-izna.png", mai: "assets/blank-mai.png", jeemin: "assets/blank-jeemin.png", koko: "assets/blank-koko.png", sarang: "assets/blank-sarang.png", jungeun: "assets/blank-jungeun.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"1pc" 
     }
 ];
