@@ -7,9 +7,6 @@
 
 <!-- 90s-style fonts -->
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
-    @font-face { font-family:'Jaewriting'; src:url('Jaewriting-Regular.ttf') format('truetype'); }
-    @font-face { font-family:'Milky'; src:url('tan-mon-cheri.woff') format('truetype'); }
-  @font-face { font-family:'Astro'; src:url('Astro4-Regular.ttf') format('truetype'); }
 <style>
   :root {
             --black: #000010;
@@ -85,14 +82,14 @@ marquee {
 
 /* ===== CONTENT BOXES ===== */
 .box {
-  border: 2px ridge #8a8aff;
+  border: 2px ridge var(--nlight);
   padding: 15px;
   margin: 20px 0;
-  background: rgba(0,0,50,0.85);
+  background: var(--capricorn);
 }
 
 .box h2 {
-  color: #9fa4ff;
+  color: var(--nlight);
   margin-top: 0;
   text-decoration: underline;
 }
@@ -102,13 +99,13 @@ button {
   font-family: 'VT323', monospace;
   font-size: 18px;
   padding: 6px 12px;
-  background: linear-gradient(#4444aa, #111166);
-  border: 2px outset #aaaaff;
+  background: linear-gradient(#eeebf8, #312262);
+  border: 2px outset var(--white);
   color: white;
 }
 
 button:active {
-  border: 2px inset #aaaaff;
+  border: 2px inset var(--nlight);
 }
 
 /* ===== FOOTER ===== */
@@ -116,7 +113,7 @@ footer {
   text-align: center;
   font-size: 14px;
   margin-top: 20px;
-  border-top: 2px dashed #8a8aff;
+  border-top: 2px dashed (--capricorn);
   padding-top: 10px;
 }
 
