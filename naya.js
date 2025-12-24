@@ -145,6 +145,22 @@ function renderProducts() {
 
         const card = document.createElement("div");
         card.className = "product-card";
+
+        // Determine button
+        let buttonHTML = "";
+        if (prod.brand.toLowerCase() === "redbubble") {
+            // Map Redbubble links (replace these with your actual URLs)
+            const redbubbleLinks = {
+                "Hangul Member Names": "https://www.redbubble.com/hangul-member",
+                "Mamma Mia Era Stickers": "https://www.redbubble.com/mamma-mia-stickers",
+                "AutoGraphics": "https://www.redbubble.com/autographics"
+            };
+            const link = redbubbleLinks[prod.name] || "#";
+            buttonHTML = `<a class="wishlist-btn" href="${link}" target="_blank" rel="noopener">Shop Redbubble</a>`;
+        } else {
+            buttonHTML = `<button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">Add to Wishlist</button>`;
+        }
+
         card.innerHTML = `
             <div class="product-image">
                 <img src="${imgSrc}" width="250" height="250" alt="${prod.name}">
@@ -154,7 +170,7 @@ function renderProducts() {
                 <div class="product-title">${prod.name}</div>
                 <div class="product-size">${prod.size}</div>
                 <div class="product-price">${prod.price}</div>
-                <button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">Add to Wishlist</button>
+                ${buttonHTML}
             </div>
         `;
         grid.appendChild(card);
