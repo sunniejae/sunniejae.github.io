@@ -13,12 +13,14 @@ const products = [
     { 
         name: "Hangul Member Names", 
         images: { ot5: "hangul-member.png", chaewon: "hangul-chaewon.png", sakura: "hangul-sakura.png", yunjin: "hangul-yunjin.png", kazuha: "hangul-kazuha.png", eunchae: "hangul-eunchae.png" }, 
-        brand: "Redbubble", price: "$1.79+", size:"Multi" 
+        brand: "Redbubble", price: "$1.79+", size:"Multi",
+        url: { ot5:"https://www.redbubble.com/ot5-hangul", chaewon:"https://www.redbubble.com/chaewon-hangul", sakura:"https://www.redbubble.com/sakura-hangul", yunjin:"https://www.redbubble.com/yunjin-hangul", kazuha:"https://www.redbubble.com/kazuha-hangul", eunchae:"https://www.redbubble.com/eunchae-hangul" }
     },
     { 
         name: "Spaghetti Era Stickers", 
         images: { ot5: "spaghetti-member.png", chaewon: "spaghetti-chaewon.png", sakura: "spaghetti-sakura.png", yunjin: "spaghetti-yunjin.png", kazuha: "spaghetti-kazuha.png", eunchae: "spaghetti-eunchae.png" }, 
-        brand: "Redbubble", price: "$1.79+", size:"Multi" 
+        brand: "Redbubble", price: "$1.79+", size:"Multi",
+        url: { ot5:"https://www.redbubble.com/ot5-spaghetti", chaewon:"https://www.redbubble.com/chaewon-spaghetti", sakura:"https://www.redbubble.com/sakura-spaghetti", yunjin:"https://www.redbubble.com/yunjin-spaghetti", kazuha:"https://www.redbubble.com/kazuha-spaghetti", eunchae:"https://www.redbubble.com/eunchae-spaghetti" }
     },
     { 
         name: "Lightstick Keychains", 
@@ -33,7 +35,8 @@ const products = [
     { 
         name: "AutoGraphics", 
         images: { ot5: "autograph-member.png", chaewon: "autograph-chaewon.png", sakura: "autograph-sakura.png", yunjin: "autograph-yunjin.png", kazuha: "autograph-kazuha.png", eunchae: "autograph-eunchae.png" }, 
-        brand: "Redbubble", price: "$1.79+", size:"1pc" 
+        brand: "Redbubble", price: "$1.79+", size:"1pc",
+        url: { ot5:"https://www.redbubble.com/ot5-autograph", chaewon:"https://www.redbubble.com/chaewon-autograph", sakura:"https://www.redbubble.com/sakura-autograph", yunjin:"https://www.redbubble.com/yunjin-autograph", kazuha:"https://www.redbubble.com/kazuha-autograph", eunchae:"https://www.redbubble.com/eunchae-autograph" }
     }
 ];
 
@@ -62,19 +65,9 @@ let quizScore = {};
 // ===== SET BIAS =====
 function setBias(member) {
     if (!members[member]) return;
-
     currentBias = member;
-    const profileImg = document.querySelector("#profile-pic img");
-    profileImg.src = `/assets/profile-${member}.png`;
-
-    document.querySelector(".profile-info h1").innerHTML = `${members[member].display} <span class="verified-badge">${members[member].subtitle}</span>`;
     document.documentElement.style.setProperty('--current-bg', members[member].color);
     document.documentElement.style.setProperty('--current-accent', members[member].accent);
-
-    document.querySelectorAll(".bias-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.member === member);
-    });
-
     renderProducts();
     renderWishlist();
 }
@@ -87,6 +80,15 @@ function renderProducts() {
         const imgSrc = prod.images[currentBias] || prod.images.ot5;
         const card = document.createElement("div");
         card.className = "product-card";
+
+        let buttonHTML = "";
+        if(prod.brand === "Redbubble") {
+            const url = prod.url?.[currentBias] || prod.url?.ot5 || "#";
+            buttonHTML = `<a class="product-btn" href="${url}" target="_blank" rel="noopener noreferrer">Shop Redbubble</a>`;
+        } else {
+            buttonHTML = `<button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">Add to Wishlist</button>`;
+        }
+
         card.innerHTML = `
             <div class="product-image">
                 <img src="/assets/${imgSrc}" width="250" height="250" alt="${prod.name}">
@@ -96,7 +98,7 @@ function renderProducts() {
                 <div class="product-title">${prod.name}</div>
                 <div class="product-size">${prod.size}</div>
                 <div class="product-price">${prod.price}</div>
-                <button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">Add to Wishlist</button>
+                ${buttonHTML}
             </div>
         `;
         grid.appendChild(card);
@@ -174,7 +176,6 @@ function renderCurrentQuestion() {
     container.appendChild(questionEl);
 }
 
-// ===== QUIZ LOGIC =====
 function selectAnswer(membersArray) {
     membersArray.forEach(m => quizScore[m] = (quizScore[m] || 0) + 1);
     currentQuestionIndex++;
@@ -183,15 +184,13 @@ function selectAnswer(membersArray) {
 }
 
 function showResult() {
-    // Find max score
     let maxScore = 0;
     for (const m in quizScore) if (quizScore[m] > maxScore) maxScore = quizScore[m];
 
-    // Collect members with max score
     let topMembers = [];
     for (const m in quizScore) if (quizScore[m] === maxScore) topMembers.push(m);
 
-    if (topMembers.length === 0) topMembers = ["ot5"]; // Default if no score
+    if (topMembers.length === 0) topMembers = ["ot5"];
 
     const topMember = topMembers[Math.floor(Math.random() * topMembers.length)];
 
