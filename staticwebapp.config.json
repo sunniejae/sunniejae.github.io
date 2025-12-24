@@ -8,10 +8,6 @@
       "serve": "/index.html"
     },
     {
-      "route": "/piona.html",
-      "serve": "/piona.html"
-    },
-    {
       "route": "/404.html",
       "serve": "/404.html"
     }
