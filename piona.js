@@ -85,22 +85,31 @@ function setBias(member) {
 function renderProducts() {
     const grid = document.getElementById("products-grid");
     grid.innerHTML = "";
+
     products.forEach(prod => {
-        const imgSrc = prod.images[currentBias] || prod.images.ot5;
+        const imgSrc = prod.images[currentBias] || prod.images.ot6;
+
         const card = document.createElement("div");
         card.className = "product-card";
 
+        // Determine button
         let buttonHTML = "";
-        if(prod.brand === "Redbubble") {
-            const url = prod.url?.[currentBias] || prod.url?.ot5 || "#";
-            buttonHTML = `<a class="product-btn" href="${url}" target="_blank" rel="noopener noreferrer">Shop Redbubble</a>`;
+        if (prod.brand.toLowerCase() === "redbubble") {
+            // Map Redbubble links (replace these with your actual URLs)
+            const redbubbleLinks = {
+                "Hangul Member Names": "https://www.redbubble.com/hangul-member",
+                "Mamma Mia Era Stickers": "https://www.redbubble.com/mamma-mia-stickers",
+                "AutoGraphics": "https://www.redbubble.com/autographics"
+            };
+            const link = redbubbleLinks[prod.name] || "#";
+            buttonHTML = `<a class="wishlist-btn" href="${link}" target="_blank" rel="noopener">Shop Redbubble</a>`;
         } else {
             buttonHTML = `<button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">Add to Wishlist</button>`;
         }
 
         card.innerHTML = `
             <div class="product-image">
-                <img src="/assets/${imgSrc}" width="250" height="250" alt="${prod.name}">
+                <img src="${imgSrc}" width="250" height="250" alt="${prod.name}">
             </div>
             <div class="product-info">
                 <div class="product-brand">${prod.brand}</div>
@@ -113,6 +122,7 @@ function renderProducts() {
         grid.appendChild(card);
     });
 }
+
 
 // ===== WISHLIST =====
 function addToWishlist(item) {
