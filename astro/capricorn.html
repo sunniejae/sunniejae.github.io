@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>♑ Capricorn Domain</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 90s-style fonts -->
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+/* ===== GLOBAL RESET ===== */
+* {
+  box-sizing: border-box;
+  cursor: crosshair;
+}
+
+body {
+  margin: 0;
+  font-family: 'VT323', monospace;
+  color: #d6d6ff;
+  background: black;
+  overflow-x: hidden;
+}
+
+/* ===== STARFIELD ===== */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black url("https://i.imgur.com/6X5XKQX.gif") repeat;
+  z-index: -1;
+}
+
+/* ===== PAGE WRAPPER ===== */
+.wrapper {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  border: 3px double #8a8aff;
+  background: rgba(10, 10, 30, 0.9);
+}
+
+/* ===== HEADER ===== */
+header {
+  text-align: center;
+  border-bottom: 2px dashed #8a8aff;
+  padding-bottom: 15px;
+}
+
+header h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 26px;
+  color: #b6b6ff;
+  text-shadow: 2px 2px #000;
+}
+
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ===== MARQUEE ===== */
+marquee {
+  margin: 15px 0;
+  padding: 8px;
+  background: #000;
+  border: 2px inset #8a8aff;
+  color: #ffffff;
+}
+
+/* ===== CONTENT BOXES ===== */
+.box {
+  border: 2px ridge #8a8aff;
+  padding: 15px;
+  margin: 20px 0;
+  background: rgba(0,0,50,0.85);
+}
+
+.box h2 {
+  color: #9fa4ff;
+  margin-top: 0;
+  text-decoration: underline;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  padding: 6px 12px;
+  background: linear-gradient(#4444aa, #111166);
+  border: 2px outset #aaaaff;
+  color: white;
+}
+
+button:active {
+  border: 2px inset #aaaaff;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+  border-top: 2px dashed #8a8aff;
+  padding-top: 10px;
+}
+
+/* ===== GIF ROW ===== */
+.gifs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.gifs img {
+  height: 60px;
+}
+
+/* ===== VISITOR COUNTER ===== */
+.counter {
+  font-size: 18px;
+  color: #00ffcc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="wrapper">
+
+<header>
+  <h1>♑ CAPRICORN ZONE ♑</h1>
+  <p class="blink">Welcome, Earth Sign Elite</p>
+</header>
+
+<marquee scrollamount="4">
+  ★ Discipline ★ Ambition ★ Saturn Energy ★ Built Different Since Birth ★
+</marquee>
+
+<div class="box">
+  <h2>🪐 About Capricorn</h2>
+  <p>
+    Capricorn is ruled by <strong>Saturn</strong>, planet of structure, karma,
+    and long-term success. While others dream, Capricorn builds.
+  </p>
+  <p>
+    Keywords: ambition, resilience, legacy, mastery.
+  </p>
+</div>
+
+<div class="box">
+  <h2>📅 Capricorn Vibes Today</h2>
+  <p id="dailyMessage">Loading Saturn transmission...</p>
+  <button onclick="newMessage()">Refresh Message</button>
+</div>
+
+<div class="box">
+  <h2>🖥️ 90s Capricorn Aesthetic</h2>
+  <div class="gifs">
+    <img src="https://i.imgur.com/k6zZVZJ.gif" alt="">
+    <img src="https://i.imgur.com/6n1sCzZ.gif" alt="">
+    <img src="https://i.imgur.com/x8F7Z9E.gif" alt="">
+  </div>
+</div>
+
+<div class="box">
+  <h2>📊 Visitor Count</h2>
+  <p class="counter">You are visitor #<span id="count">000042</span></p>
+</div>
+
+<footer>
+  © 1997–2025 Capricorn Domain • Powered by Saturn • Best viewed at 800x600
+</footer>
+
+</div>
+
+<script>
+const messages = [
+  "Slow progress is still progress. Stay the course.",
+  "Your discipline today creates freedom tomorrow.",
+  "Saturn rewards patience. Keep building.",
+  "Legacy > shortcuts.",
+  "You are exactly where you need to be."
+];
+
+function newMessage() {
+  const msg = messages[Math.floor(Math.random() * messages.length)];
+  document.getElementById("dailyMessage").textContent = msg;
+}
+
+newMessage();
+
+// Fake visitor counter (90s style)
+let count = 42;
+setInterval(() => {
+  count++;
+  document.getElementById("count").textContent = String(count).padStart(6, "0");
+}, 3000);
+</script>
+
+</body>
+</html>
