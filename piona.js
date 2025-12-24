@@ -14,13 +14,13 @@ const products = [
         name: "Hangul Member Names", 
         images: { ot5: "hangul-member.png", chaewon: "hangul-chaewon.png", sakura: "hangul-sakura - Copy.png", yunjin: "hangul-yunjin - Copy.png", kazuha: "hangul-kazuha - Copy.png", eunchae: "hangul-eunchae - Copy.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
-        url: { ot5:"https://www.redbubble.com/ot5-hangul", chaewon:"https://www.redbubble.com/chaewon-hangul", sakura:"https://www.redbubble.com/sakura-hangul", yunjin:"https://www.redbubble.com/yunjin-hangul", kazuha:"https://www.redbubble.com/kazuha-hangul", eunchae:"https://www.redbubble.com/eunchae-hangul" }
+        url: { ot5:"https://www.redbubble.com/ot5-hangul", chaewon:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", sakura:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", yunjin:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", kazuha:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", eunchae:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling" }
     },
     { 
         name: "Spaghetti Era Stickers", 
         images: { ot5: "spaghetti-member.png", chaewon: "spaghetti-chaewon.png", sakura: "spaghetti-sakura.png", yunjin: "spaghetti-yunjin.png", kazuha: "spaghetti-kazuha.png", eunchae: "spaghetti-eunchae.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
-        url: { ot5:"https://www.redbubble.com/ot5-spaghetti", chaewon:"https://www.redbubble.com/chaewon-spaghetti", sakura:"https://www.redbubble.com/sakura-spaghetti", yunjin:"https://www.redbubble.com/yunjin-spaghetti", kazuha:"https://www.redbubble.com/kazuha-spaghetti", eunchae:"https://www.redbubble.com/eunchae-spaghetti" }
+        url: { ot5:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", chaewon:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", sakura:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", yunjin:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", kazuha:"https://www.redbubble.com/kazuha-spaghetti", eunchae:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling" }
     },
     { 
         name: "Lightstick Keychains", 
