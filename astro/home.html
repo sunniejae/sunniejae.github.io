@@ -1,325 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starry Jae – Astrology Homepage</title>
+<meta charset="UTF-8">
+<title>Zodiac Wiki Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        /* ===== FONTS ===== */
-        @font-face { 
-            font-family: 'Cheri'; 
-            src: url('tan-mon-cheri.woff') format('woff'); 
-        }
-        @font-face { 
-            font-family: 'jaewriting'; 
-            src: url('Jaewriting-regular.ttf') format('truetype'); 
-        }
-        @font-face { 
-            font-family: 'Astro4'; 
-            src: url('Astro4-Regular.ttf') format('truetype'); 
-        }
+<!-- Custom Fonts -->
+<style>
+@font-face {
+    font-family: 'Jaewriting';
+    src: url('assets/Jaewriting-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Milky';
+    src: url('assets/tan-mon-cheri.woff') format('woff');
+}
+@font-face {
+    font-family: 'Astro';
+    src: url('assets/Astro4-Regular.ttf') format('truetype');
+}
+</style>
 
-        /* ===== VARIABLES ===== */
-        :root {
-            --black: #000010;
-            --white: #ffffff;
-            --gray: #bfbfdc;
-            --silver: #f0f0f5;
-            --pink: #ffb3d6;
-            --accent: #00c9c2;
-            --secondary: #c13886;
-            --primary: #9a9ad4;
-            --dark-purple: #3f3d7a;
-        }
+<style>
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --primary: #9a9ad4;
+    --accent: #312262;
+    --dark: #0e0705;
+    --light: #eeebf8;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: var(--black);
+    background-image: url('assets/background-index.png');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    font-family: 'Jaewriting', sans-serif;
+    color: var(--white);
+    cursor: url('assets/cursor-star.cur'), auto;
+}
 
-        body {
-            font-family: 'jaewriting', sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--black), var(--dark-purple), var(--black));
-            color: var(--silver);
-            overflow-x: hidden;
-        }
+#marquee {
+    background: linear-gradient(to right, var(--accent), var(--primary));
+    color: var(--white);
+    font-family: 'Astro';
+    font-size: 13px;
+    padding: 6px;
+    border: 2px inset var(--primary);
+    margin-bottom: 12px;
+}
 
-        /* ===== BACKGROUND EFFECTS ===== */
-        .stars-container {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
+#header {
+    text-align: center;
+    padding: 16px;
+    font-family: 'Milky';
+    font-size: 42px;
+    color: var(--light);
+    text-shadow: 2px 2px var(--black);
+}
+#header small {
+    display: block;
+    font-family: 'Astro';
+    font-size: 12px;
+    color: var(--primary);
+    margin-top: 4px;
+}
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle infinite ease-in-out;
-        }
+#sign-grid {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-        @keyframes twinkle {
-            0%,100% { opacity: .3 }
-            50% { opacity: 1 }
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-        }
-
-        .orb-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--primary);
-            top: 5%;
-            left: 5%;
-        }
-
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent);
-            bottom: 5%;
-            right: 5%;
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .header-content {
-            max-width: 80rem;
-            margin: auto;
-            padding: 2rem;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        h1 {
-            font-family: 'Cheri', serif;
-            font-size: 3rem;
-            background: linear-gradient(to right, var(--pink), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tagline {
-            font-family: 'Cheri', serif;
-            font-style: italic;
-            color: var(--gray);
-        }
-
-        .date-time {
-            text-align: right;
-        }
-
-        /* ===== MAIN ===== */
-        main {
-            max-width: 80rem;
-            margin: auto;
-            padding: 3rem 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Cheri', serif;
-            font-size: 2.5rem;
-            color: var(--pink);
-            margin-bottom: 2rem;
-        }
-
-        /* ===== PLACEMENTS ===== */
-        .placements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-            gap: 1.5rem;
-        }
-
-        .placement-card {
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        .planet-name {
-            color: var(--pink);
-            font-size: 1.5rem;
-        }
-
-        /* ===== MESSAGE BLOCKS ===== */
-        .about-placements {
-            margin-top: 2rem;
-            padding: 2rem;
-            background: rgba(0,0,0,0.4);
-            border-radius: 1rem;
-            border: 1px solid rgba(255,255,255,0.15);
-            display: flex;
-            gap: 1rem;
-        }
-
-        .about-title {
-            font-family: 'Cheri', serif;
-            color: var(--pink);
-            font-size: 1.5rem;
-            margin-bottom: .5rem;
-        }
-
-        .about-text {
-            color: var(--gray);
-            line-height: 1.7;
-        }
-
-        /* ===== ASTRO4 DAILY NOTE ===== */
-        .daily-note-text {
-            font-family: 'Astro4', monospace;
-            letter-spacing: 0.08em;
-            line-height: 1.9;
-            color: var(--silver);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            margin-top: 5rem;
-            padding: 3rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .date-time { text-align: center; }
-        }
-    </style>
+.sign-card {
+    display: table-cell;
+    text-align: center;
+    padding: 12px;
+    border: 2px outset var(--primary);
+    margin: 6px;
+    vertical-align: middle;
+    background: var(--accent);
+    transition: all 0.2s;
+}
+.sign-card:hover {
+    background: var(--primary);
+    color: var(--black);
+    cursor: url('assets/cursor-star-glow.cur'), pointer;
+}
+.sign-card a {
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Astro';
+    font-size: 14px;
+}
+.sign-card:hover a {
+    color: var(--black);
+}
+.sign-card.last-viewed {
+    border: 3px dotted var(--light);
+    background: linear-gradient(to bottom right, var(--primary), var(--accent));
+}
+</style>
 </head>
 
 <body>
-<div class="stars-container" id="starsContainer"></div>
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
 
-<header>
-    <div class="header-content">
-        <div>
-            <h1>✦ Starry Jae ✦</h1>
-            <p class="tagline">Sunnie Jae but in space</p>
-        </div>
-        <div class="date-time">
-            <div id="currentDate"></div>
-            <div id="currentTime"></div>
-        </div>
-    </div>
-</header>
+<marquee id="marquee" scrollamount="4">
+✨ Welcome to the Zodiac Wiki ✨ Click your sign below to explore ✨ Retro Astrology Hub ✨
+</marquee>
 
-<main>
-    <h2 class="section-title">Current Planetary Positions</h2>
-    <div class="placements-grid" id="placementsGrid"></div>
+<div id="header">
+    ZODIAC WIKI
+    <small>Explore All 12 Signs • 90s Retro Style ♈♉♊♋♌♍♎♏♐♑♒♓</small>
+</div>
 
-    <!-- MONTHLY TRANSITS -->
-    <div class="about-placements">
-        <div>
-            <h3 class="about-title">Monthly Transits</h3>
-            <p id="monthlyTransitDate" style="font-style:italic;"></p>
-            <p class="about-text" id="monthlyTransitText"></p>
-        </div>
-    </div>
-
-    <!-- DAILY ASTRO NOTE -->
-    <div class="about-placements">
-        <div>
-            <h3 class="about-title">Daily Astro Note</h3>
-            <p id="dailyNoteDate" style="font-style:italic;"></p>
-            <p class="daily-note-text" id="dailyNoteText"></p>
-        </div>
-    </div>
-</main>
-
-<footer>
-    <p>✦ ☽ ✦</p>
-    <p>© Sunnie Jae</p>
-</footer>
+<div id="sign-grid">
+    <div class="sign-card"><a href="aries.html" data-sign="aries">♈ Aries</a></div>
+    <div class="sign-card"><a href="taurus.html" data-sign="taurus">♉ Taurus</a></div>
+    <div class="sign-card"><a href="gemini.html" data-sign="gemini">♊ Gemini</a></div>
+    <div class="sign-card"><a href="cancer.html" data-sign="cancer">♋ Cancer</a></div>
+    <div class="sign-card"><a href="leo.html" data-sign="leo">♌ Leo</a></div>
+    <div class="sign-card"><a href="virgo.html" data-sign="virgo">♍ Virgo</a></div>
+    <div class="sign-card"><a href="libra.html" data-sign="libra">♎ Libra</a></div>
+    <div class="sign-card"><a href="scorpio.html" data-sign="scorpio">♏ Scorpio</a></div>
+    <div class="sign-card"><a href="sagittarius.html" data-sign="sagittarius">♐ Sagittarius</a></div>
+    <div class="sign-card"><a href="capricorn.html" data-sign="capricorn">♑ Capricorn</a></div>
+    <div class="sign-card"><a href="aquarius.html" data-sign="aquarius">♒ Aquarius</a></div>
+    <div class="sign-card"><a href="pisces.html" data-sign="pisces">♓ Pisces</a></div>
+</div>
 
 <script>
-    /* ===== DATA ===== */
-    const placements = [
-        { planet: 'Sun', sign: 'Capricorn', icon: '☉' },
-        { planet: 'Moon', sign: 'Aquarius', icon: '☽' },
-        { planet: 'Venus', sign: 'Capricorn', icon: '♀' },
-        { planet: 'Mars', sign: 'Capricorn', icon: '♂' },
-        { planet: 'Jupiter', sign: 'Cancer', icon: '♃' }
-    ];
+/* ================= LOCAL STORAGE HIGHLIGHT ================= */
+const signCards = document.querySelectorAll(".sign-card a");
 
-    const monthlyTransits = {
-        date: 'December 2025',
-        message: 'Capricorn season sharpens ambition while Jupiter retrograde in Cancer revisits emotional foundations.'
-    };
-
-    const dailyNote = {
-        date: 'December 23, 2025',
-        message: 'Venus square Neptune heightens fantasy. Ground your expectations before committing.'
-    };
-
-    /* ===== FUNCTIONS ===== */
-    function generateStars() {
-        const c = document.getElementById('starsContainer');
-        for (let i = 0; i < 60; i++) {
-            const s = document.createElement('div');
-            s.className = 'star';
-            const size = Math.random() * 3 + 1;
-            s.style.width = s.style.height = size + 'px';
-            s.style.top = Math.random() * 100 + '%';
-            s.style.left = Math.random() * 100 + '%';
-            s.style.animationDuration = Math.random() * 5 + 3 + 's';
-            c.appendChild(s);
+/* On page load, highlight last viewed sign */
+const lastSign = localStorage.getItem("lastViewedSign");
+if(lastSign) {
+    signCards.forEach(a => {
+        if(a.dataset.sign === lastSign) {
+            a.parentElement.classList.add("last-viewed");
         }
-    }
+    });
+}
 
-    function updateDateTime() {
-        const now = new Date();
-        document.getElementById('currentDate').textContent =
-            now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
-        document.getElementById('currentTime').textContent =
-            now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
-    }
-
-    function renderPlacements() {
-        const grid = document.getElementById('placementsGrid');
-        placements.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'placement-card';
-            card.innerHTML = `<div class="planet-name">${p.icon} ${p.planet}</div><p>in ${p.sign}</p>`;
-            grid.appendChild(card);
-        });
-    }
-
-    /* ===== INIT ===== */
-    generateStars();
-    updateDateTime();
-    renderPlacements();
-
-    document.getElementById('monthlyTransitDate').textContent = monthlyTransits.date;
-    document.getElementById('monthlyTransitText').textContent = monthlyTransits.message;
-
-    document.getElementById('dailyNoteDate').textContent = dailyNote.date;
-    document.getElementById('dailyNoteText').textContent = dailyNote.message;
-
-    setInterval(updateDateTime, 60000);
+/* On click, save the sign to localStorage */
+signCards.forEach(a => {
+    a.addEventListener("click", () => {
+        localStorage.setItem("lastViewedSign", a.dataset.sign);
+    });
+});
 </script>
+
 </body>
 </html>
