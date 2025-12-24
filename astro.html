@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starry Jae</title>
+    <title>Celestial Whispers - Astrology Homepage</title>
     <style>
+        @font-face { 
+            font-family: 'Cheri'; 
+            src: url('tan-mon-cheri.woff') format('woff'); 
+        }
+        @font-face { 
+            font-family: 'jaewriting'; 
+            src: url('jaewriting-regular.ttf') format('truetype'); 
+        }
+
         :root {
             --black: #000010;
             --white: #ffffff;
@@ -27,7 +35,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'jaewriting', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             min-height: 100vh;
             background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 50%, var(--black) 100%);
             color: var(--silver);
@@ -121,14 +129,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-family: Georgia, serif;
+            font-family: 'Cheri', Georgia, serif;
         }
 
         .tagline {
             color: var(--gray);
             font-size: 1.125rem;
             font-style: italic;
-            font-family: Georgia, serif;
+            font-family: 'Cheri', Georgia, serif;
         }
 
         .date-time {
@@ -216,7 +224,7 @@
             font-weight: bold;
             margin-bottom: 1rem;
             color: var(--pink);
-            font-family: Georgia, serif;
+            font-family: 'Cheri', Georgia, serif;
         }
 
         .section-description {
@@ -280,14 +288,14 @@
             display: inline-block;
         }
 
-        .planet-retrograde {
+        .planet-degree {
             font-size: 2rem;
             font-weight: bold;
             color: var(--accent);
             transition: transform 0.3s;
         }
 
-        .placement-card:hover .planet-retrograde {
+        .placement-card:hover .planet-degree {
             transform: scale(1.1);
         }
 
@@ -328,7 +336,7 @@
             font-weight: bold;
             margin-bottom: 0.75rem;
             color: var(--pink);
-            font-family: Georgia, serif;
+            font-family: 'Cheri', Georgia, serif;
         }
 
         .about-text {
@@ -421,7 +429,7 @@
             margin-bottom: 0.75rem;
             color: var(--pink);
             transition: color 0.3s;
-            font-family: Georgia, serif;
+            font-family: 'Cheri', Georgia, serif;
         }
 
         .blog-card:hover .blog-title {
@@ -604,6 +612,17 @@
 
                 <div class="placements-grid" id="placementsGrid"></div>
 
+                <div class="about-placements" style="margin-top: 3rem; margin-bottom: 0;">
+                    <svg style="width: 2rem; height: 2rem; color: var(--accent); flex-shrink: 0; margin-top: 0.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    <div>
+                        <h3 class="about-title">Daily Cosmic Message</h3>
+                        <p style="color: var(--primary); font-size: 0.875rem; margin-bottom: 0.5rem; font-style: italic;" id="dailyMessageDate"></p>
+                        <p class="about-text" id="dailyMessageText"></p>
+                    </div>
+                </div>
+
                 <div class="about-placements">
                     <svg class="about-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
@@ -641,8 +660,8 @@
         <footer>
             <div class="footer-content">
                 <div class="footer-icon">✦ ☽ ✦</div>
-                <p class="footer-text">Sunnie Jae</p>
-                <p class="footer-copyright">© Sunnie Jae</p>
+                <p class="footer-text">May the stars guide your journey</p>
+                <p class="footer-copyright">© 2024 Celestial Whispers • All cosmic wisdom preserved</p>
             </div>
         </footer>
     </div>
@@ -650,20 +669,26 @@
     <script>
         // Data
         const placements = [
-            { planet: 'Sun', sign: 'Capricorn', retrograde: 'NO', element: 'Earth', icon: '☉' },
-            { planet: 'Moon', sign: 'Aquarius', retrograde: 'NO°', element: 'Air', icon: '☽' },
-            { planet: 'Mercury', sign: 'Sagittarius', retrograde: 'NO°', element: 'Fire', icon: '☿' },
-            { planet: 'Venus', sign: 'Sagittarius', retrograde: 'NO', element: 'Fire', icon: '♀' },
-            { planet: 'Mars', sign: 'Sagittarius', retrograde: 'NO', element: 'Fire', icon: '♂' },
-            { planet: 'Jupiter', sign: 'Cancer', retrograde: 'YES', element: 'Water', icon: '♃' },
-            { planet: 'Saturn', sign: 'Pisces', retrograde: 'NO', element: 'Water', icon: '♄' },
-            { planet: 'Uranus', sign: 'Taurus', retrograde: 'YES', element: 'Earth', icon: '♅' },
-            { planet: 'Neptune', sign: 'Pisces', retrograde: 'YES', element: 'Water', icon: '♆' },
-            { planet: 'Pluto', sign: 'Aquarius', retrograde: 'NO', element: 'Air', icon: '♇' }
-            { planet: 'Chiron', sign: 'Aries', retrograde: 'YES', element: 'Fire', icon: '⚷ ' }
-            { planet: 'Lilith', sign: 'Aquarius', retrograde: 'NO', element: 'Air', icon: '⚸' }
-            { planet: 'Ascending Node', sign: 'Aquarius', retrograde: 'YES', element: 'Air', icon: '☊' }
+            { planet: 'Sun', sign: 'Capricorn', retrograde: 'No', element: 'Earth', icon: '☉' },
+            { planet: 'Moon', sign: 'Pisces', retrograde: 'No', element: 'Water', icon: '☽' },
+            { planet: 'Mercury', sign: 'Sagittarius', retrograde: 'No', element: 'Fire', icon: '☿' },
+            { planet: 'Venus', sign: 'Aquarius', retrograde: 'No', element: 'Air', icon: '♀' },
+            { planet: 'Mars', sign: 'Leo', retrograde: 'No', element: 'Fire', icon: '♂' },
+            { planet: 'Jupiter', sign: 'Gemini', retrograde: 'No', element: 'Air', icon: '♃' },
+            { planet: 'Saturn', sign: 'Pisces', retrograde: 'Yes', element: 'Water', icon: '♄' },
+            { planet: 'Uranus', sign: 'Taurus', retrograde: 'Yes', element: 'Earth', icon: '♅' },
+            { planet: 'Neptune', sign: 'Pisces', retrograde: 'Yes', element: 'Water', icon: '♆' },
+            { planet: 'Pluto', sign: 'Aquarius', retrograde: 'No', element: 'Air', icon: '♇' },
+            { planet: 'Chiron', sign: 'Aries', retrograde: 'No', element: 'Fire', icon: '⚷' },
+            { planet: 'Lilith', sign: 'Virgo', retrograde: 'No', element: 'Earth', icon: '⚸' },
+            { planet: 'North Node', sign: 'Pisces', retrograde: 'Yes', element: 'Water', icon: '☊' }
         ];
+        
+        // Daily planetary message - UPDATE THIS DAILY
+        const dailyMessage = {
+            date: 'December 23, 2024',
+            message: 'Today\'s cosmic energy invites deep reflection as Saturn, Uranus, and Neptune continue their retrograde journeys. The Moon in Pisces heightens our intuition and emotional sensitivity. Mercury in Sagittarius encourages bold communication and philosophical thinking. With the Sun freshly in Capricorn, we\'re called to ground our visions into practical reality. Pay special attention to Chiron\'s healing energy and the North Node\'s karmic lessons guiding us toward spiritual evolution.'
+        };
 
         const blogPosts = [
             {
@@ -764,7 +789,12 @@
                             </div>
                         </div>
                         <div>
-                            <div class="planet-retrograde">${placement.retrograde}</div>
+                            <div class="planet-degree" style="font-size: 1.25rem; text-align: right;">
+                                <div style="font-size: 0.875rem; color: var(--gray); margin-bottom: 0.25rem;">Retrograde?</div>
+                                <div style="color: ${placement.retrograde === 'Yes' ? 'var(--secondary)' : 'var(--accent)'};">
+                                    ${placement.retrograde}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="planet-sign">
@@ -840,6 +870,10 @@
         updateDateTime();
         renderPlacements();
         renderBlogPosts();
+        
+        // Render daily message
+        document.getElementById('dailyMessageDate').textContent = dailyMessage.date;
+        document.getElementById('dailyMessageText').textContent = dailyMessage.message;
         
         // Update time every minute
         setInterval(updateDateTime, 60000);
