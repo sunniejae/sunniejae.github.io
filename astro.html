@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestial Whispers - Astrology Homepage</title>
+    <style>
+        :root {
+            --black: #000010;
+            --white: #ffffff;
+            --dark-gray: #404040;
+            --gray: #bfbfdc;
+            --silver: #f0f0f5;
+            --pink: #ffb3d6;
+            --teal: #00a8a3;
+            --dark-purple: #3f3d7a;
+            --accent: #00c9c2;
+            --secondary: #c13886;
+            --primary: #9a9ad4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 50%, var(--black) 100%);
+            color: var(--silver);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated stars background */
+        .stars-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background-color: var(--white);
+            animation: twinkle ease-in-out infinite;
+        }
+
+        /* Mystical gradient orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            top: 5rem;
+            left: 2.5rem;
+            width: 24rem;
+            height: 24rem;
+            background: rgba(154, 154, 212, 0.15);
+        }
+
+        .orb-2 {
+            bottom: 5rem;
+            right: 2.5rem;
+            width: 24rem;
+            height: 24rem;
+            background: rgba(0, 201, 194, 0.15);
+            animation-delay: 1s;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid rgba(154, 154, 212, 0.2);
+            backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 16, 0.5);
+        }
+
+        .header-content {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--pink), var(--accent), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: Georgia, serif;
+        }
+
+        .tagline {
+            color: var(--gray);
+            font-size: 1.125rem;
+            font-style: italic;
+            font-family: Georgia, serif;
+        }
+
+        .date-time {
+            text-align: right;
+        }
+
+        .date-label {
+            font-size: 0.875rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .current-date {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--silver);
+        }
+
+        .current-time {
+            color: var(--gray);
+        }
+
+        /* Navigation */
+        nav {
+            border-bottom: 1px solid rgba(154, 154, 212, 0.2);
+            backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 16, 0.3);
+        }
+
+        .nav-content {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-button {
+            padding: 1rem 0.5rem;
+            border: none;
+            border-bottom: 2px solid transparent;
+            background: none;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-button:hover {
+            color: var(--accent);
+        }
+
+        .nav-button.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--pink);
+            font-family: Georgia, serif;
+        }
+
+        .section-description {
+            color: var(--gray);
+            font-size: 1.125rem;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        /* Placements Grid */
+        .placements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .placement-card {
+            backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(63, 61, 122, 0.4) 0%, rgba(0, 0, 16, 0.6) 100%);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(154, 154, 212, 0.3);
+            transition: all 0.3s;
+        }
+
+        .placement-card:hover {
+            border-color: rgba(0, 201, 194, 0.6);
+            box-shadow: 0 20px 50px rgba(0, 201, 194, 0.2);
+        }
+
+        .placement-header {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .placement-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .planet-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 0 10px rgba(255, 179, 214, 0.4));
+        }
+
+        .planet-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--pink);
+            margin-bottom: 0.25rem;
+        }
+
+        .element-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .planet-degree {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .placement-card:hover .planet-degree {
+            transform: scale(1.1);
+        }
+
+        .planet-sign {
+            text-align: center;
+            padding: 0.75rem;
+            background: linear-gradient(to right, transparent, rgba(0, 201, 194, 0.1), transparent);
+            border-radius: 0.5rem;
+        }
+
+        .planet-sign span {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--silver);
+        }
+
+        .about-placements {
+            margin-top: 3rem;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(154, 154, 212, 0.2) 0%, rgba(0, 168, 163, 0.2) 100%);
+            border-radius: 1rem;
+            border: 1px solid rgba(154, 154, 212, 0.4);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .about-icon {
+            width: 2rem;
+            height: 2rem;
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .about-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: var(--pink);
+            font-family: Georgia, serif;
+        }
+
+        .about-text {
+            color: var(--gray);
+            line-height: 1.75;
+        }
+
+        /* Blog Section */
+        .blog-container {
+            max-width: 56rem;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .blog-card {
+            backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(63, 61, 122, 0.4) 0%, rgba(0, 0, 16, 0.6) 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(154, 154, 212, 0.3);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            border-color: rgba(0, 201, 194, 0.6);
+            box-shadow: 0 20px 50px rgba(193, 56, 134, 0.2);
+        }
+
+        .blog-content {
+            display: flex;
+            align-items: start;
+            gap: 1.5rem;
+        }
+
+        .blog-icon-wrapper {
+            flex-shrink: 0;
+            width: 5rem;
+            height: 5rem;
+            background: linear-gradient(135deg, rgba(193, 56, 134, 0.4) 0%, rgba(0, 168, 163, 0.4) 100%);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(193, 56, 134, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover .blog-icon-wrapper {
+            transform: scale(1.1);
+        }
+
+        .blog-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            color: var(--pink);
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .category-badge {
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 201, 194, 0.2);
+            color: var(--accent);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 201, 194, 0.4);
+        }
+
+        .blog-date {
+            color: var(--primary);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: var(--pink);
+            transition: color 0.3s;
+            font-family: Georgia, serif;
+        }
+
+        .blog-card:hover .blog-title {
+            color: var(--accent);
+        }
+
+        .blog-excerpt {
+            color: var(--gray);
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .blog-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        .read-more {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.875rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .blog-card:hover .read-more {
+            transform: translateX(8px);
+        }
+
+        .view-all-button {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(to right, rgba(193, 56, 134, 0.6), rgba(0, 168, 163, 0.6));
+            border-radius: 0.75rem;
+            color: var(--silver);
+            font-weight: 600;
+            border: 1px solid rgba(154, 154, 212, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(154, 154, 212, 0.2);
+            backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 16, 0.5);
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--pink);
+        }
+
+        .footer-text {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-copyright {
+            color: var(--gray);
+            opacity: 0.6;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .placements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-content {
+                flex-direction: column;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .date-time {
+                text-align: center;
+            }
+        }
+
+        /* Icon styles */
+        .icon {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars-container" id="starsContainer"></div>
+    
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="main-container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div>
+                    <h1>✦ Celestial Whispers ✦</h1>
+                    <p class="tagline">Where the cosmos speaks and souls listen</p>
+                </div>
+                <div class="date-time">
+                    <div class="date-label">Current Cosmic Time</div>
+                    <div class="current-date" id="currentDate"></div>
+                    <div class="current-time" id="currentTime"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav>
+            <div class="nav-content">
+                <button class="nav-button active" onclick="showSection('placements')">
+                    ⭐ Current Placements
+                </button>
+                <button class="nav-button" onclick="showSection('blog')">
+                    ✨ Cosmic Journal
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Placements Section -->
+            <section id="placements" class="section active">
+                <div class="section-header">
+                    <h2 class="section-title">Current Planetary Positions</h2>
+                    <p class="section-description">
+                        The celestial bodies dance in their eternal patterns, each position whispering ancient wisdom to those who listen
+                    </p>
+                </div>
+
+                <div class="placements-grid" id="placementsGrid"></div>
+
+                <div class="about-placements">
+                    <svg class="about-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                    <div>
+                        <h3 class="about-title">About These Placements</h3>
+                        <p class="about-text">
+                            These planetary positions represent the current cosmic weather, influencing the collective energy and individual experiences. 
+                            Each planet carries its own archetypal wisdom, moving through the zodiac signs and creating a unique tapestry of energies 
+                            that shape our journey through time and space. To receive personalized insights based on your birth chart, 
+                            book a reading or join our community of stargazers.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blog Section -->
+            <section id="blog" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Cosmic Journal</h2>
+                    <p class="section-description">
+                        Musings on the celestial dance, lunar wisdom, and the eternal conversation between heaven and earth
+                    </p>
+                </div>
+
+                <div class="blog-container" id="blogContainer"></div>
+
+                <div class="view-all-button">
+                    <button class="cta-button">View All Posts</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-icon">✦ ☽ ✦</div>
+                <p class="footer-text">May the stars guide your journey</p>
+                <p class="footer-copyright">© 2024 Celestial Whispers • All cosmic wisdom preserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Data
+        const placements = [
+            { planet: 'Sun', sign: 'Capricorn', degree: '2°', element: 'Earth', icon: '☉' },
+            { planet: 'Moon', sign: 'Pisces', degree: '18°', element: 'Water', icon: '☽' },
+            { planet: 'Mercury', sign: 'Sagittarius', degree: '27°', element: 'Fire', icon: '☿' },
+            { planet: 'Venus', sign: 'Aquarius', degree: '5°', element: 'Air', icon: '♀' },
+            { planet: 'Mars', sign: 'Leo', degree: '11°', element: 'Fire', icon: '♂' },
+            { planet: 'Jupiter', sign: 'Gemini', degree: '14°', element: 'Air', icon: '♃' },
+            { planet: 'Saturn', sign: 'Pisces', degree: '16°', element: 'Water', icon: '♄' },
+            { planet: 'Uranus', sign: 'Taurus', degree: '23°', element: 'Earth', icon: '♅' },
+            { planet: 'Neptune', sign: 'Pisces', degree: '29°', element: 'Water', icon: '♆' },
+            { planet: 'Pluto', sign: 'Aquarius', degree: '2°', element: 'Air', icon: '♇' }
+        ];
+
+        const blogPosts = [
+            {
+                id: 1,
+                title: 'The Great Conjunction: Jupiter Meets Saturn',
+                date: 'December 15, 2024',
+                excerpt: 'A rare celestial event that occurs once every 20 years, marking significant shifts in collective consciousness and societal structures...',
+                author: 'Luna Starweaver',
+                category: 'Transits'
+            },
+            {
+                id: 2,
+                title: 'Mercury Retrograde Survival Guide',
+                date: 'December 10, 2024',
+                excerpt: 'Navigate the trickster planet\'s backward dance with grace and wisdom. Learn how to turn communication chaos into spiritual growth...',
+                author: 'Luna Starweaver',
+                category: 'Practical Magic'
+            },
+            {
+                id: 3,
+                title: 'Full Moon in Cancer: Emotional Tides',
+                date: 'December 5, 2024',
+                excerpt: 'The luminous Cancer moon invites us to dive deep into our emotional waters, honoring our sensitivity and nurturing our inner child...',
+                author: 'Luna Starweaver',
+                category: 'Lunar Wisdom'
+            },
+            {
+                id: 4,
+                title: 'Winter Solstice: Capricorn Season Begins',
+                date: 'December 1, 2024',
+                excerpt: 'As the Sun enters Capricorn, we\'re called to honor structure, ambition, and the slow, steady climb toward our highest peaks...',
+                author: 'Luna Starweaver',
+                category: 'Seasonal Magic'
+            }
+        ];
+
+        const elementColors = {
+            Fire: '#c13886',
+            Earth: '#00a8a3',
+            Air: '#9a9ad4',
+            Water: '#00c9c2'
+        };
+
+        // Generate stars
+        function generateStars() {
+            const container = document.getElementById('starsContainer');
+            for (let i = 0; i < 60; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                star.style.animationDuration = Math.random() * 5 + 3 + 's';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('currentDate');
+            const timeElement = document.getElementById('currentTime');
+            
+            dateElement.textContent = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            timeElement.textContent = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Render placements
+        function renderPlacements() {
+            const grid = document.getElementById('placementsGrid');
+            placements.forEach(placement => {
+                const card = document.createElement('div');
+                card.className = 'placement-card';
+                
+                const color = elementColors[placement.element];
+                
+                card.innerHTML = `
+                    <div class="placement-header">
+                        <div class="placement-info">
+                            <div class="planet-icon">${placement.icon}</div>
+                            <div>
+                                <h3 class="planet-name">${placement.planet}</h3>
+                                <span class="element-badge" style="background-color: ${color}30; color: ${color}; border: 1px solid ${color}60">
+                                    ${placement.element}
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="planet-degree">${placement.degree}</div>
+                        </div>
+                    </div>
+                    <div class="planet-sign">
+                        <span>in ${placement.sign}</span>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Render blog posts
+        function renderBlogPosts() {
+            const container = document.getElementById('blogContainer');
+            blogPosts.forEach(post => {
+                const card = document.createElement('article');
+                card.className = 'blog-card';
+                
+                card.innerHTML = `
+                    <div class="blog-content">
+                        <div class="blog-icon-wrapper">
+                            <svg class="blog-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                            </svg>
+                        </div>
+                        <div style="flex: 1;">
+                            <div class="blog-meta">
+                                <span class="category-badge">${post.category}</span>
+                                <span class="blog-date">
+                                    📅 ${post.date}
+                                </span>
+                            </div>
+                            <h3 class="blog-title">${post.title}</h3>
+                            <p class="blog-excerpt">${post.excerpt}</p>
+                            <div class="blog-footer">
+                                <div class="blog-author">
+                                    <svg style="width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                    <span>${post.author}</span>
+                                </div>
+                                <button class="read-more">Read More →</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Show section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Initialize
+        generateStars();
+        updateDateTime();
+        renderPlacements();
+        renderBlogPosts();
+        
+        // Update time every minute
+        setInterval(updateDateTime, 60000);
+    </script>
+</body>
+</html>
