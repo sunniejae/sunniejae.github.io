@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capricorn - The Goat</title>
+    <style>
+        :root {
+            --black: #000010;
+            --white: #ffffff;
+            --primary: #9a9ad4;
+            --capricorn: #633223;
+            --accent: #312262;
+            --dark: #0e0705;
+            --light: #eeebf8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Georgia, serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--accent), var(--capricorn));
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .infobox {
+            background-color: var(--white);
+            border: 3px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            float: right;
+            width: 300px;
+            margin-left: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .infobox h2 {
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 0.5rem;
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+            text-align: center;
+        }
+        
+        .infobox table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .infobox td {
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .infobox td:first-child {
+            font-weight: bold;
+            color: var(--capricorn);
+        }
+        
+        .symbol {
+            font-size: 4rem;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--capricorn);
+        }
+        
+        h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        h3 {
+            color: var(--capricorn);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem 0;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .section {
+            background-color: var(--white);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .trait-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .trait-card {
+            background-color: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--capricorn);
+        }
+        
+        .trait-card h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .infobox {
+                float: none;
+                width: 100%;
+                margin: 2rem 0;
+            }
+            
+            .trait-list {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>♑ Capricorn ♑</h1>
+        <p class="subtitle">The Tenth Sign of the Zodiac</p>
+    </header>
+    
+    <div class="container">
+        <div class="infobox">
+            <h2>Capricorn</h2>
+            <div class="symbol">♑</div>
+            <table>
+                <tr>
+                    <td>Dates:</td>
+                    <td>December 22 - January 19</td>
+                </tr>
+                <tr>
+                    <td>Element:</td>
+                    <td>Earth</td>
+                </tr>
+                <tr>
+                    <td>Quality:</td>
+                    <td>Cardinal</td>
+                </tr>
+                <tr>
+                    <td>Ruling Planet:</td>
+                    <td>Saturn</td>
+                </tr>
+                <tr>
+                    <td>Symbol:</td>
+                    <td>The Goat (Sea-Goat)</td>
+                </tr>
+                <tr>
+                    <td>Constellation:</td>
+                    <td>Capricornus</td>
+                </tr>
+                <tr>
+                    <td>House:</td>
+                    <td>Tenth House</td>
+                </tr>
+                <tr>
+                    <td>Colors:</td>
+                    <td>Brown, Grey, Black</td>
+                </tr>
+                <tr>
+                    <td>Birthstone:</td>
+                    <td>Garnet</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Capricorn is the tenth astrological sign in the zodiac, originating from the constellation of Capricornus. Under the tropical zodiac, the sun transits this area from approximately December 22 to January 19. Capricorn is represented by the Sea-Goat, a mythological creature with the body of a goat and tail of a fish.</p>
+            
+            <p>As a cardinal earth sign, Capricorn embodies ambition, discipline, and practicality. Those born under this sign are known for their determination, responsibility, and unwavering commitment to achieving their goals. Ruled by Saturn, the planet of structure and limitation, Capricorns possess a natural understanding of time, patience, and the rewards that come from hard work and perseverance.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Symbol and Mythology</h2>
+            <h3>The Sea-Goat</h3>
+            <p>The symbol of Capricorn is the Sea-Goat, a creature with the upper body of a goat and the lower body of a fish. This unique hybrid represents the duality of Capricorn's nature: the goat climbing steadily toward mountain peaks symbolizes ambition and the ability to overcome obstacles, while the fish tail represents emotional depth and the subconscious mind.</p>
+            
+            <h3>Mythological Origins</h3>
+            <p>In Greek mythology, the Sea-Goat is associated with Pricus, the father of all sea-goats who was created by the god Chronos (time). According to legend, Pricus's children would venture onto land and become regular goats, losing their intelligence and ability to speak. Despite his attempts to turn back time and prevent this fate, Pricus could not stop the inevitable. In recognition of his wisdom and sacrifice, Chronos placed him among the stars as the constellation Capricornus.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Key Characteristics</h2>
+            
+            <div class="trait-list">
+                <div class="trait-card">
+                    <h4>Ambitious</h4>
+                    <p>Capricorns set high goals and work tirelessly to achieve them, often reaching positions of authority and success.</p>
+                </div>
+                
+                <div class="trait-card">
+                    <h4>Disciplined</h4>
+                    <p>They possess exceptional self-control and the ability to delay gratification for long-term rewards.</p>
+                </div>
+                
+                <div class="trait-card">
+                    <h4>Responsible</h4>
+                    <p>Reliability and accountability are hallmarks of the Capricorn personality, making them trusted leaders.</p>
+                </div>
+                
+                <div class="trait-card">
+                    <h4>Practical</h4>
+                    <p>Grounded in reality, Capricorns favor pragmatic solutions and concrete results over abstract theories.</p>
+                </div>
+                
+                <div class="trait-card">
+                    <h4>Patient</h4>
+                    <p>Understanding that success takes time, they're willing to work steadily toward their objectives.</p>
+                </div>
+                
+                <div class="trait-card">
+                    <h4>Reserved</h4>
+                    <p>Often cautious with emotions, Capricorns may appear serious or aloof until trust is established.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Strengths and Weaknesses</h2>
+            
+            <h3>Strengths</h3>
+            <ul>
+                <li><strong>Leadership:</strong> Natural ability to organize, manage, and inspire others toward common goals</li>
+                <li><strong>Determination:</strong> Once committed to a path, they rarely give up or lose focus</li>
+                <li><strong>Wisdom:</strong> Often display maturity beyond their years and offer sound advice</li>
+                <li><strong>Loyalty:</strong> Deeply committed to relationships and rarely break promises</li>
+                <li><strong>Self-sufficiency:</strong> Capable of relying on themselves and solving problems independently</li>
+            </ul>
+            
+            <h3>Weaknesses</h3>
+            <ul>
+                <li><strong>Pessimism:</strong> Tendency to focus on potential problems and worst-case scenarios</li>
+                <li><strong>Stubbornness:</strong> Difficulty adapting to change or accepting alternative viewpoints</li>
+                <li><strong>Workaholic tendencies:</strong> May neglect personal relationships and self-care for career advancement</li>
+                <li><strong>Emotional guardedness:</strong> Struggle to express vulnerability or ask for help</li>
+                <li><strong>Excessive caution:</strong> May miss opportunities due to risk aversion</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>Career and Life Path</h2>
+            <p>Capricorns excel in careers that reward hard work, expertise, and long-term commitment. They're natural executives, managers, and administrators who thrive in structured environments. Their patience and strategic thinking make them excellent in finance, banking, architecture, engineering, and government positions.</p>
+            
+            <p>Many Capricorns are drawn to traditional professions such as law, medicine, and academia. They also succeed as entrepreneurs, particularly in businesses that require careful planning and sustained effort. Whatever path they choose, Capricorns typically start at the bottom and work their way to the top through dedication and competence.</p>
+            
+            <h3>Ideal Career Fields</h3>
+            <ul>
+                <li>Business Management and Administration</li>
+                <li>Finance and Banking</li>
+                <li>Real Estate and Property Development</li>
+                <li>Government and Public Service</li>
+                <li>Engineering and Architecture</li>
+                <li>Science and Research</li>
+                <li>Education and Academia</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>Relationships and Compatibility</h2>
+            <p>In relationships, Capricorns are loyal, committed, and serious about partnership. They may take time to open up emotionally, but once they do, they're devoted partners who prioritize stability and long-term commitment. They show love through actions and practical support rather than grand romantic gestures.</p>
+            
+            <h3>Most Compatible Signs</h3>
+            <ul>
+                <li><strong>Taurus:</strong> Both earth signs value stability, loyalty, and building a secure future together</li>
+                <li><strong>Virgo:</strong> Shared practicality and work ethic create a harmonious, productive partnership</li>
+                <li><strong>Scorpio:</strong> Deep emotional connection and mutual respect for boundaries</li>
+                <li><strong>Pisces:</strong> Opposite signs that balance each other—Pisces brings creativity and emotion, Capricorn provides structure</li>
+            </ul>
+            
+            <h3>Challenging Matches</h3>
+            <ul>
+                <li><strong>Aries:</strong> Impulsive Aries clashes with cautious Capricorn's methodical approach</li>
+                <li><strong>Libra:</strong> Different priorities—Libra seeks harmony while Capricorn focuses on achievement</li>
+                <li><strong>Cancer:</strong> Both cardinal signs may struggle for control, though emotional Cancer can soften reserved Capricorn</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>Element and Modality</h2>
+            
+            <h3>Earth Element</h3>
+            <p>As an earth sign, Capricorn is grounded, practical, and focused on material reality. Earth signs work with tangible resources and prefer concrete results over abstract concepts. This element gives Capricorns their realistic outlook, financial savvy, and ability to build lasting structures and systems.</p>
+            
+            <h3>Cardinal Quality</h3>
+            <p>Capricorn is a cardinal sign, meaning it initiates and leads. Cardinal signs mark the beginning of seasons and possess strong leadership qualities. As the cardinal earth sign, Capricorn doesn't just maintain structures—they build new ones, pioneering practical solutions and establishing frameworks that others can follow.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Ruling Planet: Saturn</h2>
+            <p>Saturn, the planet of discipline, responsibility, and time, rules Capricorn. This planetary influence gives Capricorns their serious demeanor, strong work ethic, and understanding that worthwhile achievements require patience and effort. Saturn teaches through experience and restriction, helping Capricorns develop resilience and wisdom.</p>
+            
+            <p>The influence of Saturn manifests in Capricorn's respect for tradition, authority, and established systems. It also explains their tendency toward caution and their need for structure and order. As Capricorns mature, they often embody Saturn's highest qualities: wisdom, mastery, and the ability to mentor others.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Health and Wellness</h2>
+            <p>Capricorns need to be mindful of stress-related conditions due to their tendency to overwork. The skeletal system, particularly knees, joints, and bones, is traditionally associated with this sign. Regular exercise, proper rest, and attention to work-life balance are essential for Capricorn's wellbeing.</p>
+            
+            <h3>Health Considerations</h3>
+            <ul>
+                <li>Prone to stress and tension from overwork</li>
+                <li>May experience joint pain or stiffness</li>
+                <li>Benefit from structured exercise routines</li>
+                <li>Need adequate rest despite tendency to push through fatigue</li>
+                <li>Should cultivate emotional expression and stress management techniques</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>Famous Capricorns</h2>
+            <p>Many successful leaders, innovators, and artists are born under the sign of Capricorn. Their determination and discipline have helped them achieve lasting impact in their fields.</p>
+            
+            <ul>
+                <li>Martin Luther King Jr. (January 15)</li>
+                <li>Michelle Obama (January 17)</li>
+                <li>Muhammad Ali (January 17)</li>
+                <li>Isaac Newton (January 4)</li>
+                <li>Elvis Presley (January 8)</li>
+                <li>Kate Middleton (January 9)</li>
+                <li>Dolly Parton (January 19)</li>
+                <li>Stephen Hawking (January 8)</li>
+                <li>Denzel Washington (December 28)</li>
+                <li>LeBron James (December 30)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Capricorn Wiki Page | Zodiac Information Resource</p>
+    </footer>
+</body>
+</html>
