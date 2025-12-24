@@ -5,7 +5,7 @@
 <title>Capricorn Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ===== CUSTOM FONTS ===== -->
+<!-- ================== CUSTOM FONTS ================== -->
 <style>
 @font-face { 
     font-family: 'Jaewriting'; 
@@ -22,74 +22,82 @@
 </style>
 
 <style>
-/* ===== COLOR PALETTE ===== */
+/* ================== EDIT THESE PER SIGN ================== */
 :root {
+    --sign-name: "Capricorn";
     --black: #000010;
     --white: #ffffff;
     --primary: #9a9ad4;
-    --capricorn: #633223;
-    --naccent: #312262;
-    --ndark: #0e0705;
-    --nlight: #eeebf8;
+    --sign-main: #633223;
+    --accent: #312262;
+    --dark: #0e0705;
+    --light: #eeebf8;
 }
 
-/* ===== GLOBAL ===== */
+/* ================== CURSOR ================== */
+body {
+    cursor: url('/assets/cursor-star.cur'), auto;
+}
+a:hover {
+    cursor: url('/assets/cursor-star-glow.cur'), pointer;
+}
+
+/* ================== GLOBAL ================== */
 body {
     margin: 0;
     padding: 20px;
-    color: var(--white);
     background-color: var(--black);
     background-image: url('/assets/background-capricorn.png');
     background-repeat: repeat;
     background-attachment: fixed;
-    font-family: 'Jaewriting', Verdana, Arial, sans-serif;
+    color: var(--white);
+    font-family: 'Jaewriting', sans-serif;
 }
 
-a {
-    color: var(--primary);
-    text-decoration: underline;
-}
-
-a:hover {
-    background: var(--primary);
-    color: var(--black);
-}
-
-/* ===== FRAME ===== */
+/* ================== FRAME ================== */
 #wiki-frame {
-    max-width: 900px;
+    max-width: 920px;
     margin: auto;
-    background: var(--ndark);
+    background: var(--dark);
     border: 4px ridge var(--primary);
     padding: 12px;
 }
 
-/* ===== HEADER ===== */
+/* ================== MARQUEE ================== */
+#astro-marquee {
+    background: linear-gradient(to right, var(--accent), var(--primary));
+    color: var(--white);
+    font-family: 'Astro', monospace;
+    font-size: 13px;
+    padding: 6px;
+    border: 2px inset var(--primary);
+    margin-bottom: 8px;
+}
+
+/* ================== HEADER ================== */
 #wiki-header {
-    background: linear-gradient(to right, var(--capricorn), var(--naccent));
+    background: linear-gradient(to right, var(--sign-main), var(--accent));
     border: 3px outset var(--primary);
-    padding: 14px;
+    padding: 16px;
     text-align: center;
 }
 
 #wiki-header h1 {
     margin: 0;
-    font-family: 'Milky', serif;
-    font-size: 38px;
+    font-family: 'Milky';
+    font-size: 40px;
     letter-spacing: 4px;
-    color: var(--nlight);
+    color: var(--light);
     text-shadow: 3px 3px var(--black);
 }
 
 #wiki-header small {
-    display: block;
-    margin-top: 6px;
-    font-family: 'Astro', monospace;
+    font-family: 'Astro';
     font-size: 12px;
     color: var(--primary);
 }
 
-/* ===== TABLE LAYOUT ===== */
+/* ================== LAYOUT ================== */
 #wiki-table {
     width: 100%;
     border-collapse: collapse;
@@ -101,86 +109,65 @@ a:hover {
     padding: 8px;
 }
 
-/* ===== SIDEBAR ===== */
+/* ================== SIDEBAR ================== */
 #sidebar {
-    width: 230px;
-    background: var(--naccent);
+    width: 240px;
+    background: var(--accent);
     border: 3px inset var(--primary);
     font-size: 13px;
 }
 
 .sidebar-box {
     border: 2px groove var(--primary);
-    background: var(--ndark);
+    background: var(--dark);
     margin-bottom: 12px;
     padding: 6px;
 }
 
 .sidebar-box h3 {
-    margin: 0 0 6px 0;
-    font-family: 'Astro', monospace;
-    font-size: 14px;
+    font-family: 'Astro';
     background: var(--primary);
     color: var(--black);
     padding: 4px;
     text-align: center;
 }
 
-/* ===== CONTENT ===== */
+/* ================== CONTENT ================== */
 #content {
-    background: var(--nlight);
+    background: var(--light);
     color: var(--black);
     border: 3px inset var(--primary);
-    font-size: 15px;
 }
 
 .content-box {
-    border: 2px solid var(--naccent);
+    border: 2px solid var(--accent);
     background: var(--white);
     margin-bottom: 14px;
 }
 
 .content-box h2 {
-    margin: 0;
-    padding: 6px 8px;
-    font-family: 'Astro', monospace;
-    background: linear-gradient(to right, var(--primary), var(--naccent));
+    font-family: 'Astro';
+    background: linear-gradient(to right, var(--primary), var(--accent));
     color: var(--white);
-    font-size: 16px;
-    letter-spacing: 1px;
+    padding: 6px;
 }
 
 .content-box .inner {
     padding: 10px;
     line-height: 1.6;
-    font-family: 'Jaewriting', sans-serif;
 }
 
-/* ===== INFO TABLE ===== */
-.info-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
+.horoscope-box {
+    background: #faf9ff;
+    border: 2px dashed var(--accent);
+    font-family: 'Jaewriting';
 }
 
-.info-table td {
-    border: 1px solid var(--naccent);
-    padding: 4px 6px;
-}
-
-.info-table td.label {
-    background: var(--primary);
-    font-family: 'Astro', monospace;
-    font-weight: bold;
-    width: 40%;
-}
-
-/* ===== FOOTER ===== */
+/* ================== FOOTER ================== */
 #footer {
     text-align: center;
-    font-family: 'Astro', monospace;
+    font-family: 'Astro';
     font-size: 11px;
-    margin-top: 10px;
     color: var(--primary);
 }
 </style>
@@ -190,90 +177,97 @@ a:hover {
 
 <div id="wiki-frame">
 
-    <div id="wiki-header">
-        <h1>CAPRICORN</h1>
-        <small>Astrology Wiki • Saturn Ruled • ♑</small>
+<!-- ===== MARQUEE ===== -->
+<marquee id="astro-marquee" scrollamount="4">
+✨ CAPRICORN SEASON ✨ Saturn rewards discipline ✨ Daily horoscopes auto-save ✨
+</marquee>
+
+<!-- ===== HEADER ===== -->
+<div id="wiki-header">
+    <h1>CAPRICORN</h1>
+    <small>Earth • Cardinal • Saturn Ruled ♑</small>
+</div>
+
+<table id="wiki-table">
+<tr>
+
+<!-- ===== SIDEBAR ===== -->
+<td id="sidebar">
+    <div class="sidebar-box">
+        <h3>Quick Facts</h3>
+        Symbol: Sea-Goat<br>
+        Dates: Dec 22 – Jan 19<br>
+        Element: Earth<br>
+        Ruler: Saturn
     </div>
+</td>
 
-    <table id="wiki-table">
-        <tr>
+<!-- ===== CONTENT ===== -->
+<td id="content">
 
-            <!-- SIDEBAR -->
-            <td id="sidebar">
+<div class="content-box">
+<h2>Daily Horoscope</h2>
+<div class="inner horoscope-box" id="daily-box">
+Loading...
+</div>
+</div>
 
-                <div class="sidebar-box">
-                    <h3>Quick Facts</h3>
-                    <table class="info-table">
-                        <tr><td class="label">Symbol</td><td>Sea-Goat</td></tr>
-                        <tr><td class="label">Dates</td><td>Dec 22 – Jan 19</td></tr>
-                        <tr><td class="label">Element</td><td>Earth</td></tr>
-                        <tr><td class="label">Mode</td><td>Cardinal</td></tr>
-                        <tr><td class="label">Ruler</td><td>Saturn</td></tr>
-                    </table>
-                </div>
+<div class="content-box">
+<h2>Monthly Transits</h2>
+<div class="inner horoscope-box" id="monthly-box">
+This month emphasizes long-term planning, responsibility,
+and quiet restructuring. Saturn supports sustainable growth.
+</div>
+</div>
 
-                <div class="sidebar-box">
-                    <h3>Keywords</h3>
-                    <ul>
-                        <li>Ambitious</li>
-                        <li>Disciplined</li>
-                        <li>Strategic</li>
-                        <li>Enduring</li>
-                        <li>Reserved</li>
-                    </ul>
-                </div>
+</td>
+</tr>
+</table>
 
-            </td>
-
-            <!-- MAIN CONTENT -->
-            <td id="content">
-
-                <div class="content-box">
-                    <h2>Overview</h2>
-                    <div class="inner">
-                        Capricorn is the tenth sign of the zodiac, associated with
-                        ambition, responsibility, and long-term success. Ruled by
-                        Saturn, this sign represents endurance through time.
-                    </div>
-                </div>
-
-                <div class="content-box">
-                    <h2>Personality</h2>
-                    <div class="inner">
-                        Capricorns are practical and self-controlled, often
-                        misunderstood as distant. Beneath the surface is
-                        loyalty, humor, and emotional depth earned through trust.
-                    </div>
-                </div>
-
-                <div class="content-box">
-                    <h2>Strengths</h2>
-                    <div class="inner">
-                        ✔ Reliability<br>
-                        ✔ Leadership<br>
-                        ✔ Patience<br>
-                        ✔ Strategic Thinking
-                    </div>
-                </div>
-
-                <div class="content-box">
-                    <h2>Challenges</h2>
-                    <div class="inner">
-                        ✖ Emotional guardedness<br>
-                        ✖ Workaholic tendencies<br>
-                        ✖ Fear of failure
-                    </div>
-                </div>
-
-            </td>
-        </tr>
-    </table>
-
-    <div id="footer">
-        © 1999–2025 Capricorn Wiki • Best Viewed on Desktop • Saturn Approved
-    </div>
+<div id="footer">
+© 1999–2025 Zodiac Wiki • LocalStorage Enabled
+</div>
 
 </div>
+
+<!-- ================== JAVASCRIPT ================== -->
+<script>
+/* ================== SIGN CONFIG ================== */
+const SIGN_KEY = "capricorn";
+
+/* DAILY MESSAGES */
+const dailyMessages = [
+  "Slow progress is still progress. Stay disciplined.",
+  "Your consistency will be rewarded—do not rush.",
+  "Boundaries protect your energy today.",
+  "Focus on responsibilities you've been avoiding.",
+  "Structure creates freedom. Lean into routine.",
+  "Patience gives you the advantage today.",
+  "Your long-term vision matters more than short wins."
+];
+
+/* ================== DAILY ENGINE ================== */
+function getTodayKey() {
+    const d = new Date();
+    return `${SIGN_KEY}-${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+}
+
+function getDailyHoroscope() {
+    const key = getTodayKey();
+    const stored = localStorage.getItem(key);
+    if (stored) return stored;
+
+    const index = new Date().getDate() % dailyMessages.length;
+    const message = dailyMessages[index] + " ♑";
+    localStorage.setItem(key, message);
+    localStorage.setItem("lastViewedSign", SIGN_KEY);
+    return message;
+}
+
+/* ================== LOAD ================== */
+document.getElementById("daily-box").textContent =
+    getDailyHoroscope();
+</script>
 
 </body>
 </html>
