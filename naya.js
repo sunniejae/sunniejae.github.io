@@ -6,34 +6,34 @@ const members = {
     koko: { display: "koko", subtitle: "Kkomet", color: "var(--koko)", accent: "var(--koko-dark)" },
     sarang: { display: "sarang", subtitle: "Maeryu", color: "var(--sarang)", accent: "var(--sarang-dark)" },
     jungeun: { display: "jungeun", subtitle: "Chiun", color: "var(--jungeun)", accent: "var(--jungeun-dark)" },
-    saebi: { display: "saebi", subtitle: "Saebbon", color: "var(--jungeun)", accent: "var(--jungeun-dark)" }
+    saebi: { display: "saebi", subtitle: "Saebbon", color: "var(--saebi)", accent: "var(--saebi-dark)" }
 };
 
 // ===== PRODUCT DATA =====
 const products = [
     { 
         name: "Hangul Member Names", 
-        images: { ot6: "hangul-member.png", mai: "hangul-mai.png", jeemin: "hangul-jeemin.png", koko: "hangul-koko.png", sarang: "hangul-sarang.png", jungeun: "hangul-jungeun.png" }, 
+        images: { ot6: "hangul-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
         name: "Spaghetti Era Stickers", 
-        images: { ot6: "spaghetti-member.png", mai: "spaghetti-mai.png", jeemin: "spaghetti-jeemin.png", koko: "spaghetti-koko.png", sarang: "spaghetti-sarang.png", jungeun: "spaghetti-jungeun.png" }, 
+        images: { ot6: "spaghetti-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
         name: "Lightstick Keychains", 
-        images: { ot6: "lightstick-member.png", mai: "lightstick-mai.png", jeemin: "lightstick-jeemin.png", koko: "lightstick-koko.png", sarang: "lightstick-sarang.png", jungeun: "lightstick-jungeun.png" }, 
+        images: { ot6: "blank-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "lightstick-jungeun.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
         name: "Phone Case", 
-        images: { ot6: "phonecase-member.png", mai: "phonecase-mai.png", jeemin: "phonecase-jeemin.png", koko: "phonecase-koko.png", sarang: "phonecase-sarang.png", jungeun: "phonecase-jungeun.png" }, 
+        images: { ot6: "phonecase-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
         brand: "Sunnie Jae", price: "$25", size:"1pc" 
     },
     { 
         name: "AutoGraphics", 
-        images: { ot6: "autograph-member.png", mai: "autograph-mai.png", jeemin: "autograph-jeemin.png", koko: "autograph-koko.png", sarang: "autograph-sarang.png", jungeun: "autograph-jungeun.png" }, 
+        images: { ot6: "autograph-izna.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"1pc" 
     }
 ];
