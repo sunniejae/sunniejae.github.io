@@ -40,18 +40,13 @@ const products = [
 
 // ===== QUIZ DATA =====
 const quizQuestions = [
-    { question: "Favorite Color", answers: [ {text: "White", members:["mai"]}, {text:"Pink", members:["jeemin"]}, {text:"Blue", members:["sarang"]}, {text:"Green", members:["koko"]}, {text:"Red", members:["jungeun"]} ] },
-    { question: "MBTI Type - Are you an introvert or an extrovert?", answers: [ {text:"Introvert", members:["jeemin","jungeun","sarang"]}, {text:"Extrovert", members:["koko","mai"]} ] },
-    { question: "MBTI Type - Down to Earth vs Head in the Clouds", answers: [ {text:"Down to Earth", members:["mai","jungeun"]}, {text:"Head in the Clouds", members:["jeemin","koko","sarang"]} ] },
-    { question: "MBTI Type - Head vs Heart", answers: [ {text:"Head", members:["jeemin","jungeun","mai"]}, {text:"Heart", members:["sarang","koko"]} ] },
-    { question: "MBTI Type - Order vs Chaos", answers: [ {text:"Order", members:["koko","sarang","jungeun"]}, {text:"Chaos", members:["mai","jeemin"]} ] },
-    { question: "Favorite Animal", answers: [ {text:"Cheetah", members:["mai"]}, {text:"Cat", members:["jeemin"]}, {text:"Swan", members:["sarang"]}, {text:"Baby Chick", members:["jungeun"]}, {text:"Snake", members:["koko"]} ] },
-    { question: "Favorite English Name", answers: [ {text:"Anna", members:["mai"]}, {text:"Sebastian", members:["jeemin"]}, {text:"Jennifer", members:["koko"]}, {text:"Ava", members:["jeemin"]}, {text:"Elle", members:["sarang"]}, {text:"Ruby", members:["jungeun"]} ] },
-    { question: "Favorite English Idiom", answers: [ {text:"Have a good one!", members:["jeemin"]}, {text:"Easy peasy lemon squeezy", members:["mai"]}, {text:"It girl energy", members:["koko"]}, {text:"She ate with no crumbs", members:["jungeun"]}, {text:"Freeze to death", members:["sarang"]} ] },
-    { question: "Dark Chocolate or Milk Chocolate?", answers: [ {text:"Dark", members:["jeemin","sarang","mai","koko"]}, {text:"Milk", members:["jungeun"]} ] },
-    { question: "Another group you like", answers: [ {text:"Red Velvet", members:["jeemin"]}, {text:"BTS", members:["koko"]}, {text:"BlackPink", members:["sarang"]}, {text:"Seventeen", members:["jungeun"]}, {text:"Girl's Generation", members:["mai"]}, {text:"iz*One", members:["jeemin","mai"]} ] },
-    { question: "Can you handle spicy food?", answers: [ {text:"Yes", members:["mai","koko"]}, {text:"No", members:["jeemin","sarang"]}, {text:"Depends on the day", members:["jungeun"]} ] },
-    { question: "Favorite LE SSERAFIM era", answers: [ {text:"Unforgiven", members:["koko"]}, {text:"Crazy", members:["jungeun"]}, {text:"mamma mia", members:["jeemin","mai","jungeun","sarang","koko"]}, {text:"Hot", members:["jeemin"]}, {text:"Easy", members:["mai"]}, {text:"Come Over", members:["sarang"]} ] }
+    { question: "Favorite Color", answers: [ {text: "Red", members:["mai"]}, {text:"Pink", members:["saebi"]}, {text:"Blue", members:["jeemin"]}, {text:"Green", members:["sarang"]}, {text:"purple", members:["jungeun"]} {text:"pink", members:["saebi"]}] },
+    { question: "MBTI Type - Are you an introvert or an extrovert?", answers: [ {text:"Introvert", members:["mai", "jeemin", "sarang", "jungeun",]}, {text:"Extrovert", members:["koko","saebi"]} ] },
+    { question: "MBTI Type - Down to Earth vs Head in the Clouds", answers: [ {text:"Down to Earth", members:["mai","koko","jungeun",]}, {text:"Head in the Clouds", members:["jeemin","sarang","saebi"]} ] },
+    { question: "MBTI Type - Head vs Heart", answers: [ {text:"Head", members:["mai", "jungeun",]}, {text:"Heart", members:["jeemin","koko","sarang","saebi"]} ] },
+    { question: "MBTI Type - Order vs Chaos", answers: [ {text:"Order", members:["koko","jungeun",]}, {text:"Chaos", members:["mai","jeemin","sarang","saebi"]} ] },
+    { question: "Favorite Animal", answers: [ {text:"Cheetah", members:["jungeun"]}, {text:"Cat", members:["koko"]}, {text:"Dog", members:["sarang"]}, {text:"Fox", members:["mai"]}, {text:"Bunny", members:["saebi"]}{text:"bear", members:["jeemin"]} ] },
+    { question: "Favorite IZNA era", answers: [ {text:"iland 2 n/a", members:["koko"]}, {text:"IZNA debut", members:["jungeun"]}, {text:"Sign", members:["jeemin","mai","jungeun","sarang","koko"]}, {text:"Beep", members:["jeemin"]}, {text:"Mamma Mia", members:["mai"]} }
 ];
 
 // ===== STATE =====
