@@ -6,32 +6,89 @@
 <title>Fandom Shop | Sunnie Jae</title>
 
 <style>
+/* ===== FONTS ===== */
+@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Cheri'; src: url('tan-mon-cheri.woff') format('truetype'); }
+
+/* ===== ROOT COLORS ===== */
 :root {
-  --chaewon:#f0f0f5; --chaewon-dark:#342f38;
-  --sakura:#ffb3d6; --sakura-dark:#c13886;
-  --yunjin:#73e3bd; --yunjin-dark:#0d5c2d;
-  --kazuha:#00c9c2; --kazuha-dark:#2a3055;
-  --eunchae:#bf3851; --eunchae-dark:#880d1e;
-  --primary:#9a9ad4; --dark-purple:#3f3d7a;
-
-  --current-bg: var(--primary);
-  --current-accent: var(--dark-purple);
+    --black: #000010;
+    --white: #ffffff;
+    --secondary: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary-accent: #c13886;
+    --primary: #9a9ad4;
+    
+   --chaewon:#c13851; --chaewon-dark:#880d1e;
+    --sakura:#84a6cf; --sakura-dark:#0d036f;
+    --yunjin:#fff4ac; --yunjin-dark:#daa12b;
+    --kazuha:#73e3bd; --kazuha-dark:#075237;
+    --eunchae:#9a9ad4; --eunchae-dark:#844796;
+  --saebi:#ffbee3; --saebi-dark: #c33d89;
+    --current-bg: var(--primary);
+    --current-accent: var(--dark-purple);
 }
 
-body {
-  margin:0;
-  font-family: system-ui;
-  background: var(--current-bg);
-  transition: 0.5s;
+/* ===== RESET ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Jaewriting', sans-serif; background:var(--current-bg); color:var(--black); line-height:1.4; transition:0.5s; }
+
+/* ===== HEADINGS & TITLES ===== */
+h1, h2, h3, h4, h5, h6, .header-title, .product-title, .bias-btn, .bias-matcher-btn, .wishlist-section button {
+    font-family: 'Cheri', sans-serif;
 }
 
-header {
-  background:#fff;
-  padding:12px 16px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+/* ===== HEADER ===== */
+.depop-header { width:100%; background: var(--white); padding: 8px 16px; position: sticky; top:0; z-index:1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+.header-top { display:flex; justify-content:space-between; align-items:center; }
+.header-left { display:flex; align-items:center; gap:12px; }
+.header-title { font-weight:700; font-size:16px; }
+.header-icons { display:flex; gap:12px; font-size:16px; position:relative; }
+.header-icon { cursor:pointer; position:relative; }
+.bag-count { position:absolute; top:-6px; right:-6px; background:var(--current-accent); color:#fff; font-size:10px; padding:1px 5px; border-radius:50%; }
+.search-bar { display:flex; align-items:center; margin-top:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; }
+.search-bar input { border:none; outline:none; background:transparent; flex:1; padding:4px; font-size:14px; }
+
+/* ===== PROFILE SECTION ===== */
+.profile-section { padding:16px; background:rgba(255,255,255,0.1); margin-bottom:16px; }
+.profile-header { display:flex; align-items:center; gap:12px; }
+.profile-pic { width:100px; height:100px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; overflow:hidden; }
+.profile-pic img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.profile-info h1 { font-size:24px; margin-bottom:4px; }
+.verified-badge { font-size:12px; color: var(--current-accent); margin-left:6px; }
+.profile-stats { font-size:12px; color: var(--secondary); display:flex; gap:12px; }
+.bio { margin-top:8px; font-size:8px; color: var(--secondary); font-family:'Jaewriting',sans-serif; }
+.bio-tags { display:block; margin-top:4px; }
+
+/* ===== BIAS SECTION ===== */
+.bias-section { padding:16px; background:rgba(255,255,255,0.05); margin-bottom:16px; }
+.bias-buttons { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+.bias-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:#fff; transition:0.3s; }
+.bias-btn.active { background:var(--current-accent); color:#fff; }
+.bias-matcher-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:var(--current-accent); color:#fff; }
+
+/* ===== PRODUCTS GRID ===== */
+.products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; padding:0 16px; margin-bottom:16px; }
+.product-card { background:#fff; border-radius:8px; overflow:hidden; cursor:pointer; transition:0.3s; position:relative; }
+.product-card:hover { transform:scale(1.03); }
+.product-image img { width:250px; height:250px; object-fit:cover; }
+.product-info { padding:6px 8px; font-family:'Jaewriting',sans-serif; }
+.product-title { font-weight:700; }
+.product-brand {font-family:'Jaewriting',sans-serif; font-size:10px;}
+.product-size, .product-price { font-family:'Jaewriting',sans-serif; font-size:12px; }
+.wishlist-btn { border:none; background:var(--current-accent); color:#fff; padding:4px 6px; border-radius:6px; cursor:pointer; font-size:12px; }
+
+/* ===== WISHLIST ===== */
+.wishlist-section { padding:16px; background:rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:8px; }
+#wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; font-family:'Jaewriting',sans-serif; }
+#wishlist-name, #wishlist-echaewonl, #echaewonl-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; }
+.wishlist-section button { font-family:'Cheri',sans-serif; }
+
 
 #bag {
   position:relative;
@@ -110,7 +167,7 @@ header {
   height:120px;
 }
 
-#wishlist input[type="text"], #wishlist input[type="email"] {
+#wishlist input[type="text"], #wishlist input[type="echaewonl"] {
   width:100%;
   padding:6px;
   margin-top:6px;
@@ -181,20 +238,52 @@ header {
 
 <body>
 
-<header>
-  <strong>FEARNOT Shop</strong>
-  <div id="bag">💖<span id="bag-count">0</span></div>
-</header>
-
-<div class="bias-buttons">
-  <button class="bias-btn" onclick="setBias('ot5')" data-member="ot5">OT5</button>
-  <button class="bias-btn" onclick="setBias('chaewon')" data-member="chaewon">Chaewon</button>
-  <button class="bias-btn" onclick="setBias('sakura')" data-member="sakura">Sakura</button>
-  <button class="bias-btn" onclick="setBias('yunjin')" data-member="yunjin">Yunjin</button>
-  <button class="bias-btn" onclick="setBias('kazuha')" data-member="kazuha">Kazuha</button>
-  <button class="bias-btn" onclick="setBias('eunchae')" data-member="eunchae">Eunchae</button>
-  <button class="bias-btn" onclick="openQuiz()">💫 Bias Matcher</button>
+<!-- Header -->
+<div class="depop-header">
+    <div class="header-top">
+        <div class="header-left">
+<a href="index.html" class="back-arrow">←</a>
+            <div class="header-title">NAYA Shop</div>
+        </div>
+        <div class="header-icons">
+            <div class="header-icon">💖<span class="bag-count" id="bag-count">0</span></div>
+        </div>
+    </div>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search merch...">
+    </div>
 </div>
+
+<!-- Profile Section -->
+<div class="profile-section">
+    <div class="profile-header">
+        <div class="profile-pic" id="profile-pic">
+            <img src="" alt="profile picture">
+        </div>
+        <div class="profile-info">
+            <h1 id="profile-name">FEARNOT <span class="verified-badge">Piona</span></h1>
+            </div>
+        </div>
+    </div>
+    <div class="bio">
+        Sunnie Jae's Fandom Store ✨ Custom designs for FEARNOT
+    </div>
+</div>
+
+<!-- Bias Section -->
+<div class="bias-section">
+    <h2>✨ Choose Your Bias ✨</h2>
+    <div class="bias-buttons">
+        <button class="bias-btn" onclick="setBias('ot5')">✨ ot5</button>
+        <button class="bias-btn" onclick="setBias('chaewon')">🐯 chaewon</button>
+        <button class="bias-btn" onclick="setBias('sakura')">🌸 sakura</button>
+        <button class="bias-btn" onclick="setBias('yunjin')">🐍 yunjin</button>
+        <button class="bias-btn" onclick="setBias('kazuha')">🦢 kazuha</button>
+        <button class="bias-btn" onclick="setBias('eunchae')">🐣 eunchae</button>
+    </div>
+    <button class="bias-matcher-btn" onclick="openQuiz()">💞 Take Bias Matcher Quiz</button>
+</div>
+
 
 <div id="products-grid" class="products-grid"></div>
 
@@ -205,11 +294,11 @@ header {
   <label for="wishlist-name">Your Name:</label>
   <input type="text" id="wishlist-name" placeholder="Enter your name">
   
-  <label for="wishlist-email">Your Email:</label>
-  <input type="email" id="wishlist-email" placeholder="Enter your email">
+  <label for="wishlist-echaewonl">Your Echaewonl:</label>
+  <input type="echaewonl" id="wishlist-echaewonl" placeholder="Enter your echaewonl">
   
   <label>
-    <input type="checkbox" id="email-optin">
+    <input type="checkbox" id="echaewonl-optin">
     Subscribe to promotions
   </label>
   
