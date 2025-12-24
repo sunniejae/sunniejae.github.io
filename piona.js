@@ -24,7 +24,7 @@ const products = [
     },
     { 
         name: "Lightstick Keychains", 
-        images: { ot5: "lightstick-member.png", chaewon: "lightstick-chaewon.png", sakura: "lightstick-sakura.png", yunjin: "lightstick-yunjin.png", kazuha: "lightstick-kazuha.png", eunchae: "lightstick-eunchae.png" }, 
+        images: { ot5: "keychain-member.png", chaewon: "keychain-chaewon.png", sakura: "blank-sakura.png", yunjin: "blank-yunjin.png", kazuha: "blank-kazuha.png", eunchae: "blank-eunchae.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
@@ -34,7 +34,7 @@ const products = [
     },
     { 
         name: "AutoGraphics", 
-        images: { ot5: "autograph-member.png", chaewon: "autograph-chaewon.png", sakura: "autograph-sakura.png", yunjin: "autograph-yunjin.png", kazuha: "autograph-kazuha.png", eunchae: "autograph-eunchae.png" }, 
+        images: { ot5: "autograph-member.png", chaewon: "autograph-chaewon.png", sakura: "blank-sakura.png", yunjin: "blank-yunjin.png", kazuha: "blank-kazuha.png", eunchae: "blank-eunchae.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"1pc",
         url: { ot5:"https://www.redbubble.com/ot5-autograph", chaewon:"https://www.redbubble.com/chaewon-autograph", sakura:"https://www.redbubble.com/sakura-autograph", yunjin:"https://www.redbubble.com/yunjin-autograph", kazuha:"https://www.redbubble.com/kazuha-autograph", eunchae:"https://www.redbubble.com/eunchae-autograph" }
     }
@@ -43,10 +43,10 @@ const products = [
 // ===== QUIZ DATA =====
 const quizQuestions = [
     { question: "Favorite Color", answers: [ {text: "White", members:["chaewon"]}, {text:"Pink", members:["sakura"]}, {text:"Blue", members:["kazuha"]}, {text:"Green", members:["yunjin"]}, {text:"Red", members:["eunchae"]} ] },
-    { question: "MBTI Type - Are you an introvert or an extrovert?", answers: [ {text:"Introvert", members:["sakura","eunchae","kazuha"]}, {text:"Extrovert", members:["yunjin","chaewon"]} ] },
-    { question: "MBTI Type - Down to Earth vs Head in the Clouds", answers: [ {text:"Down to Earth", members:["chaewon","eunchae"]}, {text:"Head in the Clouds", members:["sakura","yunjin","kazuha"]} ] },
-    { question: "MBTI Type - Head vs Heart", answers: [ {text:"Head", members:["sakura","eunchae","chaewon"]}, {text:"Heart", members:["kazuha","yunjin"]} ] },
-    { question: "MBTI Type - Order vs Chaos", answers: [ {text:"Order", members:["yunjin","kazuha","eunchae"]}, {text:"Chaos", members:["chaewon","sakura"]} ] },
+    { question: "Are you an introvert or an extrovert?", answers: [ {text:"Introvert", members:["sakura","eunchae","kazuha"]}, {text:"Extrovert", members:["yunjin","chaewon"]} ] },
+    { question: "Down to Earth vs Head in the Clouds", answers: [ {text:"Down to Earth", members:["chaewon","eunchae"]}, {text:"Head in the Clouds", members:["sakura","yunjin","kazuha"]} ] },
+    { question: "Head vs Heart", answers: [ {text:"Head", members:["sakura","eunchae","chaewon"]}, {text:"Heart", members:["kazuha","yunjin"]} ] },
+    { question: "Order vs Chaos", answers: [ {text:"Order", members:["yunjin","kazuha","eunchae"]}, {text:"Chaos", members:["chaewon","sakura"]} ] },
     { question: "Favorite Animal", answers: [ {text:"Cheetah", members:["chaewon"]}, {text:"Cat", members:["sakura"]}, {text:"Swan", members:["kazuha"]}, {text:"Baby Chick", members:["eunchae"]}, {text:"Snake", members:["yunjin"]} ] },
     { question: "Favorite English Name", answers: [ {text:"Anna", members:["chaewon"]}, {text:"Sebastian", members:["sakura"]}, {text:"Jennifer", members:["yunjin"]}, {text:"Ava", members:["sakura"]}, {text:"Elle", members:["kazuha"]}, {text:"Ruby", members:["eunchae"]} ] },
     { question: "Favorite English Idiom", answers: [ {text:"Have a good one!", members:["sakura"]}, {text:"Easy peasy lemon squeezy", members:["chaewon"]}, {text:"It girl energy", members:["yunjin"]}, {text:"She ate with no crumbs", members:["eunchae"]}, {text:"Freeze to death", members:["kazuha"]} ] },
