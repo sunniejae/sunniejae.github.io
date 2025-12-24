@@ -2,183 +2,63 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Capricorn Wiki</title>
+<title>Aries Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
-@font-face {
-    font-family: 'Jaewriting';
-    src: url('Jaewriting-Regular.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'Milky';
-    src: url('tan-mon-cheri.woff') format('woff');
-}
-@font-face {
-    font-family: 'Astro';
-    src: url('Astro4-Regular.ttf') format('truetype');
-}
-</style>
+@font-face { font-family: 'AeogoPixellated'; src: url('AeogoPixellated-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Astro4'; src: url('Astro4-Regular.ttf') format('truetype'); }
 
-<style>
-/* ================= THEME VARIABLES ================= */
 :root {
     --black: #000010;
     --white: #ffffff;
     --primary: #9a9ad4;
-    --sign-main: #633223;
-    --accent: #312262;
+    --accent: #eecd11;
     --dark: #0e0705;
-    --light: #eeebf8;
+    --light: #fffaeb;
+    --sign-color: #ed1131; /* change per sign */
 }
 
-/* ================= CUSTOM CURSOR ================= */
 body {
-    cursor: url('/assets/cursor-star.cur'), auto;
-}
-a:hover {
-    cursor: url('/assets/cursor-star-glow.cur'), pointer;
-}
-
-/* ================= GLOBAL ================= */
-body {
-    margin: 0;
-    padding: 20px;
+    margin: 0; padding: 20px;
     background-color: var(--black);
-    background-image: url('/assets/background-capricorn.png');
+    background-image: url('assets/background-aries.png');
     background-repeat: repeat;
     background-attachment: fixed;
+    font-family: 'AeogoPixellated', monospace;
     color: var(--white);
-    font-family: 'Jaewriting', sans-serif;
+    cursor: url('assets/cursor-star.cur'), auto;
 }
 
-a {
-    color: var(--primary);
-    text-decoration: underline;
-}
+a { color: var(--primary); text-decoration: underline; }
+a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
-/* ================= FRAME ================= */
-#wiki-frame {
-    max-width: 920px;
-    margin: auto;
-    background: var(--dark);
-    border: 4px ridge var(--primary);
-    padding: 12px;
-}
+#wiki-frame { max-width: 960px; margin: auto; background: var(--dark); border: 4px ridge var(--primary); padding: 12px; }
 
-/* ================= MARQUEE ================= */
-#astro-marquee {
-    background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--white);
-    font-family: 'Astro';
-    font-size: 13px;
-    padding: 6px;
-    border: 2px inset var(--primary);
-    margin-bottom: 10px;
-}
+#marquee { font-family: 'AeogoPixellated'; background: linear-gradient(to right,var(--accent),var(--primary)); color: var(--white); font-size: 13px; padding: 6px; border: 2px inset var(--primary); margin-bottom: 8px; }
 
-/* ================= HEADER ================= */
-#wiki-header {
-    background: linear-gradient(to right, var(--sign-main), var(--accent));
-    border: 3px outset var(--primary);
-    padding: 16px;
-    text-align: center;
-}
+#wiki-header { text-align: center; padding: 16px; }
+#wiki-header h1 { font-family: 'Jaewriting'; font-size: 42px; color: var(--light); text-shadow: 3px 3px var(--black); margin: 0; }
+#wiki-header small { font-family: 'Astro4'; font-size: 12px; color: var(--primary); display: block; margin-top: 6px; }
 
-#wiki-header h1 {
-    margin: 0;
-    font-family: 'Milky';
-    font-size: 40px;
-    letter-spacing: 4px;
-    color: var(--light);
-    text-shadow: 3px 3px var(--black);
-}
-
-#wiki-header small {
-    display: block;
-    margin-top: 6px;
-    font-family: 'Astro';
-    font-size: 12px;
-    color: var(--primary);
-}
-
-/* ================= LAYOUT ================= */
-#wiki-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 12px;
-}
-
-#wiki-table td {
-    vertical-align: top;
-    padding: 8px;
-}
+#wiki-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+#wiki-table td { vertical-align: top; padding: 8px; }
 
 /* ================= SIDEBAR ================= */
-#sidebar {
-    width: 240px;
-    background: var(--accent);
-    border: 3px inset var(--primary);
-    font-size: 13px;
-}
-
-.sidebar-box {
-    border: 2px groove var(--primary);
-    background: var(--dark);
-    margin-bottom: 12px;
-    padding: 6px;
-}
-
-.sidebar-box h3 {
-    margin: 0 0 6px;
-    font-family: 'Astro';
-    background: var(--primary);
-    color: var(--black);
-    padding: 4px;
-    text-align: center;
-}
+#sidebar { width: 280px; background: var(--accent); border: 3px inset var(--primary); font-size: 13px; }
+.sidebar-box { border: 2px groove var(--primary); background: var(--dark); margin-bottom: 12px; padding: 6px; }
+.sidebar-box h3 { margin: 0 0 6px; font-family: 'Astro4'; background: var(--primary); color: var(--black); padding: 4px; text-align: center; }
 
 /* ================= CONTENT ================= */
-#content {
-    background: var(--light);
-    color: var(--black);
-    border: 3px inset var(--primary);
-}
+#content { background: var(--light); color: var(--black); border: 3px inset var(--primary); }
+.content-box { border: 2px solid var(--accent); background: var(--white); margin-bottom: 14px; }
+.content-box h2 { margin: 0; padding: 6px; font-family: 'Astro4'; background: linear-gradient(to right, var(--primary), var(--accent)); color: var(--white); }
+.content-box .inner { padding: 10px; line-height: 1.6; }
 
-.content-box {
-    border: 2px solid var(--accent);
-    background: var(--white);
-    margin-bottom: 14px;
-}
-
-.content-box h2 {
-    margin: 0;
-    padding: 6px;
-    font-family: 'Astro';
-    background: linear-gradient(to right, var(--primary), var(--accent));
-    color: var(--white);
-}
-
-.content-box .inner {
-    padding: 10px;
-    line-height: 1.6;
-    font-family: 'Jaewriting';
-}
-
-.horoscope-box {
-    background: #faf9ff;
-    border: 2px dashed var(--accent);
-}
-
-/* ================= FOOTER ================= */
-#footer {
-    text-align: center;
-    font-family: 'Astro';
-    font-size: 11px;
-    margin-top: 10px;
-    color: var(--primary);
-}
+/* Horoscopes & Journal */
+.horoscope-box { background: #faf9ff; border: 2px dashed var(--accent); font-family: 'AeogoPixellated'; }
 </style>
 </head>
 
@@ -187,37 +67,33 @@ a {
 <div id="wiki-frame">
 
 <!-- ================= MARQUEE ================= -->
-<marquee id="astro-marquee" scrollamount="4">
-✨ CAPRICORN SEASON ✨ Saturn rewards discipline ✨ Daily horoscopes auto-saved ✨
+<marquee id="marquee" scrollamount="4">
+✨ Bold ✨ Courageous ✨ Initiator ✨ Competitive ✨ Beginnings ✨
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-    <h1>CAPRICORN</h1>
-    <small>Earth • Cardinal • Saturn-Ruled ♑</small>
+    <h1>Aries ♈︎</h1>
+    <small>Fire • Cardinal • Ruled by Mars </small>
 </div>
 
 <table id="wiki-table">
 <tr>
-
 <!-- ================= SIDEBAR ================= -->
 <td id="sidebar">
-    <div class="sidebar-box">
-        <h3>Quick Facts</h3>
-        Symbol: Sea-Goat<br>
-        Dates: Dec 22 – Jan 19<br>
-        Element: Earth<br>
-        Mode: Cardinal<br>
-        Ruler: Saturn
-    </div>
-
-    <div class="sidebar-box">
-        <h3>Keywords</h3>
-        Ambition<br>
-        Discipline<br>
-        Structure<br>
-        Endurance
-    </div>
+<div class="sidebar-box">
+    <h3>Infocard</h3>
+    Glyph: <span style="font-family:Astro4;">a</span><br>
+    Element: Fire<br>
+    Modality: Cardinal<br>
+    Ruling Planet: Mars<br>
+    Symbol & Origin: {SYMBOL_ORIGIN}<br>
+    Constellation: <br><img src="assets/aries-constellation.png" width="250" height="250"><br>
+    House: {HOUSE}<br>
+    Colors: {COLORS}<br>
+    Crystal: <br><img src="assets/aries-crystal.png" width="250" height="250"><br>
+    Flower: <br><img src="assets/aries-flower.png" width="250" height="250">
+</div>
 </td>
 
 <!-- ================= CONTENT ================= -->
@@ -225,24 +101,50 @@ a {
 
 <div class="content-box">
 <h2>Daily Horoscope</h2>
-<div class="inner horoscope-box" id="daily-horoscope">
-Loading today’s message…
+<div class="inner horoscope-box" id="daily-box">
+Loading today’s horoscope…
 </div>
 </div>
 
 <div class="content-box">
-<h2>Monthly Transits</h2>
-<div class="inner horoscope-box">
-This month emphasizes responsibility, boundaries, and long-term planning.
-Saturn supports slow, sustainable growth. Avoid shortcuts.
+<h2>Weekly Journal Prompt</h2>
+<div class="inner horoscope-box" id="weekly-box">
+Reflect on your ambitions this week and how you can balance discipline with rest.
 </div>
 </div>
 
 <div class="content-box">
-<h2>Overview</h2>
+<h2>Sign Overview</h2>
 <div class="inner">
-Capricorn is the builder of the zodiac. Governed by Saturn, this sign
-masters time, patience, and endurance through structure.
+{SIGN_OVERVIEW}
+</div>
+</div>
+
+<div class="content-box">
+<h2>Key Characteristics</h2>
+<div class="inner">
+{KEY_CHARACTERISTICS}
+</div>
+</div>
+
+<div class="content-box">
+<h2>Health and Wellness</h2>
+<div class="inner">
+{HEALTH_WELLNESS}
+</div>
+</div>
+
+<div class="content-box">
+<h2>Famous People</h2>
+<div class="inner">
+{FAMOUS_PEOPLE}
+</div>
+</div>
+
+<div class="content-box">
+<h2>Explore Other Signs</h2>
+<div class="inner">
+<a href="aries.html">♈ Aries</a> | <a href="taurus.html">♉ Taurus</a> | <a href="gemini.html">♊ Gemini</a> | <a href="cancer.html">♋ Cancer</a> | <a href="leo.html">♌ Leo</a> | <a href="virgo.html">♍ Virgo</a> | <a href="libra.html">♎ Libra</a> | <a href="scorpio.html">♏ Scorpio</a> | <a href="sagittarius.html">♐ Sagittarius</a> | <a href="capricorn.html">♑ Capricorn</a> | <a href="aquarius.html">♒ Aquarius</a> | <a href="pisces.html">♓ Pisces</a>
 </div>
 </div>
 
@@ -250,29 +152,23 @@ masters time, patience, and endurance through structure.
 </tr>
 </table>
 
-<div id="footer">
-© 1999–2025 Zodiac Wiki • LocalStorage Enabled • Best Viewed on Desktop
-</div>
-
 </div>
 
 <!-- ================= JAVASCRIPT ================= -->
 <script>
-/* ========== CONFIG (CHANGE PER SIGN) ========== */
-const SIGN_KEY = "capricorn";
+/* ================== LOCAL STORAGE HOROSCOPE ================= */
+const SIGN_KEY = "aries";
 
-/* Daily messages for Capricorn */
 const dailyMessages = [
-    "Slow progress is still progress. Stay disciplined.",
-    "Your consistency builds lasting success.",
-    "Boundaries protect your energy today.",
-    "Focus on responsibilities you’ve been avoiding.",
-    "Structure creates freedom.",
-    "Patience gives you the advantage.",
-    "Your long-term vision matters more than quick wins."
+  "Slow progress is still progress. Stay disciplined.",
+  "Your consistency builds lasting success.",
+  "Boundaries protect your energy today.",
+  "Focus on responsibilities you’ve been avoiding.",
+  "Structure creates freedom.",
+  "Patience gives you the advantage.",
+  "Your long-term vision matters more than quick wins."
 ];
 
-/* ========== DAILY ENGINE ========== */
 function todayKey() {
     const d = new Date();
     return `${SIGN_KEY}-${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
@@ -281,18 +177,14 @@ function todayKey() {
 function getDailyHoroscope() {
     const key = todayKey();
     const saved = localStorage.getItem(key);
-    if (saved) return saved;
-
-    const msg =
-        dailyMessages[new Date().getDate() % dailyMessages.length] + " ♑";
-
+    if(saved) return saved;
+    const msg = dailyMessages[new Date().getDate() % dailyMessages.length];
     localStorage.setItem(key, msg);
     localStorage.setItem("lastViewedSign", SIGN_KEY);
     return msg;
 }
 
-document.getElementById("daily-horoscope").textContent =
-    getDailyHoroscope();
+document.getElementById("daily-box").textContent = getDailyHoroscope();
 </script>
 
 </body>
