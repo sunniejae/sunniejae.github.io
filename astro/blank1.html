@@ -9,15 +9,15 @@
         :root {
             --black: #000010;
             --white: #ffffff;
-            --primary: #9a9ad4;
-            --sign-color: #633223; /* CHANGE THIS for each sign */
-            --accent: #312262;
-            --dark: #0e0705;
-            --light: #eeebf8;
+            --primary: #48c6d5;
+            --sign-color: #48c6d5; 
+            --accent: #5648d5;
+            --dark: #081f21;
+            --light: #f3f2fc;
         }
-            @font-face { font-family:'Jaewriting'; src:url('Jaewriting-Regular.ttf') format('truetype'); }
-    @font-face { font-family:'Cheri'; src:url('tan-mon-cheri.woff') format('truetype'); }
-         @font-face { font-family:'Astro'; src:url('Astro4.ttf') format('truetype'); }
+            @font-face { font-family:'Jaewriting'; src:url('assets/Jaewriting-Regular.ttf') format('truetype'); }
+    @font-face { font-family:'Cheri'; src:url('assets/tan-mon-cheri.woff') format('truetype'); }
+         @font-face { font-family:'Astro'; src:url('assets/Astro4-regular.ttf') format('truetype'); }
         * {
             margin: 0;
             padding: 0;
@@ -32,7 +32,7 @@
         }
         
         header {
-            background: linear-gradient(135deg, var(--accent), var(--sign-color));
+            background-image: url('assets/background-aries.png');
             color: var(--white);
             padding: 3rem 2rem;
             text-align: center;
@@ -243,21 +243,10 @@
 </head>
 <body>
     <header>
-        <h1>[SYMBOL] [SIGN NAME] [SYMBOL]</h1>
-        <p class="subtitle">[SIGN SUBTITLE - e.g., "The Tenth Sign of the Zodiac"]</p>
+        <h1>♈︎ Aries ♈︎</h1>
+        <p class="subtitle">The Ram</p>
     </header>
-    
-    <div class="container">
-        <!-- INSTRUCTIONS - DELETE THIS SECTION WHEN DONE -->
-        <div class="instructions">
-            <strong>📝 TEMPLATE INSTRUCTIONS:</strong><br>
-            1. Replace all [BRACKETED TEXT] with actual content<br>
-            2. Change --sign-color in CSS to match zodiac sign's color<br>
-            3. Add images by replacing image-placeholder divs with: &lt;img src="your-image.jpg" alt="description"&gt;<br>
-            4. Update dates, elements, planets, and all info in the infobox<br>
-            5. Delete this yellow instruction box when finished<br>
-            6. Customize traits, strengths, weaknesses for each sign
-        </div>
+  
         
         <div class="infobox">
             <h2>[SIGN NAME]</h2>
