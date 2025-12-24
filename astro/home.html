@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Jae – Astrology Homepage</title>
+
+    <style>
+        /* ===== FONTS ===== */
+        @font-face { 
+            font-family: 'Cheri'; 
+            src: url('tan-mon-cheri.woff') format('woff'); 
+        }
+        @font-face { 
+            font-family: 'jaewriting'; 
+            src: url('Jaewriting-regular.ttf') format('truetype'); 
+        }
+        @font-face { 
+            font-family: 'Astro4'; 
+            src: url('Astro4-Regular.ttf') format('truetype'); 
+        }
+
+        /* ===== VARIABLES ===== */
+        :root {
+            --black: #000010;
+            --white: #ffffff;
+            --gray: #bfbfdc;
+            --silver: #f0f0f5;
+            --pink: #ffb3d6;
+            --accent: #00c9c2;
+            --secondary: #c13886;
+            --primary: #9a9ad4;
+            --dark-purple: #3f3d7a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'jaewriting', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--black), var(--dark-purple), var(--black));
+            color: var(--silver);
+            overflow-x: hidden;
+        }
+
+        /* ===== BACKGROUND EFFECTS ===== */
+        .stars-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%,100% { opacity: .3 }
+            50% { opacity: 1 }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 5%;
+            left: 5%;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            bottom: 5%;
+            right: 5%;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .header-content {
+            max-width: 80rem;
+            margin: auto;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-family: 'Cheri', serif;
+            font-size: 3rem;
+            background: linear-gradient(to right, var(--pink), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-family: 'Cheri', serif;
+            font-style: italic;
+            color: var(--gray);
+        }
+
+        .date-time {
+            text-align: right;
+        }
+
+        /* ===== MAIN ===== */
+        main {
+            max-width: 80rem;
+            margin: auto;
+            padding: 3rem 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Cheri', serif;
+            font-size: 2.5rem;
+            color: var(--pink);
+            margin-bottom: 2rem;
+        }
+
+        /* ===== PLACEMENTS ===== */
+        .placements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+            gap: 1.5rem;
+        }
+
+        .placement-card {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .planet-name {
+            color: var(--pink);
+            font-size: 1.5rem;
+        }
+
+        /* ===== MESSAGE BLOCKS ===== */
+        .about-placements {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(0,0,0,0.4);
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .about-title {
+            font-family: 'Cheri', serif;
+            color: var(--pink);
+            font-size: 1.5rem;
+            margin-bottom: .5rem;
+        }
+
+        .about-text {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ===== ASTRO4 DAILY NOTE ===== */
+        .daily-note-text {
+            font-family: 'Astro4', monospace;
+            letter-spacing: 0.08em;
+            line-height: 1.9;
+            color: var(--silver);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 5rem;
+            padding: 3rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .date-time { text-align: center; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="stars-container" id="starsContainer"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<header>
+    <div class="header-content">
+        <div>
+            <h1>✦ Starry Jae ✦</h1>
+            <p class="tagline">Sunnie Jae but in space</p>
+        </div>
+        <div class="date-time">
+            <div id="currentDate"></div>
+            <div id="currentTime"></div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <h2 class="section-title">Current Planetary Positions</h2>
+    <div class="placements-grid" id="placementsGrid"></div>
+
+    <!-- MONTHLY TRANSITS -->
+    <div class="about-placements">
+        <div>
+            <h3 class="about-title">Monthly Transits</h3>
+            <p id="monthlyTransitDate" style="font-style:italic;"></p>
+            <p class="about-text" id="monthlyTransitText"></p>
+        </div>
+    </div>
+
+    <!-- DAILY ASTRO NOTE -->
+    <div class="about-placements">
+        <div>
+            <h3 class="about-title">Daily Astro Note</h3>
+            <p id="dailyNoteDate" style="font-style:italic;"></p>
+            <p class="daily-note-text" id="dailyNoteText"></p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>✦ ☽ ✦</p>
+    <p>© Sunnie Jae</p>
+</footer>
+
+<script>
+    /* ===== DATA ===== */
+    const placements = [
+        { planet: 'Sun', sign: 'Capricorn', icon: '☉' },
+        { planet: 'Moon', sign: 'Aquarius', icon: '☽' },
+        { planet: 'Venus', sign: 'Capricorn', icon: '♀' },
+        { planet: 'Mars', sign: 'Capricorn', icon: '♂' },
+        { planet: 'Jupiter', sign: 'Cancer', icon: '♃' }
+    ];
+
+    const monthlyTransits = {
+        date: 'December 2025',
+        message: 'Capricorn season sharpens ambition while Jupiter retrograde in Cancer revisits emotional foundations.'
+    };
+
+    const dailyNote = {
+        date: 'December 23, 2025',
+        message: 'Venus square Neptune heightens fantasy. Ground your expectations before committing.'
+    };
+
+    /* ===== FUNCTIONS ===== */
+    function generateStars() {
+        const c = document.getElementById('starsContainer');
+        for (let i = 0; i < 60; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const size = Math.random() * 3 + 1;
+            s.style.width = s.style.height = size + 'px';
+            s.style.top = Math.random() * 100 + '%';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.animationDuration = Math.random() * 5 + 3 + 's';
+            c.appendChild(s);
+        }
+    }
+
+    function updateDateTime() {
+        const now = new Date();
+        document.getElementById('currentDate').textContent =
+            now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+        document.getElementById('currentTime').textContent =
+            now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+    }
+
+    function renderPlacements() {
+        const grid = document.getElementById('placementsGrid');
+        placements.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'placement-card';
+            card.innerHTML = `<div class="planet-name">${p.icon} ${p.planet}</div><p>in ${p.sign}</p>`;
+            grid.appendChild(card);
+        });
+    }
+
+    /* ===== INIT ===== */
+    generateStars();
+    updateDateTime();
+    renderPlacements();
+
+    document.getElementById('monthlyTransitDate').textContent = monthlyTransits.date;
+    document.getElementById('monthlyTransitText').textContent = monthlyTransits.message;
+
+    document.getElementById('dailyNoteDate').textContent = dailyNote.date;
+    document.getElementById('dailyNoteText').textContent = dailyNote.message;
+
+    setInterval(updateDateTime, 60000);
+</script>
+</body>
+</html>
