@@ -24,7 +24,7 @@ const products = [
     },
     { 
         name: "Lightstick Keychains", 
-        images: { ot5: "keychain-member.png", chaewon: "keychain-chaewon.png", sakura: "blank-sakura.png", yunjin: "blank-yunjin.png", kazuha: "blank-kazuha.png", eunchae: "blank-eunchae.png" }, 
+        images: { ot5: "lightstickkeychain-ot5.png", chaewon: "lightstickkeychain-chaewon.png", sakura: "lightstickkeychain-sakura.png", yunjin: "blank-yunjin.png", kazuha: "lightstickkeychain-kazuha.png", eunchae: "blank-eunchae.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
