@@ -137,21 +137,52 @@ header {
 }
 .modal.active { display:flex; }
 
+/* QUIZ MODAL STYLING */
+#quiz-questions p {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+#quiz-questions button {
+  display:block;
+  width:100%;
+  padding:10px;
+  margin-bottom:8px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  color:#fff;
+  background:linear-gradient(135deg, var(--current-accent), var(--current-bg));
+  transition: transform 0.2s;
+}
+
+#quiz-questions button:hover {
+  transform: scale(1.05);
+}
+
 .modal-content {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   background:#fff;
   padding:20px;
   border-radius:16px;
   max-width:400px;
   width:90%;
   text-align:center;
+  gap:12px;
 }
+
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <strong>Fandom Shop</strong>
+  <strong>FEARNOT Shop</strong>
   <div id="bag">💖<span id="bag-count">0</span></div>
 </header>
 
