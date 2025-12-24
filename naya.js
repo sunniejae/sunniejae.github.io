@@ -17,8 +17,8 @@ const products = [
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
-        name: "Spaghetti Era Stickers", 
-        images: { ot6: "spaghetti-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
+        name: "mamma mia Era Stickers", 
+        images: { ot6: "blank-mai.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
@@ -51,7 +51,7 @@ const quizQuestions = [
     { question: "Dark Chocolate or Milk Chocolate?", answers: [ {text:"Dark", members:["jeemin","sarang","mai","koko"]}, {text:"Milk", members:["jungeun"]} ] },
     { question: "Another group you like", answers: [ {text:"Red Velvet", members:["jeemin"]}, {text:"BTS", members:["koko"]}, {text:"BlackPink", members:["sarang"]}, {text:"Seventeen", members:["jungeun"]}, {text:"Girl's Generation", members:["mai"]}, {text:"iz*One", members:["jeemin","mai"]} ] },
     { question: "Can you handle spicy food?", answers: [ {text:"Yes", members:["mai","koko"]}, {text:"No", members:["jeemin","sarang"]}, {text:"Depends on the day", members:["jungeun"]} ] },
-    { question: "Favorite LE SSERAFIM era", answers: [ {text:"Unforgiven", members:["koko"]}, {text:"Crazy", members:["jungeun"]}, {text:"Spaghetti", members:["jeemin","mai","jungeun","sarang","koko"]}, {text:"Hot", members:["jeemin"]}, {text:"Easy", members:["mai"]}, {text:"Come Over", members:["sarang"]} ] }
+    { question: "Favorite LE SSERAFIM era", answers: [ {text:"Unforgiven", members:["koko"]}, {text:"Crazy", members:["jungeun"]}, {text:"mamma mia", members:["jeemin","mai","jungeun","sarang","koko"]}, {text:"Hot", members:["jeemin"]}, {text:"Easy", members:["mai"]}, {text:"Come Over", members:["sarang"]} ] }
 ];
 
 // ===== STATE =====
