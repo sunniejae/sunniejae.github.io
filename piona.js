@@ -64,14 +64,23 @@ let quizScore = {};
 
 // ===== SET BIAS =====
 function setBias(member) {
-    if (!members[member]) return;
     currentBias = member;
+
+    // Profile Pic
+    const profileImg = document.querySelector("#profile-pic img");
+    profileImg.src = `/assets/profile-${member}.png`;
+
+    // Profile Info
+    document.querySelector(".profile-info h1").innerHTML = `${members[member].display} <span class="verified-badge">${members[member].subtitle}</span>`;
+
+    // Theme colors
     document.documentElement.style.setProperty('--current-bg', members[member].color);
     document.documentElement.style.setProperty('--current-accent', members[member].accent);
-    renderProducts();
-    renderWishlist();
-}
 
+    // Highlight active bias button
+    document.querySelectorAll(".bias-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.textContent.includes(members[member].display));
+    });
 // ===== RENDER PRODUCTS =====
 function renderProducts() {
     const grid = document.getElementById("products-grid");
