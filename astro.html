@@ -279,14 +279,14 @@
             display: inline-block;
         }
 
-        .planet-degree {
+        .planet-retrograde {
             font-size: 2rem;
             font-weight: bold;
             color: var(--accent);
             transition: transform 0.3s;
         }
 
-        .placement-card:hover .planet-degree {
+        .placement-card:hover .planet-retrograde {
             transform: scale(1.1);
         }
 
@@ -649,16 +649,19 @@
     <script>
         // Data
         const placements = [
-            { planet: 'Sun', sign: 'Capricorn', degree: '2°', element: 'Earth', icon: '☉' },
-            { planet: 'Moon', sign: 'Pisces', degree: '18°', element: 'Water', icon: '☽' },
-            { planet: 'Mercury', sign: 'Sagittarius', degree: '27°', element: 'Fire', icon: '☿' },
-            { planet: 'Venus', sign: 'Aquarius', degree: '5°', element: 'Air', icon: '♀' },
-            { planet: 'Mars', sign: 'Leo', degree: '11°', element: 'Fire', icon: '♂' },
-            { planet: 'Jupiter', sign: 'Gemini', degree: '14°', element: 'Air', icon: '♃' },
-            { planet: 'Saturn', sign: 'Pisces', degree: '16°', element: 'Water', icon: '♄' },
-            { planet: 'Uranus', sign: 'Taurus', degree: '23°', element: 'Earth', icon: '♅' },
-            { planet: 'Neptune', sign: 'Pisces', degree: '29°', element: 'Water', icon: '♆' },
-            { planet: 'Pluto', sign: 'Aquarius', degree: '2°', element: 'Air', icon: '♇' }
+            { planet: 'Sun', sign: 'Capricorn', retrograde: 'NO', element: 'Earth', icon: '☉' },
+            { planet: 'Moon', sign: 'Aquarius', retrograde: 'NO°', element: 'Air', icon: '☽' },
+            { planet: 'Mercury', sign: 'Sagittarius', retrograde: 'NO°', element: 'Fire', icon: '☿' },
+            { planet: 'Venus', sign: 'Sagittarius', retrograde: 'NO', element: 'Fire', icon: '♀' },
+            { planet: 'Mars', sign: 'Sagittarius', retrograde: 'NO', element: 'Fire', icon: '♂' },
+            { planet: 'Jupiter', sign: 'Cancer', retrograde: 'YES', element: 'Water', icon: '♃' },
+            { planet: 'Saturn', sign: 'Pisces', retrograde: 'NO', element: 'Water', icon: '♄' },
+            { planet: 'Uranus', sign: 'Taurus', retrograde: 'YES', element: 'Earth', icon: '♅' },
+            { planet: 'Neptune', sign: 'Pisces', retrograde: 'YES', element: 'Water', icon: '♆' },
+            { planet: 'Pluto', sign: 'Aquarius', retrograde: 'NO', element: 'Air', icon: '♇' }
+            { planet: 'Chiron', sign: 'Aries', retrograde: 'YES', element: 'Fire', icon: '⚷ ' }
+            { planet: 'Lilith', sign: 'Aquarius', retrograde: 'NO', element: 'Air', icon: '⚸' }
+            { planet: 'Ascending Node', sign: 'Aquarius', retrograde: 'YES', element: 'Air', icon: '☊' }
         ];
 
         const blogPosts = [
@@ -760,7 +763,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="planet-degree">${placement.degree}</div>
+                            <div class="planet-retrograde">${placement.retrograde}</div>
                         </div>
                     </div>
                     <div class="planet-sign">
