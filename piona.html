@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FEARNOT Shop | Sunnie Jae</title>
-<link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+<title>Fandom Shop | Sunnie Jae</title>
+
 <style>
 :root {
   --chaewon:#f0f0f5; --chaewon-dark:#342f38;
@@ -64,35 +64,6 @@ header {
   cursor:pointer;
 }
 
-.bias-btn.active {
-  border:2px solid var(--current-accent);
-}
-
-.profile {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:16px;
-}
-
-.profile img {
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid var(--current-accent);
-}
-
-.profile-info h1 {
-  margin:0;
-  font-size:20px;
-}
-
-.profile-info .verified-badge {
-  font-size:14px;
-  color:var(--current-accent);
-}
-
 .products-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
@@ -133,9 +104,27 @@ header {
 #wishlist {
   padding:16px;
 }
+
 #wishlist textarea {
   width:100%;
   height:120px;
+}
+
+#wishlist input[type="text"], #wishlist input[type="email"] {
+  width:100%;
+  padding:6px;
+  margin-top:6px;
+  margin-bottom:6px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+#wishlist label {
+  font-weight:600;
+}
+
+#wishlist button {
+  margin-top:8px;
 }
 
 .modal {
@@ -156,9 +145,6 @@ header {
   width:90%;
   text-align:center;
 }
-.modal-content button {
-  margin-top:12px;
-}
 </style>
 </head>
 
@@ -170,20 +156,13 @@ header {
 </header>
 
 <div class="bias-buttons">
-  <button class="bias-btn" data-member="ot5" onclick="setBias('ot5')">OT5</button>
-  <button class="bias-btn" data-member="chaewon" onclick="setBias('chaewon')">Chaewon</button>
-  <button class="bias-btn" data-member="sakura" onclick="setBias('sakura')">Sakura</button>
-  <button class="bias-btn" data-member="yunjin" onclick="setBias('yunjin')">Yunjin</button>
-  <button class="bias-btn" data-member="kazuha" onclick="setBias('kazuha')">Kazuha</button>
-  <button class="bias-btn" data-member="eunchae" onclick="setBias('eunchae')">Eunchae</button>
+  <button class="bias-btn" onclick="setBias('ot5')" data-member="ot5">OT5</button>
+  <button class="bias-btn" onclick="setBias('chaewon')" data-member="chaewon">Chaewon</button>
+  <button class="bias-btn" onclick="setBias('sakura')" data-member="sakura">Sakura</button>
+  <button class="bias-btn" onclick="setBias('yunjin')" data-member="yunjin">Yunjin</button>
+  <button class="bias-btn" onclick="setBias('kazuha')" data-member="kazuha">Kazuha</button>
+  <button class="bias-btn" onclick="setBias('eunchae')" data-member="eunchae">Eunchae</button>
   <button class="bias-btn" onclick="openQuiz()">💫 Bias Matcher</button>
-</div>
-
-<div class="profile">
-  <img id="profile-img" src="/assets/profile-ot5.png" alt="Profile">
-  <div class="profile-info">
-    <h1>OT5 <span class="verified-badge">Fearnot</span></h1>
-  </div>
 </div>
 
 <div id="products-grid" class="products-grid"></div>
@@ -191,24 +170,33 @@ header {
 <div id="wishlist">
   <h3>Your Wishlist</h3>
   <textarea id="wishlist-items" readonly></textarea>
+  
+  <label for="wishlist-name">Your Name:</label>
+  <input type="text" id="wishlist-name" placeholder="Enter your name">
+  
+  <label for="wishlist-email">Your Email:</label>
+  <input type="email" id="wishlist-email" placeholder="Enter your email">
+  
+  <label>
+    <input type="checkbox" id="email-optin">
+    Subscribe to promotions
+  </label>
+  
+  <button onclick="submitWishlist()">Send Wishlist 📧</button>
 </div>
 
 <!-- QUIZ MODAL -->
 <div id="quiz-modal" class="modal">
-  <div class="modal-content">
-    <h3>Quiz</h3>
-    <div id="quiz-questions"></div>
-    <button onclick="closeQuiz()">Close Quiz</button>
-  </div>
+  <div class="modal-content" id="quiz-questions"></div>
 </div>
 
 <!-- RESULT MODAL -->
 <div id="result-modal" class="modal">
   <div class="modal-content">
-    <img id="result-image" src="/assets/profile-ot5.png" alt="Result" width="120" height="120" style="border-radius:50%; border:2px solid var(--current-accent);">
-    <h2 id="result-name">OT5</h2>
+    <img id="result-image" width="120" height="120" alt="Result Member">
+    <h2 id="result-name"></h2>
     <p id="result-description"></p>
-    <div id="result-traits"></div>
+    <p id="result-traits"></p>
     <button onclick="closeResult()">Start Shopping ✨</button>
   </div>
 </div>
