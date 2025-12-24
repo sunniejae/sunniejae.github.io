@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
     <title>[SIGN NAME] - [SIGN SUBTITLE]</title>
     <style>
         :root {
@@ -14,7 +15,9 @@
             --dark: #0e0705;
             --light: #eeebf8;
         }
-        
+            @font-face { font-family:'Jaewriting'; src:url('Jaewriting-Regular.ttf') format('truetype'); }
+    @font-face { font-family:'Cheri'; src:url('tan-mon-cheri.woff') format('truetype'); }
+         @font-face { font-family:'Astro'; src:url('Astro4.ttf') format('truetype'); }
         * {
             margin: 0;
             padding: 0;
@@ -37,12 +40,14 @@
         }
         
         header h1 {
+            font-family: Cheri;
             font-size: 3rem;
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
         header .subtitle {
+            font-family: Jaewriting;
             font-size: 1.2rem;
             opacity: 0.9;
             font-style: italic;
@@ -89,6 +94,7 @@
         }
         
         .symbol {
+            font-family: Astro;
             font-size: 4rem;
             text-align: center;
             margin: 1rem 0;
