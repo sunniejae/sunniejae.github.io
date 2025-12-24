@@ -13,27 +13,28 @@ const members = {
 const products = [
     { 
         name: "Hangul Member Names", 
-        images: { ot6: "hangul-member.png", mai: "hangul-mai.png", jeemin: "hangul-jeemin.png", koko: "hangul-koko.png", sarang: "hangul-sarang.png", jungeun: "hangul-jungeun.png" }, 
-        brand: "Redbubble", price: "$1.79+", size:"Multi" 
+        images: { ot6: "blank-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png" }, 
+        brand: "Redbubble", price: "$1.79+", size:"Multi",
+        link: "https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4402531&iaCode=all-departments&sortOrder=top%20selling',
     },
     { 
-        name: "Spaghetti Era Stickers", 
-        images: { ot6: "spaghetti-member.png", mai: "spaghetti-mai.png", jeemin: "spaghetti-jeemin.png", koko: "spaghetti-koko.png", sarang: "spaghetti-sarang.png", jungeun: "spaghetti-jungeun.png" }, 
+        name: "Mamma Mia Era Stickers", 
+        images: { ot6: "blank-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "blank-jungeun.png", saebi: "blank-saebi.png"}, 
         brand: "Redbubble", price: "$1.79+", size:"Multi" 
     },
     { 
         name: "Lightstick Keychains", 
-        images: { ot6: "lightstick-member.png", mai: "lightstick-mai.png", jeemin: "lightstick-jeemin.png", koko: "lightstick-koko.png", sarang: "lightstick-sarang.png", jungeun: "lightstick-jungeun.png" }, 
+        images: { ot6: "lightstick-member.png", mai: "blank-mai.png", jeemin: "blank-jeemin.png", koko: "blank-koko.png", sarang: "blank-sarang.png", jungeun: "lightstick-jungeun.png", saebi: "blank-saebi.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
         name: "Phone Case", 
-        images: { ot6: "phonecase-member.png", mai: "phonecase-mai.png", jeemin: "phonecase-jeemin.png", koko: "phonecase-koko.png", sarang: "phonecase-sarang.png", jungeun: "phonecase-jungeun.png" }, 
+        images: { ot6: "phonecase-member.png", mai: "phonecase-mai.png", jeemin: "phonecase-jeemin.png", koko: "phonecase-koko.png", sarang: "phonecase-sarang.png", jungeun: "phonecase-jungeun.png", saebi: "blank-saebi.png"}, 
         brand: "Sunnie Jae", price: "$25", size:"1pc" 
     },
     { 
         name: "AutoGraphics", 
-        images: { ot6: "autograph-member.png", mai: "autograph-mai.png", jeemin: "autograph-jeemin.png", koko: "autograph-koko.png", sarang: "autograph-sarang.png", jungeun: "autograph-jungeun.png" }, 
+        images: { ot6: "autograph-member.png", mai: "autograph-mai.png", jeemin: "autograph-jeemin.png", koko: "autograph-koko.png", sarang: "autograph-sarang.png", jungeun: "autograph-jungeun.png", saebi: "blank-saebi.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"1pc" 
     }
 ];
@@ -99,6 +100,7 @@ function renderProducts() {
                 <div class="product-size">${prod.size}</div>
                 <div class="product-price">${prod.price}</div>
                 <button class="wishlist-btn" onclick="addToWishlist('${prod.name}')">Add to Wishlist</button>
+                <button class="redbubble-btn" onclick="window.open('${prod.link}') Shop Redbubble;"
             </div>
         `;
         grid.appendChild(card);
