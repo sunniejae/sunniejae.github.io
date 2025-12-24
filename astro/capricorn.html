@@ -2,224 +2,278 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>♑ Capricorn Domain</title>
+<title>Capricorn Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      @font-face { 
-        font-family: 'Jaewriting'; 
-        src: url('Jaewriting-Regular.ttf') format('truetype'); 
-    }
-    @font-face { 
-        font-family: 'Milky'; 
-        src: url('tan-mon-cheri.woff') format('truetype'); 
-    }
 
-<!-- 90s-style fonts -->
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+<!-- ===== CUSTOM FONTS ===== -->
 <style>
-  :root {
-            --black: #000010;
-            --white: #ffffff;
-            --primary: #9a9ad4;
-            --capricorn:#633223;
-           --naccent:#312262;
-           --ndark:#0e0705;
-           --nlight:#eeebf8;
-        }
-/* ===== GLOBAL RESET ===== */
-* {
-  box-sizing: border-box;
-  cursor: crosshair;
+@font-face { 
+    font-family: 'Jaewriting'; 
+    src: url('Jaewriting-Regular.ttf') format('truetype'); 
+}
+@font-face { 
+    font-family: 'Milky'; 
+    src: url('tan-mon-cheri.woff') format('woff'); 
+}
+@font-face { 
+    font-family: 'Astro';  
+    src: url('Astro4-Regular.ttf') format('truetype');  
+}
+</style>
+
+<style>
+/* ===== COLOR PALETTE ===== */
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --primary: #9a9ad4;
+    --capricorn: #633223;
+    --naccent: #312262;
+    --ndark: #0e0705;
+    --nlight: #eeebf8;
 }
 
+/* ===== GLOBAL ===== */
 body {
-  margin: 0;
-  font-family: 'VT323', monospace;
-  color: var(--nlight);
-  background: black;
-  overflow-x: hidden;
+    margin: 0;
+    padding: 20px;
+    color: var(--white);
+    background-color: var(--black);
+    background-image: url('/assets/background-capricorn.png');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    font-family: 'Jaewriting', Verdana, Arial, sans-serif;
 }
 
-/* ===== STARFIELD ===== */
-.stars {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: black url("https://i.imgur.com/6X5XKQX.gif") repeat;
-  z-index: -1;
+a {
+    color: var(--primary);
+    text-decoration: underline;
 }
 
-/* ===== PAGE WRAPPER ===== */
-.wrapper {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-  border: 3px double var(--ndark);
-  background: rgba(10, 10, 30, 0.9);
+a:hover {
+    background: var(--primary);
+    color: var(--black);
+}
+
+/* ===== FRAME ===== */
+#wiki-frame {
+    max-width: 900px;
+    margin: auto;
+    background: var(--ndark);
+    border: 4px ridge var(--primary);
+    padding: 12px;
 }
 
 /* ===== HEADER ===== */
-header {
-  text-align: center;
-  border-bottom: 2px dashed var(--nlight);
-  padding-bottom: 15px;
+#wiki-header {
+    background: linear-gradient(to right, var(--capricorn), var(--naccent));
+    border: 3px outset var(--primary);
+    padding: 14px;
+    text-align: center;
 }
 
-header h1 {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 26px;
-  color: var(--nlight);
-  text-shadow: 2px 2px #000;
+#wiki-header h1 {
+    margin: 0;
+    font-family: 'Milky', serif;
+    font-size: 38px;
+    letter-spacing: 4px;
+    color: var(--nlight);
+    text-shadow: 3px 3px var(--black);
 }
 
-.blink {
-  animation: blink 1s steps(1) infinite;
+#wiki-header small {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Astro', monospace;
+    font-size: 12px;
+    color: var(--primary);
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+/* ===== TABLE LAYOUT ===== */
+#wiki-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
 }
 
-/* ===== MARQUEE ===== */
-marquee {
-  margin: 15px 0;
-  padding: 8px;
-  background: var(--naccent);
-  border: 2px inset var(--dark);
-  color: var(--nlight);
+#wiki-table td {
+    vertical-align: top;
+    padding: 8px;
 }
 
-/* ===== CONTENT BOXES ===== */
-.box {
-  border: 2px ridge var(--nlight);
-  padding: 15px;
-  margin: 20px 0;
-  background: var(--capricorn);
+/* ===== SIDEBAR ===== */
+#sidebar {
+    width: 230px;
+    background: var(--naccent);
+    border: 3px inset var(--primary);
+    font-size: 13px;
 }
 
-.box h2 {
-  color: var(--nlight);
-  margin-top: 0;
-  text-decoration: underline;
+.sidebar-box {
+    border: 2px groove var(--primary);
+    background: var(--ndark);
+    margin-bottom: 12px;
+    padding: 6px;
 }
 
-/* ===== BUTTONS ===== */
-button {
-  font-family: 'VT323', monospace;
-  font-size: 18px;
-  padding: 6px 12px;
-  background: linear-gradient(#eeebf8, #312262);
-  border: 2px outset var(--white);
-  color: white;
+.sidebar-box h3 {
+    margin: 0 0 6px 0;
+    font-family: 'Astro', monospace;
+    font-size: 14px;
+    background: var(--primary);
+    color: var(--black);
+    padding: 4px;
+    text-align: center;
 }
 
-button:active {
-  border: 2px inset var(--nlight);
+/* ===== CONTENT ===== */
+#content {
+    background: var(--nlight);
+    color: var(--black);
+    border: 3px inset var(--primary);
+    font-size: 15px;
+}
+
+.content-box {
+    border: 2px solid var(--naccent);
+    background: var(--white);
+    margin-bottom: 14px;
+}
+
+.content-box h2 {
+    margin: 0;
+    padding: 6px 8px;
+    font-family: 'Astro', monospace;
+    background: linear-gradient(to right, var(--primary), var(--naccent));
+    color: var(--white);
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.content-box .inner {
+    padding: 10px;
+    line-height: 1.6;
+    font-family: 'Jaewriting', sans-serif;
+}
+
+/* ===== INFO TABLE ===== */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.info-table td {
+    border: 1px solid var(--naccent);
+    padding: 4px 6px;
+}
+
+.info-table td.label {
+    background: var(--primary);
+    font-family: 'Astro', monospace;
+    font-weight: bold;
+    width: 40%;
 }
 
 /* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  font-size: 14px;
-  margin-top: 20px;
-  border-top: 2px dashed (--capricorn);
-  padding-top: 10px;
-}
-
-/* ===== GIF ROW ===== */
-.gifs {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.gifs img {
-  height: 60px;
-}
-
-/* ===== VISITOR COUNTER ===== */
-.counter {
-  font-size: 18px;
-  color: var(--naccent);
+#footer {
+    text-align: center;
+    font-family: 'Astro', monospace;
+    font-size: 11px;
+    margin-top: 10px;
+    color: var(--primary);
 }
 </style>
 </head>
 
 <body>
 
-<div class="stars"></div>
+<div id="wiki-frame">
 
-<div class="wrapper">
+    <div id="wiki-header">
+        <h1>CAPRICORN</h1>
+        <small>Astrology Wiki • Saturn Ruled • ♑</small>
+    </div>
 
-<header>
-  <h1>♑ CAPRICORN ZONE ♑</h1>
-  <p class="blink">Welcome, Earth Sign Elite</p>
-</header>
+    <table id="wiki-table">
+        <tr>
 
-<marquee scrollamount="4">
-  ★ Discipline ★ Ambition ★ Saturn Energy ★ Built Different Since Birth ★
-</marquee>
+            <!-- SIDEBAR -->
+            <td id="sidebar">
 
-<div class="box">
-  <h2>🪐 About Capricorn</h2>
-  <p>
-    Capricorn is ruled by <strong>Saturn</strong>, planet of structure, karma,
-    and long-term success. While others dream, Capricorn builds.
-  </p>
-  <p>
-    Keywords: ambition, resilience, legacy, mastery.
-  </p>
+                <div class="sidebar-box">
+                    <h3>Quick Facts</h3>
+                    <table class="info-table">
+                        <tr><td class="label">Symbol</td><td>Sea-Goat</td></tr>
+                        <tr><td class="label">Dates</td><td>Dec 22 – Jan 19</td></tr>
+                        <tr><td class="label">Element</td><td>Earth</td></tr>
+                        <tr><td class="label">Mode</td><td>Cardinal</td></tr>
+                        <tr><td class="label">Ruler</td><td>Saturn</td></tr>
+                    </table>
+                </div>
+
+                <div class="sidebar-box">
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>Ambitious</li>
+                        <li>Disciplined</li>
+                        <li>Strategic</li>
+                        <li>Enduring</li>
+                        <li>Reserved</li>
+                    </ul>
+                </div>
+
+            </td>
+
+            <!-- MAIN CONTENT -->
+            <td id="content">
+
+                <div class="content-box">
+                    <h2>Overview</h2>
+                    <div class="inner">
+                        Capricorn is the tenth sign of the zodiac, associated with
+                        ambition, responsibility, and long-term success. Ruled by
+                        Saturn, this sign represents endurance through time.
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <h2>Personality</h2>
+                    <div class="inner">
+                        Capricorns are practical and self-controlled, often
+                        misunderstood as distant. Beneath the surface is
+                        loyalty, humor, and emotional depth earned through trust.
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <h2>Strengths</h2>
+                    <div class="inner">
+                        ✔ Reliability<br>
+                        ✔ Leadership<br>
+                        ✔ Patience<br>
+                        ✔ Strategic Thinking
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <h2>Challenges</h2>
+                    <div class="inner">
+                        ✖ Emotional guardedness<br>
+                        ✖ Workaholic tendencies<br>
+                        ✖ Fear of failure
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+    <div id="footer">
+        © 1999–2025 Capricorn Wiki • Best Viewed on Desktop • Saturn Approved
+    </div>
+
 </div>
-
-<div class="box">
-  <h2>📅 Capricorn Vibes Today</h2>
-  <p id="dailyMessage">Loading Saturn transmission...</p>
-  <button onclick="newMessage()">Refresh Message</button>
-</div>
-
-<div class="box">
-  <h2>🖥️ 90s Capricorn Aesthetic</h2>
-  <div class="gifs">
-    <img src="https://i.imgur.com/k6zZVZJ.gif" alt="">
-    <img src="https://i.imgur.com/6n1sCzZ.gif" alt="">
-    <img src="https://i.imgur.com/x8F7Z9E.gif" alt="">
-  </div>
-</div>
-
-<div class="box">
-  <h2>📊 Visitor Count</h2>
-  <p class="counter">You are visitor #<span id="count">000042</span></p>
-</div>
-
-<footer>
-  © 1997–2025 Capricorn Domain • Powered by Saturn • Best viewed at 800x600
-</footer>
-
-</div>
-
-<script>
-const messages = [
-  "Slow progress is still progress. Stay the course.",
-  "Your discipline today creates freedom tomorrow.",
-  "Saturn rewards patience. Keep building.",
-  "Legacy > shortcuts.",
-  "You are exactly where you need to be."
-];
-
-function newMessage() {
-  const msg = messages[Math.floor(Math.random() * messages.length)];
-  document.getElementById("dailyMessage").textContent = msg;
-}
-
-newMessage();
-
-// Fake visitor counter (90s style)
-let count = 42;
-setInterval(() => {
-  count++;
-  document.getElementById("count").textContent = String(count).padStart(6, "0");
-}, 3000);
-</script>
 
 </body>
 </html>
