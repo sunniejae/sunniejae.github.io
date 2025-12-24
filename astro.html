@@ -594,7 +594,7 @@
                     ⭐ Current Placements
                 </button>
                 <button class="nav-button" onclick="showSection('blog')">
-                    ✨ Cosmic Journal
+                    ✨ Astro Journal
                 </button>
             </div>
         </nav>
@@ -628,11 +628,8 @@ Today's Placements                    </p>
                     </svg>
                     <div>
                         <h3 class="about-title">About These Placements</h3>
-                        <p class="about-text">
-                            These planetary positions represent the current cosmic weather, influencing the collective energy and individual experiences. 
-                            Each planet carries its own archetypal wisdom, moving through the zodiac signs and creating a unique tapestry of energies 
-                            that shape our journey through time and space. To receive personalized insights based on your birth chart, 
-                            book a reading or join our community of stargazers.
+                        <p class="about-text"> Venus in Capricorn squares Neptune in Pisces today. Life, romance, and fantasy are at odds with each other. It's the perfect astro-storm for over romanticizing the new year. Take advantage of the delulu and start mapping out your 2026.'
+                            
                         </p>
                     </div>
                 </div>
@@ -669,11 +666,11 @@ Today's Placements                    </p>
         // Data
         const placements = [
             { planet: 'Sun', sign: 'Capricorn', retrograde: 'No', element: 'Earth', icon: '☉' },
-            { planet: 'Moon', sign: 'Pisces', retrograde: 'No', element: 'Water', icon: '☽' },
+            { planet: 'Moon', sign: 'Aquarius', retrograde: 'No', element: 'Air', icon: '☽' },
             { planet: 'Mercury', sign: 'Sagittarius', retrograde: 'No', element: 'Fire', icon: '☿' },
-            { planet: 'Venus', sign: 'Aquarius', retrograde: 'No', element: 'Air', icon: '♀' },
-            { planet: 'Mars', sign: 'Leo', retrograde: 'No', element: 'Fire', icon: '♂' },
-            { planet: 'Jupiter', sign: 'Gemini', retrograde: 'No', element: 'Air', icon: '♃' },
+            { planet: 'Venus', sign: 'Capricorn', retrograde: 'No', element: 'Earth', icon: '♀' },
+            { planet: 'Mars', sign: 'Capricorn', retrograde: 'No', element: 'Earth', icon: '♂' },
+            { planet: 'Jupiter', sign: 'Cancer', retrograde: 'Yes', element: 'Water', icon: '♃' },
             { planet: 'Saturn', sign: 'Pisces', retrograde: 'Yes', element: 'Water', icon: '♄' },
             { planet: 'Uranus', sign: 'Taurus', retrograde: 'Yes', element: 'Earth', icon: '♅' },
             { planet: 'Neptune', sign: 'Pisces', retrograde: 'Yes', element: 'Water', icon: '♆' },
@@ -685,8 +682,8 @@ Today's Placements                    </p>
         
         // Daily planetary message - UPDATE THIS DAILY
         const dailyMessage = {
-            date: 'December 23, 2024',
-            message: 'Today\'s cosmic energy invites deep reflection as Saturn, Uranus, and Neptune continue their retrograde journeys. The Moon in Pisces heightens our intuition and emotional sensitivity. Mercury in Sagittarius encourages bold communication and philosophical thinking. With the Sun freshly in Capricorn, we\'re called to ground our visions into practical reality. Pay special attention to Chiron\'s healing energy and the North Node\'s karmic lessons guiding us toward spiritual evolution.'
+            date: 'December 23, 2025',
+            message: 'Today\'s Major Transits: | Venus Square Neptune | Venus enters Capricorn"
         };
 
         // Medium Blog Configuration
@@ -725,11 +722,11 @@ Today's Placements                    </p>
             },
             {
                 id: 4,
-                title: 'Winter Solstice: Capricorn Season Begins',
-                date: 'December 1, 2024',
-                excerpt: 'As the Sun enters Capricorn, we\'re called to honor structure, ambition, and the slow, steady climb toward our highest peaks...',
-                author: 'Luna Starweaver',
-                category: 'Seasonal Magic',
+                title: 'Looks like our blog isn\'t working',
+                date: 'Oops, Sorry',
+                excerpt: 'check out Starry Jae on Medium for more astrology related articles',
+                author: 'Sunnnie Jae',
+                category: 'it\'s not you, it\s me',
                 link: '#'
             }
         ];
@@ -848,7 +845,7 @@ Today's Placements                    </p>
                             title: item.title,
                             date: date,
                             excerpt: excerpt,
-                            author: item.author || 'Luna Starweaver',
+                            author: item.author || 'Sunnie Jae',
                             category: category,
                             link: item.link
                         };
