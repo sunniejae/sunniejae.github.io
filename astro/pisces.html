@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Capricorn Wiki 🌈✨</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ================= FONTS ================= -->
+<style>
+@font-face { font-family: 'Jaewriting'; src: url('assets/Jaewriting-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Starbim'; src: url('assets/Starbim.ttf') format('woff'); }
+@font-face { font-family: 'Astro4'; src: url('assets/Astro4-Regular.ttf') format('truetype'); }
+</style>
+
+<style>
+:root {
+    --pink: #FF79C6;
+    --purple: #BD93F9;
+    --blue: #8BE9FD;
+    --yellow: #F1FA8C;
+    --green: #50FA7B;
+    --orange: #FFB86C;
+    --white: #ffffff;
+    --black: #000000;
+}
+
+/* ================= BODY ================= */
+body {
+    margin: 0; padding: 20px;
+    background: linear-gradient(to bottom right, var(--pink), var(--purple), var(--blue));
+    font-family: 'AeogoPixellated', monospace; /* playful retro pixel font */
+    color: var(--black);
+    cursor: url('assets/cursor-star.cur'), auto;
+}
+
+/* ================= MARQUEE ================= */
+#marquee {
+    font-family: 'Starbim';
+    font-size: 18px;
+    padding: 6px;
+    border: 2px dashed var(--white);
+    background: linear-gradient(90deg,var(--pink),var(--blue),var(--purple),var(--yellow),var(--green));
+    -webkit-background-clip: text; color: transparent;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* ================= HEADER ================= */
+#wiki-header {
+    text-align: center; padding: 16px;
+}
+#wiki-header h1 {
+    font-family: 'Jaewriting';
+    font-size: 48px;
+    color: var(--white);
+    text-shadow: 2px 2px var(--pink), 4px 4px var(--purple);
+    margin: 0;
+}
+#wiki-header small {
+    font-family: 'Astro4';
+    font-size: 14px;
+    color: var(--yellow);
+    display: block;
+    margin-top: 4px;
+}
+
+/* ================= TABLE LAYOUT ================= */
+#wiki-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+#wiki-table td { vertical-align: top; padding: 8px; }
+
+/* ================= SIDEBAR ================= */
+#sidebar { width: 300px; }
+.sidebar-box {
+    background: rgba(255,255,255,0.8);
+    border: 3px solid var(--pink);
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-shadow: 0 0 12px var(--purple);
+}
+.sidebar-box h3 {
+    font-family: 'Starbim';
+    background: linear-gradient(to right, var(--pink), var(--purple));
+    color: var(--white);
+    text-align: center;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+/* ================= CONTENT ================= */
+#content { flex: 1; padding-left: 16px; }
+.content-box {
+    background: rgba(255,255,255,0.85);
+    border: 3px solid var(--blue);
+    border-radius: 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 0 12px var(--pink);
+}
+.content-box h2 {
+    margin: 0; padding: 6px;
+    font-family: 'Starbim';
+    background: linear-gradient(to right,var(--purple),var(--blue),var(--pink));
+    color: var(--white);
+    border-radius: 12px;
+}
+.content-box .inner {
+    padding: 10px;
+    line-height: 1.8;
+    font-family: 'AeogoPixellated';
+}
+
+/* ================= HOROSCOPE & JOURNAL ================= */
+.horoscope-box {
+    border: 2px dashed var(--pink);
+    border-radius: 16px;
+    padding: 8px;
+    background: rgba(255,255,255,0.9);
+}
+</style>
+</head>
+
+<body>
+
+<div id="wiki-frame">
+
+<!-- ================= MARQUEE ================= -->
+<marquee id="marquee" scrollamount="4">✨🌈 Ambition 💖 Discipline 🌸 Patience 🌟 Responsibility ✨ Structure 💜 Focus 🌈✨</marquee>
+
+<!-- ================= HEADER ================= -->
+<div id="wiki-header">
+    <h1>Capricorn</h1>
+    <small>Earth • Cardinal • Ruled by Saturn</small>
+</div>
+
+<table id="wiki-table">
+<tr>
+<td id="sidebar">
+
+<div class="sidebar-box">
+<h3>Infocard</h3>
+Glyph: <span style="font-family:Astro4;">♑</span><br>
+Element: Earth<br>
+Modality: Cardinal<br>
+Ruling Planet: Saturn<br>
+Symbol & Origin: Sea-Goat; ambition & discipline<br>
+Constellation:<br><img src="assets/capricorn-constellation.png" width="250" height="250"><br>
+House: 10th<br>
+Colors: Brown, Dark Green<br>
+Crystal:<br><img src="assets/capricorn-crystal.png" width="250" height="250"><br>
+Flower:<br><img src="assets/capricorn-flower.png" width="250" height="250">
+</div>
+
+</td>
+<td id="content">
+
+<div class="content-box">
+<h2>Daily Horoscope</h2>
+<div class="inner horoscope-box" id="daily-box">Loading today’s horoscope…</div>
+</div>
+
+<div class="content-box">
+<h2>Weekly Journal Prompt</h2>
+<div class="inner horoscope-box">Reflect on your ambitions this week and how you can balance discipline with rest.</div>
+</div>
+
+<div class="content-box">
+<h2>Sign Overview</h2>
+<div class="inner">
+Capricorns are disciplined, ambitious, and practical. Saturn encourages structure, responsibility, and long-term planning. Focus on career, goal-setting, and persistent effort.
+</div>
+</div>
+
+<div class="content-box">
+<h2>Key Characteristics</h2>
+<div class="inner">
+Strengths: Responsible, patient, strategic, reliable<br>
+Weaknesses: Pessimistic, stubborn, overly serious<br>
+Career suggestions: Management, finance, law, architecture<br>
+Relationship style: Loyal, values long-term stability<br>
+MBTI: ISTJ, ESTJ<br>
+Enneagram: Type 1 (Perfectionist), Type 3 (Achiever)
+</div>
+</div>
+
+<div class="content-box">
+<h2>Health and Wellness</h2>
+<div class="inner">
+Focus on bones, knees, and teeth. Include stretching and weight-bearing exercises. Avoid overworking; practice mindfulness and stress relief.
+</div>
+</div>
+
+<div class="content-box">
+<h2>Famous People</h2>
+<div class="inner">
+Modern: Michelle Obama, Kate Middleton<br>
+Historical: Isaac Newton, Beethoven<br>
+Fictional: Eddard Stark, Mr. Darcy
+</div>
+</div>
+
+<div class="content-box">
+<h2>Explore Other Signs</h2>
+<div class="inner">
+<a href="aries.html">♈ Aries</a> | <a href="taurus.html">♉ Taurus</a> | <a href="gemini.html">♊ Gemini</a> | <a href="cancer.html">♋ Cancer</a> | <a href="leo.html">♌ Leo</a> | <a href="virgo.html">♍ Virgo</a> | <a href="libra.html">♎ Libra</a> | <a href="scorpio.html">♏ Scorpio</a> | <a href="sagittarius.html">♐ Sagittarius</a> | <a href="capricorn.html">♑ Capricorn</a> | <a href="aquarius.html">♒ Aquarius</a> | <a href="pisces.html">♓ Pisces</a>
+</div>
+</div>
+
+</td>
+</tr>
+</table>
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+const SIGN_KEY = "capricorn";
+
+const dailyMessages = [
+  "Slow progress is still progress. Stay disciplined.",
+  "Your consistency builds lasting success.",
+  "Boundaries protect your energy today.",
+  "Focus on responsibilities you’ve been avoiding.",
+  "Structure creates freedom.",
+  "Patience gives you the advantage.",
+  "Your long-term vision matters more than quick wins."
+];
+
+function todayKey() {
+    const d = new Date();
+    return `${SIGN_KEY}-${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+}
+
+function getDailyHoroscope() {
+    const key = todayKey();
+    const saved = localStorage.getItem(key);
+    if(saved) return saved;
+    const msg = dailyMessages[new Date().getDate() % dailyMessages.length];
+    localStorage.setItem(key, msg);
+    localStorage.setItem("lastViewedSign", SIGN_KEY);
+    return msg;
+}
+
+document.getElementById("daily-box").textContent = getDailyHoroscope();
+</script>
+
+</body>
+</html>
