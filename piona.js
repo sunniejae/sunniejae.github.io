@@ -12,7 +12,7 @@ const members = {
 const products = [
     { 
         name: "Hangul Member Names", 
-        images: { ot5: "hangul-member.png", chaewon: "hangul-chaewon.png", sakura: "hangul-sakura.png", yunjin: "hangul-yunjin.png", kazuha: "hangul-kazuha.png", eunchae: "hangul-eunchae.png" }, 
+        images: { ot5: "hangul-member.png", chaewon: "hangul-chaewon - Copy.png", sakura: "hangul-sakura - Copy.png", yunjin: "hangul-yunjin - Copy.png", kazuha: "hangul-kazuha - Copy.png", eunchae: "hangul-eunchae - Copy.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
         url: { ot5:"https://www.redbubble.com/ot5-hangul", chaewon:"https://www.redbubble.com/chaewon-hangul", sakura:"https://www.redbubble.com/sakura-hangul", yunjin:"https://www.redbubble.com/yunjin-hangul", kazuha:"https://www.redbubble.com/kazuha-hangul", eunchae:"https://www.redbubble.com/eunchae-hangul" }
     },
