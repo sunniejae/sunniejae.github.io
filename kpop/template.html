@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FANDOM Shop | Sunnie Jae</title>
+<link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+<style>
+/* ===== FONTS ===== */
+@font-face { font-family: 'Vaughn'; src: url('assets/Vaughan-FREE.otf') format('truetype'); }
+@font-face { font-family: 'Starbim'; src: url('assets/Starbim.ttf') format('truetype'); }
+
+/* ===== ROOT COLORS ===== */
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --secondary: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary-accent: #c13886;
+    --primary: #9a9ad4;
+    
+   --MEMBER1:#f0f0f5; --MEMBER1-dark:#404040;
+    --MEMBER2:#ffb3d6; --MEMBER2-dark:#c13886;
+    --MEMBER3:#73e3bd; --MEMBER3-dark:#0d5c2d;
+    --MEMBER4:#00bfb9; --MEMBER4-dark:#2a3055;
+    --MEMBER5:#c13851; --MEMBER5-dark:#880d1e;
+    --current-bg: var(--primary);
+    --current-accent: var(--dark-purple);
+}
+
+/* ===== RESET ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Vaughn', sans-serif; background:var(--current-bg); color:var(--black); line-height:1.4; transition:0.5s; }
+
+/* ===== HEADINGS & TITLES ===== */
+h1, h2, h3, h4, h5, h6, .header-title, .product-title, .bias-btn, .bias-matcher-btn, .wishlist-section button {
+    font-family: 'Starbim', sans-serif;
+}
+
+/* ===== HEADER ===== */
+.depop-header { width:100%; background: var(--white); padding: 8px 16px; position: sticky; top:0; z-index:1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+.header-top { display:flex; justify-content:space-between; align-items:center; }
+.header-left { display:flex; align-items:center; gap:12px; }
+.header-title { font-weight:700; font-size:26px; }
+.header-icons { display:flex; gap:12px; font-size:30px; position:relative; }
+.header-icon { cursor:pointer; position:relative; }
+.bag-count { position:absolute; top:-6px; right:-6px; background:var(--current-accent); color:#fff; font-size:14px; padding:1px 5px; border-radius:50%; }
+.search-bar { display:flex; align-items:center; margin-top:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; }
+.search-bar input { border:none; outline:none; background:transparent; flex:1; padding:4px; font-size:14px; }
+
+/* ===== PROFILE SECTION ===== */
+.profile-section { padding:16px; background:rgba(255,255,255,0.1); margin-bottom:16px; }
+.profile-header { display:flex; align-items:center; gap:12px; }
+.profile-pic { width:100px; height:100px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; overflow:hidden; }
+.profile-pic img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.profile-info h1 { font-size:36px; margin-bottom:4px; }
+.verified-badge { font-size:12px; color: var(--current-accent); margin-left:6px; }
+.profile-stats { font-size:12px; color: var(--secondary); display:flex; gap:12px; }
+.bio { margin-top:8px; font-size:20px; color: var(--secondary); font-family:'Vaughn',sans-serif; }
+.bio-tags { display:block; margin-top:4px; }
+
+/* ===== BIAS SECTION ===== */
+.bias-section { padding:16px; background:rgba(255,255,255,0.05); margin-bottom:16px; }
+.bias-buttons { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+.bias-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:#fff; transition:0.3s; }
+.bias-btn.active { background:var(--current-accent); color:#fff; }
+.bias-matcher-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:var(--current-accent); color:#fff; }
+
+/* ===== PRODUCTS GRID ===== */
+.products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; padding:0 16px; margin-bottom:16px; }
+.product-card { background:#fff; border-radius:8px; overflow:hidden; cursor:pointer; transition:0.3s; position:relative; }
+.product-card:hover { transform:scale(1.03); }
+.product-image img { width:250px; height:250px; object-fit:cover; }
+.product-info { padding:6px 8px; font-family:'Vaughn',sans-serif; }
+.product-title { font-weight:700; }
+.product-brand {font-family:'Vaughn',sans-serif; font-size:10px;}
+.product-size, .product-price { font-family:'Vaughn',sans-serif; font-size:30px; }
+.wishlist-btn { border:none; background:var(--current-accent); color:#fff; padding:4px 6px; border-radius:6px; cursor:pointer; font-size:12px; }
+
+/* ===== WISHLIST ===== */
+.wishlist-section { padding:16px; background:rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:8px; }
+#wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; font-family:'Vaughn',sans-serif; }
+#wishlist-name, #wishlist-email, #email-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; }
+.wishlist-section button { font-family:'Starbim',sans-serif; }
+
+
+#bag {
+  position:relative;
+  font-size:22px;
+  cursor:pointer;
+}
+#bag-count {
+  position:absolute;
+  top:-6px;
+  right:-6px;
+  background:var(--current-accent);
+  color:#fff;
+  font-size:11px;
+  padding:2px 6px;
+  border-radius:50%;
+  display:none;
+}
+
+.bias-buttons {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:16px;
+}
+
+.bias-btn {
+  padding:6px 12px;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+}
+
+.products-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:16px;
+  padding:16px;
+}
+
+.product-card {
+  background:#fff;
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+}
+
+.product-card img {
+  width:100%;
+  border-radius:8px;
+}
+
+.product-btn, .wishlist-btn {
+  margin-top:10px;
+  padding:10px;
+  border-radius:999px;
+  border:none;
+  width:100%;
+  cursor:pointer;
+  font-weight:600;
+  color:#fff;
+  background:linear-gradient(135deg,var(--current-accent),var(--current-bg));
+  text-decoration:none;
+  display:inline-flex;
+  justify-content:center;
+  gap:6px;
+}
+
+.product-btn:hover, .wishlist-btn:hover { transform:scale(1.05); }
+
+#wishlist {
+  padding:16px;
+}
+
+#wishlist textarea {
+  width:100%;
+  height:120px;
+}
+
+#wishlist input[type="text"], #wishlist input[type="email"] {
+  width:100%;
+  padding:6px;
+  margin-top:6px;
+  margin-bottom:6px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+#wishlist label {
+  font-weight:600;
+}
+
+#wishlist button {
+  margin-top:8px;
+}
+
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.modal.active { display:flex; }
+
+/* QUIZ MODAL STYLING */
+#quiz-questions p {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+#quiz-questions button {
+  display:block;
+  width:100%;
+  padding:10px;
+  margin-bottom:8px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  color:#fff;
+  background:linear-gradient(135deg, var(--current-accent), var(--current-bg));
+  transition: transform 0.2s;
+}
+
+#quiz-questions button:hover {
+  transform: scale(1.05);
+}
+
+.modal-content {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  max-width:400px;
+  width:90%;
+  text-align:center;
+  gap:12px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="depop-header">
+    <div class="header-top">
+        <div class="header-left">
+<a href="index.html" class="back-arrow">←</a>
+            <div class="header-title">GROUP Shop</div>
+        </div>
+        <div class="header-icons">
+            <div class="header-icon">💖<span class="bag-count" id="bag-count">0</span></div>
+        </div>
+    </div>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search merch...">
+    </div>
+</div>
+
+<!-- Profile Section -->
+<div class="profile-section">
+    <div class="profile-header">
+        <div class="profile-pic" id="profile-pic">
+            <img src="" alt="profile picture">
+        </div>
+        <div class="profile-info">
+            <h1 id="profile-name">FANDOM <span class="verified-badge">FANDOMHANGUL</span></h1>
+            </div>
+        </div>
+    </div>
+    <div class="bio">
+        Sunnie Jae's Fandom Store ✨ Custom designs for FANDOM
+    </div>
+</div>
+
+<!-- Bias Section -->
+<div class="bias-section">
+    <h2>✨ Choose Your Bias ✨</h2>
+    <div class="bias-buttons">
+        <button class="bias-btn" onclick="setBias('ot5')">✨ ot5</button>
+        <button class="bias-btn" onclick="setBias('MEMBER1')">EMOJI1 MEMBER1</button>
+        <button class="bias-btn" onclick="setBias('MEMBER2')">EMOJI2 MEMBER2</button>
+        <button class="bias-btn" onclick="setBias('MEMBER3')">EMOJI3 MEMBER3</button>
+        <button class="bias-btn" onclick="setBias('MEMBER4')">EMOJI4 MEMBER4</button>
+        <button class="bias-btn" onclick="setBias('MEMBER5')">EMOJI5 MEMBER5</button>
+    </div>
+    <button class="bias-matcher-btn" onclick="openQuiz()">💞 Take Bias Matcher Quiz</button>
+</div>
+
+
+<div id="products-grid" class="products-grid"></div>
+
+<div id="wishlist">
+  <h3>Your Wishlist</h3>
+  <textarea id="wishlist-items" readonly></textarea>
+  
+  <label for="wishlist-name">Your Name:</label>
+  <input type="text" id="wishlist-name" placeholder="Enter your name">
+  
+  <label for="wishlist-email">Your Email:</label>
+  <input type="email" id="wishlist-email" placeholder="Enter your email">
+  
+  <label>
+    <input type="checkbox" id="email-optin">
+    Subscribe to promotions
+  </label>
+  
+  <button onclick="submitWishlist()">Send Wishlist 📧</button>
+</div>
+
+<!-- QUIZ MODAL -->
+<div id="quiz-modal" class="modal">
+  <div class="modal-content" id="quiz-questions"></div>
+</div>
+
+<!-- RESULT MODAL -->
+<div id="result-modal" class="modal">
+  <div class="modal-content">
+    <img id="result-image" width="120" height="120" alt="Result Member">
+    <h2 id="result-name"></h2>
+    <p id="result-description"></p>
+    <p id="result-traits"></p>
+    <button onclick="closeResult()">Start Shopping ✨</button>
+  </div>
+</div>
+
+<script src="template.js"></script>
+</body>
+</html>
