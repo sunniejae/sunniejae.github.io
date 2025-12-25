@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{SIGN} Wiki</title>
+<title>TAURUS Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ================= CUSTOM FONTS ================= -->
@@ -14,17 +14,17 @@
 :root {
     --black: #000010;
     --white: #ffffff;
-    --primary: #ed1131;
-    --accent: #eecd11;
-    --dark: #0e0705;
-    --light: #fffaeb;
-    --sign-color: #ed1131; /* change per sign */
+    --primary: #7aa94b;
+    --accent: #aa4b7a;
+    --dark: #11180b;
+    --light: #fdfff0;
+    --sign-color: #7aa94b;
 }
 
 body {
     margin: 0; padding: 20px;
     background-color: var(--black);
-    background-image: url('assets/background-{SIGN}.png');
+    background-image: url('assets/background-TAURUS.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -73,8 +73,8 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-    <h1>{SIGN} {GLYPH}</h1>
-    <small>{ELEMENT} • {MODALITY} • Ruled by {PLANET} </small>
+    <h1>TAURUS ♉︎</h1>
+    <small>Earth • Fixed • Ruled by Venus </small>
 </div>
 
 <table id="wiki-table">
@@ -84,15 +84,15 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <div class="sidebar-box">
     <h3>Infocard</h3>
     Glyph: <span style="font-family:Astro4;">a</span><br>
-    Element: {ELEMENT} <span style="font-family:Astro4;">k</span><br>
-    Modality: {MODALITY} <span style="font-family:Astro4;">d</span><br>
-    Ruling Planet: {PLANET} <span style="font-family:Astro4;">P</span><br>
-    Symbol & Origin: {GLYPH} {SYMBOL_ORIGIN}<br>
-    Constellation: <br><img src="assets/{SIGN}-constellation.png" width="250" height="250"><br>
-    House: {HOUSE} <br>
-    Colors: {COLORS} <br>
-    Crystal: <br><img src="assets/{SIGN}-crystal.png" width="250" height="250"><br>
-    Flower: <br><img src="assets/{SIGN}-flower.png" width="250" height="250">
+    Element: Earth <span style="font-family:Astro4;">k</span><br>
+    Modality: Fixed <span style="font-family:Astro4;">d</span><br>
+    Ruling Planet: Venus <span style="font-family:Astro4;">P</span><br>
+    Symbol & Origin: ♉︎ {SYMBOL_ORIGIN}<br>
+    Constellation: <br><img src="assets/TAURUS-constellation.png" width="250" height="250"><br>
+    House: 2nd <br>
+    Colors: Green & Mauve <br>
+    Crystal: <br><img src="assets/TAURUS-crystal.png" width="250" height="250"><br>
+    Flower: <br><img src="assets/TAURUS-flower.png" width="250" height="250">
 </div>
 </td>
 
@@ -109,7 +109,7 @@ Loading today’s horoscope…
 <div class="content-box">
 <h2>Weekly Journal Prompt</h2>
 <div class="inner horoscope-box" id="weekly-box">
-Dec.22 {GLYPH} Map out your goals for 2026</div>
+Dec.22 ♉︎ Map out your goals for 2026</div>
 </div>
 
 <div class="content-box">
@@ -156,7 +156,7 @@ Dec.22 {GLYPH} Map out your goals for 2026</div>
 <!-- ================= JAVASCRIPT ================= -->
 <script>
 /* ================== LOCAL STORAGE HOROSCOPE ================= */
-const SIGN_KEY = "{SIGN}";
+const SIGN_KEY = "TAURUS";
 
 const dailyMessages = [
   "Slow progress is still progress. Stay disciplined.",
