@@ -9,7 +9,7 @@
 <style>
   @font-face { 
     font-family: 'Starbim'; 
-    src: url('Starbim.ttf') format('truetype'); 
+    src: url('AeogoPixellated-Regular.ttf') format('truetype'); 
   }
   @font-face { 
     font-family: 'Jaewriting'; 
@@ -20,57 +20,134 @@
     src: url('Astro4-Regular.ttf') format('truetype');  
   }
 
+  /* ======================= BASE ======================= */
   :root {
-    --primary: #8664dc;  /* default fallback */
+    --primary: #8664dc; /* default fallback, overridden by JS */
     --accent: #65dc87;
+    --bg-gradient: linear-gradient(135deg, var(--primary), var(--accent));
+    --text-shadow: 2px 2px 6px #fff;
   }
 
   body {
-    font-family: 'Jaewriting', sans-serif;
-    background-color: var(--primary);
-    color: var(--accent);
     margin: 0;
     padding: 20px;
+    font-family: 'Jaewriting', sans-serif;
+    background: var(--bg-gradient);
+    color: #fff;
+    text-align: center;
+    transition: background 0.5s ease, color 0.5s ease;
   }
 
   h1 {
     font-family: 'Starbim';
-    font-size: 3rem;
+    font-size: 4rem;
+    color: var(--accent);
+    text-shadow: 3px 3px 8px #fff, 0 0 10px var(--accent);
     margin-bottom: 10px;
+  }
+
+  /* Marquee / Buzzwords */
+  #buzzwords {
+    font-family: 'Starbim';
+    font-size: 1.5rem;
+    color: #fff;
+    text-shadow: 1px 1px 5px #000;
+    margin-bottom: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    animation: marquee 15s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Infocard */
+  #infocard {
+    display: inline-block;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--accent);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    max-width: 400px;
+    box-shadow: 0 0 20px var(--accent);
+    transition: all 0.5s ease;
   }
 
   #infocard p {
     margin: 5px 0;
+    font-size: 1rem;
   }
 
+  /* Horoscope boxes */
   .horoscope-box {
-    background-color: var(--accent);
-    color: var(--primary);
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 10px;
-  }
-
-  /* Example marquee for buzzwords */
-  #buzzwords {
-    font-family: 'Starbim';
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 20px;
+    margin: 15px auto;
+    border: 3px solid var(--accent);
+    border-radius: 15px;
+    max-width: 500px;
     font-size: 1.2rem;
-    color: var(--accent);
-    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px #000;
+    transition: all 0.5s ease;
   }
 
+  /* Links */
   a {
     color: var(--accent);
-    text-decoration: underline;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px #000;
+    transition: all 0.3s ease;
+  }
+
+  a:hover {
+    color: #fff;
+    text-shadow: 2px 2px 10px var(--accent);
+  }
+
+  /* Image placeholders */
+  .img-placeholder {
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px dashed var(--accent);
+    border-radius: 15px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Astro';
+    font-size: 1.2rem;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+    #infocard, .horoscope-box, .img-placeholder {
+      max-width: 90%;
+    }
+    #buzzwords {
+      font-size: 1rem;
+    }
   }
 </style>
 
-<!-- JS -->
+<!-- Script -->
 <script src="astro.js" defer></script>
 </head>
 <body onload="initSignPage('pisces')">
 
-<!-- Marquee for sign-related buzzwords -->
+<!-- Marquee -->
 <div id="buzzwords">
   ♓ Intuition • Empathy • Creativity • Dreamer • Sensitive • Compassionate ♓
 </div>
@@ -91,6 +168,11 @@
   <p>Flower: <span id="infocard-flower"></span></p>
 </div>
 
+<!-- Image Placeholders -->
+<div class="img-placeholder">Constellation Image 500x500</div>
+<div class="img-placeholder">Crystal Image 500x500</div>
+<div class="img-placeholder">Flower Image 500x500</div>
+
 <!-- Daily Horoscope -->
 <div id="daily-box" class="horoscope-box">
   Loading daily horoscope...
@@ -101,8 +183,8 @@
   Loading weekly prompt...
 </div>
 
-<!-- Navigation example -->
-<div style="margin-top:20px;">
+<!-- Navigation -->
+<div style="margin-top:20px; font-size:1.2rem;">
   <a href="aries.html">Aries</a> | 
   <a href="taurus.html">Taurus</a> | 
   <a href="gemini.html">Gemini</a> | 
