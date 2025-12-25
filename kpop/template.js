@@ -125,7 +125,7 @@ function setBias(member) {
     currentBias = member;
 
     const profileImg = document.querySelector("#profile-pic img");
-    profileImg.src = `/profile-${member}.png`;
+    profileImg.src = `/assets/profile-${member}.png`;
 
     const displayName = member === "GROUP" ? "GROUP" : members[member].display;
     const subtitle = member === "GROUP" ? "Fearnot" : members[member].subtitle;
