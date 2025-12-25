@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{SIGN} Wiki</title>
+<title>LEO Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
 
@@ -22,7 +22,7 @@
 body {
     margin: 0; padding: 20px;
     background-color: var(--dark);
-    background-image: url('assets/background-{SIGN}.png');
+    background-image: url('assets/background-LEO.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -66,13 +66,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-✨ {word1} ✨ {word2} ✨ {word3} ✨ {word4} ✨ {word5} ✨
+✨ {word1} ✨ generous ✨ charismatic ✨ creative ✨ proud ✨
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-    <h1>{SIGN} {GLYPH}</h1>
-    <small>{ELEMENT} • {MODALITY} • Ruled by {PLANET} </small>
+    <h1>LEO ♌︎</h1>
+    <small>Fire • Fixed • Ruled by Sun </small>
 </div>
 
 <table id="wiki-table">
@@ -81,16 +81,16 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="sidebar">
 <div class="sidebar-box">
     <h3>Infocard</h3>
-    <h4>Glyph:</h4> <span style="font-family:Astro4;">{1}</span><br>
-    <h4>Element:</h4> {ELEMENT} <span style="font-family:Astro4;">{2}</span><br>
-    <h4>Modality: </h4> {MODALITY} <span style="font-family:Astro4;">{3}</span><br>
-   <h4> Ruling Planet: </h4>{PLANET} <span style="font-family:Astro4;">{4}</span><br>
-    <h4>Symbol & Origin: </h4>{GLYPH} {SYMBOL_ORIGIN}<br>
-    <h4>Constellation:</h4> <br><img src="assets/{SIGN}-constellation.png" width="250" height="250"><br>
-    <h4>House:</h4> {HOUSE} <br>
-    <h4>Colors:</h4>{COLORS} <br>
-    <h4>Crystal: </h4><br><img src="assets/{SIGN}-crystal.png" width="250" height="250"><br>
-    <h4>Flower:</h4> <br><img src="assets/{SIGN}-flower.png" width="250" height="250">
+    <h4>Glyph:</h4> <span style="font-family:Astro4;">l</span><br>
+    <h4>Element:</h4> Fire <span style="font-family:Astro4;">k</span><br>
+    <h4>Modality: </h4> Fixed <span style="font-family:Astro4;">f</span><br>
+   <h4> Ruling Planet: </h4>Sun <span style="font-family:Astro4;">S</span><br>
+    <h4>Symbol & Origin: </h4>♌︎ The Lion<br>
+    <h4>Constellation:</h4> <br><img src="assets/LEO-constellation.png" width="250" height="250"><br>
+    <h4>House:</h4> 5th <br>
+    <h4>Colors:</h4>Red & Gold <br>
+    <h4>Crystal: </h4><br><img src="assets/LEO-crystal.png" width="250" height="250"><br>
+    <h4>Flower:</h4> <br><img src="assets/LEO-flower.png" width="250" height="250">
 </div>
 </td>
 
@@ -107,7 +107,7 @@ Loading today’s horoscope…
 <div class="content-box">
 <h2>Weekly Journal Prompt</h2>
 <div class="inner horoscope-box" id="weekly-box">
-Dec.22 {GLYPH} Map out your goals for 2026</div>
+Dec.22 ♌︎ Map out your goals for 2026</div>
 </div>
 
 <div class="content-box">
@@ -154,7 +154,7 @@ Dec.22 {GLYPH} Map out your goals for 2026</div>
 <!-- ================= JAVASCRIPT ================= -->
 <script>
 /* ================== LOCAL STORAGE HOROSCOPE ================= */
-const SIGN_KEY = "{SIGN}";
+const SIGN_KEY = "LEO";
 
 const dailyMessages = [
   "Slow progress is still progress. Stay disciplined.",
