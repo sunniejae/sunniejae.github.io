@@ -1,42 +1,42 @@
 // ===== MEMBER DATA =====
 const members = {
     MEMBER1: { display: "MEMBER1", subtitle: "MEMBER1 Fandom", color: "var(--MEMBER1)", accent: "var(--MEMBER1-dark)" },
-    GROUP: { display: "GROUP", subtitle: "Fearnot", color: "var(--primary)", accent: "var(--dark-purple)" },
+    GROUP: { display: "GROUP", subtitle: "FANDOM", color: "var(--primary)", accent: "var(--dark-purple)" },
     MEMBER2: { display: "MEMBER2", subtitle: "MEMBER2 Fandom", color: "var(--MEMBER2)", accent: "var(--MEMBER2-dark)" },
     MEMBER3: { display: "MEMBER3", subtitle: "MEMBER3 Fandom", color: "var(--MEMBER3)", accent: "var(--MEMBER3-dark)" },
     MEMBER4: { display: "MEMBER4", subtitle: "MEMBER4 Fandom", color: "var(--MEMBER4)", accent: "var(--MEMBER4-dark)" },
-    MEMBER4: { display: "MEMBER4", subtitle: "MEMBER5 Fandom", color: "var(--MEMBER4)", accent: "var(--MEMBER4-dark)" }
+    MEMBER5: { display: "MEMBER5", subtitle: "MEMBER5 Fandom", color: "var(--MEMBER5)", accent: "var(--MEMBER5-dark)" }
 };
 
 // ===== PRODUCT DATA =====
 const products = [
     { 
         name: "Hangul Member Names", 
-        images: { GROUP: "assets/hangul-member.png", MEMBER1: "assets/hangul-MEMBER1.png", MEMBER2: "assets/hangul-MEMBER2.png", MEMBER3: "assets/hangul-MEMBER3.png", MEMBER4: "assets/hangul-MEMBER4.png", MEMBER4: "assets/hangul-MEMBER4.png" }, 
+        images: { GROUP: "assets/hangul-member.png", MEMBER1: "assets/hangul-MEMBER1.png", MEMBER2: "assets/hangul-MEMBER2.png", MEMBER3: "assets/hangul-MEMBER3.png", MEMBER4: "assets/hangul-MEMBER4.png", MEMBER5: "assets/hangul-MEMBER5.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
         url: { GROUP:"https://www.redbubble.com/GROUP-hangul", MEMBER1:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", MEMBER2:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", MEMBER3:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", MEMBER4:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", MEMBER4:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling" }
     },
     { 
         name: "COMEBACK Era Stickers", 
-        images: { GROUP: "assets/COMEBACK-member.png", MEMBER1: "assets/COMEBACK-MEMBER1.png", MEMBER2: "assets/COMEBACK-MEMBER2.png", MEMBER3: "assets/COMEBACK-MEMBER3.png", MEMBER4: "assets/COMEBACK-MEMBER4.png", MEMBER4: "assets/COMEBACK-MEMBER4.png" }, 
+        images: { GROUP: "assets/COMEBACK-member.png", MEMBER1: "assets/COMEBACK-MEMBER1.png", MEMBER2: "assets/COMEBACK-MEMBER2.png", MEMBER3: "assets/COMEBACK-MEMBER3.png", MEMBER4: "assets/COMEBACK-MEMBER4.png", MEMBER5: "assets/COMEBACK-MEMBER5.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
         url: { GROUP:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", MEMBER1:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", MEMBER2:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", MEMBER3:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", MEMBER4:"https://www.redbubble.com/MEMBER4-COMEBACK", MEMBER4:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling" }
     },
     { 
         name: "Lightstick Keychains", 
-        images: { GROUP: "assets/lightstickkeychain-GROUP.png", MEMBER1: "assets/lightstickkeychain-MEMBER1.png", MEMBER2: "assets/lightstickkeychain-MEMBER2.png", MEMBER3: "assets/blank-MEMBER3.png", MEMBER4: "assets/lightstickkeychain-MEMBER4.png", MEMBER4: "assets/blank-MEMBER4.png" }, 
+        images: { GROUP: "assets/lightstickkeychain-GROUP.png", MEMBER1: "assets/lightstickkeychain-MEMBER1.png", MEMBER2: "assets/lightstickkeychain-MEMBER2.png", MEMBER3: "assets/blank-MEMBER3.png", MEMBER4: "assets/lightstickkeychain-MEMBER4.png", MEMBER5: "assets/blank-MEMBER5.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
         name: "Phone Case", 
-        images: { GROUP: "assets/phonecase-GROUP.png", MEMBER1: "assets/blank-MEMBER1.png", MEMBER2: "assets/blank-MEMBER2.png", MEMBER3: "assets/blank-MEMBER3.png", MEMBER4: "assets/blank-MEMBER4.png", MEMBER4: "assets/blank-MEMBER4.png" }, 
+        images: { GROUP: "assets/phonecase-GROUP.png", MEMBER1: "assets/blank-MEMBER1.png", MEMBER2: "assets/blank-MEMBER2.png", MEMBER3: "assets/blank-MEMBER3.png", MEMBER4: "assets/blank-MEMBER4.png", MEMBER5: "assets/blank-MEMBER5.png" }, 
         brand: "Sunnie Jae", price: "$25", size:"1pc" 
     },
     { 
         name: "AutoGraphics", 
-        images: { GROUP: "assets/autograph-GROUP.png", MEMBER1: "assets/autograph-MEMBER1.png", MEMBER2: "blank-MEMBER2.png", MEMBER3: "blank-MEMBER3.png", MEMBER4: "assets/blank-MEMBER4.png", MEMBER4: "assets/blank-MEMBER4.png" }, 
+        images: { GROUP: "assets/autograph-GROUP.png", MEMBER1: "assets/autograph-MEMBER1.png", MEMBER2: "blank-MEMBER2.png", MEMBER3: "blank-MEMBER3.png", MEMBER4: "assets/blank-MEMBER4.png", MEMBER5: "assets/blank-MEMBER5.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"1pc",
-        url: { GROUP:"https://www.redbubble.com/GROUP-autograph", MEMBER1:"https://www.redbubble.com/MEMBER1-autograph", MEMBER2:"https://www.redbubble.com/MEMBER2-autograph", MEMBER3:"https://www.redbubble.com/MEMBER3-autograph", MEMBER4:"https://www.redbubble.com/MEMBER4-autograph", MEMBER4:"https://www.redbubble.com/MEMBER4-autograph" }
+        url: { GROUP:"https://www.redbubble.com/GROUP-autograph", MEMBER1:"https://www.redbubble.com/MEMBER1-autograph", MEMBER2:"https://www.redbubble.com/MEMBER2-autograph", MEMBER3:"https://www.redbubble.com/MEMBER3-autograph", MEMBER4:"https://www.redbubble.com/MEMBER4-autograph", MEMBER5:"https://www.redbubble.com/MEMBER5-autograph" }
     }
 ];
 
@@ -78,7 +78,7 @@ const quizQuestions = [
         {text:"Jennifer", members:["MEMBER3"]}, 
         {text:"Ava", members:["MEMBER2"]}, 
         {text:"Elle", members:["MEMBER4"]}, 
-        {text:"Ruby", members:["MEMBER4"]} 
+        {text:"Ruby", members:["MEMBER5"]} 
     ] },
     { question: "Favorite English Idiom", answers: [ 
         {text:"Have a good one!", members:["MEMBER2"]}, 
