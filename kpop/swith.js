@@ -5,112 +5,94 @@ const members = {
     SIEUN: { display: "SIEUN", subtitle: "SIEUN Fandom", color: "var(--SIEUN)", accent: "var(--SIEUN-dark)" },
     SEEUN: { display: "SEEUN", subtitle: "SEEUN Fandom", color: "var(--SEEUN)", accent: "var(--SEEUN-dark)" },
     ISA: { display: "ISA", subtitle: "ISA Fandom", color: "var(--ISA)", accent: "var(--ISA-dark)" },
-    YOON: { display: "YOON", subtitle: "YOON Fandom", color: "var(--YOON)", accent: "var(--YOON-dark)" }
+    YOON: { display: "YOON", subtitle: "YOON Fandom", color: "var(--YOON)", accent: "var(--YOON-dark)" },
+    J: { display: "J", subtitle: "J Fandom", color: "var(--J)", accent: "var(--J-dark)" }
 };
 
 // ===== PRODUCT DATA =====
 const products = [
     { 
         name: "Hangul Member Names", 
-        images: { STAYC: "assets/hangul-member.png", SUMIN: "assets/hangul-SUMIN.png", SIEUN: "assets/hangul-SIEUN.png", SEEUN: "assets/hangul-SEEUN.png", ISA: "assets/hangul-ISA.png", YOON: "assets/hangul-YOON.png" }, 
+        images: { STAYC: "assets/hangul-member.png", SUMIN: "assets/hangul-SUMIN.png", SIEUN: "assets/hangul-SIEUN.png", SEEUN: "assets/hangul-SEEUN.png", ISA: "assets/hangul-ISA.png", YOON: "assets/hangul-YOON.png", J: "assets/blank-J.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
         url: { STAYC:"https://www.redbubble.com/STAYC-hangul", SUMIN:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", SIEUN:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", SEEUN:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", ISA:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", ISA:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling" }
     },
     { 
         name: "COMEBACK Era Stickers", 
-        images: { STAYC: "assets/COMEBACK-member.png", SUMIN: "assets/COMEBACK-SUMIN.png", SIEUN: "assets/COMEBACK-SIEUN.png", SEEUN: "assets/COMEBACK-SEEUN.png", ISA: "assets/COMEBACK-ISA.png", YOON: "assets/COMEBACK-YOON.png" }, 
+        images: { STAYC: "assets/COMEBACK-member.png", SUMIN: "assets/COMEBACK-SUMIN.png", SIEUN: "assets/COMEBACK-SIEUN.png", SEEUN: "assets/COMEBACK-SEEUN.png", ISA: "assets/COMEBACK-ISA.png", YOON: "assets/COMEBACK-YOON.png", J: "assets/blank-J.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
         url: { STAYC:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", SUMIN:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", SIEUN:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", SEEUN:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", ISA:"https://www.redbubble.com/ISA-COMEBACK", ISA:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling" }
     },
     { 
         name: "Lightstick Keychains", 
-        images: { STAYC: "assets/lightstickkeychain-STAYC.png", SUMIN: "assets/lightstickkeychain-SUMIN.png", SIEUN: "assets/lightstickkeychain-SIEUN.png", SEEUN: "assets/blank-SEEUN.png", ISA: "assets/lightstickkeychain-ISA.png", YOON: "assets/blank-YOON.png" }, 
+        images: { STAYC: "assets/lightstickkeychain-STAYC.png", SUMIN: "assets/lightstickkeychain-SUMIN.png", SIEUN: "assets/lightstickkeychain-SIEUN.png", SEEUN: "assets/blank-SEEUN.png", ISA: "assets/lightstickkeychain-ISA.png", YOON: "assets/blank-YOON.png", J: "assets/blank-J.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
         name: "Phone Case", 
-        images: { STAYC: "assets/phonecase-STAYC.png", SUMIN: "assets/blank-SUMIN.png", SIEUN: "assets/blank-SIEUN.png", SEEUN: "assets/blank-SEEUN.png", ISA: "assets/blank-ISA.png", YOON: "assets/blank-YOON.png" }, 
+        images: { STAYC: "assets/phonecase-STAYC.png", SUMIN: "assets/blank-SUMIN.png", SIEUN: "assets/blank-SIEUN.png", SEEUN: "assets/blank-SEEUN.png", ISA: "assets/blank-ISA.png", YOON: "assets/blank-YOON.png", J: "assets/blank-J.png" }, 
         brand: "Sunnie Jae", price: "$25", size:"1pc" 
     },
     { 
         name: "AutoGraphics", 
-        images: { STAYC: "assets/autograph-STAYC.png", SUMIN: "assets/autograph-SUMIN.png", SIEUN: "blank-SIEUN.png", SEEUN: "blank-SEEUN.png", ISA: "assets/blank-ISA.png", YOON: "assets/blank-YOON.png" }, 
+        images: { STAYC: "assets/autograph-STAYC.png", SUMIN: "assets/autograph-SUMIN.png", SIEUN: "blank-SIEUN.png", SEEUN: "blank-SEEUN.png", ISA: "assets/blank-ISA.png", YOON: "assets/blank-YOON.png", J: "assets/blank-J.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"1pc",
-        url: { STAYC:"https://www.redbubble.com/STAYC-autograph", SUMIN:"https://www.redbubble.com/SUMIN-autograph", SIEUN:"https://www.redbubble.com/SIEUN-autograph", SEEUN:"https://www.redbubble.com/SEEUN-autograph", ISA:"https://www.redbubble.com/ISA-autograph", YOON:"https://www.redbubble.com/YOON-autograph" }
+        url: { STAYC:"https://www.redbubble.com/STAYC-autograph", SUMIN:"https://www.redbubble.com/SUMIN-autograph", SIEUN:"https://www.redbubble.com/SIEUN-autograph", SEEUN:"https://www.redbubble.com/SEEUN-autograph", ISA:"https://www.redbubble.com/ISA-autograph", YOON:"https://www.redbubble.com/YOON-autograph", J: "assets/blank-J.png"}
     }
 ];
 
 // ===== QUIZ DATA =====
 const quizQuestions = [
     { question: "Favorite Color", answers: [ 
-        {text: "White", members:["SUMIN"]}, 
-        {text:"Pink", members:["SIEUN"]}, 
-        {text:"Blue", members:["ISA"]}, 
-        {text:"Green", members:["SEEUN"]}, 
-        {text:"Red", members:["ISA"]} 
+        {text: "White", members:["SIEUN"]}, 
+        {text:"Black", members:["ISA"]}, 
+        {text:"Blue", members:["SEEUN"]}, 
+        {text:"Pink", members:["SUMIN"]}, 
+        {text:"Green", members:["YOON"]},
+        {text:"Red", members:["J"]} 
     ] },
     { question: "Are you an introvert or an extrovert?", answers: [ 
-        {text:"Introvert", members:["SIEUN","ISA","ISA"]}, 
-        {text:"Extrovert", members:["SEEUN","SUMIN"]} 
+        {text:"Introvert", members:["SEEUN", "SUMIN", "J"]}, 
+        {text:"Extrovert", members:["SIEUN", "ISA", "YOON"]} 
     ] },
     { question: "Down to Earth vs Head in the Clouds", answers: [ 
-        {text:"Down to Earth", members:["SUMIN","ISA"]}, 
-        {text:"Head in the Clouds", members:["SIEUN","SEEUN","ISA"]} 
+        {text:"Down to Earth", members:["SUMIN", "ISA", "J"]}, 
+        {text:"Head in the Clouds", members:["SIEUN", "SEEUN", "YOON"]} 
     ] },
     { question: "Head vs Heart", answers: [ 
-        {text:"Head", members:["SIEUN","ISA","SUMIN"]}, 
-        {text:"Heart", members:["ISA","SEEUN"]} 
+        {text:"Head", members:["SIEUN","YOON","J"]}, 
+        {text:"Heart", members:["SIEUN","ISA", "SEEUN"]} 
     ] },
     { question: "Order vs Chaos", answers: [ 
-        {text:"Order", members:["SEEUN","ISA","ISA"]}, 
-        {text:"Chaos", members:["SUMIN","SIEUN"]} 
+        {text:"Order", members:["SIEUN", "SUMIN", "ISA", "J"]}, 
+        {text:"Chaos", members:["SEEUN", "YOON"]}
     ] },
     { question: "Favorite Animal", answers: [ 
-        {text:"Cheetah", members:["SUMIN"]}, 
-        {text:"Cat", members:["SIEUN"]}, 
-        {text:"Swan", members:["ISA"]}, 
-        {text:"Baby Chick", members:["ISA"]}, 
-        {text:"Snake", members:["SEEUN"]} 
+        {text:"Bunny", members:["SUMIN"]}, 
+        {text:"Puppy", members:["SIEUN"]}, 
+        {text:"Squirrel", members:["ISA"]}, 
+        {text:"Fox", members:["SEEUN"]}, 
+        {text:"Tiger", members:["Yoon"]} 
+        {text:"Deer", members:["J"]} 
     ] },
-    { question: "Favorite English Name", answers: [ 
-        {text:"Anna", members:["SUMIN"]}, 
-        {text:"Sebastian", members:["SIEUN"]}, 
-        {text:"Jennifer", members:["SEEUN"]}, 
-        {text:"Ava", members:["SIEUN"]}, 
-        {text:"Elle", members:["ISA"]}, 
-        {text:"Ruby", members:["YOON"]} 
+    { question: "Another artist you like", answers: [ 
+        {text:"IU", members:["SIEUN"]}, 
+        {text:"BTS", members:["SUMIN"]}, 
+        {text:"Girls Generation", members:["SEEUN"]}, 
+        {text:"I-DLE", members:["YOON"]}, 
+        {text:"HyunA", members:["ISA"]}, 
+        {text:"Dua Lipa", members:["J"]} 
     ] },
-    { question: "Favorite English Idiom", answers: [ 
-        {text:"Have a good one!", members:["SIEUN"]}, 
-        {text:"Easy peasy lemon squeezy", members:["SUMIN"]}, 
-        {text:"It girl energy", members:["SEEUN"]}, 
-        {text:"She ate with no crumbs", members:["ISA"]}, 
-        {text:"Freeze to death", members:["ISA"]} 
-    ] },
-    { question: "Dark Chocolate or Milk Chocolate?", answers: [ 
-        {text:"Dark", members:["SIEUN","ISA","SUMIN","SEEUN"]}, 
-        {text:"Milk", members:["ISA"]} 
-    ] },
-    { question: "Another STAYC you like", answers: [ 
-        {text:"Red Velvet", members:["SIEUN"]}, 
-        {text:"BTS", members:["SEEUN"]}, 
-        {text:"BlackPink", members:["ISA"]}, 
-        {text:"Seventeen", members:["ISA"]}, 
-        {text:"Girl's Generation", members:["SUMIN"]}, 
-        {text:"iz*One", members:["SIEUN","SUMIN"]} 
-    ] },
-    { question: "Can you handle spicy food?", answers: [ 
-        {text:"Yes", members:["SUMIN","SEEUN"]}, 
-        {text:"No", members:["SIEUN","ISA"]}, 
-        {text:"Depends on the day", members:["ISA"]} 
-    ] },
-    { question: "Favorite LE SSERAFIM era", answers: [ 
-        {text:"Unforgiven", members:["SEEUN"]}, 
-        {text:"Crazy", members:["ISA"]}, 
-        {text:"COMEBACK", members:["SIEUN","SUMIN","ISA","ISA","SEEUN"]}, 
-        {text:"Hot", members:["SIEUN"]}, 
-        {text:"Easy", members:["SUMIN"]}, 
-        {text:"Come Over", members:["ISA"]} 
+    { question: "Favorite STAYC era", answers: [ 
+        {text:"SO BAD", members:["YOON"]}, 
+        {text:"ASAP", members:["ISA"]}, 
+        {text:"Stereotype", members:["ISA"]}, 
+        {text:"Run2U", members:["SIEUN"]}, 
+        {text:"Teddy Bear", members:["SUMIN"]}, 
+        {text:"Teen Fresh", members:["SEEUN"]}, 
+        {text:"Metamorphic", members:["J"]}, 
+        {text:"S", members:["Yoon"]}, 
+        {text:"I WANT IT", members:["SUMIN"]} 
     ] }
 ];
 
@@ -128,7 +110,7 @@ function setBias(member) {
     profileImg.src = `/assets/profile-${member}.png`;
 
     const displayName = member === "STAYC" ? "STAYC" : members[member].display;
-    const subtitle = member === "STAYC" ? "Fearnot" : members[member].subtitle;
+    const subtitle = member === "STAYC" ? "SWITH" : members[member].subtitle;
 
     document.querySelector(".profile-info h1").innerHTML = `${displayName} <span class="verified-badge">${subtitle}</span>`;
 
