@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>{SIGN} Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
 
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
@@ -14,11 +15,11 @@
 :root {
     --black: #000010;
     --white: #ffffff;
-    --primary: #ed1131;
-    --accent: #eecd11;
-    --dark: #0e0705;
-    --light: #fffaeb;
-    --sign-color: #ed1131; /* change per sign */
+    --primary: #8da4d4;
+    --accent: #bd8cd4;
+    --dark: #382a40;
+    --light: #f7f8fc;
+    --sign-color: #8da4d4;
 }
 
 body {
@@ -55,10 +56,10 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #content { background: var(--light); color: var(--black); border: 3px inset var(--primary); }
 .content-box { border: 2px solid var(--accent); background: var(--white); margin-bottom: 14px; }
 .content-box h2 { margin: 0; padding: 6px; font-family: 'Starbim'; background: var(--dark); color: var(--light); }
-.content-box .inner { padding: 10px; line-height: 2; }
+.content-box .inner { padding: 10px; line-height: 3; }
 
 /* Horoscopes & Journal */
-.horoscope-box { background: #faf9ff; border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
+.horoscope-box { background: var(--light); border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
 </style>
 </head>
 
@@ -68,7 +69,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-✨ Bold ✨ Courageous ✨ Initiator ✨ Competitive ✨ Beginnings ✨
+✨ {word1} ✨ {word2} ✨ {word3} ✨ {word4} ✨ {word5} ✨
 </marquee>
 
 <!-- ================= HEADER ================= -->
@@ -83,10 +84,10 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="sidebar">
 <div class="sidebar-box">
     <h3>Infocard</h3>
-    <h4>Glyph:</h4> {GLYPH} <span style="font-family:Astro4;">a</span><br>
-    <h4>Element:</h4> {ELEMENT} <span style="font-family:Astro4;">k</span><br>
-    <h4>Modality: </h4> {MODALITY} <span style="font-family:Astro4;">d</span><br>
-   <h4> Ruling Planet: </h4>{PLANET} <span style="font-family:Astro4;">P</span><br>
+    <h4>Glyph:</h4> <span style="font-family:Astro4;">{1}</span><br>
+    <h4>Element:</h4> {ELEMENT} <span style="font-family:Astro4;">{2}</span><br>
+    <h4>Modality: </h4> {MODALITY} <span style="font-family:Astro4;">{3}</span><br>
+   <h4> Ruling Planet: </h4>{PLANET} <span style="font-family:Astro4;">{4}</span><br>
     <h4>Symbol & Origin: </h4>{GLYPH} {SYMBOL_ORIGIN}<br>
     <h4>Constellation:</h4> <br><img src="assets/{SIGN}-constellation.png" width="250" height="250"><br>
     <h4>House:</h4> {HOUSE} <br>
