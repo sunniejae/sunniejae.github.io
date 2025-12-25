@@ -12,29 +12,29 @@ const members = {
 const products = [
     { 
         name: "Hangul Member Names", 
-        images: { ot5: "assets/hangul-member.png", chaewon: "assets/hangul-chaewon.png", sakura: "assets/hangul-sakura - Copy.png", yunjin: "assets/hangul-yunjin - Copy.png", kazuha: "assets/hangul-kazuha - Copy.png", eunchae: "assets/hangul-eunchae - Copy.png" }, 
+        images: { ot5: "hangul-member.png", chaewon: "hangul-chaewon.png", sakura: "hangul-sakura - Copy.png", yunjin: "hangul-yunjin - Copy.png", kazuha: "hangul-kazuha - Copy.png", eunchae: "hangul-eunchae - Copy.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
         url: { ot5:"https://www.redbubble.com/ot5-hangul", chaewon:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", sakura:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", yunjin:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", kazuha:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling", eunchae:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling" }
     },
     { 
         name: "Spaghetti Era Stickers", 
-        images: { ot5: "assets/spaghetti-member.png", chaewon: "assets/spaghetti-chaewon.png", sakura: "assets/spaghetti-sakura.png", yunjin: "assets/spaghetti-yunjin.png", kazuha: "assets/spaghetti-kazuha.png", eunchae: "assets/spaghetti-eunchae.png" }, 
+        images: { ot5: "spaghetti-member.png", chaewon: "spaghetti-chaewon.png", sakura: "spaghetti-sakura.png", yunjin: "spaghetti-yunjin.png", kazuha: "spaghetti-kazuha.png", eunchae: "spaghetti-eunchae.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"Multi",
         url: { ot5:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", chaewon:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", sakura:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", yunjin:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling", kazuha:"https://www.redbubble.com/kazuha-spaghetti", eunchae:"https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling" }
     },
     { 
         name: "Lightstick Keychains", 
-        images: { ot5: "assets/lightstickkeychain-ot5.png", chaewon: "assets/lightstickkeychain-chaewon.png", sakura: "assets/lightstickkeychain-sakura.png", yunjin: "assets/blank-yunjin.png", kazuha: "assets/lightstickkeychain-kazuha.png", eunchae: "assets/blank-eunchae.png" }, 
+        images: { ot5: "lightstickkeychain-ot5.png", chaewon: "lightstickkeychain-chaewon.png", sakura: "lightstickkeychain-sakura.png", yunjin: "blank-yunjin.png", kazuha: "lightstickkeychain-kazuha.png", eunchae: "blank-eunchae.png" }, 
         brand: "Sunnie Jae", price: "$15", size:"1pc" 
     },
     { 
         name: "Phone Case", 
-        images: { ot5: "assets/phonecase-member.png", chaewon: "assets/blank-chaewon.png", sakura: "assets/blank-sakura.png", yunjin: "blank-yunjin.png", kazuha: "assets/blank-kazuha.png", eunchae: "assets/blank-eunchae.png" }, 
+        images: { ot5: "phonecase-member.png", chaewon: "blank-chaewon.png", sakura: "blank-sakura.png", yunjin: "blank-yunjin.png", kazuha: "blank-kazuha.png", eunchae: "blank-eunchae.png" }, 
         brand: "Sunnie Jae", price: "$25", size:"1pc" 
     },
     { 
         name: "AutoGraphics", 
-        images: { ot5: "assets/autograph-member.png", chaewon: "assets/autograph-chaewon.png", sakura: "assets/blank-sakura.png", yunjin: "assets/blank-yunjin.png", kazuha: "assets/blank-kazuha.png", eunchae: "assets/blank-eunchae.png" }, 
+        images: { ot5: "autograph-member.png", chaewon: "autograph-chaewon.png", sakura: "blank-sakura.png", yunjin: "blank-yunjin.png", kazuha: "blank-kazuha.png", eunchae: "blank-eunchae.png" }, 
         brand: "Redbubble", price: "$1.79+", size:"1pc",
         url: { ot5:"https://www.redbubble.com/ot5-autograph", chaewon:"https://www.redbubble.com/chaewon-autograph", sakura:"https://www.redbubble.com/sakura-autograph", yunjin:"https://www.redbubble.com/yunjin-autograph", kazuha:"https://www.redbubble.com/kazuha-autograph", eunchae:"https://www.redbubble.com/eunchae-autograph" }
     }
@@ -125,7 +125,7 @@ function setBias(member) {
     currentBias = member;
 
     const profileImg = document.querySelector("#profile-pic img");
-    profileImg.src = `/assets/profile-${member}.png`;
+    profileImg.src = `/profile-${member}.png`;
 
     const displayName = member === "ot5" ? "OT5" : members[member].display;
     const subtitle = member === "ot5" ? "Fearnot" : members[member].subtitle;
@@ -165,7 +165,7 @@ function renderProducts() {
 
         card.innerHTML = `
             <div class="product-image">
-                <img src="/assets/${imgSrc}" width="250" height="250" alt="${prod.name}">
+                <img src="/${imgSrc}" width="250" height="250" alt="${prod.name}">
             </div>
             <div class="product-info">
                 <div class="product-brand">${prod.brand}</div>
@@ -282,7 +282,7 @@ function showResult() {
     const displayName = topMember === "ot5" ? "OT5" : members[topMember].display;
     const subtitle = topMember === "ot5" ? "Fearnot" : members[topMember].subtitle;
 
-    document.getElementById("result-image").src = `/assets/profile-${topMember}.png`;
+    document.getElementById("result-image").src = `/profile-${topMember}.png`;
     document.getElementById("result-name").textContent = displayName;
     document.getElementById("result-description").textContent = `Mostly chose ${displayName}! You match best with them.`;
     document.getElementById("result-traits").innerHTML = `Fandom Subtitle: <span class="trait-tag">${subtitle}</span>`;
