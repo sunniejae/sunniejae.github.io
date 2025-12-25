@@ -282,7 +282,7 @@ function showResult() {
     const displayName = topMember === "ot5" ? "OT5" : members[topMember].display;
     const subtitle = topMember === "ot5" ? "Fearnot" : members[topMember].subtitle;
 
-    document.getElementById("result-image").src = `/profile-${topMember}.png`;
+    document.getElementById("result-image").src = `/assets/profile-${topMember}.png`;
     document.getElementById("result-name").textContent = displayName;
     document.getElementById("result-description").textContent = `Mostly chose ${displayName}! You match best with them.`;
     document.getElementById("result-traits").innerHTML = `Fandom Subtitle: <span class="trait-tag">${subtitle}</span>`;
