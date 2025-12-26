@@ -1,13 +1,14 @@
 // Configuration
-const MEMBERS = ['MAI', 'JEEMIN', 'KOKO', 'SARANG', 'JUNGEUN', 'SAEBI', '', '', ''];
+const MEMBERS = ['MAI', 'JEEMIN', 'KOKO', 'SARANG', 'JUNGEUN', 'SAEBI'];
 
 const MEMBER_COLORS = {
- MAI: ['#FFB3BA', '#FF8FA3', '#FF6B9D', '#E63946'],
+    MAI: ['#FFB3BA', '#FF8FA3', '#FF6B9D', '#E63946'],
     JEEMIN: ['#C7CEEA', '#9BB1FF', '#6B8DD6', '#4A5F8C'],
     KOKO: ['#FFE5B4', '#FFB347', '#FF9F40', '#FF6F00'],
     SARANG: ['#D4F1C5', '#A8E6CF', '#7ECDA3', '#4A9B7F'],
     JUNGEUN: ['#E0BBE4', '#D291BC', '#957DAD', '#6B5B95'],
     SAEBI: ['#FFD6E8', '#FFB3D9', '#FF85C0', '#E75480']
+};
 
 const PRODUCTS = [
     { 
@@ -59,63 +60,63 @@ const QUIZ_QUESTIONS = [
         question: "What's your favorite color?",
         options: [
             { text: 'Pink', members: ['MAI', 'JEEMIN', 'SARANG'] },
-            { text: 'Blue', members: ['KOKO', 'SAEBI', ''] },
-            { text: 'Green', members: ['KOKO', ''] },
-            { text: 'Purple', members: ['JUNGEUN', '', 'JEEMIN'] }
+            { text: 'Blue', members: ['KOKO', 'SAEBI', 'JUNGEUN'] },
+            { text: 'Green', members: ['KOKO', 'SARANG'] },
+            { text: 'Purple', members: ['JUNGEUN', 'SAEBI', 'JEEMIN'] }
         ]
     },
     {
         question: "Are you more of an introvert or extrovert?",
         options: [
-            { text: 'Introvert', members: ['SAEBI', '', ''] },
+            { text: 'Introvert', members: ['SAEBI', 'JUNGEUN', 'KOKO'] },
             { text: 'Extrovert', members: ['SARANG', 'JUNGEUN', 'JEEMIN'] },
-            { text: 'Ambivert (both)', members: ['MAI', 'KOKO', ''] },
-            { text: 'Depends on the day', members: ['MAI', 'SARANG', ''] }
+            { text: 'Ambivert (both)', members: ['MAI', 'KOKO', 'SAEBI'] },
+            { text: 'Depends on the day', members: ['MAI', 'SARANG', 'JEEMIN'] }
         ]
     },
     {
-        question: "Down to KOKO or head in the clouds?",
+        question: "Down to earth or head in the clouds?",
         options: [
-            { text: 'Down to KOKO', members: ['KOKO', 'SAEBI', 'SARANG'] },
-            { text: 'Head in the clouds', members: ['', 'JUNGEUN', 'JEEMIN'] },
-            { text: 'Both equally', members: ['MAI', ''] },
-            { text: 'Floating in between', members: ['', 'JEEMIN', ''] }
+            { text: 'Down to earth', members: ['KOKO', 'SAEBI', 'SARANG'] },
+            { text: 'Head in the clouds', members: ['MAI', 'JUNGEUN', 'JEEMIN'] },
+            { text: 'Both equally', members: ['MAI', 'KOKO'] },
+            { text: 'Floating in between', members: ['SAEBI', 'JEEMIN', 'SARANG'] }
         ]
     },
     {
         question: "Do you lead with your head or your heart?",
         options: [
-            { text: 'Head (logical)', members: ['SAEBI', 'MAI', ''] },
-            { text: 'Heart (emotional)', members: ['JEEMIN', '', 'SARANG'] },
+            { text: 'Head (logical)', members: ['SAEBI', 'MAI', 'KOKO'] },
+            { text: 'Heart (emotional)', members: ['JEEMIN', 'JUNGEUN', 'SARANG'] },
             { text: 'Both equally', members: ['KOKO', 'JUNGEUN'] },
-            { text: 'Gut instinct', members: ['', 'SARANG', 'JUNGEUN'] }
+            { text: 'Gut instinct', members: ['MAI', 'SARANG', 'JUNGEUN'] }
         ]
     },
     {
         question: "Order or chaos?",
         options: [
             { text: 'Order all the way', members: ['SAEBI', 'MAI', 'KOKO'] },
-            { text: 'Controlled chaos', members: ['JUNGEUN', '', 'SARANG'] },
-            { text: 'Complete chaos', members: ['', ''] },
+            { text: 'Controlled chaos', members: ['JUNGEUN', 'JEEMIN', 'SARANG'] },
+            { text: 'Complete chaos', members: ['JEEMIN', 'SARANG'] },
             { text: 'Organized mess', members: ['JEEMIN', 'MAI', 'KOKO'] }
         ]
     },
     {
         question: "What's your favorite animal?",
         options: [
-            { text: 'Cat', members: ['MAI', 'SAEBI', ''] },
+            { text: 'Cat', members: ['MAI', 'SAEBI', 'KOKO'] },
             { text: 'Dog', members: ['SARANG', 'JUNGEUN', 'JEEMIN'] },
-            { text: 'Bird', members: ['', '', 'MAI'] },
-            { text: 'Something exotic', members: ['', '', 'JUNGEUN'] }
+            { text: 'Bird', members: ['KOKO', 'JEEMIN', 'MAI'] },
+            { text: 'Something exotic', members: ['JUNGEUN', 'SAEBI', 'SARANG'] }
         ]
     },
     {
         question: "What other artist do you follow?",
         options: [
             { text: 'BTS', members: ['SARANG', 'JUNGEUN', 'MAI'] },
-            { text: 'BLACKPINK', members: ['JEEMIN', '', ''] },
-            { text: 'SEVENTEEN', members: ['KOKO', 'SAEBI', ''] },
-            { text: 'NewJeans', members: ['MAI', 'JEEMIN', ''] }
+            { text: 'BLACKPINK', members: ['JEEMIN', 'SAEBI', 'KOKO'] },
+            { text: 'SEVENTEEN', members: ['KOKO', 'SAEBI', 'JUNGEUN'] },
+            { text: 'NewJeans', members: ['MAI', 'JEEMIN', 'SARANG'] }
         ]
     },
     {
@@ -123,8 +124,8 @@ const QUIZ_QUESTIONS = [
         options: [
             { text: 'Debut Era', members: ['MAI', 'KOKO', 'SARANG'] },
             { text: 'First Comeback', members: ['JEEMIN', 'JUNGEUN'] },
-            { text: 'Peak Era', members: ['SAEBI', '', ''] },
-            { text: 'Latest Comeback', members: ['', 'SARANG', 'JEEMIN'] }
+            { text: 'Peak Era', members: ['SAEBI', 'KOKO', 'JUNGEUN'] },
+            { text: 'Latest Comeback', members: ['MAI', 'SARANG', 'JEEMIN'] }
         ]
     }
 ];
@@ -350,6 +351,12 @@ function attachEventListeners() {
 function updateTheme() {
     const colors = MEMBER_COLORS[selectedBias];
     
+    // Safety check
+    if (!colors) {
+        console.error('No colors found for bias:', selectedBias);
+        return;
+    }
+    
     // Update background
     document.body.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%)`;
     
@@ -527,7 +534,9 @@ function calculateQuizResult() {
         const question = QUIZ_QUESTIONS[questionIndex];
         const option = question.options[optionIndex];
         option.members.forEach(member => {
-            memberScores[member]++;
+            if (member && MEMBERS.includes(member)) {
+                memberScores[member]++;
+            }
         });
     });
     
