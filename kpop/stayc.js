@@ -1,501 +1,280 @@
-// K-Pop Shop Configuration
-const MEMBERS = ['SUMIN', 'SIEUN', 'SEEUN', 'ISA', 'YOON', 'J'];
+/* ================= IMAGE FALLBACK ================= */
+function handleImageError(img){
+  img.onerror = null;
 
-const PRODUCTS = [
-    {
-        id: 1,
-        name: 'Light Stick Keychain',
-        description: 'Official light stick keychain charm'
-    },
-    {
-        id: 2,
-        name: 'Hangul',
-        description: 'Premium hangul name sticker'
-    },
-    {
-        id: 3,
-        name: 'Autographic',
-        description: 'Authentic signature print'
-    },
-    {
-        id: 4,
-        name: 'Comeback Sticker',
-        description: 'Limited edition comeback sticker'
-    },
-    {
-        id: 5,
-        name: 'Phone Case',
-        description: 'Premium protective phone case'
-    }
+  // try bias-specific blank first
+  const themedFallback = `/assets/blank-${currentBias}.png`;
+
+  img.src = themedFallback;
+
+  // if that also fails, fall back to global blank
+  img.onerror = () => {
+    img.onerror = null;
+    img.src = "/assets/blank-member.png";
+  };
+}
+
+
+/* ================= MEMBERS (PLANET PLACEHOLDERS) ================= */
+const members = {
+  SUMIN:{ colors:["#fff0f8","#ff66b2","#ff0080","#4a0033"] },
+  SIEUN:{   colors:["#ffffff","#e4c9f7","#faf3fd","#5a3d6b"] },
+  SEEUN:{   colors:["#eef7ff","#7fc7ff","#008eff","#002f5a"] },
+  ISA:{    colors:["#f2f5f8","#9fb7c3","#4a5d68","#1f2a30"] },
+  YOON:{ colors:["#edfff6","#6bffb6","#00ff7f","#005f3a"] },
+  J:{  colors:["#fff0f2","#ff6a7f","#ff002b","#4a0010"] }
+};
+
+/* ================= PRODUCTS ================= */
+const products = [
+  { name:"Phone Case", type:"wishlist", img:"assets/collection-MEMBER.png", desc:"Bias-themed phone case." },
+  { name:"Lightstick Keychain", type:"wishlist", img:"assets/lightstickkeychain-MEMBER.png", desc:"Mini lightstick charm." },
+  { name:"Animal Icon Keychain", type:"wishlist", img:"assets/animalkeychain-MEMBER.png", desc:"Cute animal icon keychain." },
+
+  { name:"Comeback Era Stickers", type:"redbubble", img:"assets/collection-MEMBER.png", desc:"Iconic era sticker packs.", link:"https://redbubble.com" },
+  { name:"Autographics", type:"redbubble", img:"assets/collection-MEMBER.png", desc:"Stylized autograph art.", link:"https://redbubble.com" },
+  { name:"Hangul Stickers", type:"redbubble", img:"assets/hangul-MEMBER.png", desc:"Hangul typography designs.", link:"https://redbubble.com" }
 ];
 
-const MEMBER_THEMES = {
-    SUMIN: {
-        primary: '#FF0080',
-        secondary: '#CC0066',
-        accent: '#CC0066',
-        bg: '#FFF0F9',
-        cardBg: '#FFFFFF'
-    },
-    SIEUN: {
-        primary: '#FAF3FD',
-        secondary: '#E8D5F2',
-        accent: '#C77DFF',
-        bg: '#FCFAFF',
-        cardBg: '#FFFFFF'
-    },
-    SEEUN: {
-        primary: '#008EFF',
-        secondary: '#0066CC',
-        accent: '#00D9FF',
-        bg: '#E6F7FF',
-        cardBg: '#FFFFFF'
-    },
-    ISA: {
-        primary: '#4A5D68',
-        secondary: '#2C3E47',
-        accent: '#7DD3C0',
-        bg: '#F2F5F7',
-        cardBg: '#FFFFFF'
-    },
-    YOON: {
-        primary: '#00FF7F',
-        secondary: '#00CC66',
-        accent: '#7FFFD4',
-        bg: '#E6FFF5',
-        cardBg: '#FFFFFF'
-    },
-    J: {
-        primary: '#FF002B',
-        secondary: '#CC0022',
-        accent: '#FF6B88',
-        bg: '#FFEBEF',
-        cardBg: '#FFFFFF'
-    },
-  
-
-const QUIZ_QUESTIONS = [
-    {
-        question: 'What\'s your favorite color?',
-        options: [
-            { text: 'Pink/Red', members: ['SUMIN', 'ISA'] },
-            { text: 'Purple/Violet', members: ['SIEUN', 'PLUTO'] },
-            { text: 'Green/Teal', members: ['SEEUN'] },
-            { text: 'Orange/Coral', members: ['ISA', 'YOON'] },
-            { text: 'Yellow/Gold', members: ['YOON'] },
-            { text: 'Black/Gray', members: ['J'] },
-            { text: 'Blue/Sky Blue', members: ['URANUS', 'NEPTUNE'] },
-            { text: 'Navy/Deep Blue', members: ['NEPTUNE'] },
-            { text: 'Purple/Lavender', members: ['PLUTO', 'SIEUN'] }
-        ]
-    },
-    {
-        question: 'Are you more of an introvert or extrovert?',
-        options: [
-            { text: 'Extreme extrovert - I\'m the life of the party!', members: ['SUMIN', 'YOON'] },
-            { text: 'Outgoing extrovert', members: ['SIEUN', 'ISA'] },
-            { text: 'Ambivert leaning extrovert', members: ['SEEUN', 'URANUS'] },
-            { text: 'True ambivert', members: ['SEEUN', 'SIEUN', 'URANUS'] },
-            { text: 'Ambivert leaning introvert', members: ['NEPTUNE', 'PLUTO'] },
-            { text: 'Quiet introvert', members: ['J', 'PLUTO'] },
-            { text: 'Social but need alone time', members: ['SIEUN', 'NEPTUNE'] },
-            { text: 'Selective extrovert', members: ['ISA', 'J'] },
-            { text: 'Deep introvert - I cherish solitude', members: ['PLUTO', 'J'] }
-        ]
-    },
-    {
-        question: 'Are you more down to SEEUN or head in the clouds?',
-        options: [
-            { text: 'Very practical and grounded', members: ['J', 'SEEUN'] },
-            { text: 'Mostly down to SEEUN', members: ['ISA', 'YOON'] },
-            { text: 'Balanced but practical', members: ['URANUS', 'SUMIN'] },
-            { text: 'Perfectly balanced', members: ['SEEUN', 'SIEUN'] },
-            { text: 'Balanced but dreamy', members: ['NEPTUNE', 'SIEUN'] },
-            { text: 'Head in the clouds', members: ['PLUTO', 'NEPTUNE'] },
-            { text: 'Total dreamer', members: ['PLUTO'] },
-            { text: 'Visionary but realistic', members: ['URANUS', 'YOON'] },
-            { text: 'Free spirit', members: ['SUMIN', 'YOON'] }
-        ]
-    },
-    {
-        question: 'Do you lead with your head or your heart?',
-        options: [
-            { text: 'Pure logic and reason', members: ['J', 'URANUS'] },
-            { text: 'Head first, always', members: ['ISA', 'J'] },
-            { text: 'Logic but consider feelings', members: ['SEEUN', 'URANUS'] },
-            { text: 'Both equally', members: ['SIEUN', 'YOON'] },
-            { text: 'Heart with some logic', members: ['NEPTUNE', 'SEEUN'] },
-            { text: 'Heart over head', members: ['SUMIN', 'SIEUN'] },
-            { text: 'All emotions, all the time', members: ['SUMIN', 'PLUTO'] },
-            { text: 'Intuition and feelings', members: ['PLUTO', 'NEPTUNE'] },
-            { text: 'Passionate and emotional', members: ['ISA', 'YOON'] }
-        ]
-    },
-    {
-        question: 'Order or chaos?',
-        options: [
-            { text: 'Everything must be organized', members: ['J'] },
-            { text: 'Love structure and order', members: ['J', 'URANUS'] },
-            { text: 'Organized but flexible', members: ['SEEUN', 'SIEUN'] },
-            { text: 'Structured creativity', members: ['URANUS', 'NEPTUNE'] },
-            { text: 'Organized chaos', members: ['SIEUN', 'ISA'] },
-            { text: 'Flexible and spontaneous', members: ['YOON', 'SUMIN'] },
-            { text: 'Controlled chaos', members: ['ISA', 'YOON'] },
-            { text: 'Spontaneity is life!', members: ['SUMIN', 'PLUTO'] },
-            { text: 'Complete chaos is fun', members: ['PLUTO'] }
-        ]
-    },
-    {
-        question: 'What\'s your favorite animal?',
-        options: [
-            { text: 'Dog - loyal and energetic', members: ['SUMIN', 'YOON'] },
-            { text: 'Cat - independent and mysterious', members: ['PLUTO', 'J'] },
-            { text: 'Bird - free and soaring', members: ['URANUS', 'NEPTUNE'] },
-            { text: 'Wolf - strong and protective', members: ['ISA', 'J'] },
-            { text: 'Dolphin - intelligent and playful', members: ['SIEUN', 'NEPTUNE'] },
-            { text: 'Tiger - powerful and fierce', members: ['ISA', 'YOON'] },
-            { text: 'Rabbit - gentle and quick', members: ['SUMIN', 'SEEUN'] },
-            { text: 'Fox - clever and adaptable', members: ['URANUS', 'SIEUN'] },
-            { text: 'Bear - strong yet gentle', members: ['SEEUN', 'J'] }
-        ]
-    },
-    {
-        question: 'Which other artist do you follow?',
-        options: [
-            { text: 'Blackpink', members: ['SUMIN', 'ISA'] },
-            { text: 'Twice', members: ['SIEUN', 'YOON'] },
-            { text: 'Seventeen', members: ['SEEUN', 'URANUS'] },
-            { text: 'Stray Kids', members: ['ISA', 'J'] },
-            { text: 'TXT', members: ['YOON', 'SIEUN'] },
-            { text: 'NCT', members: ['J', 'URANUS'] },
-            { text: 'Ateez', members: ['URANUS', 'NEPTUNE'] },
-            { text: 'IVE', members: ['SUMIN', 'SIEUN'] },
-            { text: 'NewJeans', members: ['PLUTO', 'NEPTUNE'] }
-        ]
-    },
-    {
-        question: 'What\'s your favorite music vibe?',
-        options: [
-            { text: 'Bright and energetic pop', members: ['SUMIN', 'YOON'] },
-            { text: 'Dreamy and ethereal', members: ['SIEUN', 'NEPTUNE'] },
-            { text: 'Emotional and deep', members: ['PLUTO', 'SEEUN'] },
-            { text: 'Powerful and intense', members: ['ISA', 'J'] },
-            { text: 'Fun and upbeat', members: ['YOON', 'SIEUN'] },
-            { text: 'Dark and edgy', members: ['J', 'PLUTO'] },
-            { text: 'Fresh and refreshing', members: ['URANUS', 'SEEUN'] },
-            { text: 'Smooth and chill', members: ['NEPTUNE', 'SEEUN'] },
-            { text: 'Mysterious and artistic', members: ['PLUTO', 'URANUS'] }
-        ]
-    },
-    {
-        question: 'What\'s your ideal hangout?',
-        options: [
-            { text: 'Loud party with everyone', members: ['SUMIN', 'YOON'] },
-            { text: 'Art gallery or museum', members: ['SIEUN', 'PLUTO'] },
-            { text: 'Quiet nature walk', members: ['SEEUN', 'NEPTUNE'] },
-            { text: 'Intense gaming session', members: ['ISA', 'URANUS'] },
-            { text: 'Fun amusement park', members: ['YOON', 'SUMIN'] },
-            { text: 'Gym or sports activity', members: ['ISA', 'J'] },
-            { text: 'Beach or pool day', members: ['URANUS', 'SIEUN'] },
-            { text: 'Cozy café with a book', members: ['NEPTUNE', 'J'] },
-            { text: 'Late night deep talks', members: ['PLUTO', 'SEEUN'] }
-        ]
-    }
-];
-
-// State
-let currentBias = 'SUMIN';
+/* ================= STATE ================= */
+let currentBias = localStorage.getItem("selectedBias") || "SIEUN";
 let wishlist = [];
-let quizAnswers = [];
+let currentFilter = "all";
 
-// Initialize
-function init() {
-    renderBiasButtons();
-    renderProducts();
-    updateWishlistCount();
-    applyTheme(currentBias);
+const grid = document.getElementById("productGrid");
+
+/* ================= THEME ================= */
+function setTheme(member){
+  currentBias = member;
+  localStorage.setItem("selectedBias", member);
+
+  members[member].colors.forEach((c,i)=>{
+    document.documentElement.style.setProperty(`--c${i+1}`, c);
+  });
+
+  heroImage.src = `assets/collection-${member}.png`;
+  heroImage.onerror = () => handleImageError(heroImage);
+
+  renderProducts();
 }
 
-// Render bias selection buttons
-function renderBiasButtons() {
-    const container = document.getElementById('biasButtons');
-    container.innerHTML = MEMBERS.map(member => `
-        <button class="bias-btn ${member === currentBias ? 'active' : ''}" 
-                onclick="selectBias('${member}')">
-            <span>${member}</span>
-        </button>
-    `).join('');
+/* ================= FILTER ================= */
+function setFilter(type){
+  currentFilter = type;
+  renderProducts();
 }
 
-// Select bias and update theme
-function selectBias(member) {
-    currentBias = member;
-    applyTheme(member);
-    renderBiasButtons();
-    renderProducts();
-}
+/* ================= RENDER PRODUCTS ================= */
+function renderProducts(){
+  grid.innerHTML = "";
 
-// Apply theme based on selected bias
-function applyTheme(member) {
-    const theme = MEMBER_THEMES[member];
-    const root = document.documentElement;
-    
-    root.style.setProperty('--primary', theme.primary);
-    root.style.setProperty('--secondary', theme.secondary);
-    root.style.setProperty('--accent', theme.accent);
-    root.style.setProperty('--bg', theme.bg);
-    root.style.setProperty('--card-bg', theme.cardBg);
-}
+  products
+    .filter(p => currentFilter==="all" || p.type===currentFilter)
+    .forEach(p=>{
+      const imgPath = p.img.replace("MEMBER", currentBias);
+      const card = document.createElement("div");
+      card.className = "card";
 
-// Render products
-function renderProducts() {
-    const container = document.getElementById('productGrid');
-    container.innerHTML = PRODUCTS.map(product => {
-        const isInWishlist = wishlist.some(item => item.id === product.id && item.member === currentBias);
-        return `
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="/assets/collection-${currentBias}.png" 
-                         alt="${product.name} - ${currentBias}"
-                         onerror="this.parentElement.innerHTML='<div style=\\'font-size:3rem;color:#ccc;\\'>📦</div>'">
-                </div>
-                <div class="product-info">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <button class="add-to-wishlist ${isInWishlist ? 'added' : ''}" 
-                            onclick="toggleWishlist(${product.id})"
-                            data-product-id="${product.id}">
-                        ${isInWishlist ? 'Added to Wishlist ♥' : 'Add to Wishlist ♡'}
-                    </button>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
+      card.innerHTML = `
+        <span class="badge ${p.type}">
+          ${p.type==="wishlist" ? "EXCLUSIVE" : "REDBUBBLE"}
+        </span>
 
-// Toggle product in wishlist
-function toggleWishlist(productId) {
-    const product = PRODUCTS.find(p => p.id === productId);
-    const existingIndex = wishlist.findIndex(item => 
-        item.id === productId && item.member === currentBias
-    );
-    
-    if (existingIndex > -1) {
-        wishlist.splice(existingIndex, 1);
-    } else {
-        wishlist.push({
-            id: product.id,
-            name: product.name,
-            member: currentBias
-        });
-    }
-    
-    updateWishlistCount();
-    renderProducts();
-}
+        <img src="${imgPath}" onerror="handleImageError(this)">
 
-// Update wishlist count
-function updateWishlistCount() {
-    const count = wishlist.length;
-    const countElement = document.querySelector('.wishlist-count');
-    countElement.textContent = count;
-    
-    if (count > 0) {
-        countElement.style.animation = 'none';
-        setTimeout(() => {
-            countElement.style.animation = 'pulse 0.5s ease';
-        }, 10);
-    }
-}
+        <h4>${p.name}</h4>
+        <p class="product-desc">${p.desc}</p>
 
-// Open wishlist modal
-function openWishlistModal() {
-    const modal = document.getElementById('wishlistModal');
-    const itemsContainer = document.getElementById('wishlistItems');
-    
-    if (wishlist.length === 0) {
-        itemsContainer.innerHTML = '<div class="empty-wishlist">Your wishlist is empty. Add some items!</div>';
-    } else {
-        // Group by member
-        const groupedWishlist = {};
-        wishlist.forEach(item => {
-            if (!groupedWishlist[item.member]) {
-                groupedWishlist[item.member] = [];
-            }
-            groupedWishlist[item.member].push(item);
-        });
-        
-        itemsContainer.innerHTML = Object.entries(groupedWishlist).map(([member, items]) => `
-            <div style="margin-bottom: 1.5rem;">
-                <h4 style="font-family: 'Rubik', sans-serif; font-weight: 700; color: var(--primary); margin-bottom: 0.75rem;">
-                    ${member} Collection
-                </h4>
-                ${items.map(item => `
-                    <div class="wishlist-item">
-                        <span>${item.name}</span>
-                        <button class="remove-item" onclick="removeFromWishlist(${item.id}, '${member}')">
-                            Remove
-                        </button>
-                    </div>
-                `).join('')}
-            </div>
-        `).join('');
-    }
-    
-    modal.classList.add('active');
-}
-
-// Remove item from wishlist
-function removeFromWishlist(productId, member) {
-    const index = wishlist.findIndex(item => item.id === productId && item.member === member);
-    if (index > -1) {
-        wishlist.splice(index, 1);
-    }
-    updateWishlistCount();
-    openWishlistModal();
-    renderProducts();
-}
-
-// Submit order
-function submitOrder(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('customerName').value;
-    const email = document.getElementById('customerEmail').value;
-    const subscribe = document.getElementById('subscribeEmails').checked;
-    
-    // Group wishlist by member
-    const groupedWishlist = {};
-    wishlist.forEach(item => {
-        if (!groupedWishlist[item.member]) {
-            groupedWishlist[item.member] = [];
+        ${
+          p.type==="wishlist"
+            ? `<button onclick="addToWishlist('${p.name}')">Add to Wishlist</button>
+               <small>Email request</small>`
+            : `<button onclick="window.open('${p.link}','_blank')">Shop on Redbubble</button>
+               <small>Instant checkout</small>`
         }
-        groupedWishlist[item.member].push(item.name);
+      `;
+      grid.appendChild(card);
     });
-    
-    // Format wishlist for email
-    let wishlistText = '';
-    Object.entries(groupedWishlist).forEach(([member, items]) => {
-        wishlistText += `${member} Collection:%0A`;
-        items.forEach(item => {
-            wishlistText += `  - ${item}%0A`;
-        });
-        wishlistText += '%0A';
+}
+
+/* ================= WISHLIST ================= */
+function addToWishlist(item){
+  wishlist.push(`${currentBias} – ${item}`);
+  wishlistCount.textContent = wishlist.length;
+}
+
+function openWishlist(){
+  wishlistItems.innerHTML = wishlist.map(i=>`<li>${i}</li>`).join("");
+  wishlistModal.style.display = "flex";
+}
+function closeWishlist(){ wishlistModal.style.display = "none"; }
+
+function sendOrder(){
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  if(!name || !email){ alert("Please enter your name and email."); return; }
+
+  const body = `
+Name: ${name}
+Email: ${email}
+Subscribe: ${subscribeInput.checked ? "Yes" : "No"}
+
+Wishlist:
+${wishlist.join("\n")}
+`;
+
+  window.location.href =
+    `mailto:orders@sunniejae.com?cc=${encodeURIComponent(email)}&subject=${encodeURIComponent("KPOP FANDOM SHOP ORDER")}&body=${encodeURIComponent(body)}`;
+}
+
+/* ================= QUIZ DATA ================= */
+const quizData = [
+  {
+    q:"Favorite color?",
+    o:[
+      {t:"Soft pastels", s:["SIEUN","SEEUN"]},
+      {t:"Bold brights", s:["ISA","YOON"]},
+      {t:"Neutrals / monochrome", s:["SUMIN","J"]}
+    ]
+  },
+  {
+    q:"Introvert or extrovert?",
+    o:[
+      {t:"Introvert", s:["SUMIN","SIEUN"]},
+      {t:"Ambivert", s:["SEEUN","J"]},
+      {t:"Extrovert", s:["ISA","YOON"]}
+    ]
+  },
+  {
+    q:"Down to SEEUN or head in the clouds?",
+    o:[
+      {t:"Down to SEEUN", s:["SUMIN","SEEUN","J"]},
+      {t:"Head in the clouds", s:["SIEUN"]}
+    ]
+  },
+  {
+    q:"Head or heart?",
+    o:[
+      {t:"Head", s:["SUMIN","J","SEEUN"]},
+      {t:"Heart", s:["SIEUN","ISA","YOON"]}
+    ]
+  },
+  {
+    q:"Order or chaos?",
+    o:[
+      {t:"Order", s:["SUMIN","J","SEEUN"]},
+      {t:"Chaos", s:["ISA","YOON",]}
+    ]
+  },
+  {
+    q:"Favorite animal?",
+    o:[
+      {t:"Cat", s:["SIEUN"]},
+      {t:"Dog", s:["ISA","YOON","SEEUN"]},
+      {t:"Bird / exotic", s:["J"]}
+    ]
+  },
+  {
+    q:"Another artist you follow?",
+    o:[
+      {t:"Pop idols", s:["SIEUN","SEEUN","YOON"]},
+      {t:"Indie / alt", s:["J"]},
+      {t:"R&B / vocalists", s:["SUMIN","J","ISA"]}
+    ]
+  },
+  {
+    q:"Favorite era?",
+    o:[
+      {t:"Debut era", s:["SEEUN","SIEUN","J"]},
+      {t:"Experimental era", s:["J"]},
+      {t:"Peak confident era", s:["ISA","YOON","SUMIN"]}
+    ]
+  }
+];
+
+let scores = {};
+
+/* ================= QUIZ FLOW ================= */
+function openQuiz(){
+  scores = {};
+  Object.keys(members).forEach(m=>scores[m]=0);
+  quizQuestions.innerHTML = "";
+
+  quizData.forEach((q,qi)=>{
+    quizQuestions.innerHTML += `<p><strong>${q.q}</strong></p>`;
+    q.o.forEach((o,oi)=>{
+      quizQuestions.innerHTML += `
+        <label>
+          <input type="radio" name="q${qi}" value="${oi}">
+          ${o.t}
+        </label><br>
+      `;
     });
-    
-    const body = `Name: ${name}%0A%0AEmail: ${email}%0A%0AWishlist:%0A${wishlistText}%0ASubscribe to emails: ${subscribe ? 'Yes' : 'No'}`;
-    
-    const mailtoLink = `mailto:orders@sunniejae.com?subject=KPOP FANDOM SHOP ORDER&body=${body}`;
-    
-    window.location.href = mailtoLink;
+  });
+
+  quizModal.style.display = "flex";
 }
 
-// Open quiz modal
-function openQuizModal() {
-    const modal = document.getElementById('quizModal');
-    quizAnswers = [];
-    renderQuiz();
-    modal.classList.add('active');
+function closeQuiz(){ quizModal.style.display="none"; }
+
+function submitQuiz(){
+  quizData.forEach((q,qi)=>{
+    const sel = document.querySelector(`input[name="q${qi}"]:checked`);
+    if(!sel) return;
+    q.o[sel.value].s.forEach(m=>scores[m]++);
+  });
+
+  const result = Object.keys(scores)
+    .reduce((a,b)=>scores[a]>scores[b]?a:b);
+
+  showResult(result);
 }
 
-// Render quiz
-function renderQuiz() {
-    const container = document.getElementById('quizContent');
-    const currentQuestion = quizAnswers.length;
-    
-    if (currentQuestion >= QUIZ_QUESTIONS.length) {
-        showQuizResult();
-        return;
-    }
-    
-    const question = QUIZ_QUESTIONS[currentQuestion];
-    
-    container.innerHTML = `
-        <div class="quiz-question">
-            <h3>Question ${currentQuestion + 1} of ${QUIZ_QUESTIONS.length}</h3>
-            <h3>${question.question}</h3>
-            <div class="quiz-options">
-                ${question.options.map((option, index) => `
-                    <div class="quiz-option" onclick='selectQuizAnswer(${JSON.stringify(option.members)})'>
-                        ${option.text}
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `;
+/* ================= RESULT ================= */
+function showResult(member){
+  setTheme(member);
+  resultName.textContent = member.toUpperCase();
+  resultImage.src = `assets/collection-${member}.png`;
+  resultImage.onerror = () => handleImageError(resultImage);
+  resultText.textContent = "Your bias match has been revealed ✨";
+
+  quizModal.style.display = "none";
+  resultModal.style.display = "flex";
+  confetti();
+}
+function closeResult(){ resultModal.style.display="none"; }
+
+/* ================= CONFETTI ================= */
+function confetti(){
+  for(let i=0;i<40;i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = `hsl(${Math.random()*360},80%,60%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2500);
+  }
 }
 
-// Select quiz answer
-function selectQuizAnswer(members) {
-    // Add all members from this answer to the quiz results
-    quizAnswers.push(...members);
-    
-    // Add visual feedback
-    const options = document.querySelectorAll('.quiz-option');
-    options.forEach(option => {
-        option.classList.add('selected');
-    });
-    
-    // Move to next question after brief delay
-    setTimeout(() => {
-        renderQuiz();
-    }, 300);
+/* ================= INTRO MODAL ================= */
+function openIntro(){ introModal.style.display="flex"; }
+function closeIntro(){ introModal.style.display="none"; }
+function acceptIntro(){
+  localStorage.setItem("introSeen","yes");
+  closeIntro();
 }
 
-// Show quiz result
-function showQuizResult() {
-    // Count member occurrences
-    const memberCounts = {};
-    quizAnswers.forEach(member => {
-        memberCounts[member] = (memberCounts[member] || 0) + 1;
-    });
-    
-    // Find most common member
-    let maxCount = 0;
-    let bias = 'SUMIN';
-    Object.entries(memberCounts).forEach(([member, count]) => {
-        if (count > maxCount) {
-            maxCount = count;
-            bias = member;
-        }
-    });
-    
-    const container = document.getElementById('quizContent');
-    container.innerHTML = `
-        <div class="quiz-result">
-            <h3>Your Bias Match!</h3>
-            <div style="font-size: 4rem; margin: 1rem 0;">✨</div>
-            <h3 style="font-size: 3rem; margin: 1rem 0;">${bias}</h3>
-            <p>Based on your answers, ${bias} is your perfect bias match!</p>
-            <button class="submit-btn" onclick="applyQuizResult('${bias}')">
-                Set as My Bias
-            </button>
-            <button class="submit-btn" onclick="openQuizModal()" 
-                    style="background: #95a5a6; margin-top: 0.5rem;">
-                Retake Quiz
-            </button>
-        </div>
-    `;
-}
-
-// Apply quiz result
-function applyQuizResult(bias) {
-    selectBias(bias);
-    closeModal('quizModal');
-}
-
-// Close modal
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.remove('active');
-}
-
-// Close modal on outside click
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal')) {
-        e.target.classList.remove('active');
-    }
+/* ================= INIT ================= */
+Object.keys(members).forEach(m=>{
+  const btn = document.createElement("button");
+  btn.textContent = m;
+  btn.onclick = ()=>setTheme(m);
+  biasButtons.appendChild(btn);
 });
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', init);
+setTheme(currentBias);
+
+// show intro once
+if(!localStorage.getItem("introSeen")){
+  setTimeout(openIntro,600);
+}
