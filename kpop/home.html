@@ -65,6 +65,21 @@
             cursor: not-allowed;
         }
         
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        .animate-pulse {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
         .wishlist-badge {
             position: absolute;
             top: -0.25rem;
@@ -114,6 +129,50 @@
             </div>
         </div>
     </header>
+
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden" style="height: 400px;">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <!-- Bias Photo -->
+            <div class="absolute inset-0">
+                <img 
+                    id="heroImage" 
+                    src="/assets/hero-Mercury.png" 
+                    alt="Bias Hero"
+                    class="w-full h-full object-cover opacity-60"
+                    onerror="this.style.display='none';"
+                />
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-70"></div>
+            </div>
+            
+            <!-- Hero Text -->
+            <div class="relative z-10 text-center text-white px-4">
+                <h2 id="heroName" class="text-6xl md:text-7xl font-bold mb-4 brat-font drop-shadow-2xl">
+                    Mercury
+                </h2>
+                <p class="text-xl md:text-2xl font-semibold drop-shadow-lg">
+                    Your Bias, Your Style
+                </p>
+            </div>
+        </div>
+        
+        <!-- Sparkle Effects -->
+        <div class="absolute top-10 left-10 animate-pulse">
+            <svg class="w-8 h-8 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+        <div class="absolute top-32 right-20 animate-pulse" style="animation-delay: 0.5s;">
+            <svg class="w-6 h-6 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-20 left-1/4 animate-pulse" style="animation-delay: 1s;">
+            <svg class="w-5 h-5 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 py-8">
@@ -326,6 +385,6 @@
         </div>
     </div>
 
-    <script src="home.js"></script>
+    <script src="shop.js"></script>
 </body>
 </html>
