@@ -12,16 +12,56 @@ const members = {
 };
 
 /* ---------- PRODUCTS ---------- */
+/*
+  redbubbleLink placeholders:
+  Replace with your real collection URLs
+*/
 const products = [
-  "light stick keychain",
-  "hangul sticker",
-  "autographic",
-  "comeback sticker",
-  "phone case"
+  {
+    name:"Phone Case",
+    type:"wishlist",
+    img:"assets/collection-MEMBER.png",
+    description:"A bias-themed phone case made to match your era and aesthetic."
+  },
+  {
+    name:"Lightstick Keychain",
+    type:"wishlist",
+    img:"assets/lightstickkeychain-MEMBER.png",
+    description:"Mini lightstick charm — perfect for bags, keys, or concert fits."
+  },
+  {
+    name:"Animal Icon Keychain",
+    type:"wishlist",
+    img:"assets/animalkeychain-MEMBER.png",
+    description:"Your bias represented as a cute animal icon keychain."
+  },
+
+  {
+    name:"Comeback Era Stickers",
+    type:"redbubble",
+    img:"assets/collection-MEMBER.png",
+    description:"Stickers inspired by iconic comeback eras.",
+    redbubbleLink:"https://www.redbubble.com/people/YOURSHOP/collections/COMEBACK-ERAS"
+  },
+  {
+    name:"Autographics",
+    type:"redbubble",
+    img:"assets/collection-MEMBER.png",
+    description:"Stylized autograph designs for laptops, journals, and cases.",
+    redbubbleLink:"https://www.redbubble.com/people/YOURSHOP/collections/AUTOGRAPHICS"
+  },
+  {
+    name:"Hangul Stickers",
+    type:"redbubble",
+    img:"assets/hangul-MEMBER.png",
+    description:"Hangul typography designs featuring names, lyrics, and motifs.",
+    redbubbleLink:"https://www.redbubble.com/people/YOURSHOP/collections/HANGUL"
+  }
 ];
 
 let currentBias = "mercury";
 let wishlist = [];
+let currentFilter = "all";
 
 /* ---------- THEME ---------- */
 function setTheme(member){
@@ -37,22 +77,54 @@ function setTheme(member){
   renderProducts();
 }
 
+/* ---------- FILTER ---------- */
+function setFilter(type){
+  currentFilter = type;
+  renderProducts();
+}
+
 /* ---------- PRODUCTS ---------- */
 const grid = document.getElementById("productGrid");
 
 function renderProducts(){
   grid.innerHTML = "";
-  products.forEach(p=>{
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="/assets/collection-${currentBias}.png">
-      <h4>${p}</h4>
-      <button onclick="addToWishlist('${p}')">Add to Wishlist</button>
-      <button onclick="goRedbubble('${p}')">Redbubble</button>
-    `;
-    grid.appendChild(card);
-  });
+
+  products
+    .filter(p => currentFilter==="all" || p.type===currentFilter)
+    .forEach(p=>{
+      const imgPath = p.img.replace("MEMBER", currentBias);
+
+      const badge = p.type==="wishlist"
+        ? `<span class="badge wishlist">SUNNIEJAE EXCLUSIVE</span>`
+        : `<span class="badge redbubble">REDBUBBLE</span>`;
+
+      const action = p.type==="wishlist"
+        ? `
+          <button onclick="addToWishlist('${p.name}')">
+            Add to Wishlist
+          </button>
+          <small>Email order via wishlist</small>
+        `
+        : `
+          <button onclick="goRedbubble('${p.redbubbleLink}')">
+            Shop on Redbubble
+          </button>
+          <small>Instant checkout</small>
+        `;
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        ${badge}
+        <img src="${imgPath}">
+        <h4>${p.name}</h4>
+        <p style="font-size:0.7rem;padding:0 0.6rem;">
+          ${p.description}
+        </p>
+        ${action}
+      `;
+      grid.appendChild(card);
+    });
 }
 
 /* ---------- WISHLIST ---------- */
@@ -62,8 +134,7 @@ function addToWishlist(item){
 }
 
 function openWishlist(){
-  document.getElementById("wishlistItems").innerHTML =
-    wishlist.map(i=>`<li>${i}</li>`).join("");
+  wishlistItems.innerHTML = wishlist.map(i=>`<li>${i}</li>`).join("");
   wishlistModal.style.display="flex";
 }
 function closeWishlist(){ wishlistModal.style.display="none"; }
@@ -72,81 +143,68 @@ function sendOrder(){
   const body = `
 Name: ${nameInput.value}
 Email: ${emailInput.value}
-Subscribe: ${subscribeInput.checked ? "Yes" : "No"}
+Subscribe: ${subscribeInput.checked ? "Yes":"No"}
 
 Wishlist:
 ${wishlist.join("\n")}
 `;
   window.location.href =
-   `mailto:orders@sunniejae.com?subject=KPOP FANDOM SHOP ORDER&body=${encodeURIComponent(body)}`;
+    `mailto:orders@sunniejae.com?subject=KPOP FANDOM SHOP ORDER&body=${encodeURIComponent(body)}`;
 }
 
-/* ---------- QUIZ DATA ---------- */
-const quizData = [
-  {q:"Favorite color?",
-   o:[
+/* ---------- QUIZ ---------- */
+const quizData=[
+  {q:"Favorite color?",o:[
     {t:"Purple",s:["venus","neptune","pluto"]},
     {t:"Red",s:["mars","jupiter"]},
     {t:"Blue",s:["earth","uranus"]},
     {t:"Black",s:["saturn","pluto"]}
-   ]},
-  {q:"Introvert or extrovert?",
-   o:[
+  ]},
+  {q:"Introvert or extrovert?",o:[
     {t:"Introvert",s:["saturn","pluto","neptune"]},
     {t:"Extrovert",s:["jupiter","venus","mars"]}
-   ]},
-  {q:"Down to earth or head in the clouds?",
-   o:[
-    {t:"Down to earth",s:["earth","mercury","saturn"]},
-    {t:"Head in the clouds",s:["neptune","venus","uranus"]}
-   ]},
-  {q:"Head or heart?",
-   o:[
-    {t:"Head",s:["mercury","saturn"]},
-    {t:"Heart",s:["venus","mars","pluto"]}
-   ]},
-  {q:"Order or chaos?",
-   o:[
+  ]},
+  {q:"Order or chaos?",o:[
     {t:"Order",s:["saturn","earth","mercury"]},
     {t:"Chaos",s:["uranus","mars","jupiter"]}
-   ]}
+  ]}
 ];
 
-let quizScores = {};
+let quizScores={};
 
-/* ---------- QUIZ ---------- */
 function openQuiz(){
-  quizScores = {};
+  quizScores={};
   Object.keys(members).forEach(m=>quizScores[m]=0);
+  quizQuestions.innerHTML="";
 
-  quizQuestions.innerHTML = "";
   quizData.forEach((q,qi)=>{
-    const block = document.createElement("div");
-    block.innerHTML = `<p><strong>${q.q}</strong></p>`;
-    q.o.forEach((opt,oi)=>{
-      block.innerHTML += `
+    const d=document.createElement("div");
+    d.innerHTML=`<p><strong>${q.q}</strong></p>`;
+    q.o.forEach((o,oi)=>{
+      d.innerHTML+=`
         <label>
           <input type="radio" name="q${qi}" value="${oi}">
-          ${opt.t}
+          ${o.t}
         </label><br>
       `;
     });
-    quizQuestions.appendChild(block);
+    quizQuestions.appendChild(d);
   });
+
   quizModal.style.display="flex";
 }
 
-function closeQuiz(){ quizModal.style.display="none"; }
-function closeResult(){ resultModal.style.display="none"; }
+function closeQuiz(){quizModal.style.display="none";}
+function closeResult(){resultModal.style.display="none";}
 
 function submitQuiz(){
   quizData.forEach((q,qi)=>{
-    const sel = document.querySelector(`input[name="q${qi}"]:checked`);
-    if(!sel) return;
+    const sel=document.querySelector(`input[name="q${qi}"]:checked`);
+    if(!sel)return;
     q.o[sel.value].s.forEach(m=>quizScores[m]++);
   });
 
-  const result = Object.keys(quizScores)
+  const result=Object.keys(quizScores)
     .reduce((a,b)=>quizScores[a]>quizScores[b]?a:b);
 
   showResult(result);
@@ -154,27 +212,22 @@ function submitQuiz(){
 
 function showResult(member){
   setTheme(member);
-
-  resultName.textContent = member.toUpperCase();
-  resultImage.src = `/assets/collection-${member}.png`;
-  resultText.innerHTML = `
+  resultName.textContent=member.toUpperCase();
+  resultImage.src=`assets/collection-${member}.png`;
+  resultText.innerHTML=`
     Your bias match is <strong>${member}</strong> ✨<br><br>
-    We've updated the shop theme to match your result.
-    Wishlist items to request an order,
-    or shop select designs instantly on Redbubble.
+    The shop has been updated to match your result.
   `;
-
   quizModal.style.display="none";
   resultModal.style.display="flex";
 }
 
 /* ---------- REDBUBBLE ---------- */
-function goRedbubble(product){
-  alert(`${product} redirects to Redbubble.`);
+function goRedbubble(url){
+  window.open(url, "_blank");
 }
 
 /* ---------- INIT ---------- */
-const biasButtons = document.getElementById("biasButtons");
 Object.keys(members).forEach(m=>{
   const b=document.createElement("button");
   b.textContent=m;
@@ -182,5 +235,4 @@ Object.keys(members).forEach(m=>{
   biasButtons.appendChild(b);
 });
 
-const savedBias = localStorage.getItem("selectedBias") || "mercury";
-setTheme(savedBias);
+setTheme(localStorage.getItem("selectedBias") || "mercury");
