@@ -1,169 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Sunnie Jae Shop</title>
-
-<!-- GOOGLE FONTS -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fandom Shop</title>
+<link rel="icon" href="assets/logo.png">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --primary:#9a9ad4;
-  --accent:#3f3d7a;
-  --bg:#f7f7fb;
-  --text:#111;
-}
+  :root {
+    --primary-color:#9a9ad4;
+    --accent-color:#00c9c2;
+    --text-color:#000010;
+    --bg-color:#f5f5f5;
+  }
+  body { font-family: 'Poppins', sans-serif; margin:0; padding:0; background:var(--bg-color); color:var(--text-color); }
+  a { text-decoration:none; color:inherit; }
+  h1,h2,h3,h4,h5,h6 { font-family: 'Starbim', sans-serif; }
+  .container { padding:16px; max-width:1200px; margin:auto; }
 
-* { margin:0; padding:0; box-sizing:border-box; }
+  /* HEADER MENU */
+  .header { display:flex; justify-content:space-between; align-items:center; padding:8px 16px; background:#fff; box-shadow:0 2px 4px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
+  .header img.logo { width:50px; height:50px; border-radius:50%; }
+  .nav-links { display:flex; gap:16px; }
+  .nav-links a { font-weight:600; }
 
-body {
-  font-family:'Poppins', sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.5;
-}
+  /* PROFILE */
+  .profile { display:flex; align-items:center; gap:16px; margin-top:16px; }
+  .profile img { width:100px; height:100px; border-radius:50%; }
+  .profile-info h2 { margin:0; }
 
-header {
-  background:#fff;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
-}
+  /* BIAS SECTION */
+  .bias-section { margin-top:24px; }
+  .bias-buttons { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .bias-btn { padding:6px 12px; border-radius:999px; border:none; cursor:pointer; background:#fff; transition:0.3s; }
+  .bias-btn.active { background:var(--accent-color); color:#fff; }
+  .quiz-btn { margin-top:8px; padding:8px 12px; background:var(--accent-color); color:#fff; border:none; border-radius:8px; cursor:pointer; }
 
-.nav {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:12px 16px;
-}
+  /* PRODUCT GRID */
+  .products { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:16px; margin-top:16px; }
+  .card { background:#fff; border-radius:12px; padding:8px; text-align:center; transition:0.3s; }
+  .card img { width:100%; border-radius:8px; }
+  .card h4 { margin:8px 0 4px; }
+  .card p { margin:4px 0; }
+  .card button { margin-top:8px; padding:8px; border:none; border-radius:999px; background:var(--accent-color); color:#fff; cursor:pointer; width:100%; }
 
-.logo img { width:50px; height:50px; }
+  /* WISHLIST */
+  #wishlist { margin-top:24px; background:rgba(0,0,0,0.05); padding:16px; border-radius:12px; }
+  #wishlist textarea { width:100%; height:120px; border-radius:8px; padding:8px; margin-bottom:8px; }
+  #wishlist input[type=text], #wishlist input[type=email] { width:100%; padding:8px; margin-bottom:8px; border-radius:8px; }
+  #wishlist button { width:100%; padding:10px; border:none; border-radius:8px; background:var(--accent-color); color:#fff; cursor:pointer; }
 
-.nav-links { display:flex; gap:16px; }
-.nav-links a { text-decoration:none; font-weight:500; color:#333; }
-.menu-toggle { display:none; font-size:26px; cursor:pointer; }
+  /* MODALS */
+  .modal { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; justify-content:center; align-items:center; z-index:2000; }
+  .modal.active { display:flex; animation:fadeIn 0.3s ease; }
+  .modal-content { background:#fff; padding:20px; border-radius:16px; width:90%; max-width:400px; text-align:center; }
+  .modal-content button { margin-top:12px; padding:8px 12px; border:none; border-radius:8px; background:var(--accent-color); color:#fff; cursor:pointer; }
 
-.profile { text-align:center; padding:24px 16px; }
-.profile img { width:96px; height:96px; border-radius:50%; background:#fff; margin-bottom:10px; }
-.profile h1 { font-family:'Playfair Display', serif; font-size:32px; }
-.profile span { font-size:14px; opacity:.7; }
-
-.actions { display:flex; gap:12px; padding:0 16px 24px; }
-.actions button {
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:999px;
-  font-weight:600;
-  background:linear-gradient(135deg,var(--accent),var(--primary));
-  color:#fff;
-  cursor:pointer;
-}
-
-.products {
-  padding:16px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:16px;
-}
-
-.card { background:#fff; border-radius:14px; padding:12px; text-align:center; }
-.card img { width:100%; border-radius:10px; }
-.card h4 { margin:8px 0; font-weight:600; }
-.card button {
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:999px;
-  background:linear-gradient(135deg,var(--accent),var(--primary));
-  color:#fff;
-  font-weight:600;
-}
-
-.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); justify-content:center; align-items:center; padding:16px; z-index:2000; }
-.modal.active { display:flex; }
-.modal-content {
-  background:#fff;
-  border-radius:18px;
-  padding:20px;
-  width:100%;
-  max-width:420px;
-  max-height:85vh;
-  overflow-y:auto;
-  position:relative;
-  animation:fadeIn .3s ease;
-}
-.close-btn { position:absolute; top:12px; right:16px; background:none; border:none; font-size:22px; cursor:pointer; }
-
-#quiz-questions p { font-family:'Playfair Display', serif; font-size:20px; margin-bottom:12px; }
-#quiz-questions button { width:100%; margin-bottom:8px; padding:12px; border:none; border-radius:12px; background:linear-gradient(135deg,var(--accent),var(--primary)); color:#fff; font-weight:600; }
-
-@media (max-width:720px) {
-  .menu-toggle { display:block; }
-  .nav-links { display:none; position:absolute; top:72px; right:16px; background:#fff; padding:12px 16px; border-radius:12px; flex-direction:column; box-shadow:0 4px 12px rgba(0,0,0,.15);}
-  .nav-links.active { display:flex; }
-}
-
-@keyframes fadeIn { from {opacity:0; transform:scale(.95);} to {opacity:1; transform:scale(1);} }
+  @keyframes fadeIn { from {opacity:0} to {opacity:1} }
 </style>
 </head>
-
 <body>
 
-<header>
-  <div class="nav">
-    <a class="logo" href="https://www.sunniejae.com">
-      <img src="assets/sunnie-jae-logo.png" alt="Sunnie Jae">
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="/home.html">Home</a>
-      <a href="https://www.sunniejae.com/contact">Contact</a>
-    </nav>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<!-- HEADER -->
+<div class="header">
+  <a href="https://www.sunniejae.com"><img class="logo" src="assets/logo.png" alt="Logo"></a>
+  <div class="nav-links">
+    <a href="/home.html">Home</a>
+    <a href="https://www.sunniejae.com/contact">Contact</a>
   </div>
-</header>
-
-<section class="profile">
-  <img id="profilePic" src="assets/profile-ot.png" alt="">
-  <h1 id="profileName">OT</h1>
-  <span id="profileSubtitle">Fandom</span>
-</section>
-
-<div class="actions">
-  <button onclick="openQuiz()">Bias Matcher ✨</button>
-  <button onclick="openHowTo()">How to Order</button>
 </div>
 
-<section class="products" id="products"></section>
+<div class="container">
+  <!-- PROFILE -->
+  <div class="profile">
+    <img id="profilePic" src="assets/profile-member1.png" alt="Profile Picture">
+    <div class="profile-info">
+      <h2 id="profileName">MEMBER1</h2>
+      <p id="profileSubtitle">Fandom</p>
+    </div>
+  </div>
+
+  <!-- BIAS SECTION -->
+  <div class="bias-section">
+    <h3>Choose Your Bias</h3>
+    <div class="bias-buttons" id="biasButtons"></div>
+    <button class="quiz-btn" onclick="openQuiz()">Take Bias Quiz</button>
+    <button class="quiz-btn" onclick="openHowTo()">How to Order</button>
+  </div>
+
+  <!-- PRODUCTS GRID -->
+  <div class="products" id="products"></div>
+
+  <!-- WISHLIST -->
+  <div id="wishlist">
+    <h3>Your Wishlist</h3>
+    <textarea id="wishlistItems" readonly></textarea>
+    <input type="text" id="wishlistName" placeholder="Your Name">
+    <input type="email" id="wishlistEmail" placeholder="Your Email">
+    <button onclick="submitWishlist()">Send Wishlist</button>
+  </div>
+</div>
 
 <!-- QUIZ MODAL -->
-<div class="modal" id="quizModal" onclick="closeQuiz()">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <button class="close-btn" onclick="closeQuiz()">✕</button>
+<div class="modal" id="quizModal">
+  <div class="modal-content" id="quizContent">
     <div id="quiz-questions"></div>
+    <button onclick="closeQuiz()">Close Quiz</button>
   </div>
 </div>
 
-<!-- HOW TO MODAL -->
-<div class="modal" id="howToModal" onclick="closeHowTo()">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <button class="close-btn" onclick="closeHowTo()">✕</button>
-    <h2 style="font-family:'Playfair Display',serif;">How to Order</h2>
-    <p>Items are available via <strong>Redbubble</strong> or by request.</p>
-    <ul>
-      <li>Linked items → Redbubble</li>
-      <li>Custom → Add to wishlist</li>
-      <li>Scroll down to submit wishlist</li>
-    </ul>
-    <p>Email <strong>Orders@SunnieJae.com</strong></p>
+<!-- HOW TO ORDER MODAL -->
+<div class="modal" id="howToModal">
+  <div class="modal-content">
+    <h3>How to Order</h3>
+    <p>Products on this page are available via <strong>Redbubble</strong> or <strong>By Request</strong>.</p>
+    <p>Items available on Redbubble are linked directly to the collection.</p>
+    <p>For custom items, use the <strong>"Add to Wishlist"</strong> function. Once you've built your wishlist, click the heart icon or scroll down to the order form.</p>
+    <p>For more details or special requests, email: <a href="mailto:orders@sunniejae.com">orders@sunniejae.com</a></p>
+    <button onclick="closeHowTo()">Close</button>
   </div>
 </div>
 
-<script src="template.js"></script>
+<script src="shop.js"></script>
 </body>
 </html>
