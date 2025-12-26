@@ -197,12 +197,12 @@ function initializeProducts() {
             <div class="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
                 ${product.type === 'exclusive' ? `
                     <img 
-                        src="/assets/${product.imageFormat}-${selectedBias}.png" 
+                        src="/kpop/assets/${product.imageFormat}-${selectedBias}.png" 
                         alt="${product.name} - ${selectedBias}"
                         class="product-image"
                         data-product="${product.id}"
                         data-member="${selectedBias}"
-                        onerror="this.onerror=null; this.src='/assets/blank-${selectedBias}.png';"
+                        onerror="this.onerror=null; this.src='/kpop/assets/blank-${selectedBias}.png';"
                     />
                 ` : ''}
                 <div class="placeholder-icon" ${product.type !== 'exclusive' ? 'style="display: flex;"' : ''}>
@@ -361,7 +361,7 @@ function updateTheme() {
     document.body.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%)`;
     
     // Update hero section
-    document.getElementById('heroImage').src = `/assets/hero-${selectedBias}.png`;
+    document.getElementById('heroImage').src = `/kpop/assets/hero-${selectedBias}.png`;
     document.getElementById('heroName').textContent = selectedBias;
     document.getElementById('heroName').style.textShadow = `0 0 20px ${colors[2]}, 0 0 40px ${colors[1]}`;
     
@@ -422,10 +422,10 @@ function updateProducts() {
         const productId = parseInt(img.dataset.product);
         const product = PRODUCTS.find(p => p.id === productId);
         if (product && product.type === 'exclusive') {
-            img.src = `/assets/${product.imageFormat}-${selectedBias}.png`;
+            img.src = `/kpop/assets/${product.imageFormat}-${selectedBias}.png`;
             img.onerror = function() {
                 this.onerror = null;
-                this.src = `/assets/blank-${selectedBias}.png`;
+                this.src = `/kpop/assets/blank-${selectedBias}.png`;
             };
             img.dataset.member = selectedBias;
         }
@@ -566,7 +566,7 @@ function showResult(member) {
     
     // Try to load member image
     const img = document.getElementById('resultImage');
-    img.src = `/assets/member-${member}.png`;
+    img.src = `/kpop/assets/member-${member}.png`;
     img.onload = () => {
         img.style.display = 'block';
         document.getElementById('resultPlaceholder').style.display = 'none';
