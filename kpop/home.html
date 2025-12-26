@@ -1,351 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SunnieJae Fandom Shop</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet"
- href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<style>
-:root{
-  --c1:#f7f7f7;
-  --c2:#e5e5e5;
-  --c3:#ffffff;
-  --c4:#2b2b2b;
-}
-
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:system-ui,sans-serif;
-  background:var(--c1);
-  color:var(--c4);
-}
-
-/* ---------- HEADER ---------- */
-header{
-  background:var(--c4);
-  color:white;
-  padding:1rem;
-  display:flex;
-  flex-direction:column;
-  gap:0.75rem;
-}
-
-.top-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:0.5rem;
-}
-
-.bias-select{
-  display:flex;
-  flex-wrap:wrap;
-  gap:0.4rem;
-}
-
-.bias-select button{
-  border:none;
-  padding:0.35rem 0.6rem;
-  border-radius:999px;
-  font-size:0.7rem;
-  cursor:pointer;
-}
-
-.actions{
-  display:flex;
-  align-items:center;
-  gap:0.75rem;
-}
-
-.wishlist-icon{
-  position:relative;
-  cursor:pointer;
-}
-
-.wishlist-count{
-  position:absolute;
-  top:-6px;
-  right:-6px;
-  background:var(--c2);
-  color:black;
-  font-size:0.65rem;
-  padding:2px 6px;
-  border-radius:50%;
-}
-
-/* ---------- HERO ---------- */
-.hero{
-  background:linear-gradient(135deg,var(--c2),var(--c3));
-  padding:1rem;
-  border-radius:16px;
-  text-align:center;
-}
-
-.hero img{
-  width:100%;
-  max-width:260px;
-  border-radius:14px;
-  box-shadow:0 12px 30px rgba(0,0,0,0.25);
-}
-
-/* ---------- MAIN ---------- */
-main{padding:1rem}
-
-.filters{
-  display:flex;
-  justify-content:center;
-  gap:0.5rem;
-  margin-bottom:1rem;
-  flex-wrap:wrap;
-}
-
-.filters button{
-  border:none;
-  padding:0.4rem 0.8rem;
-  border-radius:999px;
-  font-size:0.65rem;
-  cursor:pointer;
-  background:white;
-}
-
-/* ---------- GRID ---------- */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:1rem;
-}
-
-.card{
-  background:white;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 10px 30px rgba(0,0,0,0.12);
-  text-align:center;
-  position:relative;
-}
-
-.card img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-}
-
-.badge{
-  position:absolute;
-  top:10px;
-  left:10px;
-  padding:0.35rem 0.7rem;
-  font-size:0.6rem;
-  font-weight:700;
-  border-radius:999px;
-}
-
-.badge.wishlist{
-  background:linear-gradient(135deg,var(--c2),var(--c3));
-  color:black;
-}
-
-.badge.redbubble{
-  background:black;
-  color:white;
-}
-
-.card h4{
-  font-size:0.8rem;
-  margin:0.5rem;
-}
-
-.product-desc{
-  font-size:0.7rem;
-  padding:0 0.8rem;
-  opacity:0.85;
-}
-
-.card button{
-  width:88%;
-  margin:0.4rem auto 0.2rem;
-  padding:0.6rem;
-  border:none;
-  border-radius:999px;
-  background:var(--c3);
-  color:black;
-  font-size:0.75rem;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.card small{
-  font-size:0.65rem;
-  opacity:0.75;
-  margin-bottom:0.5rem;
-  display:block;
-}
-
-/* ---------- MODALS ---------- */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  justify-content:center;
-  align-items:center;
-  z-index:10;
-}
-
-.modal-content{
-  background:white;
-  width:92%;
-  max-width:480px;
-  max-height:90vh;
-  overflow-y:auto;
-  padding:1.2rem;
-  border-radius:20px;
-}
-
-.close{float:right;cursor:pointer}
-
-input{
-  width:100%;
-  padding:0.7rem;
-  margin-bottom:0.6rem;
-  border-radius:10px;
-  border:1px solid #ddd;
-  font-size:0.75rem;
-}
-
-/* ---------- CONFETTI ---------- */
-.confetti{
-  position:fixed;
-  top:-10px;
-  width:8px;
-  height:8px;
-  animation:fall 2.5s linear forwards;
-  z-index:999;
-}
-
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(720deg);opacity:0;}
-}
-
-/* ---------- FALLBACK IMAGE STYLE ---------- */
-img[src*="blank-member"]{
-  opacity:0.75;
-  filter:grayscale(25%);
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunnie Jae K-pop Shop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Brat';
+            src: url('/assets/FUNKHOUS.ttf') format('truetype');
+        }
+        
+        .brat-font {
+            font-family: 'Brat', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: background 0.3s ease;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            max-width: 42rem;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .product-card {
+            transition: transform 0.2s;
+        }
+        
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        
+        button {
+            transition: all 0.2s;
+        }
+        
+        button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .wishlist-badge {
+            position: absolute;
+            top: -0.25rem;
+            right: -0.25rem;
+            background-color: #EF4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 9999px;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .placeholder-icon {
+            display: none;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <h1 id="mainTitle" class="text-4xl font-bold brat-font">
+                    Sunnie Jae Shop
+                </h1>
+                <button id="wishlistBtn" class="relative p-3 rounded-full">
+                    <svg class="w-6 h-6 text-white" fill="white" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <span id="wishlistCount" class="wishlist-badge" style="display: none;">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-<header>
-  <div class="top-row">
-    <div class="bias-select" id="biasButtons"></div>
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Bias Selector -->
+        <div class="bg-white rounded-xl shadow-xl p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 id="biasTitle" class="text-2xl font-bold brat-font">
+                    Choose Your Bias
+                </h2>
+                <button id="howToOrderBtn" class="px-4 py-2 rounded-lg font-semibold text-white">
+                    How to Order
+                </button>
+            </div>
+            <div id="memberButtons" class="flex flex-wrap gap-3 mb-4">
+                <!-- Member buttons will be inserted here -->
+            </div>
+            <button id="quizBtn" class="w-full px-6 py-3 rounded-lg font-semibold text-white flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+                Don't have a bias? Use our bias matching tool!
+            </button>
+        </div>
 
-    <div class="actions">
-      <button onclick="openQuiz()">Find Your Bias</button>
-      <div class="wishlist-icon" onclick="openWishlist()">
-        <i class="fa-solid fa-heart"></i>
-        <span class="wishlist-count" id="wishlistCount">0</span>
-      </div>
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Products will be inserted here -->
+        </div>
+
+        <!-- Order Form Section -->
+        <div class="bg-white rounded-xl shadow-xl p-8">
+            <h2 id="orderFormTitle" class="text-3xl font-bold mb-6 brat-font">
+                Submit Your Order
+            </h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2" id="nameLabel">
+                        Name
+                    </label>
+                    <input
+                        type="text"
+                        id="nameInput"
+                        class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none"
+                        placeholder="Your name"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2" id="emailLabel">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="emailInput"
+                        class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none"
+                        placeholder="your@email.com"
+                    />
+                </div>
+                <div class="flex items-center gap-3">
+                    <input
+                        type="checkbox"
+                        id="subscribeCheckbox"
+                        checked
+                        class="w-5 h-5 rounded"
+                    />
+                    <label for="subscribeCheckbox" class="text-sm font-medium">
+                        Subscribe to emails from Sunnie Jae
+                    </label>
+                </div>
+                <a
+                    id="requestOrderBtn"
+                    href="#"
+                    class="block w-full px-8 py-4 rounded-lg font-bold text-white text-center text-lg"
+                >
+                    Request Order (0 items)
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="hero">
-    <img id="heroImage" src="/assets/blank-member.png">
-  </div>
-</header>
+    <!-- Wishlist Modal -->
+    <div id="wishlistModal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white">
+                <h2 class="text-2xl font-bold brat-font" id="wishlistModalTitle">
+                    Your Wishlist (0)
+                </h2>
+                <button id="closeWishlistModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <div id="wishlistItems">
+                    <p class="text-center text-gray-500 py-8">Your wishlist is empty</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<main>
-  <div class="filters">
-    <button onclick="setFilter('all')">All</button>
-    <button onclick="setFilter('wishlist')">Exclusive</button>
-    <button onclick="setFilter('redbubble')">Redbubble</button>
-  </div>
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white">
+                <h2 class="text-2xl font-bold brat-font" id="quizModalTitle">
+                    Bias Matching Quiz
+                </h2>
+                <button id="closeQuizModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-6" id="quizQuestions">
+                <!-- Quiz questions will be inserted here -->
+            </div>
+            <div class="p-6 pt-0">
+                <button id="submitQuizBtn" class="w-full px-6 py-4 rounded-lg font-bold text-white text-lg" disabled>
+                    See My Result!
+                </button>
+            </div>
+        </div>
+    </div>
 
-  <div class="grid" id="productGrid"></div>
-</main>
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content max-w-md">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-2xl font-bold brat-font" id="resultModalTitle">
+                    Your Bias Match!
+                </h2>
+                <button id="closeResultModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="mb-6 aspect-square bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+                    <img id="resultImage" src="" alt="" class="w-full h-full object-cover" style="display: none;" />
+                    <div id="resultPlaceholder" class="w-full h-full flex items-center justify-center">
+                        <svg class="w-20 h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 id="resultMemberName" class="text-3xl font-bold mb-2 brat-font">
+                    Member Name
+                </h3>
+                <p id="resultText" class="text-gray-600 mb-6">
+                    Your bias is Member! Your theme has been updated.
+                </p>
+                <button id="startShoppingBtn" class="w-full px-6 py-3 rounded-lg font-bold text-white">
+                    Start Shopping!
+                </button>
+            </div>
+        </div>
+    </div>
 
-<!-- WISHLIST MODAL -->
-<div class="modal" id="wishlistModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeWishlist()">✕</span>
-    <h3>Your Wishlist</h3>
-    <ul id="wishlistItems"></ul>
-    <input id="nameInput" placeholder="Your name">
-    <input id="emailInput" placeholder="Your email">
-    <label>
-      <input type="checkbox" id="subscribeInput" checked>
-      Subscribe to emails
-    </label>
-    <br><br>
-    <button onclick="sendOrder()">Request Order</button>
-  </div>
-</div>
+    <!-- How to Order Modal -->
+    <div id="howToOrderModal" class="modal">
+        <div class="modal-content max-w-lg">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-2xl font-bold brat-font" id="howToOrderTitle">
+                    How to Order
+                </h2>
+                <button id="closeHowToOrderModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700 leading-relaxed">
+                    Products on this page are available via <strong>Redbubble</strong> or <strong>By Request</strong>.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    Items available on Redbubble are linked directly to the collection.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    For custom items, use the <strong>"Add to Wishlist"</strong> function. Once you've built your wishlist, click the heart icon or scroll down to the order form.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    For more details or special requests, email:
+                    <a href="mailto:orders@sunniejae.com" id="howToOrderEmail" class="font-semibold hover:underline">
+                        orders@sunniejae.com
+                    </a>
+                </p>
+                <div class="pt-4 border-t">
+                    <h3 class="font-bold mb-2 brat-font" id="exclusiveItemsTitle">
+                        SunnieJae Exclusive Items:
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Phone Case</li>
+                        <li>Lightstick Keychain</li>
+                        <li>Animal Icon Keychain</li>
+                    </ul>
+                </div>
+                <div class="pt-2">
+                    <h3 class="font-bold mb-2 brat-font" id="redbubbleItemsTitle">
+                        Available on Redbubble:
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Comeback Era Stickers</li>
+                        <li>Autographics</li>
+                        <li>Hangul Stickers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- QUIZ -->
-<div class="modal" id="quizModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeQuiz()">✕</span>
-    <div id="quizQuestions"></div>
-    <button onclick="submitQuiz()">See Result</button>
-  </div>
-</div>
-
-<!-- RESULT -->
-<div class="modal" id="resultModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeResult()">✕</span>
-    <h3 id="resultName"></h3>
-    <img id="resultImage">
-    <p id="resultText"></p>
-  </div>
-</div>
-
- <!-- INTRO MODAL -->
-<div class="modal" id="introModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeIntro()">✕</span>
-
-    <h3>💌 How Ordering Works</h3>
-
-    <p>
-      SunnieJae is a <strong>made-for-fans shop</strong> 💿  
-      Some items are exclusive, and some are fulfilled through Redbubble.
-    </p>
-
-    <hr>
-
-    <p><strong>🌸 SunnieJae Exclusives</strong></p>
-    <ul>
-      <li>Add items to your wishlist</li>
-      <li>Submit a request via email</li>
-      <li>No payment is taken automatically</li>
-      <li>You’ll receive a reply to confirm your order 💖</li>
-    </ul>
-
-    <p><strong>🛍 Redbubble Items</strong></p>
-    <ul>
-      <li>Open instantly on Redbubble</li>
-      <li>Checkout handled directly by them</li>
-    </ul>
-
-    <p style="font-size:0.75rem;opacity:0.85">
-      When you send a wishlist request, you’ll automatically receive a copy
-      of the email for your records.
-    </p>
-
-    <button onclick="acceptIntro()" style="margin-top:1rem;">
-      Got it ✨
-    </button>
-  </div>
-</div>
-
-<script src="home.js"></script>
+    <script src="home.js"></script>
 </body>
 </html>
