@@ -23,7 +23,7 @@ const PRODUCTS = [
         name: 'Hangul Sticker', 
         price: '$3.99', 
         type: 'redbubble',
-        redbubbleUrl: 'https://www.redbubble.com/people/sunniejae/shop?collections=hangul'
+        redbubbleUrl: 'https://www.redbubble.com/people/sunniejae/shop?artistUserName=SunnieJae&collections=4422836&ia'
     },
     { 
         id: 3, 
@@ -37,7 +37,7 @@ const PRODUCTS = [
         name: 'Comeback Sticker', 
         price: '$4.99', 
         type: 'redbubble',
-        redbubbleUrl: 'https://www.redbubble.com/people/sunniejae/shop?collections=comeback'
+        redbubbleUrl: 'https://www.redbubble.com/people/sunniejae/shop?artistUserName=sunniejae&collections=4422838'
     },
     { 
         id: 5, 
