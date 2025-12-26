@@ -1,201 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NAYA Shop | Sunnie Jae</title>
-<link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
-
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
-<style>
-/* ===== FONTS ===== */
-@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.ttf') format('truetype'); }
-@font-face { font-family: 'Cheri'; src: url('tan-mon-cheri.woff') format('truetype'); }
-
-/* ===== ROOT COLORS ===== */
-:root {
-    --black: #000010;
-    --white: #ffffff;
-    --secondary: #404040;
-    --gray: #bfbfdc;
-    --silver: #f0f0f5;
-    --pink: #ffb3d6;
-    --teal: #00a8a3;
-    --dark-purple: #3f3d7a;
-    --accent: #00c9c2;
-    --secondary-accent: #c13886;
-    --primary: #9a9ad4;
-    
-   --mai:#c13851; --mai-dark:#880d1e;
-    --jeemin:#84a6cf; --jeemin-dark:#0d036f;
-    --koko:#fff4ac; --koko-dark:#daa12b;
-    --sarang:#73e3bd; --sarang-dark:#075237;
-    --jungeun:#9a9ad4; --jungeun-dark:#844796;
-  --saebi:#ffbee3; --saebi-dark: #c33d89;
-    --current-bg: var(--primary);
-    --current-accent: var(--dark-purple);
-}
-
-/* ===== RESET ===== */
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Jaewriting', sans-serif; background:var(--current-bg); color:var(--black); line-height:1.4; transition:0.5s; }
-
-/* ===== HEADINGS & TITLES ===== */
-h1, h2, h3, h4, h5, h6, .header-title, .product-title, .bias-btn, .bias-matcher-btn, .wishlist-section button {
-    font-family: 'Cheri', sans-serif;
-}
-
-/* ===== HEADER ===== */
-.depop-header { width:100%; background: var(--white); padding: 8px 16px; position: sticky; top:0; z-index:1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
-.header-top { display:flex; justify-content:space-between; align-items:center; }
-.header-left { display:flex; align-items:center; gap:12px; }
-.header-title { font-weight:700; font-size:16px; }
-.header-icons { display:flex; gap:12px; font-size:16px; position:relative; }
-.header-icon { cursor:pointer; position:relative; }
-.bag-count { position:absolute; top:-6px; right:-6px; background:var(--current-accent); color:#fff; font-size:10px; padding:1px 5px; border-radius:50%; }
-.search-bar { display:flex; align-items:center; margin-top:8px; background:#f5f5f5; padding:4px 8px; border-radius:6px; }
-.search-bar input { border:none; outline:none; background:transparent; flex:1; padding:4px; font-size:14px; }
-
-    a {
-  text-decoration: none; /* removes underline */
-  color: inherit;        /* optional: keep text color same as surrounding */
-}
-    
-/* ===== PROFILE SECTION ===== */
-.profile-section { padding:16px; background:rgba(255,255,255,0.1); margin-bottom:16px; }
-.profile-header { display:flex; align-items:center; gap:12px; }
-.profile-pic { width:100px; height:100px; display:flex; justify-content:center; align-items:center; border-radius:50%; background:#fff; overflow:hidden; }
-.profile-pic img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
-.profile-info h1 { font-size:24px; margin-bottom:4px; }
-.verified-badge { font-size:12px; color: var(--current-accent); margin-left:6px; }
-.profile-stats { font-size:12px; color: var(--secondary); display:flex; gap:12px; }
-.bio { margin-top:8px; font-size:12px; color: var(--secondary); font-family:'Jaewriting',sans-serif; }
-.bio-tags { display:block; margin-top:4px; }
-
-/* ===== BIAS SECTION ===== */
-.bias-section { padding:16px; background:rgba(255,255,255,0.05); margin-bottom:16px; }
-.bias-buttons { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
-.bias-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:#fff; transition:0.3s; }
-.bias-btn.active { background:var(--current-accent); color:#fff; }
-.bias-matcher-btn { padding:6px 12px; border:none; border-radius:6px; cursor:pointer; background:var(--current-accent); color:#fff; }
-
-/* ===== PRODUCTS GRID ===== */
-.products-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; padding:0 16px; margin-bottom:16px; }
-.product-card { background:#fff; border-radius:8px; overflow:hidden; cursor:pointer; transition:0.3s; position:relative; }
-.product-card:hover { transform:scale(1.03); }
-.product-image img { width:250px; height:250px; object-fit:fill; }
-.product-info { padding:6px 8px; font-family:'Jaewriting',sans-serif; }
-.product-title { font-weight:700; }
-.product-brand {font-family:'Jaewriting',sans-serif; font-size:10px;}
-.product-size, .product-price { font-family:'Jaewriting',sans-serif; font-size:12px; }
-.wishlist-btn { font-family: 'Cheri', sans-serif;border:none; background:var(--current-accent); color:#fff; padding:4px 6px; border-radius:6px; cursor:pointer; font-size:12px; }
-
-
-/* ===== WISHLIST ===== */
-.wishlist-section { padding:16px; background:rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:8px; }
-#wishlist-items { width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; resize:none; font-family:'Jaewriting',sans-serif; }
-#wishlist-name, #wishlist-email, #email-optin { padding:6px 8px; border-radius:6px; border:1px solid #ccc; margin-bottom:6px; }
-.wishlist-section button { font-family:'Cheri',sans-serif; }
-
-/* ===== QUIZ & RESULT MODALS ===== */
-#quiz-modal, #result-modal { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.7); visibility:hidden; opacity:0; transition:0.3s; z-index:2000; }
-#quiz-modal.active, #result-modal.active { visibility:visible; opacity:1; }
-#quiz-content, #result-content { font-family:'Jaewriting',sans-serif; background:#fff; padding:16px; border-radius:12px; max-width:400px; width:90%; text-align:center; position:relative; }
-#quiz-questions button, .quiz-close-btn, #result-content button { font-family:'Cheri',sans-serif; margin:4px; padding:6px 10px; border:none; border-radius:6px; cursor:pointer; }
-#result-image { width:120px; height:120px; border-radius:50%; margin:8px 0; }
-.trait-tag { display:inline-block; background:var(--current-accent); color:#fff; padding:2px 6px; margin:2px; border-radius:4px; font-size:11px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunnie Jae K-pop Shop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Brat';
+            src: url('/assets/FUNKHOUS.ttf') format('truetype');
+        }
+        
+        .brat-font {
+            font-family: 'Brat', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: background 0.3s ease;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            max-width: 42rem;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .product-card {
+            transition: transform 0.2s;
+        }
+        
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        
+        button {
+            transition: all 0.2s;
+        }
+        
+        button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .wishlist-badge {
+            position: absolute;
+            top: -0.25rem;
+            right: -0.25rem;
+            background-color: #EF4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 9999px;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .placeholder-icon {
+            display: none;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <h1 id="mainTitle" class="text-4xl font-bold brat-font">
+                    Sunnie Jae Shop
+                </h1>
+                <button id="wishlistBtn" class="relative p-3 rounded-full">
+                    <svg class="w-6 h-6 text-white" fill="white" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <span id="wishlistCount" class="wishlist-badge" style="display: none;">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-<!-- Header -->
-<div class="depop-header">
-    <div class="header-top">
-        <div class="header-left">
-<a href="index.html" class="back-arrow">←</a>
-            <div class="header-title">IZNA Fandom Shop</div>
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Bias Selector -->
+        <div class="bg-white rounded-xl shadow-xl p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 id="biasTitle" class="text-2xl font-bold brat-font">
+                    Choose Your Bias
+                </h2>
+                <button id="howToOrderBtn" class="px-4 py-2 rounded-lg font-semibold text-white">
+                    How to Order
+                </button>
+            </div>
+            <div id="memberButtons" class="flex flex-wrap gap-3 mb-4">
+                <!-- Member buttons will be inserted here -->
+            </div>
+            <button id="quizBtn" class="w-full px-6 py-3 rounded-lg font-semibold text-white flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+                Don't have a bias? Use our bias matching tool!
+            </button>
         </div>
-        <div class="header-icons">
-            <div class="header-icon">💖<span class="bag-count" id="bag-count">0</span></div>
-        </div>
-    </div>
-    <div class="search-bar">
-        <input type="text" class="search-input" placeholder="Search merch...">
-    </div>
-</div>
 
-<!-- Profile Section -->
-<div class="profile-section">
-    <div class="profile-header">
-        <div class="profile-pic" id="profile-pic">
-            <img src="" alt="profile picture">
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Products will be inserted here -->
         </div>
-        <div class="profile-info">
-            <h1 id="profile-name">Fandom Name <span class="verified-badge">Subtitle</span></h1>
+
+        <!-- Order Form Section -->
+        <div class="bg-white rounded-xl shadow-xl p-8">
+            <h2 id="orderFormTitle" class="text-3xl font-bold mb-6 brat-font">
+                Submit Your Order
+            </h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2" id="nameLabel">
+                        Name
+                    </label>
+                    <input
+                        type="text"
+                        id="nameInput"
+                        class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none"
+                        placeholder="Your name"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2" id="emailLabel">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="emailInput"
+                        class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none"
+                        placeholder="your@email.com"
+                    />
+                </div>
+                <div class="flex items-center gap-3">
+                    <input
+                        type="checkbox"
+                        id="subscribeCheckbox"
+                        checked
+                        class="w-5 h-5 rounded"
+                    />
+                    <label for="subscribeCheckbox" class="text-sm font-medium">
+                        Subscribe to emails from Sunnie Jae
+                    </label>
+                </div>
+                <a
+                    id="requestOrderBtn"
+                    href="#"
+                    class="block w-full px-8 py-4 rounded-lg font-bold text-white text-center text-lg"
+                >
+                    Request Order (0 items)
+                </a>
             </div>
         </div>
     </div>
-    <div class="bio">
-        <p>Sunnie Jae's Naya Store</p>
-        <p> To purchase Sunnie Jae Items: </p>
-        <p>add to your wishlist, and submit a request via the form at the bottom of the page!</p>
-        <p>Check out my <a href="https://www.redbubble.com/people/SunnieJae/">Redbubble Shop</a></p>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlistModal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white">
+                <h2 class="text-2xl font-bold brat-font" id="wishlistModalTitle">
+                    Your Wishlist (0)
+                </h2>
+                <button id="closeWishlistModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <div id="wishlistItems">
+                    <p class="text-center text-gray-500 py-8">Your wishlist is empty</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- Bias Section -->
-<div class="bias-section">
-    <h2>✨ Choose Your Bias ✨</h2>
-    <div class="bias-buttons">
-        <button class="bias-btn" onclick="setBias('ot6')">✨ ot6</button>
-        <button class="bias-btn" onclick="setBias('mai')">🦊 Mai</button>
-        <button class="bias-btn" onclick="setBias('jeemin')">🐻Jeemin</button>
-        <button class="bias-btn" onclick="setBias('koko')">🐈‍⬛Koko</button>
-        <button class="bias-btn" onclick="setBias('sarang')">🐶Sarang</button>
-        <button class="bias-btn" onclick="setBias('jungeun')">🐆Jungeun</button>
-      <button class="bias-btn" onclick="setBias('saebi')">🐰Saebi</button>
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white">
+                <h2 class="text-2xl font-bold brat-font" id="quizModalTitle">
+                    Bias Matching Quiz
+                </h2>
+                <button id="closeQuizModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-6" id="quizQuestions">
+                <!-- Quiz questions will be inserted here -->
+            </div>
+            <div class="p-6 pt-0">
+                <button id="submitQuizBtn" class="w-full px-6 py-4 rounded-lg font-bold text-white text-lg" disabled>
+                    See My Result!
+                </button>
+            </div>
+        </div>
     </div>
-    <button class="bias-matcher-btn" onclick="openQuiz()">💞 Take Bias Matcher Quiz</button>
-</div>
 
-<!-- Products Grid -->
-<div class="products-grid" id="products-grid"></div>
-
-<!-- Wishlist -->
-<div class="wishlist-section">
-    <h2>💖 Your Wishlist</h2>
-    <textarea id="wishlist-items" rows="5" readonly></textarea>
-    <input type="text" id="wishlist-name" placeholder="Your Name">
-    <input type="email" id="wishlist-email" placeholder="Your Email">
-    <label><input type="checkbox" id="email-optin"> Subscribe for promos, newsletters, new collection drops, and more</label>
-    <button onclick="submitWishlist()">Request Order 🛍️</button>
-</div>
-
-<!-- Quiz Modal -->
-<div id="quiz-modal">
-    <div id="quiz-content">
-        <h2>Find Your Bias!</h2>
-        <div id="quiz-questions"></div>
-        <button onclick="closeQuiz()" class="quiz-close-btn">Close Quiz</button>
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content max-w-md">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-2xl font-bold brat-font" id="resultModalTitle">
+                    Your Bias Match!
+                </h2>
+                <button id="closeResultModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="mb-6 aspect-square bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+                    <img id="resultImage" src="" alt="" class="w-full h-full object-cover" style="display: none;" />
+                    <div id="resultPlaceholder" class="w-full h-full flex items-center justify-center">
+                        <svg class="w-20 h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 id="resultMemberName" class="text-3xl font-bold mb-2 brat-font">
+                    Member Name
+                </h3>
+                <p id="resultText" class="text-gray-600 mb-6">
+                    Your bias is Member! Your theme has been updated.
+                </p>
+                <button id="startShoppingBtn" class="w-full px-6 py-3 rounded-lg font-bold text-white">
+                    Start Shopping!
+                </button>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- Result Modal -->
-<div id="result-modal">
-    <div id="result-content">
-        <h2>Your Perfect Match!</h2>
-        <img id="result-image" src="" alt="Your Bias">
-        <div id="result-name"></div>
-        <p id="result-description"></p>
-        <div id="result-traits"></div>
-        <button onclick="closeResult()">Start Shopping! ✨</button>
+    <!-- How to Order Modal -->
+    <div id="howToOrderModal" class="modal">
+        <div class="modal-content max-w-lg">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-2xl font-bold brat-font" id="howToOrderTitle">
+                    How to Order
+                </h2>
+                <button id="closeHowToOrderModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700 leading-relaxed">
+                    Products on this page are available via <strong>Redbubble</strong> or <strong>By Request</strong>.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    Items available on Redbubble are linked directly to the collection.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    For custom items, use the <strong>"Add to Wishlist"</strong> function. Once you've built your wishlist, click the heart icon or scroll down to the order form.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    For more details or special requests, email:
+                    <a href="mailto:orders@sunniejae.com" id="howToOrderEmail" class="font-semibold hover:underline">
+                        orders@sunniejae.com
+                    </a>
+                </p>
+                <div class="pt-4 border-t">
+                    <h3 class="font-bold mb-2 brat-font" id="exclusiveItemsTitle">
+                        SunnieJae Exclusive Items:
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Phone Case</li>
+                        <li>Lightstick Keychain</li>
+                        <li>Animal Icon Keychain</li>
+                    </ul>
+                </div>
+                <div class="pt-2">
+                    <h3 class="font-bold mb-2 brat-font" id="redbubbleItemsTitle">
+                        Available on Redbubble:
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Comeback Era Stickers</li>
+                        <li>Autographics</li>
+                        <li>Hangul Stickers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-<script src="naya.js"></script>
+    <script src="naya.js"></script>
 </body>
 </html>
