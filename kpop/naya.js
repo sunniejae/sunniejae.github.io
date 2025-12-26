@@ -417,19 +417,22 @@ function updateTheme() {
 }
 
 function updateProducts() {
-    // Update product images
+//update product images
+    
     document.querySelectorAll('.product-image').forEach(img => {
-        const productId = parseInt(img.dataset.product);
-        const product = PRODUCTS.find(p => p.id === productId);
-        if (product && product.type === 'exclusive') {
-            img.src = `/kpop/assets/${product.imageFormat}-${selectedBias}.png`;
-            img.onerror = function() {
-                this.onerror = null;
-                this.src = `/kpop/assets/blank-${selectedBias}.png`;
-            };
-            img.dataset.member = selectedBias;
-        }
-    });
+    const productId = parseInt(img.dataset.product);
+    const product = PRODUCTS.find(p => p.id === productId);
+
+    if (product) {
+        img.src = `/kpop/assets/${product.imageFormat}-${selectedBias}.png`;
+        img.onerror = function () {
+            this.onerror = null;
+            this.src = `/kpop/assets/blank-${selectedBias}.png`;
+        };
+        img.dataset.member = selectedBias;
+    }
+});
+
     
     // Update product member text
     document.querySelectorAll('.product-member').forEach(el => {
