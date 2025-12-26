@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>KPOP FANDOM SHOP</title>
+<title>SunnieJae Fandom Shop</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet"
@@ -25,15 +25,20 @@ body{
   color:var(--c4);
 }
 
+/* ---------- HEADER ---------- */
 header{
   background:var(--c4);
   color:white;
   padding:1rem;
   display:flex;
-  flex-wrap:wrap;
+  flex-direction:column;
+  gap:0.75rem;
+}
+
+.top-row{
+  display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:0.75rem;
 }
 
 .bias-select{
@@ -44,9 +49,9 @@ header{
 
 .bias-select button{
   border:none;
-  padding:0.4rem 0.6rem;
-  border-radius:6px;
-  font-size:0.75rem;
+  padding:0.35rem 0.6rem;
+  border-radius:999px;
+  font-size:0.7rem;
   cursor:pointer;
 }
 
@@ -67,15 +72,47 @@ header{
   right:-6px;
   background:var(--c2);
   color:black;
-  font-size:0.7rem;
+  font-size:0.65rem;
   padding:2px 6px;
   border-radius:50%;
 }
 
-main{
+/* ---------- HERO ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--c2),var(--c3));
   padding:1rem;
+  border-radius:16px;
+  text-align:center;
 }
 
+.hero img{
+  width:100%;
+  max-width:260px;
+  border-radius:14px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.25);
+}
+
+/* ---------- MAIN ---------- */
+main{padding:1rem}
+
+.filters{
+  display:flex;
+  justify-content:center;
+  gap:0.5rem;
+  margin-bottom:1rem;
+  flex-wrap:wrap;
+}
+
+.filters button{
+  border:none;
+  padding:0.4rem 0.8rem;
+  border-radius:999px;
+  font-size:0.65rem;
+  cursor:pointer;
+  background:white;
+}
+
+/* ---------- GRID ---------- */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
@@ -84,50 +121,74 @@ main{
 
 .card{
   background:white;
-  border-radius:14px;
+  border-radius:18px;
   overflow:hidden;
-  box-shadow:0 6px 18px rgba(0,0,0,0.15);
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
   text-align:center;
+  position:relative;
+  transition:transform 0.25s ease;
 }
+
+.card:hover{transform:translateY(-4px)}
 
 .card img{
   width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+
+.badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  padding:0.35rem 0.7rem;
+  font-size:0.6rem;
+  font-weight:700;
+  border-radius:999px;
+}
+
+.badge.wishlist{
+  background:linear-gradient(135deg,var(--c2),var(--c3));
+  color:white;
+}
+
+.badge.redbubble{
+  background:black;
+  color:white;
 }
 
 .card h4{
-  font-size:0.9rem;
+  font-size:0.8rem;
   margin:0.5rem;
 }
 
+.product-desc{
+  font-size:0.7rem;
+  padding:0 0.8rem;
+  opacity:0.85;
+}
+
 .card button{
-  width:90%;
-  margin:0.3rem auto;
-  padding:0.45rem;
+  width:88%;
+  margin:0.4rem auto 0.2rem;
+  padding:0.6rem;
   border:none;
-  border-radius:6px;
+  border-radius:999px;
   background:var(--c3);
   color:white;
-  cursor:pointer;
-  font-size:0.8rem;
-}
-
-.info{
-  margin:1rem 0;
-  font-size:0.8rem;
-  text-align:center;
-}
-
-.mobile-hint{
-  position:sticky;
-  bottom:0;
-  background:var(--c4);
-  color:white;
-  padding:0.6rem;
   font-size:0.75rem;
-  text-align:center;
+  font-weight:600;
+  cursor:pointer;
 }
 
-/* MODALS */
+.card small{
+  font-size:0.65rem;
+  opacity:0.75;
+  margin-bottom:0.5rem;
+  display:block;
+}
+
+/* ---------- MODALS ---------- */
 .modal{
   display:none;
   position:fixed;
@@ -141,28 +202,38 @@ main{
 .modal-content{
   background:white;
   width:92%;
-  max-width:500px;
+  max-width:480px;
   max-height:90vh;
   overflow-y:auto;
-  padding:1rem;
-  border-radius:14px;
+  padding:1.2rem;
+  border-radius:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
 }
 
-.modal-content img{
-  width:100%;
-  border-radius:12px;
-}
-
-.close{
-  float:right;
-  cursor:pointer;
-  font-size:1.1rem;
-}
+.close{float:right;cursor:pointer}
 
 input{
   width:100%;
-  padding:0.6rem;
+  padding:0.7rem;
   margin-bottom:0.6rem;
+  border-radius:10px;
+  border:1px solid #ddd;
+  font-size:0.75rem;
+}
+
+/* ---------- CONFETTI ---------- */
+.confetti{
+  position:fixed;
+  top:-10px;
+  width:8px;
+  height:8px;
+  background:var(--c3);
+  animation:fall 2.5s linear forwards;
+  z-index:999;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(720deg);opacity:0;}
 }
 </style>
 </head>
@@ -170,28 +241,31 @@ input{
 <body>
 
 <header>
-  <div class="bias-select" id="biasButtons"></div>
+  <div class="top-row">
+    <div class="bias-select" id="biasButtons"></div>
 
-  <div class="actions">
-    <button onclick="openQuiz()">Find Your Bias</button>
-    <div class="wishlist-icon" onclick="openWishlist()">
-      <i class="fa-solid fa-heart"></i>
-      <span class="wishlist-count" id="wishlistCount">0</span>
+    <div class="actions">
+      <button onclick="openQuiz()">Find Your Bias</button>
+      <div class="wishlist-icon" onclick="openWishlist()">
+        <i class="fa-solid fa-heart"></i>
+        <span class="wishlist-count" id="wishlistCount">0</span>
+      </div>
     </div>
+  </div>
+
+  <div class="hero">
+    <img id="heroImage" src="">
   </div>
 </header>
 
 <main>
-  <div class="grid" id="productGrid"></div>
-
-  <p class="info">
-    💌 Wishlist exclusive versions to request an order via email<br>
-    🛒 Some items redirect to Redbubble for instant checkout
-  </p>
-
-  <div class="mobile-hint">
-    💜 Quiz sets your bias · ❤️ Wishlist · 🛍 Redbubble
+  <div class="filters">
+    <button onclick="setFilter('all')">All</button>
+    <button onclick="setFilter('wishlist')">Exclusive</button>
+    <button onclick="setFilter('redbubble')">Redbubble</button>
   </div>
+
+  <div class="grid" id="productGrid"></div>
 </main>
 
 <!-- WISHLIST MODAL -->
@@ -200,38 +274,27 @@ input{
     <span class="close" onclick="closeWishlist()">✕</span>
     <h3>Your Wishlist</h3>
     <ul id="wishlistItems"></ul>
-
     <input id="nameInput" placeholder="Your name">
     <input id="emailInput" placeholder="Your email">
-
-    <label>
-      <input type="checkbox" id="subscribeInput" checked>
-      Subscribe to emails from Sunnie Jae
-    </label><br><br>
-
+    <label><input type="checkbox" id="subscribeInput" checked> Subscribe to emails</label>
+    <br><br>
     <button onclick="sendOrder()">Request Order</button>
   </div>
 </div>
 
-<!-- QUIZ MODAL -->
-<div class="modal" id="quizModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeQuiz()">✕</span>
-    <h3>Bias Matching Tool</h3>
-    <div id="quizQuestions"></div>
-    <button onclick="submitQuiz()">See Result</button>
-  </div>
-</div>
+<!-- QUIZ + RESULT -->
+<div class="modal" id="quizModal"><div class="modal-content">
+  <span class="close" onclick="closeQuiz()">✕</span>
+  <div id="quizQuestions"></div>
+  <button onclick="submitQuiz()">See Result</button>
+</div></div>
 
-<!-- RESULT MODAL -->
-<div class="modal" id="resultModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeResult()">✕</span>
-    <h3 id="resultName"></h3>
-    <img id="resultImage">
-    <p id="resultText"></p>
-  </div>
-</div>
+<div class="modal" id="resultModal"><div class="modal-content">
+  <span class="close" onclick="closeResult()">✕</span>
+  <h3 id="resultName"></h3>
+  <img id="resultImage">
+  <p id="resultText"></p>
+</div></div>
 
 <script src="home.js"></script>
 </body>
