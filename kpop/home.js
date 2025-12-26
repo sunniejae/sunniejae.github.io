@@ -104,7 +104,7 @@ function closeWishlist(){ wishlistModal.style.display = "none"; }
 function sendOrder(){
   const name = nameInput.value.trim();
   const email = emailInput.value.trim();
-  if(!name || !email){ alert("Please enter name and email."); return; }
+  if(!name || !email){ alert("Please enter your name and email."); return; }
 
   const body = `
 Name: ${name}
@@ -119,7 +119,7 @@ ${wishlist.join("\n")}
     `mailto:orders@sunniejae.com?cc=${encodeURIComponent(email)}&subject=${encodeURIComponent("KPOP FANDOM SHOP ORDER")}&body=${encodeURIComponent(body)}`;
 }
 
-/* ================= QUIZ DATA (ALL QUESTIONS) ================= */
+/* ================= QUIZ DATA ================= */
 const quizData = [
   {
     q:"Favorite color?",
@@ -234,7 +234,6 @@ function showResult(member){
   resultModal.style.display = "flex";
   confetti();
 }
-
 function closeResult(){ resultModal.style.display="none"; }
 
 /* ================= CONFETTI ================= */
@@ -249,6 +248,14 @@ function confetti(){
   }
 }
 
+/* ================= INTRO MODAL ================= */
+function openIntro(){ introModal.style.display="flex"; }
+function closeIntro(){ introModal.style.display="none"; }
+function acceptIntro(){
+  localStorage.setItem("introSeen","yes");
+  closeIntro();
+}
+
 /* ================= INIT ================= */
 Object.keys(members).forEach(m=>{
   const btn = document.createElement("button");
@@ -258,3 +265,8 @@ Object.keys(members).forEach(m=>{
 });
 
 setTheme(currentBias);
+
+// show intro once
+if(!localStorage.getItem("introSeen")){
+  setTimeout(openIntro,600);
+}
