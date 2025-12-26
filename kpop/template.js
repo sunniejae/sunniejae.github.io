@@ -1,5 +1,12 @@
-/* MEMBERS */
-const members = ["member1","member2","member3","member4","member5"];
+/* MEMBERS WITH COLORS */
+const members = {
+  member1: { display:"Member 1", color:"var(--member1-color)", accent:"var(--member1-accent)" },
+  member2: { display:"Member 2", color:"var(--member2-color)", accent:"var(--member2-accent)" },
+  member3: { display:"Member 3", color:"var(--member3-color)", accent:"var(--member3-accent)" },
+  member4: { display:"Member 4", color:"var(--member4-color)", accent:"var(--member4-accent)" },
+  member5: { display:"Member 5", color:"var(--member5-color)", accent:"var(--member5-accent)" }
+};
+
 let currentBias = localStorage.getItem("fandomBias") || "member1";
 
 /* PRODUCTS */
@@ -25,9 +32,9 @@ const quizQuestions = [
 
 /* RENDER BIAS BUTTONS */
 const biasButtonsContainer = document.getElementById("biasButtons");
-members.forEach(m=>{
+Object.keys(members).forEach(m=>{
   const btn=document.createElement("button");
-  btn.textContent=m.toUpperCase();
+  btn.textContent=members[m].display.toUpperCase();
   btn.className="bias-btn";
   if(m===currentBias) btn.classList.add("active");
   btn.onclick=()=>setBias(m);
@@ -38,10 +45,15 @@ members.forEach(m=>{
 function setBias(memberKey){
   currentBias=memberKey;
   localStorage.setItem("fandomBias",memberKey);
+
   document.getElementById("profilePic").src=`assets/profile-${memberKey}.png`;
-  document.getElementById("profileName").textContent=memberKey.toUpperCase();
+  document.getElementById("profileName").textContent=members[memberKey].display;
+
+  document.documentElement.style.setProperty('--current-bg', members[memberKey].color);
+  document.documentElement.style.setProperty('--current-accent', members[memberKey].accent);
+
   renderProducts();
-  document.querySelectorAll(".bias-btn").forEach(btn=>btn.classList.toggle("active",btn.textContent===memberKey.toUpperCase()));
+  document.querySelectorAll(".bias-btn").forEach(btn=>btn.classList.toggle("active", btn.textContent===members[memberKey].display.toUpperCase()));
 }
 
 /* RENDER PRODUCTS */
@@ -50,8 +62,8 @@ function renderProducts(){
   container.innerHTML="";
   products.forEach(p=>{
     const card=document.createElement("div"); card.className="card";
-    const imgSrc=p.images[currentBias]||p.images[members[0]];
-    const url=p.url[currentBias]||p.url[members[0]];
+    const imgSrc=p.images[currentBias]||p.images[Object.keys(members)[0]];
+    const url=p.url[currentBias]||p.url[Object.keys(members)[0]];
     card.innerHTML=`<img src="${imgSrc}" alt="${p.name}"><h4>${p.name}</h4><p>${p.price}</p><a href="${url}" target="_blank"><button>Buy</button></a>`;
     container.appendChild(card);
   });
@@ -84,7 +96,7 @@ function selectAnswer(membersArr){
   quizIndex++; quizIndex<quizQuestions.length? renderQuestion():finishQuiz();
 }
 function finishQuiz(){
-  const result=Object.keys(quizScore).sort((a,b)=>quizScore[b]-quizScore[a])[0]||members[0];
+  const result=Object.keys(quizScore).sort((a,b)=>quizScore[b]-quizScore[a])[0]||Object.keys(members)[0];
   setBias(result); closeQuiz();
 }
 
