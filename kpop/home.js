@@ -138,12 +138,46 @@ let selectedBias = MEMBERS[0];
 let wishlist = [];
 let quizAnswers = {};
 
+// Local Storage Keys
+const STORAGE_KEYS = {
+    BIAS: 'kpop_shop_bias',
+    WISHLIST: 'kpop_shop_wishlist'
+};
+
+// Load from local storage
+function loadFromStorage() {
+    const savedBias = localStorage.getItem(STORAGE_KEYS.BIAS);
+    if (savedBias && MEMBERS.includes(savedBias)) {
+        selectedBias = savedBias;
+    }
+    
+    const savedWishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
+    if (savedWishlist) {
+        try {
+            wishlist = JSON.parse(savedWishlist);
+        } catch (e) {
+            wishlist = [];
+        }
+    }
+}
+
+// Save to local storage
+function saveBias() {
+    localStorage.setItem(STORAGE_KEYS.BIAS, selectedBias);
+}
+
+function saveWishlist() {
+    localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    loadFromStorage();
     initializeMemberButtons();
     initializeProducts();
     initializeQuiz();
     updateTheme();
+    updateWishlistUI();
     attachEventListeners();
 });
 
@@ -235,6 +269,7 @@ function attachEventListeners() {
     document.querySelectorAll('.member-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             selectedBias = e.target.dataset.member;
+            saveBias();
             updateTheme();
             updateProducts();
         });
@@ -322,6 +357,11 @@ function updateTheme() {
     // Update background
     document.body.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%)`;
     
+    // Update hero section
+    document.getElementById('heroImage').src = `/assets/hero-${selectedBias}.png`;
+    document.getElementById('heroName').textContent = selectedBias;
+    document.getElementById('heroName').style.textShadow = `0 0 20px ${colors[2]}, 0 0 40px ${colors[1]}`;
+    
     // Update all colored elements
     document.getElementById('mainTitle').style.color = colors[2];
     document.getElementById('wishlistBtn').style.backgroundColor = colors[0];
@@ -405,11 +445,13 @@ function addToWishlist(productId) {
     };
     
     wishlist.push(item);
+    saveWishlist();
     updateWishlistUI();
 }
 
 function removeFromWishlist(uniqueId) {
     wishlist = wishlist.filter(item => item.uniqueId !== uniqueId);
+    saveWishlist();
     updateWishlistUI();
 }
 
@@ -502,6 +544,7 @@ function calculateQuizResult() {
 
 function showResult(member) {
     selectedBias = member;
+    saveBias();
     updateTheme();
     updateProducts();
     
