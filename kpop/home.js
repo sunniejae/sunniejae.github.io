@@ -1,8 +1,19 @@
 /* ================= IMAGE FALLBACK ================= */
 function handleImageError(img){
   img.onerror = null;
-  img.src = "/assets/blank-member.png";
+
+  // try bias-specific blank first
+  const themedFallback = `/assets/blank-${currentBias}.png`;
+
+  img.src = themedFallback;
+
+  // if that also fails, fall back to global blank
+  img.onerror = () => {
+    img.onerror = null;
+    img.src = "/assets/blank-member.png";
+  };
 }
+
 
 /* ================= MEMBERS (PLANET PLACEHOLDERS) ================= */
 const members = {
