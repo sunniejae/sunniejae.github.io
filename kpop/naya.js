@@ -1,14 +1,13 @@
 // Configuration
-const MEMBERS = ['MAI', 'JEEMIN', 'KOKO', 'SARANG', 'JUNGEUN', 'SAEBI'];
+const MEMBERS = ['MAI', 'JEEMIN', 'KOKO', 'SARANG', 'JUNGEUN', 'SAEBI', '', '', ''];
 
 const MEMBER_COLORS = {
-    MAI: ['#FFB3BA', '#FF8FA3', '#FF6B9D', '#E63946'],
+ MAI: ['#FFB3BA', '#FF8FA3', '#FF6B9D', '#E63946'],
     JEEMIN: ['#C7CEEA', '#9BB1FF', '#6B8DD6', '#4A5F8C'],
     KOKO: ['#FFE5B4', '#FFB347', '#FF9F40', '#FF6F00'],
     SARANG: ['#D4F1C5', '#A8E6CF', '#7ECDA3', '#4A9B7F'],
     JUNGEUN: ['#E0BBE4', '#D291BC', '#957DAD', '#6B5B95'],
     SAEBI: ['#FFD6E8', '#FFB3D9', '#FF85C0', '#E75480']
-};
 
 const PRODUCTS = [
     { 
@@ -60,27 +59,27 @@ const QUIZ_QUESTIONS = [
         question: "What's your favorite color?",
         options: [
             { text: 'Pink', members: ['MAI', 'JEEMIN', 'SARANG'] },
-            { text: 'Blue', members: ['KOKO', 'SAEBI'] },
-            { text: 'Green', members: ['KOKO'] },
-            { text: 'Purple', members: ['JUNGEUN','JEEMIN'] }
+            { text: 'Blue', members: ['KOKO', 'SAEBI', ''] },
+            { text: 'Green', members: ['KOKO', ''] },
+            { text: 'Purple', members: ['JUNGEUN', '', 'JEEMIN'] }
         ]
     },
     {
         question: "Are you more of an introvert or extrovert?",
         options: [
-            { text: 'Introvert', members: ['SAEBI',] },
+            { text: 'Introvert', members: ['SAEBI', '', ''] },
             { text: 'Extrovert', members: ['SARANG', 'JUNGEUN', 'JEEMIN'] },
-            { text: 'Ambivert (both)', members: ['MAI', 'KOKO',] },
-            { text: 'Depends on the day', members: ['MAI', 'SARANG',] }
+            { text: 'Ambivert (both)', members: ['MAI', 'KOKO', ''] },
+            { text: 'Depends on the day', members: ['MAI', 'SARANG', ''] }
         ]
     },
     {
         question: "Down to KOKO or head in the clouds?",
         options: [
             { text: 'Down to KOKO', members: ['KOKO', 'SAEBI', 'SARANG'] },
-            { text: 'Head in the clouds', members: [, 'JUNGEUN', 'JEEMIN'] },
-            { text: 'Both equally', members: ['MAI'] },
-            { text: 'Floating in between', members: ['JEEMIN',] }
+            { text: 'Head in the clouds', members: ['', 'JUNGEUN', 'JEEMIN'] },
+            { text: 'Both equally', members: ['MAI', ''] },
+            { text: 'Floating in between', members: ['', 'JEEMIN', ''] }
         ]
     },
     {
@@ -353,6 +352,11 @@ function updateTheme() {
     
     // Update background
     document.body.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%)`;
+    
+    // Update hero section
+    document.getElementById('heroImage').src = `/assets/hero-${selectedBias}.png`;
+    document.getElementById('heroName').textContent = selectedBias;
+    document.getElementById('heroName').style.textShadow = `0 0 20px ${colors[2]}, 0 0 40px ${colors[1]}`;
     
     // Update all colored elements
     document.getElementById('mainTitle').style.color = colors[2];
