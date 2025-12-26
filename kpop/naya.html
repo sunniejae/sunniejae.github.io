@@ -1,61 +1,375 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>K-Pop Fandom Shop</title>
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    body {
-      transition: background 0.4s ease;
-    }
-
-    .product-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-
-    .member-btn {
-      transition: background-color 0.3s ease, opacity 0.3s ease;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunnie Jae K-pop Shop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Brat';
+            src: url('/assets/FUNKHOUS.ttf') format('truetype');
+        }
+        
+        .brat-font {
+            font-family: 'Brat', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: background 0.3s ease;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            max-width: 42rem;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .product-card {
+            transition: transform 0.2s;
+        }
+        
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        
+        button {
+            transition: all 0.2s;
+        }
+        
+        button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .wishlist-badge {
+            position: absolute;
+            top: -0.25rem;
+            right: -0.25rem;
+            background-color: #EF4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 9999px;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .placeholder-icon {
+            display: none;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+        }
+    </style>
 </head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <h1 id="mainTitle" class="text-4xl font-bold brat-font">
+                    Sunnie Jae Shop
+                </h1>
+                <button id="wishlistBtn" class="relative p-3 rounded-full">
+                    <svg class="w-6 h-6 text-white" fill="white" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <span id="wishlistCount" class="wishlist-badge" style="display: none;">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-<body class="min-h-screen font-sans">
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden" style="height: 400px;">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <!-- Bias Photo -->
+            <div class="absolute inset-0">
+                <img 
+                    id="heroImage" 
+                    src="/assets/hero-Mercury.png" 
+                    alt="Bias Hero"
+                    class="w-full h-full object-cover opacity-60"
+                    onerror="this.style.display='none';"
+                />
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-70"></div>
+            </div>
+            
+            <!-- Hero Text -->
+            <div class="relative z-10 text-center text-white px-4">
+                <h2 id="heroName" class="text-6xl md:text-7xl font-bold mb-4 brat-font drop-shadow-2xl">
+                    Mercury
+                </h2>
+                <p class="text-xl md:text-2xl font-semibold drop-shadow-lg">
+                    Your Bias, Your Style
+                </p>
+            </div>
+        </div>
+        
+        <!-- Sparkle Effects -->
+        <div class="absolute top-10 left-10 animate-pulse">
+            <svg class="w-8 h-8 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+        <div class="absolute top-32 right-20 animate-pulse" style="animation-delay: 0.5s;">
+            <svg class="w-6 h-6 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-20 left-1/4 animate-pulse" style="animation-delay: 1s;">
+            <svg class="w-5 h-5 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+    </div>
 
-  <!-- HEADER -->
-  <header class="px-4 py-6 text-center">
-    <h1 id="mainTitle" class="text-3xl font-extrabold mb-2">
-      K-POP FANDOM SHOP
-    </h1>
-    <p class="text-white/90">Choose your bias 💖</p>
-  </header>
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Bias Selector -->
+        <div class="bg-white rounded-xl shadow-xl p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 id="biasTitle" class="text-2xl font-bold brat-font">
+                    Choose Your Bias
+                </h2>
+                <button id="howToOrderBtn" class="px-4 py-2 rounded-lg font-semibold text-white">
+                    How to Order
+                </button>
+            </div>
+            <div id="memberButtons" class="flex flex-wrap gap-3 mb-4">
+                <!-- Member buttons will be inserted here -->
+            </div>
+            <button id="quizBtn" class="w-full px-6 py-3 rounded-lg font-semibold text-white flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+                Don't have a bias? Use our bias matching tool!
+            </button>
+        </div>
 
-  <!-- MEMBER BUTTONS -->
-  <section class="px-4 mb-6">
-    <div id="memberButtons" class="flex flex-wrap justify-center gap-3"></div>
-  </section>
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Products will be inserted here -->
+        </div>
 
-  <!-- PRODUCTS -->
-  <main class="px-4 pb-16">
-    <h2 id="exclusiveItemsTitle" class="text-2xl font-bold mb-4">
-      Collection
-    </h2>
+        <!-- Order Form Section -->
+        <div class="bg-white rounded-xl shadow-xl p-8">
+            <h2 id="orderFormTitle" class="text-3xl font-bold mb-6 brat-font">
+                Submit Your Order
+            </h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2" id="nameLabel">
+                        Name
+                    </label>
+                    <input
+                        type="text"
+                        id="nameInput"
+                        class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none"
+                        placeholder="Your name"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2" id="emailLabel">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="emailInput"
+                        class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none"
+                        placeholder="your@email.com"
+                    />
+                </div>
+                <div class="flex items-center gap-3">
+                    <input
+                        type="checkbox"
+                        id="subscribeCheckbox"
+                        checked
+                        class="w-5 h-5 rounded"
+                    />
+                    <label for="subscribeCheckbox" class="text-sm font-medium">
+                        Subscribe to emails from Sunnie Jae
+                    </label>
+                </div>
+                <a
+                    id="requestOrderBtn"
+                    href="#"
+                    class="block w-full px-8 py-4 rounded-lg font-bold text-white text-center text-lg"
+                >
+                    Request Order (0 items)
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <div
-      id="productGrid"
-      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
-    ></div>
-  </main>
+    <!-- Wishlist Modal -->
+    <div id="wishlistModal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white">
+                <h2 class="text-2xl font-bold brat-font" id="wishlistModalTitle">
+                    Your Wishlist (0)
+                </h2>
+                <button id="closeWishlistModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <div id="wishlistItems">
+                    <p class="text-center text-gray-500 py-8">Your wishlist is empty</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- SCRIPT -->
-  <script src="naya.js"></script>
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white">
+                <h2 class="text-2xl font-bold brat-font" id="quizModalTitle">
+                    Bias Matching Quiz
+                </h2>
+                <button id="closeQuizModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-6" id="quizQuestions">
+                <!-- Quiz questions will be inserted here -->
+            </div>
+            <div class="p-6 pt-0">
+                <button id="submitQuizBtn" class="w-full px-6 py-4 rounded-lg font-bold text-white text-lg" disabled>
+                    See My Result!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content max-w-md">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-2xl font-bold brat-font" id="resultModalTitle">
+                    Your Bias Match!
+                </h2>
+                <button id="closeResultModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="mb-6 aspect-square bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+                    <img id="resultImage" src="" alt="" class="w-full h-full object-cover" style="display: none;" />
+                    <div id="resultPlaceholder" class="w-full h-full flex items-center justify-center">
+                        <svg class="w-20 h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 id="resultMemberName" class="text-3xl font-bold mb-2 brat-font">
+                    Member Name
+                </h3>
+                <p id="resultText" class="text-gray-600 mb-6">
+                    Your bias is Member! Your theme has been updated.
+                </p>
+                <button id="startShoppingBtn" class="w-full px-6 py-3 rounded-lg font-bold text-white">
+                    Start Shopping!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Order Modal -->
+    <div id="howToOrderModal" class="modal">
+        <div class="modal-content max-w-lg">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-2xl font-bold brat-font" id="howToOrderTitle">
+                    How to Order
+                </h2>
+                <button id="closeHowToOrderModal" class="p-2">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-gray-700 leading-relaxed">
+                    Products on this page are available via <strong>Redbubble</strong> or <strong>By Request</strong>.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    Items available on Redbubble are linked directly to the collection.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    For custom items, use the <strong>"Add to Wishlist"</strong> function. Once you've built your wishlist, click the heart icon or scroll down to the order form.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    For more details or special requests, email:
+                    <a href="mailto:orders@sunniejae.com" id="howToOrderEmail" class="font-semibold hover:underline">
+                        orders@sunniejae.com
+                    </a>
+                </p>
+                <div class="pt-4 border-t">
+                    <h3 class="font-bold mb-2 brat-font" id="exclusiveItemsTitle">
+                        SunnieJae Exclusive Items:
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Phone Case</li>
+                        <li>Lightstick Keychain</li>
+                        <li>Animal Icon Keychain</li>
+                    </ul>
+                </div>
+                <div class="pt-2">
+                    <h3 class="font-bold mb-2 brat-font" id="redbubbleItemsTitle">
+                        Available on Redbubble:
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Comeback Era Stickers</li>
+                        <li>Autographics</li>
+                        <li>Hangul Stickers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="shop.js"></script>
 </body>
 </html>
