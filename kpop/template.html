@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
 <title>Sunnie Jae Shop</title>
 
 <!-- GOOGLE FONTS -->
@@ -12,9 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-/* =========================
-   THEME
-   ========================= */
 :root {
   --primary:#9a9ad4;
   --accent:#3f3d7a;
@@ -22,14 +18,7 @@
   --text:#111;
 }
 
-/* =========================
-   RESET
-   ========================= */
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   font-family:'Poppins', sans-serif;
@@ -38,9 +27,6 @@ body {
   line-height:1.5;
 }
 
-/* =========================
-   HEADER / NAV
-   ========================= */
 header {
   background:#fff;
   position:sticky;
@@ -56,63 +42,18 @@ header {
   padding:12px 16px;
 }
 
-.logo img {
-  width:50px;
-  height:50px;
-}
+.logo img { width:50px; height:50px; }
 
-.nav-links {
-  display:flex;
-  gap:16px;
-}
+.nav-links { display:flex; gap:16px; }
+.nav-links a { text-decoration:none; font-weight:500; color:#333; }
+.menu-toggle { display:none; font-size:26px; cursor:pointer; }
 
-.nav-links a {
-  text-decoration:none;
-  font-weight:500;
-  color:#333;
-}
+.profile { text-align:center; padding:24px 16px; }
+.profile img { width:96px; height:96px; border-radius:50%; background:#fff; margin-bottom:10px; }
+.profile h1 { font-family:'Playfair Display', serif; font-size:32px; }
+.profile span { font-size:14px; opacity:.7; }
 
-.menu-toggle {
-  display:none;
-  font-size:26px;
-  cursor:pointer;
-}
-
-/* =========================
-   PROFILE
-   ========================= */
-.profile {
-  text-align:center;
-  padding:24px 16px;
-}
-
-.profile img {
-  width:96px;
-  height:96px;
-  border-radius:50%;
-  background:#fff;
-  margin-bottom:10px;
-}
-
-.profile h1 {
-  font-family:'Playfair Display', serif;
-  font-size:32px;
-}
-
-.profile span {
-  font-size:14px;
-  opacity:.7;
-}
-
-/* =========================
-   ACTION BUTTONS
-   ========================= */
-.actions {
-  display:flex;
-  gap:12px;
-  padding:0 16px 24px;
-}
-
+.actions { display:flex; gap:12px; padding:0 16px 24px; }
 .actions button {
   flex:1;
   padding:12px;
@@ -124,9 +65,6 @@ header {
   cursor:pointer;
 }
 
-/* =========================
-   PRODUCTS
-   ========================= */
 .products {
   padding:16px;
   display:grid;
@@ -134,23 +72,9 @@ header {
   gap:16px;
 }
 
-.card {
-  background:#fff;
-  border-radius:14px;
-  padding:12px;
-  text-align:center;
-}
-
-.card img {
-  width:100%;
-  border-radius:10px;
-}
-
-.card h4 {
-  margin:8px 0;
-  font-weight:600;
-}
-
+.card { background:#fff; border-radius:14px; padding:12px; text-align:center; }
+.card img { width:100%; border-radius:10px; }
+.card h4 { margin:8px 0; font-weight:600; }
 .card button {
   width:100%;
   padding:10px;
@@ -161,24 +85,8 @@ header {
   font-weight:600;
 }
 
-/* =========================
-   MODALS
-   ========================= */
-.modal {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  justify-content:center;
-  align-items:center;
-  padding:16px;
-  z-index:2000;
-}
-
-.modal.active {
-  display:flex;
-}
-
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); justify-content:center; align-items:center; padding:16px; z-index:2000; }
+.modal.active { display:flex; }
 .modal-content {
   background:#fff;
   border-radius:18px;
@@ -190,63 +98,18 @@ header {
   position:relative;
   animation:fadeIn .3s ease;
 }
+.close-btn { position:absolute; top:12px; right:16px; background:none; border:none; font-size:22px; cursor:pointer; }
 
-.close-btn {
-  position:absolute;
-  top:12px;
-  right:16px;
-  background:none;
-  border:none;
-  font-size:22px;
-}
+#quiz-questions p { font-family:'Playfair Display', serif; font-size:20px; margin-bottom:12px; }
+#quiz-questions button { width:100%; margin-bottom:8px; padding:12px; border:none; border-radius:12px; background:linear-gradient(135deg,var(--accent),var(--primary)); color:#fff; font-weight:600; }
 
-/* =========================
-   QUIZ
-   ========================= */
-#quiz-questions p {
-  font-family:'Playfair Display', serif;
-  font-size:20px;
-  margin-bottom:12px;
-}
-
-#quiz-questions button {
-  width:100%;
-  margin-bottom:8px;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--accent),var(--primary));
-  color:#fff;
-  font-weight:600;
-}
-
-/* =========================
-   MOBILE NAV
-   ========================= */
 @media (max-width:720px) {
   .menu-toggle { display:block; }
-
-  .nav-links {
-    display:none;
-    position:absolute;
-    top:72px;
-    right:16px;
-    background:#fff;
-    padding:12px 16px;
-    border-radius:12px;
-    flex-direction:column;
-    box-shadow:0 4px 12px rgba(0,0,0,.15);
-  }
-
-  .nav-links.active {
-    display:flex;
-  }
+  .nav-links { display:none; position:absolute; top:72px; right:16px; background:#fff; padding:12px 16px; border-radius:12px; flex-direction:column; box-shadow:0 4px 12px rgba(0,0,0,.15);}
+  .nav-links.active { display:flex; }
 }
 
-@keyframes fadeIn {
-  from { opacity:0; transform:scale(.95); }
-  to { opacity:1; transform:scale(1); }
-}
+@keyframes fadeIn { from {opacity:0; transform:scale(.95);} to {opacity:1; transform:scale(1);} }
 </style>
 </head>
 
@@ -257,12 +120,10 @@ header {
     <a class="logo" href="https://www.sunniejae.com">
       <img src="assets/sunnie-jae-logo.png" alt="Sunnie Jae">
     </a>
-
     <nav class="nav-links" id="navLinks">
       <a href="/home.html">Home</a>
       <a href="https://www.sunniejae.com/contact">Contact</a>
     </nav>
-
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
   </div>
 </header>
@@ -292,7 +153,6 @@ header {
 <div class="modal" id="howToModal" onclick="closeHowTo()">
   <div class="modal-content" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeHowTo()">✕</button>
-
     <h2 style="font-family:'Playfair Display',serif;">How to Order</h2>
     <p>Items are available via <strong>Redbubble</strong> or by request.</p>
     <ul>
