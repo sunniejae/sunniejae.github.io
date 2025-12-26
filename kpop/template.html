@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
 <title>Sunnie Jae Shop</title>
-<link rel="icon" href="assets/logo.png">
+
+<!-- GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
 /* =========================
-   ROOT / THEME
+   THEME
    ========================= */
 :root {
   --primary:#9a9ad4;
   --accent:#3f3d7a;
-  --white:#ffffff;
-  --black:#000010;
-  --gray:#666;
-
-  --current-bg:var(--primary);
-  --current-accent:var(--accent);
+  --bg:#f7f7fb;
+  --text:#111;
 }
 
 /* =========================
@@ -32,41 +32,33 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background:var(--current-bg);
-  color:var(--black);
-  line-height:1.4;
+  font-family:'Poppins', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
 }
 
 /* =========================
    HEADER / NAV
    ========================= */
-.site-header {
+header {
+  background:#fff;
   position:sticky;
   top:0;
   z-index:1000;
-  background:#fff;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
 }
 
-.nav-bar {
+.nav {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:10px 16px;
-  max-width:1100px;
-  margin:auto;
-}
-
-.logo {
-  display:flex;
-  align-items:center;
+  padding:12px 16px;
 }
 
 .logo img {
   width:50px;
   height:50px;
-  object-fit:contain;
 }
 
 .nav-links {
@@ -76,12 +68,10 @@ body {
 
 .nav-links a {
   text-decoration:none;
-  font-weight:600;
+  font-weight:500;
   color:#333;
-  font-size:15px;
 }
 
-/* Mobile menu */
 .menu-toggle {
   display:none;
   font-size:26px;
@@ -92,63 +82,83 @@ body {
    PROFILE
    ========================= */
 .profile {
-  padding:16px;
   text-align:center;
+  padding:24px 16px;
 }
 
 .profile img {
   width:96px;
   height:96px;
   border-radius:50%;
-  object-fit:cover;
   background:#fff;
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
 
 .profile h1 {
-  font-size:28px;
+  font-family:'Playfair Display', serif;
+  font-size:32px;
 }
 
 .profile span {
   font-size:14px;
-  color:var(--gray);
+  opacity:.7;
 }
 
 /* =========================
    ACTION BUTTONS
    ========================= */
-.action-row {
+.actions {
   display:flex;
-  gap:10px;
-  padding:0 16px 16px;
+  gap:12px;
+  padding:0 16px 24px;
 }
 
-.action-row button {
+.actions button {
   flex:1;
-  padding:10px;
-  border-radius:999px;
+  padding:12px;
   border:none;
-  cursor:pointer;
+  border-radius:999px;
   font-weight:600;
-  background:linear-gradient(135deg,var(--current-accent),var(--current-bg));
+  background:linear-gradient(135deg,var(--accent),var(--primary));
   color:#fff;
+  cursor:pointer;
 }
 
 /* =========================
    PRODUCTS
    ========================= */
-.products-grid {
+.products {
+  padding:16px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
   gap:16px;
-  padding:16px;
 }
 
-.product-card {
+.card {
   background:#fff;
   border-radius:14px;
-  padding:10px;
+  padding:12px;
   text-align:center;
+}
+
+.card img {
+  width:100%;
+  border-radius:10px;
+}
+
+.card h4 {
+  margin:8px 0;
+  font-weight:600;
+}
+
+.card button {
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--accent),var(--primary));
+  color:#fff;
+  font-weight:600;
 }
 
 /* =========================
@@ -158,11 +168,11 @@ body {
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.7);
-  z-index:2000;
+  background:rgba(0,0,0,.7);
   justify-content:center;
   align-items:center;
   padding:16px;
+  z-index:2000;
 }
 
 .modal.active {
@@ -178,87 +188,100 @@ body {
   max-height:85vh;
   overflow-y:auto;
   position:relative;
+  animation:fadeIn .3s ease;
 }
 
 .close-btn {
   position:absolute;
   top:12px;
   right:16px;
-  border:none;
   background:none;
+  border:none;
   font-size:22px;
-  cursor:pointer;
+}
+
+/* =========================
+   QUIZ
+   ========================= */
+#quiz-questions p {
+  font-family:'Playfair Display', serif;
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+#quiz-questions button {
+  width:100%;
+  margin-bottom:8px;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--primary));
+  color:#fff;
+  font-weight:600;
 }
 
 /* =========================
    MOBILE NAV
    ========================= */
-@media (max-width: 720px) {
+@media (max-width:720px) {
+  .menu-toggle { display:block; }
+
   .nav-links {
+    display:none;
     position:absolute;
     top:72px;
     right:16px;
     background:#fff;
-    flex-direction:column;
-    gap:12px;
     padding:12px 16px;
     border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
-    display:none;
+    flex-direction:column;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
   }
 
   .nav-links.active {
     display:flex;
   }
+}
 
-  .menu-toggle {
-    display:block;
-  }
+@keyframes fadeIn {
+  from { opacity:0; transform:scale(.95); }
+  to { opacity:1; transform:scale(1); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER / NAV -->
-<header class="site-header">
-  <div class="nav-bar">
-
-    <!-- LOGO -->
-    <a href="https://www.sunniejae.com" class="logo">
-      <img src="assets/sunnie-jae-logo.png" alt="Sunnie Jae Logo">
+<header>
+  <div class="nav">
+    <a class="logo" href="https://www.sunniejae.com">
+      <img src="assets/sunnie-jae-logo.png" alt="Sunnie Jae">
     </a>
 
-    <!-- NAV LINKS -->
-    <nav class="nav-links" id="nav-links">
+    <nav class="nav-links" id="navLinks">
       <a href="/home.html">Home</a>
       <a href="https://www.sunniejae.com/contact">Contact</a>
     </nav>
 
-    <!-- MOBILE TOGGLE -->
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
   </div>
 </header>
 
-<!-- PROFILE -->
-<div class="profile">
-  <img id="profile-pic" src="assets/profile-ot.png" alt="">
-  <h1 id="profile-name">OT</h1>
-  <span id="profile-subtitle">Fandom</span>
-</div>
+<section class="profile">
+  <img id="profilePic" src="assets/profile-ot.png" alt="">
+  <h1 id="profileName">OT</h1>
+  <span id="profileSubtitle">Fandom</span>
+</section>
 
-<!-- ACTIONS -->
-<div class="action-row">
+<div class="actions">
   <button onclick="openQuiz()">Bias Matcher ✨</button>
   <button onclick="openHowTo()">How to Order</button>
 </div>
 
-<!-- PRODUCTS -->
-<div class="products-grid" id="products-grid"></div>
+<section class="products" id="products"></section>
 
 <!-- QUIZ MODAL -->
-<div id="quiz-modal" class="modal" onclick="closeQuiz()">
+<div class="modal" id="quizModal" onclick="closeQuiz()">
   <div class="modal-content" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeQuiz()">✕</button>
     <div id="quiz-questions"></div>
@@ -266,34 +289,20 @@ body {
 </div>
 
 <!-- HOW TO MODAL -->
-<div id="howto-modal" class="modal" onclick="closeHowTo()">
+<div class="modal" id="howToModal" onclick="closeHowTo()">
   <div class="modal-content" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeHowTo()">✕</button>
 
-    <h2>How to Order</h2>
-    <p>
-      Products on this page are available via <strong>Redbubble</strong> or
-      <strong>By Request</strong>.
-    </p>
-
+    <h2 style="font-family:'Playfair Display',serif;">How to Order</h2>
+    <p>Items are available via <strong>Redbubble</strong> or by request.</p>
     <ul>
-      <li>Items with links go directly to Redbubble</li>
-      <li>Custom items → tap <strong>Add to Wishlist</strong></li>
-      <li>Scroll down or tap the 💖 to review your wishlist</li>
+      <li>Linked items → Redbubble</li>
+      <li>Custom → Add to wishlist</li>
+      <li>Scroll down to submit wishlist</li>
     </ul>
-
-    <p>
-      Questions or custom requests?
-      <strong>Orders@SunnieJae.com</strong>
-    </p>
+    <p>Email <strong>Orders@SunnieJae.com</strong></p>
   </div>
 </div>
-
-<script>
-function toggleMenu() {
-  document.getElementById("nav-links").classList.toggle("active");
-}
-</script>
 
 <script src="template.js"></script>
 </body>
