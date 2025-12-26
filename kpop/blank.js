@@ -99,142 +99,130 @@ const QUIZ_QUESTIONS = [
     {
         question: 'What\'s your favorite color?',
         options: [
-            { text: 'Pink/Red', value: 'A' },
-            { text: 'Purple/Violet', value: 'B' },
-            { text: 'Green/Teal', value: 'C' },
-            { text: 'Orange/Coral', value: 'D' },
-            { text: 'Yellow/Gold', value: 'E' },
-            { text: 'Black/Gray', value: 'F' },
-            { text: 'Blue/Sky Blue', value: 'G' },
-            { text: 'Navy/Deep Blue', value: 'H' },
-            { text: 'Purple/Lavender', value: 'I' }
+            { text: 'Pink/Red', members: ['MERCURY', 'MARS'] },
+            { text: 'Purple/Violet', members: ['VENUS', 'PLUTO'] },
+            { text: 'Green/Teal', members: ['EARTH'] },
+            { text: 'Orange/Coral', members: ['MARS', 'JUPITER'] },
+            { text: 'Yellow/Gold', members: ['JUPITER'] },
+            { text: 'Black/Gray', members: ['SATURN'] },
+            { text: 'Blue/Sky Blue', members: ['URANUS', 'NEPTUNE'] },
+            { text: 'Navy/Deep Blue', members: ['NEPTUNE'] },
+            { text: 'Purple/Lavender', members: ['PLUTO', 'VENUS'] }
         ]
     },
     {
         question: 'Are you more of an introvert or extrovert?',
         options: [
-            { text: 'Extreme extrovert - I\'m the life of the party!', value: 'A' },
-            { text: 'Outgoing extrovert', value: 'B' },
-            { text: 'Ambivert leaning extrovert', value: 'C' },
-            { text: 'True ambivert', value: 'D' },
-            { text: 'Ambivert leaning introvert', value: 'E' },
-            { text: 'Quiet introvert', value: 'F' },
-            { text: 'Social but need alone time', value: 'G' },
-            { text: 'Selective extrovert', value: 'H' },
-            { text: 'Deep introvert - I cherish solitude', value: 'I' }
+            { text: 'Extreme extrovert - I\'m the life of the party!', members: ['MERCURY', 'JUPITER'] },
+            { text: 'Outgoing extrovert', members: ['VENUS', 'MARS'] },
+            { text: 'Ambivert leaning extrovert', members: ['EARTH', 'URANUS'] },
+            { text: 'True ambivert', members: ['EARTH', 'VENUS', 'URANUS'] },
+            { text: 'Ambivert leaning introvert', members: ['NEPTUNE', 'PLUTO'] },
+            { text: 'Quiet introvert', members: ['SATURN', 'PLUTO'] },
+            { text: 'Social but need alone time', members: ['VENUS', 'NEPTUNE'] },
+            { text: 'Selective extrovert', members: ['MARS', 'SATURN'] },
+            { text: 'Deep introvert - I cherish solitude', members: ['PLUTO', 'SATURN'] }
         ]
     },
     {
         question: 'Are you more down to earth or head in the clouds?',
         options: [
-            { text: 'Very practical and grounded', value: 'F' },
-            { text: 'Mostly down to earth', value: 'D' },
-            { text: 'Balanced but practical', value: 'G' },
-            { text: 'Perfectly balanced', value: 'E' },
-            { text: 'Balanced but dreamy', value: 'H' },
-            { text: 'Head in the clouds', value: 'C' },
-            { text: 'Total dreamer', value: 'I' },
-            { text: 'Visionary but realistic', value: 'B' },
-            { text: 'Free spirit', value: 'A' }
+            { text: 'Very practical and grounded', members: ['SATURN', 'EARTH'] },
+            { text: 'Mostly down to earth', members: ['MARS', 'JUPITER'] },
+            { text: 'Balanced but practical', members: ['URANUS', 'MERCURY'] },
+            { text: 'Perfectly balanced', members: ['EARTH', 'VENUS'] },
+            { text: 'Balanced but dreamy', members: ['NEPTUNE', 'VENUS'] },
+            { text: 'Head in the clouds', members: ['PLUTO', 'NEPTUNE'] },
+            { text: 'Total dreamer', members: ['PLUTO'] },
+            { text: 'Visionary but realistic', members: ['URANUS', 'JUPITER'] },
+            { text: 'Free spirit', members: ['MERCURY', 'JUPITER'] }
         ]
     },
     {
         question: 'Do you lead with your head or your heart?',
         options: [
-            { text: 'Pure logic and reason', value: 'F' },
-            { text: 'Head first, always', value: 'D' },
-            { text: 'Logic but consider feelings', value: 'G' },
-            { text: 'Both equally', value: 'E' },
-            { text: 'Heart with some logic', value: 'H' },
-            { text: 'Heart over head', value: 'A' },
-            { text: 'All emotions, all the time', value: 'C' },
-            { text: 'Intuition and feelings', value: 'B' },
-            { text: 'Passionate and emotional', value: 'I' }
+            { text: 'Pure logic and reason', members: ['SATURN', 'URANUS'] },
+            { text: 'Head first, always', members: ['MARS', 'SATURN'] },
+            { text: 'Logic but consider feelings', members: ['EARTH', 'URANUS'] },
+            { text: 'Both equally', members: ['VENUS', 'JUPITER'] },
+            { text: 'Heart with some logic', members: ['NEPTUNE', 'EARTH'] },
+            { text: 'Heart over head', members: ['MERCURY', 'VENUS'] },
+            { text: 'All emotions, all the time', members: ['MERCURY', 'PLUTO'] },
+            { text: 'Intuition and feelings', members: ['PLUTO', 'NEPTUNE'] },
+            { text: 'Passionate and emotional', members: ['MARS', 'JUPITER'] }
         ]
     },
     {
         question: 'Order or chaos?',
         options: [
-            { text: 'Everything must be organized', value: 'F' },
-            { text: 'Love structure and order', value: 'D' },
-            { text: 'Organized but flexible', value: 'G' },
-            { text: 'Structured creativity', value: 'E' },
-            { text: 'Organized chaos', value: 'B' },
-            { text: 'Flexible and spontaneous', value: 'H' },
-            { text: 'Controlled chaos', value: 'A' },
-            { text: 'Spontaneity is life!', value: 'C' },
-            { text: 'Complete chaos is fun', value: 'I' }
+            { text: 'Everything must be organized', members: ['SATURN'] },
+            { text: 'Love structure and order', members: ['SATURN', 'URANUS'] },
+            { text: 'Organized but flexible', members: ['EARTH', 'VENUS'] },
+            { text: 'Structured creativity', members: ['URANUS', 'NEPTUNE'] },
+            { text: 'Organized chaos', members: ['VENUS', 'MARS'] },
+            { text: 'Flexible and spontaneous', members: ['JUPITER', 'MERCURY'] },
+            { text: 'Controlled chaos', members: ['MARS', 'JUPITER'] },
+            { text: 'Spontaneity is life!', members: ['MERCURY', 'PLUTO'] },
+            { text: 'Complete chaos is fun', members: ['PLUTO'] }
         ]
     },
     {
         question: 'What\'s your favorite animal?',
         options: [
-            { text: 'Dog - loyal and energetic', value: 'A' },
-            { text: 'Cat - independent and mysterious', value: 'I' },
-            { text: 'Bird - free and soaring', value: 'C' },
-            { text: 'Wolf - strong and protective', value: 'D' },
-            { text: 'Dolphin - intelligent and playful', value: 'B' },
-            { text: 'Tiger - powerful and fierce', value: 'F' },
-            { text: 'Rabbit - gentle and quick', value: 'H' },
-            { text: 'Fox - clever and adaptable', value: 'G' },
-            { text: 'Bear - strong yet gentle', value: 'E' }
+            { text: 'Dog - loyal and energetic', members: ['MERCURY', 'JUPITER'] },
+            { text: 'Cat - independent and mysterious', members: ['PLUTO', 'SATURN'] },
+            { text: 'Bird - free and soaring', members: ['URANUS', 'NEPTUNE'] },
+            { text: 'Wolf - strong and protective', members: ['MARS', 'SATURN'] },
+            { text: 'Dolphin - intelligent and playful', members: ['VENUS', 'NEPTUNE'] },
+            { text: 'Tiger - powerful and fierce', members: ['MARS', 'JUPITER'] },
+            { text: 'Rabbit - gentle and quick', members: ['MERCURY', 'EARTH'] },
+            { text: 'Fox - clever and adaptable', members: ['URANUS', 'VENUS'] },
+            { text: 'Bear - strong yet gentle', members: ['EARTH', 'SATURN'] }
         ]
     },
     {
         question: 'Which other artist do you follow?',
         options: [
-            { text: 'Blackpink', value: 'A' },
-            { text: 'Twice', value: 'B' },
-            { text: 'Seventeen', value: 'C' },
-            { text: 'Stray Kids', value: 'D' },
-            { text: 'TXT', value: 'E' },
-            { text: 'NCT', value: 'F' },
-            { text: 'Ateez', value: 'G' },
-            { text: 'IVE', value: 'H' },
-            { text: 'NewJeans', value: 'I' }
+            { text: 'Blackpink', members: ['MERCURY', 'MARS'] },
+            { text: 'Twice', members: ['VENUS', 'JUPITER'] },
+            { text: 'Seventeen', members: ['EARTH', 'URANUS'] },
+            { text: 'Stray Kids', members: ['MARS', 'SATURN'] },
+            { text: 'TXT', members: ['JUPITER', 'VENUS'] },
+            { text: 'NCT', members: ['SATURN', 'URANUS'] },
+            { text: 'Ateez', members: ['URANUS', 'NEPTUNE'] },
+            { text: 'IVE', members: ['MERCURY', 'VENUS'] },
+            { text: 'NewJeans', members: ['PLUTO', 'NEPTUNE'] }
         ]
     },
     {
         question: 'What\'s your favorite music vibe?',
         options: [
-            { text: 'Bright and energetic pop', value: 'A' },
-            { text: 'Dreamy and ethereal', value: 'B' },
-            { text: 'Emotional and deep', value: 'C' },
-            { text: 'Powerful and intense', value: 'D' },
-            { text: 'Fun and upbeat', value: 'E' },
-            { text: 'Dark and edgy', value: 'F' },
-            { text: 'Fresh and refreshing', value: 'G' },
-            { text: 'Smooth and chill', value: 'H' },
-            { text: 'Mysterious and artistic', value: 'I' }
+            { text: 'Bright and energetic pop', members: ['MERCURY', 'JUPITER'] },
+            { text: 'Dreamy and ethereal', members: ['VENUS', 'NEPTUNE'] },
+            { text: 'Emotional and deep', members: ['PLUTO', 'EARTH'] },
+            { text: 'Powerful and intense', members: ['MARS', 'SATURN'] },
+            { text: 'Fun and upbeat', members: ['JUPITER', 'VENUS'] },
+            { text: 'Dark and edgy', members: ['SATURN', 'PLUTO'] },
+            { text: 'Fresh and refreshing', members: ['URANUS', 'EARTH'] },
+            { text: 'Smooth and chill', members: ['NEPTUNE', 'EARTH'] },
+            { text: 'Mysterious and artistic', members: ['PLUTO', 'URANUS'] }
         ]
     },
     {
         question: 'What\'s your ideal hangout?',
         options: [
-            { text: 'Loud party with everyone', value: 'A' },
-            { text: 'Art gallery or museum', value: 'B' },
-            { text: 'Quiet nature walk', value: 'C' },
-            { text: 'Intense gaming session', value: 'D' },
-            { text: 'Fun amusement park', value: 'E' },
-            { text: 'Gym or sports activity', value: 'F' },
-            { text: 'Beach or pool day', value: 'G' },
-            { text: 'Cozy café with a book', value: 'H' },
-            { text: 'Late night deep talks', value: 'I' }
+            { text: 'Loud party with everyone', members: ['MERCURY', 'JUPITER'] },
+            { text: 'Art gallery or museum', members: ['VENUS', 'PLUTO'] },
+            { text: 'Quiet nature walk', members: ['EARTH', 'NEPTUNE'] },
+            { text: 'Intense gaming session', members: ['MARS', 'URANUS'] },
+            { text: 'Fun amusement park', members: ['JUPITER', 'MERCURY'] },
+            { text: 'Gym or sports activity', members: ['MARS', 'SATURN'] },
+            { text: 'Beach or pool day', members: ['URANUS', 'VENUS'] },
+            { text: 'Cozy café with a book', members: ['NEPTUNE', 'SATURN'] },
+            { text: 'Late night deep talks', members: ['PLUTO', 'EARTH'] }
         ]
     }
 ];
-
-const BIAS_RESULTS = {
-    A: 'MERCURY',
-    B: 'VENUS',
-    C: 'EARTH',
-    D: 'MARS',
-    E: 'JUPITER',
-    F: 'SATURN',
-    G: 'URANUS',
-    H: 'NEPTUNE',
-    I: 'PLUTO'
-};
 
 // State
 let currentBias = 'MERCURY';
@@ -449,7 +437,7 @@ function renderQuiz() {
             <h3>${question.question}</h3>
             <div class="quiz-options">
                 ${question.options.map((option, index) => `
-                    <div class="quiz-option" onclick="selectQuizAnswer('${option.value}')">
+                    <div class="quiz-option" onclick='selectQuizAnswer(${JSON.stringify(option.members)})'>
                         ${option.text}
                     </div>
                 `).join('')}
@@ -459,15 +447,14 @@ function renderQuiz() {
 }
 
 // Select quiz answer
-function selectQuizAnswer(value) {
-    quizAnswers.push(value);
+function selectQuizAnswer(members) {
+    // Add all members from this answer to the quiz results
+    quizAnswers.push(...members);
     
     // Add visual feedback
     const options = document.querySelectorAll('.quiz-option');
     options.forEach(option => {
-        if (option.textContent.includes(value)) {
-            option.classList.add('selected');
-        }
+        option.classList.add('selected');
     });
     
     // Move to next question after brief delay
@@ -478,23 +465,21 @@ function selectQuizAnswer(value) {
 
 // Show quiz result
 function showQuizResult() {
-    // Count answer frequencies
-    const answerCounts = {};
-    quizAnswers.forEach(answer => {
-        answerCounts[answer] = (answerCounts[answer] || 0) + 1;
+    // Count member occurrences
+    const memberCounts = {};
+    quizAnswers.forEach(member => {
+        memberCounts[member] = (memberCounts[member] || 0) + 1;
     });
     
-    // Find most common answer
+    // Find most common member
     let maxCount = 0;
-    let result = 'A';
-    Object.entries(answerCounts).forEach(([answer, count]) => {
+    let bias = 'MERCURY';
+    Object.entries(memberCounts).forEach(([member, count]) => {
         if (count > maxCount) {
             maxCount = count;
-            result = answer;
+            bias = member;
         }
     });
-    
-    const bias = BIAS_RESULTS[result] || 'MERCURY';
     
     const container = document.getElementById('quizContent');
     container.innerHTML = `
