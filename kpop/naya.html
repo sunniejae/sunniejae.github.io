@@ -7,12 +7,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         @font-face {
-            font-family: 'Brat';
-            src: url('/assets/FUNKHOUS.ttf') format('truetype');
+            font-family: 'Starbim';
+            src: url('/assets/Starbim.ttf') format('truetype');
         }
         
-        .brat-font {
-            font-family: 'Brat', system-ui, -apple-system, sans-serif;
+        .Starbim-font {
+            font-family: 'Starbim', system-ui, -apple-system, sans-serif;
         }
         
         body {
@@ -102,7 +102,7 @@
     <header class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 py-6">
             <div class="flex items-center justify-between">
-                <h1 id="mainTitle" class="text-4xl font-bold brat-font">
+                <h1 id="mainTitle" class="text-4xl font-bold Starbim-font">
                     Sunnie Jae Shop
                 </h1>
                 <button id="wishlistBtn" class="relative p-3 rounded-full">
@@ -115,12 +115,56 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden" style="height: 400px;">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <!-- Bias Photo -->
+            <div class="absolute inset-0">
+                <img 
+                    id="heroImage" 
+                    src="/assets/hero-Mercury.png" 
+                    alt="Bias Hero"
+                    class="w-full h-full object-cover opacity-60"
+                    onerror="this.style.display='none';"
+                />
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-70"></div>
+            </div>
+            
+            <!-- Hero Text -->
+            <div class="relative z-10 text-center text-white px-4">
+                <h2 id="heroName" class="text-6xl md:text-7xl font-bold mb-4 Starbim-font drop-shadow-2xl">
+                    Mercury
+                </h2>
+                <p class="text-xl md:text-2xl font-semibold drop-shadow-lg">
+                    Your Bias, Your Style
+                </p>
+            </div>
+        </div>
+        
+        <!-- Sparkle Effects -->
+        <div class="absolute top-10 left-10 animate-pulse">
+            <svg class="w-8 h-8 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+        <div class="absolute top-32 right-20 animate-pulse" style="animation-delay: 0.5s;">
+            <svg class="w-6 h-6 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-20 left-1/4 animate-pulse" style="animation-delay: 1s;">
+            <svg class="w-5 h-5 text-white opacity-70" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+            </svg>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 py-8">
         <!-- Bias Selector -->
         <div class="bg-white rounded-xl shadow-xl p-6 mb-8">
             <div class="flex items-center justify-between mb-4">
-                <h2 id="biasTitle" class="text-2xl font-bold brat-font">
+                <h2 id="biasTitle" class="text-2xl font-bold Starbim-font">
                     Choose Your Bias
                 </h2>
                 <button id="howToOrderBtn" class="px-4 py-2 rounded-lg font-semibold text-white">
@@ -145,7 +189,7 @@
 
         <!-- Order Form Section -->
         <div class="bg-white rounded-xl shadow-xl p-8">
-            <h2 id="orderFormTitle" class="text-3xl font-bold mb-6 brat-font">
+            <h2 id="orderFormTitle" class="text-3xl font-bold mb-6 Starbim-font">
                 Submit Your Order
             </h2>
             <div class="space-y-4">
@@ -197,7 +241,7 @@
     <div id="wishlistModal" class="modal">
         <div class="modal-content">
             <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white">
-                <h2 class="text-2xl font-bold brat-font" id="wishlistModalTitle">
+                <h2 class="text-2xl font-bold Starbim-font" id="wishlistModalTitle">
                     Your Wishlist (0)
                 </h2>
                 <button id="closeWishlistModal" class="p-2">
@@ -218,7 +262,7 @@
     <div id="quizModal" class="modal">
         <div class="modal-content">
             <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white">
-                <h2 class="text-2xl font-bold brat-font" id="quizModalTitle">
+                <h2 class="text-2xl font-bold Starbim-font" id="quizModalTitle">
                     Bias Matching Quiz
                 </h2>
                 <button id="closeQuizModal" class="p-2">
@@ -242,7 +286,7 @@
     <div id="resultModal" class="modal">
         <div class="modal-content max-w-md">
             <div class="p-6 border-b flex items-center justify-between">
-                <h2 class="text-2xl font-bold brat-font" id="resultModalTitle">
+                <h2 class="text-2xl font-bold Starbim-font" id="resultModalTitle">
                     Your Bias Match!
                 </h2>
                 <button id="closeResultModal" class="p-2">
@@ -260,7 +304,7 @@
                         </svg>
                     </div>
                 </div>
-                <h3 id="resultMemberName" class="text-3xl font-bold mb-2 brat-font">
+                <h3 id="resultMemberName" class="text-3xl font-bold mb-2 Starbim-font">
                     Member Name
                 </h3>
                 <p id="resultText" class="text-gray-600 mb-6">
@@ -277,7 +321,7 @@
     <div id="howToOrderModal" class="modal">
         <div class="modal-content max-w-lg">
             <div class="p-6 border-b flex items-center justify-between">
-                <h2 class="text-2xl font-bold brat-font" id="howToOrderTitle">
+                <h2 class="text-2xl font-bold Starbim-font" id="howToOrderTitle">
                     How to Order
                 </h2>
                 <button id="closeHowToOrderModal" class="p-2">
@@ -303,7 +347,7 @@
                     </a>
                 </p>
                 <div class="pt-4 border-t">
-                    <h3 class="font-bold mb-2 brat-font" id="exclusiveItemsTitle">
+                    <h3 class="font-bold mb-2 Starbim-font" id="exclusiveItemsTitle">
                         SunnieJae Exclusive Items:
                     </h3>
                     <ul class="list-disc list-inside space-y-1 text-gray-700">
@@ -313,7 +357,7 @@
                     </ul>
                 </div>
                 <div class="pt-2">
-                    <h3 class="font-bold mb-2 brat-font" id="redbubbleItemsTitle">
+                    <h3 class="font-bold mb-2 Starbim-font" id="redbubbleItemsTitle">
                         Available on Redbubble:
                     </h3>
                     <ul class="list-disc list-inside space-y-1 text-gray-700">
