@@ -486,6 +486,15 @@ function showQuizResult() {
         <div class="quiz-result">
             <h3>Your Bias Match!</h3>
             <div style="font-size: 4rem; margin: 1rem 0;">✨</div>
+            <div class="result-image-container">
+                <img src="/assets/result-${bias}.png" 
+                     alt="${bias}" 
+                     class="result-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="result-image-placeholder" style="display: none;">
+                    <span style="font-size: 5rem;">💖</span>
+                </div>
+            </div>
             <h3 style="font-size: 3rem; margin: 1rem 0;">${bias}</h3>
             <p>Based on your answers, ${bias} is your perfect bias match!</p>
             <button class="submit-btn" onclick="applyQuizResult('${bias}')">
