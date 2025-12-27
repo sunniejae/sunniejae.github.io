@@ -3,171 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunnie Jae Shop - K-pop Fandom Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>K-pop Fandom Shop</title>
     <style>
         @font-face {
             font-family: 'Brat';
             src: url('/assets/FUNKHOUS.ttf');
         }
-        .brat-font {
-            font-family: 'Brat', sans-serif;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .modal {
-            display: none;
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            transition: background-color 0.3s ease;
         }
-        .modal.active {
+        
+        .header {
+            padding: 1.5rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: background 0.3s ease;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-family: 'Brat', system-ui;
+            color: white;
+            font-size: 2rem;
+            margin: 0 0 1rem 0;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .member-selector {
             display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .member-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: none;
+            background-color: rgba(255,255,255,0.3);
+            color: white;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        
+        .member-btn.active {
+            border: 3px solid white;
+            background-color: white;
+            font-weight: bold;
+        }
+        
+        .quiz-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            background-color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-category {
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .product-title {
+            font-family: 'Brat', system-ui;
+            font-size: 1.125rem;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .product-description {
+            font-size: 0.875rem;
+            color: #666;
+            margin: 0 0 1rem 0;
+        }
+        
+        .product-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+        
+        .product-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .wishlist-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 1rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 40;
+        }
+        
+        .wishlist-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: auto;
+            position: relative;
+        }
+        
+        .modal.large {
+            max-width: 600px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        
+        .modal-content {
+            padding: 2rem;
+        }
+        
+        .modal-title {
+            font-family: 'Brat', system-ui;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .quiz-question {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        
+        .quiz-answers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .quiz-answer {
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid;
+            background-color: white;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+        
+        .quiz-progress-text {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .wishlist-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .wishlist-item-info {
+            flex: 1;
+        }
+        
+        .wishlist-item-name {
+            font-weight: bold;
+        }
+        
+        .wishlist-item-category {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        .wishlist-remove {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #999;
+            font-size: 1.25rem;
+        }
+        
+ {
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .form-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .form-checkbox {
+            cursor: pointer;
+        }
+        
+        .empty-wishlist {
+            color: #666;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .modal-text {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .modal-text p {
+            margin-bottom: 1rem;
+        }
+        
+        .modal-text strong {
+            font-weight: 600;
+        }
+        
+        .modal-text a {
+            text-decoration: none;
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-width: 1000px;
+            height: 300px;
+            margin: 0 auto 2rem auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-image {
+                height: 200px;
+                border-radius: 12px;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen">
-    <!-- Header -->
-    <header id="header" class="bg-white bg-opacity-95 shadow-lg sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <h1 id="siteTitle" class="text-4xl font-bold brat-font">
-                    Sunnie Jae Shop
-                </h1>
-                
-                <div class="flex items-center gap-4">
-                    <button id="howToOrderBtn" class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                        <span>How to Order</span>
-                    </button>
-                    
-                    <button id="wishlistBtn" class="relative p-3 rounded-full transition hover:scale-110">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                        <span id="wishlistCounter" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold" style="display: none;">0</span>
-                    </button>
-                </div>
+<body>
+    <header class="header" id="header">
+        <div class="header-content">
+            <h1>🌟 Fandom Shop</h1>
+            
+            <div class="member-selector" id="memberSelector"></div>
+            
+            <div style="text-align: center;">
+                <button class="quiz-btn" id="quizBtn">
+                    <span>✨</span>
+                    Don't have a bias? Take our quiz!
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-8">
-            <div class="grid md:grid-cols-2 gap-0">
-                <div class="aspect-square md:aspect-auto">
-                    <img id="heroImage" class="w-full h-full object-cover" alt="Member Hero">
-                </div>
-                <div class="p-8 md:p-12 flex flex-col justify-center">
-                    <h2 id="heroName" class="text-4xl md:text-5xl font-bold mb-4 brat-font"></h2>
-                    <p class="text-xl text-gray-600 mb-8">
-                        Shop exclusive merch featuring your bias
-                    </p>
-                    <div class="space-y-4">
-                        <p class="text-sm text-gray-500 uppercase tracking-wider font-semibold">
-                            Choose Your Bias
-                        </p>
-                        <div id="biasSelector" class="flex flex-wrap gap-3"></div>
-                        <button id="quizTrigger" class="text-sm underline hover:no-underline mt-2">
-                            Don't have a bias? Use our bias matching tool →
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <button class="wishlist-fab" id="wishlistFab">
+        <span id="wishlistIcon">♡</span>
+        <span class="wishlist-badge" id="wishlistBadge" style="display: none;">0</span>
+    </button>
+
+    <main class="main-content">
+        <div class="hero-image" id="heroImage">
+            <img src="" alt="Member hero image" id="heroImg">
         </div>
+        
+        <div class="product-grid" id="productGrid"></div>
+    </main>
 
-        <!-- Product Grid -->
-        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-    </div>
-
-    <!-- Wishlist Modal -->
-    <div id="wishlistModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 id="wishlistModalTitle" class="text-3xl font-bold brat-font">Your Wishlist</h2>
-                    <button class="close-modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
+    <!-- Order Info Modal -->
+    <div class="modal-overlay" id="orderInfoModal">
+        <div class="modal">
+            <button class="modal-close" id="closeOrderInfo">×</button>
+            <div class="modal-content">
+                <h2 class="modal-title" id="orderInfoTitle">How to Order</h2>
+                <div class="modal-text">
+                    <p>Products on this page are available via Redbubble or By Request.</p>
+                    <p><strong>Redbubble Items:</strong> Items available on Redbubble are linked directly to the collection. Click "Shop on Redbubble" to browse and purchase.</p>
+                    <p><strong>Custom Items:</strong> For custom items, use the "Add to Wishlist" function. Once you've built your wishlist, click the heart icon or scroll down to submit your order.</p>
+                    <p>For more details or special requests, email: <a href="mailto:orders@sunniejae.com" id="orderEmailLink">orders@sunniejae.com</a></p>
                 </div>
-
-                <div id="wishlistContent"></div>
-
-                <div id="wishlistForm" class="space-y-4" style="display: none;">
-                    <input type="text" id="userName" placeholder="Your Name" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 outline-none">
-                    <input type="email" id="userEmail" placeholder="Your Email" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 outline-none">
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" id="subscribeEmails" checked class="w-5 h-5">
-                        <span>Subscribe to emails from Sunnie Jae</span>
-                    </label>
-                    <a id="requestOrderBtn" href="#" class="block w-full py-4 rounded-full font-bold text-white text-center transition hover:opacity-90">
-                        Request Order
-                    </a>
-                </div>
+                <button class="product-btn" id="gotItBtn" style="margin-top: 1.5rem;">Got it!</button>
             </div>
         </div>
     </div>
 
     <!-- Quiz Modal -->
-    <div id="quizModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="quizModalTitle" class="text-2xl font-bold brat-font">Bias Matching Quiz</h2>
-                <button class="close-modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="mb-6">
-                <p id="quizProgress" class="text-sm text-gray-500 mb-2"></p>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div id="quizProgressBar" class="h-2 rounded-full transition-all" style="width: 0%;"></div>
+    <div class="modal-overlay" id="quizModal">
+        <div class="modal">
+            <button class="modal-close" id="closeQuiz">×</button>
+            <div class="modal-content">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <span style="font-size: 1.5rem;">✨</span>
+                    <h2 class="modal-title" style="margin: 0;" id="quizTitle">Bias Matching Quiz</h2>
                 </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <h3 class="quiz-question" id="quizQuestion"></h3>
+                
+                <div class="quiz-answers" id="quizAnswers"></div>
+                
+                <p class="quiz-progress-text" id="quizProgress"></p>
             </div>
-
-            <h3 id="quizQuestion" class="text-xl font-semibold mb-4"></h3>
-            <div id="quizAnswers" class="space-y-3"></div>
         </div>
     </div>
 
-    <!-- Quiz Result Modal -->
-    <div id="resultModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-8 text-center">
-            <h2 class="text-3xl font-bold mb-4 brat-font" id="resultTitle">Your Bias Match!</h2>
-            <div class="mb-6">
-                <img id="resultImage" class="w-48 h-48 mx-auto rounded-full object-cover mb-4" alt="Result">
-                <h3 id="resultName" class="text-4xl font-bold brat-font"></h3>
-            </div>
-            <p id="resultText" class="text-gray-600 mb-6"></p>
-            <button id="closeResultBtn" class="px-8 py-3 rounded-full font-bold text-white transition hover:opacity-90">
-                Start Shopping!
-            </button>
-        </div>
-    </div>
-
-    <!-- How to Order Modal -->
-    <div id="howToOrderModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-8">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="howToOrderTitle" class="text-2xl font-bold brat-font">How to Order</h2>
-                <button class="close-modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-            <div class="space-y-4 text-gray-700">
-                <p>Products on this page are available via <strong>Redbubble</strong> or <strong>By Request</strong>.</p>
-                <p>Items available on Redbubble are linked directly to the collection. Simply click the "Shop on Redbubble" button on those products.</p>
-                <p>For custom items marked as "SunnieJae Exclusive", use the <strong>"Add to Wishlist"</strong> function. Once you've built your wishlist, click the heart icon in the header to submit your order request.</p>
-                <p>For more details or special requests, email: <strong>orders@sunniejae.com</strong></p>
+    <!-- Wishlist Modal -->
+    <div class="modal-overlay" id="wishlistModal">
+        <div class="modal large">
+            <button class="modal-close" id="closeWishlist">×</button>
+            <div class="modal-content">
+                <h2 class="modal-title" id="wishlistTitle">Your Wishlist</h2>
+                
+                <div id="wishlistItems"></div>
+                
+                <div id="wishlistForm" style="display: none; margin-top: 2rem;">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <input type="text" class="form-input" id="userName" placeholder="Your Name">
+                        <input type="email" class="form-input" id="userEmail" placeholder="Your Email">
+                        
+                        <label class="form-checkbox-label">
+                            <input type="checkbox" class="form-checkbox" id="subscribeEmails" checked>
+                            Subscribe to emails from Sunnie Jae
+                        </label>
+                        
+                        <a href="#" class="product-btn" id="requestOrderBtn">Request Order</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
