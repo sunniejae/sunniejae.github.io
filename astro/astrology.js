@@ -340,6 +340,40 @@ function getAspectInterpretation(aspect, transitPlanet, natalPlanet) {
     `;
 }
 
+// Preloaded birth charts
+const preloadedCharts = {
+    'jae': {
+        name: 'Jae',
+        date: new Date(1996, 1, 23, 17, 32, 0), // Feb 23, 1996, 5:32 PM MST
+        location: 'Salt Lake City, Utah'
+    },
+    'husband': {
+        name: 'Husband',
+        date: new Date(1997, 0, 24, 17, 55, 0), // Jan 24, 1997, 5:55 PM MST
+        location: 'Salt Lake City, Utah'
+    }
+};
+
+// Load preloaded chart
+function loadPreloadedChart(person) {
+    const chart = preloadedCharts[person];
+    if (!chart) return;
+    
+    // Format date for input
+    const year = chart.date.getFullYear();
+    const month = String(chart.date.getMonth() + 1).padStart(2, '0');
+    const day = String(chart.date.getDate()).padStart(2, '0');
+    const hours = String(chart.date.getHours()).padStart(2, '0');
+    const minutes = String(chart.date.getMinutes()).padStart(2, '0');
+    
+    document.getElementById('birth-date').value = `${year}-${month}-${day}`;
+    document.getElementById('birth-time').value = `${hours}:${minutes}`;
+    document.getElementById('birth-location').value = chart.location;
+    
+    // Auto-compare
+    compareBirthChart();
+}
+
 // Birth chart comparison
 async function compareBirthChart() {
     const birthDate = document.getElementById('birth-date').value;
