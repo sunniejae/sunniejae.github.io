@@ -72,51 +72,67 @@ const PRODUCTS = [
 // Quiz questions
 const QUIZ_QUESTIONS = [
   {
-    question: "What's your favorite color?",
+    question: "Pick a color that makes your heart flutter! 💖",
     answers: [
-      { text: 'Pink/Red', members: ['mercury', 'saturn', 'mars'] },
-      { text: 'Blue/Cyan', members: ['venus', 'uranus', 'neptune'] },
-      { text: 'Yellow/Gold', members: ['earth'] },
-      { text: 'Purple', members: ['jupiter', 'neptune'] },
-      { text: 'Green', members: ['pluto', 'venus'] }
+      { text: '🌸 Pink/Red - Bold & Passionate', members: ['mercury', 'saturn', 'mars'], emoji: '🌸' },
+      { text: '💙 Blue/Cyan - Cool & Calming', members: ['venus', 'uranus', 'neptune'], emoji: '💙' },
+      { text: '✨ Yellow/Gold - Bright & Cheerful', members: ['earth'], emoji: '✨' },
+      { text: '💜 Purple - Dreamy & Mystical', members: ['jupiter', 'neptune'], emoji: '💜' },
+      { text: '💚 Green - Fresh & Natural', members: ['pluto', 'venus'], emoji: '💚' }
     ]
   },
   {
-    question: "Are you an introvert or extrovert?",
+    question: "How do you recharge after a long day? 🔋",
     answers: [
-      { text: 'Introvert', members: ['neptune', 'pluto', 'uranus'] },
-      { text: 'Extrovert', members: ['mercury', 'jupiter', 'earth', 'mars'] }
+      { text: '🏠 Cozy night in with your thoughts', members: ['neptune', 'pluto', 'uranus'], emoji: '🏠' },
+      { text: '🎉 Going out and making memories!', members: ['mercury', 'jupiter', 'earth', 'mars'], emoji: '🎉' }
     ]
   },
   {
-    question: "Down to earth or head in the clouds?",
+    question: "Where does your mind wander? ☁️",
     answers: [
-      { text: 'Down to earth', members: ['earth', 'venus', 'mars'] },
-      { text: 'Head in the clouds', members: ['jupiter', 'neptune', 'uranus'] }
+      { text: '🌱 Grounded in reality & the present', members: ['earth', 'venus', 'mars'], emoji: '🌱' },
+      { text: '🌙 Lost in daydreams & possibilities', members: ['jupiter', 'neptune', 'uranus'], emoji: '🌙' }
     ]
   },
   {
-    question: "Do you lead with your head or heart?",
+    question: "When making decisions, you follow your... 🤔",
     answers: [
-      { text: 'Head', members: ['mercury', 'uranus', 'saturn'] },
-      { text: 'Heart', members: ['venus', 'mars', 'jupiter', 'neptune'] }
+      { text: '🧠 Logic & careful thinking', members: ['mercury', 'uranus', 'saturn'], emoji: '🧠' },
+      { text: '💕 Feelings & intuition', members: ['venus', 'mars', 'jupiter', 'neptune'], emoji: '💕' }
     ]
   },
   {
-    question: "Order or chaos?",
+    question: "Your ideal weekend vibe is... ✨",
     answers: [
-      { text: 'Order', members: ['mercury', 'saturn', 'earth'] },
-      { text: 'Chaos', members: ['mars', 'jupiter', 'pluto'] }
+      { text: '📋 Planned & organized perfection', members: ['mercury', 'saturn', 'earth'], emoji: '📋' },
+      { text: '🎲 Spontaneous & full of surprises', members: ['mars', 'jupiter', 'pluto'], emoji: '🎲' }
     ]
   },
   {
-    question: "What's your favorite animal?",
+    question: "Pick your spirit animal! 🐾",
     answers: [
-      { text: 'Cat', members: ['mercury', 'neptune'] },
-      { text: 'Dog', members: ['venus', 'jupiter'] },
-      { text: 'Bird', members: ['uranus', 'pluto'] },
-      { text: 'Rabbit', members: ['saturn', 'earth'] },
-      { text: 'Fox', members: ['mars'] }
+      { text: '🐱 Cat - Independent & mysterious', members: ['mercury', 'neptune'], emoji: '🐱' },
+      { text: '🐶 Dog - Loyal & playful', members: ['venus', 'jupiter'], emoji: '🐶' },
+      { text: '🦅 Bird - Free-spirited & adventurous', members: ['uranus', 'pluto'], emoji: '🦅' },
+      { text: '🐰 Rabbit - Gentle & quick-witted', members: ['saturn', 'earth'], emoji: '🐰' },
+      { text: '🦊 Fox - Clever & charismatic', members: ['mars'], emoji: '🦊' }
+    ]
+  },
+  {
+    question: "Your perfect date night is... 💝",
+    answers: [
+      { text: '🎬 Movie marathon with snacks', members: ['neptune', 'saturn', 'pluto'], emoji: '🎬' },
+      { text: '🎪 Fun adventure at an amusement park', members: ['mars', 'jupiter', 'mercury'], emoji: '🎪' },
+      { text: '☕ Cozy café with deep conversations', members: ['venus', 'earth', 'uranus'], emoji: '☕' }
+    ]
+  },
+  {
+    question: "What's your go-to karaoke energy? 🎤",
+    answers: [
+      { text: '🔥 Main vocalist giving it ALL', members: ['mercury', 'mars', 'saturn'], emoji: '🔥' },
+      { text: '💫 Vibing & having fun with friends', members: ['jupiter', 'venus', 'earth'], emoji: '💫' },
+      { text: '🎵 Shy but secretly amazing', members: ['neptune', 'uranus', 'pluto'], emoji: '🎵' }
     ]
   }
 ];
@@ -311,18 +327,18 @@ function renderQuiz() {
   const progress = ((quizStep + 1) / QUIZ_QUESTIONS.length) * 100;
   
   document.getElementById('quizModalTitle').style.color = colors[3];
-  document.getElementById('quizProgress').textContent = `Question ${quizStep + 1} of ${QUIZ_QUESTIONS.length}`;
+  document.getElementById('quizProgress').innerHTML = `<span class="font-semibold">Question ${quizStep + 1}</span> of ${QUIZ_QUESTIONS.length} ✨`;
   document.getElementById('quizProgressBar').style.width = `${progress}%`;
   document.getElementById('quizProgressBar').style.backgroundColor = colors[0];
-  document.getElementById('quizQuestion').textContent = question.question;
+  document.getElementById('quizQuestion').innerHTML = question.question;
   
   document.getElementById('quizAnswers').innerHTML = question.answers.map((answer, idx) => `
     <button 
       onclick="handleQuizAnswer(${idx})" 
-      class="w-full p-4 text-left rounded-lg border-2 transition hover:opacity-80"
+      class="w-full p-4 text-left rounded-xl border-2 transition hover:scale-102 hover:shadow-lg group"
       style="border-color: ${colors[0]}"
     >
-      ${answer.text}
+      <span class="text-lg">${answer.text}</span>
     </button>
   `).join('');
 }
