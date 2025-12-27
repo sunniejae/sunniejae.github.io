@@ -1,120 +1,107 @@
-// Import astronomy library for accurate calculations
-let swisseph;
+// Using Astronomy Engine library for accurate planetary positions
+// This uses real astronomical algorithms, not approximations
 
-// Load Swiss Ephemeris library
-async function loadSwisseph() {
-    return new Promise((resolve) => {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.min.js';
-        script.onload = () => resolve();
-        document.head.appendChild(script);
-    });
-}
-
-// Get zodiac sign from ecliptic longitude
+// Zodiac sign calculator
 function getZodiacSign(longitude) {
     const signs = [
         'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
         'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
     ];
-    const adjustedLong = ((longitude % 360) + 360) % 360;
-    const index = Math.floor(adjustedLong / 30);
-    return signs[index];
+    const index = Math.floor(longitude / 30);
+    return signs[index % 12];
 }
 
-// Calculate planetary positions using Astronomy Engine
-async function getCurrentPlanetaryPositions() {
-    const now = new Date();
-    
-    const planets = {
-        'Sun': Astronomy.EclipticGeoMoon(now).vec.x >= 0 ? 
-               Astronomy.SunPosition(now).elon : 
-               Astronomy.SunPosition(now).elon,
-        'Moon': Astronomy.EclipticGeoMoon(now).elon,
-        'Mercury': Astronomy.EclipticGeoMoon(now).vec.x >= 0 ? 
-                   getPlanetEclipticLongitude('Mercury', now) : 
-                   getPlanetEclipticLongitude('Mercury', now),
-        'Venus': getPlanetEclipticLongitude('Venus', now),
-        'Mars': getPlanetEclipticLongitude('Mars', now),
-        'Jupiter': getPlanetEclipticLongitude('Jupiter', now),
-        'Saturn': getPlanetEclipticLongitude('Saturn', now),
-        'Uranus': getPlanetEclipticLongitude('Uranus', now),
-        'Neptune': getPlanetEclipticLongitude('Neptune', now),
-        'Chiron': calculateChironPosition(now),
-        'Lilith': calculateLilithPosition(now),
-        'North Node': calculateNorthNode(now)
-    };
-
-    // Use Astronomy Engine for accurate calculations
+// Get ecliptic longitude from equatorial coordinates
+function getEclipticLongitude(date, body) {
     try {
-        const sunPos = Astronomy.EclipticGeoMoon(now);
-        planets['Sun'] = calculateEclipticLongitude(Astronomy.HelioVector('Sun', now), now);
-        planets['Moon'] = Astronomy.EclipticGeoMoon(now).elon;
-        planets['Mercury'] = calculateEclipticLongitude(Astronomy.HelioVector('Mercury', now), now);
-        planets['Venus'] = calculateEclipticLongitude(Astronomy.HelioVector('Venus', now), now);
-        planets['Mars'] = calculateEclipticLongitude(Astronomy.GeoVector('Mars', now, true), now);
-        planets['Jupiter'] = calculateEclipticLongitude(Astronomy.GeoVector('Jupiter', now, true), now);
-        planets['Saturn'] = calculateEclipticLongitude(Astronomy.GeoVector('Saturn', now, true), now);
-        planets['Uranus'] = calculateEclipticLongitude(Astronomy.GeoVector('Uranus', now, true), now);
-        planets['Neptune'] = calculateEclipticLongitude(Astronomy.GeoVector('Neptune', now, true), now);
-    } catch (e) {
-        console.error('Astronomy calculation error:', e);
-    }
-
-    return planets;
-}
-
-function calculateEclipticLongitude(vector, date) {
-    const ecliptic = Astronomy.Ecliptic(vector);
-    return ((ecliptic.elon % 360) + 360) % 360;
-}
-
-function getPlanetEclipticLongitude(planet, date) {
-    try {
-        const vector = Astronomy.GeoVector(planet, date, true);
-        return calculateEclipticLongitude(vector, date);
-    } catch (e) {
+        const observer = new Astronomy.Observer(0, 0, 0); // Geocentric
+        let position;
+        
+        if (body === 'Moon') {
+            position = Astronomy.GeoMoon(date);
+        } else {
+            position = Astronomy.GeoVector(body, date, false);
+        }
+        
+        // Convert to ecliptic coordinates
+        const ecliptic = Astronomy.Ecliptic(position);
+        
+        // Normalize to 0-360
+        let longitude = ecliptic.elon;
+        if (longitude < 0) longitude += 360;
+        
+        return longitude;
+    } catch (error) {
+        console.error(`Error calculating ${body}:`, error);
         return 0;
     }
 }
 
-// Chiron calculation (approximate orbital elements)
-function calculateChironPosition(date) {
-    const jd = getJulianDate(date);
-    const T = (jd - 2451545.0) / 36525;
-    const L = (246.57 + 52.97 * T) % 360;
-    return (L + 360) % 360;
-}
-
-// Lilith (Mean Lunar Apogee) calculation
-function calculateLilithPosition(date) {
-    const jd = getJulianDate(date);
+// Calculate Lilith (Mean Lunar Apogee)
+function calculateLilith(date) {
+    // Lilith calculation based on lunar orbit
+    const jd = date.getTime() / 86400000 + 2440587.5;
     const T = (jd - 2451545.0) / 36525;
     const L = (83.35 + 40.66 * T) % 360;
     return (L + 360) % 360;
 }
 
-// North Node calculation
+// Calculate North Node
 function calculateNorthNode(date) {
-    const jd = getJulianDate(date);
+    const jd = date.getTime() / 86400000 + 2440587.5;
     const T = (jd - 2451545.0) / 36525;
     const node = (125.04 - 1934.14 * T) % 360;
     return (node + 360) % 360;
 }
 
-// Julian Date calculation
-function getJulianDate(date) {
-    const a = Math.floor((14 - (date.getMonth() + 1)) / 12);
-    const y = date.getFullYear() + 4800 - a;
-    const m = (date.getMonth() + 1) + 12 * a - 3;
+// Calculate Chiron (approximate)
+function calculateChiron(date) {
+    const jd = date.getTime() / 86400000 + 2440587.5;
+    const T = (jd - 2451545.0) / 36525;
+    const L = (246.57 + 52.97 * T) % 360;
+    return (L + 360) % 360;
+}
+
+// Calculate planetary positions using Astronomy Engine
+async function getCurrentPlanetaryPositions() {
+    const now = new Date();
+    const astroDate = new Date(now);
     
-    let jd = date.getDate() + Math.floor((153 * m + 2) / 5) + 365 * y + 
-             Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
+    const planets = {
+        'Sun': getEclipticLongitude(astroDate, 'Sun'),
+        'Moon': getEclipticLongitude(astroDate, 'Moon'),
+        'Mercury': getEclipticLongitude(astroDate, 'Mercury'),
+        'Venus': getEclipticLongitude(astroDate, 'Venus'),
+        'Mars': getEclipticLongitude(astroDate, 'Mars'),
+        'Jupiter': getEclipticLongitude(astroDate, 'Jupiter'),
+        'Saturn': getEclipticLongitude(astroDate, 'Saturn'),
+        'Uranus': getEclipticLongitude(astroDate, 'Uranus'),
+        'Neptune': getEclipticLongitude(astroDate, 'Neptune'),
+        'Chiron': calculateChiron(astroDate),
+        'Lilith': calculateLilith(astroDate),
+        'North Node': calculateNorthNode(astroDate)
+    };
+
+    return planets;
+}
+
+// Get birth chart positions
+function getBirthChartPositions(birthDate) {
+    const astroDate = new Date(birthDate);
     
-    const hours = date.getUTCHours() + date.getUTCMinutes() / 60 + date.getUTCSeconds() / 3600;
-    jd += (hours - 12) / 24;
-    
-    return jd;
+    const planets = {
+        'Sun': getEclipticLongitude(astroDate, 'Sun'),
+        'Moon': getEclipticLongitude(astroDate, 'Moon'),
+        'Mercury': getEclipticLongitude(astroDate, 'Mercury'),
+        'Venus': getEclipticLongitude(astroDate, 'Venus'),
+        'Mars': getEclipticLongitude(astroDate, 'Mars'),
+        'Jupiter': getEclipticLongitude(astroDate, 'Jupiter'),
+        'Saturn': getEclipticLongitude(astroDate, 'Saturn'),
+        'Uranus': getEclipticLongitude(astroDate, 'Uranus'),
+        'Neptune': getEclipticLongitude(astroDate, 'Neptune')
+    };
+
+    return planets;
 }
 
 // Display planets
@@ -138,12 +125,46 @@ async function displayPlanets() {
     document.getElementById('planets-container').style.display = 'block';
 }
 
+// Generate daily horoscope
+function generateDailyHoroscope() {
+    const horoscopes = [
+        "The cosmic energies today encourage introspection and connection. Trust your intuition as you navigate the day's challenges.",
+        "Today's planetary alignment brings opportunities for growth and transformation. Embrace change with an open heart.",
+        "The stars suggest a focus on communication and relationships. Reach out to those who matter most.",
+        "Creative energy flows abundantly today. Express yourself authentically and watch magic unfold.",
+        "Balance is the theme of today's celestial dance. Find harmony between giving and receiving.",
+        "The universe supports your dreams today. Take a bold step toward your aspirations.",
+        "Reflection and rest are favored today. Honor your need for solitude and inner peace."
+    ];
+    
+    const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+    const index = dayOfYear % horoscopes.length;
+    document.getElementById('daily-horoscope').textContent = horoscopes[index];
+}
+
+// Generate weekly journal prompt
+function generateJournalPrompt() {
+    const prompts = [
+        "What cosmic lessons have you learned this week? How have the planetary transits reflected in your daily life?",
+        "Reflect on the relationship between your inner world and outer experiences. Where do you see the stars mirrored in your reality?",
+        "What patterns are you ready to release? How can you align more deeply with your authentic self?",
+        "Consider your dreams and visions this week. What messages might the universe be sending you?",
+        "How are you honoring your emotional needs? What does self-care look like under current transits?",
+        "What creative impulses are calling to you? How can you channel cosmic energy into manifestation?",
+        "Explore the balance between action and surrender in your life. Where might you need to adjust?"
+    ];
+    
+    const weekOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 604800000);
+    const index = weekOfYear % prompts.length;
+    document.getElementById('journal-prompt').textContent = prompts[index];
+}
+
 // Calculate aspects between two planets
 function calculateAspect(angle) {
     const diff = Math.abs(angle) % 360;
     const normalizedDiff = diff > 180 ? 360 - diff : diff;
     
-    const orb = 8;
+    const orb = 8; // Orb of influence in degrees
     
     if (Math.abs(normalizedDiff - 0) <= orb) return { type: 'Conjunction', angle: 0, symbol: '☌' };
     if (Math.abs(normalizedDiff - 60) <= orb) return { type: 'Sextile', angle: 60, symbol: '⚹' };
@@ -203,7 +224,7 @@ function getAspectInterpretation(aspect, transitPlanet, natalPlanet) {
     `;
 }
 
-// Birth chart comparison with accurate calculations
+// Birth chart comparison
 async function compareBirthChart() {
     const birthDate = document.getElementById('birth-date').value;
     const birthTime = document.getElementById('birth-time').value;
@@ -217,23 +238,9 @@ async function compareBirthChart() {
     const result = document.getElementById('comparison-result');
     result.innerHTML = '<div class="loading">Calculating your birth chart and current transits...</div>';
     
-    // Calculate birth chart with accurate astronomy
+    // Calculate birth chart
     const birthDateTime = new Date(birthDate + (birthTime ? 'T' + birthTime : 'T12:00:00'));
-    
-    const natalChart = {};
-    try {
-        natalChart['Sun'] = calculateEclipticLongitude(Astronomy.HelioVector('Sun', birthDateTime), birthDateTime);
-        natalChart['Moon'] = Astronomy.EclipticGeoMoon(birthDateTime).elon;
-        natalChart['Mercury'] = calculateEclipticLongitude(Astronomy.HelioVector('Mercury', birthDateTime), birthDateTime);
-        natalChart['Venus'] = calculateEclipticLongitude(Astronomy.HelioVector('Venus', birthDateTime), birthDateTime);
-        natalChart['Mars'] = calculateEclipticLongitude(Astronomy.GeoVector('Mars', birthDateTime, true), birthDateTime);
-        natalChart['Jupiter'] = calculateEclipticLongitude(Astronomy.GeoVector('Jupiter', birthDateTime, true), birthDateTime);
-        natalChart['Saturn'] = calculateEclipticLongitude(Astronomy.GeoVector('Saturn', birthDateTime, true), birthDateTime);
-        natalChart['Uranus'] = calculateEclipticLongitude(Astronomy.GeoVector('Uranus', birthDateTime, true), birthDateTime);
-        natalChart['Neptune'] = calculateEclipticLongitude(Astronomy.GeoVector('Neptune', birthDateTime, true), birthDateTime);
-    } catch (e) {
-        console.error('Birth chart calculation error:', e);
-    }
+    const natalChart = getBirthChartPositions(birthDateTime);
     
     // Get current transits
     const currentTransits = await getCurrentPlanetaryPositions();
@@ -291,40 +298,6 @@ async function compareBirthChart() {
     `;
     
     result.innerHTML = summaryHTML + natalChartHTML + aspectsHTML;
-}
-
-// Generate daily horoscope
-function generateDailyHoroscope() {
-    const horoscopes = [
-        "The cosmic energies today encourage introspection and connection. Trust your intuition as you navigate the day's challenges.",
-        "Today's planetary alignment brings opportunities for growth and transformation. Embrace change with an open heart.",
-        "The stars suggest a focus on communication and relationships. Reach out to those who matter most.",
-        "Creative energy flows abundantly today. Express yourself authentically and watch magic unfold.",
-        "Balance is the theme of today's celestial dance. Find harmony between giving and receiving.",
-        "The universe supports your dreams today. Take a bold step toward your aspirations.",
-        "Reflection and rest are favored today. Honor your need for solitude and inner peace."
-    ];
-    
-    const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-    const index = dayOfYear % horoscopes.length;
-    document.getElementById('daily-horoscope').textContent = horoscopes[index];
-}
-
-// Generate weekly journal prompt
-function generateJournalPrompt() {
-    const prompts = [
-        "What cosmic lessons have you learned this week? How have the planetary transits reflected in your daily life?",
-        "Reflect on the relationship between your inner world and outer experiences. Where do you see the stars mirrored in your reality?",
-        "What patterns are you ready to release? How can you align more deeply with your authentic self?",
-        "Consider your dreams and visions this week. What messages might the universe be sending you?",
-        "How are you honoring your emotional needs? What does self-care look like under current transits?",
-        "What creative impulses are calling to you? How can you channel cosmic energy into manifestation?",
-        "Explore the balance between action and surrender in your life. Where might you need to adjust?"
-    ];
-    
-    const weekOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 604800000);
-    const index = weekOfYear % prompts.length;
-    document.getElementById('journal-prompt').textContent = prompts[index];
 }
 
 // Wiki data
@@ -435,7 +408,7 @@ function closeModal() {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
     document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', {
         weekday: 'long',
@@ -443,9 +416,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         month: 'long',
         day: 'numeric'
     });
-    
-    // Load astronomy library first
-    await loadSwisseph();
     
     displayPlanets();
     generateDailyHoroscope();
