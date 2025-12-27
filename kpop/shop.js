@@ -1,445 +1,518 @@
-// Member data with 9 placeholder members (planets) and their theme colors
+// Member data with planet placeholders
 const MEMBERS = {
-  mercury: { name: 'Mercury', colors: ['#FF6B9D', '#C44569', '#FFA07A', '#FF1493'] },
-  venus: { name: 'Venus', colors: ['#A8E6CF', '#56CCF2', '#4ECDC4', '#45B7D1'] },
-  earth: { name: 'Earth', colors: ['#FFD93D', '#F9CA24', '#FFC312', '#F79F1F'] },
-  mars: { name: 'Mars', colors: ['#FF6348', '#EE5A6F', '#FF4757', '#C23616'] },
-  jupiter: { name: 'Jupiter', colors: ['#A29BFE', '#6C5CE7', '#7B68EE', '#5F27CD'] },
-  saturn: { name: 'Saturn', colors: ['#FD79A8', '#E84393', '#FF69B4', '#D63031'] },
-  uranus: { name: 'Uranus', colors: ['#74B9FF', '#0984E3', '#00B8D4', '#0652DD'] },
-  neptune: { name: 'Neptune', colors: ['#A29BFE', '#6C5CE7', '#9B59B6', '#8E44AD'] },
-  pluto: { name: 'Pluto', colors: ['#55EFC4', '#00B894', '#00D2D3', '#01A3A4'] }
+  mercury: { name: 'Mercury', colors: { primary: '#FF6B9D', secondary: '#FFE5EC', accent: '#C41E3A', dark: '#8B0A1F' } },
+  venus: { name: 'Venus', colors: { primary: '#9D84FF', secondary: '#E8E0FF', accent: '#6B4CE6', dark: '#4A2FB8' } },
+  mars: { name: 'Mars', colors: { primary: '#FF8A5B', secondary: '#FFE4D6', accent: '#E85D2C', dark: '#B8441A' } },
+  jupiter: { name: 'Jupiter', colors: { primary: '#4ECDC4', secondary: '#D4F4F2', accent: '#2BA89E', dark: '#1A7A72' } },
+  saturn: { name: 'Saturn', colors: { primary: '#FFD93D', secondary: '#FFF6D6', accent: '#F4C430', dark: '#C49A26' } },
+  uranus: { name: 'Uranus', colors: { primary: '#6BCF7F', secondary: '#E0F7E4', accent: '#45A557', dark: '#2F7A3E' } },
+  neptune: { name: 'Neptune', colors: { primary: '#A8DADC', secondary: '#E8F5F6', accent: '#457B9D', dark: '#1D3557' } },
+  pluto: { name: 'Pluto', colors: { primary: '#F4A6D7', secondary: '#FDE8F3', accent: '#E056A8', dark: '#A83C77' } }
 };
 
-const MEMBER_IDS = Object.keys(MEMBERS);
+// Quiz questions and answers
+const QUIZ_DATA = [
+  {
+    question: "What's your favorite color?",
+    answers: [
+      { text: "Pink/Red", members: ['mercury', 'pluto'] },
+      { text: "Purple/Violet", members: ['venus'] },
+      { text: "Orange/Coral", members: ['mars'] },
+      { text: "Teal/Turquoise", members: ['jupiter'] },
+      { text: "Yellow/Gold", members: ['saturn'] },
+      { text: "Green/Mint", members: ['uranus'] },
+      { text: "Blue/Navy", members: ['neptune'] }
+    ]
+  },
+  {
+    question: "Are you more...",
+    answers: [
+      { text: "Introvert", members: ['venus', 'neptune', 'pluto'] },
+      { text: "Extrovert", members: ['mercury', 'mars', 'jupiter', 'saturn', 'uranus'] }
+    ]
+  },
+  {
+    question: "Which describes you better?",
+    answers: [
+      { text: "Down to earth", members: ['saturn', 'uranus', 'neptune'] },
+      { text: "Head in the clouds", members: ['mercury', 'venus', 'mars', 'jupiter', 'pluto'] }
+    ]
+  },
+  {
+    question: "Do you follow your...",
+    answers: [
+      { text: "Head", members: ['venus', 'saturn', 'neptune'] },
+      { text: "Heart", members: ['mercury', 'mars', 'jupiter', 'uranus', 'pluto'] }
+    ]
+  },
+  {
+    question: "Which appeals to you more?",
+    answers: [
+      { text: "Order", members: ['venus', 'saturn', 'neptune', 'uranus'] },
+      { text: "Chaos", members: ['mercury', 'mars', 'jupiter', 'pluto'] }
+    ]
+  },
+  {
+    question: "Pick your favorite animal:",
+    answers: [
+      { text: "Cat", members: ['mercury', 'venus'] },
+      { text: "Dog", members: ['mars', 'jupiter'] },
+      { text: "Rabbit", members: ['pluto'] },
+      { text: "Bird", members: ['uranus'] },
+      { text: "Fish", members: ['neptune'] },
+      { text: "Tiger", members: ['saturn'] }
+    ]
+  },
+  {
+    question: "Which artist do you also follow?",
+    answers: [
+      { text: "NewJeans", members: ['mercury', 'pluto'] },
+      { text: "aespa", members: ['venus', 'neptune'] },
+      { text: "IVE", members: ['mars', 'saturn'] },
+      { text: "ITZY", members: ['jupiter', 'uranus'] }
+    ]
+  },
+  {
+    question: "Pick your favorite era:",
+    answers: [
+      { text: "Debut Era", members: ['mercury', 'mars'] },
+      { text: "First Comeback", members: ['venus', 'jupiter'] },
+      { text: "Peak Era", members: ['saturn', 'uranus'] },
+      { text: "Latest Release", members: ['neptune', 'pluto'] }
+    ]
+  }
+];
 
 // Product data
 const PRODUCTS = [
   {
-    id: 1,
-    name: 'Phone Case',
-    type: 'exclusive',
-    collection: 'SunnieJae Exclusive',
-    description: 'Custom phone case featuring your bias',
-    price: '$25'
-  },
-  {
-    id: 2,
+    id: 'lightstick-keychain',
     name: 'Lightstick Keychain',
     type: 'exclusive',
-    collection: 'SunnieJae Exclusive',
-    description: 'Miniature lightstick keychain charm',
-    price: '$15',
-    imageOverride: 'lightstickkeychain'
+    category: 'SunnieJae Exclusive',
+    description: 'Adorable mini lightstick keychain featuring your bias',
+    imageFormat: 'lightstickkeychain'
   },
   {
-    id: 3,
+    id: 'phone-case',
+    name: 'Phone Case',
+    type: 'exclusive',
+    category: 'SunnieJae Exclusive',
+    description: 'Custom phone case with exclusive bias design',
+    imageFormat: 'phonecase'
+  },
+  {
+    id: 'animal-keychain',
     name: 'Animal Icon Keychain',
     type: 'exclusive',
-    collection: 'SunnieJae Exclusive',
+    category: 'SunnieJae Exclusive',
     description: 'Cute animal icon representing your bias',
-    price: '$12'
+    imageFormat: 'animalkeychain'
   },
   {
-    id: 4,
+    id: 'comeback-stickers',
     name: 'Comeback Era Stickers',
     type: 'redbubble',
-    collection: 'Redbubble',
-    description: 'Sticker pack from latest comeback era',
-    price: '$8',
-    redbubbleUrl: 'https://www.redbubble.com/shop/comeback-stickers'
+    category: 'Redbubble',
+    description: 'Collection of comeback era themed stickers',
+    imageFormat: 'stickers',
+    redbubbleUrl: 'https://www.redbubble.com/people/sunniejae/shop?collections=comeback-stickers'
   },
   {
-    id: 5,
+    id: 'autographics',
     name: 'Autographics',
     type: 'redbubble',
-    collection: 'Redbubble',
-    description: 'Signature-style graphics collection',
-    price: '$10',
-    redbubbleUrl: 'https://www.redbubble.com/shop/autographics'
+    category: 'Redbubble',
+    description: 'Stylized autograph designs',
+    imageFormat: 'autographics',
+    redbubbleUrl: 'https://www.redbubble.com/people/sunniejae/shop?collections=autographics'
   },
   {
-    id: 6,
-    name: 'Hangul Collection',
+    id: 'hangul',
+    name: 'Hangul Design',
     type: 'redbubble',
-    collection: 'Redbubble',
-    description: 'Korean hangul name designs',
-    price: '$9',
-    redbubbleUrl: 'https://www.redbubble.com/shop/hangul'
-  }
-];
-
-// Quiz questions
-const QUIZ_QUESTIONS = [
-  {
-    question: "Pick a color that makes your heart flutter! 💖",
-    answers: [
-      { text: '🌸 Pink/Red - Bold & Passionate', members: ['mercury', 'saturn', 'mars'], emoji: '🌸' },
-      { text: '💙 Blue/Cyan - Cool & Calming', members: ['venus', 'uranus', 'neptune'], emoji: '💙' },
-      { text: '✨ Yellow/Gold - Bright & Cheerful', members: ['earth'], emoji: '✨' },
-      { text: '💜 Purple - Dreamy & Mystical', members: ['jupiter', 'neptune'], emoji: '💜' },
-      { text: '💚 Green - Fresh & Natural', members: ['pluto', 'venus'], emoji: '💚' }
-    ]
-  },
-  {
-    question: "How do you recharge after a long day? 🔋",
-    answers: [
-      { text: '🏠 Cozy night in with your thoughts', members: ['neptune', 'pluto', 'uranus'], emoji: '🏠' },
-      { text: '🎉 Going out and making memories!', members: ['mercury', 'jupiter', 'earth', 'mars'], emoji: '🎉' }
-    ]
-  },
-  {
-    question: "Where does your mind wander? ☁️",
-    answers: [
-      { text: '🌱 Grounded in reality & the present', members: ['earth', 'venus', 'mars'], emoji: '🌱' },
-      { text: '🌙 Lost in daydreams & possibilities', members: ['jupiter', 'neptune', 'uranus'], emoji: '🌙' }
-    ]
-  },
-  {
-    question: "When making decisions, you follow your... 🤔",
-    answers: [
-      { text: '🧠 Logic & careful thinking', members: ['mercury', 'uranus', 'saturn'], emoji: '🧠' },
-      { text: '💕 Feelings & intuition', members: ['venus', 'mars', 'jupiter', 'neptune'], emoji: '💕' }
-    ]
-  },
-  {
-    question: "Your ideal weekend vibe is... ✨",
-    answers: [
-      { text: '📋 Planned & organized perfection', members: ['mercury', 'saturn', 'earth'], emoji: '📋' },
-      { text: '🎲 Spontaneous & full of surprises', members: ['mars', 'jupiter', 'pluto'], emoji: '🎲' }
-    ]
-  },
-  {
-    question: "Pick your spirit animal! 🐾",
-    answers: [
-      { text: '🐱 Cat - Independent & mysterious', members: ['mercury', 'neptune'], emoji: '🐱' },
-      { text: '🐶 Dog - Loyal & playful', members: ['venus', 'jupiter'], emoji: '🐶' },
-      { text: '🦅 Bird - Free-spirited & adventurous', members: ['uranus', 'pluto'], emoji: '🦅' },
-      { text: '🐰 Rabbit - Gentle & quick-witted', members: ['saturn', 'earth'], emoji: '🐰' },
-      { text: '🦊 Fox - Clever & charismatic', members: ['mars'], emoji: '🦊' }
-    ]
-  },
-  {
-    question: "Your perfect date night is... 💝",
-    answers: [
-      { text: '🎬 Movie marathon with snacks', members: ['neptune', 'saturn', 'pluto'], emoji: '🎬' },
-      { text: '🎪 Fun adventure at an amusement park', members: ['mars', 'jupiter', 'mercury'], emoji: '🎪' },
-      { text: '☕ Cozy café with deep conversations', members: ['venus', 'earth', 'uranus'], emoji: '☕' }
-    ]
-  },
-  {
-    question: "What's your go-to karaoke energy? 🎤",
-    answers: [
-      { text: '🔥 Main vocalist giving it ALL', members: ['mercury', 'mars', 'saturn'], emoji: '🔥' },
-      { text: '💫 Vibing & having fun with friends', members: ['jupiter', 'venus', 'earth'], emoji: '💫' },
-      { text: '🎵 Shy but secretly amazing', members: ['neptune', 'uranus', 'pluto'], emoji: '🎵' }
-    ]
+    category: 'Redbubble',
+    description: 'Beautiful Hangul typography designs',
+    imageFormat: 'hangul',
+    redbubbleUrl: 'https://www.redbubble.com/people/sunniejae/shop?collections=hangul'
   }
 ];
 
 // State
-let currentBias = localStorage.getItem('userBias') || 'mercury';
+let currentBias = 'mercury';
 let wishlist = [];
 let quizStep = 0;
 let quizAnswers = [];
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  updateTheme();
-  renderBiasSelector();
+  const savedBias = localStorage.getItem('kpop-bias');
+  if (savedBias && MEMBERS[savedBias]) {
+    currentBias = savedBias;
+  }
+  
+  initMemberSelector();
   renderProducts();
-  setupEventListeners();
+  updateTheme();
+  updateHeroImage();
+  
+  // Show order info modal on first visit
+  if (!localStorage.getItem('order-info-seen')) {
+    showModal('orderInfoModal');
+  }
+  
+  // Event listeners
+  document.getElementById('quizBtn').addEventListener('click', () => {
+    showModal('quizModal');
+    renderQuiz();
+  });
+  
+  document.getElementById('wishlistFab').addEventListener('click', () => {
+    showModal('wishlistModal');
+    renderWishlist();
+  });
+  
+  document.getElementById('closeOrderInfo').addEventListener('click', () => {
+    hideModal('orderInfoModal');
+    localStorage.setItem('order-info-seen', 'true');
+  });
+  
+  document.getElementById('gotItBtn').addEventListener('click', () => {
+    hideModal('orderInfoModal');
+    localStorage.setItem('order-info-seen', 'true');
+  });
+  
+  document.getElementById('closeQuiz').addEventListener('click', () => {
+    hideModal('quizModal');
+    resetQuiz();
+  });
+  
+  document.getElementById('closeWishlist').addEventListener('click', () => {
+    hideModal('wishlistModal');
+  });
 });
+
+// Initialize member selector
+function initMemberSelector() {
+  const selector = document.getElementById('memberSelector');
+  selector.innerHTML = '';
+  
+  Object.entries(MEMBERS).forEach(([key, member]) => {
+    const btn = document.createElement('button');
+    btn.className = 'member-btn';
+    btn.textContent = member.name;
+    if (key === currentBias) {
+      btn.classList.add('active');
+    }
+    
+    btn.addEventListener('click', () => {
+      currentBias = key;
+      localStorage.setItem('kpop-bias', key);
+      updateTheme();
+      updateHeroImage();
+      renderProducts();
+      
+      // Update button states
+      document.querySelectorAll('.member-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+    
+    selector.appendChild(btn);
+  });
+}
 
 // Update theme colors
 function updateTheme() {
-  const colors = MEMBERS[currentBias].colors;
-  document.body.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%)`;
-  document.getElementById('siteTitle').style.color = colors[3];
-  document.getElementById('wishlistBtn').style.backgroundColor = colors[0];
-  document.getElementById('heroName').textContent = MEMBERS[currentBias].name;
-  document.getElementById('heroName').style.color = colors[3];
-  document.getElementById('quizTrigger').style.color = colors[3];
+  const theme = MEMBERS[currentBias].colors;
+  document.body.style.backgroundColor = theme.secondary;
   
-  // Update hero image
-  const heroImage = document.getElementById('heroImage');
-  heroImage.src = `/assets/hero-${currentBias}.png`;
-  heroImage.onerror = () => {
-    heroImage.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:${colors[0]};stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:${colors[1]};stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='600' fill='url(%23grad)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='48' fill='white' font-weight='bold'%3E${MEMBERS[currentBias].name}%3C/text%3E%3C/svg%3E`;
+  const header = document.getElementById('header');
+  header.style.background = `linear-gradient(135deg, ${theme.primary} 0%, ${theme.accent} 100%)`;
+  
+  const quizBtn = document.getElementById('quizBtn');
+  quizBtn.style.color = theme.primary;
+  
+  const wishlistFab = document.getElementById('wishlistFab');
+  wishlistFab.style.backgroundColor = theme.accent;
+  
+  const wishlistBadge = document.getElementById('wishlistBadge');
+  wishlistBadge.style.backgroundColor = theme.dark;
+  
+  // Update all themed elements
+  updateThemedElements(theme);
+}
+
+// Update hero image
+function updateHeroImage() {
+  const heroImg = document.getElementById('heroImg');
+  heroImg.src = `/assets/hero-${currentBias}.png`;
+  heroImg.onerror = () => {
+    heroImg.src = `/assets/blank-${currentBias}.png`;
   };
+}
+
+// Update themed elements
+function updateThemedElements(theme) {
+  const modalTitles = document.querySelectorAll('.modal-title');
+  modalTitles.forEach(title => {
+    title.style.color = theme.primary;
+  });
   
-  localStorage.setItem('userBias', currentBias);
-}
-
-// Render bias selector buttons
-function renderBiasSelector() {
-  const container = document.getElementById('biasSelector');
-  container.innerHTML = MEMBER_IDS.map(memberId => {
-    const member = MEMBERS[memberId];
-    const isActive = currentBias === memberId;
-    return `
-      <button 
-        onclick="changeBias('${memberId}')" 
-        class="px-5 py-2.5 rounded-full font-semibold transition transform hover:scale-105 ${isActive ? 'ring-4 ring-offset-2 scale-110' : ''}"
-        style="background-color: ${member.colors[0]}; color: white; ${isActive ? `--tw-ring-color: ${member.colors[3]};` : ''}"
-      >
-        ${member.name}
-      </button>
-    `;
-  }).join('');
-}
-
-// Change bias
-function changeBias(memberId) {
-  currentBias = memberId;
-  updateTheme();
-  renderBiasSelector();
-  renderProducts();
+  const orderEmailLink = document.getElementById('orderEmailLink');
+  if (orderEmailLink) {
+    orderEmailLink.style.color = theme.accent;
+  }
+  
+  const gotItBtn = document.getElementById('gotItBtn');
+  if (gotItBtn) {
+    gotItBtn.style.backgroundColor = theme.primary;
+  }
+  
+  const progressFill = document.getElementById('progressFill');
+  if (progressFill) {
+    progressFill.style.backgroundColor = theme.primary;
+  }
+  
+  const orderInfoTitle = document.getElementById('orderInfoTitle');
+  if (orderInfoTitle) {
+    orderInfoTitle.style.color = theme.primary;
+  }
+  
+  const quizTitle = document.getElementById('quizTitle');
+  if (quizTitle) {
+    quizTitle.style.color = theme.primary;
+  }
+  
+  const wishlistTitle = document.getElementById('wishlistTitle');
+  if (wishlistTitle) {
+    wishlistTitle.style.color = theme.primary;
+  }
 }
 
 // Render products
 function renderProducts() {
   const grid = document.getElementById('productGrid');
-  const colors = MEMBERS[currentBias].colors;
+  const theme = MEMBERS[currentBias].colors;
+  grid.innerHTML = '';
   
-  grid.innerHTML = PRODUCTS.map(product => {
-    const imageName = product.imageOverride || 'collection';
-    const imagePath = `/assets/${imageName}-${currentBias}.png`;
-    const fallbackImage = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='400' height='400' fill='%23ddd'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%23999'%3E${product.name}%3C/text%3E%3C/svg%3E`;
+  PRODUCTS.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
     
-    const buttonHtml = product.type === 'exclusive' 
-      ? `<button onclick="addToWishlist(${product.id})" class="w-full py-3 rounded-full font-semibold text-white transition hover:opacity-90" style="background-color: ${colors[0]}">Add to Wishlist</button>`
-      : `<a href="${product.redbubbleUrl}" target="_blank" rel="noopener noreferrer" class="block w-full py-3 rounded-full font-semibold text-white text-center transition hover:opacity-90" style="background-color: ${colors[2]}">Shop on Redbubble</a>`;
+    const imageUrl = `/assets/${product.imageFormat}-${currentBias}.png`;
+    const fallbackUrl = `/assets/blank-${currentBias}.png`;
     
-    return `
-      <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition hover:scale-105">
-        <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-          <img src="${imagePath}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='${fallbackImage}'">
-        </div>
-        <div class="p-5">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-bold brat-font" style="color: ${colors[3]}">${product.name}</h3>
-            <span class="text-lg font-semibold">${product.price}</span>
-          </div>
-          <p class="text-gray-600 text-sm mb-2">${product.description}</p>
-          <p class="text-xs text-gray-500 mb-4">${product.collection}</p>
-          ${buttonHtml}
-        </div>
+    const isInWishlist = wishlist.some(item => item.id === product.id);
+    
+    card.innerHTML = `
+      <div class="product-image" style="background-color: ${theme.secondary}">
+        <img src="${imageUrl}" alt="${product.name}" onerror="this.src='${fallbackUrl}'">
+      </div>
+      <div class="product-info">
+        <div class="product-category" style="color: ${theme.accent}">${product.category}</div>
+        <h3 class="product-title" style="color: ${theme.dark}">${product.name}</h3>
+        <p class="product-description">${product.description}</p>
+        ${product.type === 'redbubble' ? 
+          `<a href="${product.redbubbleUrl}" target="_blank" rel="noopener noreferrer" class="product-btn" style="background-color: ${theme.primary}">
+            🛍️ Shop on Redbubble
+          </a>` :
+          `<button class="product-btn" style="background-color: ${isInWishlist ? '#ccc' : theme.primary}" 
+            ${isInWishlist ? 'disabled' : ''} 
+            onclick="addToWishlist('${product.id}')">
+            ♡ ${isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}
+          </button>`
+        }
       </div>
     `;
-  }).join('');
+    
+    grid.appendChild(card);
+  });
 }
 
 // Add to wishlist
 function addToWishlist(productId) {
   const product = PRODUCTS.find(p => p.id === productId);
-  if (!wishlist.find(item => item.id === productId)) {
+  if (product && !wishlist.some(item => item.id === productId)) {
     wishlist.push(product);
-    updateWishlistCounter();
+    updateWishlistBadge();
+    renderProducts();
   }
 }
 
 // Remove from wishlist
 function removeFromWishlist(productId) {
   wishlist = wishlist.filter(item => item.id !== productId);
-  updateWishlistCounter();
-  renderWishlistModal();
+  updateWishlistBadge();
+  renderProducts();
+  renderWishlist();
 }
 
-// Update wishlist counter
-function updateWishlistCounter() {
-  const counter = document.getElementById('wishlistCounter');
+// Update wishlist badge
+function updateWishlistBadge() {
+  const badge = document.getElementById('wishlistBadge');
+  const icon = document.getElementById('wishlistIcon');
+  
   if (wishlist.length > 0) {
-    counter.textContent = wishlist.length;
-    counter.style.display = 'flex';
+    badge.style.display = 'flex';
+    badge.textContent = wishlist.length;
+    icon.innerHTML = '♥';
   } else {
-    counter.style.display = 'none';
+    badge.style.display = 'none';
+    icon.innerHTML = '♡';
   }
 }
 
-// Render wishlist modal
-function renderWishlistModal() {
-  const content = document.getElementById('wishlistContent');
+// Render wishlist
+function renderWishlist() {
+  const container = document.getElementById('wishlistItems');
   const form = document.getElementById('wishlistForm');
-  const colors = MEMBERS[currentBias].colors;
-  
-  document.getElementById('wishlistModalTitle').style.color = colors[3];
+  const theme = MEMBERS[currentBias].colors;
   
   if (wishlist.length === 0) {
-    content.innerHTML = '<p class="text-center text-gray-500 py-8">Your wishlist is empty</p>';
+    container.innerHTML = '<p class="empty-wishlist">Your wishlist is empty. Add some items to get started!</p>';
     form.style.display = 'none';
   } else {
-    const exclusiveItems = wishlist.filter(item => item.type === 'exclusive');
-    content.innerHTML = `
-      <div class="space-y-4 mb-6">
-        ${wishlist.map(item => `
-          <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-            <div>
-              <h3 class="font-semibold">${item.name}</h3>
-              <p class="text-sm text-gray-600">${MEMBERS[currentBias].name} version - ${item.price}</p>
-            </div>
-            <button onclick="removeFromWishlist(${item.id})" class="text-red-500 hover:text-red-700">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
+    container.innerHTML = wishlist.map(item => {
+      const imageUrl = `/assets/${item.imageFormat}-${currentBias}.png`;
+      const fallbackUrl = `/assets/blank-${currentBias}.png`;
+      
+      return `
+        <div class="wishlist-item">
+          <img src="${imageUrl}" alt="${item.name}" onerror="this.src='${fallbackUrl}'">
+          <div class="wishlist-item-info">
+            <div class="wishlist-item-name" style="color: ${theme.dark}">${item.name}</div>
+            <div class="wishlist-item-category">${item.category}</div>
           </div>
-        `).join('')}
-      </div>
-    `;
-    form.style.display = 'block';
+          <button class="wishlist-remove" onclick="removeFromWishlist('${item.id}')">×</button>
+        </div>
+      `;
+    }).join('');
     
-    const requestBtn = document.getElementById('requestOrderBtn');
-    requestBtn.style.backgroundColor = colors[0];
-    requestBtn.href = generateMailtoLink();
+    form.style.display = 'block';
+    updateRequestButton();
+  }
+}
+
+// Update request button
+function updateRequestButton() {
+  const btn = document.getElementById('requestOrderBtn');
+  const userName = document.getElementById('userName').value;
+  const userEmail = document.getElementById('userEmail').value;
+  const theme = MEMBERS[currentBias].colors;
+  
+  if (userName && userEmail) {
+    btn.style.backgroundColor = theme.primary;
+    btn.style.cursor = 'pointer';
+    btn.style.pointerEvents = 'auto';
+    btn.href = generateMailto();
+  } else {
+    btn.style.backgroundColor = '#ccc';
+    btn.style.cursor = 'not-allowed';
+    btn.style.pointerEvents = 'none';
+    btn.href = '#';
   }
 }
 
 // Generate mailto link
-function generateMailtoLink() {
+function generateMailto() {
   const userName = document.getElementById('userName').value;
   const userEmail = document.getElementById('userEmail').value;
   const subscribeEmails = document.getElementById('subscribeEmails').checked;
   
-  const exclusiveItems = wishlist.filter(item => item.type === 'exclusive');
-  const wishlistText = exclusiveItems.map((item, idx) => 
-    `${idx + 1}. ${item.name} (${MEMBERS[currentBias].name} version) - ${item.price}`
-  ).join('\n');
-
-  const body = `Name: ${userName}\n\nEmail: ${userEmail}\n\nBias: ${MEMBERS[currentBias].name}\n\nWishlist:\n${wishlistText}\n\nSubscribe to emails: ${subscribeEmails ? 'Yes' : 'No'}`;
-
-  return `mailto:orders@sunniejae.com?subject=KPOP FANDOM SHOP ORDER&body=${encodeURIComponent(body)}`;
+  const wishlistText = wishlist.map((item, i) => `${i + 1}. ${item.name} (${item.category})`).join('\n');
+  const subscribeText = subscribeEmails ? 'Yes, subscribe me to emails from Sunnie Jae' : 'No, do not subscribe';
+  
+  const subject = encodeURIComponent('KPOP FANDOM SHOP ORDER');
+  const body = encodeURIComponent(
+    `Name: ${userName}\n\nEmail: ${userEmail}\n\nWishlist:\n${wishlistText}\n\n${subscribeText}`
+  );
+  
+  return `mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
 }
 
-// Start quiz
-function startQuiz() {
-  quizStep = 0;
-  quizAnswers = [];
-  renderQuiz();
-  openModal('quizModal');
-}
+// Event listeners for form
+document.addEventListener('DOMContentLoaded', () => {
+  const userName = document.getElementById('userName');
+  const userEmail = document.getElementById('userEmail');
+  
+  if (userName && userEmail) {
+    userName.addEventListener('input', updateRequestButton);
+    userEmail.addEventListener('input', updateRequestButton);
+  }
+});
 
-// Render quiz
+// Quiz functions
 function renderQuiz() {
-  const colors = MEMBERS[currentBias].colors;
-  const question = QUIZ_QUESTIONS[quizStep];
-  const progress = ((quizStep + 1) / QUIZ_QUESTIONS.length) * 100;
+  const theme = MEMBERS[currentBias].colors;
+  const question = QUIZ_DATA[quizStep];
   
-  document.getElementById('quizModalTitle').style.color = colors[3];
-  document.getElementById('quizProgress').innerHTML = `<span class="font-semibold">Question ${quizStep + 1}</span> of ${QUIZ_QUESTIONS.length} ✨`;
-  document.getElementById('quizProgressBar').style.width = `${progress}%`;
-  document.getElementById('quizProgressBar').style.backgroundColor = colors[0];
-  document.getElementById('quizQuestion').innerHTML = question.question;
+  document.getElementById('quizQuestion').textContent = question.question;
+  document.getElementById('quizProgress').textContent = `Question ${quizStep + 1} of ${QUIZ_DATA.length}`;
   
-  document.getElementById('quizAnswers').innerHTML = question.answers.map((answer, idx) => `
-    <button 
-      onclick="handleQuizAnswer(${idx})" 
-      class="w-full p-4 text-left rounded-xl border-2 transition hover:scale-102 hover:shadow-lg group"
-      style="border-color: ${colors[0]}"
-    >
-      <span class="text-lg">${answer.text}</span>
-    </button>
-  `).join('');
+  const progressFill = document.getElementById('progressFill');
+  progressFill.style.width = `${((quizStep + 1) / QUIZ_DATA.length) * 100}%`;
+  progressFill.style.backgroundColor = theme.primary;
+  
+  const answersContainer = document.getElementById('quizAnswers');
+  answersContainer.innerHTML = '';
+  
+  question.answers.forEach((answer, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-answer';
+    btn.textContent = answer.text;
+    btn.style.borderColor = theme.primary;
+    btn.style.color = theme.dark;
+    
+    btn.addEventListener('mouseenter', () => {
+      btn.style.backgroundColor = theme.secondary;
+    });
+    
+    btn.addEventListener('mouseleave', () => {
+      btn.style.backgroundColor = 'white';
+    });
+    
+    btn.addEventListener('click', () => handleQuizAnswer(answer));
+    
+    answersContainer.appendChild(btn);
+  });
 }
 
-// Handle quiz answer
-function handleQuizAnswer(answerIdx) {
-  const selectedMembers = QUIZ_QUESTIONS[quizStep].answers[answerIdx].members;
-  quizAnswers.push(...selectedMembers);
+function handleQuizAnswer(answer) {
+  quizAnswers.push(answer.members);
   
-  if (quizStep < QUIZ_QUESTIONS.length - 1) {
+  if (quizStep < QUIZ_DATA.length - 1) {
     quizStep++;
     renderQuiz();
   } else {
     // Calculate result
     const memberCounts = {};
-    quizAnswers.forEach(member => {
+    quizAnswers.flat().forEach(member => {
       memberCounts[member] = (memberCounts[member] || 0) + 1;
     });
+    const result = Object.entries(memberCounts).sort((a, b) => b[1] - a[1])[0][0];
     
-    const maxCount = Math.max(...Object.values(memberCounts));
-    const winners = Object.keys(memberCounts).filter(m => memberCounts[m] === maxCount);
-    const result = winners[Math.floor(Math.random() * winners.length)];
+    currentBias = result;
+    localStorage.setItem('kpop-bias', result);
     
-    closeModal('quizModal');
-    showResult(result);
+    hideModal('quizModal');
+    resetQuiz();
+    updateTheme();
+    updateHeroImage();
+    renderProducts();
+    initMemberSelector();
   }
 }
 
-// Show quiz result
-function showResult(result) {
-  currentBias = result;
-  localStorage.setItem('userBias', result);
-  
-  const colors = MEMBERS[result].colors;
-  const resultImage = document.getElementById('resultImage');
-  
-  document.getElementById('resultTitle').style.color = colors[3];
-  document.getElementById('resultName').textContent = MEMBERS[result].name;
-  document.getElementById('resultName').style.color = colors[0];
-  document.getElementById('resultText').textContent = `Your bias has been set to ${MEMBERS[result].name}! The shop theme has been updated to match.`;
-  document.getElementById('closeResultBtn').style.backgroundColor = colors[0];
-  
-  resultImage.src = `/assets/collection-${result}.png`;
-  resultImage.onerror = () => {
-    resultImage.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Ccircle cx='100' cy='100' r='100' fill='${colors[0]}'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='32' fill='white' font-weight='bold'%3E${MEMBERS[result].name}%3C/text%3E%3C/svg%3E`;
-  };
-  
-  openModal('resultModal');
+function resetQuiz() {
+  quizStep = 0;
+  quizAnswers = [];
 }
 
 // Modal functions
-function openModal(modalId) {
-  document.getElementById(modalId).classList.add('active');
-  if (modalId === 'wishlistModal') {
-    renderWishlistModal();
-  }
-  if (modalId === 'howToOrderModal') {
-    document.getElementById('howToOrderTitle').style.color = MEMBERS[currentBias].colors[3];
-  }
+function showModal(modalId) {
+  document.getElementById(modalId).classList.add('show');
 }
 
-function closeModal(modalId) {
-  document.getElementById(modalId).classList.remove('active');
-}
-
-// Setup event listeners
-function setupEventListeners() {
-  document.getElementById('wishlistBtn').addEventListener('click', () => openModal('wishlistModal'));
-  document.getElementById('quizTrigger').addEventListener('click', startQuiz);
-  document.getElementById('howToOrderBtn').addEventListener('click', () => openModal('howToOrderModal'));
-  document.getElementById('closeResultBtn').addEventListener('click', () => {
-    closeModal('resultModal');
-    updateTheme();
-    renderBiasSelector();
-    renderProducts();
-  });
-  
-  // Update mailto link on input change
-  document.getElementById('userName').addEventListener('input', updateMailtoLink);
-  document.getElementById('userEmail').addEventListener('input', updateMailtoLink);
-  document.getElementById('subscribeEmails').addEventListener('change', updateMailtoLink);
-  
-  // Close modal buttons
-  document.querySelectorAll('.close-modal').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const modal = e.target.closest('.modal');
-      if (modal) closeModal(modal.id);
-    });
-  });
-  
-  // Close modals on outside click
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal(modal.id);
-    });
-  });
-}
-
-function updateMailtoLink() {
-  const requestBtn = document.getElementById('requestOrderBtn');
-  if (requestBtn) {
-    requestBtn.href = generateMailtoLink();
-  }
+function hideModal(modalId) {
+  document.getElementById(modalId).classList.remove('show');
 }
