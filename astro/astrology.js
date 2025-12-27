@@ -543,4 +543,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     populateWiki();
 });
 
-// Close modal
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('wiki-modal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
