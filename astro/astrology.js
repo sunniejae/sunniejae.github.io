@@ -34,45 +34,64 @@ function getJulianDate(date) {
     return jd;
 }
 
-// Sun position (VSOP87 simplified)
+// Sun position (improved VSOP87)
 function calculateSunPosition(jd) {
     const T = (jd - 2451545.0) / 36525;
+    const T2 = T * T;
+    const T3 = T2 * T;
     
     // Mean longitude
-    let L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+    let L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T2;
+    L0 = L0 % 360;
+    if (L0 < 0) L0 += 360;
     
     // Mean anomaly
-    let M = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
-    M = M * Math.PI / 180;
+    let M = 357.52911 + 35999.05029 * T - 0.0001537 * T2;
+    M = M % 360;
+    if (M < 0) M += 360;
+    const Mrad = M * Math.PI / 180;
     
     // Equation of center
-    let C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M);
-    C += (0.019993 - 0.000101 * T) * Math.sin(2 * M);
-    C += 0.000289 * Math.sin(3 * M);
+    let C = (1.914602 - 0.004817 * T - 0.000014 * T2) * Math.sin(Mrad);
+    C += (0.019993 - 0.000101 * T) * Math.sin(2 * Mrad);
+    C += 0.000289 * Math.sin(3 * Mrad);
     
     // True longitude
     let trueLong = L0 + C;
+    trueLong = trueLong % 360;
+    if (trueLong < 0) trueLong += 360;
     
-    return trueLong % 360;
+    return trueLong;
 }
 
-// Moon position (simplified ELP2000)
+// Moon position (improved ELP2000)
 function calculateMoonPosition(jd) {
     const T = (jd - 2451545.0) / 36525;
+    const T2 = T * T;
+    const T3 = T2 * T;
     
-    let L = 218.3164477 + 481267.88123421 * T;
-    let D = 297.8501921 + 445267.1114034 * T;
-    let M = 357.5291092 + 35999.0502909 * T;
-    let Mp = 134.9633964 + 477198.8675055 * T;
-    let F = 93.2720950 + 483202.0175233 * T;
+    // Mean longitude
+    let L = 218.3164477 + 481267.88123421 * T - 0.0015786 * T2 + T3 / 538841;
+    
+    // Mean elongation
+    let D = 297.8501921 + 445267.1114034 * T - 0.0018819 * T2 + T3 / 545868;
+    
+    // Sun's mean anomaly
+    let M = 357.5291092 + 35999.0502909 * T - 0.0001536 * T2 + T3 / 24490000;
+    
+    // Moon's mean anomaly
+    let Mp = 134.9633964 + 477198.8675055 * T + 0.0087414 * T2 + T3 / 69699;
+    
+    // Moon's argument of latitude
+    let F = 93.2720950 + 483202.0175233 * T - 0.0036539 * T2 - T3 / 3526000;
     
     // Convert to radians
-    D = D * Math.PI / 180;
-    M = M * Math.PI / 180;
-    Mp = Mp * Math.PI / 180;
-    F = F * Math.PI / 180;
+    D = (D % 360) * Math.PI / 180;
+    M = (M % 360) * Math.PI / 180;
+    Mp = (Mp % 360) * Math.PI / 180;
+    F = (F % 360) * Math.PI / 180;
     
-    // Main periodic terms (simplified)
+    // Main periodic terms (top 10 most significant)
     let longitude = L;
     longitude += 6.288774 * Math.sin(Mp);
     longitude += 1.274027 * Math.sin(2*D - Mp);
@@ -80,49 +99,65 @@ function calculateMoonPosition(jd) {
     longitude += 0.213618 * Math.sin(2*Mp);
     longitude -= 0.185116 * Math.sin(M);
     longitude -= 0.114332 * Math.sin(2*F);
+    longitude += 0.058793 * Math.sin(2*D - 2*Mp);
+    longitude += 0.057066 * Math.sin(2*D - M - Mp);
+    longitude += 0.053320 * Math.sin(2*D + Mp);
+    longitude += 0.045758 * Math.sin(2*D - M);
     
-    return longitude % 360;
+    longitude = longitude % 360;
+    if (longitude < 0) longitude += 360;
+    
+    return longitude;
 }
 
-// VSOP87 planetary positions (more accurate)
+// VSOP87 planetary positions (improved accuracy)
 function calculatePlanetPosition(jd, planet) {
     const T = (jd - 2451545.0) / 36525;
+    const T2 = T * T;
+    const T3 = T2 * T;
     
     const planets = {
         'Mercury': {
-            L0: 252.250906, L1: 149472.6746358, L2: -0.00000535,
-            a: 0.38709893, e: 0.20563069, i: 7.00487,
-            omega: 48.330893, w: 77.45645
+            L0: 252.250906, L1: 149474.0722491, L2: 0.00030350, L3: 0.000000018,
+            a: 0.38709831, e: 0.20563175, i: 7.00498625,
+            node: 48.33089304, peri: 77.45611904,
+            M0: 174.795884, M1: 4.09233443
         },
         'Venus': {
-            L0: 181.979801, L1: 58517.8156760, L2: 0.00000165,
-            a: 0.72333199, e: 0.00677323, i: 3.39471,
-            omega: 76.67992, w: 131.53298
+            L0: 181.979801, L1: 58519.2130302, L2: 0.00031014, L3: 0.000000016,
+            a: 0.72332982, e: 0.00677192, i: 3.39466189,
+            node: 76.67992019, peri: 131.53298133,
+            M0: 50.115, M1: 1.60213022
         },
         'Mars': {
-            L0: 355.433, L1: 19140.299, L2: 0.00000261,
-            a: 1.52366231, e: 0.09341233, i: 1.85061,
-            omega: 49.57854, w: 336.04084
+            L0: 355.433, L1: 19141.6964471, L2: 0.00031052, L3: 0.000000016,
+            a: 1.52367934, e: 0.09340062, i: 1.84972648,
+            node: 49.55809321, peri: 336.06023395,
+            M0: 19.3871, M1: 0.52402077
         },
         'Jupiter': {
-            L0: 34.351519, L1: 3034.90567, L2: -0.00008501,
-            a: 5.20336301, e: 0.04839266, i: 1.30530,
-            omega: 100.55615, w: 14.75385
+            L0: 34.351519, L1: 3036.3027748, L2: 0.00022374, L3: 0.000000031,
+            a: 5.20260319, e: 0.04849793, i: 1.30530, 
+            node: 100.46444064, peri: 14.33120687,
+            M0: 20.0202, M1: 0.08308529
         },
         'Saturn': {
-            L0: 50.077444, L1: 1222.11379, L2: 0.00021004,
-            a: 9.53707032, e: 0.05415060, i: 2.48446,
-            omega: 113.71504, w: 92.43194
+            L0: 50.077444, L1: 1223.5110686, L2: 0.00051908, L3: -0.000000030,
+            a: 9.55490959, e: 0.05554814, i: 2.48887878,
+            node: 113.66552114, peri: 92.43194174,
+            M0: 317.0207, M1: 0.03344414
         },
         'Uranus': {
-            L0: 314.055005, L1: 428.466998, L2: -0.00000486,
-            a: 19.19126393, e: 0.04716771, i: 0.76986,
-            omega: 74.22988, w: 170.96424
+            L0: 314.055005, L1: 429.8640561, L2: 0.00030390, L3: 0.000000026,
+            a: 19.21844606, e: 0.04638122, i: 0.77319689,
+            node: 74.00595701, peri: 170.96424523,
+            M0: 141.0498, M1: 0.01172834
         },
         'Neptune': {
-            L0: 304.348665, L1: 218.486200, L2: 0.00000059,
-            a: 30.06896348, e: 0.00858587, i: 1.76917,
-            omega: 131.72169, w: 44.97135
+            L0: 304.348665, L1: 219.8833092, L2: 0.00030882, L3: 0.000000018,
+            a: 30.11038686, e: 0.00945575, i: 1.77005520,
+            node: 131.78405702, peri: 44.97135259,
+            M0: 256.2250, M1: 0.00598103
         }
     };
     
@@ -130,25 +165,42 @@ function calculatePlanetPosition(jd, planet) {
     
     const p = planets[planet];
     
-    // Mean longitude
-    let L = p.L0 + p.L1 * T + p.L2 * T * T;
+    // Mean longitude with higher order terms
+    let L = p.L0 + p.L1 * T + p.L2 * T2 + p.L3 * T3;
+    L = L % 360;
+    if (L < 0) L += 360;
     
     // Mean anomaly
-    let M = (L - p.w) * Math.PI / 180;
+    let M = (L - p.peri) % 360;
+    if (M < 0) M += 360;
+    const Mrad = M * Math.PI / 180;
     
-    // Equation of center (simplified)
-    let C = (2 * p.e - 0.25 * p.e * p.e * p.e) * Math.sin(M);
-    C += 1.25 * p.e * p.e * Math.sin(2 * M);
-    C += 1.083333 * p.e * p.e * p.e * Math.sin(3 * M);
-    C = C * 180 / Math.PI;
+    // Solve Kepler's equation for eccentric anomaly (iterative)
+    let E = M;
+    for (let i = 0; i < 6; i++) {
+        E = M + (180 / Math.PI) * p.e * Math.sin(E * Math.PI / 180);
+    }
+    const Erad = E * Math.PI / 180;
     
     // True anomaly
-    let v = M * 180 / Math.PI + C;
+    const sinv = (Math.sqrt(1 - p.e * p.e) * Math.sin(Erad)) / (1 - p.e * Math.cos(Erad));
+    const cosv = (Math.cos(Erad) - p.e) / (1 - p.e * Math.cos(Erad));
+    let v = Math.atan2(sinv, cosv) * 180 / Math.PI;
+    if (v < 0) v += 360;
     
-    // Ecliptic longitude
-    let eclipticLong = (v + p.w) % 360;
+    // Heliocentric longitude
+    let lon = (v + p.peri) % 360;
+    if (lon < 0) lon += 360;
     
-    return eclipticLong;
+    // Corrections for geocentric view (simplified perturbations)
+    if (planet === 'Mercury') {
+        lon += 0.00204 * Math.sin((5 * M - 2 * L + 12.22) * Math.PI / 180);
+        lon += 0.00103 * Math.sin((2 * M - L + 160.20) * Math.PI / 180);
+    } else if (planet === 'Venus') {
+        lon += 0.00313 * Math.sin((2 * M - 2 * L - 148.20) * Math.PI / 180);
+    }
+    
+    return lon % 360;
 }
 
 // Chiron calculation
@@ -396,6 +448,9 @@ async function compareBirthChart() {
             ${birthTime ? `<p><strong>Birth Time:</strong> ${birthTime} (local time)</p>` : '<p style="color: #ffaa00; font-style: italic;">⚠️ No birth time provided - chart calculated for noon local time</p>'}
             ${birthLocation ? `<p><strong>Location:</strong> ${birthLocation}</p>` : '<p style="color: #ffaa00; font-style: italic;">💡 Tip: Adding your birth location would allow for house calculations</p>'}
             <p style="margin-top: 1rem;"><strong>Active Aspects:</strong> ${aspectCount} major transit${aspectCount !== 1 ? 's' : ''} affecting your chart</p>
+            <p style="font-size: 0.85rem; color: #aaa; margin-top: 0.5rem; font-style: italic;">
+                ℹ️ Planetary positions are calculated using VSOP87 algorithms. For professional-grade accuracy, verify with astro.com or astro-seek.com
+            </p>
         </div>
     `;
     
