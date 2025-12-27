@@ -1,34 +1,105 @@
-// Zodiac sign calculator
+// Import astronomy library for accurate calculations
+let swisseph;
+
+// Load Swiss Ephemeris library
+async function loadSwisseph() {
+    return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.min.js';
+        script.onload = () => resolve();
+        document.head.appendChild(script);
+    });
+}
+
+// Get zodiac sign from ecliptic longitude
 function getZodiacSign(longitude) {
     const signs = [
         'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
         'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
     ];
-    const index = Math.floor(longitude / 30);
-    return signs[index % 12];
+    const adjustedLong = ((longitude % 360) + 360) % 360;
+    const index = Math.floor(adjustedLong / 30);
+    return signs[index];
 }
 
-// Calculate planetary positions using astronomy calculations
+// Calculate planetary positions using Astronomy Engine
 async function getCurrentPlanetaryPositions() {
     const now = new Date();
-    const jd = getJulianDate(now);
     
     const planets = {
-        'Sun': calculateSunPosition(jd),
-        'Moon': calculateMoonPosition(jd),
-        'Mercury': calculatePlanetPosition(jd, 'mercury'),
-        'Venus': calculatePlanetPosition(jd, 'venus'),
-        'Mars': calculatePlanetPosition(jd, 'mars'),
-        'Jupiter': calculatePlanetPosition(jd, 'jupiter'),
-        'Saturn': calculatePlanetPosition(jd, 'saturn'),
-        'Uranus': calculatePlanetPosition(jd, 'uranus'),
-        'Neptune': calculatePlanetPosition(jd, 'neptune'),
-        'Chiron': calculateChironPosition(jd),
-        'Lilith': calculateLilithPosition(jd),
-        'North Node': calculateNorthNode(jd)
+        'Sun': Astronomy.EclipticGeoMoon(now).vec.x >= 0 ? 
+               Astronomy.SunPosition(now).elon : 
+               Astronomy.SunPosition(now).elon,
+        'Moon': Astronomy.EclipticGeoMoon(now).elon,
+        'Mercury': Astronomy.EclipticGeoMoon(now).vec.x >= 0 ? 
+                   getPlanetEclipticLongitude('Mercury', now) : 
+                   getPlanetEclipticLongitude('Mercury', now),
+        'Venus': getPlanetEclipticLongitude('Venus', now),
+        'Mars': getPlanetEclipticLongitude('Mars', now),
+        'Jupiter': getPlanetEclipticLongitude('Jupiter', now),
+        'Saturn': getPlanetEclipticLongitude('Saturn', now),
+        'Uranus': getPlanetEclipticLongitude('Uranus', now),
+        'Neptune': getPlanetEclipticLongitude('Neptune', now),
+        'Chiron': calculateChironPosition(now),
+        'Lilith': calculateLilithPosition(now),
+        'North Node': calculateNorthNode(now)
     };
 
+    // Use Astronomy Engine for accurate calculations
+    try {
+        const sunPos = Astronomy.EclipticGeoMoon(now);
+        planets['Sun'] = calculateEclipticLongitude(Astronomy.HelioVector('Sun', now), now);
+        planets['Moon'] = Astronomy.EclipticGeoMoon(now).elon;
+        planets['Mercury'] = calculateEclipticLongitude(Astronomy.HelioVector('Mercury', now), now);
+        planets['Venus'] = calculateEclipticLongitude(Astronomy.HelioVector('Venus', now), now);
+        planets['Mars'] = calculateEclipticLongitude(Astronomy.GeoVector('Mars', now, true), now);
+        planets['Jupiter'] = calculateEclipticLongitude(Astronomy.GeoVector('Jupiter', now, true), now);
+        planets['Saturn'] = calculateEclipticLongitude(Astronomy.GeoVector('Saturn', now, true), now);
+        planets['Uranus'] = calculateEclipticLongitude(Astronomy.GeoVector('Uranus', now, true), now);
+        planets['Neptune'] = calculateEclipticLongitude(Astronomy.GeoVector('Neptune', now, true), now);
+    } catch (e) {
+        console.error('Astronomy calculation error:', e);
+    }
+
     return planets;
+}
+
+function calculateEclipticLongitude(vector, date) {
+    const ecliptic = Astronomy.Ecliptic(vector);
+    return ((ecliptic.elon % 360) + 360) % 360;
+}
+
+function getPlanetEclipticLongitude(planet, date) {
+    try {
+        const vector = Astronomy.GeoVector(planet, date, true);
+        return calculateEclipticLongitude(vector, date);
+    } catch (e) {
+        return 0;
+    }
+}
+
+// Chiron calculation (approximate orbital elements)
+function calculateChironPosition(date) {
+    const jd = getJulianDate(date);
+    const T = (jd - 2451545.0) / 36525;
+    const L = (246.57 + 52.97 * T) % 360;
+    return (L + 360) % 360;
+}
+
+// Lilith (Mean Lunar Apogee) calculation
+function calculateLilithPosition(date) {
+    const jd = getJulianDate(date);
+    const T = (jd - 2451545.0) / 36525;
+    const L = (83.35 + 40.66 * T) % 360;
+    return (L + 360) % 360;
+}
+
+// North Node calculation
+function calculateNorthNode(date) {
+    const jd = getJulianDate(date);
+    const T = (jd - 2451545.0) / 36525;
+    const node = (125.04 - 1934.14 * T) % 360;
+    return (node + 360) % 360;
 }
 
 // Julian Date calculation
@@ -44,75 +115,6 @@ function getJulianDate(date) {
     jd += (hours - 12) / 24;
     
     return jd;
-}
-
-// Sun position calculation
-function calculateSunPosition(jd) {
-    const n = jd - 2451545.0;
-    const L = (280.460 + 0.9856474 * n) % 360;
-    const g = (357.528 + 0.9856003 * n) % 360;
-    const lambda = (L + 1.915 * Math.sin(g * Math.PI / 180) + 
-                    0.020 * Math.sin(2 * g * Math.PI / 180)) % 360;
-    return (lambda + 360) % 360;
-}
-
-// Moon position calculation
-function calculateMoonPosition(jd) {
-    const T = (jd - 2451545.0) / 36525;
-    const L = (218.316 + 481267.881 * T) % 360;
-    const M = (134.963 + 477198.867 * T) % 360;
-    const F = (93.272 + 483202.017 * T) % 360;
-    
-    let lambda = L + 6.289 * Math.sin(M * Math.PI / 180);
-    lambda = (lambda + 360) % 360;
-    
-    return lambda;
-}
-
-// Simplified planetary position calculations
-function calculatePlanetPosition(jd, planet) {
-    const T = (jd - 2451545.0) / 36525;
-    const orbitalElements = {
-        mercury: { L0: 252.25, L1: 149472.67, w: 77.45, e: 0.2056, a: 0.387 },
-        venus: { L0: 181.98, L1: 58517.81, w: 131.53, e: 0.0068, a: 0.723 },
-        mars: { L0: 355.45, L1: 19140.30, w: 336.04, e: 0.0934, a: 1.524 },
-        jupiter: { L0: 34.40, L1: 3034.90, w: 14.75, e: 0.0484, a: 5.203 },
-        saturn: { L0: 49.94, L1: 1222.11, w: 92.43, e: 0.0542, a: 9.537 },
-        uranus: { L0: 314.05, L1: 428.46, w: 170.96, e: 0.0472, a: 19.191 },
-        neptune: { L0: 304.35, L1: 218.46, w: 44.97, e: 0.0086, a: 30.069 }
-    };
-    
-    const elem = orbitalElements[planet];
-    const L = (elem.L0 + elem.L1 * T) % 360;
-    const M = (L - elem.w) % 360;
-    
-    const E = M + (180 / Math.PI) * elem.e * Math.sin(M * Math.PI / 180);
-    const v = 2 * Math.atan(Math.sqrt((1 + elem.e) / (1 - elem.e)) * 
-                            Math.tan(E * Math.PI / 360)) * 180 / Math.PI;
-    
-    let lambda = (v + elem.w) % 360;
-    return (lambda + 360) % 360;
-}
-
-// Chiron calculation (approximate)
-function calculateChironPosition(jd) {
-    const T = (jd - 2451545.0) / 36525;
-    const L = (246.57 + 52.97 * T) % 360;
-    return (L + 360) % 360;
-}
-
-// Lilith (Mean Lunar Apogee) calculation
-function calculateLilithPosition(jd) {
-    const T = (jd - 2451545.0) / 36525;
-    const L = (83.35 + 40.66 * T) % 360;
-    return (L + 360) % 360;
-}
-
-// North Node calculation
-function calculateNorthNode(jd) {
-    const T = (jd - 2451545.0) / 36525;
-    const node = (125.04 - 1934.14 * T) % 360;
-    return (node + 360) % 360;
 }
 
 // Display planets
@@ -134,6 +136,161 @@ async function displayPlanets() {
     
     document.getElementById('loading').style.display = 'none';
     document.getElementById('planets-container').style.display = 'block';
+}
+
+// Calculate aspects between two planets
+function calculateAspect(angle) {
+    const diff = Math.abs(angle) % 360;
+    const normalizedDiff = diff > 180 ? 360 - diff : diff;
+    
+    const orb = 8;
+    
+    if (Math.abs(normalizedDiff - 0) <= orb) return { type: 'Conjunction', angle: 0, symbol: '☌' };
+    if (Math.abs(normalizedDiff - 60) <= orb) return { type: 'Sextile', angle: 60, symbol: '⚹' };
+    if (Math.abs(normalizedDiff - 90) <= orb) return { type: 'Square', angle: 90, symbol: '□' };
+    if (Math.abs(normalizedDiff - 120) <= orb) return { type: 'Trine', angle: 120, symbol: '△' };
+    if (Math.abs(normalizedDiff - 180) <= orb) return { type: 'Opposition', angle: 180, symbol: '☍' };
+    
+    return null;
+}
+
+// Get aspect interpretation
+function getAspectInterpretation(aspect, transitPlanet, natalPlanet) {
+    const interpretations = {
+        'Conjunction': {
+            description: 'merging with',
+            meaning: 'Intense focus and activation. The energies blend together powerfully.',
+            energy: '⚡ High intensity'
+        },
+        'Sextile': {
+            description: 'harmonizing with',
+            meaning: 'Opportunities and easy flow. Supportive energy for growth.',
+            energy: '✨ Beneficial'
+        },
+        'Square': {
+            description: 'challenging',
+            meaning: 'Dynamic tension requiring action. Growth through challenge.',
+            energy: '⚠️ Tension/Action'
+        },
+        'Trine': {
+            description: 'supporting',
+            meaning: 'Natural harmony and ease. Talents flow effortlessly.',
+            energy: '🌟 Very favorable'
+        },
+        'Opposition': {
+            description: 'opposing',
+            meaning: 'Awareness through contrast. Balance needed between polarities.',
+            energy: '⚖️ Awareness/Balance'
+        }
+    };
+    
+    const info = interpretations[aspect.type];
+    return `
+        <div style="padding: 0.8rem; margin: 0.5rem 0; background: rgba(255, 255, 255, 0.08); border-radius: 8px; border-left: 3px solid #ffd700;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong style="color: #ffd700; font-size: 1.1rem;">
+                    Transit ${transitPlanet} ${aspect.symbol} Natal ${natalPlanet}
+                </strong>
+                <span style="font-size: 0.9rem; color: #aaa;">${info.energy}</span>
+            </div>
+            <p style="margin: 0.3rem 0; font-style: italic; color: #ddd;">
+                ${transitPlanet} is ${info.description} your natal ${natalPlanet}
+            </p>
+            <p style="margin: 0.5rem 0; font-size: 0.95rem; color: #ccc;">
+                ${info.meaning}
+            </p>
+        </div>
+    `;
+}
+
+// Birth chart comparison with accurate calculations
+async function compareBirthChart() {
+    const birthDate = document.getElementById('birth-date').value;
+    const birthTime = document.getElementById('birth-time').value;
+    const birthLocation = document.getElementById('birth-location').value;
+    
+    if (!birthDate) {
+        alert('Please enter your birth date');
+        return;
+    }
+    
+    const result = document.getElementById('comparison-result');
+    result.innerHTML = '<div class="loading">Calculating your birth chart and current transits...</div>';
+    
+    // Calculate birth chart with accurate astronomy
+    const birthDateTime = new Date(birthDate + (birthTime ? 'T' + birthTime : 'T12:00:00'));
+    
+    const natalChart = {};
+    try {
+        natalChart['Sun'] = calculateEclipticLongitude(Astronomy.HelioVector('Sun', birthDateTime), birthDateTime);
+        natalChart['Moon'] = Astronomy.EclipticGeoMoon(birthDateTime).elon;
+        natalChart['Mercury'] = calculateEclipticLongitude(Astronomy.HelioVector('Mercury', birthDateTime), birthDateTime);
+        natalChart['Venus'] = calculateEclipticLongitude(Astronomy.HelioVector('Venus', birthDateTime), birthDateTime);
+        natalChart['Mars'] = calculateEclipticLongitude(Astronomy.GeoVector('Mars', birthDateTime, true), birthDateTime);
+        natalChart['Jupiter'] = calculateEclipticLongitude(Astronomy.GeoVector('Jupiter', birthDateTime, true), birthDateTime);
+        natalChart['Saturn'] = calculateEclipticLongitude(Astronomy.GeoVector('Saturn', birthDateTime, true), birthDateTime);
+        natalChart['Uranus'] = calculateEclipticLongitude(Astronomy.GeoVector('Uranus', birthDateTime, true), birthDateTime);
+        natalChart['Neptune'] = calculateEclipticLongitude(Astronomy.GeoVector('Neptune', birthDateTime, true), birthDateTime);
+    } catch (e) {
+        console.error('Birth chart calculation error:', e);
+    }
+    
+    // Get current transits
+    const currentTransits = await getCurrentPlanetaryPositions();
+    
+    // Build natal chart display
+    let natalChartHTML = '<h3 style="color: #ffd700; margin-top: 1.5rem;">Your Natal Chart</h3>';
+    natalChartHTML += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin: 1rem 0;">';
+    
+    for (const [planet, longitude] of Object.entries(natalChart)) {
+        const sign = getZodiacSign(longitude);
+        const degrees = Math.floor(longitude % 30);
+        natalChartHTML += `
+            <div style="background: rgba(138, 43, 226, 0.2); padding: 0.8rem; border-radius: 8px; text-align: center;">
+                <div style="font-weight: bold; color: #ffd700;">${planet}</div>
+                <div style="font-size: 1.1rem;">${sign} ${degrees}°</div>
+            </div>
+        `;
+    }
+    natalChartHTML += '</div>';
+    
+    // Find aspects between transits and natal planets
+    let aspectsHTML = '<h3 style="color: #ffd700; margin-top: 2rem;">Active Transits Affecting Your Chart</h3>';
+    let aspectCount = 0;
+    
+    const transitPlanets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+    const natalPlanets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+    
+    for (const transitPlanet of transitPlanets) {
+        for (const natalPlanet of natalPlanets) {
+            const transitLong = currentTransits[transitPlanet];
+            const natalLong = natalChart[natalPlanet];
+            const angle = transitLong - natalLong;
+            
+            const aspect = calculateAspect(angle);
+            if (aspect) {
+                aspectsHTML += getAspectInterpretation(aspect, transitPlanet, natalPlanet);
+                aspectCount++;
+            }
+        }
+    }
+    
+    if (aspectCount === 0) {
+        aspectsHTML += '<p style="color: #ccc; font-style: italic;">No major aspects are exact at this moment. This is a quieter period astrologically.</p>';
+    }
+    
+    // Summary
+    let summaryHTML = `
+        <div style="margin-top: 1rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(138, 43, 226, 0.15)); border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.3);">
+            <h3 style="color: #ffd700;">Birth Chart Information</h3>
+            <p><strong>Birth Date:</strong> ${birthDateTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            ${birthTime ? `<p><strong>Birth Time:</strong> ${birthTime}</p>` : '<p style="color: #ffaa00; font-style: italic;">⚠️ No birth time provided - chart calculated for noon</p>'}
+            ${birthLocation ? `<p><strong>Location:</strong> ${birthLocation}</p>` : ''}
+            <p style="margin-top: 1rem;"><strong>Active Aspects:</strong> ${aspectCount} major transit${aspectCount !== 1 ? 's' : ''} affecting your chart</p>
+        </div>
+    `;
+    
+    result.innerHTML = summaryHTML + natalChartHTML + aspectsHTML;
 }
 
 // Generate daily horoscope
@@ -277,161 +434,8 @@ function closeModal() {
     document.getElementById('wiki-modal').style.display = 'none';
 }
 
-// Calculate aspects between two planets
-function calculateAspect(angle) {
-    const diff = Math.abs(angle) % 360;
-    const normalizedDiff = diff > 180 ? 360 - diff : diff;
-    
-    const orb = 8; // Orb of influence in degrees
-    
-    if (Math.abs(normalizedDiff - 0) <= orb) return { type: 'Conjunction', angle: 0, symbol: '☌' };
-    if (Math.abs(normalizedDiff - 60) <= orb) return { type: 'Sextile', angle: 60, symbol: '⚹' };
-    if (Math.abs(normalizedDiff - 90) <= orb) return { type: 'Square', angle: 90, symbol: '□' };
-    if (Math.abs(normalizedDiff - 120) <= orb) return { type: 'Trine', angle: 120, symbol: '△' };
-    if (Math.abs(normalizedDiff - 180) <= orb) return { type: 'Opposition', angle: 180, symbol: '☍' };
-    
-    return null;
-}
-
-// Get aspect interpretation
-function getAspectInterpretation(aspect, transitPlanet, natalPlanet) {
-    const interpretations = {
-        'Conjunction': {
-            description: 'merging with',
-            meaning: 'Intense focus and activation. The energies blend together powerfully.',
-            energy: '⚡ High intensity'
-        },
-        'Sextile': {
-            description: 'harmonizing with',
-            meaning: 'Opportunities and easy flow. Supportive energy for growth.',
-            energy: '✨ Beneficial'
-        },
-        'Square': {
-            description: 'challenging',
-            meaning: 'Dynamic tension requiring action. Growth through challenge.',
-            energy: '⚠️ Tension/Action'
-        },
-        'Trine': {
-            description: 'supporting',
-            meaning: 'Natural harmony and ease. Talents flow effortlessly.',
-            energy: '🌟 Very favorable'
-        },
-        'Opposition': {
-            description: 'opposing',
-            meaning: 'Awareness through contrast. Balance needed between polarities.',
-            energy: '⚖️ Awareness/Balance'
-        }
-    };
-    
-    const info = interpretations[aspect.type];
-    return `
-        <div style="padding: 0.8rem; margin: 0.5rem 0; background: rgba(255, 255, 255, 0.08); border-radius: 8px; border-left: 3px solid #ffd700;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                <strong style="color: #ffd700; font-size: 1.1rem;">
-                    Transit ${transitPlanet} ${aspect.symbol} Natal ${natalPlanet}
-                </strong>
-                <span style="font-size: 0.9rem; color: #aaa;">${info.energy}</span>
-            </div>
-            <p style="margin: 0.3rem 0; font-style: italic; color: #ddd;">
-                ${transitPlanet} is ${info.description} your natal ${natalPlanet}
-            </p>
-            <p style="margin: 0.5rem 0; font-size: 0.95rem; color: #ccc;">
-                ${info.meaning}
-            </p>
-        </div>
-    `;
-}
-
-// Birth chart comparison
-async function compareBirthChart() {
-    const birthDate = document.getElementById('birth-date').value;
-    const birthTime = document.getElementById('birth-time').value;
-    const birthLocation = document.getElementById('birth-location').value;
-    
-    if (!birthDate) {
-        alert('Please enter your birth date');
-        return;
-    }
-    
-    const result = document.getElementById('comparison-result');
-    result.innerHTML = '<div class="loading">Calculating your birth chart and current transits...</div>';
-    
-    // Calculate birth chart
-    const birthDateTime = new Date(birthDate + (birthTime ? 'T' + birthTime : 'T12:00:00'));
-    const birthJD = getJulianDate(birthDateTime);
-    
-    const natalChart = {
-        'Sun': calculateSunPosition(birthJD),
-        'Moon': calculateMoonPosition(birthJD),
-        'Mercury': calculatePlanetPosition(birthJD, 'mercury'),
-        'Venus': calculatePlanetPosition(birthJD, 'venus'),
-        'Mars': calculatePlanetPosition(birthJD, 'mars'),
-        'Jupiter': calculatePlanetPosition(birthJD, 'jupiter'),
-        'Saturn': calculatePlanetPosition(birthJD, 'saturn'),
-        'Uranus': calculatePlanetPosition(birthJD, 'uranus'),
-        'Neptune': calculatePlanetPosition(birthJD, 'neptune')
-    };
-    
-    // Get current transits
-    const currentTransits = await getCurrentPlanetaryPositions();
-    
-    // Build natal chart display
-    let natalChartHTML = '<h3 style="color: #ffd700; margin-top: 1.5rem;">Your Natal Chart</h3>';
-    natalChartHTML += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin: 1rem 0;">';
-    
-    for (const [planet, longitude] of Object.entries(natalChart)) {
-        const sign = getZodiacSign(longitude);
-        const degrees = Math.floor(longitude % 30);
-        natalChartHTML += `
-            <div style="background: rgba(138, 43, 226, 0.2); padding: 0.8rem; border-radius: 8px; text-align: center;">
-                <div style="font-weight: bold; color: #ffd700;">${planet}</div>
-                <div style="font-size: 1.1rem;">${sign} ${degrees}°</div>
-            </div>
-        `;
-    }
-    natalChartHTML += '</div>';
-    
-    // Find aspects between transits and natal planets
-    let aspectsHTML = '<h3 style="color: #ffd700; margin-top: 2rem;">Active Transits Affecting Your Chart</h3>';
-    let aspectCount = 0;
-    
-    const transitPlanets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
-    const natalPlanets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
-    
-    for (const transitPlanet of transitPlanets) {
-        for (const natalPlanet of natalPlanets) {
-            const transitLong = currentTransits[transitPlanet];
-            const natalLong = natalChart[natalPlanet];
-            const angle = transitLong - natalLong;
-            
-            const aspect = calculateAspect(angle);
-            if (aspect) {
-                aspectsHTML += getAspectInterpretation(aspect, transitPlanet, natalPlanet);
-                aspectCount++;
-            }
-        }
-    }
-    
-    if (aspectCount === 0) {
-        aspectsHTML += '<p style="color: #ccc; font-style: italic;">No major aspects are exact at this moment. This is a quieter period astrologically.</p>';
-    }
-    
-    // Summary
-    let summaryHTML = `
-        <div style="margin-top: 1rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(138, 43, 226, 0.15)); border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.3);">
-            <h3 style="color: #ffd700;">Birth Chart Information</h3>
-            <p><strong>Birth Date:</strong> ${birthDateTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            ${birthTime ? `<p><strong>Birth Time:</strong> ${birthTime}</p>` : '<p style="color: #ffaa00; font-style: italic;">⚠️ No birth time provided - chart calculated for noon</p>'}
-            ${birthLocation ? `<p><strong>Location:</strong> ${birthLocation}</p>` : ''}
-            <p style="margin-top: 1rem;"><strong>Active Aspects:</strong> ${aspectCount} major transit${aspectCount !== 1 ? 's' : ''} affecting your chart</p>
-        </div>
-    `;
-    
-    result.innerHTML = summaryHTML + natalChartHTML + aspectsHTML;
-}
-
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const now = new Date();
     document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', {
         weekday: 'long',
@@ -439,6 +443,9 @@ document.addEventListener('DOMContentLoaded', () => {
         month: 'long',
         day: 'numeric'
     });
+    
+    // Load astronomy library first
+    await loadSwisseph();
     
     displayPlanets();
     generateDailyHoroscope();
