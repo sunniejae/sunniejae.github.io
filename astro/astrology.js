@@ -302,12 +302,28 @@ async function compareBirthChart() {
     const result = document.getElementById('comparison-result');
     result.innerHTML = '<div class="loading">Calculating your birth chart and current transits...</div>';
     
-    // Parse birth date and time
+    // Parse birth date and time in LOCAL timezone
     let birthDateTime;
     if (birthTime) {
-        birthDateTime = new Date(birthDate + 'T' + birthTime + ':00');
+        // Create date in local timezone
+        const dateParts = birthDate.split('-');
+        const timeParts = birthTime.split(':');
+        birthDateTime = new Date(
+            parseInt(dateParts[0]), 
+            parseInt(dateParts[1]) - 1, 
+            parseInt(dateParts[2]),
+            parseInt(timeParts[0]),
+            parseInt(timeParts[1] || 0)
+        );
     } else {
-        birthDateTime = new Date(birthDate + 'T12:00:00');
+        // Default to noon local time
+        const dateParts = birthDate.split('-');
+        birthDateTime = new Date(
+            parseInt(dateParts[0]), 
+            parseInt(dateParts[1]) - 1, 
+            parseInt(dateParts[2]),
+            12, 0, 0
+        );
     }
     
     const birthJD = getJulianDate(birthDateTime);
@@ -377,8 +393,8 @@ async function compareBirthChart() {
         <div style="margin-top: 1rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(138, 43, 226, 0.15)); border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.3);">
             <h3 style="color: #ffd700;">Birth Chart Information</h3>
             <p><strong>Birth Date:</strong> ${birthDateTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            ${birthTime ? `<p><strong>Birth Time:</strong> ${birthTime}</p>` : '<p style="color: #ffaa00; font-style: italic;">⚠️ No birth time provided - chart calculated for noon UTC</p>'}
-            ${birthLocation ? `<p><strong>Location:</strong> ${birthLocation}</p>` : ''}
+            ${birthTime ? `<p><strong>Birth Time:</strong> ${birthTime} (local time)</p>` : '<p style="color: #ffaa00; font-style: italic;">⚠️ No birth time provided - chart calculated for noon local time</p>'}
+            ${birthLocation ? `<p><strong>Location:</strong> ${birthLocation}</p>` : '<p style="color: #ffaa00; font-style: italic;">💡 Tip: Adding your birth location would allow for house calculations</p>'}
             <p style="margin-top: 1rem;"><strong>Active Aspects:</strong> ${aspectCount} major transit${aspectCount !== 1 ? 's' : ''} affecting your chart</p>
         </div>
     `;
