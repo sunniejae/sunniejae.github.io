@@ -1,13 +1,13 @@
-// Member data with planet placeholders
+// Member data 
 const MEMBERS = {
   MAI: { 
     name: 'MAI', 
-    colors: { primary: '#FF6B9D', secondary: '#FFE5EC', accent: '#C41E3A', dark: '#8B0A1F' },
+    colors: { primary: '#ff5470', secondary: '#faf0e6', accent: '#ce2029', dark: '#660708' },
     description: 'Bold and energetic! You match with MAI, someone who brings passion and excitement to everything they do.'
   },
   JEEMIN: { 
     name: 'JEEMIN', 
-    colors: { primary: '#9D84FF', secondary: '#E8E0FF', accent: '#6B4CE6', dark: '#4A2FB8' },
+    colors: { primary: '#9bb1ff', secondary: '#eceef2', accent: '#6a8bd3', dark: '#364964' },
     description: 'Elegant and mysterious! You match with JEEMIN, someone who captivates with grace and thoughtful charm.'
   },
   KOKO: { 
@@ -17,17 +17,17 @@ const MEMBERS = {
   },
   SARANG: { 
     name: 'SARANG', 
-    colors: { primary: '#4ECDC4', secondary: '#D4F4F2', accent: '#2BA89E', dark: '#1A7A72' },
+    colors: { primary: '#a8e6cf', secondary: '#f2fffa', accent: '#ff6f00', dark: '#202925' },
     description: 'Bright and optimistic! You match with SARANG, someone who spreads joy and positive energy everywhere.'
   },
   JUNGEUN: { 
     name: 'JUNGEUN', 
-    colors: { primary: '#FFD93D', secondary: '#FFF6D6', accent: '#F4C430', dark: '#C49A26' },
+    colors: { primary: '#d0b3f9', secondary: '##efebf4', accent: '#8d7fb6', dark: '#4b426d' },
     description: 'Steady and reliable! You match with JUNGEUN, someone who brings warmth and stability to any situation.'
   },
   SAEBI: { 
     name: 'SAEBI', 
-    colors: { primary: '#6BCF7F', secondary: '#E0F7E4', accent: '#45A557', dark: '#2F7A3E' },
+    colors: { primary: '#ffb3d9', secondary: '#f1f5f6', accent: '#f60380', dark: '#812c45' },
     description: 'Fresh and unique! You match with SAEBI, someone who stands out with their creative and refreshing personality.'
   },
 };
