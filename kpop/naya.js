@@ -361,7 +361,7 @@ function updateTheme() {
     document.body.style.background = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%)`;
     
     // Update hero section
-    document.getElementById('heroImage').src = `/kpop/assets/hero-${selectedBias}.png`;
+    document.getElementById('heroImage').src = `/kpop/assets/header-${selectedBias}.png`;
     document.getElementById('heroName').textContent = selectedBias;
     document.getElementById('heroName').style.textShadow = `0 0 20px ${colors[2]}, 0 0 40px ${colors[1]}`;
     
