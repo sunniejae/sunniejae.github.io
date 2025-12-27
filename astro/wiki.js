@@ -137,42 +137,94 @@ function createStars() {
     }
 }
 
-// Fetch current planetary placements
+// Fetch current planetary placements using Astronomy Engine
 async function fetchCurrentPlacements() {
     try {
         const updateTimeEl = document.getElementById('updateTime');
         updateTimeEl.textContent = 'Updating...';
         
-        // Using astronomy API to get real-time positions
         const now = new Date();
-        const lat = 32.9537; // Carrollton, TX coordinates
-        const lon = -96.8903;
         
-        // Get planetary positions (using simplified calculations)
-        const planets = await calculatePlanetaryPositions(now, lat, lon);
-        currentPlanets = planets;
+        // Check if Astronomy Engine library is loaded
+        if (typeof Astronomy !== 'undefined') {
+            const planets = getPlanetsWithAstronomyEngine(now);
+            currentPlanets = planets;
+        } else {
+            console.warn('Astronomy Engine not loaded. Using fallback calculations.');
+            const planets = calculatePlanetaryPositions(now);
+            currentPlanets = planets;
+        }
         
-        displayPlanetaryInfo(planets);
-        drawBirthChart(planets);
-        updateTransitExplanations(planets);
+        displayPlanetaryInfo(currentPlanets);
+        drawBirthChart(currentPlanets);
+        updateTransitExplanations(currentPlanets);
         
         updateTimeEl.textContent = `Last updated: ${now.toLocaleTimeString()}`;
     } catch (error) {
         console.error('Error fetching placements:', error);
-        document.getElementById('planetInfo').innerHTML = '<p style="color: #ff6b6b;">Unable to load planetary data. Showing example data...</p>';
-        loadExampleData();
+        document.getElementById('planetInfo').innerHTML = '<p style="color: #ff6b6b;">Unable to load planetary data. Using approximate calculations...</p>';
+        const planets = calculatePlanetaryPositions(new Date());
+        currentPlanets = planets;
+        displayPlanetaryInfo(currentPlanets);
+        drawBirthChart(currentPlanets);
+        updateTransitExplanations(currentPlanets);
     }
 }
 
-// Calculate planetary positions (simplified)
-async function calculatePlanetaryPositions(date, lat, lon) {
-    // This is a simplified calculation. In production, you'd use a proper ephemeris API
-    // like Swiss Ephemeris or astronomy-engine library
+// ACCURATE METHOD: Using Astronomy Engine (NASA JPL quality)
+// Requires: <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.min.js"></script> in HTML
+function getPlanetsWithAstronomyEngine(date) {
+    const planets = {};
+    const observer = new Astronomy.Observer(32.9537, -96.8903, 0); // Carrollton, TX
     
+    const bodies = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 
+                    'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto'];
+    
+    bodies.forEach(bodyName => {
+        try {
+            const body = Astronomy.Body[bodyName];
+            const equator = Astronomy.Equator(body, date, observer, true, true);
+            
+            // Convert to ecliptic coordinates
+            const ecliptic = Astronomy.Ecliptic(equator);
+            const longitude = (ecliptic.elon + 360) % 360;
+            
+            planets[bodyName.toLowerCase()] = {
+                longitude: longitude,
+                sign: getZodiacSign(longitude),
+                degree: Math.floor(longitude % 30)
+            };
+        } catch (error) {
+            console.error(`Error calculating ${bodyName}:`, error);
+        }
+    });
+    
+    // Add Chiron (approximate calculation)
+    const jd = getJulianDate(date);
+    const chironLongitude = (378.134 + 0.053619 * (jd - 2451545.0)) % 360;
+    planets.chiron = {
+        longitude: chironLongitude,
+        sign: getZodiacSign(chironLongitude),
+        degree: Math.floor(chironLongitude % 30)
+    };
+    
+    // Add Lilith/Black Moon (Mean calculation)
+    const lilithLongitude = (83.297 + 0.111404 * (jd - 2451545.0)) % 360;
+    planets.lilith = {
+        longitude: lilithLongitude,
+        sign: getZodiacSign(lilithLongitude),
+        degree: Math.floor(lilithLongitude % 30)
+    };
+    
+    return planets;
+}
+
+// FALLBACK: Simplified planetary calculations (approximate)
+function calculatePlanetaryPositions(date) {
     const jd = getJulianDate(date);
     const planets = {};
     
-    // Calculate Sun position (simplified)
+    // Sun (simple formula)
     const sunLongitude = (280.460 + 0.9856474 * (jd - 2451545.0)) % 360;
     planets.sun = { 
         longitude: sunLongitude,
@@ -281,27 +333,6 @@ function getZodiacSign(longitude) {
     return signs[Math.floor(longitude / 30)];
 }
 
-function loadExampleData() {
-    const examplePlanets = {
-        sun: { sign: 'Capricorn', degree: 6 },
-        moon: { sign: 'Gemini', degree: 15 },
-        mercury: { sign: 'Sagittarius', degree: 28 },
-        venus: { sign: 'Aquarius', degree: 3 },
-        mars: { sign: 'Cancer', degree: 10 },
-        jupiter: { sign: 'Gemini', degree: 14 },
-        saturn: { sign: 'Pisces', degree: 15 },
-        uranus: { sign: 'Taurus', degree: 23 },
-        neptune: { sign: 'Pisces', degree: 27 },
-        pluto: { sign: 'Aquarius', degree: 2 },
-        chiron: { sign: 'Aries', degree: 22 },
-        lilith: { sign: 'Virgo', degree: 8 }
-    };
-    
-    displayPlanetaryInfo(examplePlanets);
-    drawBirthChart(examplePlanets);
-    updateTransitExplanations(examplePlanets);
-}
-
 function displayPlanetaryInfo(planets) {
     const planetInfo = document.getElementById('planetInfo');
     const planetEmojis = {
@@ -371,8 +402,6 @@ function drawBirthChart(planets) {
     
     // Draw zodiac signs
     const signs = ['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓'];
-    const signNames = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 
-                       'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
     
     ctx.font = '20px Arial';
     ctx.textAlign = 'center';
@@ -483,7 +512,7 @@ function getSunInsight(sign) {
 }
 
 function getSignFocus(sign) {
-    return sign === selectedSign ? 'your personal power and self-expression' : 'collective growth in this area';
+    return sign.toLowerCase() === selectedSign ? 'your personal power and self-expression' : 'collective growth in this area';
 }
 
 function getMoonInsight(sign) {
@@ -526,9 +555,8 @@ function updateSignInfo() {
 async function loadBlogFeed() {
     const blogFeed = document.getElementById('blogFeed');
     
-    // Example Medium blog RSS feed URL - replace with actual blog URL
-    // Note: Due to CORS, you may need to use a proxy service or fetch from your own backend
-    const rssFeedUrl = 'https://medium.com/feed/@astrology'; // Example URL
+    // Replace with your Medium blog RSS feed URL
+    const rssFeedUrl = 'https://medium.com/feed/@astrology'; // Example - change this!
     
     try {
         // Using RSS2JSON API to convert RSS to JSON (free service)
@@ -557,11 +585,12 @@ async function loadBlogFeed() {
         console.error('Error loading blog feed:', error);
         blogFeed.innerHTML = `
             <p style="color: var(--text-muted);">
-                Unable to load blog feed. Please add your Medium RSS feed URL in the code.
+                📰 Add your Medium RSS feed to see articles here!
                 <br><br>
-                Example feeds to try:<br>
-                • https://medium.com/feed/@yourusername<br>
-                • https://medium.com/feed/tag/astrology
+                <strong>How to add your feed:</strong><br>
+                1. Find your Medium username<br>
+                2. Replace the URL in astro-wiki.js line ~612<br>
+                3. Use format: https://medium.com/feed/@yourusername
             </p>
         `;
     }
@@ -569,18 +598,11 @@ async function loadBlogFeed() {
 
 function updateHoroscope() {
     const horoscope = document.getElementById('dailyHoroscope');
-    const sign = signData[selectedSign];
-    
-    // Generate contextual horoscope based on current placements
     const horoscopes = generateHoroscope(selectedSign, currentPlanets);
-    
     horoscope.innerHTML = horoscopes;
 }
 
 function generateHoroscope(sign, planets) {
-    // This is a simplified horoscope generator
-    // In production, you'd want more sophisticated logic or API integration
-    
     const themes = {
         aries: ['taking bold action', 'leadership opportunities', 'physical energy'],
         taurus: ['financial matters', 'sensory pleasures', 'building stability'],
