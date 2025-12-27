@@ -277,8 +277,73 @@ function closeModal() {
     document.getElementById('wiki-modal').style.display = 'none';
 }
 
+// Calculate aspects between two planets
+function calculateAspect(angle) {
+    const diff = Math.abs(angle) % 360;
+    const normalizedDiff = diff > 180 ? 360 - diff : diff;
+    
+    const orb = 8; // Orb of influence in degrees
+    
+    if (Math.abs(normalizedDiff - 0) <= orb) return { type: 'Conjunction', angle: 0, symbol: '☌' };
+    if (Math.abs(normalizedDiff - 60) <= orb) return { type: 'Sextile', angle: 60, symbol: '⚹' };
+    if (Math.abs(normalizedDiff - 90) <= orb) return { type: 'Square', angle: 90, symbol: '□' };
+    if (Math.abs(normalizedDiff - 120) <= orb) return { type: 'Trine', angle: 120, symbol: '△' };
+    if (Math.abs(normalizedDiff - 180) <= orb) return { type: 'Opposition', angle: 180, symbol: '☍' };
+    
+    return null;
+}
+
+// Get aspect interpretation
+function getAspectInterpretation(aspect, transitPlanet, natalPlanet) {
+    const interpretations = {
+        'Conjunction': {
+            description: 'merging with',
+            meaning: 'Intense focus and activation. The energies blend together powerfully.',
+            energy: '⚡ High intensity'
+        },
+        'Sextile': {
+            description: 'harmonizing with',
+            meaning: 'Opportunities and easy flow. Supportive energy for growth.',
+            energy: '✨ Beneficial'
+        },
+        'Square': {
+            description: 'challenging',
+            meaning: 'Dynamic tension requiring action. Growth through challenge.',
+            energy: '⚠️ Tension/Action'
+        },
+        'Trine': {
+            description: 'supporting',
+            meaning: 'Natural harmony and ease. Talents flow effortlessly.',
+            energy: '🌟 Very favorable'
+        },
+        'Opposition': {
+            description: 'opposing',
+            meaning: 'Awareness through contrast. Balance needed between polarities.',
+            energy: '⚖️ Awareness/Balance'
+        }
+    };
+    
+    const info = interpretations[aspect.type];
+    return `
+        <div style="padding: 0.8rem; margin: 0.5rem 0; background: rgba(255, 255, 255, 0.08); border-radius: 8px; border-left: 3px solid #ffd700;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <strong style="color: #ffd700; font-size: 1.1rem;">
+                    Transit ${transitPlanet} ${aspect.symbol} Natal ${natalPlanet}
+                </strong>
+                <span style="font-size: 0.9rem; color: #aaa;">${info.energy}</span>
+            </div>
+            <p style="margin: 0.3rem 0; font-style: italic; color: #ddd;">
+                ${transitPlanet} is ${info.description} your natal ${natalPlanet}
+            </p>
+            <p style="margin: 0.5rem 0; font-size: 0.95rem; color: #ccc;">
+                ${info.meaning}
+            </p>
+        </div>
+    `;
+}
+
 // Birth chart comparison
-function compareBirthChart() {
+async function compareBirthChart() {
     const birthDate = document.getElementById('birth-date').value;
     const birthTime = document.getElementById('birth-time').value;
     const birthLocation = document.getElementById('birth-location').value;
@@ -289,18 +354,80 @@ function compareBirthChart() {
     }
     
     const result = document.getElementById('comparison-result');
-    result.innerHTML = `
-        <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px;">
-            <h3 style="color: #ffd700;">Birth Chart Analysis</h3>
-            <p><strong>Birth Date:</strong> ${birthDate}</p>
-            ${birthTime ? `<p><strong>Birth Time:</strong> ${birthTime}</p>` : ''}
+    result.innerHTML = '<div class="loading">Calculating your birth chart and current transits...</div>';
+    
+    // Calculate birth chart
+    const birthDateTime = new Date(birthDate + (birthTime ? 'T' + birthTime : 'T12:00:00'));
+    const birthJD = getJulianDate(birthDateTime);
+    
+    const natalChart = {
+        'Sun': calculateSunPosition(birthJD),
+        'Moon': calculateMoonPosition(birthJD),
+        'Mercury': calculatePlanetPosition(birthJD, 'mercury'),
+        'Venus': calculatePlanetPosition(birthJD, 'venus'),
+        'Mars': calculatePlanetPosition(birthJD, 'mars'),
+        'Jupiter': calculatePlanetPosition(birthJD, 'jupiter'),
+        'Saturn': calculatePlanetPosition(birthJD, 'saturn'),
+        'Uranus': calculatePlanetPosition(birthJD, 'uranus'),
+        'Neptune': calculatePlanetPosition(birthJD, 'neptune')
+    };
+    
+    // Get current transits
+    const currentTransits = await getCurrentPlanetaryPositions();
+    
+    // Build natal chart display
+    let natalChartHTML = '<h3 style="color: #ffd700; margin-top: 1.5rem;">Your Natal Chart</h3>';
+    natalChartHTML += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin: 1rem 0;">';
+    
+    for (const [planet, longitude] of Object.entries(natalChart)) {
+        const sign = getZodiacSign(longitude);
+        const degrees = Math.floor(longitude % 30);
+        natalChartHTML += `
+            <div style="background: rgba(138, 43, 226, 0.2); padding: 0.8rem; border-radius: 8px; text-align: center;">
+                <div style="font-weight: bold; color: #ffd700;">${planet}</div>
+                <div style="font-size: 1.1rem;">${sign} ${degrees}°</div>
+            </div>
+        `;
+    }
+    natalChartHTML += '</div>';
+    
+    // Find aspects between transits and natal planets
+    let aspectsHTML = '<h3 style="color: #ffd700; margin-top: 2rem;">Active Transits Affecting Your Chart</h3>';
+    let aspectCount = 0;
+    
+    const transitPlanets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+    const natalPlanets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+    
+    for (const transitPlanet of transitPlanets) {
+        for (const natalPlanet of natalPlanets) {
+            const transitLong = currentTransits[transitPlanet];
+            const natalLong = natalChart[natalPlanet];
+            const angle = transitLong - natalLong;
+            
+            const aspect = calculateAspect(angle);
+            if (aspect) {
+                aspectsHTML += getAspectInterpretation(aspect, transitPlanet, natalPlanet);
+                aspectCount++;
+            }
+        }
+    }
+    
+    if (aspectCount === 0) {
+        aspectsHTML += '<p style="color: #ccc; font-style: italic;">No major aspects are exact at this moment. This is a quieter period astrologically.</p>';
+    }
+    
+    // Summary
+    let summaryHTML = `
+        <div style="margin-top: 1rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(138, 43, 226, 0.15)); border-radius: 10px; border: 1px solid rgba(255, 215, 0, 0.3);">
+            <h3 style="color: #ffd700;">Birth Chart Information</h3>
+            <p><strong>Birth Date:</strong> ${birthDateTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            ${birthTime ? `<p><strong>Birth Time:</strong> ${birthTime}</p>` : '<p style="color: #ffaa00; font-style: italic;">⚠️ No birth time provided - chart calculated for noon</p>'}
             ${birthLocation ? `<p><strong>Location:</strong> ${birthLocation}</p>` : ''}
-            <p style="margin-top: 1rem;">
-                Compare your natal placements with today's transits to understand current cosmic influences. 
-                Notice which planets are aspecting your birth chart for deeper insights into present energies.
-            </p>
+            <p style="margin-top: 1rem;"><strong>Active Aspects:</strong> ${aspectCount} major transit${aspectCount !== 1 ? 's' : ''} affecting your chart</p>
         </div>
     `;
+    
+    result.innerHTML = summaryHTML + natalChartHTML + aspectsHTML;
 }
 
 // Initialize
