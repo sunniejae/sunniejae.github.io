@@ -1,13 +1,45 @@
 // Member data with planet placeholders
 const MEMBERS = {
-  mercury: { name: 'Mercury', colors: { primary: '#FF6B9D', secondary: '#FFE5EC', accent: '#C41E3A', dark: '#8B0A1F' } },
-  venus: { name: 'Venus', colors: { primary: '#9D84FF', secondary: '#E8E0FF', accent: '#6B4CE6', dark: '#4A2FB8' } },
-  mars: { name: 'Mars', colors: { primary: '#FF8A5B', secondary: '#FFE4D6', accent: '#E85D2C', dark: '#B8441A' } },
-  jupiter: { name: 'Jupiter', colors: { primary: '#4ECDC4', secondary: '#D4F4F2', accent: '#2BA89E', dark: '#1A7A72' } },
-  saturn: { name: 'Saturn', colors: { primary: '#FFD93D', secondary: '#FFF6D6', accent: '#F4C430', dark: '#C49A26' } },
-  uranus: { name: 'Uranus', colors: { primary: '#6BCF7F', secondary: '#E0F7E4', accent: '#45A557', dark: '#2F7A3E' } },
-  neptune: { name: 'Neptune', colors: { primary: '#A8DADC', secondary: '#E8F5F6', accent: '#457B9D', dark: '#1D3557' } },
-  pluto: { name: 'Pluto', colors: { primary: '#F4A6D7', secondary: '#FDE8F3', accent: '#E056A8', dark: '#A83C77' } }
+  mercury: { 
+    name: 'Mercury', 
+    colors: { primary: '#FF6B9D', secondary: '#FFE5EC', accent: '#C41E3A', dark: '#8B0A1F' },
+    description: 'Bold and energetic! You match with Mercury, someone who brings passion and excitement to everything they do.'
+  },
+  venus: { 
+    name: 'Venus', 
+    colors: { primary: '#9D84FF', secondary: '#E8E0FF', accent: '#6B4CE6', dark: '#4A2FB8' },
+    description: 'Elegant and mysterious! You match with Venus, someone who captivates with grace and thoughtful charm.'
+  },
+  mars: { 
+    name: 'Mars', 
+    colors: { primary: '#FF8A5B', secondary: '#FFE4D6', accent: '#E85D2C', dark: '#B8441A' },
+    description: 'Fierce and confident! You match with Mars, someone who leads with strength and determination.'
+  },
+  jupiter: { 
+    name: 'Jupiter', 
+    colors: { primary: '#4ECDC4', secondary: '#D4F4F2', accent: '#2BA89E', dark: '#1A7A72' },
+    description: 'Bright and optimistic! You match with Jupiter, someone who spreads joy and positive energy everywhere.'
+  },
+  saturn: { 
+    name: 'Saturn', 
+    colors: { primary: '#FFD93D', secondary: '#FFF6D6', accent: '#F4C430', dark: '#C49A26' },
+    description: 'Steady and reliable! You match with Saturn, someone who brings warmth and stability to any situation.'
+  },
+  uranus: { 
+    name: 'Uranus', 
+    colors: { primary: '#6BCF7F', secondary: '#E0F7E4', accent: '#45A557', dark: '#2F7A3E' },
+    description: 'Fresh and unique! You match with Uranus, someone who stands out with their creative and refreshing personality.'
+  },
+  neptune: { 
+    name: 'Neptune', 
+    colors: { primary: '#A8DADC', secondary: '#E8F5F6', accent: '#457B9D', dark: '#1D3557' },
+    description: 'Calm and thoughtful! You match with Neptune, someone who brings depth and serenity to everything they touch.'
+  },
+  pluto: { 
+    name: 'Pluto', 
+    colors: { primary: '#F4A6D7', secondary: '#FDE8F3', accent: '#E056A8', dark: '#A83C77' },
+    description: 'Sweet and charming! You match with Pluto, someone who wins hearts with their adorable and lovable nature.'
+  }
 };
 
 // Quiz questions and answers
@@ -189,6 +221,14 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.getElementById('closeWishlist').addEventListener('click', () => {
     hideModal('wishlistModal');
+  });
+  
+  document.getElementById('closeQuizResult').addEventListener('click', () => {
+    hideModal('quizResultModal');
+  });
+  
+  document.getElementById('startShoppingBtn').addEventListener('click', () => {
+    hideModal('quizResultModal');
   });
 });
 
@@ -496,11 +536,46 @@ function handleQuizAnswer(answer) {
     
     hideModal('quizModal');
     resetQuiz();
+    
+    // Show result modal
+    showQuizResult(result);
+  }
+}
+
+function showQuizResult(memberKey) {
+  const member = MEMBERS[memberKey];
+  const theme = member.colors;
+  
+  // Update result modal content
+  document.getElementById('resultTitle').style.color = theme.primary;
+  document.getElementById('resultMemberName').textContent = member.name;
+  document.getElementById('resultMemberName').style.color = theme.primary;
+  document.getElementById('resultDescription').textContent = member.description;
+  
+  // Set result image
+  const resultImage = document.getElementById('resultImage');
+  resultImage.src = `/assets/result-${memberKey}.png`;
+  resultImage.onerror = () => {
+    resultImage.src = `/assets/hero-${memberKey}.png`;
+    resultImage.onerror = () => {
+      resultImage.src = `/assets/blank-${memberKey}.png`;
+    };
+  };
+  
+  // Update button color
+  const startShoppingBtn = document.getElementById('startShoppingBtn');
+  startShoppingBtn.style.backgroundColor = theme.primary;
+  
+  // Show modal
+  showModal('quizResultModal');
+  
+  // Update theme after showing modal
+  setTimeout(() => {
     updateTheme();
     updateHeroImage();
     renderProducts();
     initMemberSelector();
-  }
+  }, 100);
 }
 
 function resetQuiz() {
