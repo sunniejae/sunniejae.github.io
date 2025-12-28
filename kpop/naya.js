@@ -257,7 +257,7 @@ function updateTheme() {
   document.body.style.backgroundColor = theme.secondary;
   
   const header = document.getElementById('header');
-  header.style.background = `linear-gradient(135deg, ${theme.primary} 0%, ${theme.accent} 100%)`;
+  header.style.background = `linear-gradient(135deg, ${theme.primary} 0%, ${theme.dark} 100%)`;
   
   const quizBtn = document.getElementById('quizBtn');
   quizBtn.style.color = theme.primary;
