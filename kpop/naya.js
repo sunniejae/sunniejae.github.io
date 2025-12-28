@@ -17,7 +17,7 @@ const MEMBERS = {
   },
   SARANG: { 
     name: 'SARANG', 
-    colors: { primary: '#a8e6cf', secondary: '#f2fffa', accent: '#ff6f00', dark: '#202925' },
+    colors: { primary: '#a8e6cf', secondary: '#f2fffa', accent: '#408169', dark: '#202925' },
     description: 'Bright and optimistic! You match with SARANG, someone who spreads joy and positive energy everywhere.'
   },
   JUNGEUN: { 
