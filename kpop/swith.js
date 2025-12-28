@@ -254,16 +254,16 @@ function initMemberSelector() {
 // Update theme colors
 function updateTheme() {
   const theme = MEMBERS[currentBias].colors;
-  document.body.style.backgroundColor = theme.secondary;
+  document.body.style.backgroundColor = theme.accent;
   
   const header = document.getElementById('header');
-  header.style.background = `linear-gradient(135deg, ${theme.primary} 0%, ${theme.dark} 100%)`;
+  header.style.background = `linear-gradient(135deg, ${theme.primary} 0%, ${theme.secondary} 100%)`;
   
   const quizBtn = document.getElementById('quizBtn');
   quizBtn.style.color = theme.primary;
   
   const wishlistFab = document.getElementById('wishlistFab');
-  wishlistFab.style.backgroundColor = theme.accent;
+  wishlistFab.style.backgroundColor = theme.third;
   
   const wishlistBadge = document.getElementById('wishlistBadge');
   wishlistBadge.style.backgroundColor = theme.dark;
@@ -288,9 +288,9 @@ function updateThemedElements(theme) {
     title.style.color = theme.primary;
   });
   
-  const orderESUMINlLink = document.getElementById('orderESUMINlLink');
-  if (orderESUMINlLink) {
-    orderESUMINlLink.style.color = theme.accent;
+  const orderEmailLink = document.getElementById('orderESUMINlLink');
+  if (orderEmailLink) {
+    orderEailLink.style.color = theme.third;
   }
   
   const gotItBtn = document.getElementById('gotItBtn');
@@ -335,11 +335,11 @@ function renderProducts() {
     const isInWishlist = wishlist.some(item => item.id === product.id);
     
     card.innerHTML = `
-      <div class="product-image" style="background-color: ${theme.secondary}">
+      <div class="product-image" style="background-color: ${theme.accent}">
         <img src="${imageUrl}" alt="${product.name}" onerror="this.src='${fallbackUrl}'">
       </div>
       <div class="product-info">
-        <div class="product-category" style="color: ${theme.accent}">${product.category}</div>
+        <div class="product-category" style="color: ${theme.third}">${product.category}</div>
         <h3 class="product-title" style="color: ${theme.dark}">${product.name}</h3>
         <p class="product-description">${product.description}</p>
         ${product.type === 'redbubble' ? 
