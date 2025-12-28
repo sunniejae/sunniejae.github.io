@@ -2,27 +2,27 @@
 const MEMBERS = {
   CHAEWON: { 
     name: 'CHAEWON', 
-    colors: { primary: '#525051', secondary: '#827c7e', accent: '#49243', dark: '#121111' },
+    colors: { primary: '#525051', secondary: '#827c7e', accent: '#EEF0F2', dark: '#121111' },
     description: 'Bold and energetic! You match with CHAEWON, someone who brings passion and excitement to everything they do.'
   },
   SAKURA: { 
     name: 'SAKURA', 
-    colors: { primary: '#87346d', secondary: '#5f2752', accent: '#4b0c52', dark: '#1e0918' },
+    colors: { primary: '#B20467', secondary: '#73052C', accent: '#FFE5E2', dark: '#30052B' },
     description: 'Elegant and mysterious! You match with SAKURA, someone who captivates with grace and thoughtful charm.'
   },
   KAZUHA: { 
     name: 'KAZUHA', 
-    colors: { primary: '#424d86', secondary: '#1d486f', accent: '#162d80', dark: '#071022' },
+    colors: { primary: '#2A298E', secondary: '#4F69BB', accent: '#162d80', dark: '#071022' },
     description: 'Fierce and confident! You match with KAZUHA, someone who leads with strength and determination.'
   },
   YUNJIN: { 
     name: 'YUNJIN', 
-    colors: { primary: '#2657551', secondary: '#576432', accent: '#1a4011', dark: '#131507' },
+    colors: { primary: '#024119', secondary: '#313302', accent: '#9CC5A1', dark: '#01220A' },
     description: 'Bright and optimistic! You match with YUNJIN, someone who spreads joy and positive energy everywhere.'
   },
   EUNCHAE: { 
     name: 'EUNCHAE', 
-    colors: { primary: '#6f152d', secondary: '#7a2c50', accent: '#380714', dark: '#250706' },
+    colors: { primary: '#70021f', secondary: '#7a2c50', accent: '#fdedef', dark: '#013644' },
     description: 'Steady and reliable! You match with EUNCHAE, someone who brings warmth and stability to any situation.'
   },
 };
