@@ -2,32 +2,32 @@
 const MEMBERS = {
   SUMIN: { 
     name: 'SUMIN', 
-    colors: { primary: '#f257bd', secondary: '#d263f4', accent: '#faecf5', dark: '#660047' },
+    colors: { primary: '#f257bd', secondary: '#d263f4', accent: '#faecf5', dark: '#660047', third: '#62B6CB' },
     description: 'Bold and energetic! You match with SUMIN, someone who brings passion and excitement to everything they do.'
   },
   SIEUN: { 
     name: 'SIEUN', 
-    colors: { primary: '#b3a0c3', secondary: '#c0b6eb', accent: '#f2f3f4', dark: '#390062' },
+    colors: { primary: '#b3a0c3', secondary: '#c0b6eb', accent: '#f2f3f4', dark: '#390062', third: '#2F9C95' },
     description: 'Elegant and mysterious! You match with SIEUN, someone who captivates with grace and thoughtful charm.'
   },
   ISA: { 
     name: 'ISA', 
-    colors: { primary: '#413a6f', secondary: '#7f8eca', accent: '#f2f0f0', dark: '#010d38' },
+    colors: { primary: '#413a6f', secondary: '#7f8eca', accent: '#f2f0f0', dark: '#010d38', third: '#FF7477' },
     description: 'Fierce and confident! You match with ISA, someone who leads with strength and determination.'
   },
   SEEUN: { 
     name: 'SEEUN', 
-    colors: { primary: '#5c9bf3', secondary: '#6bb6f5', accent: '#eff2f3', dark: '#012647' },
+    colors: { primary: '#5c9bf3', secondary: '#6bb6f5', accent: '#eff2f3', dark: '#012647', third: '#DE1A1A' },
     description: 'Bright and optimistic! You match with SEEUN, someone who spreads joy and positive energy everywhere.'
   },
   YOON: { 
     name: 'YOON', 
-    colors: { primary: '#1bca21', secondary: '#a7db5d', accent: '#f0f4f2', dark: '#004602' },
+    colors: { primary: '#1bca21', secondary: '#a7db5d', accent: '#f00f4f2', dark: '#004602', third: '#62466B' },
     description: 'Steady and reliable! You match with YOON, someone who brings warmth and stability to any situation.'
   },
   J: { 
     name: 'J', 
-    colors: { primary: '#f25956', secondary: '#f2a8c2', accent: '#f2f2f3', dark: '#6b0505' },
+    colors: { primary: '#f25956', secondary: '#f2a8c2', accent: '#f2f2f3', dark: '#6b0505', third: '#642CA9' },
     description: 'Fresh and unique! You match with J, someone who stands out with their creative and refreshing personality.'
   },
 };
