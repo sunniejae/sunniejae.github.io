@@ -181,7 +181,6 @@ function renderProducts() {
     card.innerHTML = `<h3>${title}</h3>`;
 
     const img = document.createElement("img");
-    const img = document.createElement("img");
 
 const primarySrc = `assets/${p.image}-${currentBias}.png`;
 const fallbackSrc = `assets/blank-${currentBias}.png`;
