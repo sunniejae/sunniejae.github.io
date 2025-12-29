@@ -1,6 +1,6 @@
-/* =========================
-   MEMBER DATA
-========================= */
+// =========================
+// MEMBER DATA
+// =========================
 const MEMBERS = {
   SUMIN: {
     name: 'SUMIN',
@@ -51,7 +51,7 @@ const MEMBERS = {
     colors: {
       primary: '#1bca21',
       secondary: '#a7db5d',
-      accent: '#f0f4f2', // FIXED
+      accent: '#f0f4f2',
       dark: '#004602',
       third: '#62466B'
     },
@@ -70,9 +70,9 @@ const MEMBERS = {
   }
 };
 
-/* =========================
-   QUIZ DATA
-========================= */
+// =========================
+// QUIZ DATA
+// =========================
 const QUIZ_DATA = [
   {
     question: "What's your favorite color?",
@@ -105,35 +105,16 @@ const QUIZ_DATA = [
       { text: "Head", members: ['SIEUN', 'YOON'] },
       { text: "Heart", members: ['SUMIN', 'ISA', 'SEEUN', 'J'] }
     ]
-  },
-  {
-    question: "Which appeals to you more?",
-    answers: [
-      { text: "Order", members: ['SIEUN', 'YOON', 'J'] },
-      { text: "Chaos", members: ['SUMIN', 'ISA', 'SEEUN'] }
-    ]
-  },
-  {
-    question: "Pick your favorite animal:",
-    answers: [
-      { text: "Fox", members: ['SUMIN'] },
-      { text: "Bear", members: ['SIEUN'] },
-      { text: "Cat", members: ['ISA'] },
-      { text: "Dog", members: ['SEEUN'] },
-      { text: "Cheetah", members: ['YOON'] },
-      { text: "Bunny", members: ['J'] }
-    ]
   }
 ];
 
-/* =========================
-   PRODUCTS
-========================= */
+// =========================
+// PRODUCTS
+// =========================
 const PRODUCTS = [
   {
     id: 'lightstick-keychain',
     name: 'Lightstick Keychain',
-    type: 'exclusive',
     category: 'SunnieJae Exclusive',
     description: 'Adorable mini lightstick keychain featuring your bias',
     imageFormat: 'lightstickkeychain'
@@ -141,7 +122,6 @@ const PRODUCTS = [
   {
     id: 'phone-case',
     name: 'Phone Case',
-    type: 'exclusive',
     category: 'SunnieJae Exclusive',
     description: 'Custom phone case with exclusive bias design',
     imageFormat: 'phonecase'
@@ -149,51 +129,64 @@ const PRODUCTS = [
   {
     id: 'animal-keychain',
     name: 'Animal Icon Keychain',
-    type: 'exclusive',
     category: 'SunnieJae Exclusive',
     description: 'Cute animal icon representing your bias',
     imageFormat: 'animalkeychain'
   }
 ];
 
-/* =========================
-   STATE
-========================= */
+// =========================
+// STATE
+// =========================
 let currentBias = localStorage.getItem('kpop-bias') || 'SUMIN';
 let wishlist = [];
 let quizStep = 0;
 let quizAnswers = [];
 
-/* =========================
-   INIT
-========================= */
+// =========================
+// INIT
+// =========================
 document.addEventListener('DOMContentLoaded', () => {
   initMemberSelector();
   renderProducts();
   updateTheme();
   updateHeroImage();
+
+  document.getElementById('quizBtn')?.addEventListener('click', () => {
+    showModal('quizModal');
+    renderQuiz();
+  });
+
+  document.getElementById('wishlistFab')?.addEventListener('click', () => {
+    showModal('wishlistModal');
+    renderWishlist();
+  });
+
+  document.getElementById('userName')?.addEventListener('input', updateRequestButton);
+  document.getElementById('userEmail')?.addEventListener('input', updateRequestButton);
 });
 
-/* =========================
-   THEME
-========================= */
+// =========================
+// THEME
+// =========================
 function updateTheme() {
   const theme = MEMBERS[currentBias].colors;
   document.body.style.backgroundColor = theme.accent;
 
-  const header = document.getElementById('header');
-  if (header) {
-    header.style.background = `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})`;
-  }
+  document.getElementById('header').style.background =
+    `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})`;
 
   document.querySelectorAll('.modal-title').forEach(el => {
     el.style.color = theme.primary;
   });
+
+  document.getElementById('wishlistFab').style.backgroundColor = theme.third;
+  document.getElementById('wishlistBadge').style.backgroundColor = theme.dark;
 }
 
-/* =========================
-   HERO IMAGE
-========================= */
+// =========================
+// HERO IMAGE
+// =========================
 function updateHeroImage() {
   const img = document.getElementById('heroImg');
   if (!img) return;
@@ -202,22 +195,21 @@ function updateHeroImage() {
   img.src = `/kpop/assets/hero-${currentBias}.png`;
   img.onerror = () => {
     img.onerror = null;
-    img.src = `/kpop/assets/blank.png`;
+    img.src = `/kpop/assets/blank-${currentBias}.png`;
   };
 }
 
-/* =========================
-   MEMBER SELECTOR
-========================= */
+// =========================
+// MEMBER SELECTOR
+// =========================
 function initMemberSelector() {
   const selector = document.getElementById('memberSelector');
-  if (!selector) return;
-
   selector.innerHTML = '';
+
   Object.keys(MEMBERS).forEach(key => {
     const btn = document.createElement('button');
-    btn.textContent = key;
     btn.className = 'member-btn';
+    btn.textContent = key;
     if (key === currentBias) btn.classList.add('active');
 
     btn.onclick = () => {
@@ -233,53 +225,208 @@ function initMemberSelector() {
   });
 }
 
-/* =========================
-   PRODUCTS
-========================= */
+// =========================
+// PRODUCTS
+// =========================
 function renderProducts() {
   const grid = document.getElementById('productGrid');
-  if (!grid) return;
-
   const theme = MEMBERS[currentBias].colors;
   grid.innerHTML = '';
 
   PRODUCTS.forEach(product => {
+    const inWishlist = wishlist.some(w => w.id === product.id);
+
     const card = document.createElement('div');
     card.className = 'product-card';
 
-    const img = `/kpop/assets/${product.imageFormat}-${currentBias}.png`;
-
     card.innerHTML = `
-      <img src="${img}" onerror="this.src='/kpop/assets/blank.png'">
-      <h3>${product.name}</h3>
-      <p>${product.description}</p>
-      <button style="background:${theme.primary}" onclick="addToWishlist('${product.id}')">
-        ♡ Add to Wishlist
-      </button>
+      <div class="product-image" style="background-color:${theme.accent}">
+        <img src="/kpop/assets/${product.imageFormat}-${currentBias}.png"
+             onerror="this.src='/kpop/assets/blank-${currentBias}.png'">
+      </div>
+      <div class="product-info">
+        <div class="product-category" style="color:${theme.third}">
+          ${product.category}
+        </div>
+        <h3 class="product-title" style="color:${theme.dark}">
+          ${product.name}
+        </h3>
+        <p class="product-description">${product.description}</p>
+        <button class="product-btn"
+          style="background-color:${inWishlist ? '#ccc' : theme.primary}"
+          ${inWishlist ? 'disabled' : ''}
+          onclick="addToWishlist('${product.id}')">
+          ♡ ${inWishlist ? 'In Wishlist' : 'Add to Wishlist'}
+        </button>
+      </div>
     `;
 
     grid.appendChild(card);
   });
 }
 
-/* =========================
-   WISHLIST
-========================= */
+// =========================
+// WISHLIST
+// =========================
 function addToWishlist(id) {
   const product = PRODUCTS.find(p => p.id === id);
   if (!product || wishlist.some(w => w.id === id)) return;
 
   wishlist.push(product);
+  renderProducts();
+  renderWishlist();
+  updateWishlistBadge();
 }
 
-/* =========================
-   EMAIL LINK
-========================= */
+function renderWishlist() {
+  const container = document.getElementById('wishlistItems');
+  const theme = MEMBERS[currentBias].colors;
+
+  if (!wishlist.length) {
+    container.innerHTML = '<p class="empty-wishlist">Your wishlist is empty.</p>';
+    return;
+  }
+
+  container.innerHTML = wishlist.map(item => `
+    <div class="wishlist-item">
+      <div class="wishlist-item-info">
+        <div class="wishlist-item-name" style="color:${theme.dark}">
+          ${item.name} – ${currentBias} ver.
+        </div>
+        <div class="wishlist-item-category">${item.category}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateWishlistBadge() {
+  const badge = document.getElementById('wishlistBadge');
+  badge.textContent = wishlist.length;
+  badge.style.display = wishlist.length ? 'flex' : 'none';
+}
+
+// =========================
+// QUIZ
+// =========================
+function renderQuiz() {
+  const theme = MEMBERS[currentBias].colors;
+  const q = QUIZ_DATA[quizStep];
+
+  document.getElementById('quizQuestion').textContent = q.question;
+  document.getElementById('quizProgress').textContent =
+    `Question ${quizStep + 1} of ${QUIZ_DATA.length}`;
+
+  const fill = document.getElementById('progressFill');
+  fill.style.width = `${((quizStep + 1) / QUIZ_DATA.length) * 100}%`;
+  fill.style.backgroundColor = theme.primary;
+
+  const answers = document.getElementById('quizAnswers');
+  answers.innerHTML = '';
+
+  q.answers.forEach(answer => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-answer';
+    btn.textContent = answer.text;
+    btn.style.borderColor = theme.primary;
+
+    btn.onmouseenter = () => btn.style.backgroundColor = theme.secondary;
+    btn.onmouseleave = () => btn.style.backgroundColor = 'transparent';
+    btn.onclick = () => handleQuizAnswer(answer);
+
+    answers.appendChild(btn);
+  });
+}
+
+function handleQuizAnswer(answer) {
+  quizAnswers.push(answer.members);
+
+  if (quizStep < QUIZ_DATA.length - 1) {
+    quizStep++;
+    renderQuiz();
+    return;
+  }
+
+  const counts = {};
+  quizAnswers.flat().forEach(m => counts[m] = (counts[m] || 0) + 1);
+  const result = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+
+  currentBias = result;
+  localStorage.setItem('kpop-bias', result);
+
+  hideModal('quizModal');
+  resetQuiz();
+  showQuizResult(result);
+}
+
+function showQuizResult(key) {
+  const member = MEMBERS[key];
+  const theme = member.colors;
+
+  document.getElementById('resultMemberName').textContent = member.name;
+  document.getElementById('resultDescription').textContent = member.description;
+  document.getElementById('startShoppingBtn').style.backgroundColor = theme.primary;
+
+  showModal('quizResultModal');
+
+  setTimeout(() => {
+    updateTheme();
+    updateHeroImage();
+    renderProducts();
+    initMemberSelector();
+  }, 100);
+}
+
+function resetQuiz() {
+  quizStep = 0;
+  quizAnswers = [];
+}
+
+// =========================
+// EMAIL (WITH MEMBER + VERSION)
+// =========================
+function updateRequestButton() {
+  const btn = document.getElementById('requestOrderBtn');
+  const name = document.getElementById('userName').value;
+  const email = document.getElementById('userEmail').value;
+  const theme = MEMBERS[currentBias].colors;
+
+  if (name && email) {
+    btn.style.backgroundColor = theme.third;
+    btn.style.pointerEvents = 'auto';
+    btn.href = generateMailto();
+  } else {
+    btn.style.backgroundColor = '#ccc';
+    btn.style.pointerEvents = 'none';
+    btn.href = '#';
+  }
+}
+
 function generateMailto() {
   const name = document.getElementById('userName').value;
   const email = document.getElementById('userEmail').value;
 
-  const list = wishlist.map((w, i) => `${i + 1}. ${w.name}`).join('\n');
+  const wishlistText = wishlist
+    .map((item, i) => `${i + 1}. ${item.name} – ${currentBias} ver. (${item.category})`)
+    .join('\n');
 
-  return `mailto:orders@sunniejae.com?subject=KPOP%20ORDER&body=Name:%20${name}%0AEmail:%20${email}%0A%0AWishlist:%0A${encodeURIComponent(list)}`;
+  return `mailto:orders@sunniejae.com?subject=${encodeURIComponent(
+    'KPOP FANDOM SHOP ORDER'
+  )}&body=${encodeURIComponent(
+    `Name: ${name}
+Email: ${email}
+Matched Member: ${currentBias}
+
+Wishlist:
+${wishlistText}`
+  )}`;
+}
+
+// =========================
+// MODALS
+// =========================
+function showModal(id) {
+  document.getElementById(id)?.classList.add('show');
+}
+function hideModal(id) {
+  document.getElementById(id)?.classList.remove('show');
 }
