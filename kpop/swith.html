@@ -1,208 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sunnie Jae's SWITH Shop</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sunnie Jae's SWITH Shop</title>
 
-<style>
-@font-face {
-  font-family: 'Brat';
-  src: url('assets/FUNKHOUS.ttf');
-}
+  <style>
+    :root {
+      --primary: #000;
+      --secondary: #000;
+      --accent: #fff;
+      --dark: #000;
+      --third: #000;
+    }
 
-:root {
-  --primary: #888;
-  --secondary: #fff;
-  --accent: #f5f5f5;
-  --dark: #222;
-  --third: #999;
-}
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      transition: background-color 0.3s ease;
+    }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    header {
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+    }
 
-body {
-  font-family: system-ui, sans-serif;
-  background: var(--accent);
-}
+    h1 {
+      margin-bottom: 1rem;
+    }
 
-.header {
-  background: var(--primary);
-  padding: 1.5rem;
-  text-align: center;
-  color: white;
-}
+    .member-selector {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-h1 {
-  font-family: 'Brat';
-  margin-bottom: 1rem;
-}
+    .member-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-.member-selector {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
+    .member-btn.active {
+      outline: 3px solid white;
+      background: white;
+      color: black;
+    }
 
-.member-btn {
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  background: white;
-  cursor: pointer;
-}
+    .hero-image {
+      max-width: 1000px;
+      height: 280px;
+      margin: 2rem auto;
+      border-radius: 16px;
+      overflow: hidden;
+    }
 
-.member-btn.active {
-  font-weight: bold;
-  background: var(--third);
-  color: white;
-}
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-.quiz-btn {
-  margin-top: 1rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
+    .product-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
 
-.main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
+    .product-card {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+    }
 
-.hero {
-  height: 300px;
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 2rem;
-}
+    .product-card img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
 
-.hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    .product-category {
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
+    .product-btn {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-.product-card {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-}
+    /* Wishlist FAB */
+    .wishlist-fab {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      z-index: 100;
+    }
 
-.product-card img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-}
+    /* Modals */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
 
-.product-info {
-  padding: 1rem;
-}
+    .modal-overlay.show {
+      display: flex;
+    }
 
-.product-btn {
-  display: block;
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 8px;
-  border: none;
-  background: var(--primary);
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-}
+    .modal {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
 
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
+    .modal-content {
+      padding: 2rem;
+    }
 
-.modal-overlay.show { display: flex; }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      border: none;
+      background: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
 
-.modal {
-  background: white;
-  border-radius: 16px;
-  max-width: 500px;
-  width: 100%;
-  padding: 2rem;
-  position: relative;
-}
+    .wishlist-item {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
 
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  border: none;
-  background: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.quiz-answer {
-  width: 100%;
-  padding: 1rem;
-  border-radius: 12px;
-  border: 2px solid var(--primary);
-  background: white;
-  margin-bottom: 0.75rem;
-  cursor: pointer;
-}
-</style>
+    .wishlist-item button {
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="header">
-  <h1>GROUP SHOP</h1>
+<header>
+  <h1>Sunnie Jae Fandom Shop</h1>
   <div class="member-selector" id="memberSelector"></div>
-  <button class="quiz-btn" id="quizBtn">✨ Find Your Bias</button>
 </header>
 
-<main class="main">
-  <div class="hero">
-    <img id="heroImg">
+<main>
+  <div class="hero-image">
+    <img id="heroImg" src="" alt="Member Hero" />
   </div>
+
   <div class="product-grid" id="productGrid"></div>
 </main>
 
-<!-- QUIZ -->
-<div class="modal-overlay" id="quizModal">
+<!-- Wishlist FAB -->
+<button class="wishlist-fab" id="wishlistFab" onclick="showWishlist()">
+  ♥
+</button>
+
+<!-- Wishlist Modal -->
+<div class="modal-overlay" id="wishlistModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeQuiz()">×</button>
-    <h2 id="quizQuestion"></h2>
-    <div id="quizAnswers"></div>
-    <p id="quizProgress"></p>
+    <button class="modal-close" onclick="hideWishlist()">×</button>
+    <div class="modal-content">
+      <h2>Your Wishlist</h2>
+      <div id="wishlistItems"></div>
+
+      <button class="product-btn" style="margin-top:1rem; background:black;"
+        onclick="submitWishlistEmail()">
+        Submit Order via Email
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- RESULT -->
-<div class="modal-overlay" id="quizResultModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeResult()">×</button>
-    <h2>Your Match</h2>
-    <img id="resultImage" style="width:100%;border-radius:12px;">
-    <h3 id="resultName"></h3>
-    <p id="resultDesc"></p>
-    <button class="product-btn" onclick="acceptResult()">Shop This Member</button>
-  </div>
-</div>
+<script>
+  function showWishlist() {
+    document.getElementById("wishlistModal").classList.add("show");
+  }
+  function hideWishlist() {
+    document.getElementById("wishlistModal").classList.remove("show");
+  }
+</script>
 
+<!-- YOUR JS FILE -->
 <script src="swith.js"></script>
+
 </body>
 </html>
