@@ -12,8 +12,8 @@ const MEMBERS = {
       dark: "#9a1dff",
       accent: "#b00b13"
     },
-    heroImage: "kpop/assets/hero-SUMIN.jpg",
-    resultImage: "kpop/assets/result-SUMIN.jpg",
+    heroImage: "assets/hero-SUMIN.jpg",
+    resultImage: "assets/result-SUMIN.jpg",
     description: "Bold, fast-thinking, and magnetic. You thrive on ideas and chaos."
   },
 
@@ -181,9 +181,9 @@ function renderProducts() {
     card.innerHTML = `<h3>${title}</h3>`;
 
     const img = document.createElement("img");
-    img.src = `kpop/assets/${p.image}-${currentBias}.png`;
+    img.src = `assets/${p.image}-${currentBias}.png`;
     img.onerror = () => {
-      img.src = `/kpop/assets/blank-${currentBias}.png`;
+      img.src = `assets/blank-${currentBias}.png`;
     };
     card.appendChild(img);
 
