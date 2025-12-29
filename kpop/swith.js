@@ -1,5 +1,5 @@
 // =========================
-// MEMBER DATA (PLANETS)
+// MEMBER DATA
 // =========================
 const MEMBERS = {
   SUMIN: {
@@ -24,7 +24,6 @@ const MEMBERS = {
     },
     description: 'Charming and radiant! You match with SIEUN.'
   },
- 
   ISA: {
     name: 'ISA',
     colors: {
@@ -80,9 +79,7 @@ const QUIZ_DATA = [
 // PRODUCTS (MULTI-VENDOR)
 // =========================
 const PRODUCTS = [
-  // =====================
-  // EXCLUSIVES (Wishlist)
-  // =====================
+  // -------- Exclusives (Wishlist) --------
   {
     id: 'core-keychain',
     name: 'Core Symbol Keychain',
@@ -96,11 +93,7 @@ const PRODUCTS = [
     imageFormat: 'phonecase'
   },
 
-  // =====================
-  // VENDOR COLLECTIONS
-  // =====================
-
-  // Redbubble example
+  // -------- Vendor Products --------
   {
     id: 'stickers',
     name: 'Sticker Pack',
@@ -114,8 +107,6 @@ const PRODUCTS = [
       }
     ]
   },
-
-  // Etsy example
   {
     id: 'shirts',
     name: 'Graphic Shirt',
@@ -129,10 +120,6 @@ const PRODUCTS = [
       }
     ]
   },
-
-  // =====================
-  // AMAZON COLLECTION
-  // =====================
   {
     id: 'popsockets',
     name: 'PopSockets',
@@ -143,7 +130,6 @@ const PRODUCTS = [
         key: 'amazon',
         label: 'Purchase on Amazon',
         url: 'https://www.amazon.com/s?k=popsockets'
-        // ⬆ replace with your actual affiliate / storefront link
       }
     ]
   }
@@ -152,7 +138,7 @@ const PRODUCTS = [
 // =========================
 // STATE
 // =========================
-let currentBias = localStorage.getItem('planet-bias') || 'SUMIN';
+let currentBias = localStorage.getItem('member-bias') || 'SUMIN';
 let wishlist = [];
 
 // =========================
@@ -163,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateTheme();
   updateHeroImage();
   renderProducts();
+  renderWishlist();
 });
 
 // =========================
@@ -171,7 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function updateTheme() {
   const t = MEMBERS[currentBias].colors;
   document.body.style.backgroundColor = t.accent;
-  document.getElementById('wishlistFab').style.backgroundColor = t.third;
+
+  const fab = document.getElementById('wishlistFab');
+  if (fab) fab.style.backgroundColor = t.third;
 }
 
 // =========================
@@ -180,6 +169,7 @@ function updateTheme() {
 function updateHeroImage() {
   const img = document.getElementById('heroImg');
   if (!img) return;
+
   img.src = `/assets/hero-${currentBias}.png`;
   img.onerror = () => img.src = `/assets/blank-${currentBias}.png`;
 }
@@ -189,6 +179,8 @@ function updateHeroImage() {
 // =========================
 function initMemberSelector() {
   const el = document.getElementById('memberSelector');
+  if (!el) return;
+
   el.innerHTML = '';
 
   Object.keys(MEMBERS).forEach(key => {
@@ -198,10 +190,11 @@ function initMemberSelector() {
 
     btn.onclick = () => {
       currentBias = key;
-      localStorage.setItem('planet-bias', key);
+      localStorage.setItem('member-bias', key);
       updateTheme();
       updateHeroImage();
       renderProducts();
+      renderWishlist();
       initMemberSelector();
     };
 
@@ -214,6 +207,8 @@ function initMemberSelector() {
 // =========================
 function renderProducts() {
   const grid = document.getElementById('productGrid');
+  if (!grid) return;
+
   const theme = MEMBERS[currentBias].colors;
   grid.innerHTML = '';
 
@@ -222,14 +217,14 @@ function renderProducts() {
 
     const actions = p.vendors
       ? p.vendors.map(v => `
-          <a href="${v.url}"
-             target="_blank"
-             rel="noopener"
-             class="product-btn"
-             style="background:${theme.third}">
-             🛍 ${v.label}
-          </a>
-        `).join('')
+        <a href="${v.url}"
+           target="_blank"
+           rel="noopener"
+           class="product-btn"
+           style="background:${theme.third}">
+           🛍 ${v.label}
+        </a>
+      `).join('')
       : `
         <button class="product-btn"
           style="background:${inWishlist ? '#ccc' : theme.primary}"
@@ -258,11 +253,12 @@ function renderProducts() {
 }
 
 // =========================
-// WISHLIST (EXCLUSIVES ONLY)
+// WISHLIST
 // =========================
 function addToWishlist(id) {
   const item = PRODUCTS.find(p => p.id === id && !p.vendors);
   if (!item || wishlist.some(w => w.id === id)) return;
+
   wishlist.push(item);
   renderProducts();
   renderWishlist();
@@ -270,6 +266,8 @@ function addToWishlist(id) {
 
 function renderWishlist() {
   const box = document.getElementById('wishlistItems');
+  if (!box) return;
+
   const theme = MEMBERS[currentBias].colors;
 
   box.innerHTML = wishlist.map(i => `
@@ -280,4 +278,19 @@ function renderWishlist() {
       <small>${i.category}</small>
     </div>
   `).join('');
+}
+
+// =========================
+// QUIZ RESULT HOOK
+// =========================
+function applyQuizResult(memberKey) {
+  if (!MEMBERS[memberKey]) return;
+
+  currentBias = memberKey;
+  localStorage.setItem('member-bias', memberKey);
+  updateTheme();
+  updateHeroImage();
+  renderProducts();
+  renderWishlist();
+  initMemberSelector();
 }
