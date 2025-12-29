@@ -2,8 +2,8 @@
 // MEMBER DATA
 // =========================
 const MEMBERS = {
-  MERCURY: {
-    name: "Mercury",
+  SUMIN: {
+    name: "SUMIN",
     type: "ENTP",
     palette: {
       primary: "#f5f0ff",
@@ -12,13 +12,13 @@ const MEMBERS = {
       dark: "#9a1dff",
       accent: "#b00b13"
     },
-    heroImage: "assets/hero-MERCURY.jpg",
-    resultImage: "assets/result-MERCURY.jpg",
+    heroImage: "assets/hero-SUMIN.jpg",
+    resultImage: "assets/result-SUMIN.jpg",
     description: "Bold, fast-thinking, and magnetic. You thrive on ideas and chaos."
   },
 
-  VENUS: {
-    name: "Venus",
+  SIEUN: {
+    name: "SIEUN",
     type: "ISFJ",
     palette: {
       primary: "#fff6ec",
@@ -27,13 +27,13 @@ const MEMBERS = {
       dark: "#c97a3d",
       accent: "#e63946"
     },
-    heroImage: "assets/hero-VENUS.jpg",
-    resultImage: "assets/result-VENUS.jpg",
+    heroImage: "assets/hero-SIEUN.jpg",
+    resultImage: "assets/result-SIEUN.jpg",
     description: "Warm, loyal, and deeply caring. You’re the heart of every group."
   },
 
-  EARTH: {
-    name: "Earth",
+  ISA: {
+    name: "ISA",
     type: "ESFJ",
     palette: {
       primary: "#ecfdf3",
@@ -42,10 +42,24 @@ const MEMBERS = {
       dark: "#047857",
       accent: "#2563eb"
     },
-    heroImage: "assets/hero-EARTH.jpg",
-    resultImage: "assets/result-EARTH.jpg",
+    heroImage: "assets/hero-ISA.jpg",
+    resultImage: "assets/result-ISA.jpg",
     description: "Social, grounding, and dependable. Everyone feels safe with you."
   }
+  SIEUN: {
+    name: "SEEUN",
+    type: "ISFJ",
+    palette: {
+      primary: "#fff6ec",
+      secondary: "#4a2c1d",
+      light: "#ffb26b",
+      dark: "#c97a3d",
+      accent: "#e63946"
+    },
+    heroImage: "assets/hero-SEEUN.jpg",
+    resultImage: "assets/result-SEEUN.jpg",
+    description: "Warm, loyal, and deeply caring. You’re the heart of every group."
+  },
 };
 
 // =========================
@@ -89,12 +103,12 @@ const QUIZ = [
   { letter: "T", question: "You decide using:", answers: ["Logic", "Feelings"] },
   { letter: "P", question: "You prefer:", answers: ["Flexibility", "Structure"] },
 
-  { vibe: true, question: "Favorite color?", map: { A: "MERCURY", B: "VENUS", C: "EARTH" }, answers: ["Purple", "Orange", "Blue"] },
-  { vibe: true, question: "Favorite animal?", map: { A: "MERCURY", B: "VENUS", C: "EARTH" }, answers: ["Cheetah", "Cat", "Dog"] },
-  { vibe: true, question: "Ideal weekend?", map: { A: "MERCURY", B: "VENUS", C: "EARTH" }, answers: ["Exploring", "Resting", "Socializing"] },
-  { vibe: true, question: "Your role in a group?", map: { A: "MERCURY", B: "VENUS", C: "EARTH" }, answers: ["Idea starter", "Support", "Leader"] },
-  { vibe: true, question: "Music vibe?", map: { A: "MERCURY", B: "VENUS", C: "EARTH" }, answers: ["Hyperpop", "Soft pop", "Anthemic"] },
-  { vibe: true, question: "Fashion style?", map: { A: "MERCURY", B: "VENUS", C: "EARTH" }, answers: ["Experimental", "Cozy", "Clean"] }
+  { vibe: true, question: "Favorite color?", map: { A: "SUMIN", B: "SIEUN", C: "ISA" }, answers: ["Purple", "Orange", "Blue"] },
+  { vibe: true, question: "Favorite animal?", map: { A: "SUMIN", B: "SIEUN", C: "ISA" }, answers: ["Cheetah", "Cat", "Dog"] },
+  { vibe: true, question: "Ideal weekend?", map: { A: "SUMIN", B: "SIEUN", C: "ISA" }, answers: ["Exploring", "Resting", "Socializing"] },
+  { vibe: true, question: "Your role in a group?", map: { A: "SUMIN", B: "SIEUN", C: "ISA" }, answers: ["Idea starter", "Support", "Leader"] },
+  { vibe: true, question: "Music vibe?", map: { A: "SUMIN", B: "SIEUN", C: "ISA" }, answers: ["Hyperpop", "Soft pop", "Anthemic"] },
+  { vibe: true, question: "Fashion style?", map: { A: "SUMIN", B: "SIEUN", C: "ISA" }, answers: ["Experimental", "Cozy", "Clean"] }
 ];
 
 // =========================
