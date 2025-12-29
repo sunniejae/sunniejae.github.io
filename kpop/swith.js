@@ -46,20 +46,6 @@ const MEMBERS = {
     resultImage: "assets/result-ISA.jpg",
     description: "Social, grounding, and dependable. Everyone feels safe with you."
   }
-  SIEUN: {
-    name: "SEEUN",
-    type: "ISFJ",
-    palette: {
-      primary: "#fff6ec",
-      secondary: "#4a2c1d",
-      light: "#ffb26b",
-      dark: "#c97a3d",
-      accent: "#e63946"
-    },
-    heroImage: "assets/hero-SEEUN.jpg",
-    resultImage: "assets/result-SEEUN.jpg",
-    description: "Warm, loyal, and deeply caring. You’re the heart of every group."
-  },
 };
 
 // =========================
@@ -298,7 +284,7 @@ function finishQuiz() {
 }
 
 // =========================
-// APPLY QUIZ RESULT (WITH IMAGE FALLBACK)
+// APPLY QUIZ RESULT
 // =========================
 function applyQuizResult(key, percent) {
   currentBias = key;
