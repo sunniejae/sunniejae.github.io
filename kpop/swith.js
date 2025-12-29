@@ -12,8 +12,8 @@ const MEMBERS = {
       dark: "#9a1dff",
       accent: "#b00b13"
     },
-    heroImage: "assets/hero-SUMIN.jpg",
-    resultImage: "assets/result-SUMIN.jpg",
+    heroImage: "assets/hero-SUMIN.png",
+    resultImage: "assets/result-SUMIN.png",
     description: "Bold, fast-thinking, and magnetic. You thrive on ideas and chaos."
   },
 
@@ -27,8 +27,8 @@ const MEMBERS = {
       dark: "#c97a3d",
       accent: "#e63946"
     },
-    heroImage: "kpop/assets/hero-SIEUN.jpg",
-    resultImage: "kpop/assets/result-SIEUN.jpg",
+    heroImage: "assets//hero-SIEUN.png",
+    resultImage: "assets//result-SIEUN.png",
     description: "Warm, loyal, and deeply caring. You’re the heart of every group."
   },
 
@@ -42,8 +42,8 @@ const MEMBERS = {
       dark: "#047857",
       accent: "#2563eb"
     },
-    heroImage: "kpop/assets/hero-ISA.jpg",
-    resultImage: "kpop/assets/result-ISA.jpg",
+    heroImage: "assets//hero-ISA.png",
+    resultImage: "assets//result-ISA.png",
     description: "Social, grounding, and dependable. Everyone feels safe with you."
   }
 };
@@ -160,7 +160,7 @@ function updateHero() {
 
   img.src = MEMBERS[currentBias].heroImage;
   img.onerror = () => {
-    img.src = `/kpop/assets/blank-${currentBias}.png`;
+    img.src = `/assets//blank-${currentBias}.png`;
   };
 }
 
@@ -299,7 +299,7 @@ function applyQuizResult(key, percent) {
   if (img) {
     img.src = MEMBERS[key].resultImage;
     img.onerror = () => {
-      img.src = `kpop/assets/blank-${key}.png`;
+      img.src = `assets//blank-${key}.png`;
     };
   }
 
