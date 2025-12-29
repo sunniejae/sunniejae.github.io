@@ -160,7 +160,7 @@ function updateHero() {
 
   img.src = MEMBERS[currentBias].heroImage;
   img.onerror = () => {
-    img.src = `/assets/blank-${currentBias}.png`;
+    img.src = `assets/blank-${currentBias}.png`;
   };
 }
 
