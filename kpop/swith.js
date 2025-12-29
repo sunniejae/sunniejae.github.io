@@ -27,8 +27,8 @@ const MEMBERS = {
       dark: "#c97a3d",
       accent: "#e63946"
     },
-    heroImage: "assets//hero-SIEUN.png",
-    resultImage: "assets//result-SIEUN.png",
+    heroImage: "assets/hero-SIEUN.png",
+    resultImage: "assets/result-SIEUN.png",
     description: "Warm, loyal, and deeply caring. You’re the heart of every group."
   },
 
@@ -42,8 +42,8 @@ const MEMBERS = {
       dark: "#047857",
       accent: "#2563eb"
     },
-    heroImage: "assets//hero-ISA.png",
-    resultImage: "assets//result-ISA.png",
+    heroImage: "assets/hero-ISA.png",
+    resultImage: "assets/result-ISA.png",
     description: "Social, grounding, and dependable. Everyone feels safe with you."
   }
 };
@@ -160,7 +160,7 @@ function updateHero() {
 
   img.src = MEMBERS[currentBias].heroImage;
   img.onerror = () => {
-    img.src = `/assets//blank-${currentBias}.png`;
+    img.src = `/assets/blank-${currentBias}.png`;
   };
 }
 
@@ -299,7 +299,7 @@ function applyQuizResult(key, percent) {
   if (img) {
     img.src = MEMBERS[key].resultImage;
     img.onerror = () => {
-      img.src = `assets//blank-${key}.png`;
+      img.src = `assets/blank-${key}.png`;
     };
   }
 
