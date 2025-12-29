@@ -3,136 +3,93 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SunnieJae's SWITH Shop</title>
+<title>Sunnie Jae's SWITH Shop</title>
 
 <style>
 @font-face {
   font-family: 'Brat';
-  src: url('kpop/assets/FUNKHOUS.ttf');
+  src: url('assets/FUNKHOUS.ttf');
 }
 
-/* =========================
-   THEME VARIABLES (JS SETS)
-   ========================= */
 :root {
-  --primary: #ff7aa2;
-  --secondary: #ffffff;
+  --primary: #888;
+  --secondary: #fff;
   --accent: #f5f5f5;
-  --dark: #222222;
-  --third: #888888;
-
-  --header-bg: var(--primary);
-  --button-bg: var(--primary);
-  --button-text: #ffffff;
-  --badge-bg: var(--third);
+  --dark: #222;
+  --third: #999;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: system-ui, -apple-system, sans-serif;
-  min-height: 100vh;
+  font-family: system-ui, sans-serif;
   background: var(--accent);
-  transition: background-color 0.3s ease;
 }
 
-/* =========================
-   HEADER
-   ========================= */
 .header {
-  background: var(--header-bg);
-  padding: 1.5rem 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
+  background: var(--primary);
+  padding: 1.5rem;
   text-align: center;
+  color: white;
 }
 
 h1 {
-  font-family: 'Brat', system-ui;
-  color: white;
-  font-size: 2rem;
+  font-family: 'Brat';
   margin-bottom: 1rem;
 }
 
-/* =========================
-   MEMBER SELECTOR
-   ========================= */
 .member-selector {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .member-btn {
+  border: none;
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  border: none;
-  background: var(--primary);
-  color: white;
+  background: white;
   cursor: pointer;
-  font-size: 0.875rem;
 }
 
 .member-btn.active {
-  background: white;
-  color: var(--primary);
   font-weight: bold;
+  background: var(--third);
+  color: white;
 }
 
-/* =========================
-   QUIZ BUTTON
-   ========================= */
 .quiz-btn {
   margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 25px;
   border: none;
-  background: white;
-  font-weight: bold;
   cursor: pointer;
+  font-weight: bold;
 }
 
-/* =========================
-   CONTENT
-   ========================= */
-.main-content {
+.main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
 
-.hero-image {
+.hero {
   height: 300px;
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.hero-image img {
+.hero img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* =========================
-   PRODUCTS
-   ========================= */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
 }
 
@@ -140,30 +97,16 @@ h1 {
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .product-card img {
   width: 100%;
-  height: 250px;
+  height: 240px;
   object-fit: cover;
 }
 
 .product-info {
   padding: 1rem;
-}
-
-.product-category {
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: var(--third);
-}
-
-.product-title {
-  font-family: 'Brat', system-ui;
-  font-size: 1.1rem;
-  color: var(--dark);
-  margin: 0.5rem 0;
 }
 
 .product-btn {
@@ -172,45 +115,53 @@ h1 {
   padding: 0.75rem;
   border-radius: 8px;
   border: none;
-  background: var(--button-bg);
-  color: var(--button-text);
+  background: var(--primary);
+  color: white;
   font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
   text-align: center;
-}
-
-/* =========================
-   WISHLIST FAB
-   ========================= */
-.wishlist-fab {
-  position: fixed;
-  bottom: 2rem;
-  right: 1.5rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: none;
-  background: var(--third);
-  color: white;
-  font-size: 1.25rem;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.wishlist-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: var(--badge-bg);
-  color: white;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  font-size: 0.75rem;
-  display: flex;
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
   align-items: center;
   justify-content: center;
-  display: none;
+  z-index: 100;
+}
+
+.modal-overlay.show { display: flex; }
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.quiz-answer {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid var(--primary);
+  background: white;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -218,24 +169,39 @@ h1 {
 <body>
 
 <header class="header">
-  <div class="header-content">
-    <h1>SWITH Shop</h1>
-    <div id="memberSelector" class="member-selector"></div>
-    <button class="quiz-btn">✨ Don’t have a bias? Take the quiz</button>
-  </div>
+  <h1>GROUP SHOP</h1>
+  <div class="member-selector" id="memberSelector"></div>
+  <button class="quiz-btn" id="quizBtn">✨ Find Your Bias</button>
 </header>
 
-<button class="wishlist-fab" id="wishlistFab">
-  ♡
-  <span class="wishlist-badge" id="wishlistBadge">0</span>
-</button>
-
-<main class="main-content">
-  <div class="hero-image">
-    <img id="heroImg" src="" alt="">
+<main class="main">
+  <div class="hero">
+    <img id="heroImg">
   </div>
   <div class="product-grid" id="productGrid"></div>
 </main>
+
+<!-- QUIZ -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeQuiz()">×</button>
+    <h2 id="quizQuestion"></h2>
+    <div id="quizAnswers"></div>
+    <p id="quizProgress"></p>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="modal-overlay" id="quizResultModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeResult()">×</button>
+    <h2>Your Match</h2>
+    <img id="resultImage" style="width:100%;border-radius:12px;">
+    <h3 id="resultName"></h3>
+    <p id="resultDesc"></p>
+    <button class="product-btn" onclick="acceptResult()">Shop This Member</button>
+  </div>
+</div>
 
 <script src="swith.js"></script>
 </body>
