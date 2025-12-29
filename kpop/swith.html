@@ -2,231 +2,305 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sunnie Jae's SWITH Shop</title>
+  <title>Fandom Shop</title>
 
-  <style>
-    :root {
-      --primary: #000;
-      --secondary: #000;
-      --accent: #fff;
-      --dark: #000;
-      --third: #000;
-    }
+ <style>
+  :root {
+    --primary: #ffffff;
+    --secondary: #000000;
+    --light: #888888;
+    --dark: #000010;
+    --accent: #9a1dff;
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      transition: background-color 0.3s ease;
-    }
+    /* derived */
+    --accent-soft: color-mix(in srgb, var(--accent) 20%, white);
+    --accent-strong: color-mix(in srgb, var(--accent) 80%, black);
+    --card: #f2f3f4;
+    --shadow: 0 8px 24px rgba(0,0,0,0.1);
+    --radius: 18px;
+  }
 
-    header {
-      padding: 1.5rem 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      text-align: center;
-    }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: linear-gradient(
+      180deg,
+      var(--bg),
+      color-mix(in srgb, var(--bg) 85%, white)
+    );
+    color: var(--text);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
 
-    h1 {
-      margin-bottom: 1rem;
-    }
+  /* HEADER */
+  header {
+    padding: 1.5rem 1rem 2rem;
+    text-align: center;
+    background: linear-gradient(
+      135deg,
+      var(--primary),
+      color-mix(in srgb, var(--accent) 70%, white)
+    );
+    color: white;
+    box-shadow: var(--shadow);
+  }
 
-    .member-selector {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+  header h1 {
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    letter-spacing: 0.5px;
+  }
 
-    .member-btn {
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-    }
+  /* MEMBER SELECTOR */
+  #memberSelector {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-    .member-btn.active {
-      outline: 3px solid white;
-      background: white;
-      color: black;
-    }
+  #memberSelector button {
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    border: none;
+    background: rgba(255,255,255,0.25);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+  }
 
-    .hero-image {
-      max-width: 1000px;
-      height: 280px;
-      margin: 2rem auto;
-      border-radius: 16px;
-      overflow: hidden;
-    }
+  #memberSelector button:hover {
+    background: rgba(255,255,255,0.4);
+  }
 
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  #memberSelector button.active {
+    background: white;
+    color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.6);
+  }
 
-    .product-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
+  /* HERO */
+  #heroImg {
+    display: block;
+    max-width: 1000px;
+    width: calc(100% - 2rem);
+    height: 260px;
+    margin: 2rem auto;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: var(--accent-soft);
+    transition: box-shadow 0.3s ease;
+  }
 
-    .product-card {
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 1rem;
-      text-align: center;
-    }
+  /* PRODUCT GRID */
+  .product-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
 
-    .product-card img {
-      width: 220px;
-      height: 220px;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
+  .product-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
 
-    .product-category {
-      font-size: 0.75rem;
-      font-weight: bold;
-      margin-bottom: 0.25rem;
-    }
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
 
-    .product-btn {
-      display: block;
-      width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.5rem;
-      border-radius: 10px;
-      border: none;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-      cursor: pointer;
-    }
+  .product-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+    color: var(--dark);
+  }
 
-    /* Wishlist FAB */
-    .wishlist-fab {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: none;
-      font-size: 1.5rem;
-      color: white;
-      cursor: pointer;
-      z-index: 100;
-    }
+  .product-card a,
+  .product-card button {
+    display: block;
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(
+      135deg,
+      var(--accent),
+      color-mix(in srgb, var(--accent) 70%, white)
+    );
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
 
-    /* Modals */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
-    }
+  .product-card a:hover,
+  .product-card button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 50%, transparent);
+  }
 
-    .modal-overlay.show {
-      display: flex;
-    }
+  /* QUIZ */
+  #quiz {
+    max-width: 600px;
+    margin: 3rem auto 2rem;
+    padding: 1.5rem;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
 
-    .modal {
-      background: white;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 600px;
-      max-height: 90vh;
-      overflow-y: auto;
-      position: relative;
-    }
+  #quiz h2 {
+    margin-bottom: 1rem;
+  }
 
-    .modal-content {
-      padding: 2rem;
-    }
+  #quizAnswers button {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 999px;
+    border: none;
+    background: var(--accent-soft);
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
 
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      border: none;
-      background: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
+  #quizAnswers button:hover {
+    background: var(--secondary);
+    color: white;
+  }
 
-    .wishlist-item {
-      padding: 1rem;
-      border-bottom: 1px solid #ddd;
-    }
+  /* WISHLIST FAB */
+  body > button {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(
+      135deg,
+      var(--accent),
+      color-mix(in srgb, var(--accent) 70%, white)
+    );
+    color: var(--light);
+    font-size: 1.25rem;
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--secondary) 60%, transparent);
+    cursor: pointer;
+  }
 
-    .wishlist-item button {
-      padding: 0.25rem 0.5rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    padding: 1rem;
+    z-index: 200;
+  }
+
+  .modal-overlay.show {
+    display: block;
+  }
+
+  .modal {
+    background: white;
+    max-width: 520px;
+    margin: 10vh auto;
+    border-radius: 22px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+
+  .modal h2 {
+    margin-top: 0;
+    color: var(--dark);
+  }
+
+  /* QUANTITY CONTROLS */
+  .qty-controls {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .qty-controls button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: var(--accent-soft);
+    color: var(--text);
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .qty-controls button:hover {
+    background: var(--primary);
+    color: white;
+  }
+</style>
+
 </head>
 
 <body>
 
 <header>
-  <h1>Sunnie Jae Fandom Shop</h1>
-  <div class="member-selector" id="memberSelector"></div>
+  <h1>SWITH Shop</h1>
+  <div id="memberSelector"></div>
 </header>
 
 <main>
-  <div class="hero-image">
-    <img id="heroImg" src="" alt="Member Hero" />
-  </div>
+  <img id="heroImg" />
 
-  <div class="product-grid" id="productGrid"></div>
+  <!-- QUIZ -->
+  <section id="quiz">
+    <h2>Find Your Match</h2>
+    <div id="quizQuestion"></div>
+    <div id="quizAnswers"></div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <div id="productGrid" class="product-grid"></div>
 </main>
 
-<!-- Wishlist FAB -->
-<button class="wishlist-fab" id="wishlistFab" onclick="showWishlist()">
-  ♥
-</button>
+<button onclick="showWishlist()">Wishlist</button>
 
-<!-- Wishlist Modal -->
-<div class="modal-overlay" id="wishlistModal">
+<!-- WISHLIST MODAL -->
+<div id="wishlistModal" class="modal-overlay">
   <div class="modal">
-    <button class="modal-close" onclick="hideWishlist()">×</button>
-    <div class="modal-content">
-      <h2>Your Wishlist</h2>
-      <div id="wishlistItems"></div>
-
-      <button class="product-btn" style="margin-top:1rem; background:black;"
-        onclick="submitWishlistEmail()">
-        Submit Order via Email
-      </button>
-    </div>
+    <button onclick="hideWishlist()">Close</button>
+    <h2>Wishlist</h2>
+    <div id="wishlistItems"></div>
+    <button onclick="submitWishlistEmail()">Submit Order</button>
   </div>
 </div>
 
 <script>
   function showWishlist() {
-    document.getElementById("wishlistModal").classList.add("show");
+    document.getElementById('wishlistModal').classList.add('show');
   }
   function hideWishlist() {
-    document.getElementById("wishlistModal").classList.remove("show");
+    document.getElementById('wishlistModal').classList.remove('show');
   }
 </script>
 
-<!-- JS FILE -->
 <script src="swith.js"></script>
-
 </body>
 </html>
