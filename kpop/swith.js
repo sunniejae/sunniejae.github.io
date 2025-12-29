@@ -181,12 +181,19 @@ function renderProducts() {
     card.innerHTML = `<h3>${title}</h3>`;
 
     const img = document.createElement("img");
-    img.src = `assets/${p.image}-${currentBias}.png`;
-    img.onerror = () => {
-      img.src = `assets/blank-${currentBias}.png`;
-    };
-    card.appendChild(img);
+    const img = document.createElement("img");
 
+const primarySrc = `assets/${p.image}-${currentBias}.png`;
+const fallbackSrc = `assets/blank-${currentBias}.png`;
+
+img.src = primarySrc;
+
+img.onerror = () => {
+  img.onerror = null; // prevent infinite loop
+  img.src = fallbackSrc;
+};
+
+card.appendChild(img);
     if (p.wishlist) {
       card.innerHTML += `
         <input type="number" min="1" value="1" id="qty-${p.id}">
