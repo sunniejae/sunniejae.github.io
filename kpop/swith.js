@@ -160,7 +160,7 @@ function updateHero() {
 
   img.src = MEMBERS[currentBias].heroImage;
   img.onerror = () => {
-    img.src = `kpop/assets/blank-${currentBias}.png`;
+    img.src = `/assets/blank-${currentBias}.png`;
   };
 }
 
@@ -183,7 +183,7 @@ function renderProducts() {
     const img = document.createElement("img");
     img.src = `assets/${p.image}-${currentBias}.png`;
     img.onerror = () => {
-      img.src = `kpop/assets/blank-${currentBias}.png`;
+      img.src = `/assets/blank-${currentBias}.png`;
     };
     card.appendChild(img);
 
@@ -299,7 +299,7 @@ function applyQuizResult(key, percent) {
   if (img) {
     img.src = MEMBERS[key].resultImage;
     img.onerror = () => {
-      img.src = `kpop/assets/blank-${key}.png`;
+      img.src = `assets/blank-${key}.png`;
     };
   }
 
