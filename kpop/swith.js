@@ -330,3 +330,43 @@ function restoreQuizResult() {
 function opposite(l) {
   return { E: "I", I: "E", N: "S", S: "N", T: "F", F: "T", P: "J", J: "P" }[l];
 }
+// =========================
+// WISHLIST EMAIL
+// =========================
+
+function openWishlistEmail() {
+  if (!wishlist.length) {
+    alert("Your wishlist is empty!");
+    return;
+  }
+
+  const productMap = {};
+  PRODUCTS.forEach(p => productMap[p.id] = p.name);
+
+  let body = `Hello Sunnie Jae Team,\n\n`;
+  body += `I’d like to request the following items from the NAYA Shop:\n\n`;
+
+  // Group by member
+  const grouped = {};
+  wishlist.forEach(item => {
+    if (!grouped[item.member]) grouped[item.member] = [];
+    grouped[item.member].push(item);
+  });
+
+  Object.entries(grouped).forEach(([member, items]) => {
+    body += `— ${member} Version —\n`;
+    items.forEach(i => {
+      const name = productMap[i.id] || i.id;
+      body += `• ${name} × ${i.qty}\n`;
+    });
+    body += `\n`;
+  });
+
+  body += `Thank you!\n`;
+
+  const subject = encodeURIComponent("NAYA Shop Order Request");
+  const emailBody = encodeURIComponent(body);
+
+  window.location.href =
+    `mailto:orders@sunniejae.com?subject=${subject}&body=${emailBody}`;
+}
