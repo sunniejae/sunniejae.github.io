@@ -1,34 +1,34 @@
 // Member data with planet placeholders
 const MEMBERS = {
-  mercury: { 
-    name: 'Mercury', 
+  SUMIN: { 
+    name: 'SUMIN', 
     colors: { primary: '#FF6B9D', secondary: '#FFE5EC', accent: '#C41E3A', dark: '#8B0A1F' },
-    description: 'Bold and energetic! You match with Mercury, someone who brings passion and excitement to everything they do.'
+    description: 'Bold and energetic! You match with SUMIN, someone who brings passion and excitement to everything they do.'
   },
-  venus: { 
-    name: 'Venus', 
+  SIEUN: { 
+    name: 'SIEUN', 
     colors: { primary: '#9D84FF', secondary: '#E8E0FF', accent: '#6B4CE6', dark: '#4A2FB8' },
-    description: 'Elegant and mysterious! You match with Venus, someone who captivates with grace and thoughtful charm.'
+    description: 'Elegant and mysterious! You match with SIEUN, someone who captivates with grace and thoughtful charm.'
   },
-  mars: { 
-    name: 'Mars', 
+  ISA: { 
+    name: 'ISA', 
     colors: { primary: '#FF8A5B', secondary: '#FFE4D6', accent: '#E85D2C', dark: '#B8441A' },
-    description: 'Fierce and confident! You match with Mars, someone who leads with strength and determination.'
+    description: 'Fierce and confident! You match with ISA, someone who leads with strength and determination.'
   },
-  jupiter: { 
-    name: 'Jupiter', 
+  SEEUN: { 
+    name: 'SEEUN', 
     colors: { primary: '#4ECDC4', secondary: '#D4F4F2', accent: '#2BA89E', dark: '#1A7A72' },
-    description: 'Bright and optimistic! You match with Jupiter, someone who spreads joy and positive energy everywhere.'
+    description: 'Bright and optimistic! You match with SEEUN, someone who spreads joy and positive energy everywhere.'
   },
-  saturn: { 
-    name: 'Saturn', 
-    colors: { primary: '#FFD93D', secondary: '#FFF6D6', accent: '#F4C430', dark: '#C49A26' },
-    description: 'Steady and reliable! You match with Saturn, someone who brings warmth and stability to any situation.'
+  YOON: { 
+    name: 'YOON', 
+    colors: { primary: '#1bca21', secondary: '#a7db5d', accent: '#62466B', dark: '#004602' },
+    description: 'Steady and reliable! You match with YOON, someone who brings warmth and stability to any situation.'
   },
-  uranus: { 
-    name: 'Uranus', 
+  J: { 
+    name: 'J', 
     colors: { primary: '#6BCF7F', secondary: '#E0F7E4', accent: '#45A557', dark: '#2F7A3E' },
-    description: 'Fresh and unique! You match with Uranus, someone who stands out with their creative and refreshing personality.'
+    description: 'Fresh and unique! You match with J, someone who stands out with their creative and refreshing personality.'
   },
   neptune: { 
     name: 'Neptune', 
@@ -47,69 +47,69 @@ const QUIZ_DATA = [
   {
     question: "What's your favorite color?",
     answers: [
-      { text: "Pink/Red", members: ['mercury', 'pluto'] },
-      { text: "Purple/Violet", members: ['venus'] },
-      { text: "Orange/Coral", members: ['mars'] },
-      { text: "Teal/Turquoise", members: ['jupiter'] },
-      { text: "Yellow/Gold", members: ['saturn'] },
-      { text: "Green/Mint", members: ['uranus'] },
+      { text: "Pink/Red", members: ['SUMIN', 'pluto'] },
+      { text: "Purple/Violet", members: ['SIEUN'] },
+      { text: "Orange/Coral", members: ['ISA'] },
+      { text: "Teal/Turquoise", members: ['SEEUN'] },
+      { text: "Yellow/Gold", members: ['YOON'] },
+      { text: "Green/Mint", members: ['J'] },
       { text: "Blue/Navy", members: ['neptune'] }
     ]
   },
   {
     question: "Are you more...",
     answers: [
-      { text: "Introvert", members: ['venus', 'neptune', 'pluto'] },
-      { text: "Extrovert", members: ['mercury', 'mars', 'jupiter', 'saturn', 'uranus'] }
+      { text: "Introvert", members: ['SIEUN', 'neptune', 'pluto'] },
+      { text: "Extrovert", members: ['SUMIN', 'ISA', 'SEEUN', 'YOON', 'J'] }
     ]
   },
   {
     question: "Which describes you better?",
     answers: [
-      { text: "Down to earth", members: ['saturn', 'uranus', 'neptune'] },
-      { text: "Head in the clouds", members: ['mercury', 'venus', 'mars', 'jupiter', 'pluto'] }
+      { text: "Down to earth", members: ['YOON', 'J', 'neptune'] },
+      { text: "Head in the clouds", members: ['SUMIN', 'SIEUN', 'ISA', 'SEEUN', 'pluto'] }
     ]
   },
   {
     question: "Do you follow your...",
     answers: [
-      { text: "Head", members: ['venus', 'saturn', 'neptune'] },
-      { text: "Heart", members: ['mercury', 'mars', 'jupiter', 'uranus', 'pluto'] }
+      { text: "Head", members: ['SIEUN', 'YOON', 'neptune'] },
+      { text: "Heart", members: ['SUMIN', 'ISA', 'SEEUN', 'J', 'pluto'] }
     ]
   },
   {
     question: "Which appeals to you more?",
     answers: [
-      { text: "Order", members: ['venus', 'saturn', 'neptune', 'uranus'] },
-      { text: "Chaos", members: ['mercury', 'mars', 'jupiter', 'pluto'] }
+      { text: "Order", members: ['SIEUN', 'YOON', 'neptune', 'J'] },
+      { text: "Chaos", members: ['SUMIN', 'ISA', 'SEEUN', 'pluto'] }
     ]
   },
   {
     question: "Pick your favorite animal:",
     answers: [
-      { text: "Cat", members: ['mercury', 'venus'] },
-      { text: "Dog", members: ['mars', 'jupiter'] },
+      { text: "Cat", members: ['SUMIN', 'SIEUN'] },
+      { text: "Dog", members: ['ISA', 'SEEUN'] },
       { text: "Rabbit", members: ['pluto'] },
-      { text: "Bird", members: ['uranus'] },
+      { text: "Bird", members: ['J'] },
       { text: "Fish", members: ['neptune'] },
-      { text: "Tiger", members: ['saturn'] }
+      { text: "Tiger", members: ['YOON'] }
     ]
   },
   {
     question: "Which artist do you also follow?",
     answers: [
-      { text: "NewJeans", members: ['mercury', 'pluto'] },
-      { text: "aespa", members: ['venus', 'neptune'] },
-      { text: "IVE", members: ['mars', 'saturn'] },
-      { text: "ITZY", members: ['jupiter', 'uranus'] }
+      { text: "NewJeans", members: ['SUMIN', 'pluto'] },
+      { text: "aespa", members: ['SIEUN', 'neptune'] },
+      { text: "IVE", members: ['ISA', 'YOON'] },
+      { text: "ITZY", members: ['SEEUN', 'J'] }
     ]
   },
   {
     question: "Pick your favorite era:",
     answers: [
-      { text: "Debut Era", members: ['mercury', 'mars'] },
-      { text: "First Comeback", members: ['venus', 'jupiter'] },
-      { text: "Peak Era", members: ['saturn', 'uranus'] },
+      { text: "Debut Era", members: ['SUMIN', 'ISA'] },
+      { text: "First Comeback", members: ['SIEUN', 'SEEUN'] },
+      { text: "Peak Era", members: ['YOON', 'J'] },
       { text: "Latest Release", members: ['neptune', 'pluto'] }
     ]
   }
@@ -171,7 +171,7 @@ const PRODUCTS = [
 ];
 
 // State
-let currentBias = 'mercury';
+let currentBias = 'SUMIN';
 let wishlist = [];
 let quizStep = 0;
 let quizAnswers = [];
