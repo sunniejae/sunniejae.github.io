@@ -253,6 +253,7 @@ function selectBias(member) {
     currentBias = member;
     applyTheme(member);
     renderBiasButtons();
+    updateHeroImage();
     renderProducts();
 }
 
@@ -276,9 +277,9 @@ function renderProducts() {
         return `
             <div class="product-card">
                 <div class="product-image">
-                    <img src="/assets/collection-${currentBias}.png" 
+                    <img src="/kpop/assets/collection-${currentBias}.png" 
                          alt="${product.name} - ${currentBias}"
-                         onerror="this.parentElement.innerHTML='<div style=\\'font-size:3rem;color:#ccc;\\'>📦</div>'">
+                         onerror="this.parentElement.innerHTML='<img src="/kpop/assets/blank-${currentBias}.png>'"
                 </div>
                 <div class="product-info">
                     <h3>${product.name}</h3>
