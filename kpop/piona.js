@@ -269,9 +269,9 @@ function updateTheme() {
 // Update hero image
 function updateHeroImage() {
   const heroImg = document.getElementById('heroImg');
-  heroImg.src = `//kpop/assetshero-${currentBias}.png`;
+  heroImg.src = `/kpop/assets/hero-${currentBias}.png`;
   heroImg.onerror = () => {
-    heroImg.src = `//kpop/assetsblank-${currentBias}.png`;
+    heroImg.src = `/kpop/assets/blank-${currentBias}.png`;
   };
 }
 
