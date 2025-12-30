@@ -341,7 +341,7 @@ function renderProducts() {
             🛍️ Shop on Redbubble
           </a>` :
           `<button class="product-btn" style="background-color: ${isInWishlist ? '#ccc' : theme.primary}" 
-            ${isInWishlist ? 'dKAZUHAbled' : ''} 
+            ${isInWishlist ? 'disAbled' : ''} 
             onclick="addToWishlist('${product.id}')">
             ♡ ${isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}
           </button>`
@@ -443,12 +443,15 @@ function generateMailto() {
   const userEmail = document.getElementById('userEmail').value;
   const subscribeEmails = document.getElementById('subscribeEmails').checked;
   
-  const wishlistText = wishlist.map((item, i) => `${i + 1}. ${item.name} (${item.category})`).join('\n');
+  const wishlistText = wishlist.map((item, i) => 
+    `${i + 1}. ${item.name} (${item.category}) - ${currentBias} version`
+  ).join('\n');
+  
   const subscribeText = subscribeEmails ? 'Yes, subscribe me to emails from Sunnie Jae' : 'No, do not subscribe';
   
   const subject = encodeURIComponent('KPOP FANDOM SHOP ORDER');
   const body = encodeURIComponent(
-    `Name: ${userName}\n\nEmail: ${userEmail}\n\nWishlist:\n${wishlistText}\n\n${subscribeText}`
+    `Name: ${userName}\n\nEmail: ${userEmail}\n\nSelected Member: ${currentBias}\n\nWishlist:\n${wishlistText}\n\n${subscribeText}`
   );
   
   return `mailto:orders@sunniejae.com?subject=${subject}&body=${body}`;
