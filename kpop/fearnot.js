@@ -52,11 +52,11 @@ const MEMBER_THEMES = {
         cardBg: '#FFFFFF'
     },
     YUNJIN: {
-        primary: '#E74C3C',
-        secondary: '#C0392B',
-        accent: '#EC7063',
-        bg: '#FDEDEC',
-        cardBg: '#FFFFFF'
+        primary: '#7aa94b',
+        secondary: '#393830',
+        accent: '#DAD0BA',
+        bg: '#393830',
+        cardBg: '#DAD0BA'
     },
     EUNCHAE: {
         primary: '#F39C12',
