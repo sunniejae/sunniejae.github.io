@@ -269,9 +269,9 @@ function updateTheme() {
 // Update hero image
 function updateHeroImage() {
   const heroImg = document.getElementById('heroImg');
-  heroImg.src = `/assets/hero-${currentBias}.png`;
+  heroImg.src = `//kpop/assetshero-${currentBias}.png`;
   heroImg.onerror = () => {
-    heroImg.src = `/assets/blank-${currentBias}.png`;
+    heroImg.src = `//kpop/assetsblank-${currentBias}.png`;
   };
 }
 
@@ -323,8 +323,8 @@ function renderProducts() {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    const imageUrl = `/assets/${product.imageFormat}-${currentBias}.png`;
-    const fallbackUrl = `/assets/blank-${currentBias}.png`;
+    const imageUrl = `//kpop/assets${product.imageFormat}-${currentBias}.png`;
+    const fallbackUrl = `//kpop/assetsblank-${currentBias}.png`;
     
     const isInWishlist = wishlist.some(item => item.id === product.id);
     
@@ -397,8 +397,8 @@ function renderWishlist() {
     form.style.display = 'none';
   } else {
     container.innerHTML = wishlist.map(item => {
-      const imageUrl = `/assets/${item.imageFormat}-${currentBias}.png`;
-      const fallbackUrl = `/assets/blank-${currentBias}.png`;
+      const imageUrl = `//kpop/assets${item.imageFormat}-${currentBias}.png`;
+      const fallbackUrl = `//kpop/assetsblank-${currentBias}.png`;
       
       return `
         <div class="wishlist-item">
@@ -541,11 +541,11 @@ function showQuizResult(memberKey) {
   
   // Set result image
   const resultImage = document.getElementById('resultImage');
-  resultImage.src = `assets/result-${memberKey}.png`;
+  resultImage.src = `/kpop/assetsresult-${memberKey}.png`;
   resultImage.onerror = () => {
-    resultImage.src = `assets/hero-${memberKey}.png`;
+    resultImage.src = `/kpop/assetshero-${memberKey}.png`;
     resultImage.onerror = () => {
-      resultImage.src = `assets/blank-${memberKey}.png`;
+      resultImage.src = `/kpop/assetsblank-${memberKey}.png`;
     };
   };
   
