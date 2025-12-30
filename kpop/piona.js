@@ -2,7 +2,7 @@
 const MEMBERS = {
   SAKURA: { 
     name: 'SAKURA', 
-    colors: { primary: '#A70468', secondary: '#eaeaea', accent: '#5e126b', dark: '#30032C' },
+    colors: { primary: '#980369', secondary: '#C79F99', accent: '#C23F77', dark: '#5D244E' },
     description: 'Bold and energetic! You match with SAKURA, someone who brings passion and excitement to everything they do.'
   },
   CHAEWON: { 
