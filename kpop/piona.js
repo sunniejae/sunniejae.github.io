@@ -323,8 +323,8 @@ function renderProducts() {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    const imageUrl = `//kpop/assets${product.imageFormat}-${currentBias}.png`;
-    const fallbackUrl = `//kpop/assetsblank-${currentBias}.png`;
+    const imageUrl = `/kpop/assets${product.imageFormat}-${currentBias}.png`;
+    const fallbackUrl = `/kpop/assetsblank-${currentBias}.png`;
     
     const isInWishlist = wishlist.some(item => item.id === product.id);
     
@@ -397,8 +397,8 @@ function renderWishlist() {
     form.style.display = 'none';
   } else {
     container.innerHTML = wishlist.map(item => {
-      const imageUrl = `//kpop/assets${item.imageFormat}-${currentBias}.png`;
-      const fallbackUrl = `//kpop/assetsblank-${currentBias}.png`;
+      const imageUrl = `/kpop/assets${item.imageFormat}-${currentBias}.png`;
+      const fallbackUrl = `/kpop/assetsblank-${currentBias}.png`;
       
       return `
         <div class="wishlist-item">
@@ -541,11 +541,11 @@ function showQuizResult(memberKey) {
   
   // Set result image
   const resultImage = document.getElementById('resultImage');
-  resultImage.src = `/kpop/assetsresult-${memberKey}.png`;
+  resultImage.src = `/kpop/assets/result-${memberKey}.png`;
   resultImage.onerror = () => {
-    resultImage.src = `/kpop/assetshero-${memberKey}.png`;
+    resultImage.src = `/kpop/assets/hero-${memberKey}.png`;
     resultImage.onerror = () => {
-      resultImage.src = `/kpop/assetsblank-${memberKey}.png`;
+      resultImage.src = `/kpop/assets/blank-${memberKey}.png`;
     };
   };
   
