@@ -8,168 +8,184 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
-/* ===============================
-   EXISTING THEME VARIABLES
-================================ */
 :root {
-  --black: #000010;
-  --silver: #f0f0f5;
-  --gray: #bfbfdc;
-  --primary: #9a9ad4;
-  --accent: #00c9c2;
-  --pink: #ffb3d6;
+  --black:#000010;
+  --silver:#f0f0f5;
+  --gray:#bfbfdc;
+  --primary:#9a9ad4;
+  --accent:#00c9c2;
+  --pink:#ffb3d6;
 }
 
-/* ===============================
-   BLOG FEED (Medium RSS)
-================================ */
+/* ========== BLOG FEED ========== */
 .blog-feed {
-  display: grid;
-  gap: 2rem;
-  margin-top: 3rem;
+  display:grid;
+  gap:2rem;
+  margin-top:3rem;
 }
 
 .blog-post {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 1.5rem;
-  background: rgba(63, 61, 122, 0.25);
-  border: 1px solid rgba(0, 168, 163, 0.2);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s ease;
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:1.5rem;
+  background:rgba(63,61,122,.25);
+  border:1px solid rgba(0,168,163,.2);
+  border-radius:16px;
+  overflow:hidden;
+  transition:.3s ease;
 }
 
 .blog-post:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: 0 10px 30px rgba(0, 201, 194, 0.2);
+  transform:translateY(-4px);
+  border-color:var(--accent);
+  box-shadow:0 10px 30px rgba(0,201,194,.2);
 }
 
 .blog-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
 }
 
 .blog-content {
-  padding: 1.5rem 1.5rem 1.5rem 0;
+  padding:1.5rem 1.5rem 1.5rem 0;
 }
 
 .blog-content h3 {
-  font-family: 'Cinzel', serif;
-  color: var(--primary);
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-family:Cinzel,serif;
+  color:var(--primary);
+  margin-bottom:.5rem;
 }
 
 .blog-date {
-  font-size: 0.85rem;
-  color: var(--gray);
-  margin-bottom: 0.75rem;
+  font-size:.85rem;
+  color:var(--gray);
+  margin-bottom:.75rem;
 }
 
 .blog-excerpt {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--silver);
-  margin-bottom: 1rem;
+  font-size:.95rem;
+  line-height:1.7;
+  color:var(--silver);
+  margin-bottom:1rem;
 }
 
 .blog-content a {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  color: var(--accent);
-  text-decoration: none;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  color:var(--accent);
+  text-decoration:none;
 }
 
-.blog-content a:hover {
-  color: var(--pink);
-}
+.blog-content a:hover { color:var(--pink); }
 
-/* Mobile */
-@media (max-width: 768px) {
-  .blog-post {
-    grid-template-columns: 1fr;
-  }
-
-  .blog-content {
-    padding: 1.5rem;
-  }
+@media(max-width:768px){
+  .blog-post{grid-template-columns:1fr;}
+  .blog-content{padding:1.5rem;}
 }
 </style>
 </head>
 
-<body style="background:var(--black); color:var(--silver); font-family:Lora, serif;">
+<body style="background:var(--black);color:var(--silver);font-family:Lora,serif;">
 
-<section style="padding:6rem 2rem; max-width:1100px; margin:auto;">
-  <h2 style="text-align:center; color:var(--primary); font-family:Cinzel, serif;">
-    Latest from the Blog
-  </h2>
-  <p style="text-align:center; color:var(--accent); margin-bottom:3rem;">
-    Cosmic wisdom & astrology insights from Medium
-  </p>
+<!-- ================= TOOLS ================= -->
+<section id="tools" class="features">
+<div class="container">
+<h2 class="section-title">Cosmic Tools</h2>
+<p class="section-subtitle">Explore astrology with interactive calculators</p>
 
-  <div class="blog-feed" id="medium-feed">
-    <p style="text-align:center; color:var(--gray);">
-      Loading latest posts…
-    </p>
-  </div>
+<div class="tools-grid">
+<div class="tool-card">
+<h3>🌙 Current Moon Phase</h3>
+<p id="current-moon-phase"></p>
+<p id="moon-phase-description"></p>
+</div>
+
+<div class="tool-card">
+<h3>🔮 Daily Cosmic Card</h3>
+<img id="card-image" src="card-back.png">
+<button id="draw-card">Draw Your Card</button>
+<div id="card-message">Click above to receive your message</div>
+</div>
+</div>
+</div>
 </section>
 
+<!-- ================= PROMPTS ================= -->
+<section id="prompts" class="features">
+<div class="container">
+<h2 class="section-title">Today's Cosmic Prompts</h2>
+<p class="section-subtitle">Journal with the rhythms of the universe</p>
+
+<p id="daily-prompt"></p>
+<p id="moon-prompt"></p>
+<p id="season-prompt"></p>
+</div>
+</section>
+
+<!-- ================= JOURNAL ================= -->
+<section id="journal" class="features">
+<div class="container">
+<h2 class="section-title">Your Cosmic Journal</h2>
+<textarea id="journal-input"></textarea>
+<button id="save-entry">Save Entry</button>
+<p>🔥 Streak: <span id="streak-count">0</span></p>
+<div id="journal-entries"></div>
+</div>
+</section>
+
+<!-- ================= RESOURCES + BLOG ================= -->
+<section id="resources" class="features">
+<div class="container">
+<h2 class="section-title">Free Resources</h2>
+
+<!-- BLOG -->
+<div style="margin-top:4rem;">
+<h2 class="section-title">Latest from the Blog</h2>
+<p class="section-subtitle">Cosmic wisdom & astrology insights</p>
+
+<div class="blog-feed" id="medium-feed">
+<p style="text-align:center;color:var(--gray)">Loading posts…</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+<p>&copy; 2025 Starry Jae by SunnieJae</p>
+</footer>
+
+<!-- ================= MEDIUM RSS SCRIPT ================= -->
 <script>
-/* ===============================
-   MEDIUM RSS WIDGET
-================================ */
-const MEDIUM_FEED =
-  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@starryjae";
+const MEDIUM_RSS =
+"https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@starryjae";
 
-fetch(MEDIUM_FEED)
-  .then(res => res.json())
-  .then(data => {
-    const feed = document.getElementById("medium-feed");
-
-    if (!data.items || !data.items.length) {
-      feed.innerHTML = "<p>No posts available.</p>";
-      return;
-    }
-
-    feed.innerHTML = data.items.slice(0, 3).map(post => {
-      const date = new Date(post.pubDate).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-
-      // Try to get featured image
-      let image =
-        post.thumbnail ||
-        (post.enclosure && post.enclosure.link) ||
-        "https://via.placeholder.com/400x400?text=Starry+Jae";
-
-      return `
-        <article class="blog-post">
-          <img class="blog-image" src="${image}" alt="${post.title}">
-          <div class="blog-content">
-            <h3>${post.title}</h3>
-            <div class="blog-date">${date}</div>
-            <div class="blog-excerpt">
-              ${post.description.replace(/<[^>]*>/g,'').slice(0,180)}…
-            </div>
-            <a href="${post.link}" target="_blank" rel="noopener">
-              Read on Medium →
-            </a>
-          </div>
-        </article>
-      `;
-    }).join("");
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById("medium-feed").innerHTML =
-      "<p style='color:var(--gray); text-align:center;'>Unable to load posts.</p>";
-  });
+fetch(MEDIUM_RSS)
+.then(res=>res.json())
+.then(data=>{
+const feed=document.getElementById("medium-feed");
+if(!data.items){feed.innerHTML="<p>No posts.</p>";return;}
+feed.innerHTML=data.items.slice(0,3).map(post=>{
+const date=new Date(post.pubDate).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"});
+const img=post.thumbnail||"";
+const excerpt=post.description.replace(/<[^>]*>/g,"").slice(0,160)+"…";
+return`
+<article class="blog-post">
+<img class="blog-image" src="${img}" onerror="this.style.display='none'">
+<div class="blog-content">
+<h3>${post.title}</h3>
+<div class="blog-date">${date}</div>
+<div class="blog-excerpt">${excerpt}</div>
+<a href="${post.link}" target="_blank">Read on Medium →</a>
+</div>
+</article>`;
+}).join("");
+})
+.catch(()=>{
+document.getElementById("medium-feed").innerHTML="<p>Unable to load blog.</p>";
+});
 </script>
 
 </body>
