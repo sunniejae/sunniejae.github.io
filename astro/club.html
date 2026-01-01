@@ -1,192 +1,1711 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Starry Jae - Astrology Journaling Club by SunnieJae</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Jae - Astrology Journaling Club by SunnieJae</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Klaviyo Tracking -->
+    <script async type='text/javascript' src='https://static.klaviyo.com/onsite/js/Unmjg7/klaviyo.js?company_id=Unmjg7'></script>
+    <script type="text/javascript"> 
+    //Initialize Klaviyo object on page load
+    !function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}(); 
+    </script>
+    
+    <style>
+        @font-face {
+            font-family: 'Jaewriting';
+            src: url('Jaewriting-Regular.ttf') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Milky';
+            src: url('tan-mon-cheri.woff') format('woff');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+        :root {
+            --black: #000010;
+            --white: #ffffff;
+            --dark-gray: #404040;
+            --gray: #bfbfdc;
+            --silver: #f0f0f5;
+            --pink: #ffb3d6;
+            --teal: #00a8a3;
+            --dark-purple: #3f3d7a;
+            --accent: #00c9c2;
+            --secondary: #c13886;
+            --primary: #9a9ad4;
+        }
 
-<style>
-:root {
-  --black:#000010;
-  --silver:#f0f0f5;
-  --gray:#bfbfdc;
-  --primary:#9a9ad4;
-  --accent:#00c9c2;
-  --pink:#ffb3d6;
-}
+        body {
+            font-family: 'Lora', serif;
+            background: var(--black);
+            color: var(--silver);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-/* ========== BLOG FEED ========== */
-.blog-feed {
-  display:grid;
-  gap:2rem;
-  margin-top:3rem;
-}
+        /* Animated starfield background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-.blog-post {
-  display:grid;
-  grid-template-columns:180px 1fr;
-  gap:1.5rem;
-  background:rgba(63,61,122,.25);
-  border:1px solid rgba(0,168,163,.2);
-  border-radius:16px;
-  overflow:hidden;
-  transition:.3s ease;
-}
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
 
-.blog-post:hover {
-  transform:translateY(-4px);
-  border-color:var(--accent);
-  box-shadow:0 10px 30px rgba(0,201,194,.2);
-}
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
 
-.blog-image {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-}
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
 
-.blog-content {
-  padding:1.5rem 1.5rem 1.5rem 0;
-}
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.blog-content h3 {
-  font-family:Cinzel,serif;
-  color:var(--primary);
-  margin-bottom:.5rem;
-}
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 179, 214, 0.5), 0 0 40px rgba(255, 179, 214, 0.3); }
+            50% { text-shadow: 0 0 30px rgba(255, 179, 214, 0.8), 0 0 60px rgba(255, 179, 214, 0.4); }
+        }
 
-.blog-date {
-  font-size:.85rem;
-  color:var(--gray);
-  margin-bottom:.75rem;
-}
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
-.blog-excerpt {
-  font-size:.95rem;
-  line-height:1.7;
-  color:var(--silver);
-  margin-bottom:1rem;
-}
+        /* Header */
+        header {
+            padding: 2rem 0;
+            animation: fadeInUp 1s ease-out;
+        }
 
-.blog-content a {
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic;
-  color:var(--accent);
-  text-decoration:none;
-}
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.blog-content a:hover { color:var(--pink); }
+        .logo {
+            font-family: 'Jaewriting', 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
 
-@media(max-width:768px){
-  .blog-post{grid-template-columns:1fr;}
-  .blog-content{padding:1.5rem;}
-}
-</style>
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--silver);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--pink);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--pink);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 0 4rem;
+            position: relative;
+        }
+
+        .moon-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            animation: float 6s infinite ease-in-out, fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .moon-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px rgba(154, 154, 212, 0.6));
+        }
+
+        h1 {
+            font-family: 'Milky', 'Cinzel', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            animation: fadeInUp 1s ease-out 0.4s backwards, glow 3s infinite ease-in-out;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-family: 'Jaewriting', 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--silver);
+            animation: fadeInUp 1s ease-out 0.8s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-family: 'Milky', 'Cinzel', serif;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink), var(--secondary));
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(255, 179, 214, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--pink));
+            transition: left 0.4s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 179, 214, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--black);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(154, 154, 212, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--dark-purple), transparent);
+        }
+
+        .section-title {
+            font-family: 'Milky', 'Cinzel', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-family: 'Jaewriting', 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 179, 214, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--pink);
+            box-shadow: 0 20px 40px rgba(255, 179, 214, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .feature-card h3 {
+            font-family: 'Milky', 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .feature-card p {
+            color: var(--silver);
+            line-height: 1.8;
+        }
+
+        /* Zodiac Section */
+        .zodiac-section {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);
+        }
+
+        .zodiac-wheel {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .zodiac-sign {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.15);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .zodiac-sign:hover {
+            background: rgba(63, 61, 122, 0.5);
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .zodiac-sign .sign-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .zodiac-sign .sign-name {
+            font-family: 'Milky', 'Cinzel', serif;
+            color: var(--primary);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: rgba(63, 61, 122, 0.4);
+            border: 2px solid var(--dark-purple);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--pink), var(--accent), var(--primary));
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cta-content:hover::before {
+            opacity: 0.3;
+        }
+
+        .cta-content h2 {
+            font-family: 'Milky', 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: var(--silver);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 168, 163, 0.2);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--silver);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--accent);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--pink);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                padding: 4rem 0 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .zodiac-wheel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* === NEW FEATURE STYLES === */
+
+        /* Prompt Cards */
+        .prompt-card {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .prompt-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 201, 194, 0.2);
+        }
+
+        .prompt-label {
+            font-family: 'Milky', 'Cinzel', serif;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .prompt-text {
+            color: var(--silver);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tool-card {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .tool-card h3 {
+            font-family: 'Milky', 'Cinzel', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .tool-card input,
+        .tool-card select {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: rgba(0, 0, 16, 0.5);
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            color: var(--silver);
+            font-family: 'Lora', serif;
+        }
+
+        .tool-card button {
+            background: linear-gradient(135deg, var(--accent), var(--teal));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-family: 'Milky', 'Cinzel', serif;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 201, 194, 0.4);
+        }
+
+        .card-draw-tool {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .card-image-container {
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto 1.5rem;
+            aspect-ratio: 9 / 16;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 16, 0.5);
+            border: 2px solid var(--gray);
+            transition: all 0.5s ease;
+        }
+
+        .card-image-container.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .tool-result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 201, 194, 0.1);
+            border-radius: 8px;
+            color: var(--silver);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Journal Section */
+        .journal-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .journal-input-area {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        #journal-input {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            background: rgba(0, 0, 16, 0.5);
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            color: var(--silver);
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: vertical;
+        }
+
+        #journal-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .journal-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .streak-display {
+            font-family: 'Jaewriting', serif;
+            color: var(--pink);
+            font-size: 1.1rem;
+        }
+
+        #save-entry {
+            background: linear-gradient(135deg, var(--pink), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-family: 'Milky', 'Cinzel', serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #save-entry:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 179, 214, 0.4);
+        }
+
+        .journal-entry {
+            background: rgba(63, 61, 122, 0.2);
+            border: 1px solid rgba(0, 168, 163, 0.15);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .entry-date {
+            color: var(--primary);
+            font-family: 'Jaewriting', serif;
+        }
+
+        .entry-moon {
+            color: var(--accent);
+        }
+
+        .entry-content {
+            color: var(--silver);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .delete-entry {
+            background: transparent;
+            color: var(--gray);
+            border: 1px solid var(--gray);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .delete-entry:hover {
+            background: rgba(193, 56, 134, 0.2);
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* Resources Section */
+        .resource-card {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            border-color: var(--pink);
+            transform: translateY(-5px);
+        }
+
+        .resource-card h3 {
+            font-family: 'Milky', 'Cinzel', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .resource-card p {
+            color: var(--silver);
+            margin-bottom: 1rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--teal));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: 'Milky', serif;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 201, 194, 0.4);
+        }
+
+        /* Blog Feed */
+        .blog-feed {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-post {
+            background: rgba(63, 61, 122, 0.2);
+            border: 1px solid rgba(0, 168, 163, 0.15);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .blog-post:hover {
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .blog-post h3 {
+            font-family: 'Milky', serif;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post .date {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post p {
+            color: var(--silver);
+            margin-bottom: 1rem;
+        }
+
+        .blog-post a {
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Jaewriting', serif;
+        }
+
+        .blog-post a:hover {
+            color: var(--pink);
+        }
+
+        /* Community Links */
+        .community-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .community-link {
+            background: rgba(63, 61, 122, 0.3);
+            border: 2px solid rgba(0, 168, 163, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            min-width: 200px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .community-link:hover {
+            border-color: var(--pink);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 179, 214, 0.3);
+        }
+
+        .community-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .community-link h3 {
+            font-family: 'Milky', serif;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .community-link p {
+            color: var(--silver);
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter Form */
+        .newsletter-section {
+            background: rgba(63, 61, 122, 0.3);
+            border: 2px solid var(--dark-purple);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .newsletter-section h3 {
+            font-family: 'Milky', serif;
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-section p {
+            color: var(--silver);
+            margin-bottom: 2rem;
+        }
+
+        #newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #newsletter-email {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem;
+            background: rgba(0, 0, 16, 0.5);
+            border: 1px solid var(--gray);
+            border-radius: 25px;
+            color: var(--silver);
+            font-family: 'Lora', serif;
+        }
+
+        #newsletter-email:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .newsletter-submit {
+            background: linear-gradient(135deg, var(--pink), var(--secondary));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-family: 'Milky', serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 179, 214, 0.4);
+        }
+    </style>
 </head>
+<body>
+    <!-- Animated starfield -->
+    <div class="stars" id="starfield"></div>
 
-<body style="background:var(--black);color:var(--silver);font-family:Lora,serif;">
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">✦ Starry Jae ✦</div>
+                <ul class="nav-links">
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#prompts">Prompts</a></li>
+                    <li><a href="#journal">Journal</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<!-- ================= TOOLS ================= -->
-<section id="tools" class="features">
-<div class="container">
-<h2 class="section-title">Cosmic Tools</h2>
-<p class="section-subtitle">Explore astrology with interactive calculators</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="moon-icon">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="url(#moonGradient)"/>
+                    <circle cx="35" cy="35" r="8" fill="rgba(0, 0, 16, 0.3)"/>
+                    <circle cx="60" cy="45" r="5" fill="rgba(0, 0, 16, 0.2)"/>
+                    <circle cx="45" cy="65" r="6" fill="rgba(0, 0, 16, 0.25)"/>
+                    <defs>
+                        <radialGradient id="moonGradient">
+                            <stop offset="0%" stop-color="#9a9ad4"/>
+                            <stop offset="100%" stop-color="#00c9c2"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h1>Starry Jae</h1>
+            <p class="subtitle">An Astrology Journaling Club by SunnieJae</p>
+            <p class="hero-description">
+                Join our celestial community of seekers exploring the cosmos within. Through astrology and intentional journaling, 
+                we map the movements of planets to the rhythms of our souls, discovering wisdom written in the stars.
+            </p>
+            <div class="cta-buttons">
+                <a href="#join" class="btn btn-primary"><span>Begin Your Journey</span></a>
+                <a href="#features" class="btn btn-secondary">Explore More</a>
+            </div>
+        </div>
+    </section>
 
-<div class="tools-grid">
-<div class="tool-card">
-<h3>🌙 Current Moon Phase</h3>
-<p id="current-moon-phase"></p>
-<p id="moon-phase-description"></p>
-</div>
+    <!-- Interactive Tools Section -->
+    <section id="tools" class="features">
+        <div class="container">
+            <h2 class="section-title">Cosmic Tools</h2>
+            <p class="section-subtitle">Explore astrology with interactive calculators</p>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>🌙 Current Moon Phase</h3>
+                    <div class="tool-result">
+                        <div>
+                            <p id="current-moon-phase" style="font-size: 1.3rem; font-family: 'Milky', serif; margin-bottom: 1rem;"></p>
+                            <p id="moon-phase-description" style="font-size: 0.95rem; line-height: 1.6; color: var(--silver);"></p>
+                        </div>
+                    </div>
+                </div>
 
-<div class="tool-card">
-<h3>🔮 Daily Cosmic Card</h3>
-<img id="card-image" src="card-back.png">
-<button id="draw-card">Draw Your Card</button>
-<div id="card-message">Click above to receive your message</div>
-</div>
-</div>
-</div>
+                <div class="tool-card card-draw-tool">
+                    <h3>🔮 Daily Cosmic Card</h3>
+                    <div class="card-image-container">
+                        <img id="card-image" src="card-back.png" alt="Cosmic Card" class="card-image">
+                    </div>
+                    <button id="draw-card">Draw Your Card</button>
+                    <div class="tool-result" id="card-message">Click above to receive your message</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Prompts Section -->
+    <section id="prompts" class="features" style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
+        <div class="container">
+            <h2 class="section-title">Today's Cosmic Prompts</h2>
+            <p class="section-subtitle">Journal with the rhythms of the universe</p>
+            
+            <div class="prompt-card">
+                <span class="prompt-label">✨ Daily Reflection</span>
+                <p class="prompt-text" id="daily-prompt"></p>
+            </div>
+
+            <div class="prompt-card">
+                <span class="prompt-label">🌙 Moon Phase Journaling</span>
+                <p class="prompt-text" id="moon-prompt"></p>
+            </div>
+
+            <div class="prompt-card">
+                <span class="prompt-label">⭐ Zodiac Season Focus</span>
+                <p class="prompt-text" id="season-prompt"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journal Section -->
+    <section id="journal" class="features">
+        <div class="container">
+            <h2 class="section-title">Your Cosmic Journal</h2>
+            <p class="section-subtitle">Private journaling saved to your device only</p>
+            
+            <div class="journal-container">
+                <div class="journal-input-area">
+                    <textarea id="journal-input" placeholder="Begin your cosmic reflections... (Ctrl+Enter to save)"></textarea>
+                    <div class="journal-actions">
+                        <div class="streak-display">
+                            🔥 Streak: <span id="streak-count">0 days</span>
+                        </div>
+                        <button id="save-entry">Save Entry</button>
+                    </div>
+                </div>
+
+                <h3 style="font-family: 'Milky', serif; color: var(--primary); margin-bottom: 2rem; text-align: center;">Recent Entries</h3>
+                <div id="journal-entries"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="features" style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
+        <div class="container">
+            <h2 class="section-title">Free Resources</h2>
+            <p class="section-subtitle">Download guides, templates, and cosmic wisdom</p>
+            
+            <div class="resource-card">
+                <h3>📖 Astrology Journaling Guide</h3>
+                <p>A comprehensive guide to journaling with the cosmos. Includes prompts for each zodiac season, moon phase practices, and birth chart exploration exercises.</p>
+                <a href="#" class="download-btn" onclick="alert('This would download a PDF guide. Connect to your actual PDF file.'); return false;">Download PDF</a>
+            </div>
+
+            <div class="resource-card">
+                <h3>🌙 Monthly Lunar Calendar</h3>
+                <p>Track moon phases, optimal journaling times, and cosmic events throughout the month. Perfect for planning your spiritual practice.</p>
+                <a href="#" class="download-btn" onclick="alert('This would download a calendar PDF. Connect to your actual PDF file.'); return false;">Download PDF</a>
+            </div>
+
+            <div class="resource-card">
+                <h3>⭐ Birth Chart Worksheet</h3>
+                <p>A guided worksheet to explore your natal chart. Deep dive into your sun, moon, rising signs and discover what makes you cosmically unique.</p>
+                <a href="#" class="download-btn" onclick="alert('This would download a worksheet PDF. Connect to your actual PDF file.'); return false;">Download PDF</a>
+            </div>
+
+            <div class="resource-card">
+                <h3>✨ Zodiac Reference Guide</h3>
+                <p>Quick reference for all twelve signs including elements, ruling planets, key traits, and journaling themes for self-discovery.</p>
+                <a href="#" class="download-btn" onclick="alert('This would download a reference guide. Connect to your actual PDF file.'); return false;">Download PDF</a>
+            </div>
+  <div style="margin-top: 4rem;">
+      <h2 class="section-title">Latest from the Blog</h2>
+      <p class="section-subtitle">Cosmic wisdom and astrology insights</p>
+
+      <div class="blog-feed" id="medium-feed">
+        <p style="text-align:center; color: var(--gray);">
+          Loading latest posts…
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ================= PROMPTS ================= -->
-<section id="prompts" class="features">
-<div class="container">
-<h2 class="section-title">Today's Cosmic Prompts</h2>
-<p class="section-subtitle">Journal with the rhythms of the universe</p>
+    <!-- Zodiac Section -->
+    <section class="zodiac-section">
+        <div class="container">
+            <h2 class="section-title">The Zodiac Wheel</h2>
+            <p class="section-subtitle">Explore each sign's unique journaling journey</p>
+            
+            <div class="zodiac-wheel">
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♈</div>
+                    <div class="sign-name">Aries</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♉</div>
+                    <div class="sign-name">Taurus</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♊</div>
+                    <div class="sign-name">Gemini</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♋</div>
+                    <div class="sign-name">Cancer</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♌</div>
+                    <div class="sign-name">Leo</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♍</div>
+                    <div class="sign-name">Virgo</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♎</div>
+                    <div class="sign-name">Libra</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♏</div>
+                    <div class="sign-name">Scorpio</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♐</div>
+                    <div class="sign-name">Sagittarius</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♑</div>
+                    <div class="sign-name">Capricorn</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♒</div>
+                    <div class="sign-name">Aquarius</div>
+                </div>
+                <div class="zodiac-sign">
+                    <div class="sign-icon">♓</div>
+                    <div class="sign-name">Pisces</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<p id="daily-prompt"></p>
-<p id="moon-prompt"></p>
-<p id="season-prompt"></p>
-</div>
-</section>
+    <!-- Community Section -->
+    <section id="community" class="features">
+        <div class="container">
+            <h2 class="section-title">Join Our Cosmic Community</h2>
+            <p class="section-subtitle">Connect with fellow stargazers and seekers</p>
+            
+            <div class="community-links">
+                <a href="https://instagram.com/sunniejae" target="_blank" class="community-link">
+                    <div class="community-icon">📸</div>
+                    <h3>Instagram</h3>
+                    <p>Daily inspiration & cosmic content</p>
+                </a>
 
-<!-- ================= JOURNAL ================= -->
-<section id="journal" class="features">
-<div class="container">
-<h2 class="section-title">Your Cosmic Journal</h2>
-<textarea id="journal-input"></textarea>
-<button id="save-entry">Save Entry</button>
-<p>🔥 Streak: <span id="streak-count">0</span></p>
-<div id="journal-entries"></div>
-</div>
-</section>
+                <a href="https://pinterest.com/sunniejae" target="_blank" class="community-link">
+                    <div class="community-icon">📌</div>
+                    <h3>Pinterest</h3>
+                    <p>Journaling prompts & astrology boards</p>
+                </a>
 
-<!-- ================= RESOURCES + BLOG ================= -->
-<section id="resources" class="features">
-<div class="container">
-<h2 class="section-title">Free Resources</h2>
+                <a href="https://medium.com/@sunniejae" target="_blank" class="community-link">
+                    <div class="community-icon">✍️</div>
+                    <h3>Medium Blog</h3>
+                    <p>Deep dives into astrology & journaling</p>
+                </a>
+            </div>
 
-<!-- BLOG -->
-<div style="margin-top:4rem;">
-<h2 class="section-title">Latest from the Blog</h2>
-<p class="section-subtitle">Cosmic wisdom & astrology insights</p>
+            <div class="newsletter-section">
+                <h3>✨ Get Cosmic Insights in Your Inbox</h3>
+                <p>Join our newsletter for weekly prompts, lunar updates, and exclusive astrology content</p>
+                <form id="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-submit">Subscribe</button>
+                </form>
+                <p style="font-size: 0.85rem; margin-top: 1rem; color: var(--gray);">
+                    🎁 Free gift: Download our Birth Chart Journaling Guide when you subscribe!
+                </p>
+            </div>
+        </div>
+    </section>
 
-<div class="blog-feed" id="medium-feed">
-<p style="text-align:center;color:var(--gray)">Loading posts…</p>
-</div>
-</div>
-</div>
-</section>
+    <!-- CTA Section -->
+    <section id="join" class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Your Cosmic Journey Awaits</h2>
+                <p>Join our community of dreamers, seekers, and stargazers. Start journaling with the cosmos today and discover the magic that happens when you align your inner world with the celestial rhythms above.</p>
+                <a href="#" class="btn btn-primary"><span>Join the Circle</span></a>
+            </div>
+        </div>
+    </section>
 
-<!-- ================= FOOTER ================= -->
-<footer>
-<p>&copy; 2025 Starry Jae by SunnieJae</p>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#">✦</a>
+                <a href="#">☾</a>
+                <a href="#">✧</a>
+                <a href="#">⋆</a>
+            </div>
+            <p>&copy; 2025 Starry Jae by SunnieJae. Written in the stars, journaled on Earth.</p>
+        </div>
+    </footer>
 
-<!-- ================= MEDIUM RSS SCRIPT ================= -->
-<script>
-const MEDIUM_RSS =
-"https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@starryjae";
+    <script>
+        // Create animated starfield
+        function createStars() {
+            const starfield = document.getElementById('starfield');
+            const numStars = 100;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = (Math.random() * 2 + 1) + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starfield.appendChild(star);
+            }
+        }
 
-fetch(MEDIUM_RSS)
-.then(res=>res.json())
-.then(data=>{
-const feed=document.getElementById("medium-feed");
-if(!data.items){feed.innerHTML="<p>No posts.</p>";return;}
-feed.innerHTML=data.items.slice(0,3).map(post=>{
-const date=new Date(post.pubDate).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"});
-const img=post.thumbnail||"";
-const excerpt=post.description.replace(/<[^>]*>/g,"").slice(0,160)+"…";
-return`
-<article class="blog-post">
-<img class="blog-image" src="${img}" onerror="this.style.display='none'">
-<div class="blog-content">
-<h3>${post.title}</h3>
-<div class="blog-date">${date}</div>
-<div class="blog-excerpt">${excerpt}</div>
-<a href="${post.link}" target="_blank">Read on Medium →</a>
-</div>
-</article>`;
-}).join("");
-})
-.catch(()=>{
-document.getElementById("medium-feed").innerHTML="<p>Unable to load blog.</p>";
-});
-</script>
+        createStars();
+        
+        // Track page view in Klaviyo
+        if (window.klaviyo) {
+            window.klaviyo.push(['track', 'Viewed Starry Jae Homepage']);
+            
+            // Track if they're a returning visitor
+            const visitCount = parseInt(localStorage.getItem('starryjae_visit_count') || '0') + 1;
+            localStorage.setItem('starryjae_visit_count', visitCount.toString());
+            
+            if (visitCount > 1) {
+                window.klaviyo.push(['track', 'Returning Visitor', {
+                    'visit_count': visitCount
+                }]);
+            }
+        }
 
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .zodiac-sign').forEach(el => {
+            observer.observe(el);
+        });
+
+        // === FEATURE 1: Daily/Weekly Rotating Prompts ===
+        const prompts = {
+            general: [
+                "What cosmic energy are you feeling most connected to today?",
+                "How can you honor your sun sign's strengths this week?",
+                "What shadow aspects of your chart are calling for attention?",
+                "Describe a moment when you felt aligned with your purpose.",
+                "What lessons is your rising sign teaching you right now?"
+            ],
+            moonPhases: {
+                newMoon: "New Moon: What intentions are you planting? What new chapter are you ready to begin?",
+                waxingCrescent: "Waxing Crescent: What small actions can you take toward your intentions today?",
+                firstQuarter: "First Quarter: What obstacles are appearing? How can you work through them?",
+                waxingGibbous: "Waxing Gibbous: What needs refinement before your goals manifest?",
+                fullMoon: "Full Moon: What is coming to light? What are you ready to release?",
+                waningGibbous: "Waning Gibbous: What gratitude do you hold for this lunar cycle?",
+                lastQuarter: "Last Quarter: What habits or patterns are you ready to let go of?",
+                waningCrescent: "Waning Crescent: How can you rest and restore before the next cycle?"
+            },
+            zodiacSeason: {
+                aries: "Aries Season: What bold action is your soul calling you to take?",
+                taurus: "Taurus Season: How can you cultivate more pleasure and stability in your life?",
+                gemini: "Gemini Season: What conversations or connections are seeking your attention?",
+                cancer: "Cancer Season: What does emotional safety mean to you right now?",
+                leo: "Leo Season: How can you express your authentic self more fully?",
+                virgo: "Virgo Season: What systems or routines would support your wellbeing?",
+                libra: "Libra Season: Where in your life are you seeking more balance or harmony?",
+                scorpio: "Scorpio Season: What transformation is emerging from within you?",
+                sagittarius: "Sagittarius Season: What truth or wisdom are you ready to explore?",
+                capricorn: "Capricorn Season: What legacy or long-term goal calls to your heart?",
+                aquarius: "Aquarius Season: How can you honor your uniqueness and authenticity?",
+                pisces: "Pisces Season: What dreams or intuitions are guiding you forward?"
+            }
+        };
+
+        function getMoonPhase() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth();
+            const day = today.getDate();
+            
+            // Simple moon phase calculation (approximate)
+            const knownNewMoon = new Date(2000, 0, 6, 18, 14);
+            const lunarCycle = 29.53058867;
+            const daysSinceNew = (today - knownNewMoon) / (1000 * 60 * 60 * 24);
+            const phase = (daysSinceNew % lunarCycle) / lunarCycle;
+            
+            if (phase < 0.03 || phase > 0.97) return 'newMoon';
+            if (phase < 0.22) return 'waxingCrescent';
+            if (phase < 0.28) return 'firstQuarter';
+            if (phase < 0.47) return 'waxingGibbous';
+            if (phase < 0.53) return 'fullMoon';
+            if (phase < 0.72) return 'waningGibbous';
+            if (phase < 0.78) return 'lastQuarter';
+            return 'waningCrescent';
+        }
+
+        function getCurrentZodiacSeason() {
+            const today = new Date();
+            const month = today.getMonth();
+            const day = today.getDate();
+            
+            if ((month === 2 && day >= 21) || (month === 3 && day <= 19)) return 'aries';
+            if ((month === 3 && day >= 20) || (month === 4 && day <= 20)) return 'taurus';
+            if ((month === 4 && day >= 21) || (month === 5 && day <= 20)) return 'gemini';
+            if ((month === 5 && day >= 21) || (month === 6 && day <= 22)) return 'cancer';
+            if ((month === 6 && day >= 23) || (month === 7 && day <= 22)) return 'leo';
+            if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'virgo';
+            if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'libra';
+            if ((month === 9 && day >= 23) || (month === 10 && day <= 21)) return 'scorpio';
+            if ((month === 10 && day >= 22) || (month === 11 && day <= 21)) return 'sagittarius';
+            if ((month === 11 && day >= 22) || (month === 0 && day <= 19)) return 'capricorn';
+            if ((month === 0 && day >= 20) || (month === 1 && day <= 18)) return 'aquarius';
+            return 'pisces';
+        }
+
+        function getDailyPrompt() {
+            const dayOfWeek = new Date().getDay();
+            return prompts.general[dayOfWeek % prompts.general.length];
+        }
+
+        // Display prompts
+        const moonPhase = getMoonPhase();
+        const zodiacSeason = getCurrentZodiacSeason();
+        const dailyPrompt = getDailyPrompt();
+
+        document.getElementById('daily-prompt').textContent = dailyPrompt;
+        document.getElementById('moon-prompt').textContent = prompts.moonPhases[moonPhase];
+        document.getElementById('season-prompt').textContent = prompts.zodiacSeason[zodiacSeason];
+
+        // === FEATURE 3: Interactive Tools ===
+        
+        // Moon Phase Display
+        const moonPhaseNames = {
+            newMoon: '🌑 New Moon',
+            waxingCrescent: '🌒 Waxing Crescent',
+            firstQuarter: '🌓 First Quarter',
+            waxingGibbous: '🌔 Waxing Gibbous',
+            fullMoon: '🌕 Full Moon',
+            waningGibbous: '🌖 Waning Gibbous',
+            lastQuarter: '🌗 Last Quarter',
+            waningCrescent: '🌘 Waning Crescent'
+        };
+        
+        const moonPhaseDescriptions = {
+            newMoon: 'A time of new beginnings and fresh starts. Plant seeds of intention and envision what you want to manifest.',
+            waxingCrescent: 'Your intentions begin to take shape. Take small, inspired actions toward your goals and stay committed.',
+            firstQuarter: 'Challenges may arise as a test of your commitment. Push through resistance and make necessary adjustments.',
+            waxingGibbous: 'Refine and perfect your approach. Fine-tune your plans and trust that manifestation is near.',
+            fullMoon: 'Peak illumination reveals what needs to be seen. Celebrate achievements and release what no longer serves you.',
+            waningGibbous: 'Reflect on lessons learned and express gratitude. Share your wisdom and give back to others.',
+            lastQuarter: 'Release old patterns and forgive. Let go of what weighs you down to make space for renewal.',
+            waningCrescent: 'Rest, restore, and surrender. Honor your need for introspection before the next cycle begins.'
+        };
+        
+        document.getElementById('current-moon-phase').textContent = moonPhaseNames[moonPhase];
+        document.getElementById('moon-phase-description').textContent = moonPhaseDescriptions[moonPhase];
+
+        // Daily Card Draw with Images (one per day)
+        const cardData = [
+            { id: 1, image: 'card1.png', message: "Trust your intuition today - it's guiding you toward your highest good." },
+            { id: 2, image: 'card2.png', message: "A new beginning is on the horizon. Embrace change with an open heart." },
+            { id: 3, image: 'card3.png', message: "Your creativity is a powerful force. Express yourself freely." },
+            { id: 4, image: 'card4.png', message: "Balance is key today. Find harmony between giving and receiving." },
+            { id: 5, image: 'card5.png', message: "The universe is supporting your dreams. Take inspired action." },
+            { id: 6, image: 'card6.png', message: "Release what no longer serves you. Make space for new blessings." },
+            { id: 7, image: 'card7.png', message: "Your sensitivity is your superpower. Honor your emotions." },
+            { id: 8, image: 'card8.png', message: "Transformation is happening within you. Trust the process." },
+            { id: 9, image: 'card9.png', message: "Connect with your inner wisdom. The answers are already inside you." },
+            { id: 10, image: 'card10.png', message: "Joy is your birthright. Choose to see the magic in everyday moments." }
+        ];
+
+        // Check if card was already drawn today
+        function checkDailyCard() {
+            const savedCard = localStorage.getItem('starryjae_daily_card');
+            if (savedCard) {
+                const cardInfo = JSON.parse(savedCard);
+                const today = new Date().toDateString();
+                
+                if (cardInfo.date === today) {
+                    // Card already drawn today, display it
+                    const card = cardData.find(c => c.id === cardInfo.cardId);
+                    if (card) {
+                        displayCard(card);
+                        document.getElementById('draw-card').textContent = 'Card Already Drawn Today';
+                        document.getElementById('draw-card').disabled = true;
+                        document.getElementById('draw-card').style.opacity = '0.6';
+                        document.getElementById('draw-card').style.cursor = 'not-allowed';
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function displayCard(card) {
+            const cardImage = document.getElementById('card-image');
+            const cardMessage = document.getElementById('card-message');
+            
+            cardImage.src = card.image;
+            cardMessage.textContent = card.message;
+            cardMessage.style.animation = 'none';
+            setTimeout(() => {
+                cardMessage.style.animation = 'fadeInUp 0.5s ease-out';
+            }, 10);
+        }
+
+        function drawCard() {
+            const randomCard = cardData[Math.floor(Math.random() * cardData.length)];
+            
+            // Save to localStorage with today's date
+            const cardInfo = {
+                cardId: randomCard.id,
+                date: new Date().toDateString()
+            };
+            localStorage.setItem('starryjae_daily_card', JSON.stringify(cardInfo));
+            
+            // Track card draw in Klaviyo
+            if (window.klaviyo) {
+                window.klaviyo.push(['track', 'Drew Daily Cosmic Card', {
+                    'card_id': randomCard.id,
+                    'card_message': randomCard.message
+                }]);
+            }
+            
+            // Display the card
+            displayCard(randomCard);
+            
+            // Disable button
+            document.getElementById('draw-card').textContent = 'Card Already Drawn Today';
+            document.getElementById('draw-card').disabled = true;
+            document.getElementById('draw-card').style.opacity = '0.6';
+            document.getElementById('draw-card').style.cursor = 'not-allowed';
+        }
+
+        // Check on page load
+        checkDailyCard();
+
+        document.getElementById('draw-card')?.addEventListener('click', drawCard);
+
+        // === FEATURE 4: Local Storage Journal ===
+        let journalEntries = JSON.parse(localStorage.getItem('starryjae_journal') || '[]');
+
+        function saveEntry() {
+            const content = document.getElementById('journal-input').value;
+            if (!content.trim()) return;
+            
+            const entry = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                }),
+                content: content,
+                moonPhase: moonPhaseNames[moonPhase]
+            };
+            
+            journalEntries.unshift(entry);
+            localStorage.setItem('starryjae_journal', JSON.stringify(journalEntries));
+            
+            // Track journal entry in Klaviyo
+            if (window.klaviyo) {
+                window.klaviyo.push(['track', 'Created Journal Entry', {
+                    'moon_phase': moonPhaseNames[moonPhase],
+                    'entry_length': content.length,
+                    'total_entries': journalEntries.length
+                }]);
+            }
+            
+            document.getElementById('journal-input').value = '';
+            displayEntries();
+            
+            // Show success message
+            const btn = document.getElementById('save-entry');
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Saved!';
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 2000);
+        }
+
+        function displayEntries() {
+            const container = document.getElementById('journal-entries');
+            if (journalEntries.length === 0) {
+                container.innerHTML = '<p style="color: var(--gray); text-align: center; padding: 2rem;">No entries yet. Start journaling above!</p>';
+                return;
+            }
+            
+            container.innerHTML = journalEntries.slice(0, 5).map(entry => `
+                <div class="journal-entry">
+                    <div class="entry-header">
+                        <span class="entry-date">${entry.date}</span>
+                        <span class="entry-moon">${entry.moonPhase}</span>
+                    </div>
+                    <p class="entry-content">${entry.content}</p>
+                    <button class="delete-entry" onclick="deleteEntry(${entry.id})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        window.deleteEntry = function(id) {
+            if (confirm('Delete this entry?')) {
+                journalEntries = journalEntries.filter(e => e.id !== id);
+                localStorage.setItem('starryjae_journal', JSON.stringify(journalEntries));
+                displayEntries();
+            }
+        };
+
+        document.getElementById('save-entry')?.addEventListener('click', saveEntry);
+        document.getElementById('journal-input')?.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                saveEntry();
+            }
+        });
+
+        // Display entries on load
+        displayEntries();
+
+        // Update streak counter
+        function updateStreak() {
+            const today = new Date().toDateString();
+            const lastEntry = journalEntries.length > 0 ? new Date(journalEntries[0].date).toDateString() : null;
+            
+            if (journalEntries.length === 0) {
+                document.getElementById('streak-count').textContent = '0 days';
+                return;
+            }
+            
+            let streak = 1;
+            for (let i = 0; i < journalEntries.length - 1; i++) {
+                const date1 = new Date(journalEntries[i].date);
+                const date2 = new Date(journalEntries[i + 1].date);
+                const diffDays = Math.floor((date1 - date2) / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 1) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            document.getElementById('streak-count').textContent = `${streak} day${streak !== 1 ? 's' : ''}`;
+        }
+        
+        updateStreak();
+
+        // === FEATURE 7: Newsletter Signup with Klaviyo ===
+        document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            const submitBtn = document.querySelector('.newsletter-submit');
+            const originalText = submitBtn.textContent;
+            
+            try {
+                // Identify the user in Klaviyo
+                if (window.klaviyo) {
+                    await window.klaviyo.identify({
+                        email: email
+                    });
+                    
+                    // Track the newsletter signup event
+                    window.klaviyo.push(['track', 'Newsletter Signup', {
+                        'source': 'Starry Jae Homepage',
+                        'list': 'Cosmic Insights Newsletter'
+                    }]);
+                }
+                
+                // Show success message
+                submitBtn.textContent = '✓ Subscribed!';
+                submitBtn.style.background = 'linear-gradient(135deg, var(--accent), var(--teal))';
+                document.getElementById('newsletter-email').value = '';
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Newsletter signup error:', error);
+                submitBtn.textContent = 'Error - Try Again';
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                }, 3000);
+            }
+        });
+//Medium Widget
+const MEDIUM_FEED =
+  "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@starryjae";
+
+fetch(MEDIUM_FEED)
+  .then(res => res.json())
+  .then(data => {
+    const feed = document.getElementById("medium-feed");
+    if (!feed || !data.items || !data.items.length) {
+      feed.innerHTML = "<p style='color:var(--gray)'>No posts available.</p>";
+      return;
+    }
+
+    feed.innerHTML = data.items.slice(0, 3).map(post => {
+      const date = new Date(post.pubDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+
+      const image =
+        post.thumbnail ||
+        (post.enclosure && post.enclosure.link) ||
+        "";
+
+      const excerpt =
+        post.description.replace(/<[^>]*>/g, "").slice(0, 180) + "…";
+
+      return `
+        <article class="blog-post">
+          ${image ? `<img class="blog-image" src="${image}" alt="">` : ``}
+          <div class="blog-content">
+            <h3>${post.title}</h3>
+            <div class="blog-date">${date}</div>
+            <div class="blog-excerpt">${excerpt}</div>
+            <a href="${post.link}" target="_blank" rel="noopener">
+              Read on Medium →
+            </a>
+          </div>
+        </article>
+      `;
+    }).join("");
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("medium-feed").innerHTML =
+      "<p style='color:var(--gray)'>Unable to load posts.</p>";
+  });
+    </script>
 </body>
 </html>
