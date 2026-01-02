@@ -28,7 +28,7 @@ const PRODUCTS = [
             "eunchae-spaghetti.png",
             "kazuha-spaghetti.png"
         ]
-    }
+    },
     {
         id: 4,
         name: "You're My Sweet Potato",
@@ -38,7 +38,7 @@ const PRODUCTS = [
             "shepotato.png",
             "hepotato.png",
             "theypotato.png",
-             "iyam.png",
+            "iyam.png"
         ]
     }
 ];
@@ -66,7 +66,9 @@ PRODUCTS.forEach(product => {
         const thumb = document.createElement("img");
         thumb.className = "thumb";
         thumb.src = `assets/shop/${img}`;
-        thumb.onclick = () => mainImg.src = thumb.src;
+        thumb.onclick = () => {
+            mainImg.src = thumb.src;
+        };
         thumbs.appendChild(thumb);
     });
 
@@ -74,7 +76,10 @@ PRODUCTS.forEach(product => {
     wrapper.appendChild(thumbs);
 
     card.appendChild(wrapper);
-    card.innerHTML += `<h3>${product.name}</h3>`;
+
+    const title = document.createElement("h3");
+    title.textContent = product.name;
+    card.appendChild(title);
 
     if (product.type === "direct") {
         const link = document.createElement("a");
@@ -110,15 +115,32 @@ function updateWishlist() {
             : "Your wishlist is empty.";
 }
 
-/* ===== Modal ===== */
-const modal = document.getElementById("wishlist-modal");
+/* ===== Wishlist Modal ===== */
+const wishlistModal = document.getElementById("wishlist-modal");
 
 document.getElementById("wishlist-btn").onclick = () => {
-    modal.style.display = "flex";
+    wishlistModal.style.display = "flex";
 };
 
-modal.onclick = e => {
-    if (e.target === modal) modal.style.display = "none";
+wishlistModal.onclick = e => {
+    if (e.target === wishlistModal) wishlistModal.style.display = "none";
+};
+
+/* ===== How To Order Modal ===== */
+const howModal = document.getElementById("how-to-order-modal");
+const howBtn = document.getElementById("how-to-order-btn");
+const closeHowBtn = document.getElementById("close-how-to-order");
+
+howBtn.onclick = () => {
+    howModal.style.display = "flex";
+};
+
+closeHowBtn.onclick = () => {
+    howModal.style.display = "none";
+};
+
+howModal.onclick = e => {
+    if (e.target === howModal) howModal.style.display = "none";
 };
 
 /* ===== Mailto ===== */
