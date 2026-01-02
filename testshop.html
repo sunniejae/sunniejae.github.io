@@ -6,150 +6,213 @@
 <title>Sunnie Jae Shop</title>
 
 <style>
-/* ===== Etsy-style aesthetic ===== */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #fafafa;
-    color: #222;
-    margin: 0;
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
 }
 
+/* ===== Base ===== */
+body {
+    margin: 0;
+    font-family: "Trebuchet MS", Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--silver), var(--white));
+    color: var(--black);
+}
+
+/* ===== Header ===== */
 header {
-    padding: 20px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    padding: 18px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
-    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
 header h1 {
-    font-size: 1.5rem;
-    letter-spacing: 0.04em;
+    margin: 0;
+    font-size: 1.6rem;
+    letter-spacing: 0.14em;
+    color: var(--white);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 #wishlist-btn {
     position: relative;
+    font-size: 1.4rem;
     cursor: pointer;
-    font-size: 1.3rem;
+    color: var(--white);
 }
 
 #wishlist-count {
     position: absolute;
-    top: -6px;
+    top: -8px;
     right: -10px;
-    background: #e70705;
-    color: #fff;
+    background: var(--secondary);
+    color: var(--white);
     font-size: 0.7rem;
-    border-radius: 50%;
     padding: 2px 6px;
+    border-radius: 999px;
+    box-shadow: 0 0 0 2px var(--white);
 }
 
+/* ===== Grid ===== */
 main {
-    padding: 24px;
+    padding: 32px;
 }
 
-/* ===== Product Grid ===== */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 28px;
 }
 
 .product {
-    background: #fff;
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    background: linear-gradient(180deg, var(--white), var(--silver));
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 10px 24px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
+    transition: transform 0.2s ease;
 }
 
-.product img {
+.product:hover {
+    transform: translateY(-4px);
+}
+
+/* ===== Images ===== */
+.image-wrapper {
+    position: relative;
+}
+
+.main-image {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 14px;
+    background: var(--gray);
 }
 
+.thumbs {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.thumb {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    object-fit: cover;
+    cursor: pointer;
+    opacity: 0.7;
+    border: 1px solid var(--gray);
+}
+
+.thumb:hover {
+    opacity: 1;
+    border-color: var(--secondary);
+}
+
+/* ===== Text ===== */
 .product h3 {
-    font-size: 1rem;
-    margin: 10px 0 4px;
+    margin: 10px 0 6px;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
 }
 
-.product p {
-    font-size: 0.85rem;
-    color: #666;
-}
-
-.product button, .product a {
+/* ===== Buttons ===== */
+.product button,
+.product a {
     margin-top: auto;
     padding: 10px;
-    border-radius: 6px;
-    border: none;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     text-align: center;
-    font-size: 0.85rem;
+    border: none;
     cursor: pointer;
 }
 
 .direct {
-    background: #222;
-    color: #fff;
+    background: linear-gradient(90deg, var(--teal), var(--accent));
+    color: var(--white);
     text-decoration: none;
 }
 
 .exclusive {
-    background: #f3f3f3;
+    background: linear-gradient(90deg, var(--pink), var(--secondary));
+    color: var(--white);
 }
 
-/* ===== Wishlist Modal ===== */
+/* ===== Modal ===== */
 .modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.6);
     align-items: center;
     justify-content: center;
+    z-index: 20;
 }
 
 .modal-content {
-    background: #fff;
+    background: linear-gradient(180deg, var(--white), var(--silver));
+    border-radius: 20px;
+    padding: 24px;
     width: 90%;
-    max-width: 500px;
-    border-radius: 12px;
-    padding: 20px;
+    max-width: 480px;
 }
 
 .modal h2 {
     margin-top: 0;
+    letter-spacing: 0.18em;
 }
 
 .wishlist-items {
-    font-size: 0.85rem;
-    margin-bottom: 16px;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 14px;
 }
 
 label {
     display: block;
+    font-size: 0.75rem;
     margin-top: 10px;
-    font-size: 0.85rem;
 }
 
 input[type="text"],
 input[type="email"] {
     width: 100%;
     padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--gray);
     margin-top: 4px;
 }
 
 .modal button {
-    margin-top: 14px;
+    margin-top: 16px;
     width: 100%;
     padding: 12px;
-    background: #e70705;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: var(--white);
+    letter-spacing: 0.16em;
 }
 </style>
 </head>
@@ -157,10 +220,9 @@ input[type="email"] {
 <body>
 
 <header>
-    <h1>Sunnie Jae</h1>
+    <h1>SUNNIE JAE</h1>
     <div id="wishlist-btn">
-        ♡
-        <span id="wishlist-count">0</span>
+        ♡ <span id="wishlist-count">0</span>
     </div>
 </header>
 
@@ -168,11 +230,9 @@ input[type="email"] {
     <section class="grid" id="product-grid"></section>
 </main>
 
-<!-- Wishlist Modal -->
 <div class="modal" id="wishlist-modal">
     <div class="modal-content">
-        <h2>Your Wishlist</h2>
-
+        <h2>YOUR WISHLIST</h2>
         <div class="wishlist-items" id="wishlist-items"></div>
 
         <label>Name
@@ -188,7 +248,7 @@ input[type="email"] {
             Subscribe to emails from Sunnie Jae
         </label>
 
-        <button id="request-order">Request Order</button>
+        <button id="request-order">REQUEST ORDER</button>
     </div>
 </div>
 
