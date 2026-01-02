@@ -4,9 +4,9 @@ const PRODUCTS = [
         name: "Starry Jae 2026 Astrology Guide",
         type: "exclusive",
         images: [
-            "/assets/journal261.png",
-            "/assets/journal262.png",
-            "/assets/journal263.png"
+            "journal261.png",
+            "journal262.png",
+            "journal263.png"
         ]
     },
     {
@@ -15,8 +15,8 @@ const PRODUCTS = [
         type: "direct",
         link: "https://www.amazon.com/dp/B0GB5KCGRJ/ref=cm_sw_r_as_gl_api_gl_i_37AMD81Q5NM3DDZKJWDZ?linkCode=ml1&tag=jaymeallen-20&linkId=bec1e7eed538f1329d0eb4111770f143",
         images: [
-            "/assets/goingmental.png",
-            "/assets/goingmental2.png"
+            "goingmental.png",
+            "goingmental2.png"
         ]
     },
     {
@@ -25,8 +25,8 @@ const PRODUCTS = [
         type: "direct",
         link: "https://www.redbubble.com/people/sunniejae/shop?artistUserName=SunnieJae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling",
         images: [
-            "/kpop/assets/spaghetti-EUNCHAE.png",
-            "/kpop/assets/spaghetti-KAZUHA.png"
+            "spaghetti-EUNCHAE.png",
+            "spaghetti-KAZUHA.png"
         ]
     },
     {
@@ -35,10 +35,10 @@ const PRODUCTS = [
         type: "direct",
         link: "https://www.redbubble.com/people/sunniejae/shop?artistUserName=SunnieJae&collections=4428320&iaCode=all-departments&sortOrder=top%20selling",
         images: [
-            "/assets/shepotato.png",
-            "/assets/hepotato.png",
-            "/assets/theypotato.png",
-            "/assets/iyam.png"
+            "shepotato.png",
+            "hepotato.png",
+            "theypotato.png",
+            "iyam.png"
         ]
     }
 ];
