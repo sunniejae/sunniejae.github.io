@@ -1,132 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunnie Jae Creates</title>
-    <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunnie Jae Creates</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
 
-    <style>
-        :root {
-            --black: #000010;
-            --white: #ffffff;
-            --dark-gray: #404040;
-            --gray: #bfbfdc;
-            --silver: #f0f0f5;
-            --pink: #ffb3d6;
-            --teal: #00a8a3;
-            --dark-purple: #3f3d7a;
-            --accent: #00c9c2;
-            --secondary: #c13886;
-            --primary: #9a9ad4;
-        }
+<style>
+:root {
+    --black: #000010;
+    --white: #ffffff;
+    --dark-gray: #404040;
+    --gray: #bfbfdc;
+    --silver: #f0f0f5;
+    --pink: #ffb3d6;
+    --teal: #00a8a3;
+    --dark-purple: #3f3d7a;
+    --accent: #00c9c2;
+    --secondary: #c13886;
+    --primary: #9a9ad4;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: Tahoma, sans-serif;
-            background: var(--black)
-                url('https://sunniejae.blob.core.windows.net/sunniejae/muted background.png')
-                no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh;
-            overflow: hidden;
-            user-select: none;
-        }
+body {
+    font-family: Tahoma, sans-serif;
+    background: var(--black) url('assets/background.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+}
 
-        /* ================= DESKTOP ICON GRID ================= */
-        .desktop {
-            height: calc(100vh - 50px);
-            padding: 20px;
+/* ================= DESKTOP ================= */
+.desktop {
+    height: calc(100vh - 50px);
+    padding: 20px;
 
-            display: grid;
-            grid-auto-flow: column;                 /* ⬅ fills down, then right */
-            grid-auto-rows: 100px;                  /* vertical spacing */
-            grid-template-rows: repeat(auto-fill, 100px);
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-rows: 90px;
+    grid-template-rows: repeat(auto-fill, 90px);
 
-            gap: 10px 24px;                         /* row gap | column gap */
-            align-content: start;
-        }
+    gap: 8px 10px;          /* ⬅ tighter columns */
+    align-content: start;
+}
 
-        .desktop-icon {
-            width: 80px;
-            height: 80px;
+.desktop-icon {
+    width: 72px;
+    height: 72px;
 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-        }
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+}
 
-        .desktop-icon:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+.desktop-icon:hover {
+    background-color: rgba(255,255,255,0.1);
+}
 
-        .desktop-icon img {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 4px;
-        }
+.desktop-icon img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 4px;
+}
 
-        .desktop-icon span {
-            color: var(--white);
-            font-size: 11px;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-            line-height: 1.2;
-        }
+.desktop-icon span {
+    color: var(--white);
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
 
-        /* ================= TASKBAR ================= */
-        .taskbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border-top: 2px outset var(--gray);
-            display: flex;
-            align-items: center;
-            padding: 0 8px;
-            z-index: 1000;
-        }
+/* ================= TASKBAR ================= */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--silver), var(--gray));
+    border-top: 2px outset var(--gray);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    z-index: 1000;
+}
 
-        .start-button {
-            background: linear-gradient(to bottom, var(--silver), var(--gray));
-            border: 2px outset var(--gray);
-            font-weight: bold;
-            padding: 6px 12px;
-            cursor: pointer;
-            margin-right: 8px;
-            font-size: 13px;
-        }
+.start-button {
+    background: linear-gradient(to bottom, var(--silver), var(--gray));
+    border: 2px outset var(--gray);
+    font-weight: bold;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-right: 8px;
+    font-size: 13px;
+}
 
-        .start-button:hover {
-            background: linear-gradient(to bottom, var(--white), var(--gray));
-        }
+.taskbar-buttons {
+    flex: 1;
+    display: flex;
+    gap: 4px;
+}
 
-        .taskbar-buttons {
-            flex: 1;
-            display: flex;
-            gap: 4px;
-        }
-
-        .clock {
-            font-size: 11px;
-            padding: 4px 8px;
-            background: var(--silver);
-            border: 1px inset var(--gray);
-        }
-    </style>
+.clock {
+    font-size: 11px;
+    padding: 4px 8px;
+    background: var(--silver);
+    border: 1px inset var(--gray);
+}
+</style>
 </head>
 
 <body>
@@ -135,41 +128,40 @@
 <div class="desktop">
 
     <div class="desktop-icon" data-target="recycle">
-        <img src="https://imgur.com/xAlFvpi.png">
+        <img src="assets/recycle.png" alt="Recycle">
         <span>Recycle</span>
     </div>
 
     <div class="desktop-icon" data-target="documents">
-        <img src="https://imgur.com/Igoe1nl.png">
+        <img src="assets/folder.png" alt="Documents">
         <span>Documents</span>
     </div>
 
     <div class="desktop-icon" data-target="photos">
-        <img src="https://imgur.com/Igoe1nl.png">
+        <img src="assets/photos.png" alt="Photos">
         <span>Photos</span>
     </div>
 
     <div class="desktop-icon" data-target="videos">
-        <img src="https://imgur.com/6ECTKrH.png">
+        <img src="assets/videos.png" alt="Videos">
         <span>Videos</span>
     </div>
 
     <div class="desktop-icon" data-target="browser">
-        <img src="https://imgur.com/wj4vQ1N.png">
+        <img src="assets/browser.png" alt="Browser">
         <span>Browser</span>
     </div>
 
     <div class="desktop-icon" data-target="summer2005">
-        <img src="https://imgur.com/Igoe1nl.png">
+        <img src="assets/folder.png" alt="Summer 2005">
         <span>Summer 2005</span>
     </div>
 
     <div class="desktop-icon" data-target="astro">
-        <img src="https://imgur.com/mHhjBOl.png">
+        <img src="assets/astrology.png" alt="Astrology">
         <span>Astrology</span>
     </div>
 
-    <!-- ADD MORE ICONS HERE — THEY AUTO-FLOW RIGHT -->
 </div>
 
 <!-- ================= TASKBAR ================= -->
@@ -180,13 +172,30 @@
 </div>
 
 <script>
-    function updateClock(){
-        const now = new Date();
-        document.getElementById('clock').textContent =
-            now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-    }
-    updateClock();
-    setInterval(updateClock, 1000);
+function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+        now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// Desktop icon navigation
+document.querySelectorAll('.desktop-icon').forEach(icon => {
+    icon.addEventListener('click', () => {
+        const target = icon.dataset.target;
+        const links = {
+            recycle: 'kpop/home.html',
+            documents: 'portfolio/writing.html',
+            photos: 'portfolio/graphic-design.html',
+            videos: 'portfolio/videos.html',
+            browser: 'testshop.html',
+            summer2005: 'scrapbook/summer05.html',
+            astro: 'astro/club.html'
+        };
+        if (links[target]) window.open(links[target], '_blank');
+    });
+});
 </script>
 
 </body>
