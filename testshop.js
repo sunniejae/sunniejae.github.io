@@ -1,77 +1,101 @@
-/* ===== Product Data ===== */
 const PRODUCTS = [
     {
         id: 1,
         name: "Capricorn Ritual Guide",
-        description: "Printable digital guide",
-        image: "assets/capricorn.png",
-        type: "exclusive"
+        type: "exclusive",
+        images: [
+            "Capricorn Ritual Guide-1.png",
+            "Capricorn Ritual Guide-2.png",
+            "Capricorn Ritual Guide-3.png"
+        ]
     },
     {
         id: 2,
         name: "Astrology Planner",
-        description: "Available on Amazon",
-        image: "assets/planner.png",
         type: "direct",
-        link: "https://amazon.com"
+        link: "https://amazon.com",
+        images: [
+            "Astrology Planner-1.png",
+            "Astrology Planner-2.png"
+        ]
     },
     {
         id: 3,
         name: "Zodiac Art Print",
-        description: "Redbubble exclusive",
-        image: "assets/print.png",
         type: "direct",
-        link: "https://redbubble.com"
+        link: "https://redbubble.com",
+        images: [
+            "Zodiac Art Print-1.png",
+            "Zodiac Art Print-2.png"
+        ]
     }
 ];
 
 let wishlist = [];
 
-/* ===== Render Products ===== */
 const grid = document.getElementById("product-grid");
 
+/* ===== Render Products ===== */
 PRODUCTS.forEach(product => {
-    const div = document.createElement("div");
-    div.className = "product";
+    const card = document.createElement("div");
+    card.className = "product";
 
-    div.innerHTML = `
-        <img src="${product.image}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p>${product.description}</p>
-    `;
+    const wrapper = document.createElement("div");
+    wrapper.className = "image-wrapper";
+
+    const mainImg = document.createElement("img");
+    mainImg.className = "main-image";
+    mainImg.src = `assets/shop/${product.images[0]}`;
+
+    const thumbs = document.createElement("div");
+    thumbs.className = "thumbs";
+
+    product.images.forEach(img => {
+        const thumb = document.createElement("img");
+        thumb.className = "thumb";
+        thumb.src = `assets/shop/${img}`;
+        thumb.onclick = () => mainImg.src = thumb.src;
+        thumbs.appendChild(thumb);
+    });
+
+    wrapper.appendChild(mainImg);
+    wrapper.appendChild(thumbs);
+
+    card.appendChild(wrapper);
+    card.innerHTML += `<h3>${product.name}</h3>`;
 
     if (product.type === "direct") {
         const link = document.createElement("a");
         link.href = product.link;
         link.target = "_blank";
         link.className = "direct";
-        link.textContent = "Buy Now";
-        div.appendChild(link);
+        link.textContent = "BUY NOW";
+        card.appendChild(link);
     } else {
         const btn = document.createElement("button");
         btn.className = "exclusive";
-        btn.textContent = "Add to Wishlist";
+        btn.textContent = "ADD TO WISHLIST";
         btn.onclick = () => addToWishlist(product);
-        div.appendChild(btn);
+        card.appendChild(btn);
     }
 
-    grid.appendChild(div);
+    grid.appendChild(card);
 });
 
-/* ===== Wishlist Logic ===== */
+/* ===== Wishlist ===== */
 function addToWishlist(product) {
-    if (!wishlist.find(item => item.id === product.id)) {
+    if (!wishlist.find(p => p.id === product.id)) {
         wishlist.push(product);
-        updateWishlistUI();
+        updateWishlist();
     }
 }
 
-function updateWishlistUI() {
+function updateWishlist() {
     document.getElementById("wishlist-count").textContent = wishlist.length;
-
-    const list = wishlist.map(item => `• ${item.name}`).join("<br>");
     document.getElementById("wishlist-items").innerHTML =
-        wishlist.length ? list : "Your wishlist is empty.";
+        wishlist.length
+            ? wishlist.map(p => `✦ ${p.name}`).join("<br>")
+            : "Your wishlist is empty.";
 }
 
 /* ===== Modal ===== */
@@ -85,24 +109,23 @@ modal.onclick = e => {
     if (e.target === modal) modal.style.display = "none";
 };
 
-/* ===== Mailto Request ===== */
+/* ===== Mailto ===== */
 document.getElementById("request-order").onclick = () => {
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const subscribe = document.getElementById("subscribe").checked ? "Yes" : "No";
 
-    const wishlistText = wishlist.map(item => `- ${item.name}`).join("%0D%0A");
+    const wishlistText = wishlist.map(p => `- ${p.name}`).join("\n");
 
-    const body =
-`Name: ${name}
+    const body = `
+Name: ${name}
 Email: ${email}
 Subscribe to Emails: ${subscribe}
 
 Wishlist:
-${wishlistText}`;
+${wishlistText}
+`;
 
     window.location.href =
-`mailto:orders@sunniejae.com
-?subject=SUNNIE%20JAE%20SHOP%20ORDER
-&body=${encodeURIComponent(body)}`;
+        `mailto:orders@sunniejae.com?subject=SUNNIE%20JAE%20SHOP%20ORDER&body=${encodeURIComponent(body)}`;
 };
