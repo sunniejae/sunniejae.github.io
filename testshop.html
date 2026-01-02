@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
+
 <title>Sunnie Jae Shop</title>
 
 <style>
@@ -19,11 +20,14 @@
     --secondary: #c13886;
     --primary: #9a9ad4;
 }
-
+<!-- ================= CUSTOM FONTS ================= -->
+@font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
+@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.otf') format('truetype'); }
+@font-face { font-family: 'Astro4'; src: url('Astro4-Regular.ttf') format('truetype'); }
 /* ===== Base ===== */
 body {
     margin: 0;
-    font-family: "Trebuchet MS", Verdana, sans-serif;
+    font-family: 'Jaewriting', Verdana, sans-serif;
     background: linear-gradient(135deg, var(--silver), var(--white));
     color: var(--black);
 }
@@ -44,6 +48,7 @@ header h1 {
     letter-spacing: 0.14em;
     color: var(--white);
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Jaewriting'
 }
 
 #wishlist-btn {
