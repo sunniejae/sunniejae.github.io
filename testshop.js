@@ -1,32 +1,44 @@
 const PRODUCTS = [
     {
         id: 1,
-        name: "Capricorn Ritual Guide",
+        name: "Starry Jae 2026 Astrology Guide",
         type: "exclusive",
         images: [
-            "Capricorn Ritual Guide-1.png",
-            "Capricorn Ritual Guide-2.png",
-            "Capricorn Ritual Guide-3.png"
+            "journal261.png",
+            "journal262.png",
+            "journal263.png"
         ]
     },
     {
         id: 2,
-        name: "Astrology Planner",
+        name: "Going Mental: A Tour Through the Mind of a Girl Named Lisa",
         type: "direct",
-        link: "https://amazon.com",
+        link: "https://www.amazon.com/dp/B0GB5KCGRJ/ref=cm_sw_r_as_gl_api_gl_i_37AMD81Q5NM3DDZKJWDZ?linkCode=ml1&tag=jaymeallen-20&linkId=bec1e7eed538f1329d0eb4111770f143",
         images: [
-            "Astrology Planner-1.png",
-            "Astrology Planner-2.png"
+            "goingmental.png",
+            "goingmental2.png"
         ]
     },
     {
         id: 3,
-        name: "Zodiac Art Print",
+        name: "Le Sserafim Spaghetti Era",
         type: "direct",
-        link: "https://redbubble.com",
+        link: "https://www.redbubble.com/people/sunniejae/shop?artistUserName=SunnieJae&collections=4422838&iaCode=all-departments&sortOrder=top%20selling",
         images: [
-            "Zodiac Art Print-1.png",
-            "Zodiac Art Print-2.png"
+            "eunchae-spaghetti.png",
+            "kazuha-spaghetti.png"
+        ]
+    }
+    {
+        id: 4,
+        name: "You're My Sweet Potato",
+        type: "direct",
+        link: "https://www.redbubble.com/people/sunniejae/shop?artistUserName=SunnieJae&collections=4428320&iaCode=all-departments&sortOrder=top%20selling",
+        images: [
+            "shepotato.png",
+            "hepotato.png",
+            "theypotato.png",
+             "iyam.png",
         ]
     }
 ];
