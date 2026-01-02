@@ -4,7 +4,7 @@ const PRODUCTS = [
         name: "Starry Jae 2026 Astrology Guide",
         type: "exclusive",
         images: [
-            "journal261.png",
+            "comingsoon.png",
             "journal262.png",
             "journal263.png"
         ]
