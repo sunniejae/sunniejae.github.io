@@ -214,6 +214,40 @@ input[type="email"] {
     color: var(--white);
     letter-spacing: 0.16em;
 }
+    .order-steps {
+    padding-left: 18px;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+.order-steps li {
+    margin-bottom: 6px;
+}
+
+.order-note {
+    font-size: 0.75rem;
+    background: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+#close-how-to-order {
+    width: 100%;
+    padding: 12px;
+    border-radius: 999px;
+    background: linear-gradient(
+        90deg,
+        var(--pink),
+        var(--secondary)
+    );
+    color: var(--white);
+    border: none;
+    letter-spacing: 0.16em;
+    cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -221,6 +255,17 @@ input[type="email"] {
 
 <header>
     <h1>SUNNIE JAE</h1>
+    <button id="how-to-order-btn" style="
+    background: none;
+    border: none;
+    color: white;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+">
+    HOW TO ORDER
+</button>
+
     <div id="wishlist-btn">
         ♡ <span id="wishlist-count">0</span>
     </div>
@@ -249,6 +294,25 @@ input[type="email"] {
         </label>
 
         <button id="request-order">REQUEST ORDER</button>
+    </div>
+</div>
+<div class="modal" id="how-to-order-modal">
+    <div class="modal-content">
+        <h2>HOW TO ORDER ✦</h2>
+
+        <ol class="order-steps">
+            <li>Browse the shop and add exclusive items to your wishlist.</li>
+            <li>Click the ♡ wishlist icon to review your selections.</li>
+            <li>Enter your name and email.</li>
+            <li>Click <strong>Request Order</strong> to send your wishlist.</li>
+            <li>You’ll receive next steps from Sunnie Jae 💌</li>
+        </ol>
+
+        <p class="order-note">
+            Direct items will take you straight to Amazon, Apple Books, or Redbubble.
+        </p>
+
+        <button id="close-how-to-order">GOT IT ✨</button>
     </div>
 </div>
 
