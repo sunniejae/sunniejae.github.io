@@ -83,12 +83,54 @@ h2{
   grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
   gap:1rem
 }
-.sign-btn{
-  padding:1rem;border-radius:50px;
-  background:rgba(154,154,212,.2);
-  text-align:center;text-decoration:none;
-  font-family:'Astro';color:var(--black)
+
+  .sign-btn[data-sign="Aries"]:hover{
+  background:#ff5c7c;
 }
+.sign-btn[data-sign="Taurus"]:hover{
+  background:#7fbf9c;
+}
+.sign-btn[data-sign="Gemini"]:hover{
+  background:#ffd27d;
+}
+.sign-btn[data-sign="Cancer"]:hover{
+  background:#9fb4ff;
+}
+.sign-btn[data-sign="Leo"]:hover{
+  background:#ffb347;
+}
+.sign-btn[data-sign="Virgo"]:hover{
+  background:#b8d8c1;
+}
+.sign-btn[data-sign="Libra"]:hover{
+  background:#ff9acb;
+}
+.sign-btn[data-sign="Scorpio"]:hover{
+  background:#b03a78;
+}
+.sign-btn[data-sign="Sagittarius"]:hover{
+  background:#ff8f6b;
+}
+.sign-btn[data-sign="Capricorn"]:hover{
+  background:#8b6b5e;
+}
+.sign-btn[data-sign="Aquarius"]:hover{
+  background:#7fe3e0;
+}
+.sign-btn[data-sign="Pisces"]:hover{
+  background:#c7b5ff;
+}
+.sign-btn{
+  padding:1rem;
+  border-radius:50px;
+  background:rgba(154,154,212,.15);
+  text-align:center;
+  text-decoration:none;
+  font-family:'Astro';
+  color:var(--silver);
+  transition:background .3s ease, box-shadow .3s ease, transform .2s ease;
+}
+
 
 .tarot-display{text-align:center}
 .tarot-card-img{max-width:280px;border-radius:15px}
