@@ -1,0 +1,259 @@
+/* =========================================================
+   STAR SIGN WIKI — GLOBAL BASE CSS
+   ========================================================= */
+
+/* ================= FONTS ================= */
+@font-face { font-family: 'Starbim'; src: url('Starbim.ttf'); }
+@font-face { font-family: 'FUNKHOUS'; src: url('FUNKHOUS.ttf'); }
+@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.otf'); }
+@font-face { font-family: 'Astro4'; src: url('Astro4-Regular.ttf'); }
+
+/* ================= ROOT ================= */
+:root {
+  --primary:#666;
+  --accent:#999;
+  --accent-dark:#333;
+  --light:#f9f9f9;
+  --dark:#111;
+
+  --display-font:'Starbim';
+  --bg-texture:none;
+  --glow-opacity:0.25;
+  --anim-speed:120s;
+}
+
+/* ================= THEME MODES ================= */
+:root[data-moon="dreamer"] {
+  --display-font:'Starbim';
+  --glow-opacity:0.25;
+  --anim-speed:140s;
+}
+
+:root[data-moon="diva"] {
+  --display-font:'FUNKHOUS';
+  --glow-opacity:0.55;
+  --anim-speed:45s;
+}
+
+/* ================= BACKGROUND ANIMATION ================= */
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,var(--glow-opacity)) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,var(--glow-opacity)) 0%, transparent 45%);
+  animation:floatGlow var(--anim-speed) linear infinite;
+  z-index:0;
+}
+
+@keyframes floatGlow {
+  0% {background-position:0% 0%,100% 100%;}
+  50% {background-position:100% 50%,0% 50%;}
+  100% {background-position:0% 0%,100% 100%;}
+}
+
+/* ================= GLOBAL ================= */
+body {
+  margin:0;
+  padding:20px;
+  background:var(--dark);
+  color:var(--light);
+  font-family:'Jaewriting', serif;
+}
+
+#wiki-frame {
+  max-width:960px;
+  margin:auto;
+  background:var(--dark);
+  border:4px ridge var(--accent);
+  padding:12px;
+  position:relative;
+  z-index:1;
+}
+
+/* ===============================
+   SITE HEADER
+================================ */
+
+.site-header {
+  margin-bottom: 10px;
+  border: 4px ridge var(--accent);
+  background: linear-gradient(
+    to right,
+    var(--primary),
+    var(--accent-dark)
+  );
+}
+
+.header-inner {
+  max-width: 960px;
+  margin: auto;
+  display: table;
+  width: 100%;
+  padding: 6px 10px;
+  color: var(--light);
+}
+
+/* LOGO */
+.header-logo {
+  display: table-cell;
+  vertical-align: middle;
+  width: 48px;
+}
+
+.header-logo img {
+  max-width: 40px;
+  border: 2px inset var(--accent);
+  background: var(--light);
+}
+
+/* BRAND NAME */
+.header-brand {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 10px;
+  font-family: var(--display-font);
+  font-size: 1.2rem;
+}
+
+.header-brand a {
+  color: var(--light);
+  text-decoration: none;
+  text-shadow: 2px 2px var(--dark);
+}
+
+/* NAV */
+.header-nav {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.header-nav a {
+  font-family: var(--display-font);
+  font-size: 0.85rem;
+  margin: 0 8px;
+  color: var(--light);
+  text-decoration: none;
+  border-bottom: 2px dotted transparent;
+}
+
+.header-nav a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* THEME TOGGLE */
+.site-header .theme-toggle {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ================= MARQUEE ================= */
+marquee {
+  font-family:var(--display-font);
+  background:linear-gradient(to right,var(--primary),var(--accent-dark));
+  color:#fff;
+  padding:6px;
+  border:2px inset var(--accent);
+  margin-bottom:8px;
+}
+
+/* ================= TABLE ================= */
+table { width:100%; border-collapse:collapse; }
+td { vertical-align:top; padding:8px; }
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width:280px;
+  background:var(--accent);
+  border:3px inset var(--primary);
+}
+
+.sidebar-box {
+  background:#111;
+  border:2px groove var(--primary);
+  padding:6px;
+  margin-bottom:10px;
+}
+
+.sidebar-box h3 {
+  font-family:var(--display-font);
+  background:var(--primary);
+  color:#000;
+  margin:0 0 6px;
+  padding:4px;
+  text-align:center;
+}
+
+/* ================= CONTENT ================= */
+.content {
+  background:var(--light);
+  color:#000;
+  border:3px inset var(--primary);
+}
+
+.content-box {
+  border:2px solid var(--accent);
+  margin-bottom:14px;
+  background:#fff;
+}
+
+.content-box h2 {
+  font-family:var(--display-font);
+  margin:0;
+  padding:6px;
+  background:linear-gradient(to right,var(--primary),var(--accent-dark));
+  color:#fff;
+}
+
+.inner { padding:10px; line-height:1.8; }
+
+/* ================= GLYPHS ================= */
+.glyph, .astro {
+  font-family:'Astro4';
+  font-size:1.8em;
+  color:var(--primary);
+}
+
+/* ================= NAV BUTTONS ================= */
+.sign-nav a {
+  --btn-color:var(--primary);
+  display:inline-block;
+  margin:2px;
+  padding:6px 12px;
+  background:var(--btn-color);
+  color:#fff;
+  font-family:var(--display-font);
+  border:2px solid #000;
+  border-radius:18px;
+  box-shadow:3px 3px 0 #000;
+  text-decoration:none;
+  transition:0.1s;
+}
+
+.sign-nav a:hover {
+  transform:translate(2px,2px);
+  box-shadow:1px 1px 0 #000;
+}
+
+/* ================= THEME TOGGLE ================= */
+.theme-toggle {
+  font-family:var(--display-font);
+  font-size:11px;
+  padding:6px 14px;
+  margin-top:8px;
+  background:linear-gradient(to right,var(--primary),var(--accent));
+  color:#000;
+  border:2px solid #000;
+  border-radius:20px;
+  cursor:pointer;
+  box-shadow:2px 2px 0 #000;
+}
+.theme-toggle:hover {
+  transform:translate(2px,2px);
+  box-shadow:0 0 0 #000;
+}
