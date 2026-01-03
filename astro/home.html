@@ -8,114 +8,95 @@
 <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
 
 <style>
-/* ================= ROOT VARIABLES ================= */
 :root {
-  --black: #000010;
-  --white: #ffffff;
-  --dark-gray: #404040;
-  --gray: #bfbfdc;
-  --silver: #f0f0f5;
-  --pink: #ffb3d6;
-  --teal: #00a8a3;
-  --dark-purple: #3f3d7a;
-  --accent: #00c9c2;
-  --secondary: #c13886;
-  --primary: #9a9ad4;
-}
-
-/* ================= FONTS ================= */
-@font-face {
-  font-family: 'Jaewriting';
-  src: url('Jaewriting-Regular.ttf') format('truetype');
+  --black:#000010;
+  --silver:#f0f0f5;
+  --gray:#bfbfdc;
+  --primary:#9a9ad4;
+  --accent:#00c9c2;
 }
 
 @font-face {
-  font-family: 'Milky';
-  src: url('tan-mon-cheri.woff') format('truetype');
+  font-family:'Milky';
+  src:url('tan-mon-cheri.woff') format('woff');
 }
 
-/* ================= BASE STYLES ================= */
 body {
-  margin: 0;
-  background: var(--black);
-  color: var(--silver);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  margin:0;
+  background:var(--black);
+  color:var(--silver);
+  font-family:system-ui,sans-serif;
 }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--pink);
-}
-
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-}
-
-/* ================= NAV ================= */
 nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.2rem 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display:flex;
+  justify-content:space-between;
+  padding:1.2rem 1.5rem;
+  border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 nav .logo {
-  font-family: 'Milky', serif;
-  font-size: 1.4rem;
-  color: var(--primary);
+  font-family:'Milky',serif;
+  font-size:1.4rem;
+  color:var(--primary);
 }
 
-nav .links a {
-  margin-left: 1.2rem;
-  font-size: 0.9rem;
+nav a {
+  margin-left:1rem;
+  color:var(--accent);
+  text-decoration:none;
+  font-size:0.9rem;
 }
 
-/* ================= CARD ================= */
+.container {
+  max-width:1000px;
+  margin:0 auto;
+  padding:2rem 1.5rem;
+}
+
 .card {
-  background: linear-gradient(
-    180deg,
-    rgba(63,61,122,0.6),
-    rgba(26,27,58,0.9)
-  );
-  border-radius: 20px;
-  padding: 2.2rem;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  background:linear-gradient(180deg,#3f3d7a,#1a1b3a);
+  border-radius:20px;
+  padding:2rem;
+  margin-bottom:2rem;
 }
 
 .card h2 {
-  font-family: 'Milky', serif;
-  font-size: 2rem;
-  margin: 0 0 1rem;
-  color: var(--white);
+  font-family:'Milky',serif;
+  margin-top:0;
 }
 
-/* ================= TRANSITS ================= */
-.transit-message {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-top: 0.5rem;
+.transit {
+  margin-bottom:1.5rem;
+  padding-bottom:1.2rem;
+  border-bottom:1px dashed rgba(255,255,255,0.15);
 }
 
-.transit-meta {
-  margin-top: 1.2rem;
-  font-size: 0.8rem;
-  color: var(--gray);
+.label {
+  color:var(--primary);
+  font-weight:600;
 }
 
-.tag {
-  display: inline-block;
-  margin-right: 0.5rem;
-  margin-top: 0.3rem;
-  padding: 0.25rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.08);
+/* SIGN BUTTONS */
+.sign-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:0.6rem;
+  margin-top:1rem;
+}
+
+.sign-btn {
+  background:rgba(255,255,255,0.08);
+  border-radius:999px;
+  padding:0.4rem 0.6rem;
+  text-align:center;
+  font-size:0.85rem;
+  color:var(--silver);
+  text-decoration:none;
+}
+
+.sign-btn:hover {
+  background:rgba(255,255,255,0.18);
 }
 </style>
 </head>
@@ -124,10 +105,10 @@ nav .links a {
 
 <nav>
   <div class="logo">Starry Jae</div>
-  <div class="links">
+  <div>
     <a href="astro/sign.html">Sign Wikis</a>
     <a href="https://244738582.hs-sites-na2.com/starryjae/january-2026">Astrology Blog</a>
-    <a href="index.html">SunnieJae Home</a>
+    <a href="index.html">Home</a>
     <a href="shop/home.html">Shop</a>
   </div>
 </nav>
@@ -136,8 +117,25 @@ nav .links a {
 
   <div class="card">
     <h2>Today’s Transits</h2>
-    <div class="transit-message" id="message"></div>
-    <div class="transit-meta" id="meta"></div>
+    <div id="transits"></div>
+  </div>
+
+  <div class="card">
+    <h2>Explore Your Sign</h2>
+    <div class="sign-grid">
+      <a class="sign-btn" href="astro/aries.html">♈ Aries</a>
+      <a class="sign-btn" href="astro/taurus.html">♉ Taurus</a>
+      <a class="sign-btn" href="astro/gemini.html">♊ Gemini</a>
+      <a class="sign-btn" href="astro/cancer.html">♋ Cancer</a>
+      <a class="sign-btn" href="astro/leo.html">♌ Leo</a>
+      <a class="sign-btn" href="astro/virgo.html">♍ Virgo</a>
+      <a class="sign-btn" href="astro/libra.html">♎ Libra</a>
+      <a class="sign-btn" href="astro/scorpio.html">♏ Scorpio</a>
+      <a class="sign-btn" href="astro/sagittarius.html">♐ Sagittarius</a>
+      <a class="sign-btn" href="astro/capricorn.html">♑ Capricorn</a>
+      <a class="sign-btn" href="astro/aquarius.html">♒ Aquarius</a>
+      <a class="sign-btn" href="astro/pisces.html">♓ Pisces</a>
+    </div>
   </div>
 
 </div>
@@ -145,85 +143,91 @@ nav .links a {
 <script>
 /* ================= PLANET DATA ================= */
 
-const planets = {
-  Sun:    { lon: 280, speed: 0.9856, domain: ["identity","purpose"] },
-  Moon:   { lon: 90,  speed: 13.176, domain: ["emotions","needs"] },
-  Mercury:{ lon: 270, speed: 1.2, domain: ["communication","thinking"] },
-  Venus:  { lon: 275, speed: 1.2, domain: ["love","values"] },
-  Mars:   { lon: 260, speed: 0.5, domain: ["action","desire"] },
-  Jupiter:{ lon: 100, speed: 0.083, domain: ["growth","beliefs"] },
-  Saturn: { lon: 330, speed: 0.033, domain: ["structure","responsibility"] },
-  Uranus: { lon: 50,  speed: 0.012, domain: ["change","freedom"] },
-  Neptune:{ lon: 355, speed: 0.006, domain: ["dreams","illusion"] },
-  Pluto:  { lon: 300, speed: 0.004, domain: ["power","transformation"] }
+const planets={
+ Sun:{lon:280,speed:0.9856,domain:"identity"},
+ Moon:{lon:90,speed:13.176,domain:"emotions"},
+ Mercury:{lon:270,speed:-1.2,domain:"communication"},
+ Venus:{lon:275,speed:1.2,domain:"love"},
+ Mars:{lon:260,speed:0.5,domain:"action"},
+ Jupiter:{lon:100,speed:-0.083,domain:"growth"},
+ Saturn:{lon:330,speed:0.033,domain:"structure"},
+ Uranus:{lon:50,speed:-0.012,domain:"change"},
+ Neptune:{lon:355,speed:0.006,domain:"dreams"},
+ Pluto:{lon:300,speed:0.004,domain:"transformation"},
+ Chiron:{lon:15,speed:0.01,domain:"healing"},
+ Node:{lon:350,speed:-0.003,domain:"destiny"}
 };
 
-const refDate = new Date("2026-01-01");
-const today = new Date();
-const daysElapsed = Math.floor((today - refDate) / 86400000);
+const ref=new Date("2026-01-01");
+const today=new Date();
+const days=Math.floor((today-ref)/86400000);
 
-Object.values(planets).forEach(p => {
-  p.position = (p.lon + p.speed * daysElapsed) % 360;
+Object.values(planets).forEach(p=>{
+ p.pos=(p.lon+p.speed*days)%360;
+ p.motion=p.speed<0?"Retrograde":Math.abs(p.speed)<0.02?"Stationing Direct":"Direct";
 });
 
-/* ================= ASPECT DETECTION ================= */
+/* ================= ASPECTS ================= */
 
-const aspects = [
-  { name: "conjunction", angle: 0, orb: 6, keyword: ["fusion","focus"] },
-  { name: "opposition", angle: 180, orb: 6, keyword: ["polarity","balance"] },
-  { name: "square", angle: 90, orb: 5, keyword: ["tension","challenge"] },
-  { name: "trine", angle: 120, orb: 5, keyword: ["flow","ease"] },
-  { name: "sextile", angle: 60, orb: 4, keyword: ["opportunity","support"] }
+const aspects=[
+ {n:"conjunction",a:0,o:6,k:"focus"},
+ {n:"opposition",a:180,o:6,k:"polarity"},
+ {n:"square",a:90,o:5,k:"tension"},
+ {n:"trine",a:120,o:5,k:"flow"},
+ {n:"sextile",a:60,o:4,k:"opportunity"}
 ];
 
-function angleDiff(a,b){
-  let d = Math.abs(a - b);
-  return d > 180 ? 360 - d : d;
+function diff(a,b){
+ let d=Math.abs(a-b);
+ return d>180?360-d:d;
 }
 
-let detected = [];
-const names = Object.keys(planets);
+let found=[];
+const names=Object.keys(planets);
 
 for(let i=0;i<names.length;i++){
-  for(let j=i+1;j<names.length;j++){
-    let A = planets[names[i]];
-    let B = planets[names[j]];
-    let diff = angleDiff(A.position, B.position);
-
-    aspects.forEach(asp => {
-      if(Math.abs(diff - asp.angle) <= asp.orb){
-        detected.push({ a:names[i], b:names[j], aspect:asp });
-      }
-    });
-  }
+ for(let j=i+1;j<names.length;j++){
+  aspects.forEach(x=>{
+   if(Math.abs(diff(planets[names[i]].pos,planets[names[j]].pos)-x.a)<=x.o){
+    found.push({a:names[i],b:names[j],asp:x});
+   }
+  });
+ }
 }
 
-const priority = ["conjunction","opposition","square","trine","sextile"];
-detected.sort((x,y) =>
-  priority.indexOf(x.aspect.name) - priority.indexOf(y.aspect.name)
-);
+const priority=["conjunction","opposition","square","trine","sextile"];
+found.sort((x,y)=>priority.indexOf(x.asp.n)-priority.indexOf(y.asp.n));
 
-const main = detected[0];
+/* ================= RISING SIGN LOGIC ================= */
 
-/* ================= MESSAGE ================= */
+const good={
+ trine:["Taurus","Virgo","Capricorn"],
+ sextile:["Gemini","Libra","Aquarius"],
+ conjunction:["Leo","Scorpio"]
+};
 
-function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+const bad={
+ square:["Aries","Cancer","Libra","Capricorn"],
+ opposition:["Cancer","Capricorn"]
+};
 
-const softeners = [
-  "invites reflection around",
-  "highlights a need to recalibrate",
-  "asks us to balance",
-  "brings awareness to"
-];
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
 
-const sentence =
-  `${pick(main.aspect.keyword).charAt(0).toUpperCase()}${pick(main.aspect.keyword).slice(1)} between ${pick(planets[main.a].domain)} and ${pick(planets[main.b].domain)} ${pick(softeners)}.`;
+/* ================= RENDER ================= */
 
-document.getElementById("message").innerText = sentence;
-document.getElementById("meta").innerHTML =
-  `<span class="tag">${main.a}</span>
-   <span class="tag">${main.aspect.name}</span>
-   <span class="tag">${main.b}</span>`;
+const wrap=document.getElementById("transits");
+
+found.slice(0,3).forEach(t=>{
+ wrap.innerHTML+=`
+ <div class="transit">
+  <div><span class="label">Transit:</span> ${t.a} ${t.asp.n} ${t.b}</div>
+  <div><span class="label">Keyword:</span> ${t.asp.k}</div>
+  <div><span class="label">Affecting:</span> ${planets[t.a].domain} & ${planets[t.b].domain}</div>
+  <div><span class="label">Good Day for:</span> ${pick(good[t.asp.n]||["Pisces"])}</div>
+  <div><span class="label">Challenging for:</span> ${pick(bad[t.asp.n]||["Aries"])}</div>
+  <div><span class="label">Motion:</span> ${t.a} ${planets[t.a].motion}, ${t.b} ${planets[t.b].motion}</div>
+ </div>`;
+});
 </script>
 
 </body>
