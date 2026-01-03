@@ -3,65 +3,65 @@ const products = {
     exclusive: [
         {
             id: 1,
-            title: "Custom Portrait",
-            price: "$150",
-            image: "https://via.placeholder.com/250x250/9a9ad4/ffffff?text=Custom+Portrait",
+            title: "Astrology Planner: 2026",
+            price: "$50",
+            image: "assets/astrojournal.png",
             type: "exclusive"
         },
         {
             id: 2,
-            title: "Handmade Ceramic Mug",
-            price: "$45",
-            image: "https://via.placeholder.com/250x250/ffb3d6/ffffff?text=Ceramic+Mug",
+            title: "Personalized Album Keychain",
+            price: "$25",
+            image: "assets/comingsoon.png",
             type: "exclusive"
         },
         {
             id: 3,
-            title: "Personalized Tote Bag",
-            price: "$35",
-            image: "https://via.placeholder.com/250x250/00c9c2/ffffff?text=Tote+Bag",
+            title: "NOTHING TO SEE HERE",
+            price: "XD",
+            image: "assets/comingsoon.png",
             type: "exclusive"
         },
         {
             id: 4,
-            title: "Original Watercolor Art",
-            price: "$200",
-            image: "https://via.placeholder.com/250x250/c13886/ffffff?text=Watercolor",
+            title: "NOTHING TO SEE HERE",
+            price: "XD",
+            image: "assets/comingsoon.png",
             type: "exclusive"
         }
     ],
     direct: [
         {
             id: 5,
-            title: "My Book on Amazon",
-            price: "$19.99",
-            image: "https://via.placeholder.com/250x250/3f3d7a/ffffff?text=Book",
+            title: "Going Mental: A Tour Through the Mind of a Girl Named Lisa ",
+            price: "$3.33 on Kindle | $5.55 in Paperback",
+            image: "assets/goingmental.png",
             type: "direct",
-            link: "https://www.amazon.com"
+            link: "https://www.amazon.com/dp/B0GB5KCGRJ/ref=cm_sw_r_as_gl_api_gl_i_37AMD81Q5NM3DDZKJWDZ?linkCode=ml1&tag=jaymeallen-20&linkId=bec1e7eed538f1329d0eb4111770f143"
         },
         {
             id: 6,
-            title: "Digital Album",
+            title: "Sunnie Jae PopSocket",
             price: "$9.99",
-            image: "https://via.placeholder.com/250x250/00a8a3/ffffff?text=Album",
+            image: "assets/popsocket.png",
             type: "direct",
-            link: "https://books.apple.com"
+            link: "https://www.amazon.com/dp/B0FJKGT8YN?linkCode=ssc&tag=onamzjaymeall-20&creativeASIN=B0FJKGT8YN&asc_item-id=amzn1.ideas.289HTFNOY1ZES&ref_=aip_sf_list_spv_ons_mixed_d_asin&th=1"
         },
         {
             id: 7,
-            title: "Art Print",
-            price: "$24.99",
-            image: "https://via.placeholder.com/250x250/bfbfdc/ffffff?text=Art+Print",
+            title: "Girl Dinner T Shirt",
+            price: "$20",
+            image: "assets/girldinner.png",
             type: "direct",
-            link: "https://www.redbubble.com"
+            link: "https://amzn.to/4smpp8z"
         },
         {
             id: 8,
-            title: "Sticker Pack",
+            title: "Spaghetti Le Sserafim Sticker Pack",
             price: "$8.99",
-            image: "https://via.placeholder.com/250x250/ffb3d6/ffffff?text=Stickers",
+            image: "assets/spaghetti-CHAEWON.png",
             type: "direct",
-            link: "https://www.redbubble.com"
+            link: "https://www.redbubble.com/shop/ap/176087573".
         }
     ]
 };
