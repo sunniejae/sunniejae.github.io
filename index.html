@@ -37,14 +37,14 @@
         }
 
         .desktop {
-            height: calc(100vh - 50px);
-            position: relative;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: flex-start;
-        }
+    height: calc(100vh - 50px);
+    padding: 20px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(5, 90px);
+    gap: 12px 16px;
+    align-content: start;
+}
 
         .desktop-icon {
             display: flex;
