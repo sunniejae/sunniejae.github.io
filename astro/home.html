@@ -320,7 +320,29 @@ function drawCard(){
   btn.addEventListener("click",drawCard);
 })();
   
-  /* ---------- ASPECTS ---------- */
+/* ---------- SIGN WIKI LINKS ---------- */
+const signWikiLinks = {
+  Aries: "astro/aries.html",
+  Taurus: "astro/taurus.html",
+  Gemini: "astro/gemini.html",
+  Cancer: "astro/cancer.html",
+  Leo: "astro/leo.html",
+  Virgo: "astro/virgo.html",
+  Libra: "astro/libra.html",
+  Scorpio: "astro/scorpio.html",
+  Sagittarius: "astro/sagittarius.html",
+  Capricorn: "astro/capricorn.html",
+  Aquarius: "astro/aquarius.html",
+  Pisces: "astro/pisces.html"
+};
+
+document.querySelectorAll(".sign-btn").forEach(btn=>{
+  const sign = btn.dataset.sign;
+  if(signWikiLinks[sign]){
+    btn.href = signWikiLinks[sign];
+    btn.title = `${sign} Wiki`;
+  }
+});  /* ---------- ASPECTS ---------- */
 const aspects=[
   {n:"conjunction",a:0,o:6,k:"focus"},
   {n:"opposition",a:180,o:6,k:"polarity"},
