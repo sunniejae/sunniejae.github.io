@@ -61,8 +61,8 @@ const products = {
             price: "$8.99",
             image: "assets/spaghetti-CHAEWON.png",
             type: "direct",
-            link: "https://www.redbubble.com/shop/ap/176087573".
-        }
+            link: "https://www.redbubble.com/shop/ap/176087573",
+        },
     ]
 };
 
