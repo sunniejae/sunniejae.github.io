@@ -2,187 +2,614 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Aries Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="assets/ariesfav.png">
+<title>✧ Aries Zodiac Wiki ✧</title>
 
-<!-- ================= CUSTOM FONTS ================= -->
 <style>
-@font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
-@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular.otf') format('truetype'); }
-@font-face { font-family: 'Astro4'; src: url('Astro4-Regular.ttf') format('truetype'); }
+/* =========================================================
+   STAR SIGN WIKI — ELEVATED BASE CSS
+   Polished, intentional, shrine-like
+   Retro without chaos • Y2K without noise
+   ========================================================= */
 
+/* =======================
+   LOCAL FONTS
+======================= */
+@font-face {
+  font-family: 'Starbim';
+  src: url('Starbim.ttf');
+}
+@font-face {
+  font-family: 'FUNKHOUS';
+  src: url('FUNKHOUS.ttf');
+}
+@font-face {
+  font-family: 'Jaewriting';
+  src: url('Jaewriting-Regular.otf');
+}
+@font-face {
+  font-family: 'Astro4';
+  src: url('Astro4-Regular.ttf');
+}
+
+/* =======================
+   ROOT + THEME SYSTEM
+======================= */
 :root {
-    --black: #000010;
-    --white: #ffffff;
-    --primary: #FF006E;
-    --accent: #FFD700;
-    --dark: #2B0D11;
-    --light: #F7E7CE;
-    --sign-color: #FF006E; 
+  --primary: #000;
+  --accent: #000;
+  --accent-dark: #000;
+  --light: #fff;
+  --dark: #000;
+
+  --display-font: 'Starbim';
+  --bg-texture: none;
+}
+
+:root[data-moon="dreamer"] {
+  --display-font: 'Starbim';
+}
+
+:root[data-moon="diva"] {
+  --display-font: 'FUNKHOUS';
+}
+/* =========================================================
+   SIGN PALETTES
+   Each sign defines ONLY variables
+   ========================================================= */
+
+/* =======================
+   ARIES — DREAMER
+======================= */
+:root[data-sign="aries"][data-moon="dreamer"] {
+  --primary: #7a5a1d;
+  --accent: #c89b3c;
+  --accent-dark: #3f2a08;
+  --light: #f6efe3;
+  --dark: #2a1a05;
+  --bg-texture: url('assets/textures/parchment.png');
+}
+
+/* =======================
+   ARIES — DIVA
+======================= */
+:root[data-sign="aries"][data-moon="diva"] {
+  --primary: #ff2f92;
+  --accent: #ffd400;
+  --accent-dark: #b3005a;
+  --light: #fff0fa;
+  --dark: #3a001e;
+  --bg-texture: url('assets/textures/glitter.png');
+}
+/* =======================
+   GLOBAL RESET
+======================= */
+* {
+  box-sizing: border-box;
+}
 
 body {
-    margin: 0; padding: 20px;
-    background-color: var(--black);
-    background-image: url('assets/background-aries.png');
-    background-repeat: repeat;
-    background-attachment: fixed;
-    font-family: 'Jaewriting', monospace;
-    color: var(--white);
-    cursor: url('assets/cursor-star.cur'), auto;
+  margin: 0;
+  background-color: var(--light);
+  background-image: var(--bg-texture);
+  background-repeat: repeat;
+  font-family: 'Jaewriting', serif;
+  color: var(--dark);
 }
 
-a { color: var(--primary); text-decoration: underline; }
-a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
+/* =======================
+   PAGE WRAPPER
+======================= */
+.wrapper {
+  max-width: 960px;
+  margin: 28px auto;
+  background: color-mix(in srgb, var(--light) 94%, var(--primary) 6%);
+  border: 6px ridge var(--accent);
+}
 
-#wiki-frame { max-width: 960px; margin: auto; background: var(--dark); border: 4px ridge var(--primary); padding: 12px; }
+/* =======================
+   MARQUEE
+======================= */
+.marquee {
+  font-family: var(--display-font);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  padding: 8px 12px;
+  color: var(--light);
+  background: linear-gradient(
+    90deg,
+    var(--primary) 0%,
+    var(--accent-dark) 70%
+  );
+  border-bottom: 4px inset var(--accent);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.35);
+}
 
-#marquee { font-family: 'Starbim'; background: linear-gradient(to right,var(--accent),var(--primary)); color: var(--white); font-size: 13px; padding: 6px; border: 2px inset var(--primary); margin-bottom: 8px; }
+/* =======================
+   TABLE LAYOUT
+======================= */
+table.layout {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-#wiki-header { text-align: center; padding: 16px; }
-#wiki-header h1 { font-family: 'Starbim'; font-size: 42px; color: var(--light); text-shadow: 3px 3px var(--black); margin: 0; }
-#wiki-header small { font-family: 'Starbim'; font-size: 12px; color: var(--primary); display: block; margin-top: 6px; }
+td.sidebar {
+  width: 280px;
+  vertical-align: top;
+  border-right: 4px groove var(--accent);
+  background: color-mix(in srgb, var(--light) 96%, var(--primary) 4%);
+}
 
-#wiki-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-#wiki-table td { vertical-align: top; padding: 8px; }
+td.content {
+  padding: 18px;
+  vertical-align: top;
+}
 
-/* ================= SIDEBAR ================= */
-#sidebar { width: 280px; background: var(--accent); border: 3px inset var(--primary); font-size: 13px; }
-.sidebar-box { border: 2px groove var(--primary); background: var(--dark); margin-bottom: 12px; padding: 6px; }
-.sidebar-box h3 { margin: 0 0 6px; font-family: 'Starbim'; background: var(--primary); color: var(--black); padding: 4px; text-align: center; }
+/* =======================
+   SIDEBAR INFOCARD
+======================= */
+.infocard {
+  margin: 14px;
+  padding: 12px;
+  background: color-mix(in srgb, var(--light) 92%, var(--primary) 8%);
+  border: 3px inset var(--accent);
+}
 
-/* ================= CONTENT ================= */
-#content { background: var(--light); color: var(--black); border: 3px inset var(--primary); }
-.content-box { border: 2px solid var(--accent); background: var(--white); margin-bottom: 14px; }
-.content-box h2 { margin: 0; padding: 6px; font-family: 'Jaewriting'; background: linear-gradient(to right, var(--primary), var(--accent)); color: var(--white); }
-.content-box .inner { padding: 10px; line-height: 2; }
+.infocard h2 {
+  font-family: var(--display-font);
+  font-size: 1.15rem;
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--accent);
+  letter-spacing: 0.02em;
+}
 
-/* Horoscopes & Journal */
-.horoscope-box { background: #faf9ff; border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
+/* =======================
+   ASTRO4 GLYPHS
+======================= */
+.glyph,
+.astro-glyph {
+  font-family: 'Astro4';
+  font-size: 2.2rem;
+  line-height: 1;
+  display: block;
+  margin-bottom: 6px;
+  color: var(--primary);
+}
+
+/* =======================
+   CONTENT SECTIONS
+======================= */
+.section {
+  margin-bottom: 20px;
+  border: 3px groove var(--accent);
+  background: transparent;
+}
+
+.section-header {
+  font-family: var(--display-font);
+  font-size: 1.05rem;
+  padding: 8px 12px;
+  letter-spacing: 0.02em;
+  color: var(--light);
+  background: linear-gradient(
+    90deg,
+    var(--primary) 0%,
+    var(--accent-dark) 70%
+  );
+  border-bottom: 3px inset var(--accent);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.35);
+}
+
+.section-body {
+  padding: 14px 16px;
+  background: color-mix(in srgb, var(--light) 94%, var(--primary) 6%);
+  line-height: 1.65;
+  font-size: 0.95rem;
+}
+
+.section-body > * + * {
+  margin-top: 0.75em;
+}
+
+/* =======================
+   NAV BUTTONS
+======================= */
+.nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nav-button {
+  font-family: var(--display-font);
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  text-decoration: none;
+  color: var(--dark);
+  background: color-mix(in srgb, var(--light) 92%, var(--primary) 8%);
+  border: 3px outset var(--accent);
+  box-shadow: 2px 2px 0 var(--accent-dark);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.nav-button:hover {
+  filter: brightness(1.05);
+}
+
+.nav-button:active {
+  border-style: inset;
+  transform: translateY(2px);
+  box-shadow: 0 0 0 var(--accent-dark);
+}
+
+/* =======================
+   THEME TOGGLE
+======================= */
+.theme-toggle {
+  font-family: var(--display-font);
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  background: color-mix(in srgb, var(--light) 92%, var(--primary) 8%);
+  border: 3px groove var(--accent);
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--accent-dark);
+}
+
+.theme-toggle:active {
+  border-style: inset;
+  box-shadow: 0 0 0 var(--accent-dark);
+}
+
+/* =======================
+   IMAGES
+======================= */
+.sidebar img {
+  max-width: 100%;
+  display: block;
+  margin: 10px auto;
+  border: 3px solid var(--accent);
+}
+
+/* =======================
+   ACCESSIBILITY
+======================= */
+a {
+  color: var(--primary);
+}
+
+a:focus,
+button:focus {
+  outline: 3px dashed var(--accent-dark);
+  outline-offset: 2px;
+}
+
+/* =======================
+   DIVA POLISH
+======================= */
+:root[data-moon="diva"] .section-header,
+:root[data-moon="diva"] .marquee,
+:root[data-moon="diva"] .nav-button {
+  letter-spacing: 0.05em;
+}
+
+/* =======================
+   DREAMER SOFTENING
+======================= */
+:root[data-moon="dreamer"] .section,
+:root[data-moon="dreamer"] .infocard {
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+:root[data-moon="diva"] .section,
+:root[data-moon="diva"] .infocard {
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+}
 </style>
 </head>
-
 <body>
 
-<div id="wiki-frame">
+<div class="container">
+  <div class="header">
+    <button class="theme-toggle" id="themeToggle">🌙 Dreamer Mode</button>
+    <h1>✧ Aries <span class="glyph">a</span> ✧</h1>
+    <p style="color: white; font-size: 1.2em; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);">The Ram • March 21 - April 19</p>
+  </div>
 
-<!-- ================= MARQUEE ================= -->
-<marquee id="marquee" scrollamount="4">
-🐏 Bold 🐏 Courageous 🐏 Initiator 🐏 Competitive 🐏 Beginnings 🐏
-</marquee>
+  <div class="marquee-container">
+    <marquee behavior="scroll" direction="left" scrollamount="5">
+      🔥 FEARLESS LEADER 🔥 ✦ PIONEERING SPIRIT ✦ 🐏 THE TRAILBLAZER 🐏 ✦ COURAGE & PASSION ✦ 🔥 BOLD INITIATOR 🔥 ✦ WARRIOR ENERGY ✦ 🐏 DYNAMIC FORCE 🐏 ✦ UNSTOPPABLE DRIVE ✦
+    </marquee>
+  </div>
 
-<!-- ================= HEADER ================= -->
-<div id="wiki-header">
-    <h1>Aries ♈︎</h1>
-    <small>Fire • Cardinal • Ruled by Mars </small>
+  <table class="main-table">
+    <tr>
+      <td class="sidebar">
+        <div class="infocard">
+          <h2>Aries</h2>
+          <div class="sign-glyph">a</div>
+          
+          <div class="metadata">
+            <div class="metadata-item">
+              <span class="metadata-label">Element</span>
+              <span class="glyph">L</span> Fire
+            </div>
+            <div class="metadata-item">
+              <span class="metadata-label">Modality</span>
+              <span class="glyph">d</span> Cardinal
+            </div>
+            <div class="metadata-item">
+              <span class="metadata-label">Ruling Planet</span>
+              <span class="glyph">P</span> Mars
+            </div>
+            <div class="metadata-item">
+              <span class="metadata-label">House</span>
+              <span class="glyph">1</span> First House
+            </div>
+          </div>
+
+          <img src="assets/constellation-ARIES.png" alt="Aries Constellation">
+          <img src="assets/crystal-ARIES.png" alt="Aries Crystal">
+          <img src="assets/flower-ARIES.png" alt="Aries Flower">
+        </div>
+
+
+      </td>
+
+      <td class="content">
+        <div class="content-box">
+          <div class="content-header">
+            <h2>Rising Sign Weekly Horoscope</h2>
+          </div>
+          <div class="content-body">
+            <div class="horoscope-date" id="horoscopeDate"></div>
+            <p id="horoscopeText"></p>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="content-header">
+            <h2>Weekly Journal Prompt</h2>F
+          </div>
+          <div class="content-body">
+            <div class="prompt-box">
+              What area of your life is calling for bold action this week? Where have you been holding back from taking the lead, and what would it feel like to step forward with courage?
+            </div>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="content-header">
+            <h2>Sign Overview</h2>
+          </div>
+          <div class="content-body">
+            <p>Aries, the first sign of the zodiac, embodies the raw energy of new beginnings and fearless initiative. As a cardinal fire sign ruled by Mars, Aries natives are natural-born leaders who charge into life with unwavering confidence and pioneering spirit. The Ram symbolizes their bold, headstrong nature and willingness to break new ground where others fear to tread.</p>
+            
+            <p>Those born under this sign possess an infectious enthusiasm and dynamic energy that inspires others to action. Aries individuals thrive on challenges and competition, viewing obstacles as opportunities to prove their strength and capability. Their direct, honest approach to life can be refreshingly authentic, though sometimes impulsive.</p>
+            
+            <p>The warrior energy of Mars gives Aries incredible courage and determination. They are protectors and champions who will fight tirelessly for what they believe in. This sign represents the spark that ignites all creation, the pure life force that propels us forward into unknown territory with passion and conviction.</p>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="content-header">
+            <h2>Key Characteristics</h2>
+          </div>
+          <div class="content-body">
+            <ul>
+              <li><strong>Strengths:</strong> Courageous, determined, confident, enthusiastic, optimistic, honest, passionate, pioneering</li>
+              <li><strong>Weaknesses:</strong> Impatient, moody, short-tempered, impulsive, aggressive, competitive to a fault</li>
+              <li><strong>Likes:</strong> Competition, physical challenges, being first, individual sports, spontaneity, leadership roles</li>
+              <li><strong>Dislikes:</strong> Inactivity, delays, waiting, following rules, losing, being told what to do</li>
+              <li><strong>Natural Talents:</strong> Leadership, entrepreneurship, athletics, emergency response, motivating others, starting new projects</li>
+              <li><strong>Life Purpose:</strong> To courageously pioneer new paths and inspire others to embrace their authentic power</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="content-header">
+            <h2>Health & Wellness</h2>
+          </div>
+          <div class="content-body">
+            <p>Aries rules the head, face, and brain, making these areas particularly sensitive. Headaches, migraines, and sinus issues are common manifestations of stress for this sign. Regular physical activity is essential for Aries to channel their abundant energy productively and maintain mental clarity.</p>
+            
+            <p>High-intensity workouts, competitive sports, martial arts, and challenging physical pursuits are ideal for Aries. They need activities that test their limits and provide an outlet for their warrior energy. Boxing, running, rock climbing, and CrossFit-style training often appeal to this sign's need for physical challenge and achievement.</p>
+            
+            <p>Stress management is crucial for Aries, as their tendency toward impatience and anger can create health issues. Learning to pace themselves, practice mindfulness, and channel aggression constructively helps prevent burnout. Cooling foods, adequate rest, and activities that promote patience (though difficult for this sign) support overall wellbeing.</p>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="content-header">
+            <h2>Famous Aries</h2>
+          </div>
+          <div class="content-body">
+            <div class="famous-grid">
+              <div class="famous-category">
+                <h4>Historical Figures</h4>
+                <ul>
+                  <li>Leonardo da Vinci</li>
+                  <li>Vincent van Gogh</li>
+                  <li>Thomas Jefferson</li>
+                  <li>Maya Angelou</li>
+                  <li>Charlie Chaplin</li>
+                </ul>
+              </div>
+              
+              <div class="famous-category">
+                <h4>Modern Icons</h4>
+                <ul>
+                  <li>Lady Gaga</li>
+                  <li>Robert Downey Jr.</li>
+                  <li>Mariah Carey</li>
+                  <li>Emma Watson</li>
+                  <li>Kristen Stewart</li>
+                </ul>
+              </div>
+              
+              <div class="famous-category">
+                <h4>Fictional Characters</h4>
+                <ul>
+                  <li>Wonder Woman</li>
+                  <li>Katniss Everdeen</li>
+                  <li>Mulan</li>
+                  <li>Aragorn</li>
+                  <li>Arya Stark</li>
+                </ul>
+              </div>
+              
+              <div class="famous-category">
+                <h4>Athletes & Performers</h4>
+                <ul>
+                  <li>Elton John</li>
+                  <li>Céline Dion</li>
+                  <li>Jackie Chan</li>
+                  <li>Reese Witherspoon</li>
+                  <li>Sarah Jessica Parker</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="content-header">
+            <h2>Explore Other Signs</h2>
+          </div>
+          <div class="content-body">
+            <div class="nav-buttons">
+              <a href="#" class="nav-button aries"><span class="glyph">a</span> Aries</a>
+              <a href="#" class="nav-button taurus"><span class="glyph">u</span> Taurus</a>
+              <a href="#" class="nav-button gemini"><span class="glyph">g</span> Gemini</a>
+              <a href="#" class="nav-button cancer"><span class="glyph">c</span> Cancer</a>
+              <a href="#" class="nav-button leo"><span class="glyph">l</span> Leo</a>
+              <a href="#" class="nav-button virgo"><span class="glyph">m</span> Virgo</a>
+              <a href="#" class="nav-button libra"><span class="glyph">b</span> Libra</a>
+              <a href="#" class="nav-button scorpio"><span class="glyph">s</span> Scorpio</a>
+              <a href="#" class="nav-button sagittarius"><span class="glyph">t</span> Sagittarius</a>
+              <a href="#" class="nav-button capricorn"><span class="glyph">n</span> Capricorn</a>
+              <a href="#" class="nav-button aquarius"><span class="glyph">q</span> Aquarius</a>
+              <a href="#" class="nav-button pisces"><span class="glyph">p</span> Pisces</a>
+            </div>
+          </div>
+        </div>
+
+      </td>
+    </tr>
+  </table>
 </div>
 
-<table id="wiki-table">
-<tr>
-<!-- ================= SIDEBAR ================= -->
-<td id="sidebar">
-<div class="sidebar-box">
-    <h3>Infocard</h3>
-    Glyph: <span style="font-family:Astro4;">a</span><br>
-    Element: Fire <span style="font-family:Astro4;">k</span><br>
-    Modality: Cardinal <span style="font-family:Astro4;">d</span><br>
-    Ruling Planet: Mars <span style="font-family:Astro4;">P</span><br>
-    Symbol & Origin: {SYMBOL_ORIGIN}<br>
-    Constellation: <br><img src="assets/aries-constellation.png" width="250" height="250"><br>
-    House: 1st<br>
-    Colors: Red and Yellow<br>
-    Crystal: <br><img src="assets/aries-crystal.png" width="250" height="250"><br>
-    Flower: <br><img src="assets/aries-flower.png" width="250" height="250">
-</div>
-</td>
 
-<!-- ================= CONTENT ================= -->
-<td id="content">
-
-<div class="content-box">
-<h2>Daily Horoscope</h2>
-<div class="inner horoscope-box" id="daily-box">
-Loading today’s horoscope…
-</div>
-</div>
-
-<div class="content-box">
-<h2>Weekly Journal Prompt</h2>
-<div class="inner horoscope-box" id="weekly-box">
-Dec.22 ♈︎ Map out your goals for 2026</div>
-</div>
-
-<div class="content-box">
-<h2>Sign Overview</h2>
-<div class="inner">
-Aries is the first sign of the zodiac, marking the astrological new year and the spark that sets everything in motion. Ruled by Mars, the planet of action and desire, Aries energy is bold, impulsive, and fiercely alive. This sign thrives on momentum, challenges, and the thrill of starting something new. Aries teaches us how to act on instinct, trust our courage, and claim space in the world unapologetically.
-</div>
-</div>
-
-<div class="content-box">
-<h2>Key Characteristics</h2>
-<div class="inner">
-<p>leader and initiator</p><p>brave and competitive</p><p>act first... think later</p><p>passionate and expressive</p><p>works well under pressure</p>
-</div>
-</div>
-
-<div class="content-box">
-<h2>Health and Wellness</h2>
-<div class="inner">
-Aries rules the head, face, and brain, making stress and burnout common when energy isn’t released properly. Physical movement is essential—especially activities that allow intensity and competition. Rest is often overlooked but deeply necessary. Headaches, inflammation, and impulsive overexertion are signals to slow down and reconnect with the body’s limits.
-</div>
-</div>
-
-<div class="content-box">
-<h2>Famous People</h2>
-<div class="inner">
-<p>Historical: Leonardo da Vinci ♈︎ – visionary innovator and fearless thinker</p><p>Modern: Lady Gaga ♈︎ – bold self-expression and creative leadership</p><p>Fictional: Wonder Woman ♈︎ – warrior spirit, courage, and moral strength</p></div>
-</div>
-
-<div class="content-box">
-<h2>Explore Other Signs</h2>
-<div class="inner">
-<a href="aries.html">♈ Aries</a> | <a href="taurus.html">♉ Taurus</a> | <a href="gemini.html">♊ Gemini</a> | <a href="cancer.html">♋ Cancer</a> | <a href="leo.html">♌ Leo</a> | <a href="virgo.html">♍ Virgo</a> | <a href="libra.html">♎ Libra</a> | <a href="scorpio.html">♏ Scorpio</a> | <a href="sagittarius.html">♐ Sagittarius</a> | <a href="capricorn.html">♑ Capricorn</a> | <a href="aquarius.html">♒ Aquarius</a> | <a href="pisces.html">♓ Pisces</a>
-</div>
-</div>
-
-</td>
-</tr>
-</table>
-
-</div>
-
-<!-- ================= JAVASCRIPT ================= -->
 <script>
-/* ================== LOCAL STORAGE HOROSCOPE ================= */
-const SIGN_KEY = "aries";
+/* =========================================================
+   STAR SIGN WIKI — REUSABLE JS (FULLY FIXED)
+   fixed the theme toggle + weekly horoscope
+   note to self- update const sign per file
+   ========================================================= */
 
-const dailyMessages = [
-  "Slow progress is still progress. Stay disciplined.",
-  "Your consistency builds lasting success.",
-  "Boundaries protect your energy today.",
-  "Focus on responsibilities you’ve been avoiding.",
-  "Structure creates freedom.",
-  "Patience gives you the advantage.",
-  "Your long-term vision matters more than quick wins."
+const SIGN = 'aries'; //
+
+/* =======================
+   HOROSCOPE DATA
+======================= */
+const horoscopes = [
+  "This week calls for bold action and decisive leadership. Trust your instincts and take the initiative on that project you've been contemplating.",
+  "Channel your abundant energy into physical pursuits. A challenge will sharpen your focus and confidence.",
+  "Your pioneering spirit is strong now. Take the path no one else wants to take.",
+  "Patience is your hidden power this week. Not every spark needs to become a fire.",
+  "Your passion inspires others. Lead with courage, not force.",
+  "Stand firm in your convictions, but choose your battles wisely.",
+  "A fresh beginning is unfolding. Say yes before doubt creeps in.",
+  "Speak boldly, but listen carefully. Balance sharp truth with grace.",
+  "Your physical vitality is high. Move your body to clear your mind.",
+  "Leadership opportunities arrive unexpectedly. Rise without hesitation.",
+  "Collaboration amplifies your strength this week.",
+  "Pause before acting. A moment of restraint sharpens your instincts.",
+  "Someone looks to you for courage. Be the example.",
+  "Trust your creative impulse. It knows where to go."
 ];
 
-function todayKey() {
-    const d = new Date();
-    return `${SIGN_KEY}-${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+/* =======================
+   DATE HELPERS
+======================= */
+function getWeekKey() {
+  const now = new Date();
+  const week = Math.floor(now.getTime() / (7 * 24 * 60 * 60 * 1000));
+  return `${SIGN}-week-${week}`;
 }
 
-function getDailyHoroscope() {
-    const key = todayKey();
-    const saved = localStorage.getItem(key);
-    if(saved) return saved;
-    const msg = dailyMessages[new Date().getDate() % dailyMessages.length];
-    localStorage.setItem(key, msg);
-    localStorage.setItem("lastViewedSign", SIGN_KEY);
-    return msg;
+function getWeekRange() {
+  const today = new Date();
+  const day = today.getDay();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - day + (day === 0 ? -6 : 1));
+
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  return `Week of ${months[monday.getMonth()]} ${monday.getDate()} – ${months[sunday.getMonth()]} ${sunday.getDate()}, ${sunday.getFullYear()}`;
 }
 
-document.getElementById("daily-box").textContent = getDailyHoroscope();
+/* =======================
+   HOROSCOPE LOGIC
+======================= */
+function loadHoroscope() {
+  const key = getWeekKey();
+  let message = localStorage.getItem(key);
+
+  if (!message) {
+    message = horoscopes[Math.floor(Math.random() * horoscopes.length)];
+    localStorage.setItem(key, message);
+  }
+
+  document.getElementById('horoscopeDate').textContent = getWeekRange();
+  document.getElementById('horoscopeText').textContent = message;
+}
+
+/* =======================
+   THEME SYSTEM
+======================= */
+function updateThemeButton(theme) {
+  const btn = document.getElementById('themeToggle');
+  btn.textContent = theme === 'dreamer'
+    ? '🌙 Dreamer Mode'
+    : '👑 Diva Mode';
+}
+
+function loadTheme() {
+  const saved = localStorage.getItem('zodiac-theme') || 'dreamer';
+  document.documentElement.setAttribute('data-moon', saved);
+  document.documentElement.setAttribute('data-sign', SIGN);
+  updateThemeButton(saved);
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const current = root.getAttribute('data-moon');
+  const next = current === 'dreamer' ? 'diva' : 'dreamer';
+
+  root.setAttribute('data-moon', next);
+  localStorage.setItem('zodiac-theme', next);
+  updateThemeButton(next);
+}
+
+/* =======================
+   INIT
+======================= */
+document.addEventListener('DOMContentLoaded', () => {
+  document
+    .getElementById('themeToggle')
+    .addEventListener('click', toggleTheme);
+
+  loadTheme();
+  loadHoroscope();
+});
 </script>
 
 </body>
