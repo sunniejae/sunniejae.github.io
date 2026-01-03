@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>TAURUS Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="icon" type="image/png" href="assets/taurusfav.png">
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -14,11 +14,11 @@
 :root {
     --black: #000010;
     --white: #ffffff;
-    --primary: #7aa94b;
-    --accent: #aa4b7a;
-    --dark: #11180b;
-    --light: #fdfff0;
-    --sign-color: #7aa94b;
+    --primary: #50C878;
+    --accent: #B76E79;
+    --dark: #3E2723;
+    --light: #F8F4E3;
+    --sign-color: #50C878;
 }
 
 body {
@@ -32,7 +32,13 @@ body {
     cursor: url('assets/cursor-star.cur'), auto;
 }
 
-a { color: var(--primary); text-decoration: underline; }
+
+[style*="font-family:Astro4"], 
+.astro4,
+span[style*="Astro4"] {
+    color: var(--primary) !important;
+}
+a { color: var(--primary); text-decoration: none; }
 a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 #wiki-frame { max-width: 960px; margin: auto; background: var(--dark); border: 4px ridge var(--primary); padding: 12px; }
@@ -59,6 +65,56 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 /* Horoscopes & Journal */
 .horoscope-box { background: #faf9ff; border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
+
+/* Y2K Navigation Buttons */
+.sign-nav {
+    display: inline-block;
+    margin: 2px;
+}
+
+.sign-nav a {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 2px solid #000;
+    border-radius: 20px;
+    text-decoration: none;
+    font-family: 'Starbim', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 3px 3px 0px #000, 
+                inset 1px 1px 0px rgba(255,255,255,0.5);
+    transition: all 0.1s;
+}
+
+.sign-nav a:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #000,
+                inset 1px 1px 0px rgba(255,255,255,0.5);
+}
+
+.sign-nav a:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px #000;
+}
+
+/* Individual sign colors */
+.sign-nav a[href="aries.html"] { background: #FF006E; color: #F7E7CE; }
+.sign-nav a[href="taurus.html"] { background: #50C878; color: #F8F4E3; }
+.sign-nav a[href="gemini.html"] { background: #F9ED69; color: #6C6C6C; }
+.sign-nav a[href="cancer.html"] { background: #E8E4F3; color: #4A5568; }
+.sign-nav a[href="leo.html"] { background: #FFD700; color: #4B0082; }
+.sign-nav a[href="virgo.html"] { background: #A4B494; color: #5D5346; }
+.sign-nav a[href="libra.html"] { background: #FF00FF; color: #1C1C1C; }
+.sign-nav a[href="scorpio.html"] { background: #DC143C; color: #0B0B0B; }
+.sign-nav a[href="sagittarius.html"] { background: #4169E1; color: #1F0954; }
+.sign-nav a[href="capricorn.html"] { background: #708090; color: #2C4251; }
+.sign-nav a[href="aquarius.html"] { background: #87CEEB; color: #2C4251; }
+.sign-nav a[href="pisces.html"] { background: #9FD5D1; color: #335C67; }
+
+/* Black symbols in nav */
+.sign-nav a span[style*="Astro4"] {
+    color: inherit !important;
+}
 </style>
 </head>
 
@@ -68,7 +124,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-✨ Bold ✨ Courageous ✨ Initiator ✨ Competitive ✨ Beginnings ✨
+🐂 Grounded 🐂 Sensual 🐂 Stable 🐂 Devoted 🐂
 </marquee>
 
 <!-- ================= HEADER ================= -->
@@ -83,13 +139,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="sidebar">
 <div class="sidebar-box">
     <h3>Infocard</h3>
-    Glyph: <span style="font-family:Astro4;">a</span><br>
-    Element: Earth <span style="font-family:Astro4;">k</span><br>
-    Modality: Fixed <span style="font-family:Astro4;">d</span><br>
-    Ruling Planet: Venus <span style="font-family:Astro4;">P</span><br>
-    Symbol & Origin: ♉︎ {SYMBOL_ORIGIN}<br>
+    Glyph: <span style="font-family:Astro4;">u</span><br>
+    Element: Earth <span style="font-family:Astro4;">I</span><br>
+    Modality: Fixed <span style="font-family:Astro4;">f</span><br>
+    Ruling Planet: Venus <span style="font-family:Astro4;">V</span><br>
+    Symbol: The Bull<br>
     Constellation: <br><img src="assets/TAURUS-constellation.png" width="250" height="250"><br>
-    House: 2nd <br>
+    House: 2nd <span style="font-family:Astro4;">2</span><br>
     Colors: Green & Mauve <br>
     Crystal: <br><img src="assets/TAURUS-crystal.png" width="250" height="250"><br>
     Flower: <br><img src="assets/TAURUS-flower.png" width="250" height="250">
@@ -100,7 +156,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="content">
 
 <div class="content-box">
-<h2>Daily Horoscope</h2>
+<h2>Taurus Rising Weekly Horoscope</h2>
 <div class="inner horoscope-box" id="daily-box">
 Loading today’s horoscope…
 </div>
@@ -109,41 +165,56 @@ Loading today’s horoscope…
 <div class="content-box">
 <h2>Weekly Journal Prompt</h2>
 <div class="inner horoscope-box" id="weekly-box">
-Dec.22 ♉︎ Map out your goals for 2026</div>
+This week focuses on stability and long-term security. Small, consistent actions bring tangible results. Avoid rushing decisions—your power lies in patience.</div>
 </div>
 
 <div class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-{SIGN_OVERVIEW}
-</div>
+Taurus is the builder of the zodiac—slow, steady, and deeply grounded. Ruled by Venus, Taurus values beauty, comfort, and security. This sign teaches patience, devotion, and the power of consistency over time.</div>
 </div>
 
 <div class="content-box">
 <h2>Key Characteristics</h2>
 <div class="inner">
-{KEY_CHARACTERISTICS}
-</div>
+<p>Loyal and dependable</p>
+<p>Sensual and pleasure-oriented</p>
+<p>Stubborn but resilient</p>
+<p>Financially minded</p>
+<p>Grounded and calming</p>
+<p>Resistant to sudden change</p></div>
 </div>
 
 <div class="content-box">
 <h2>Health and Wellness</h2>
 <div class="inner">
-{HEALTH_WELLNESS}
-</div>
+Taurus rules the throat, neck, and vocal cords. Stress often manifests physically. Routine, nourishing foods, and body-based self-care are essential. Overindulgence is the main imbalance.</div>
 </div>
 
 <div class="content-box">
 <h2>Famous People</h2>
 <div class="inner">
-{FAMOUS_PEOPLE}
+<p>Historical: William Shakespeare</p>
+<p>Modern: Adele</p>
+<p>Fictional: Princess Leia</p>
 </div>
 </div>
 
 <div class="content-box">
 <h2>Explore Other Signs</h2>
 <div class="inner">
-<a href="aries.html">♈ Aries</a> | <a href="taurus.html">♉ Taurus</a> | <a href="gemini.html">♊ Gemini</a> | <a href="cancer.html">♋ Cancer</a> | <a href="leo.html">♌ Leo</a> | <a href="virgo.html">♍ Virgo</a> | <a href="libra.html">♎ Libra</a> | <a href="scorpio.html">♏ Scorpio</a> | <a href="sagittarius.html">♐ Sagittarius</a> | <a href="capricorn.html">♑ Capricorn</a> | <a href="aquarius.html">♒ Aquarius</a> | <a href="pisces.html">♓ Pisces</a>
+<span class="sign-nav"><a href="aries.html"><span style="font-family:Astro4;">a</span> Aries</a></span>
+<span class="sign-nav"><a href="taurus.html"><span style="font-family:Astro4;">u</span> Taurus</a></span>
+<span class="sign-nav"><a href="gemini.html"><span style="font-family:Astro4;">g</span> Gemini</a></span>
+<span class="sign-nav"><a href="cancer.html"><span style="font-family:Astro4;">c</span> Cancer</a></span>
+<span class="sign-nav"><a href="leo.html"><span style="font-family:Astro4;">l</span> Leo</a></span>
+<span class="sign-nav"><a href="virgo.html"><span style="font-family:Astro4;">m</span> Virgo</a></span>
+<span class="sign-nav"><a href="libra.html"><span style="font-family:Astro4;">b</span> Libra</a></span>
+<span class="sign-nav"><a href="scorpio.html"><span style="font-family:Astro4;">h/a</span> Scorpio</a></span>
+<span class="sign-nav"><a href="sagittarius.html"><span style="font-family:Astro4;">t</span> Sagittarius</a></span>
+<span class="sign-nav"><a href="capricorn.html"><span style="font-family:Astro4;">n</span> Capricorn</a></span>
+<span class="sign-nav"><a href="aquarius.html"><span style="font-family:Astro4;">q</span> Aquarius</a></span>
+<span class="sign-nav"><a href="pisces.html"><span style="font-family:Astro4;">p</span> Pisces</a></span>
 </div>
 </div>
 
