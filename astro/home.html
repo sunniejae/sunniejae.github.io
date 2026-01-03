@@ -316,10 +316,11 @@ nav a:hover::after {
 }
 
 .glyphs .astro-symbol {
-  font-family: 'Astro', serif;
-  font-size: 1.5rem;
-  color: var(--accent);
-  letter-spacing: 0.3rem;
+  font-family: 'Astro' !important;
+  letter-spacing: 0.35rem;
+  white-space: nowrap;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0;
 }
 
 .transit > div {
@@ -703,7 +704,7 @@ found.slice(0,3).forEach(t=>{
  <div class="transit">
   <div class="transit-header">
     <div><span class="label">Transit:</span> ${t.a} ${t.asp.n} ${t.b}</div>
-    <div class="glyphs"><span class="astro-symbol">${planetA} ${aspect} ${planetB}</span></div>
+    <span class="astro-symbol">${planetA}${aspect}${planetB}</span>
   </div>
   <div><span class="label">Keyword:</span> ${t.asp.k}</div>
   <div><span class="label">Affecting:</span> ${planets[t.a].domain} & ${planets[t.b].domain}</div>
