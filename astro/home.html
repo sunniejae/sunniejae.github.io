@@ -28,7 +28,7 @@ nav{
   backdrop-filter:blur(20px)
 }
 .logo{
-  font-family:'Milky';font-size:2rem;letter-spacing:3px;
+  font-family:'Milky';font-size:2.2rem;letter-spacing:3px;
   background:linear-gradient(135deg,#ffb3d6,var(--accent),var(--primary));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent
 }
@@ -43,14 +43,14 @@ nav{
 }
 
 h2{
-  font-family:'Milky';font-size:2.2rem;margin-bottom:2rem;
+  font-family:'Milky';font-size:2.4rem;margin-bottom:2rem;
   background:linear-gradient(135deg,var(--silver),var(--primary));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent
 }
 
 .transit{
   margin-bottom:2rem;padding:1.5rem;
-  background:rgba(63,61,122,.4);
+  background:var--(silver);
   border-left:3px solid var(--primary);
   border-radius:15px
 }
@@ -75,7 +75,7 @@ h2{
   color:var(--accent);
   font-family:'Milky';
   text-transform:uppercase;
-  margin-right:.5rem
+  margin-right:1rem
 }
 
 .sign-grid{
@@ -87,7 +87,7 @@ h2{
   padding:1rem;border-radius:50px;
   background:rgba(154,154,212,.2);
   text-align:center;text-decoration:none;
-  font-family:'Astro';color:var(--silver)
+  font-family:'Astro';color:var(--black)
 }
 
 .tarot-display{text-align:center}
@@ -128,18 +128,18 @@ h2{
 <div class="card">
   <h2>Explore Your Sign</h2>
   <div class="sign-grid">
-    <a class="sign-btn" data-sign="Aries">♈ a</a>
-    <a class="sign-btn" data-sign="Taurus">♉ u</a>
-    <a class="sign-btn" data-sign="Gemini">♊ g</a>
-    <a class="sign-btn" data-sign="Cancer">♋ c</a>
-    <a class="sign-btn" data-sign="Leo">♌ l</a>
-    <a class="sign-btn" data-sign="Virgo">♍ m</a>
-    <a class="sign-btn" data-sign="Libra">♎ b</a>
-    <a class="sign-btn" data-sign="Scorpio">♏ s</a>
-    <a class="sign-btn" data-sign="Sagittarius">♐ t</a>
-    <a class="sign-btn" data-sign="Capricorn">♑ n</a>
-    <a class="sign-btn" data-sign="Aquarius">♒ q</a>
-    <a class="sign-btn" data-sign="Pisces">♓ p</a>
+    <a class="sign-btn" data-sign="Aries">a</a>
+    <a class="sign-btn" data-sign="Taurus">u</a>
+    <a class="sign-btn" data-sign="Gemini">g</a>
+    <a class="sign-btn" data-sign="Cancer">c</a>
+    <a class="sign-btn" data-sign="Leo">l</a>
+    <a class="sign-btn" data-sign="Virgo">m</a>
+    <a class="sign-btn" data-sign="Libra">b</a>
+    <a class="sign-btn" data-sign="Scorpio">s</a>
+    <a class="sign-btn" data-sign="Sagittarius">t</a>
+    <a class="sign-btn" data-sign="Capricorn">n</a>
+    <a class="sign-btn" data-sign="Aquarius">q</a>
+    <a class="sign-btn" data-sign="Pisces">p</a>
   </div>
 </div>
 
@@ -322,18 +322,18 @@ function drawCard(){
   
 /* ---------- SIGN WIKI LINKS ---------- */
 const signWikiLinks = {
-  Aries: "astro/aries.html",
-  Taurus: "astro/taurus.html",
-  Gemini: "astro/gemini.html",
-  Cancer: "astro/cancer.html",
-  Leo: "astro/leo.html",
-  Virgo: "astro/virgo.html",
-  Libra: "astro/libra.html",
-  Scorpio: "astro/scorpio.html",
-  Sagittarius: "astro/sagittarius.html",
-  Capricorn: "astro/capricorn.html",
-  Aquarius: "astro/aquarius.html",
-  Pisces: "astro/pisces.html"
+  Aries: "aries.html",
+  Taurus: "taurus.html",
+  Gemini: "gemini.html",
+  Cancer: "cancer.html",
+  Leo: "leo.html",
+  Virgo: "virgo.html",
+  Libra: "libra.html",
+  Scorpio: "scorpio.html",
+  Sagittarius: "sagittarius.html",
+  Capricorn: "capricorn.html",
+  Aquarius: "aquarius.html",
+  Pisces: "pisces.html"
 };
 
 document.querySelectorAll(".sign-btn").forEach(btn=>{
