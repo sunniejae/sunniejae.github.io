@@ -4,716 +4,134 @@
 <meta charset="UTF-8">
 <title>Starry Jae — Daily Transits</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="icon" type="image/png" href="https://sunniejae.blob.core.windows.net/sunniejae/logo.png">
-
 <style>
-:root {
-  --black: #000010;
-  --white: #ffffff;
-  --dark-gray: #404040;
-  --gray: #bfbfdc;
-  --silver: #f0f0f5;
-  --pink: #ffb3d6;
-  --teal: #00a8a3;
-  --dark-purple: #3f3d7a;
-  --accent: #00c9c2;
-  --secondary: #c13886;
-  --primary: #9a9ad4;
-}
-
-@font-face {
-  font-family: 'Jaewriting';
-  src: url('/assets/Jaewriting-Regular.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Milky';
-  src: url('/assets/tan-mon-cheri.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Astro';
-  src: url('/assets/Astrocomplete-Regular.otf') format('truetype');
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--black);
-  color: var(--silver);
-  font-family: 'Jaewriting', system-ui, sans-serif;
-  font-size: 18px;
-  line-height: 1.6;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* Animated starfield background */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(2px 2px at 20% 30%, white, transparent),
-    radial-gradient(2px 2px at 60% 70%, white, transparent),
-    radial-gradient(1px 1px at 50% 50%, white, transparent),
-    radial-gradient(1px 1px at 80% 10%, white, transparent),
-    radial-gradient(2px 2px at 90% 60%, white, transparent),
-    radial-gradient(1px 1px at 33% 80%, white, transparent),
-    radial-gradient(1px 1px at 15% 90%, white, transparent);
-  background-size: 200% 200%;
-  background-position: 0% 0%;
-  opacity: 0.4;
-  animation: twinkle 120s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.6; }
-}
-
-/* Cosmic gradient overlay */
-body::after {
-  content: '';
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 30% 40%, rgba(154, 154, 212, 0.15), transparent 50%),
-              radial-gradient(circle at 70% 60%, rgba(193, 56, 134, 0.1), transparent 50%);
-  animation: nebula-drift 60s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes nebula-drift {
-  from { transform: translate(0, 0) rotate(0deg); }
-  to { transform: translate(5%, 5%) rotate(10deg); }
-}
-
-/* Navigation */
-nav {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 3rem;
-  background: rgba(0, 0, 16, 0.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(154, 154, 212, 0.2);
-  animation: fade-in-down 0.8s ease-out;
-}
-
-@keyframes fade-in-down {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-nav .logo {
-  font-family: 'Milky', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  background: linear-gradient(135deg, var(--pink), var(--accent), var(--primary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(154, 154, 212, 0.5);
-  position: relative;
-}
-
-nav .logo::after {
-  content: '✦';
-  position: absolute;
-  right: -30px;
-  top: -5px;
-  font-size: 0.7rem;
-  color: var(--accent);
-  animation: sparkle 3s ease-in-out infinite;
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-
-nav .nav-links {
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
-}
-
-nav a {
-  color: var(--gray);
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 1px;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-nav a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent), var(--secondary));
-  transition: width 0.4s ease;
-}
-
-nav a:hover {
-  color: var(--accent);
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
-/* Container */
-.container {
-  position: relative;
-  z-index: 5;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
-/* Cards with glass morphism */
-.card {
-  background: linear-gradient(135deg, 
-    rgba(154, 154, 212, 0.08),
-    rgba(63, 61, 122, 0.4),
-    rgba(193, 56, 134, 0.05));
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(191, 191, 220, 0.15);
-  border-radius: 30px;
-  padding: 3rem;
-  margin-bottom: 3rem;
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-  animation: fade-in-up 0.8s ease-out backwards;
-}
-
-.card:nth-child(1) { animation-delay: 0.2s; }
-.card:nth-child(2) { animation-delay: 0.4s; }
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Subtle shimmer effect on cards */
-.card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(255, 255, 255, 0.03),
-    transparent
-  );
-  transform: rotate(45deg);
-  animation: shimmer 6s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-.card h2 {
-  font-family: 'Milky', serif;
-  font-size: 2.2rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, var(--silver), var(--primary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  position: relative;
-  z-index: 1;
-}
-
-.card h2::before {
-  content: '✵';
-  position: absolute;
-  left: -35px;
-  top: 5px;
-  color: var(--accent);
-  font-size: 1.2rem;
-  opacity: 0.6;
-}
-
-/* Transit styling */
-.transit {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: rgba(63, 61, 122, 0.4);
-  border-left: 3px solid var(--primary);
-  border-radius: 15px;
-  position: relative;
-  z-index: 1;
-  transition: all 0.3s ease;
-}
-
-.transit:hover {
-  background: rgba(63, 61, 122, 0.6);
-  border-left-color: var(--accent);
-  transform: translateX(5px);
-  box-shadow: 0 10px 30px rgba(0, 201, 194, 0.2);
-}
-
-.transit-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.7rem;
-  flex-wrap: wrap;
-}
-
-.glyphs {
-  background: rgba(0, 0, 0, 0.3);
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  border: 1px solid rgba(0, 201, 194, 0.3);
-}
-
-.glyphs .astro-symbol {
-  font-family: 'Astro' !important;
-  letter-spacing: 0.35rem;
-  white-space: nowrap;
-  font-variant-ligatures: none;
-  font-feature-settings: "liga" 0;
-}
-
-.transit > div {
-  margin-bottom: 0.7rem;
-  font-size: 1.05rem;
-}
-
-.transit > div:last-child {
-  margin-bottom: 0;
-}
-
-.label {
-  color: var(--accent);
-  font-weight: 600;
-  font-family: 'Milky', serif;
-  letter-spacing: 1px;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  margin-right: 0.5rem;
-}
-
-/* Sign grid */
-.sign-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-
-.sign-btn {
-  background: linear-gradient(135deg, 
-    rgba(154, 154, 212, 0.15),
-    rgba(255, 179, 214, 0.1));
-  border: 1px solid rgba(191, 191, 220, 0.2);
-  border-radius: 50px;
-  padding: 1rem 1.5rem;
-  text-align: center;
-  font-size: 1rem;
-  font-family: 'Astro', sans-serif;
-  font-weight: 500;
-  color: var(--silver);
-  text-decoration: none;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.sign-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 201, 194, 0.4), transparent);
-  transform: translate(-50%, -50%);
-  transition: all 0.5s ease;
-}
-
-.sign-btn:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
-.sign-btn:hover {
-  background: linear-gradient(135deg, 
-    rgba(154, 154, 212, 0.3),
-    rgba(255, 179, 214, 0.2));
-  border-color: var(--accent);
-  color: var(--pink);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 201, 194, 0.3);
-}
-
-/* Fire signs: Aries, Leo, Sagittarius */
-.sign-btn[href*="aries"]:hover,
-.sign-btn[href*="leo"]:hover,
-.sign-btn[href*="sagittarius"]:hover {
-  border-color: var(--secondary);
-  color: var(--secondary);
-  box-shadow: 0 10px 30px rgba(193, 56, 134, 0.4);
-}
-
-.sign-btn[href*="aries"]::before,
-.sign-btn[href*="leo"]::before,
-.sign-btn[href*="sagittarius"]::before {
-  background: radial-gradient(circle, rgba(193, 56, 134, 0.4), transparent);
-}
-
-/* Water signs: Cancer, Scorpio, Pisces */
-.sign-btn[href*="cancer"]:hover,
-.sign-btn[href*="scorpio"]:hover,
-.sign-btn[href*="pisces"]:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 10px 30px rgba(0, 201, 194, 0.4);
-}
-
-.sign-btn[href*="cancer"]::before,
-.sign-btn[href*="scorpio"]::before,
-.sign-btn[href*="pisces"]::before {
-  background: radial-gradient(circle, rgba(0, 201, 194, 0.4), transparent);
-}
-
-/* Air signs: Gemini, Libra, Aquarius */
-.sign-btn[href*="gemini"]:hover,
-.sign-btn[href*="libra"]:hover,
-.sign-btn[href*="aquarius"]:hover {
-  border-color: var(--gray);
-  color: var(--gray);
-  box-shadow: 0 10px 30px rgba(191, 191, 220, 0.4);
-}
-
-.sign-btn[href*="gemini"]::before,
-.sign-btn[href*="libra"]::before,
-.sign-btn[href*="aquarius"]::before {
-  background: radial-gradient(circle, rgba(191, 191, 220, 0.4), transparent);
-}
-
-/* Earth signs: Taurus, Virgo, Capricorn */
-.sign-btn[href*="taurus"]:hover,
-.sign-btn[href*="virgo"]:hover,
-.sign-btn[href*="capricorn"]:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  box-shadow: 0 10px 30px rgba(154, 154, 212, 0.4);
-}
-
-.sign-btn[href*="taurus"]::before,
-.sign-btn[href*="virgo"]::before,
-.sign-btn[href*="capricorn"]::before {
-  background: radial-gradient(circle, rgba(154, 154, 212, 0.4), transparent);
-}
-
-/* Empty state styling */
-#transits:empty::before {
-  content: 'Calculating cosmic alignments...';
-  display: block;
-  text-align: center;
-  color: var(--gray);
-  font-style: italic;
-  padding: 2rem;
-  opacity: 0.6;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-  }
-  
-  nav .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-  }
-  
-  nav .logo {
-    font-size: 1.6rem;
-  }
-  
-  .container {
-    padding: 2rem 1.5rem;
-  }
-  
-  .card {
-    padding: 2rem 1.5rem;
-  }
-  
-  .card h2 {
-    font-size: 1.8rem;
-  }
-  
-  .sign-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.8rem;
-  }
-  
-  .sign-btn {
-    padding: 0.8rem 1rem;
-    font-size: 0.95rem;
-  }
-}
-
-/* Additional sparkle decorations */
-.card::after {
-  content: '✧';
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  font-size: 1.5rem;
-  color: var(--accent);
-  opacity: 0.3;
-  z-index: 0;
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Astrology symbols styling */
-/* Astro symbol font styling (used in transit glyphs) */
-.astro-symbol {
-  font-family: 'Astro', serif;
-  font-size: 1.8rem;
-  color: var(--primary);
-  min-width: 30px;
-  text-align: center;
-  transition: color 0.3s ease;
-}
+:root{--black:#000010;--white:#ffffff;--dark-gray:#404040;--gray:#bfbfdc;--silver:#f0f0f5;--pink:#ffb3d6;--teal:#00a8a3;--dark-purple:#3f3d7a;--accent:#00c9c2;--secondary:#c13886;--primary:#9a9ad4}
+@font-face{font-family:'Jaewriting';src:url('/assets/Jaewriting-Regular.otf') format('opentype')}
+@font-face{font-family:'Milky';src:url('/assets/tan-mon-cheri.woff') format('woff')}
+@font-face{font-family:'Astro';src:url('/assets/Astrocomplete-Regular.otf') format('truetype')}
+*{margin:0;padding:0;box-sizing:border-box}
+body{margin:0;background:var(--black);color:var(--silver);font-family:'Jaewriting',system-ui,sans-serif;font-size:18px;line-height:1.6;position:relative;overflow-x:hidden}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(2px 2px at 20% 30%,white,transparent),radial-gradient(2px 2px at 60% 70%,white,transparent),radial-gradient(1px 1px at 50% 50%,white,transparent),radial-gradient(1px 1px at 80% 10%,white,transparent),radial-gradient(2px 2px at 90% 60%,white,transparent),radial-gradient(1px 1px at 33% 80%,white,transparent),radial-gradient(1px 1px at 15% 90%,white,transparent);background-size:200% 200%;background-position:0% 0%;opacity:0.4;animation:twinkle 120s ease-in-out infinite;pointer-events:none;z-index:0}
+@keyframes twinkle{0%,100%{opacity:0.4}50%{opacity:0.6}}
+body::after{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(154,154,212,0.15),transparent 50%),radial-gradient(circle at 70% 60%,rgba(193,56,134,0.1),transparent 50%);animation:nebula-drift 60s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+@keyframes nebula-drift{from{transform:translate(0,0) rotate(0deg)}to{transform:translate(5%,5%) rotate(10deg)}}
+nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:2rem 3rem;background:rgba(0,0,16,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(154,154,212,0.2);animation:fade-in-down 0.8s ease-out}
+@keyframes fade-in-down{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+nav .logo{font-family:'Milky',serif;font-size:2rem;font-weight:600;letter-spacing:3px;background:linear-gradient(135deg,var(--pink),var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(154,154,212,0.5);position:relative}
+nav .logo::after{content:'✦';position:absolute;right:-30px;top:-5px;font-size:0.7rem;color:var(--accent);animation:sparkle 3s ease-in-out infinite}
+@keyframes sparkle{0%,100%{opacity:0.3;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
+nav .nav-links{display:flex;gap:2.5rem;align-items:center}
+nav a{color:var(--gray);text-decoration:none;font-size:1rem;font-weight:400;letter-spacing:1px;position:relative;transition:color 0.3s ease}
+nav a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:1px;background:linear-gradient(90deg,var(--accent),var(--secondary));transition:width 0.4s ease}
+nav a:hover{color:var(--accent)}
+nav a:hover::after{width:100%}
+.container{position:relative;z-index:5;max-width:1200px;margin:0 auto;padding:4rem 2rem}
+.card{background:linear-gradient(135deg,rgba(154,154,212,0.08),rgba(63,61,122,0.4),rgba(193,56,134,0.05));backdrop-filter:blur(20px);border:1px solid rgba(191,191,220,0.15);border-radius:30px;padding:3rem;margin-bottom:3rem;box-shadow:0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);position:relative;overflow:hidden;animation:fade-in-up 0.8s ease-out backwards}
+.card:nth-child(1){animation-delay:0.2s}
+.card:nth-child(2){animation-delay:0.4s}
+.card:nth-child(3){animation-delay:0.6s}
+@keyframes fade-in-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,0.03),transparent);transform:rotate(45deg);animation:shimmer 6s ease-in-out infinite}
+@keyframes shimmer{0%,100%{transform:translateX(-100%) translateY(-100%) rotate(45deg)}50%{transform:translateX(100%) translateY(100%) rotate(45deg)}}
+.card h2{font-family:'Milky',serif;font-size:2.2rem;font-weight:600;letter-spacing:2px;margin-bottom:2rem;background:linear-gradient(135deg,var(--silver),var(--primary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:1}
+.card h2::before{content:'✵';position:absolute;left:-35px;top:5px;color:var(--accent);font-size:1.2rem;opacity:0.6}
+.transit{margin-bottom:2rem;padding:1.5rem;background:rgba(63,61,122,0.4);border-left:3px solid var(--primary);border-radius:15px;position:relative;z-index:1;transition:all 0.3s ease}
+.transit:hover{background:rgba(63,61,122,0.6);border-left-color:var(--accent);transform:translateX(5px);box-shadow:0 10px 30px rgba(0,201,194,0.2)}
+.transit-header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:0.7rem;flex-wrap:wrap}
+.glyphs{background:rgba(0,0,0,0.3);padding:0.5rem 1rem;border-radius:25px;border:1px solid rgba(0,201,194,0.3)}
+.glyphs .astro-symbol{font-family:'Astro'!important;letter-spacing:0.35rem;white-space:nowrap;font-variant-ligatures:none;font-feature-settings:"liga" 0}
+.transit>div{margin-bottom:0.7rem;font-size:1.05rem}
+.transit>div:last-child{margin-bottom:0}
+.label{color:var(--accent);font-weight:600;font-family:'Milky',serif;letter-spacing:1px;font-size:0.95rem;text-transform:uppercase;margin-right:0.5rem}
+.sign-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:1.5rem;position:relative;z-index:1}
+.sign-btn{background:linear-gradient(135deg,rgba(154,154,212,0.15),rgba(255,179,214,0.1));border:1px solid rgba(191,191,220,0.2);border-radius:50px;padding:1rem 1.5rem;text-align:center;font-size:1rem;font-family:'Astro',sans-serif;font-weight:500;color:var(--silver);text-decoration:none;letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:0.5rem;transition:all 0.3s ease;position:relative;overflow:hidden}
+.sign-btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:radial-gradient(circle,rgba(0,201,194,0.4),transparent);transform:translate(-50%,-50%);transition:all 0.5s ease}
+.sign-btn:hover::before{width:300px;height:300px}
+.sign-btn:hover{background:linear-gradient(135deg,rgba(154,154,212,0.3),rgba(255,179,214,0.2));border-color:var(--sign-color,var(--accent));color:var(--sign-color,var(--pink));transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,201,194,0.3)}
+#transits:empty::before{content:'Calculating cosmic alignments...';display:block;text-align:center;color:var(--gray);font-style:italic;padding:2rem;opacity:0.6}
+.astro-symbol{font-family:'Astro',serif;font-size:1.8rem;color:var(--primary);min-width:30px;text-align:center;transition:color 0.3s ease}
+#tarot-container{display:flex;flex-direction:column;align-items:center;gap:2rem;position:relative;z-index:1}
+.tarot-display{min-height:400px;width:100%;max-width:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;position:relative}
+.tarot-card-img{width:100%;max-width:280px;height:auto;border-radius:15px;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(154,154,212,0.3);border:2px solid rgba(191,191,220,0.3);animation:card-reveal 0.8s ease-out;transition:transform 0.3s ease}
+.tarot-card-img:hover{transform:scale(1.05);box-shadow:0 25px 80px rgba(0,0,0,0.7),0 0 60px rgba(154,154,212,0.5)}
+@keyframes card-reveal{from{opacity:0;transform:rotateY(90deg) scale(0.8)}to{opacity:1;transform:rotateY(0) scale(1)}}
+.tarot-info{text-align:center;animation:fade-in-up 0.8s ease-out 0.3s backwards}
+.tarot-name{font-family:'Milky',serif;font-size:2rem;background:linear-gradient(135deg,var(--pink),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5rem;letter-spacing:2px}
+.tarot-meaning{color:var(--gray);font-size:1.1rem;line-height:1.8;max-width:500px;margin:0 auto}
+.draw-button{background:linear-gradient(135deg,rgba(154,154,212,0.3),rgba(193,56,134,0.3));border:2px solid rgba(191,191,220,0.3);border-radius:50px;padding:1rem 3rem;font-family:'Milky',serif;font-size:1.2rem;color:var(--silver);cursor:pointer;letter-spacing:2px;transition:all 0.3s ease;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.3)}
+.draw-button::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:radial-gradient(circle,rgba(0,201,194,0.4),transparent);transform:translate(-50%,-50%);transition:all 0.5s ease}
+.draw-button:hover::before{width:400px;height:400px}
+.draw-button:hover{background:linear-gradient(135deg,rgba(154,154,212,0.5),rgba(193,56,134,0.5));border-color:var(--accent);color:var(--accent);transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,201,194,0.4)}
+.draw-button:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.draw-button:disabled:hover{background:linear-gradient(135deg,rgba(154,154,212,0.3),rgba(193,56,134,0.3));border-color:rgba(191,191,220,0.3);color:var(--silver);box-shadow:0 10px 30px rgba(0,0,0,0.3)}
+.tarot-placeholder{color:var(--gray);font-style:italic;opacity:0.6;text-align:center;font-size:1.1rem}
+.tarot-timer{color:var(--accent);font-size:0.9rem;margin-top:0.5rem;font-style:italic}
+@media (max-width:768px){nav{flex-direction:column;gap:1.5rem;padding:1.5rem}nav .nav-links{flex-wrap:wrap;justify-content:center;gap:1.5rem}nav .logo{font-size:1.6rem}.container{padding:2rem 1.5rem}.card{padding:2rem 1.5rem}.card h2{font-size:1.8rem}.sign-grid{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.8rem}.sign-btn{padding:0.8rem 1rem;font-size:0.95rem}}
+.card::after{content:'✧';position:absolute;top:2rem;right:2rem;font-size:1.5rem;color:var(--accent);opacity:0.3;z-index:0;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 </style>
 </head>
-
 <body>
-
 <nav>
-  <div class="logo">Starry Jae</div>
-  <div class="nav-links">
-    <a href="astro/sign.html">Sign Wikis</a>
-    <a href="https://244738582.hs-sites-na2.com/starryjae/january-2026">Astrology Blog</a>
-    <a href="index.html">Home</a>
-    <a href="shop/home.html">Shop</a>
-  </div>
-</nav>
-
-<div class="container">
-
-  <div class="card">
-    <h2>Today's Transits</h2>
-    <div id="transits"></div>
-  </div>
-
-  <div class="card">
-    <h2>Explore Your Sign</h2>
-    <div class="sign-grid">
-      <a class="sign-btn" href="aries.html">♈ a</a>
-      <a class="sign-btn" href="taurus.html">♉ u</a>
-      <a class="sign-btn" href="gemini.html">♊ g</a>
-      <a class="sign-btn" href="cancer.html">♋ c</a>
-      <a class="sign-btn" href="leo.html">♌ l</a>
-      <a class="sign-btn" href="virgo.html">♍ m</a>
-      <a class="sign-btn" href="libra.html">♎ b</a>
-      <a class="sign-btn" href="scorpio.html">♏ s</a>
-      <a class="sign-btn" href="sagittarius.html">♐ t</a>
-      <a class="sign-btn" href="capricorn.html">♑ n</a>
-      <a class="sign-btn" href="aquarius.html">♒ q</a>
-      <a class="sign-btn" href="pisces.html">♓ p</a>
-    </div>
-  </div>
-
+<div class="logo">Starry Jae</div>
+<div class="nav-links">
+<a href="astro/sign.html">Sign Wikis</a>
+<a href="https://244738582.hs-sites-na2.com/starryjae/january-2026">Astrology Blog</a>
+<a href="index.html">Home</a>
+<a href="shop/home.html">Shop</a>
 </div>
-
+</nav>
+<div class="container">
+<div class="card"><h2>Today's Transits</h2><div id="transits"></div></div>
+<div class="card"><h2>Daily Tarot Draw</h2><div id="tarot-container"><div id="tarot-card" class="tarot-display"></div><button id="draw-btn" class="draw-button">Draw Your Card</button></div></div>
+<div class="card"><h2>Explore Your Sign</h2><div class="sign-grid">
+<a class="sign-btn" href="aries.html" data-sign="Aries">♈ a</a>
+<a class="sign-btn" href="taurus.html" data-sign="Taurus">♉ u</a>
+<a class="sign-btn" href="gemini.html" data-sign="Gemini">♊ g</a>
+<a class="sign-btn" href="cancer.html" data-sign="Cancer">♋ c</a>
+<a class="sign-btn" href="leo.html" data-sign="Leo">♌ l</a>
+<a class="sign-btn" href="virgo.html" data-sign="Virgo">♍ m</a>
+<a class="sign-btn" href="libra.html" data-sign="Libra">♎ b</a>
+<a class="sign-btn" href="scorpio.html" data-sign="Scorpio">♏ s</a>
+<a class="sign-btn" href="sagittarius.html" data-sign="Sagittarius">♐ t</a>
+<a class="sign-btn" href="capricorn.html" data-sign="Capricorn">♑ n</a>
+<a class="sign-btn" href="aquarius.html" data-sign="Aquarius">♒ q</a>
+<a class="sign-btn" href="pisces.html" data-sign="Pisces">♓ p</a>
+</div></div>
+</div>
 <script>
-/* ================= PLANET DATA ================= */
-
-// Symbol mappings for planets and aspects
-const planetSymbols = {
-  Sun: 'S',
-  Moon: 'M',
-  Mercury: 'R',
-  Venus: 'V',
-  Mars: 'P',
-  Jupiter: 'J',
-  Saturn: 'T',
-  Uranus: 'U',
-  Neptune: 'N',
-  Pluto: 'O',
-  Chiron: 'i',
-  Node: 'A',
-  Lilith: 'B'
-};
-
-const aspectSymbols = {
-  conjunction: '&',
-  opposition: '-',
-  square: '!',
-  trine: 'k',
-  sextile: "'",
-  semisquare: '(',
-  semisextile: ')'
-};
-
-const motionSymbols = {
-  Retrograde: 'X',
-  Direct: 'D',
-  'Stationing Direct': 'D'
-};
-
-const planets={
- Sun:{lon:280,speed:0.9856,domain:"identity"},
- Moon:{lon:90,speed:13.176,domain:"emotions"},
- Mercury:{lon:270,speed:-1.2,domain:"communication"},
- Venus:{lon:275,speed:1.2,domain:"love"},
- Mars:{lon:260,speed:0.5,domain:"action"},
- Jupiter:{lon:100,speed:-0.083,domain:"growth"},
- Saturn:{lon:330,speed:0.033,domain:"structure"},
- Uranus:{lon:50,speed:-0.012,domain:"change"},
- Neptune:{lon:355,speed:0.006,domain:"dreams"},
- Pluto:{lon:300,speed:0.004,domain:"transformation"},
- Chiron:{lon:15,speed:0.01,domain:"healing"},
- Node:{lon:350,speed:-0.003,domain:"destiny"}
-};
-
+const planetSymbols={Sun:'S',Moon:'M',Mercury:'R',Venus:'V',Mars:'P',Jupiter:'J',Saturn:'T',Uranus:'U',Neptune:'N',Pluto:'O',Chiron:'i',Node:'A',Lilith:'B'};
+const signSymbols={Aries:'a',Taurus:'u',Gemini:'g',Cancer:'c',Leo:'l',Virgo:'m',Libra:'b',Scorpio:'s',Sagittarius:'t',Capricorn:'n',Aquarius:'q',Pisces:'p'};
+const signColors={Aries:'#E74C3C',Taurus:'#27AE60',Gemini:'#F39C12',Cancer:'#3498DB',Leo:'#E67E22',Virgo:'#16A085',Libra:'#9B59B6',Scorpio:'#8E44AD',Sagittarius:'#C0392B',Capricorn:'#2C3E50',Aquarius:'#1ABC9C',Pisces:'#5DADE2'};
+const aspectSymbols={conjunction:'&',opposition:'-',square:'!',trine:'k',sextile:"'",semisquare:'(',semisextile:')'};
+const planets={Sun:{lon:280,speed:0.9856,domain:"identity"},Moon:{lon:90,speed:13.176,domain:"emotions"},Mercury:{lon:270,speed:-1.2,domain:"communication"},Venus:{lon:275,speed:1.2,domain:"love"},Mars:{lon:260,speed:0.5,domain:"action"},Jupiter:{lon:100,speed:-0.083,domain:"growth"},Saturn:{lon:330,speed:0.033,domain:"structure"},Uranus:{lon:50,speed:-0.012,domain:"change"},Neptune:{lon:355,speed:0.006,domain:"dreams"},Pluto:{lon:300,speed:0.004,domain:"transformation"},Chiron:{lon:15,speed:0.01,domain:"healing"},Node:{lon:350,speed:-0.003,domain:"destiny"}};
+const signs=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
 const ref=new Date("2026-01-01");
 const today=new Date();
 const days=Math.floor((today-ref)/86400000);
-
-Object.values(planets).forEach(p=>{
- p.pos=(p.lon+p.speed*days)%360;
- p.motion=p.speed<0?"Retrograde":Math.abs(p.speed)<0.02?"Stationing Direct":"Direct";
-});
-
-/* ================= ASPECTS ================= */
-
-const aspects=[
- {n:"conjunction",a:0,o:6,k:"focus"},
- {n:"opposition",a:180,o:6,k:"polarity"},
- {n:"square",a:90,o:5,k:"tension"},
- {n:"trine",a:120,o:5,k:"flow"},
- {n:"sextile",a:60,o:4,k:"opportunity"}
-];
-
-function diff(a,b){
- let d=Math.abs(a-b);
- return d>180?360-d:d;
-}
-
+Object.values(planets).forEach(p=>{p.pos=(p.lon+p.speed*days)%360;p.motion=p.speed<0?"Retrograde":Math.abs(p.speed)<0.02?"Stationing Direct":"Direct";p.sign=signs[Math.floor(p.pos/30)]});
+const aspects=[{n:"conjunction",a:0,o:6,k:"focus"},{n:"opposition",a:180,o:6,k:"polarity"},{n:"square",a:90,o:5,k:"tension"},{n:"trine",a:120,o:5,k:"flow"},{n:"sextile",a:60,o:4,k:"opportunity"}];
+function diff(a,b){let d=Math.abs(a-b);return d>180?360-d:d}
 let found=[];
 const names=Object.keys(planets);
-
-for(let i=0;i<names.length;i++){
- for(let j=i+1;j<names.length;j++){
-  aspects.forEach(x=>{
-   if(Math.abs(diff(planets[names[i]].pos,planets[names[j]].pos)-x.a)<=x.o){
-    found.push({a:names[i],b:names[j],asp:x});
-   }
-  });
- }
-}
-
+for(let i=0;i<names.length;i++){for(let j=i+1;j<names.length;j++){aspects.forEach(x=>{if(Math.abs(diff(planets[names[i]].pos,planets[names[j]].pos)-x.a)<=x.o){found.push({a:names[i],b:names[j],asp:x})}})}}
 const priority=["conjunction","opposition","square","trine","sextile"];
 found.sort((x,y)=>priority.indexOf(x.asp.n)-priority.indexOf(y.asp.n));
-
-/* ================= RISING SIGN LOGIC ================= */
-
-const good={
- trine:["Taurus","Virgo","Capricorn"],
- sextile:["Gemini","Libra","Aquarius"],
- conjunction:["Leo","Scorpio"]
-};
-
-const bad={
- square:["Aries","Cancer","Libra","Capricorn"],
- opposition:["Cancer","Capricorn"]
-};
-
+const good={trine:["Taurus","Virgo","Capricorn"],sextile:["Gemini","Libra","Aquarius"],conjunction:["Leo","Scorpio"]};
+const bad={square:["Aries","Cancer","Libra","Capricorn"],opposition:["Cancer","Capricorn"]};
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
-
-/* ================= RENDER ================= */
-
 const wrap=document.getElementById("transits");
-
-found.slice(0,3).forEach(t=>{
- const planetA = planetSymbols[t.a] || '?';
- const planetB = planetSymbols[t.b] || '?';
- const aspect = aspectSymbols[t.asp.n] || '?';
- 
- wrap.innerHTML+=`
- <div class="transit">
-  <div class="transit-header">
-    <div><span class="label">Transit:</span> ${t.a} ${t.asp.n} ${t.b}</div>
-    <span class="astro-symbol">${planetA}${aspect}${planetB}</span>
-  </div>
-  <div><span class="label">Keyword:</span> ${t.asp.k}</div>
-  <div><span class="label">Affecting:</span> ${planets[t.a].domain} & ${planets[t.b].domain}</div>
-  <div><span class="label">Good Day for:</span> ${pick(good[t.asp.n]||["Pisces"])}</div>
-  <div><span class="label">Challenging for:</span> ${pick(bad[t.asp.n]||["Aries"])}</div>
-  <div><span class="label">Motion:</span> ${t.a} ${planets[t.a].motion}, ${t.b} ${planets[t.b].motion}</div>
- </div>`;
-});
+found.slice(0,3).forEach(t=>{const planetA=planetSymbols[t.a]||'?';const planetB=planetSymbols[t.b]||'?';const aspect=aspectSymbols[t.asp.n]||'?';const signA=planets[t.a].sign;const signB=planets[t.b].sign;const signSymA=signSymbols[signA]||'?';const signSymB=signSymbols[signB]||'?';const colorA=signColors[signA]||'var(--primary)';const colorB=signColors[signB]||'var(--primary)';wrap.innerHTML+=`<div class="transit"><div class="transit-header"><div><span class="label">Transit:</span> ${t.a} in <span style="color:${colorA}">${signA}</span> ${t.asp.n} ${t.b} in <span style="color:${colorB}">${signB}</span></div><div class="glyphs"><span class="astro-symbol">${planetA}<span style="color:${colorA}">${signSymA}</span>${aspect}${planetB}<span style="color:${colorB}">${signSymB}</span></span></div></div><div><span class="label">Keyword:</span> ${t.asp.k}</div><div><span class="label">Affecting:</span> ${planets[t.a].domain} & ${planets[t.b].domain}</div><div><span class="label">Good Day for:</span> ${pick(good[t.asp.n]||["Pisces"])}</div><div><span class="label">Challenging for:</span> ${pick(bad[t.asp.n]||["Aries"])}</div><div><span class="label">Motion:</span> ${t.a} ${planets[t.a].motion}, ${t.b} ${planets[t.b].motion}</div></div>`});
+document.querySelectorAll('.sign-btn').forEach(btn=>{const sign=btn.getAttribute('data-sign');if(sign&&signColors[sign]){btn.style.setProperty('--sign-color',signColors[sign])}});
+const majorArcana=[{name:"The Fool",meaning:"New beginnings, innocence, spontaneity, free spirit",image:"/assets/tarot/00-fool.jpg"},{name:"The Magician",meaning:"Manifestation, resourcefulness, power, inspired action",image:"/assets/tarot/01-magician.jpg"},{name:"The High Priestess",meaning:"Intuition, sacred knowledge, divine feminine, subconscious",image:"/assets/tarot/02-high-priestess.jpg"},{name:"The Empress",meaning:"Femininity, beauty, nature, nurturing, abundance",image:"/assets/tarot/03-empress.jpg"},{name:"The Emperor",meaning:"Authority, structure, control, fatherhood, leadership",image:"/assets/tarot/04-emperor.jpg"},{name:"The Hierophant",meaning:"Spiritual wisdom, tradition, conformity, institutions",image:"/assets/tarot/05-hierophant.jpg"},{name:"The Lovers",meaning:"Love, harmony, relationships, values alignment, choices",image:"/assets/tarot/06-lovers.jpg"},{name:"The Chariot",meaning:"Control, willpower, success, action, determination",image:"/assets/tarot/07-chariot.jpg"},{name:"Strength",meaning:"Courage, persuasion, influence, compassion, inner strength",image:"/assets/tarot/08-strength.jpg"},{name:"The Hermit",meaning:"Soul searching, introspection, inner guidance, solitude",image:"/assets/tarot/09-hermit.jpg"},{name:"Wheel of Fortune",meaning:"Good luck, karma, life cycles, destiny, turning point",image:"/assets/tarot/10-wheel-of-fortune.jpg"},{name:"Justice",meaning:"Justice, fairness, truth, cause and effect, law",image:"/assets/tarot/11-justice.jpg"},{name:"The Hanged Man",meaning:"Pause, surrender, letting go, new perspectives",image:"/assets/tarot/12-hanged-man.jpg"},{name:"Death",meaning:"Endings, transformation, transition, letting go, renewal",image:"/assets/tarot/13-death.jpg"},{name:"Temperance",meaning:"Balance, moderation, patience, purpose, meaning",image:"/assets/tarot/14-temperance.jpg"},{name:"The Devil",meaning:"Shadow self, attachment, addiction, restriction, sexuality",image:"/assets/tarot/15-devil.jpg"},{name:"The Tower",meaning:"Sudden change, upheaval, chaos, revelation, awakening",image:"/assets/tarot/16-tower.jpg"},{name:"The Star",meaning:"Hope, faith, purpose, renewal, spirituality, inspiration",image:"/assets/tarot/17-star.jpg"},{name:"The Moon",meaning:"Illusion, fear, anxiety, subconscious, intuition",image:"/assets/tarot/18-moon.jpg"},{name:"The Sun",meaning:"Positivity, fun, warmth, success, vitality, joy",image:"/assets/tarot/19-sun.jpg"},{name:"Judgement",meaning:"Judgement, rebirth, inner calling, absolution",image:"/assets/tarot/20-judgement.jpg"},{name:"The World",meaning:"Completion, accomplishment, travel, fulfillment, unity",image:"/assets/tarot/21-world.jpg"}];
+function getTodaysDraw(){const saved=localStorage.getItem('daily_tarot');if(saved){const data=JSON.parse(saved);const savedDate=new Date(data.date);const today=new Date();if(savedDate.toDateString()===today.toDateString()){return data.card}}return null}
+function saveTodaysDraw(cardIndex){const data={card:cardIndex,date:new Date().toISOString()};localStorage.setItem('daily_tarot',JSON.stringify(data))}
+function displayCard(cardIndex){const card=majorArcana[cardIndex];const container=document.getElementById('tarot-card');let html='<div class="tarot-info">';html+=`<img src="${card.image}" alt="${card.name}" class="tarot-card-img">`;html+=`<div class="tarot-name">${card.name}</div><div class="tarot-meaning">${card.meaning}</div></div>`;container.innerHTML=html}
+function drawCard(){const randomIndex=Math.floor(Math.random()*majorArcana.length);saveTodaysDraw(randomIndex);displayCard(randomIndex);const btn=document.getElementById('draw-btn');btn.disabled=true;btn.innerHTML='Card Drawn for Today ✦';updateNextDrawTime()}
+function updateNextDrawTime(){const btn=document.getElementById('draw-btn');const now=new Date();const tomorrow=new Date(now);tomorrow.setDate(tomorrow.getDate()+1);tomorrow.setHours(0,0,0,0);const hoursLeft=Math.floor((tomorrow-now)/(1000*60*60));const minutesLeft=Math.floor((tomorrow-now)/(1000*60))%60;if(btn.disabled){const timerDiv=document.querySelector('.tarot-timer')||document.createElement('div');timerDiv.className='tarot-timer';timerDiv.textContent=`Next draw in ${hoursLeft}h ${minutesLeft}m`;if(!document.querySelector('.tarot-timer')){document.getElementById('tarot-container').appendChild(timerDiv)}}}
+function initTarot(){const todaysDraw=getTodaysDraw();const btn=document.getElementById('draw-btn');if(todaysDraw!==null){displayCard(todaysDraw);btn.disabled=true;btn.innerHTML='Card Drawn for Today ✦';updateNextDrawTime();setInterval(updateNextDrawTime,60000)}else{document.getElementById('tarot-card').innerHTML='<div class="tarot-placeholder">Draw your daily card to receive cosmic guidance ✵</div>'}btn.addEventListener('click',drawCard)}
+initTarot();
 </script>
-
 </body>
 </html>
