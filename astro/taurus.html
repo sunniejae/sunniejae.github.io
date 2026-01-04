@@ -15,10 +15,10 @@
     --black: #000010;
     --white: #ffffff;
     --primary: #50C878;
-    --accent: #B76E79;
-    --dark: #3E2723;
-    --light: #F8F4E3;
-    --sign-color: #50C878;
+    --accent: #a73af6;  
+    --dark: #020202;
+    --light: #EFFAEB;
+    --sign-color: #A73AF6;
 }
 
 body {
@@ -41,7 +41,7 @@ span[style*="Astro4"] {
 a { color: var(--primary); text-decoration: none; }
 a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
-#wiki-frame { max-width: 960px; margin: auto; background: var(--dark); border: 4px ridge var(--primary); padding: 12px; }
+#wiki-frame { max-width: 960px; margin: auto; background: url('assets/background-TAURUS.png'), var(--dark); border: 4px ridge var(--primary); padding: 12px; }
 
 #marquee { font-family: 'Starbim'; background: linear-gradient(to right,var(--accent),var(--primary)); color: var(--white); font-size: 13px; padding: 6px; border: 2px inset var(--primary); margin-bottom: 8px; }
 
@@ -53,18 +53,18 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #wiki-table td { vertical-align: top; padding: 8px; }
 
 /* ================= SIDEBAR ================= */
-#sidebar { width: 280px; background: var(--accent); border: 3px inset var(--primary); font-size: 13px; }
-.sidebar-box { border: 2px groove var(--primary); background: var(--dark); margin-bottom: 12px; padding: 6px; }
+#sidebar { width: 280px; background: var(--primary); border: 3px inset var(--primary); font-size: 13px; }
+.sidebar-box { border: 2px groove var(--light); background: var(--dark); margin-bottom: 12px; padding: 6px; }
 .sidebar-box h3 { margin: 0 0 6px; font-family: 'Starbim'; background: var(--primary); color: var(--black); padding: 4px; text-align: center; }
 
 /* ================= CONTENT ================= */
 #content { background: var(--light); color: var(--black); border: 3px inset var(--primary); }
-.content-box { border: 2px solid var(--accent); background: var(--white); margin-bottom: 14px; }
-.content-box h2 { margin: 0; padding: 6px; font-family: 'Jaewriting'; background: linear-gradient(to right, var(--primary), var(--accent)); color: var(--white); }
+.content-box { border: 2px solid var(--primary); background: var(--white); margin-bottom: 14px; }
+.content-box h2 { margin: 0; padding: 6px; font-family: 'Jaewriting'; background: linear-gradient(to right, var(--primary), var(--accent)); color: var(--dark); }
 .content-box .inner { padding: 10px; line-height: 2; }
 
 /* Horoscopes & Journal */
-.horoscope-box { background: #faf9ff; border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
+.horoscope-box { background: var(--light); border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
 
 /* Y2K Navigation Buttons */
 .sign-nav {
