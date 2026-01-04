@@ -5,6 +5,7 @@
 <title>ARIES Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="assets/ariesfav.png">
+
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -12,14 +13,15 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
-    --primary: #d01f49;
+--primary: #d01f49;
     --accent: #ffc545;  
     --dark: #201e1f;
     --light: #f9f0de;
 }
 
 body {
-    margin: 0; padding: 20px;
+    margin: 0;
+    padding: 20px;
     background-color: var(--dark);
     background-image: url('assets/background-ARIES.png');
     background-repeat: repeat;
@@ -29,90 +31,187 @@ body {
     cursor: url('assets/cursor-star.cur'), auto;
 }
 
-
-[style*="font-family:Astro4"], 
-.astro4,
-span[style*="Astro4"] {
+[style*="font-family:Astro4"],
+.astro4 {
     color: var(--primary) !important;
     font-size: 25px;
 }
+
 a { color: var(--primary); text-decoration: none; }
 a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
-#wiki-frame { max-width: 960px; margin: auto; background: url('assets/background-ARIES.png'), var(--light); border: 4px ridge var(--primary); padding: 12px; }
+#wiki-frame {
+    max-width: 960px;
+    margin: auto;
+    background: var(--light);
+    border: 4px ridge var(--primary);
+    padding: 12px;
+}
 
-#marquee { font-family: 'Starbim'; background: linear-gradient(to right,var(--accent),var(--primary)); color: var(--white); font-size: 13px; padding: 6px; border: 2px inset var(--primary); margin-bottom: 8px; }
+#marquee {
+    font-family: 'Starbim';
+    background: linear-gradient(to right, var(--accent), var(--primary));
+    color: var(--light);
+    font-size: 13px;
+    padding: 6px;
+    border: 2px inset var(--primary);
+    margin-bottom: 8px;
+}
 
-#wiki-header { text-align: center; padding: 16px; }
-#wiki-header h1 { font-family: 'Starbim'; font-size: 42px; color: var(--dark); text-shadow: 3px 3px var(--primary); margin: 0; }
-#wiki-header small { font-family: 'Starbim'; font-size: 16px; color: var(--primary); display: block; margin-top: 6px; }
+#wiki-header {
+    text-align: center;
+    padding: 16px;
+}
 
-#wiki-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-#wiki-table td { vertical-align: top; padding: 8px; }
+#wiki-header h1 {
+    font-family: 'Starbim';
+    font-size: 42px;
+    color: var(--dark);
+    text-shadow: 3px 3px var(--primary);
+    margin: 0;
+}
+
+#wiki-header small {
+    font-family: 'Starbim';
+    font-size: 16px;
+    color: var(--primary);
+    display: block;
+    margin-top: 6px;
+}
+
+#wiki-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+#wiki-table td {
+    vertical-align: top;
+    padding: 8px;
+}
 
 /* ================= SIDEBAR ================= */
-#sidebar { width: 280px; background: var(--accent); border: 3px inset var(--primary); font-size: 16px; }
-.sidebar-box { border: 2px groove var(--light); background: var(--dark); margin-bottom: 12px; padding: 6px; }
-.sidebar-box h3 { margin: 0 0 6px; font-family: 'Starbim'; background: var(--primary); color: var(--black); padding: 4px; text-align: center; }
+#sidebar {
+    width: 280px;
+    background: var(--accent);
+    border: 3px inset var(--primary);
+    font-size: 16px;
+}
 
+.sidebar-box {
+    border: 2px groove var(--light);
+    background: var(--dark);
+    margin-bottom: 12px;
+    padding: 6px;
+}
+
+.sidebar-box h3 {
+    margin: 0 0 6px;
+    font-family: 'Starbim';
+    background: var(--accent);
+    color: var(--dark);
+    padding: 4px;
+    text-align: center;
+}
+
+.sidebar-box h4 {
+    margin: 0px 75px 5px;
+    font-family: 'Starbim';
+    background: var(--primary);
+    color: var(--dark);
+    padding: 4px;
+    text-align: center;
+}
 /* ================= CONTENT ================= */
-#content { background: var(--light); color: var(--black); border: 3px inset var(--primary); }
-.content-box { border: 2px solid var(--primary); background: var(--white); margin-bottom: 14px; }
-.content-box h2 { margin: 0; padding: 6px; font-family: 'Jaewriting'; background: linear-gradient(to right, var(--primary), var(--accent)); color: var(--dark); }
-.content-box .inner { padding: 10px; line-height: 2; }
+#content {
+    background: var(--light);
+    color: var(--dark);
+    border: 3px inset var(--primary);
+}
 
-/* Horoscopes & Journal */
-.horoscope-box { background: var(--light); border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
+.content-box {
+    border: 2px solid var(--primary);
+    background: var(--light);
+    margin-bottom: 14px;
+}
 
-/* Y2K Navigation Buttons */
+.content-box h2 {
+    margin: 0;
+    padding: 6px;
+    font-family: 'Jaewriting';
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    color: var(--dark);
+}
+
+.content-box .inner {
+    padding: 10px;
+    line-height: 2;
+}
+
+/* ================= NAV BUTTONS ================= */
+
 .sign-nav {
     display: inline-block;
-    margin: 2px;
+    margin: 6px 4px;
 }
 
 .sign-nav a {
-    display: inline-block;
-    padding: 6px 12px;
-    border: 2px solid #000;
-    border-radius: 20px;
-    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 8px 16px;
+    border-radius: 999px; /* pill shape */
+
     font-family: 'Starbim', sans-serif;
     font-size: 14px;
     font-weight: bold;
-    box-shadow: 3px 3px 0px #000, 
-                inset 1px 1px 0px rgba(255,255,255,0.5);
-    transition: all 0.1s;
+
+    border: 2px solid #000;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.7),
+        rgba(255,255,255,0.2)
+    );
+
+    box-shadow:
+        3px 3px 0 #000,
+        inset 1px 1px 0 rgba(255,255,255,0.6);
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        filter 0.15s ease;
 }
 
+/* HOVER: press + glow */
 .sign-nav a:hover {
+    background: var(--sign-color);
+    color: #000;
     transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px #000,
-                inset 1px 1px 0px rgba(255,255,255,0.5);
 }
 
+/* ACTIVE: fully pressed */
 .sign-nav a:active {
     transform: translate(3px, 3px);
-    box-shadow: 0px 0px 0px #000;
+    box-shadow: 0 0 0 #000;
 }
 
-/* Individual sign colors */
-.sign-nav a[href="aries.html"] { background: #ffc545; color: #201e1f; }
-.sign-nav a[href="taurus.html"] { background: #50c878; color: #020202; }
-.sign-nav a[href="gemini.html"] { background: #d9e64f; color: #202205; }
-.sign-nav a[href="cancer.html"] { background: #E8E4F3; color: #4A5568; }
-.sign-nav a[href="leo.html"] { background: #f17611; color: #231102; }
-.sign-nav a[href="virgo.html"] { background: #e0ad87; color: #020202; }
-.sign-nav a[href="libra.html"] { background: #e60498; color: #210116; }
-.sign-nav a[href="scorpio.html"] { background: #952a6a; color: #020202; }
-.sign-nav a[href="sagittarius.html"] { background: #2d41e7; color: #040723; }
-.sign-nav a[href="capricorn.html"] { background: #7a5455; color: #110c0c; }
-.sign-nav a[href="aquarius.html"] { background: #88e7db; color: #201e1f; }
-.sign-nav a[href="pisces.html"] { background: #a73af6; color: #19022a; }
-
-/* Black symbols in nav */
-.sign-nav a span[style*="Astro4"] {
-    color: inherit !important;
+/* Glyph size */
+.sign-nav a span {
+    font-size: 18px;
+    line-height: 1;
 }
+
+/* Optional: current sign highlight */
+.sign-nav a.current {
+    outline: 2px dashed var(--primary);
+    outline-offset: 3px;
+}
+
 </style>
 </head>
 
@@ -122,45 +221,60 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-☆ Grounded ☆ Sensual ☆ Stable ☆ Devoted ☆
+☆ BOLD ☆ FEARLESS ☆ IGNITION ☆ MAIN CHARACTER ☆ FIRST MOVE ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-    <h1>ARIES</h1>
-    <small>Fire • Cardinal • Ruled by Mars </small>
+<h1>ARIES</h1>
+<small>Fire • Cardinal • Ruled by Mars</small>
 </div>
 
 <table id="wiki-table">
 <tr>
+
 <!-- ================= SIDEBAR ================= -->
 <td id="sidebar">
 <div class="sidebar-box">
-    <h3>Infocard</h3>
-    Glyph: <span style="font-family:Astro4;">u</span><br>
-    Element: Fire ☆ <span style="font-family:Astro4;">I</span><br>
-    Modality: Cardinal ☆ <span style="font-family:Astro4;">d</span><br>
-    Ruling Planet: Mars ☆ <span style="font-family:Astro4;">P</span><br>
-    Symbol: The Ram<br>
-    Constellation: <br><img src="assets/ARIES-constellation.png" width="250" height="250"><br>
-    House: 1st ☆ <span style="font-family:Astro4;">1</span><br>
-    Colors: <span style="color: #d01f49;">Red</span> and <span style="color: #ffc545;">Gold</span> <br>
-    Crystal: <br><img src="assets/ARIES-crystal.png" width="250" height="250"><br>
-    Flower: <br><img src="assets/ARIES-flower.png" width="250" height="250">
+<h3>Infocard</h3>
+<h4>Glyph:</h4><span style="font-family:Astro4;">a</span><br>
+<h4>Element:</h4> Fire<br>
+<h4>Modality:</h4> Cardinal<br>
+<h4>Ruling Planet:</h4> Mars<br>
+<h4>Symbol:</h4> a<br><br>
+<h4>Constellation:</h4><br>
+<img src="assets/ARIES-constellation.png" width="250"><br><br>
+
+<h4>House:</h4> 1st<br>
+<h4>Colors:</h4> Red and Gold<br><br>
+
+<h4>Crystal:</h4><br>
+<img src="assets/ARIES-crystal.png" width="250"><br><br>
+
+<h4>Flower:</h4><br>
+<img src="assets/ARIES-flower.png" width="250">
 </div>
 </td>
 
 <!-- ================= CONTENT ================= -->
 <td id="content">
+
+<section class="content-box">
+<h2>Sign Overview</h2>
+<div class="inner">
+Aries is the spark that starts the fire—bold, impulsive, and driven by instinct. Ruled by Mars, they thrive on action, courage, and competition, often leading the way before others have decided to move.
+</div>
+</section>
+
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Reliable and loyal</li>
-<li>Strong sense of stability</li>
-<li>Patient and persistent</li>
-<li>Deep appreciation for beauty</li>
-<li>Excellent at building long-term security</li>
+<li>Fearless leadership</li>
+<li>High motivation and drive</li>
+<li>Quick decision making</li>
+<li>Independent thinker</li>
+<li>Unshakeable confidence</li>
 </ul>
 </div>
 </section>
@@ -169,110 +283,128 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Resistance to change</li>
-<li>Stubbornness</li>
-<li>Overindulgence</li>
-<li>Possessiveness</li>
-<li>Difficulty letting go</li>
+<li>Impulsiveness</li>
+<li>Short temper</li>
+<li>Difficulty with patience</li>
+<li>Can overlook details</li>
+<li>Burnout from overexertion</li>
 </ul>
 </div>
 </section>
 
-<div class="content-box">
-<h2>Aries Rising Weekly Horoscope</h2>
-<div class="inner horoscope-box" id="daily-box">
-Loading today’s horoscope…
-</div>
-</div>
 
-<div class="content-box">
-<h2>Strengths and Weaknesses</h2>
-<div class="inner horoscope-box" id="weekly-box">
-This week focuses on stability and long-term security. Small, consistent actions bring tangible results. Avoid rushing decisions—your power lies in patience.</div>
-</div>
-
-<div class="content-box">
-<h2>Key Characteristics</h2>
+<section class="content-box">
+<h2>Career & Education Paths</h2>
 <div class="inner">
-<p>Loyal and dependable</p>
-<p>Sensual and pleasure-oriented</p>
-<p>Stubborn but resilient</p>
-<p>Financially minded</p>
-<p>Grounded and calming</p>
-<p>Resistant to sudden change</p></div>
+<p><strong>Careers:</strong> Entrepreneurship, athletics, military, emergency services, leadership roles, performance arts</p>
+<p><strong>Education:</strong> Hands-on learning, competitive environments, fast-paced programs, experiential study</p>
 </div>
+</section>
 
-<div class="content-box">
-<h2>Health and Wellness</h2>
+<section class="content-box">
+<h2>Health & Wellness</h2>
 <div class="inner">
-Taurus rules the throat, neck, and vocal cords. Stress often manifests physically. Routine, nourishing foods, and body-based self-care are essential. Overindulgence is the main imbalance.</div>
+Movement is essential. Physical activity, stress release, and proper rest help prevent burnout and tension, especially in the head and muscles.
 </div>
+</section>
 
-<div class="content-box">
-<h2>Famous People</h2>
+<section class="content-box">
+<h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: William Shakespeare</p>
-<p>Modern: Adele</p>
-<p>Fictional: Princess Leia</p>
+<p>Historical: Leonardo da Vinci </p>
+<p>Modern: Lady Gaga,</p>
+<p>Fictional: Coraline</p>
 </div>
-</div>
+</section>
 
-<div class="content-box">
+<section class="content-box">
 <h2>Explore Other Signs</h2>
 <div class="inner">
-<span class="sign-nav"><a href="aries.html"><span style="font-family:Astro4;">a</span> Aries</a></span>
-<span class="sign-nav"><a href="taurus.html"><span style="font-family:Astro4;">u</span> Taurus</a></span>
-<span class="sign-nav"><a href="gemini.html"><span style="font-family:Astro4;">g</span> Gemini</a></span>
-<span class="sign-nav"><a href="cancer.html"><span style="font-family:Astro4;">c</span> Cancer</a></span>
-<span class="sign-nav"><a href="leo.html"><span style="font-family:Astro4;">l</span> Leo</a></span>
-<span class="sign-nav"><a href="virgo.html"><span style="font-family:Astro4;">m</span> Virgo</a></span>
-<span class="sign-nav"><a href="libra.html"><span style="font-family:Astro4;">b</span> Libra</a></span>
-<span class="sign-nav"><a href="scorpio.html"><span style="font-family:Astro4;">s</span> Scorpio</a></span>
-<span class="sign-nav"><a href="sagittarius.html"><span style="font-family:Astro4;">t</span> Sagittarius</a></span>
-<span class="sign-nav"><a href="capricorn.html"><span style="font-family:Astro4;">n</span> Capricorn</a></span>
-<span class="sign-nav"><a href="aquarius.html"><span style="font-family:Astro4;">q</span> Aquarius</a></span>
-<span class="sign-nav"><a href="pisces.html"><span style="font-family:Astro4;">p</span> Pisces</a></span>
+
+<span class="sign-nav">
+<a href="aries.html" style="--sign-color:#d01f49;">
+<span style="font-family:Astro4;">a</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="taurus.html" style="--sign-color:#50c878;">
+<span style="font-family:Astro4;">u</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="gemini.html" style="--sign-color:#d9e64f;">
+<span style="font-family:Astro4;">g</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="cancer.html" style="--sign-color:#6e8aa5;">
+<span style="font-family:Astro4;">c</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="leo.html" style="--sign-color:#f17611;">
+<span style="font-family:Astro4;">l</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="virgo.html" style="--sign-color:#e0ad87;">
+<span style="font-family:Astro4;">m</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="libra.html" style="--sign-color:#e60498;">
+<span style="font-family:Astro4;">b</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="scorpio.html" style="--sign-color:#952a6a;">
+<span style="font-family:Astro4;">s</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="sagittarius.html" style="--sign-color:#2d41e7;">
+<span style="font-family:Astro4;">t</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="capricorn.html" style="--sign-color:#7a5455;">
+<span style="font-family:Astro4;">n</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="aquarius.html" style="--sign-color:#88e7db;">
+<span style="font-family:Astro4;">q</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="pisces.html" style="--sign-color:#a73af6;">
+<span style="font-family:Astro4;">p</span> 
+</a>
+</span>
+
 </div>
+</section>
+
+
 </div>
+</section>
 
 </td>
 </tr>
 </table>
 
 </div>
-
-<!-- ================= JAVASCRIPT ================= -->
-<script>
-/* ================== LOCAL STORAGE HOROSCOPE ================= */
-const SIGN_KEY = "ARIES";
-
-const dailyMessages = [
-  "Slow progress is still progress. Stay disciplined.",
-  "Your consistency builds lasting success.",
-  "Boundaries protect your energy today.",
-  "Focus on responsibilities you’ve been avoiding.",
-  "Structure creates freedom.",
-  "Patience gives you the advantage.",
-  "Your long-term vision matters more than quick wins."
-];
-
-function todayKey() {
-    const d = new Date();
-    return `${SIGN_KEY}-${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-}
-
-function getDailyHoroscope() {
-    const key = todayKey();
-    const saved = localStorage.getItem(key);
-    if(saved) return saved;
-    const msg = dailyMessages[new Date().getDate() % dailyMessages.length];
-    localStorage.setItem(key, msg);
-    localStorage.setItem("lastViewedSign", SIGN_KEY);
-    return msg;
-}
-
-document.getElementById("daily-box").textContent = getDailyHoroscope();
-</script>
 
 </body>
 </html>
