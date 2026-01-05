@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SCORPIO Wiki</title>
+<title>ARIES Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="assets/scorpiofav.png">
+<link rel="icon" type="image/png" href="assets/ariesfav.png">
+
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -12,17 +13,17 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
-  --primary: #952a6a;
-    --accent: #633223;  
-    --dark: #630da7;
-    --light: #F5E9FD;
+--primary: #d01f49;
+    --accent: #ffc545;  
+    --dark: #121111;
+    --light: #f9f0de;
 }
 
 body {
     margin: 0;
     padding: 20px;
     background-color: var(--dark);
-    background-image: url('assets/background-SCORPIO.png');
+    background-image: url('assets/background-ARIES.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -36,13 +37,13 @@ body {
     font-size: 25px;
 }
 
-a { color: var(--primary); text-decoration: none; }
+a { color: var(--dark); text-decoration: none; }
 a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 #wiki-frame {
     max-width: 960px;
     margin: auto;
-    background: var(--light);
+    background: var(--dark);
     border: 4px ridge var(--primary);
     padding: 12px;
 }
@@ -65,15 +66,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #wiki-header h1 {
     font-family: 'Starbim';
     font-size: 42px;
-    color: var(--dark);
-    text-shadow: 3px 3px var(--primary);
+    color: var(--primary);
     margin: 0;
 }
 
 #wiki-header small {
     font-family: 'Starbim';
     font-size: 16px;
-    color: var(--primary);
+    color: var(--accent);
     display: block;
     margin-top: 6px;
 }
@@ -91,10 +91,11 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 /* ================= SIDEBAR ================= */
 #sidebar {
-    width: 280px;
-    background: var(--accent);
+    width: 200px;
+    background: linear-gradient(to right, var(--accent), var(--primary));
     border: 3px inset var(--primary);
-    font-size: 16px;
+    font-size: 36px;
+    text-align: center;
 }
 
 .sidebar-box {
@@ -105,25 +106,27 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 .sidebar-box h3 {
-    margin: 0 0 6px;
+    margin: 0px 0 13px;
     font-family: 'Starbim';
     background: var(--accent);
     color: var(--dark);
     padding: 4px;
     text-align: center;
+    font-size: 20px;
 }
 
 .sidebar-box h4 {
-    margin: 0px 75px 5px;
+    margin: 10px 75px 13px;
     font-family: 'Starbim';
     background: var(--primary);
     color: var(--dark);
     padding: 4px;
     text-align: center;
+    font-size: 17px;
 }
 /* ================= CONTENT ================= */
 #content {
-    background: var(--light);
+    background:linear-gradient(to right, var(--primary), var(--accent));
     color: var(--dark);
     border: 3px inset var(--primary);
 }
@@ -138,12 +141,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     margin: 0;
     padding: 6px;
     font-family: 'Jaewriting';
-    background: linear-gradient(to right, var(--primary), var(--accent));
-    color: var(--dark);
+    background: var(--light);
+    color: var(--primary);
+    text-align: center;
 }
 
 .content-box .inner {
-    padding: 10px;
+    padding: 20px;
     line-height: 2;
 }
 
@@ -157,7 +161,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 .sign-nav a {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
 
     padding: 8px 16px;
     border-radius: 999px; /* pill shape */
@@ -165,6 +169,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     font-family: 'Starbim', sans-serif;
     font-size: 14px;
     font-weight: bold;
+    
 
     border: 2px solid #000;
     background: linear-gradient(
@@ -205,11 +210,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     line-height: 1;
 }
 
-/* Optional: current sign highlight */
-.sign-nav a.current {
-    outline: 2px dashed var(--primary);
-    outline-offset: 3px;
-}
+
 
 </style>
 </head>
@@ -220,134 +221,48 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-<<<<<<< HEAD
-☆ placeholder ☆ placeholder ☆ placeholder ☆ placeholder ☆
-=======
-☆ MAGNETIC ☆ INTENSE ☆ TRANSFORMATION ☆ POWER ☆
->>>>>>> 4cd979d (modify and add via visual studio code editor)
+☆ BOLD ☆ FEARLESS ☆ IGNITION ☆ MAIN CHARACTER ☆ FIRST MOVE ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<<<<<<< HEAD
-    <h1>SCORPIO</h1>
-    <small>-ELEMENT • MODALITY • Ruled by PLANET </small>
-=======
-<h1>SCORPIO</h1>
-<small>Water • Fixed • Ruled by Pluto and Mars</small>
->>>>>>> 4cd979d (modify and add via visual studio code editor)
+<h1>ARIES</h1>
+<small>Fire • Cardinal • Ruled by Mars</small>
 </div>
 
 <table id="wiki-table">
 <tr>
-<<<<<<< HEAD
-<!-- ================= SIDEBAR ================= -->
-<td id="sidebar">
-<div class="sidebar-box">
-    <h3>Infocard</h3>
-    Glyph: <span style="font-family:Astro4;">u</span><br>
-    Element: ☆ <span style="font-family:Astro4;">I</span><br>
-    Modality: MODALITY ☆ <span style="font-family:Astro4;">f</span><br>
-    Ruling Planet: PLANET ☆ <span style="font-family:Astro4;">V</span><br>
-    Symbol: The Archer<br>
-    Constellation: <br><img src="assets/SCORPIO-constellation.png" width="250" height="250"><br>
-    House: HOUSE ☆ <span style="font-family:Astro4;">2</span><br>
-    Colors: COLORS <br>
-    Crystal: <br><img src="assets/SCORPIO-crystal.png" width="250" height="250"><br>
-    Flower: <br><img src="assets/SCORPIO-flower.png" width="250" height="250">
-=======
 
 <!-- ================= SIDEBAR ================= -->
 <td id="sidebar">
 <div class="sidebar-box">
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">s</span><br>
-<h4>Element:</h4> Water<br>
-<h4>Modality:</h4> Fixed<br>
-<h4>Ruling Planet:</h4> Pluto and Mars<br>
-<h4>Symbol:</h4> The Scorpion<br><br>
+<h4>Glyph:</h4><span style="font-family:Astro4;">a</span><br>
+<h4>Element:</h4> Fire<br>
+<h4>Modality:</h4> Cardinal<br>
+<h4>Ruling Planet:</h4> Mars<br>
+<h4>Symbol:</h4> The Ram<br><br>
 <h4>Constellation:</h4><br>
-<img src="assets/SCORPIO-constellation.png" width="250"><br><br>
+<img src="assets/constellation-SCORPIO.png" width="250"><br><br>
 
-<h4>House:</h4> 8th<br>
-<h4>Colors:</h4> Black and Burgundy<br><br>
+<h4>House:</h4> 1st<br>
+<h4>Colors:</h4> Red and Gold<br><br>
 
 <h4>Crystal:</h4><br>
-<img src="assets/SCORPIO-crystal.png" width="250"><br><br>
+<img src="assets/crystal-ARIES.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="assets/SCORPIO-flower.png" width="250">
->>>>>>> 4cd979d (modify and add via visual studio code editor)
+<img src="assets/flower-ARIES.png" width="250">
 </div>
 </td>
 
 <!-- ================= CONTENT ================= -->
 <td id="content">
 
-<<<<<<< HEAD
-<div class="content-box">
-<h2>Taurus Rising Weekly Horoscope</h2>
-<div class="inner horoscope-box" id="daily-box">
-Loading today’s horoscope…
-</div>
-</div>
-
-<div class="content-box">
-<h2>Weekly Journal Prompt</h2>
-<div class="inner horoscope-box" id="weekly-box">
-placeholder</div>
-</div>
-
-<div class="content-box">
-<h2>Sign Overview</h2>
-<div class="inner">
-placeholder.</div>
-</div>
-
-<div class="content-box">
-<h2>Key Characteristics</h2>
-<div class="inner">
-<p>placeholder</p>
-<p>placeholder</p>
-</div>
-
-<div class="content-box">
-<h2>Health and Wellness</h2>
-<div class="inner">
-placeholder</div>
-</div>
-
-<div class="content-box">
-<h2>Famous People</h2>
-<div class="inner">
-<p>Historical: placeholder</p>
-<p>Modern: placeholder</p>
-<p>Fictional: placeholder</p>
-</div>
-</div>
-
-<div class="content-box">
-<h2>Explore Other Signs</h2>
-<div class="inner">
-<span class="sign-nav"><a href="aries.html"><span style="font-family:Astro4;">a</span> Aries</a></span>
-<span class="sign-nav"><a href="taurus.html"><span style="font-family:Astro4;">u</span> Taurus</a></span>
-<span class="sign-nav"><a href="gemini.html"><span style="font-family:Astro4;">g</span> Gemini</a></span>
-<span class="sign-nav"><a href="cancer.html"><span style="font-family:Astro4;">c</span> Cancer</a></span>
-<span class="sign-nav"><a href="leo.html"><span style="font-family:Astro4;">l</span> Leo</a></span>
-<span class="sign-nav"><a href="virgo.html"><span style="font-family:Astro4;">r</span> Virgo</a></span>
-<span class="sign-nav"><a href="libra.html"><span style="font-family:Astro4;">b</span> Libra</a></span>
-<span class="sign-nav"><a href="scorpio.html"><span style="font-family:Astro4;">s</span> Scorpio</a></span>
-<span class="sign-nav"><a href="sagittarius.html"><span style="font-family:Astro4;">t</span> Sagittarius</a></span>
-<span class="sign-nav"><a href="capricorn.html"><span style="font-family:Astro4;">n</span> Capricorn</a></span>
-<span class="sign-nav"><a href="aquarius.html"><span style="font-family:Astro4;">q</span> Aquarius</a></span>
-<span class="sign-nav"><a href="pisces.html"><span style="font-family:Astro4;">p</span> Pisces</a></span>
-</div>
-</div>
-=======
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-Scorpio is intense, perceptive, and emotionally fearless, drawn to what lies beneath the surface. Ruled by Pluto (and Mars), they are agents of transformation, thriving through depth, truth, and rebirth.
+Aries is the spark that starts the fire—bold, impulsive, and driven by instinct. Ruled by Mars, they thrive on action, courage, and competition, often leading the way before others have decided to move.
 </div>
 </section>
 
@@ -355,11 +270,11 @@ Scorpio is intense, perceptive, and emotionally fearless, drawn to what lies ben
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Emotionally powerful</li>
-<li>Highly intuitive</li>
-<li>Loyal and devoted</li>
-<li>Resilient under pressure</li>
-<li>Deeply transformative</li>
+<li>Fearless leadership</li>
+<li>High motivation and drive</li>
+<li>Quick decision making</li>
+<li>Independent thinker</li>
+<li>Unshakeable confidence</li>
 </ul>
 </div>
 </section>
@@ -368,11 +283,11 @@ Scorpio is intense, perceptive, and emotionally fearless, drawn to what lies ben
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Control issues</li>
-<li>Jealousy</li>
-<li>Emotional intensity</li>
-<li>Difficulty trusting</li>
-<li>Tendency toward secrecy</li>
+<li>Impulsiveness</li>
+<li>Short temper</li>
+<li>Difficulty with patience</li>
+<li>Can overlook details</li>
+<li>Burnout from overexertion</li>
 </ul>
 </div>
 </section>
@@ -381,24 +296,24 @@ Scorpio is intense, perceptive, and emotionally fearless, drawn to what lies ben
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> Psychology, research, investigation, finance, healing arts, crisis management</p>
-<p><strong>Education:</strong> Deep-focus study, independent research, transformative learning environments</p>
+<p><strong>Careers:</strong> Entrepreneurship, athletics, military, emergency services, leadership roles, performance arts</p>
+<p><strong>Education:</strong> Hands-on learning, competitive environments, fast-paced programs, experiential study</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Emotional processing and release are crucial. Avoid suppression.
+Movement is essential. Physical activity, stress release, and proper rest help prevent burnout and tension, especially in the head and muscles.
 </div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: Marie Curie</p>
-<p>Modern: Drake</p>
-<p>Fictional: Raven (Teen Titans)</p>
+<p>Historical: Leonardo da Vinci </p>
+<p>Modern: Lady Gaga,</p>
+<p>Fictional: Coraline</p>
 </div>
 </section>
 
@@ -484,7 +399,6 @@ Emotional processing and release are crucial. Avoid suppression.
 
 </div>
 </section>
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 
 </td>
 </tr>
@@ -492,41 +406,5 @@ Emotional processing and release are crucial. Avoid suppression.
 
 </div>
 
-<<<<<<< HEAD
-<!-- ================= JAVASCRIPT ================= -->
-<script>
-/* ================== LOCAL STORAGE HOROSCOPE ================= */
-const SIGN_KEY = "SCORPIO";
-
-const dailyMessages = [
-  "Slow progress is still progress. Stay disciplined.",
-  "Your consistency builds lasting success.",
-  "Boundaries protect your energy today.",
-  "Focus on responsibilities you’ve been avoiding.",
-  "Structure creates freedom.",
-  "Patience gives you the advantage.",
-  "Your long-term vision matters more than quick wins."
-];
-
-function todayKey() {
-    const d = new Date();
-    return `${SIGN_KEY}-${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-}
-
-function getDailyHoroscope() {
-    const key = todayKey();
-    const saved = localStorage.getItem(key);
-    if(saved) return saved;
-    const msg = dailyMessages[new Date().getDate() % dailyMessages.length];
-    localStorage.setItem(key, msg);
-    localStorage.setItem("lastViewedSign", SIGN_KEY);
-    return msg;
-}
-
-document.getElementById("daily-box").textContent = getDailyHoroscope();
-</script>
-
-=======
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 </body>
 </html>
