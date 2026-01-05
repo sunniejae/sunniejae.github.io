@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{{SIGN NAME}} Wiki</title>
+<title>{{SIGN}} Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="assets/{{sign}}fav.png">
-
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -13,10 +12,11 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
-    --primary: #9adbff;
-    --accent: #ff9ede;
-    --dark: #2a1f0d;
-    --light: #fff8f0;
+--primary: #9a9dff;
+    --accent: #c13886;  
+    --dark: #404040;
+    --light: #f0f0f5;
+
 }
 
 body {
@@ -25,7 +25,7 @@ body {
     background-color: var(--dark);
     background-image: url('assets/background-{{SIGN}}.png');
     background-repeat: repeat;
-    background-attachment: fixed;
+    background-attachment: Mutable;
     font-family: 'Jaewriting', monospace;
     color: var(--light);
     cursor: url('assets/cursor-star.cur'), auto;
@@ -37,13 +37,13 @@ body {
     font-size: 25px;
 }
 
-a { color: var(--primary); text-decoration: none; }
+a { color: var(--dark); text-decoration: none; }
 a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 #wiki-frame {
     max-width: 960px;
     margin: auto;
-    background: var(--light);
+    background: var(--dark);
     border: 4px ridge var(--primary);
     padding: 12px;
 }
@@ -51,7 +51,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #marquee {
     font-family: 'Starbim';
     background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--light);
+    color: var(--dark);
     font-size: 13px;
     padding: 6px;
     border: 2px inset var(--primary);
@@ -66,15 +66,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #wiki-header h1 {
     font-family: 'Starbim';
     font-size: 42px;
-    color: var(--dark);
-    text-shadow: 3px 3px var(--primary);
+    color: var(--primary);
     margin: 0;
 }
 
 #wiki-header small {
     font-family: 'Starbim';
     font-size: 16px;
-    color: var(--primary);
+    color: var(--accent);
     display: block;
     margin-top: 6px;
 }
@@ -92,10 +91,11 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 /* ================= SIDEBAR ================= */
 #sidebar {
-    width: 280px;
-    background: var(--accent);
+    width: 200px;
+    background: linear-gradient(to right, var(--accent), var(--primary));
     border: 3px inset var(--primary);
-    font-size: 16px;
+    font-size: 36px;
+    text-align: center;
 }
 
 .sidebar-box {
@@ -106,25 +106,27 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 .sidebar-box h3 {
-    margin: 0 0 6px;
+    margin: 0px 0 13px;
     font-family: 'Starbim';
     background: var(--accent);
     color: var(--dark);
     padding: 4px;
     text-align: center;
+    font-size: 20px;
 }
 
 .sidebar-box h4 {
-    margin: 0px 75px 5px;
+    margin: 10px 75px 13px;
     font-family: 'Starbim';
     background: var(--primary);
     color: var(--dark);
     padding: 4px;
     text-align: center;
+    font-size: 17px;
 }
 /* ================= CONTENT ================= */
 #content {
-    background: var(--light);
+    background:linear-gradient(to right, var(--primary), var(--accent));
     color: var(--dark);
     border: 3px inset var(--primary);
 }
@@ -139,12 +141,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     margin: 0;
     padding: 6px;
     font-family: 'Jaewriting';
-    background: linear-gradient(to right, var(--primary), var(--accent));
+    background: var(--light);
     color: var(--dark);
 }
 
 .content-box .inner {
-    padding: 10px;
+    padding: 20px;
     line-height: 2;
 }
 
@@ -158,7 +160,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 .sign-nav a {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
 
     padding: 8px 16px;
     border-radius: 999px; /* pill shape */
@@ -166,6 +168,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     font-family: 'Starbim', sans-serif;
     font-size: 14px;
     font-weight: bold;
+    
 
     border: 2px solid #000;
     background: linear-gradient(
@@ -206,11 +209,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     line-height: 1;
 }
 
-/* Optional: current sign highlight */
-.sign-nav a.current {
-    outline: 2px dashed var(--primary);
-    outline-offset: 3px;
-}
+
 
 </style>
 </head>
@@ -221,12 +220,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-{{BUZZWORDS • GO • HERE}}
+☆ ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>{{SIGN NAME}}</h1>
+<h1>{{SIGN}}</h1>
 <small>{{ELEMENT}} • {{MODALITY}} • Ruled by {{PLANET}}</small>
 </div>
 
@@ -237,14 +236,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="sidebar">
 <div class="sidebar-box">
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">{{GLYPH}}</span><br>
+<h4>Glyph:</h4><span style="font-family:Astro4;">p</span><br>
 <h4>Element:</h4> {{ELEMENT}}<br>
 <h4>Modality:</h4> {{MODALITY}}<br>
 <h4>Ruling Planet:</h4> {{PLANET}}<br>
 <h4>Symbol:</h4> {{SYMBOL}}<br><br>
 <h4>Constellation:</h4><br>
-<img src="assets/{{SIGN}}-constellation.png" width="250"><br><br>
-
+<img src="assets/constellation-{{SIGN}}.png" width="250"><br><br>
 <h4>House:</h4> {{HOUSE}}<br>
 <h4>Colors:</h4> {{COLORS}}<br><br>
 
@@ -262,19 +260,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-{{OVERVIEW TEXT}}
-</div>
+{{Overview}}</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -283,36 +276,32 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
+
 
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> </p>
-<p><strong>Education:</strong> </p>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-{{HEALTH INFO}}
-</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical:</p>
-<p>Modern:</p>
-<p>Fictional:</p>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -352,7 +341,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <span class="sign-nav">
 <a href="virgo.html" style="--sign-color:#e0ad87;">
-<span style="font-family:Astro4;">m</span> 
+<span style="font-family:Astro4;">r</span> 
 </a>
 </span>
 
@@ -392,6 +381,17 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 </a>
 </span>
 
+<span class="sign-nav">
+<a href="home.html" style="--sign-color:#77cbb4;">
+<span style="font-family:'Starbim';">Astro Home</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="www.sunniejae.com" style="--sign-color:#9a9dff;">
+<span style="font-family:'Starbim';">Sunnie Jae</span> 
+</a>
+</span>
 </div>
 </section>
 

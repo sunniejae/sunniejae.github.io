@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SAGITTARIUS Wiki</title>
+<title>PISCES Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="assets/sagittariusfav.png">
-
+<link rel="icon" type="image/png" href="assets/piscesfav.png">
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -26,7 +25,7 @@ body {
     background-color: var(--dark);
     background-image: url('assets/background-PISCES.png');
     background-repeat: repeat;
-    background-attachment: fixed;
+    background-attachment: Mutable;
     font-family: 'Jaewriting', monospace;
     color: var(--light);
     cursor: url('assets/cursor-star.cur'), auto;
@@ -38,13 +37,13 @@ body {
     font-size: 25px;
 }
 
-a { color: var(--primary); text-decoration: none; }
+a { color: var(--dark); text-decoration: none; }
 a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 #wiki-frame {
     max-width: 960px;
     margin: auto;
-    background: var(--light);
+    background: var(--dark);
     border: 4px ridge var(--primary);
     padding: 12px;
 }
@@ -52,7 +51,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #marquee {
     font-family: 'Starbim';
     background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--light);
+    color: var(--dark);
     font-size: 13px;
     padding: 6px;
     border: 2px inset var(--primary);
@@ -67,15 +66,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #wiki-header h1 {
     font-family: 'Starbim';
     font-size: 42px;
-    color: var(--dark);
-    text-shadow: 3px 3px var(--primary);
+    color: var(--primary);
     margin: 0;
 }
 
 #wiki-header small {
     font-family: 'Starbim';
     font-size: 16px;
-    color: var(--primary);
+    color: var(--accent);
     display: block;
     margin-top: 6px;
 }
@@ -93,10 +91,11 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 /* ================= SIDEBAR ================= */
 #sidebar {
-    width: 280px;
-    background: var(--accent);
+    width: 200px;
+    background: linear-gradient(to right, var(--accent), var(--primary));
     border: 3px inset var(--primary);
-    font-size: 16px;
+    font-size: 36px;
+    text-align: center;
 }
 
 .sidebar-box {
@@ -107,25 +106,27 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 .sidebar-box h3 {
-    margin: 0 0 6px;
+    margin: 0px 0 13px;
     font-family: 'Starbim';
     background: var(--accent);
     color: var(--dark);
     padding: 4px;
     text-align: center;
+    font-size: 20px;
 }
 
 .sidebar-box h4 {
-    margin: 0px 75px 5px;
+    margin: 10px 75px 13px;
     font-family: 'Starbim';
     background: var(--primary);
     color: var(--dark);
     padding: 4px;
     text-align: center;
+    font-size: 17px;
 }
 /* ================= CONTENT ================= */
 #content {
-    background: var(--light);
+    background:linear-gradient(to right, var(--primary), var(--accent));
     color: var(--dark);
     border: 3px inset var(--primary);
 }
@@ -140,12 +141,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     margin: 0;
     padding: 6px;
     font-family: 'Jaewriting';
-    background: linear-gradient(to right, var(--primary), var(--accent));
+    background: var(--light);
     color: var(--dark);
 }
 
 .content-box .inner {
-    padding: 10px;
+    padding: 20px;
     line-height: 2;
 }
 
@@ -159,7 +160,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 .sign-nav a {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
 
     padding: 8px 16px;
     border-radius: 999px; /* pill shape */
@@ -167,6 +168,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     font-family: 'Starbim', sans-serif;
     font-size: 14px;
     font-weight: bold;
+    
 
     border: 2px solid #000;
     background: linear-gradient(
@@ -207,11 +209,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     line-height: 1;
 }
 
-/* Optional: current sign highlight */
-.sign-nav a.current {
-    outline: 2px dashed var(--primary);
-    outline-offset: 3px;
-}
+
 
 </style>
 </head>
@@ -222,13 +220,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-☆ ADVENTURE ☆ TRUTH ☆ FREEDOM ☆ BIG DREAMS ☆
+☆  D r e a m y  ☆  C o m p a s s i o n a t e ☆ I n t u i t i v e  ☆  M y s t i c a l ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>SAGITTARIUS</h1>
-<small>Fire • Mutable • Ruled by Jupiter</small>
+<h1>PISCES</h1>
+<small>Water • Mutable • Ruled by Neptune</small>
 </div>
 
 <table id="wiki-table">
@@ -238,22 +236,22 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="sidebar">
 <div class="sidebar-box">
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">t</span><br>
-<h4>Element:</h4> Fire<br>
+<h4>Glyph:</h4><span style="font-family:Astro4;">p</span><br>
+<h4>Element:</h4> Water<br>
 <h4>Modality:</h4> Mutable<br>
-<h4>Ruling Planet:</h4> Jupiter<br>
-<h4>Symbol:</h4> The Archer<br><br>
+<h4>Ruling Planet:</h4> Neptune<br>
+<h4>Symbol:</h4> The Fish<br><br>
 <h4>Constellation:</h4><br>
 <img src="assets/constellation-PISCES.png" width="250"><br><br>
 
-<h4>House:</h4> 9th<br>
-<h4>Colors:</h4> Purple<br><br>
+<h4>House:</h4> 12th<br>
+<h4>Colors:</h4> Purple and Blue<br><br>
 
 <h4>Crystal:</h4><br>
-<img src="assets/SAGITTARIUS-crystal.png" width="250"><br><br>
+<img src="assets/PISCES-crystal.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="assets/SAGITTARIUS-flower.png" width="250">
+<img src="assets/PISCES-flower.png" width="250">
 </div>
 </td>
 
@@ -263,19 +261,18 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-Sagittarius is adventurous, philosophical, and driven by the search for meaning. Ruled by Jupiter, they expand horizons through travel, learning, and an unshakable belief in possibility.
-</div>
+Pisces is compassionate, imaginative, and deeply intuitive, living between reality and fantasy. Ruled by Neptune, they are dreamers, artists, and intuitives who feel connected to the universe more than their own surroundings. Their challenge is maintaining boundaries while honoring their profound sensitivity.</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Optimistic outlook</li>
-<li>Love of freedom</li>
-<li>Philosophical thinking</li>
-<li>Honest communication</li>
-<li>Adventurous spirit</li>
+<li>Empathy</li>
+<li>Creativity</li>
+<li>Spiritual awareness</li>
+<li>Imagination</li>
+<li>Emotional depth</li>
 </ul>
 </div>
 </section>
@@ -284,11 +281,11 @@ Sagittarius is adventurous, philosophical, and driven by the search for meaning.
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Restlessness</li>
-<li>Bluntness</li>
-<li>Overconfidence</li>
-<li>Avoidance of responsibility</li>
-<li>Difficulty with routine</li>
+<li>Escapism</li>
+<li>Lack of boundaries</li>
+<li>Over-sensitivity</li>
+<li>Indecision</li>
+<li>Emotional overwhelm</li>
 </ul>
 </div>
 </section>
@@ -297,24 +294,24 @@ Sagittarius is adventurous, philosophical, and driven by the search for meaning.
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> Travel, education, publishing, coaching, philosophy, international relations</p>
-<p><strong>Education:</strong> Exploratory learning, global studies, philosophy-driven education, flexible programs</p>
+<p><strong>Careers:</strong> Art, music, film, healing arts, spirituality, photography, nonprofit work</p>
+<p><strong>Education:</strong> Creative study, intuitive learning, flexible and compassionate environments</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Movement, travel, and outdoor activity support vitality.
+Creative outlets and joyful movement support vitality. Avoid overexertion driven by pride.
 </div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: Mark Twain</p>
-<p>Modern:</p>
-<p>Fictional: Indiana Jones</p>
+<p>Historical: Napoleon Bonaparte</p>
+<p>Modern: Beyoncé</p>
+<p>Fictional:  Zuko (A:TLA)</p>
 </div>
 </section>
 
@@ -354,7 +351,7 @@ Movement, travel, and outdoor activity support vitality.
 
 <span class="sign-nav">
 <a href="virgo.html" style="--sign-color:#e0ad87;">
-<span style="font-family:Astro4;">m</span> 
+<span style="font-family:Astro4;">r</span> 
 </a>
 </span>
 
@@ -394,6 +391,17 @@ Movement, travel, and outdoor activity support vitality.
 </a>
 </span>
 
+<span class="sign-nav">
+<a href="home.html" style="--sign-color:#77cbb4;">
+<span style="font-family:'Starbim';">Astro Home</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="www.sunniejae.com" style="--sign-color:#9a9dff;">
+<span style="font-family:'Starbim';">Sunnie Jae</span> 
+</a>
+</span>
 </div>
 </section>
 
