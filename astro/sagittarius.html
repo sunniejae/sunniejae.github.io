@@ -5,10 +5,6 @@
 <title>SAGITTARIUS Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="assets/sagittariusfav.png">
-<<<<<<< HEAD
-=======
-
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -16,17 +12,6 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
-<<<<<<< HEAD
---primary: #2d41e7;
---accent: #f01ff7;  
---dark: #040723;
---light: #feeffe;
-}
-
-body {
-    margin: 0; padding: 20px;
-    background-color: var(--black);
-=======
  --primary: #2d41e7;
     --accent: #f01ff7;  
     --dark: #040723;
@@ -38,101 +23,10 @@ body {
     margin: 0;
     padding: 20px;
     background-color: var(--dark);
->>>>>>> 4cd979d (modify and add via visual studio code editor)
     background-image: url('assets/background-SAGITTARIUS.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
-<<<<<<< HEAD
-    color: var(--white);
-    cursor: url('assets/cursor-star.cur'), auto;
-}
-
-
-[style*="font-family:Astro4"], 
-.astro4,
-span[style*="Astro4"] {
-    color: var(--primary) !important;
-    font-size: 25px;
-}
-a { color: var(--primary); text-decoration: none; }
-a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
-
-#wiki-frame { max-width: 960px; margin: auto; background: url('assets/background-SAGITTARIUS.png'), var(--light); border: 4px ridge var(--primary); padding: 12px; }
-
-#marquee { font-family: 'Starbim'; background: linear-gradient(to right,var(--accent),var(--primary)); color: var(--white); font-size: 13px; padding: 6px; border: 2px inset var(--primary); margin-bottom: 8px; }
-
-#wiki-header { text-align: center; padding: 16px; }
-#wiki-header h1 { font-family: 'Starbim'; font-size: 42px; color: var(--dark); text-shadow: 3px 3px var(--primary); margin: 0; }
-#wiki-header small { font-family: 'Starbim'; font-size: 16px; color: var(--primary); display: block; margin-top: 6px; }
-
-#wiki-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-#wiki-table td { vertical-align: top; padding: 8px; }
-
-/* ================= SIDEBAR ================= */
-#sidebar { width: 280px; background: var(--primary); border: 3px inset var(--primary); font-size: 16px; }
-.sidebar-box { border: 2px groove var(--light); background: var(--dark); margin-bottom: 12px; padding: 6px; color: var(--light) }
-.sidebar-box h3 { margin: 0 0 6px; font-family: 'Starbim'; background: var(--accent); color: var(--dark); padding: 4px; text-align: center; }
-
-/* ================= CONTENT ================= */
-#content { background: var(--light); color: var(--black); border: 3px inset var(--primary); }
-.content-box { border: 2px solid var(--primary); background: var(--white); margin-bottom: 14px; }
-.content-box h2 { margin: 0; padding: 6px; font-family: 'Jaewriting'; background: linear-gradient(to right, var(--primary), var(--accent)); color: var(--dark); }
-.content-box .inner { padding: 10px; line-height: 2; }
-
-/* Horoscopes & Journal */
-.horoscope-box { background: var(--light); border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
-
-/* Y2K Navigation Buttons */
-.sign-nav {
-    display: inline-block;
-    margin: 2px;
-}
-
-.sign-nav a {
-    display: inline-block;
-    padding: 6px 12px;
-    border: 2px solid var(--dark);
-    border-radius: 20px;
-    text-decoration: none;
-    font-family: 'Starbim', sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    box-shadow: 3px 3px 0px var(--dark), 
-                inset 1px 1px 0px rgba(255,255,255,0.5);
-    transition: all 0.1s;
-}
-
-.sign-nav a:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px #000,
-                inset 1px 1px 0px rgba(255,255,255,0.5);
-}
-
-.sign-nav a:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0px 0px 0px #000;
-}
-
-/* Individual sign colors */
-.sign-nav a[href="aries.html"] { background: #d01f49; color: #201e1f; }
-.sign-nav a[href="taurus.html"] { background: #50c878; color: #020202; }
-.sign-nav a[href="gemini.html"] { background: #d9e64f; color: #202205;}
-.sign-nav a[href="cancer.html"] { background: #6e8aa5; color: #12181e; }
-.sign-nav a[href="leo.html"] { background: #f17611; color: #231102; }
-.sign-nav a[href="virgo.html"] { background: #e0ad87; color:#29170A; }
-.sign-nav a[href="libra.html"] { background: #e60498; color: #210116; }
-.sign-nav a[href="scorpio.html"] { background: #952a6a; color: #15060F}
-.sign-nav a[href="sagittarius.html"] { background: #2d41e7; color: #040723}
-.sign-nav a[href="capricorn.html"] { background: #708090; color: #2C4251; }
-.sign-nav a[href="aquarius.html"] { background: #87CEEB; color: #2C4251; }
-.sign-nav a[href="pisces.html"] { background: #9FD5D1; color: #335C67; }
-
-/* Black symbols in nav */
-.sign-nav a span[style*="Astro4"] {
-    color: inherit !important;
-}
-=======
     color: var(--light);
     cursor: url('assets/cursor-star.cur'), auto;
 }
@@ -318,7 +212,6 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     outline-offset: 3px;
 }
 
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 </style>
 </head>
 

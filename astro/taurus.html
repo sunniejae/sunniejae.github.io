@@ -2,16 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
 <title>TAURUS Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="assets/taurusfav3.png">
-=======
-<title>VIRGO Wiki</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="assets/virgofav.png">
+<link rel="icon" type="image/png" href="assets/taurusfav.png">
 
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -19,56 +13,18 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
-<<<<<<< HEAD
-    --black: #000010;
-    --white: #ffffff;
-    --primary: #50C878;
+--primary: #50c878;
     --accent: #a73af6;  
-    --dark: #020202;
-    --light: #EFFAEB;
-    --sign-color: #A73AF6;
-}
+    --dark: #0A1E11;
+    --light: #F9F1FE;
 
-body {
-    margin: 0; padding: 20px;
-    background-color: var(--black);
-    background-image: url('assets/background-TAURUS.png');
-    background-repeat: repeat;
-    background-attachment: fixed;
-    font-family: 'Jaewriting', monospace;
-    color: var(--white);
-    cursor: url('assets/cursor-star.cur'), auto;
-}
-
-
-[style*="font-family:Astro4"], 
-.astro4,
-span[style*="Astro4"] {
-    color: var(--primary) !important;
-    font-size: 25px;
-}
-a { color: var(--primary); text-decoration: none; }
-a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
-
-#wiki-frame { max-width: 960px; margin: auto; background: url('assets/background-TAURUS.png'), var(--light); border: 4px ridge var(--primary); padding: 12px; }
-
-#marquee { font-family: 'Starbim'; background: linear-gradient(to right,var(--accent),var(--primary)); color: var(--white); font-size: 13px; padding: 6px; border: 2px inset var(--primary); margin-bottom: 8px; }
-
-#wiki-header { text-align: center; padding: 16px; }
-#wiki-header h1 { font-family: 'Starbim'; font-size: 42px; color: var(--dark); text-shadow: 3px 3px var(--primary); margin: 0; }
-#wiki-header small { font-family: 'Starbim'; font-size: 16px; color: var(--primary); display: block; margin-top: 6px; }
-=======
---primary: #e0ad87;
-    --accent: #462b89;  
-    --dark: #020202;
-    --light: #f0edf9;
 }
 
 body {
     margin: 0;
     padding: 20px;
     background-color: var(--dark);
-    background-image: url('assets/background-VIRGO.png');
+    background-image: url('assets/background-TAURUS.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -107,7 +63,6 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     text-align: center;
     padding: 16px;
 }
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 
 #wiki-header h1 {
     font-family: 'Starbim';
@@ -137,18 +92,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 /* ================= SIDEBAR ================= */
-<<<<<<< HEAD
-#sidebar { width: 280px; background: var(--primary); border: 3px inset var(--primary); font-size: 16px; }
-.sidebar-box { border: 2px groove var(--light); background: var(--dark); margin-bottom: 12px; padding: 6px; }
-.sidebar-box h3 { margin: 0 0 6px; font-family: 'Starbim'; background: var(--primary); color: var(--black); padding: 4px; text-align: center; }
-=======
 #sidebar {
     width: 280px;
     background: var(--accent);
     border: 3px inset var(--primary);
     font-size: 16px;
 }
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 
 .sidebar-box {
     border: 2px groove var(--light);
@@ -175,65 +124,6 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     text-align: center;
 }
 /* ================= CONTENT ================= */
-<<<<<<< HEAD
-#content { background: var(--light); color: var(--black); border: 3px inset var(--primary); }
-.content-box { border: 2px solid var(--primary); background: var(--white); margin-bottom: 14px; }
-.content-box h2 { margin: 0; padding: 6px; font-family: 'Jaewriting'; background: linear-gradient(to right, var(--primary), var(--accent)); color: var(--dark); }
-.content-box .inner { padding: 10px; line-height: 2; }
-
-/* Horoscopes & Journal */
-.horoscope-box { background: var(--light); border: 2px dashed var(--accent); font-family: 'Jaewriting'; }
-
-/* Y2K Navigation Buttons */
-.sign-nav {
-    display: inline-block;
-    margin: 2px;
-}
-
-.sign-nav a {
-    display: inline-block;
-    padding: 6px 12px;
-    border: 2px solid #000;
-    border-radius: 20px;
-    text-decoration: none;
-    font-family: 'Starbim', sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    box-shadow: 3px 3px 0px #000, 
-                inset 1px 1px 0px rgba(255,255,255,0.5);
-    transition: all 0.1s;
-}
-
-.sign-nav a:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px #000,
-                inset 1px 1px 0px rgba(255,255,255,0.5);
-}
-
-.sign-nav a:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0px 0px 0px #000;
-}
-
-/* Individual sign colors */
-.sign-nav a[href="aries.html"] { background: #FF006E; color: #F7E7CE; }
-.sign-nav a[href="taurus.html"] { background: #50C878; color: #F8F4E3; }
-.sign-nav a[href="gemini.html"] { background: #F9ED69; color: #6C6C6C; }
-.sign-nav a[href="cancer.html"] { background: #E8E4F3; color: #4A5568; }
-.sign-nav a[href="leo.html"] { background: #FFD700; color: #4B0082; }
-.sign-nav a[href="virgo.html"] { background: #A4B494; color: #5D5346; }
-.sign-nav a[href="libra.html"] { background: #FF00FF; color: #1C1C1C; }
-.sign-nav a[href="scorpio.html"] { background: #DC143C; color: #0B0B0B; }
-.sign-nav a[href="sagittarius.html"] { background: #4169E1; color: #1F0954; }
-.sign-nav a[href="capricorn.html"] { background: #708090; color: #2C4251; }
-.sign-nav a[href="aquarius.html"] { background: #87CEEB; color: #2C4251; }
-.sign-nav a[href="pisces.html"] { background: #9FD5D1; color: #335C67; }
-
-/* Black symbols in nav */
-.sign-nav a span[style*="Astro4"] {
-    color: inherit !important;
-}
-=======
 #content {
     background: var(--light);
     color: var(--dark);
@@ -323,7 +213,6 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     outline-offset: 3px;
 }
 
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 </style>
 </head>
 
@@ -333,22 +222,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-<<<<<<< HEAD
-☆ Grounded ☆ Sensual ☆ Stable ☆ Devoted ☆
-=======
-{{BUZZWORDS • GO • HERE}}
->>>>>>> 4cd979d (modify and add via visual studio code editor)
+☆ GROUNDED ☆ LUXE ☆ LOYAL ☆ SLOW BURN ☆ SOFT POWER ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<<<<<<< HEAD
-    <h1>TAURUS</h1>
-    <small>Earth • Fixed • Ruled by Venus </small>
-=======
-<h1>VIRGO</h1>
-<small>Earth • Mutable • Ruled by Mercury</small>
->>>>>>> 4cd979d (modify and add via visual studio code editor)
+<h1>TAURUS</h1>
+<small>Earth • Fixed • Ruled by Venus</small>
 </div>
 
 <table id="wiki-table">
@@ -357,157 +237,90 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <!-- ================= SIDEBAR ================= -->
 <td id="sidebar">
 <div class="sidebar-box">
-<<<<<<< HEAD
-    <h3>Infocard</h3>
-    Glyph: <span style="font-family:Astro4;">u</span><br>
-    Element: Earth ☆ <span style="font-family:Astro4;">I</span><br>
-    Modality: Fixed ☆ <span style="font-family:Astro4;">f</span><br>
-    Ruling Planet: Venus ☆ <span style="font-family:Astro4;">V</span><br>
-    Symbol: The Bull<br>
-    Constellation: <br><img src="assets/TAURUS-constellation.png" width="250" height="250"><br>
-    House: 2nd ☆ <span style="font-family:Astro4;">2</span><br>
-    Colors: Green & Mauve <br>
-    Crystal: <br><img src="assets/TAURUS-crystal.png" width="250" height="250"><br>
-    Flower: <br><img src="assets/TAURUS-flower.png" width="250" height="250">
-=======
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">r</span><br>
+<h4>Glyph:</h4><span style="font-family:Astro4;">u</span><br>
 <h4>Element:</h4> Earth<br>
-<h4>Modality:</h4> Mutable<br>
-<h4>Ruling Planet:</h4> Mercury<br>
-<h4>Symbol:</h4> The Maiden<br><br>
+<h4>Modality:</h4> Fixed<br>
+<h4>Ruling Planet:</h4> Venus<br>
+<h4>Symbol:</h4> The Bull<br><br>
 <h4>Constellation:</h4><br>
-<img src="assets/VIRGO-constellation.png" width="250"><br><br>
+<img src="assets/TAURUS-constellation.png" width="250"><br><br>
 
-<h4>House:</h4> 6th<br>
-<h4>Colors:</h4> Beige and Navy<br><br>
+<h4>House:</h4> 2nd<br>
+<h4>Colors:</h4> Green and Mauve<br><br>
 
 <h4>Crystal:</h4><br>
-<img src="assets/VIRGO-crystal.png" width="250"><br><br>
+<img src="assets/TAURUS-crystal.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="assets/VIRGO-flower.png" width="250">
->>>>>>> 4cd979d (modify and add via visual studio code editor)
+<img src="assets/TAURUS-flower.png" width="250">
 </div>
 </td>
 
 <!-- ================= CONTENT ================= -->
 <td id="content">
 
-<<<<<<< HEAD
-<div class="content-box">
-<h2>Taurus Rising Weekly Horoscope</h2>
-<div class="inner horoscope-box" id="daily-box">
-Loading today’s horoscope…
-</div>
-</div>
-
-<div class="content-box">
-<h2>Weekly Journal Prompt</h2>
-<div class="inner horoscope-box" id="weekly-box">
-This week focuses on stability and long-term security. Small, consistent actions bring tangible results. Avoid rushing decisions—your power lies in patience.</div>
-</div>
-
-<div class="content-box">
-<h2>Sign Overview</h2>
-<div class="inner">
-Taurus is the builder of the zodiac—slow, steady, and deeply grounded. Ruled by Venus, Taurus values beauty, comfort, and security. This sign teaches patience, devotion, and the power of consistency over time.</div>
-=======
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-{{OVERVIEW TEXT}}
->>>>>>> 4cd979d (modify and add via visual studio code editor)
+Taurus is grounded, sensual, and deeply loyal, valuing stability and comfort above all. Ruled by Venus, they move slowly but deliberately, building lives rooted in beauty, security, and enduring pleasure.
 </div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
-<<<<<<< HEAD
-<p>Loyal and dependable</p>
-<p>Sensual and pleasure-oriented</p>
-<p>Stubborn but resilient</p>
-<p>Financially minded</p>
-<p>Grounded and calming</p>
-<p>Resistant to sudden change</p></div>
-=======
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Reliable and loyal</li>
+<li>Strong sense of stability</li>
+<li>Patient and persistent</li>
+<li>Deep appreciation for beauty</li>
+<li>Excellent at building long-term security</li>
 </ul>
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 </div>
 </section>
 
 <section class="content-box">
 <h2>Weaknesses</h2>
 <div class="inner">
-<<<<<<< HEAD
-Taurus rules the throat, neck, and vocal cords. Stress often manifests physically. Routine, nourishing foods, and body-based self-care are essential. Overindulgence is the main imbalance.</div>
-=======
 <ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Resistance to change</li>
+<li>Stubbornness</li>
+<li>Overindulgence</li>
+<li>Possessiveness</li>
+<li>Difficulty letting go</li>
 </ul>
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 </div>
 </section>
+
 
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<<<<<<< HEAD
-<p>Historical: William Shakespeare</p>
-<p>Modern: Adele</p>
-<p>Fictional: Princess Leia</p>
-</div>
-=======
-<p><strong>Careers:</strong> </p>
-<p><strong>Education:</strong> </p>
->>>>>>> 4cd979d (modify and add via visual studio code editor)
+<p><strong>Careers:</strong> Finance, design, real estate, culinary arts, agriculture, luxury industries</p>
+<p><strong>Education:</strong> Structured programs, practical training, steady-paced learning, mastery-based study</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-{{HEALTH INFO}}
+Grounding routines, nourishment, and body care are essential. Taurus thrives with consistent sleep and mindful indulgence.
 </div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical:</p>
-<p>Modern:</p>
-<p>Fictional:</p>
+<p>Historical: Queen Elizabeth II</p>
+<p>Modern: Adele</p>
+<p>Fictional: Fluttershy</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Explore Other Signs</h2>
 <div class="inner">
-<<<<<<< HEAD
-<span class="sign-nav"><a href="aries.html"><span style="font-family:Astro4;">a</span> Aries</a></span>
-<span class="sign-nav"><a href="taurus.html"><span style="font-family:Astro4;">u</span> Taurus</a></span>
-<span class="sign-nav"><a href="gemini.html"><span style="font-family:Astro4;">g</span> Gemini</a></span>
-<span class="sign-nav"><a href="cancer.html"><span style="font-family:Astro4;">c</span> Cancer</a></span>
-<span class="sign-nav"><a href="leo.html"><span style="font-family:Astro4;">l</span> Leo</a></span>
-<span class="sign-nav"><a href="virgo.html"><span style="font-family:Astro4;">m</span> Virgo</a></span>
-<span class="sign-nav"><a href="libra.html"><span style="font-family:Astro4;">b</span> Libra</a></span>
-<span class="sign-nav"><a href="scorpio.html"><span style="font-family:Astro4;">h/a</span> Scorpio</a></span>
-<span class="sign-nav"><a href="sagittarius.html"><span style="font-family:Astro4;">t</span> Sagittarius</a></span>
-<span class="sign-nav"><a href="capricorn.html"><span style="font-family:Astro4;">n</span> Capricorn</a></span>
-<span class="sign-nav"><a href="aquarius.html"><span style="font-family:Astro4;">q</span> Aquarius</a></span>
-<span class="sign-nav"><a href="pisces.html"><span style="font-family:Astro4;">p</span> Pisces</a></span>
-=======
 
 <span class="sign-nav">
 <a href="aries.html" style="--sign-color:#d01f49;">
@@ -581,7 +394,6 @@ Taurus rules the throat, neck, and vocal cords. Stress often manifests physicall
 </a>
 </span>
 
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 </div>
 </section>
 
@@ -595,41 +407,5 @@ Taurus rules the throat, neck, and vocal cords. Stress often manifests physicall
 
 </div>
 
-<<<<<<< HEAD
-<!-- ================= JAVASCRIPT ================= -->
-<script>
-/* ================== LOCAL STORAGE HOROSCOPE ================= */
-const SIGN_KEY = "TAURUS";
-
-const dailyMessages = [
-  "Slow progress is still progress. Stay disciplined.",
-  "Your consistency builds lasting success.",
-  "Boundaries protect your energy today.",
-  "Focus on responsibilities you’ve been avoiding.",
-  "Structure creates freedom.",
-  "Patience gives you the advantage.",
-  "Your long-term vision matters more than quick wins."
-];
-
-function todayKey() {
-    const d = new Date();
-    return `${SIGN_KEY}-${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-}
-
-function getDailyHoroscope() {
-    const key = todayKey();
-    const saved = localStorage.getItem(key);
-    if(saved) return saved;
-    const msg = dailyMessages[new Date().getDate() % dailyMessages.length];
-    localStorage.setItem(key, msg);
-    localStorage.setItem("lastViewedSign", SIGN_KEY);
-    return msg;
-}
-
-document.getElementById("daily-box").textContent = getDailyHoroscope();
-</script>
-
-=======
->>>>>>> 4cd979d (modify and add via visual studio code editor)
 </body>
 </html>
