@@ -19,6 +19,12 @@
     --light: #f9f0de;
 }
 
+.outlined-text {
+  color: var(--dark);              /* inner text */
+  -webkit-text-stroke: 2px var(--light); /* outline color */
+  font-family: 'Starbim';
+}
+
 body {
     margin: 0;
     padding: 20px;
@@ -34,7 +40,7 @@ body {
 [style*="font-family:Astro4"],
 .astro4 {
     color: var(--primary) !important;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 a { color: var(--primary); text-decoration: none; }
@@ -66,8 +72,8 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #wiki-header h1 {
     font-family: 'Starbim';
     font-size: 42px;
-    color: var(--dark);
-    text-shadow: 3px 3px var(--primary);
+    color: var(--primary);
+    text-shadow: 3px 3px var(--dark);
     margin: 0;
 }
 
@@ -77,6 +83,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     color: var(--primary);
     display: block;
     margin-top: 6px;
+
 }
 
 #wiki-table {
@@ -93,9 +100,10 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 /* ================= SIDEBAR ================= */
 #sidebar {
     width: 280px;
-    background: var(--accent);
-    border: 3px inset var(--primary);
-    font-size: 16px;
+   background: linear-gradient(to right, var(--accent), var(--primary));
+    border: 3px inset var(--dark);
+    font-size: 24px;
+    text-align: center;
 }
 
 .sidebar-box {
@@ -103,28 +111,30 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     background: var(--dark);
     margin-bottom: 12px;
     padding: 6px;
+    text-align: center;
 }
 
 .sidebar-box h3 {
-    margin: 0 0 6px;
+    margin: 0 0 10px;
     font-family: 'Starbim';
     background: var(--accent);
     color: var(--dark);
     padding: 4px;
     text-align: center;
+    font-size: 24px;
 }
 
 .sidebar-box h4 {
-    margin: 0px 75px 5px;
+    margin: 10px 75px 5px;
     font-family: 'Starbim';
     background: var(--primary);
-    color: var(--dark);
+    color: var(--light);
     padding: 4px;
     text-align: center;
 }
 /* ================= CONTENT ================= */
 #content {
-    background: var(--light);
+    background: linear-gradient(to right, var(--primary), var(--accent));
     color: var(--dark);
     border: 3px inset var(--primary);
 }
@@ -133,13 +143,15 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     border: 2px solid var(--primary);
     background: var(--light);
     margin-bottom: 14px;
+    text-align: justify;
 }
 
 .content-box h2 {
     margin: 0;
     padding: 6px;
+    font-size: 30px;
     font-family: 'Jaewriting';
-    background: linear-gradient(to right, var(--primary), var(--accent));
+    background-image: url('assets/background-ARIES.png');
     color: var(--dark);
 }
 
@@ -226,7 +238,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>ARIES</h1>
+<h1 class="outlined-text">ARIES</h1>
 <small>Fire • Cardinal • Ruled by Mars</small>
 </div>
 
@@ -241,7 +253,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h4>Element:</h4> Fire<br>
 <h4>Modality:</h4> Cardinal<br>
 <h4>Ruling Planet:</h4> Mars<br>
-<h4>Symbol:</h4> a<br><br>
+<h4>Symbol:</h4> The Ram<br><br>
 <h4>Constellation:</h4><br>
 <img src="assets/ARIES-constellation.png" width="250"><br><br>
 
