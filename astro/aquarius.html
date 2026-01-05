@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AQUARIUS Wiki</title>
+<title>{{SIGN}} Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="assets/signfav.png">
-
+<link rel="icon" type="image/png" href="assets/{{sign}}fav.png">
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -13,27 +12,29 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
---primary: #88e7db;
-    --accent: #645cf5;  
-    --dark: #092C27;
-    --light: #F4F3FE;
+--primary: #9a9dff;
+    --accent: #c13886;  
+    --dark: #404040;
+    --light: #f0f0f5;
+
 }
 
 body {
     margin: 0;
     padding: 20px;
     background-color: var(--dark);
-    background-image: url('assets/background-AQUARIUS.png');
+    background-image: url('assets/background-{{SIGN}}.png');
     background-repeat: repeat;
-    background-attachment: fixed;
+    background-attachment: Mutable;
     font-family: 'Jaewriting', monospace;
     color: var(--light);
+    cursor: url('assets/cursor-star.cur'), auto;
 }
 
 [style*="font-family:Astro4"],
 .astro4 {
     color: var(--primary) !important;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 a { color: var(--dark); text-decoration: none; }
@@ -50,8 +51,8 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #marquee {
     font-family: 'Starbim';
     background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--light);
-    font-size: 15px;
+    color: var(--dark);
+    font-size: 13px;
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
@@ -64,14 +65,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 #wiki-header h1 {
     font-family: 'Starbim';
-    font-size: 36px;
+    font-size: 42px;
     color: var(--primary);
     margin: 0;
 }
 
 #wiki-header small {
     font-family: 'Starbim';
-    font-size: 20px;
+    font-size: 16px;
     color: var(--accent);
     display: block;
     margin-top: 6px;
@@ -93,7 +94,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     width: 200px;
     background: linear-gradient(to right, var(--accent), var(--primary));
     border: 3px inset var(--primary);
-    font-size: 25px;
+    font-size: 36px;
     text-align: center;
 }
 
@@ -141,8 +142,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 6px;
     font-family: 'Jaewriting';
     background: var(--light);
-    color: var(--primary);
-    text-align: center;
+    color: var(--dark);
 }
 
 .content-box .inner {
@@ -166,7 +166,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     border-radius: 999px; /* pill shape */
 
     font-family: 'Starbim', sans-serif;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     
 
@@ -205,7 +205,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 /* Glyph size */
 .sign-nav a span {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1;
 }
 
@@ -220,13 +220,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-☆ DREAMY ☆ COSMIC ☆ INTUITIVE ☆ ARTISTIC ☆
+☆ ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>AQUARIUS</h1>
-<small>AIR • FIXED • Ruled by SATURN AND URANUS</small>
+<h1>{{SIGN}}</h1>
+<small>{{ELEMENT}} • {{MODALITY}} • Ruled by {{PLANET}}</small>
 </div>
 
 <table id="wiki-table">
@@ -236,21 +236,21 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="sidebar">
 <div class="sidebar-box">
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">q</span><br>
-<h4>Element:</h4> AIR<br>
-<h4>Modality:</h4> FIXED<br>
-<h4>Ruling Planet:</h4> SATURN AND URANUS<br>
-<h4>Symbol:</h4> The Water Bearer </br>
+<h4>Glyph:</h4><span style="font-family:Astro4;">{{GLYPH}}</span><br>
+<h4>Element:</h4> {{ELEMENT}}<br>
+<h4>Modality:</h4> {{MODALITY}}<br>
+<h4>Ruling Planet:</h4> {{PLANET}}<br>
+<h4>Symbol:</h4> {{SYMBOL}}<br><br>
 <h4>Constellation:</h4><br>
-<img src="assets/constellation-AQUARIUS.png">
-<h4>House:</h4> 11TH<br>
-<h4>Colors:</h4> BLUE AND TURQUOISE<br><br>
+<img src="assets/constellation-{{SIGN}}.png" width="250"><br><br>
+<h4>House:</h4> {{HOUSE}}<br>
+<h4>Colors:</h4> {{COLORS}}<br><br>
 
 <h4>Crystal:</h4><br>
-<img src="assets/crystal-AQUARIUS.png" width="250"><br><br>
+<img src="assets/{{SIGN}}-crystal.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="assets/flower-AQUARIUS.png" width="250">
+<img src="assets/{{SIGN}}-flower.png" width="250">
 </div>
 </td>
 
@@ -260,19 +260,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-Aquarius is innovative, unconventional, and future-focused, thinking far beyond the present moment. Ruled by Uranus (and Saturn), they challenge norms and champion progress, individuality, and collective evolution.
-</div>
+{{Overview}}</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Innovative thinking</li>
-<li>Strong individuality</li>
-<li>Visionary mindset</li>
-<li>Humanitarian values</li>
-<li>Intellectual independence</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -281,12 +276,8 @@ Aquarius is innovative, unconventional, and future-focused, thinking far beyond 
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Emotional detachment</li>
-<li>Rebelliousness</li>
-<li>Inconsistency</li>
-<li>Difficulty with intimacy</li>
-<li>Resistance to authority</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -294,24 +285,23 @@ Aquarius is innovative, unconventional, and future-focused, thinking far beyond 
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> Technology, innovation, science, activism, social entrepreneurship, future-focused industries</p>
-<p><strong>Education:</strong> Experimental learning, nontraditional programs, tech-driven and independent study</p>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Nervous system care and creative freedom are key.
-</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: Abraham Lincoln</p>
-<p>Modern: Oprah Winfrey</p>
-<p>Fictional: Dexter Morgan</p>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -351,7 +341,7 @@ Nervous system care and creative freedom are key.
 
 <span class="sign-nav">
 <a href="virgo.html" style="--sign-color:#e0ad87;">
-<span style="font-family:Astro4;">m</span> 
+<span style="font-family:Astro4;">r</span> 
 </a>
 </span>
 
@@ -390,8 +380,9 @@ Nervous system care and creative freedom are key.
 <span style="font-family:Astro4;">p</span> 
 </a>
 </span>
+
 <span class="sign-nav">
-<a href="home.html" style="--sign-color:#645cf5;">
+<a href="home.html" style="--sign-color:#77cbb4;">
 <span style="font-family:'Starbim';">Astro Home</span> 
 </a>
 </span>
@@ -401,6 +392,13 @@ Nervous system care and creative freedom are key.
 <span style="font-family:'Starbim';">Sunnie Jae</span> 
 </a>
 </span>
+
+<span class="sign-nav">
+<a href="club.html" style="--sign-color:#00c9c2;">
+<span style="font-family:'Starbim';">Join the Club</span> 
+</a>
+</span>
+
 </div>
 </section>
 
