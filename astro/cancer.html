@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CANCER Wiki</title>
+<title>{{SIGN}} Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="assets/cancerfav.png">
+<link rel="icon" type="image/png" href="assets/{{sign}}fav.png">
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -12,10 +12,10 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
---primary: #6e8aa5;
-    --accent: #ec9cd0;  
-    --dark: #12181e;
-    --light: #fef8fc;
+--primary: #9a9dff;
+    --accent: #ff73d5;  
+    --dark: #000;
+    --light: #fff;
 
 }
 
@@ -23,7 +23,7 @@ body {
     margin: 0;
     padding: 20px;
     background-color: var(--dark);
-    background-image: url('assets/background-CANCER.png');
+    background-image: url('assets/background-{{SIGN}}.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -37,8 +37,68 @@ body {
     font-size: 25px;
 }
 
-a { color: var(--dark); text-decoration: none; }
+a { text-decoration: none; }
 a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
+/* ================= SITE HEADER ================= */
+
+#site-header {
+    max-width: 960px;
+    margin: 0 auto 12px auto;
+    border: 4px ridge var(--primary);
+    background: var(--dark)
+}
+
+.header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 10px 14px;
+    gap: 12px;
+}
+
+.site-logo {
+    height: 30px;
+    image-rendering: crisp-edges;
+    align-items: center;
+}
+
+.site-title {
+    font-family: 'Starbim';
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-align: left;
+}
+.site-title a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.site-title a:visited {
+    color: var(--accent);
+}
+
+.site-title a:hover {
+    color: var(--primary);
+}
+
+.header-right {
+    font-family: 'Jaewriting';
+    font-size: 16px;
+    color: var(--primary);
+    text-align: right;
+}
+
+.header-right a {
+    color: var(--light);
+    text-decoration: none;
+    padding: 2px px;
+}
+
+.header-right a:hover {
+    background: var(--primary);
+    border-radius: 980px;
+}
 
 #wiki-frame {
     max-width: 960px;
@@ -56,7 +116,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
-    letter-spacing:3px;
+    letter-spacing: 0.5em;
 }
 
 #wiki-header {
@@ -69,6 +129,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     font-size: 42px;
     color: var(--primary);
     margin: 0;
+    letter-spacing: 0.5em;
 }
 
 #wiki-header small {
@@ -77,6 +138,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     color: var(--accent);
     display: block;
     margin-top: 6px;
+    letter-spacing: 0.2em;
 }
 
 #wiki-table {
@@ -114,6 +176,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 4px;
     text-align: center;
     font-size: 20px;
+    letter-spacing: 0.2em;
 }
 
 .sidebar-box h4 {
@@ -124,6 +187,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 4px;
     text-align: center;
     font-size: 17px;
+    letter-spacing: 0.1em;
 }
 /* ================= CONTENT ================= */
 #content {
@@ -142,14 +206,26 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     margin: 0;
     padding: 6px;
     font-family: 'Jaewriting';
+    background: var(--dark);
+    color: var(--accent);
+    letter-spacing: 3px;
+    
+}
+.content-box h3 {
+    margin: 0;
+    padding: 6px;
+    font-family: 'Jaewriting';
     background: var(--light);
     color: var(--dark);
-}
+    font-size: 24;
 
+}
 .content-box .inner {
     padding: 20px;
     line-height: 2;
+    font-size: 20px;
 }
+
 
 /* ================= NAV BUTTONS ================= */
 
@@ -193,7 +269,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 /* HOVER: press + glow */
 .sign-nav a:hover {
-    background: var(--sign-color);
+    background: var(--primary);
     color: #000;
     transform: translate(2px, 2px);
 }
@@ -218,6 +294,25 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <body>
 
 <div id="wiki-frame">
+<!-- ================= SITE HEADER ================= -->
+<header id="site-header">
+  <div class="header-inner">
+
+    <div class="header-center">
+      <div class="site-title"><a href="https://www.sunniejae.com/astro/home">Starry Jae</a></div>
+    </div>
+<div class="header-left">
+      <img src="assets/{{sign}}fav.png" alt="Starry Jae Logo" class="site-logo">
+    </div>
+    <div class="header-right">
+      <a href="https://www.sunniejae.com">home</a> •
+      <a href="https://www.sunniejae.com/contact" target="_blank">contact</a>
+    </div>
+
+  </div>
+</header>
+
+<div id="wiki-frame">
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
@@ -226,8 +321,8 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>CANCER</h1>
-<small>Water • Cardinal • Ruled by The Moon</small>
+<h1>{{SIGN}}</h1>
+<small>{{element}} • Fixed • Ruled by {{planet}}</small>
 </div>
 
 <table id="wiki-table">
@@ -237,21 +332,21 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="sidebar">
 <div class="sidebar-box">
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">c</span><br>
-<h4>Element:</h4> Water<br><span style="font-family:Astro4;">L</span>
-<h4>Modality:</h4> Cardinal<br><span style="font-family:Astro4;">d</span><br>
-<h4>Ruling Planet:</h4> The Moon<br><span style="font-family:Astro4;">M</span><br>
-<h4>Symbol:</h4> The Crab<br>
+<h4>Glyph:</h4><span style="font-family:Astro4;">{{sign-glyph}}</span><br>
+<h4>Element:</h4> {{element}}<br><span style="font-family:Astro4;">{{element-glyph}}/span><br>
+<h4>Modality:</h4> {{modality}}<br><span style="font-family:Astro4;">{{modality-glyph}}</span><br>
+<h4>Ruling Planet:</h4> {{planet}}<br><span style="font-family:Astro4;">U</span><br>
+<h4>Symbol:</h4> {{symbol}}<br><br>
 <h4>Constellation:</h4><br>
-<img src="assets/constellation-CANCER.png" width="250"><br><br>
-<h4>House:</h4> 4th<br><br>
-<h4>Colors:</h4> Silver and White<br><br>
+<img src="assets/constellation-{{SIGN}}.png" width="250"><br><br>
+<h4>House:</h4> {{house}}<br><br>
+<h4>Colors:</h4> {{colors}}<br><br>
 
 <h4>Crystal:</h4><br>
-<img src="assets/CANCER-crystal.png" width="250"><br><br>
+<img src="assets/CRYSTAL-{{sign}}.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="assets/CANCER-flower.png" width="250">
+<img src="assets/FLOWER-{{sign}}.png" width="250">
 </div>
 </td>
 
@@ -371,7 +466,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 </span>
 
 <span class="sign-nav">
-<a href="aquarius.html" style="--sign-color:#88e7db;">
+<a href="{{sign}}.html" style="--sign-color:#88e7db;">
 <span style="font-family:Astro4;">q</span> 
 </a>
 </span>

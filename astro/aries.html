@@ -23,7 +23,7 @@ body {
     margin: 0;
     padding: 20px;
     background-color: var(--dark);
-    background-image: url('assets/background-ARIES.png');
+    background-image: url('assets/background-AQUARIUS.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -37,8 +37,68 @@ body {
     font-size: 25px;
 }
 
-a { color: var(--dark); text-decoration: none; }
+a { text-decoration: none; }
 a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
+/* ================= SITE HEADER ================= */
+
+#site-header {
+    max-width: 960px;
+    margin: 0 auto 12px auto;
+    border: 4px ridge var(--primary);
+    background: var(--dark)
+}
+
+.header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 10px 14px;
+    gap: 12px;
+}
+
+.site-logo {
+    height: 30px;
+    image-rendering: crisp-edges;
+    align-items: center;
+}
+
+.site-title {
+    font-family: 'Starbim';
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #ffc545;
+    text-align: left;
+}
+.site-title a {
+    color: #ffc545;
+    text-decoration: none;
+}
+
+.site-title a:visited {
+    color: #ffc545;
+}
+
+.site-title a:hover {
+    color: var(--accent);
+}
+
+.header-right {
+    font-family: 'Jaewriting';
+    font-size: 16px;
+    color: var(--primary);
+    text-align: right;
+}
+
+.header-right a {
+    color: var(--light);
+    text-decoration: none;
+    padding: 2px px;
+}
+
+.header-right a:hover {
+    background: var(--primary);
+    border-radius: 980px;
+}
 
 #wiki-frame {
     max-width: 960px;
@@ -56,7 +116,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
-    letter-spacing:3px;
+    letter-spacing: 0.5em;
 }
 
 #wiki-header {
@@ -69,6 +129,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     font-size: 42px;
     color: var(--primary);
     margin: 0;
+    letter-spacing: 0.5em;
 }
 
 #wiki-header small {
@@ -77,6 +138,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     color: var(--accent);
     display: block;
     margin-top: 6px;
+    letter-spacing: 0.2em;
 }
 
 #wiki-table {
@@ -114,6 +176,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 4px;
     text-align: center;
     font-size: 20px;
+    letter-spacing: 0.2em;
 }
 
 .sidebar-box h4 {
@@ -124,6 +187,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 4px;
     text-align: center;
     font-size: 17px;
+    letter-spacing: 0.1em;
 }
 /* ================= CONTENT ================= */
 #content {
@@ -142,14 +206,26 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     margin: 0;
     padding: 6px;
     font-family: 'Jaewriting';
+    background: var(--dark);
+    color: var(--accent);
+    letter-spacing: 3px;
+    
+}
+.content-box h3 {
+    margin: 0;
+    padding: 6px;
+    font-family: 'Jaewriting';
     background: var(--light);
     color: var(--dark);
-}
+    font-size: 24;
 
+}
 .content-box .inner {
     padding: 20px;
     line-height: 2;
+    font-size: 20px;
 }
+
 
 /* ================= NAV BUTTONS ================= */
 
@@ -218,12 +294,27 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <body>
 
 <div id="wiki-frame">
+<!-- ================= SITE HEADER ================= -->
+<header id="site-header">
+  <div class="header-inner">
 
+    <div class="header-center">
+      <div class="site-title"><a href="https://www.sunniejae.com/astro/home">Starry Jae</a></div>
+    </div>
+<div class="header-left">
+      <img src="assets/ariesfav.png" alt="Starry Jae Logo" class="site-logo">
+    </div>
+    <div class="header-right">
+      <a href="https://www.sunniejae.com">home</a> •
+      <a href="https://www.sunniejae.com/contact" target="_blank">contact</a>
+    </div>
+
+  </div>
+</header>
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
 ☆ ☆
 </marquee>
-
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
 <h1>ARIES</h1>
@@ -261,14 +352,20 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-{{Overview}}</div>
+As the first sign of the zodiac, Aries is known for its pioneering spirit and natural leadership qualities. Aries individuals are often energetic, confident, and quick to act. They are driven by their desire to take charge and make things happen.</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>{{STRENGTHS}}</li>
+<li>Leadership</li>
+<li>Courage</li>
+<li>Determination</li>
+<li>Enthusiasm</li>
+<li>Confidence</li>
+<li>Passion</li>
+<li>Optimism</li>
 </ul>
 </div>
 </section>
@@ -277,8 +374,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>{{WEAKNESSES}}</li>
-
+<li>Impulsiveness</li>
+<li>Aggressiveness</li>
+<li>Selfishness</li>
+<li>Stubbornness</li>
+<li>Rudeness</li>
+<li>Quick temper</li>
+</ul>
 </div>
 </section>
 
@@ -286,23 +388,42 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> {{CAREERS}}</p>
-<p><strong>Education:</strong> {{MAJORS}}</p>
+<h3>Careers:</h3>
+<ul>
+<li>Entrepreneur</li>
+<li>Manager</li>
+<li>Leader</li>
+<li>Sales</li>
+<li>Military</li>
+<li>Sports</li>
+<li>Emergency Services</li>
+</ul>
+<h3>Education:</h3>
+<ul>
+<li>Business Administration</li>
+<li>Marketing</li>
+<li>Physical Education</li>
+<li>Political Science</li>
+<li>Criminal Justice</li>
+</ul>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-{{HEALTH}}</div>
+Aries rules the head and adrenal system. Stress, headaches, and burnout can appear when energy isn’t released physically. Regular movement and competition are essential.</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: {{HISTORICAL}}</p>
-<p>Modern: {{MODERN}}</p>
-<p>Fictional: {{FICTIONAL}}</p>
+<h3>Historical:</h3><br>
+Leonardo da Vinci<br>
+<h3>Modern:</h3><br>
+Lady Gaga<br>
+<h3>Fictional:</h3><br>
+Chandler Bing (Friends)
 </div>
 </section>
 
