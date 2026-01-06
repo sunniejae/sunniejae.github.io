@@ -25,7 +25,7 @@ body {
     background-color: var(--dark);
     background-image: url('assets/background-{{SIGN}}.png');
     background-repeat: repeat;
-    background-attachment: Mutable;
+    background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
     color: var(--light);
     cursor: url('assets/cursor-star.cur'), auto;
@@ -56,6 +56,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
+    letter-spacing:3px;
 }
 
 #wiki-header {
@@ -237,13 +238,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <div class="sidebar-box">
 <h3>Infocard</h3>
 <h4>Glyph:</h4><span style="font-family:Astro4;">{{GLYPH}}</span><br>
-<h4>Element:</h4> {{ELEMENT}}<br>
-<h4>Modality:</h4> {{MODALITY}}<br>
-<h4>Ruling Planet:</h4> {{PLANET}}<br>
+<h4>Element:</h4> {{ELEMENT}}<br><span style="font-family:Astro4;">{{element glyph}}</span><br>
+<h4>Modality:</h4> {{MODALITY}}<br><span style="font-family:Astro4;">{{modality glyph}}</span><br>
+<h4>Ruling Planet:</h4> {{PLANET}}<br><span style="font-family:Astro4;">{{planet glyph}}</span><br>
 <h4>Symbol:</h4> {{SYMBOL}}<br><br>
 <h4>Constellation:</h4><br>
 <img src="assets/constellation-{{SIGN}}.png" width="250"><br><br>
-<h4>House:</h4> {{HOUSE}}<br>
+<h4>House:</h4> {{HOUSE}}<br><br>
 <h4>Colors:</h4> {{COLORS}}<br><br>
 
 <h4>Crystal:</h4><br>

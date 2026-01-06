@@ -5,7 +5,6 @@
 <title>CANCER Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="assets/cancerfav.png">
-
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -13,10 +12,11 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
- --primary: #6e8aa5;
+--primary: #6e8aa5;
     --accent: #ec9cd0;  
     --dark: #12181e;
     --light: #fef8fc;
+
 }
 
 body {
@@ -51,11 +51,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #marquee {
     font-family: 'Starbim';
     background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--light);
+    color: var(--dark);
     font-size: 13px;
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
+    letter-spacing:3px;
 }
 
 #wiki-header {
@@ -210,6 +211,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 
+
 </style>
 </head>
 
@@ -219,13 +221,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-☆ INTUITIVE ☆ PROTECTIVE ☆ EMOTIONAL DEPTH ☆ HOME ☆
+☆ ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
 <h1>CANCER</h1>
-<small>Water • Cardinal • Ruled by Moon</small>
+<small>Water • Cardinal • Ruled by The Moon</small>
 </div>
 
 <table id="wiki-table">
@@ -236,14 +238,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <div class="sidebar-box">
 <h3>Infocard</h3>
 <h4>Glyph:</h4><span style="font-family:Astro4;">c</span><br>
-<h4>Element:</h4> Water<br>
-<h4>Modality:</h4> Cardinal<br>
-<h4>Ruling Planet:</h4> Moon<br>
-<h4>Symbol:</h4> The Crab<br><br>
+<h4>Element:</h4> Water<br><span style="font-family:Astro4;">L</span>
+<h4>Modality:</h4> Cardinal<br><span style="font-family:Astro4;">d</span><br>
+<h4>Ruling Planet:</h4> The Moon<br><span style="font-family:Astro4;">M</span><br>
+<h4>Symbol:</h4> The Crab<br>
 <h4>Constellation:</h4><br>
 <img src="assets/constellation-CANCER.png" width="250"><br><br>
-
-<h4>House:</h4> 4th<br>
+<h4>House:</h4> 4th<br><br>
 <h4>Colors:</h4> Silver and White<br><br>
 
 <h4>Crystal:</h4><br>
@@ -260,19 +261,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-Cancer is intuitive, nurturing, and emotionally profound, guided by memory and feeling. Ruled by the Moon, they protect what they love fiercely and create spaces of safety, care, and belonging.
-</div>
+{{Overview}}</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Deep emotional intelligence</li>
-<li>Nurturing and protective</li>
-<li>Strong intuition</li>
-<li>Loyal to loved ones</li>
-<li>Emotionally resilient</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -281,12 +277,8 @@ Cancer is intuitive, nurturing, and emotionally profound, guided by memory and f
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Moodiness</li>
-<li>Over-sensitivity</li>
-<li>Difficulty letting go of the past</li>
-<li>Overgiving</li>
-<li>Tendency to withdraw</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -294,24 +286,23 @@ Cancer is intuitive, nurturing, and emotionally profound, guided by memory and f
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> Healthcare, counseling, education, hospitality, social work, home-based businesses</p>
-<p><strong>Education:</strong> Supportive environments, emotionally engaging study, mentorship-based learning</p>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Emotional release and rest are essential. Water, sleep, and gentle routines restore balance.
-</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: Frida Kahlo</p>
-<p>Modern: Ariana Grande</p>
-<p>Fictional:  Yuri (Doki Doki Literature Club)</p>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -332,7 +323,7 @@ Emotional release and rest are essential. Water, sleep, and gentle routines rest
 </span>
 
 <span class="sign-nav">
-<a href="gemini.html" style="--sign-color:#d9e64f;">
+<a href="gemini.html" style="--sign-color:#ffe866;">
 <span style="font-family:Astro4;">g</span> 
 </a>
 </span>
@@ -388,6 +379,24 @@ Emotional release and rest are essential. Water, sleep, and gentle routines rest
 <span class="sign-nav">
 <a href="pisces.html" style="--sign-color:#a73af6;">
 <span style="font-family:Astro4;">p</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="home.html" style="--sign-color:#77cbb4;">
+<span style="font-family:'Starbim';">Astro Home</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="www.sunniejae.com" style="--sign-color:#9a9dff;">
+<span style="font-family:'Starbim';">Sunnie Jae</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="club.html" style="--sign-color:#00c9c2;">
+<span style="font-family:'Starbim';">Join the Club</span> 
 </a>
 </span>
 

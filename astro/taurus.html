@@ -5,7 +5,6 @@
 <title>TAURUS Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="assets/taurusfav.png">
-
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -15,7 +14,7 @@
 :root {
 --primary: #50c878;
     --accent: #a73af6;  
-    --dark: #040D07;
+    --dark: #0A1E11;
     --light: #F9F1FE;
 
 }
@@ -52,11 +51,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #marquee {
     font-family: 'Starbim';
     background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--light);
+    color: var(--dark);
     font-size: 13px;
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
+    letter-spacing:3px;
 }
 
 #wiki-header {
@@ -143,8 +143,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 6px;
     font-family: 'Jaewriting';
     background: var(--light);
-    color: var(--primary);
-    text-align: center;
+    color: var(--dark);
 }
 
 .content-box .inner {
@@ -222,7 +221,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-☆ GROUNDED ☆ LUXE ☆ LOYAL ☆ SLOW BURN ☆ SOFT POWER ☆
+☆ ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
@@ -239,14 +238,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <div class="sidebar-box">
 <h3>Infocard</h3>
 <h4>Glyph:</h4><span style="font-family:Astro4;">u</span><br>
-<h4>Element:</h4> Earth<br>
-<h4>Modality:</h4> Fixed<br>
-<h4>Ruling Planet:</h4> Venus<br>
+<h4>Element:</h4> Earth<br><span style="font-family:Astro4;">I</span><br>
+<h4>Modality:</h4> Fixed<br><span style="font-family:Astro4;">f</span><br>
+<h4>Ruling Planet:</h4> Venus<br><span style="font-family:Astro4;">V</span><br>
 <h4>Symbol:</h4> The Bull<br><br>
 <h4>Constellation:</h4><br>
-<img src="assets/TAURUS-constellation.png" width="250"><br><br>
-
-<h4>House:</h4> 2nd<br>
+<img src="assets/constellation-TAURUS.png" width="250"><br><br>
+<h4>House:</h4> 2nd<br><br>
 <h4>Colors:</h4> Green and Mauve<br><br>
 
 <h4>Crystal:</h4><br>
@@ -263,19 +261,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-Taurus is grounded, sensual, and deeply loyal, valuing stability and comfort above all. Ruled by Venus, they move slowly but deliberately, building lives rooted in beauty, security, and enduring pleasure.
-</div>
+{{Overview}}</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Reliable and loyal</li>
-<li>Strong sense of stability</li>
-<li>Patient and persistent</li>
-<li>Deep appreciation for beauty</li>
-<li>Excellent at building long-term security</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -284,12 +277,8 @@ Taurus is grounded, sensual, and deeply loyal, valuing stability and comfort abo
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Resistance to change</li>
-<li>Stubbornness</li>
-<li>Overindulgence</li>
-<li>Possessiveness</li>
-<li>Difficulty letting go</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -297,24 +286,23 @@ Taurus is grounded, sensual, and deeply loyal, valuing stability and comfort abo
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> Finance, design, real estate, culinary arts, agriculture, luxury industries</p>
-<p><strong>Education:</strong> Structured programs, practical training, steady-paced learning, mastery-based study</p>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Grounding routines, nourishment, and body care are essential. Taurus thrives with consistent sleep and mindful indulgence.
-</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: Queen Elizabeth II</p>
-<p>Modern: Adele</p>
-<p>Fictional: Fluttershy</p>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -335,7 +323,7 @@ Grounding routines, nourishment, and body care are essential. Taurus thrives wit
 </span>
 
 <span class="sign-nav">
-<a href="gemini.html" style="--sign-color:#d9e64f;">
+<a href="gemini.html" style="--sign-color:#ffe866;">
 <span style="font-family:Astro4;">g</span> 
 </a>
 </span>
@@ -391,6 +379,24 @@ Grounding routines, nourishment, and body care are essential. Taurus thrives wit
 <span class="sign-nav">
 <a href="pisces.html" style="--sign-color:#a73af6;">
 <span style="font-family:Astro4;">p</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="home.html" style="--sign-color:#77cbb4;">
+<span style="font-family:'Starbim';">Astro Home</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="www.sunniejae.com" style="--sign-color:#9a9dff;">
+<span style="font-family:'Starbim';">Sunnie Jae</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="club.html" style="--sign-color:#00c9c2;">
+<span style="font-family:'Starbim';">Join the Club</span> 
 </a>
 </span>
 

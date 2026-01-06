@@ -5,7 +5,6 @@
 <title>ARIES Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="assets/ariesfav.png">
-
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -15,8 +14,9 @@
 :root {
 --primary: #d01f49;
     --accent: #ffc545;  
-    --dark: #121111;
+    --dark: #201e1f;
     --light: #f9f0de;
+
 }
 
 body {
@@ -51,11 +51,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #marquee {
     font-family: 'Starbim';
     background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--light);
+    color: var(--dark);
     font-size: 13px;
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
+    letter-spacing:3px;
 }
 
 #wiki-header {
@@ -142,8 +143,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     padding: 6px;
     font-family: 'Jaewriting';
     background: var(--light);
-    color: var(--primary);
-    text-align: center;
+    color: var(--dark);
 }
 
 .content-box .inner {
@@ -221,7 +221,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-☆ BOLD ☆ FEARLESS ☆ IGNITION ☆ MAIN CHARACTER ☆ FIRST MOVE ☆
+☆ ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
@@ -238,21 +238,20 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <div class="sidebar-box">
 <h3>Infocard</h3>
 <h4>Glyph:</h4><span style="font-family:Astro4;">a</span><br>
-<h4>Element:</h4> Fire<br>
-<h4>Modality:</h4> Cardinal<br>
-<h4>Ruling Planet:</h4> Mars<br>
+<h4>Element:</h4> Fire<br><span style="font-family:Astro4;">K</span><br>
+<h4>Modality:</h4> Cardinal<br><span style="font-family:Astro4;">d</span><br>
+<h4>Ruling Planet:</h4> Mars<br><span style="font-family:Astro4;">P</span><br>
 <h4>Symbol:</h4> The Ram<br><br>
 <h4>Constellation:</h4><br>
 <img src="assets/constellation-ARIES.png" width="250"><br><br>
-
-<h4>House:</h4> 1st<br>
+<h4>House:</h4> 1st<br><br>
 <h4>Colors:</h4> Red and Gold<br><br>
 
 <h4>Crystal:</h4><br>
-<img src="assets/crystal-ARIES.png" width="250"><br><br>
+<img src="assets/ARIES-crystal.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="assets/flower-ARIES.png" width="250">
+<img src="assets/ARIES-flower.png" width="250">
 </div>
 </td>
 
@@ -262,19 +261,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-Aries is the spark that starts the fire—bold, impulsive, and driven by instinct. Ruled by Mars, they thrive on action, courage, and competition, often leading the way before others have decided to move.
-</div>
+{{Overview}}</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Fearless leadership</li>
-<li>High motivation and drive</li>
-<li>Quick decision making</li>
-<li>Independent thinker</li>
-<li>Unshakeable confidence</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -283,12 +277,8 @@ Aries is the spark that starts the fire—bold, impulsive, and driven by instinc
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Impulsiveness</li>
-<li>Short temper</li>
-<li>Difficulty with patience</li>
-<li>Can overlook details</li>
-<li>Burnout from overexertion</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -296,24 +286,23 @@ Aries is the spark that starts the fire—bold, impulsive, and driven by instinc
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> Entrepreneurship, athletics, military, emergency services, leadership roles, performance arts</p>
-<p><strong>Education:</strong> Hands-on learning, competitive environments, fast-paced programs, experiential study</p>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Movement is essential. Physical activity, stress release, and proper rest help prevent burnout and tension, especially in the head and muscles.
-</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: Leonardo da Vinci </p>
-<p>Modern: Lady Gaga,</p>
-<p>Fictional: Coraline</p>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -334,7 +323,7 @@ Movement is essential. Physical activity, stress release, and proper rest help p
 </span>
 
 <span class="sign-nav">
-<a href="gemini.html" style="--sign-color:#d9e64f;">
+<a href="gemini.html" style="--sign-color:#ffe866;">
 <span style="font-family:Astro4;">g</span> 
 </a>
 </span>
@@ -390,6 +379,24 @@ Movement is essential. Physical activity, stress release, and proper rest help p
 <span class="sign-nav">
 <a href="pisces.html" style="--sign-color:#a73af6;">
 <span style="font-family:Astro4;">p</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="home.html" style="--sign-color:#77cbb4;">
+<span style="font-family:'Starbim';">Astro Home</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="www.sunniejae.com" style="--sign-color:#9a9dff;">
+<span style="font-family:'Starbim';">Sunnie Jae</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="club.html" style="--sign-color:#00c9c2;">
+<span style="font-family:'Starbim';">Join the Club</span> 
 </a>
 </span>
 

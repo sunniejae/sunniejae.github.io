@@ -5,7 +5,6 @@
 <title>CAPRICORN Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="assets/capricornfav.png">
-
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -17,6 +16,7 @@
     --accent: #50c2c2;  
     --dark: #110C0C;
     --light: #F3FBFB;
+
 }
 
 body {
@@ -51,11 +51,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #marquee {
     font-family: 'Starbim';
     background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--light);
+    color: var(--dark);
     font-size: 13px;
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
+    letter-spacing:3px;
 }
 
 #wiki-header {
@@ -220,7 +221,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-☆ AMBITION ☆ LEGACY ☆ BUILDER ☆ AUTHORITY ☆
+☆ ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
@@ -237,15 +238,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <div class="sidebar-box">
 <h3>Infocard</h3>
 <h4>Glyph:</h4><span style="font-family:Astro4;">n</span><br>
-<h4>Element:</h4> Earth<br>
-<h4>Modality:</h4> Cardinal<br>
-<h4>Ruling Planet:</h4> Saturn<br>
+<h4>Element:</h4> Earth<br><span style="font-family:Astro4;">I</span><br>
+<h4>Modality:</h4> Cardinal<br><span style="font-family:Astro4;">d</span><br>
+<h4>Ruling Planet:</h4> Saturn<br><span style="font-family:Astro4;">T</span>
 <h4>Symbol:</h4> The Goat<br><br>
 <h4>Constellation:</h4><br>
 <img src="assets/constellation-CAPRICORN.png" width="250"><br><br>
-
 <h4>House:</h4> 10th<br>
-<h4>Colors:</h4> Brown and Gray<br><br>
+<h4>Colors:</h4> Brown and Blue<br><br>
 
 <h4>Crystal:</h4><br>
 <img src="assets/CAPRICORN-crystal.png" width="250"><br><br>
@@ -261,19 +261,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-Capricorn is disciplined, strategic, and deeply ambitious, focused on long-term success. Ruled by Saturn, they master patience and responsibility, building legacies through perseverance and structure.
-</div>
+{{Overview}}</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Disciplined and responsible</li>
-<li>Strategic thinker</li>
-<li>Strong ambition</li>
-<li>Reliable leadership</li>
-<li>Long-term vision</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -282,12 +277,8 @@ Capricorn is disciplined, strategic, and deeply ambitious, focused on long-term 
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Workaholism</li>
-<li>Emotional reserve</li>
-<li>Rigidity</li>
-<li>Difficulty resting</li>
-<li>Fear of failure</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -295,24 +286,23 @@ Capricorn is disciplined, strategic, and deeply ambitious, focused on long-term 
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> Business leadership, finance, law, government, project management, architecture</p>
-<p><strong>Education:</strong> Traditional programs, goal-oriented study, disciplined academic environments</p>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Bone health, rest, and pacing are essential.
-</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: Martin Luther King Jr.</p>
-<p>Modern:</p>
-<p>Fictional: Sherlock Holmes</p>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -333,7 +323,7 @@ Bone health, rest, and pacing are essential.
 </span>
 
 <span class="sign-nav">
-<a href="gemini.html" style="--sign-color:#d9e64f;">
+<a href="gemini.html" style="--sign-color:#ffe866;">
 <span style="font-family:Astro4;">g</span> 
 </a>
 </span>
@@ -389,6 +379,24 @@ Bone health, rest, and pacing are essential.
 <span class="sign-nav">
 <a href="pisces.html" style="--sign-color:#a73af6;">
 <span style="font-family:Astro4;">p</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="home.html" style="--sign-color:#77cbb4;">
+<span style="font-family:'Starbim';">Astro Home</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="www.sunniejae.com" style="--sign-color:#9a9dff;">
+<span style="font-family:'Starbim';">Sunnie Jae</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="club.html" style="--sign-color:#00c9c2;">
+<span style="font-family:'Starbim';">Join the Club</span> 
 </a>
 </span>
 

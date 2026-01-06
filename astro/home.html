@@ -9,7 +9,7 @@
 <style>
 :root{
   --black:#000010;--silver:#f0f0f5;--gray:#bfbfdc;
-  --accent:#00c9c2;--primary:#9a9ad4;--secondary:#c13886
+  --accent:#00c9c2;--primary:#9a9ad4;--secondary:#c13886;
 }
 @font-face{font-family:'Jaewriting';src:url('/assets/Jaewriting-Regular.otf')}
 @font-face{font-family:'Milky';src:url('/assets/tan-mon-cheri.woff')}
@@ -19,7 +19,7 @@
 body{
   background:var(--black);color:var(--silver);
   font-family:'Jaewriting',system-ui,sans-serif;
-  line-height:1.6;overflow-x:hidden
+  line-height:1.8;overflow-x:hidden
 }
 
 nav{
@@ -43,17 +43,19 @@ nav{
 }
 
 h2{
-  font-family:'Milky';font-size:2.4rem;margin-bottom:2rem;
+  font-family:'Milky';font-size:2.5em;margin-bottom:2rem;
   background:linear-gradient(135deg,var(--silver),var(--primary));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent
 }
 
 .transit{
   margin-bottom:2rem;padding:1.5rem;
-  background:var--(silver);
+  background:#1D1D45;
   border-left:3px solid var(--primary);
-  border-radius:15px
+  border-radius:15px;
+  line-height:1.8;
 }
+
 
 .transit-header{
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
@@ -66,7 +68,7 @@ h2{
 
 .astro-symbol{
   font-family:'Astro';
-  font-size:1.8rem;
+  font-size:2.5rem;
   letter-spacing:.35rem;
   white-space:nowrap
 }
@@ -74,8 +76,8 @@ h2{
 .label{
   color:var(--accent);
   font-family:'Milky';
-  text-transform:uppercase;
-  margin-right:1rem
+  margin-right:1rem;
+  font-size:1.5rem;
 }
 
 .sign-grid{
@@ -132,7 +134,7 @@ h2{
 }
 
 
-.tarot-display{text-align:center}
+.tarot-display{text-align:center;letter-spacing:3px; line-height:1.6;}
 .tarot-card-img{max-width:280px;border-radius:15px}
 .draw-button{margin-top:2rem;padding:1rem 3rem;border-radius:50px}
 
@@ -146,9 +148,9 @@ h2{
 <nav>
   <div class="logo">Starry Jae</div>
   <div class="nav-links">
-    <a href="astro/sign.html">Sign Wikis</a>
+    <a href="#explore-signs">Sign Wikis</a>
     <a href="index.html">Home</a>
-    <a href="shop/home.html">Shop</a>
+    <a href="/shop/home.html">Shop</a>
   </div>
 </nav>
 
@@ -168,14 +170,14 @@ h2{
 </div>
 
 <div class="card">
-  <h2>Explore Your Sign</h2>
+  <h2 id="explore-signs">Explore Your Sign</h2>
   <div class="sign-grid">
     <a class="sign-btn" data-sign="Aries">a</a>
     <a class="sign-btn" data-sign="Taurus">u</a>
     <a class="sign-btn" data-sign="Gemini">g</a>
     <a class="sign-btn" data-sign="Cancer">c</a>
     <a class="sign-btn" data-sign="Leo">l</a>
-    <a class="sign-btn" data-sign="Virgo">m</a>
+    <a class="sign-btn" data-sign="Virgo">R</a>
     <a class="sign-btn" data-sign="Libra">b</a>
     <a class="sign-btn" data-sign="Scorpio">s</a>
     <a class="sign-btn" data-sign="Sagittarius">t</a>
@@ -206,9 +208,9 @@ const diff = (a,b)=>Math.abs(a-b)>180?360-Math.abs(a-b):Math.abs(a-b);
 const planetSymbols={Sun:'S',Moon:'M',Mercury:'R',Venus:'V',Mars:'P',Jupiter:'J',Saturn:'T',Uranus:'U',Neptune:'N',Pluto:'O',Chiron:'i',Node:'A'};
 const signSymbols={Aries:'a',Taurus:'u',Gemini:'g',Cancer:'c',Leo:'l',Virgo:'m',Libra:'b',Scorpio:'s',Sagittarius:'t',Capricorn:'n',Aquarius:'q',Pisces:'p'};
 const signColors={
-Aries:'#d01f49',Taurus:'#50c878',Gemini:'#d9e64f',Cancer:'#6e8aa5',
+Aries:'#d01f49',Taurus:'#50c878',Gemini:'#FFE866',Cancer:'#6e8aa5',
   Leo:'#f17611',Virgo:'#e0ad87',Libra:'#e60498',Scorpio:'#952a6a',
-  Sagittarius:'#2d41e7',Capricorn:'#7a5455',Aquarius:'#88e7db',Pisces:'#9a5aeb'
+  Sagittarius:'#2d41e7',Capricorn:'#7a5455',Aquarius:'#88e7db',Pisces:'#A73AF6'
 };
 const aspectSymbols={conjunction:'&',opposition:'-',square:'!',trine:'k',sextile:"'"};
 

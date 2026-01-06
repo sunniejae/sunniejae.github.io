@@ -12,7 +12,7 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
-  --primary: #f17611;
+--primary: #f17611;
     --accent: #b9ff29;  
     --dark: #231102;
     --light: #fafff0;
@@ -51,11 +51,12 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 #marquee {
     font-family: 'Starbim';
     background: linear-gradient(to right, var(--accent), var(--primary));
-    color: var(--light);
+    color: var(--dark);
     font-size: 13px;
     padding: 6px;
     border: 2px inset var(--primary);
     margin-bottom: 8px;
+    letter-spacing:3px;
 }
 
 #wiki-header {
@@ -220,13 +221,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
-☆ RADIANT ☆ CONFIDENT ☆ ICONIC ☆ HEART-LED ☆
+☆ ☆
 </marquee>
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
 <h1>LEO</h1>
-<small>Fire • Fixed • Ruled by Sun</small>
+<small>Fire • Fixed • Ruled by The Sun</small>
 </div>
 
 <table id="wiki-table">
@@ -237,15 +238,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <div class="sidebar-box">
 <h3>Infocard</h3>
 <h4>Glyph:</h4><span style="font-family:Astro4;">l</span><br>
-<h4>Element:</h4> Fire<br>
-<h4>Modality:</h4> Fixed<br>
-<h4>Ruling Planet:</h4> Sun<br>
+<h4>Element:</h4> Fire<br><span style="font-family:Astro4;">K</span>
+<h4>Modality:</h4> Fixed <br> <span style="font-family:Astro4;">f</span><br>
+<h4>Ruling Planet:</h4> The Sun<br><span style="font-family:Astro4;">S</span><br>
 <h4>Symbol:</h4> The Lion<br><br>
 <h4>Constellation:</h4><br>
 <img src="assets/constellation-LEO.png" width="250"><br><br>
-
 <h4>House:</h4> 5th<br>
-<h4>Colors:</h4> Gold and Yellow<br><br>
+<h4>Colors:</h4> Gold and Orange<br><br>
 
 <h4>Crystal:</h4><br>
 <img src="assets/LEO-crystal.png" width="250"><br><br>
@@ -261,19 +261,14 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-Leo is radiant, expressive, and unapologetically bold, driven by the desire to shine. Ruled by the Sun, they lead with heart, creativity, and a powerful sense of self-worth.
-</div>
+{{Overview}}</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Natural confidence</li>
-<li>Charismatic presence</li>
-<li>Creative expression</li>
-<li>Warm-hearted leadership</li>
-<li>Strong sense of self</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -282,12 +277,8 @@ Leo is radiant, expressive, and unapologetically bold, driven by the desire to s
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Need for validation</li>
-<li>Pride</li>
-<li>Difficulty admitting fault</li>
-<li>Can dominate conversations</li>
-<li>Sensitivity to criticism</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -295,24 +286,23 @@ Leo is radiant, expressive, and unapologetically bold, driven by the desire to s
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p><strong>Careers:</strong> Entertainment, leadership roles, entrepreneurship, fashion, creative direction, public-facing careers</p>
-<p><strong>Education:</strong> Creative programs, performance-based learning, confidence-building environments</p>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Creative outlets and joyful movement support vitality. Avoid overexertion driven by pride.
-</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical: Napoleon Bonaparte</p>
-<p>Modern: Beyoncé</p>
-<p>Fictional:  Zuko (A:TLA)</p>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -333,7 +323,7 @@ Creative outlets and joyful movement support vitality. Avoid overexertion driven
 </span>
 
 <span class="sign-nav">
-<a href="gemini.html" style="--sign-color:#d9e64f;">
+<a href="gemini.html" style="--sign-color:#ffe866;">
 <span style="font-family:Astro4;">g</span> 
 </a>
 </span>
@@ -389,6 +379,24 @@ Creative outlets and joyful movement support vitality. Avoid overexertion driven
 <span class="sign-nav">
 <a href="pisces.html" style="--sign-color:#a73af6;">
 <span style="font-family:Astro4;">p</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="home.html" style="--sign-color:#77cbb4;">
+<span style="font-family:'Starbim';">Astro Home</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="www.sunniejae.com" style="--sign-color:#9a9dff;">
+<span style="font-family:'Starbim';">Sunnie Jae</span> 
+</a>
+</span>
+
+<span class="sign-nav">
+<a href="club.html" style="--sign-color:#00c9c2;">
+<span style="font-family:'Starbim';">Join the Club</span> 
 </a>
 </span>
 
