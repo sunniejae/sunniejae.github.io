@@ -80,6 +80,47 @@ h2{
   font-size:1.5rem;
 }
 
+.blog-feed{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;
+}
+
+.blog-post{
+  background:#1D1D45;
+  border-radius:20px;
+  padding:1.5rem;
+  border-left:3px solid var(--accent);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.blog-post:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.blog-post h3{
+  font-family:'Milky';
+  font-size:1.4rem;
+  margin-bottom:.5rem;
+  background:linear-gradient(135deg,var(--silver),var(--primary));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.blog-post p{
+  color:var(--gray);
+  font-size:.95rem;
+  line-height:1.6;
+}
+
+.blog-post a{
+  color:var(--accent);
+  text-decoration:none;
+  display:inline-block;
+  margin-top:.75rem;
+}
+
 .sign-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
@@ -166,6 +207,13 @@ h2{
   <div id="tarot-container">
     <div id="tarot-card" class="tarot-display"></div>
     <button id="draw-btn" class="draw-button">Draw Your Card</button>
+  </div>
+</div>
+
+<div class="card">
+  <h2>From the Starry Jae Blog</h2>
+  <div id="blog-feed" class="blog-feed">
+    <div class="tarot-placeholder">She's Thinking...</div>
   </div>
 </div>
 
@@ -431,6 +479,30 @@ found.slice(0,3).forEach(t=>{
     <div><span class="label">Affecting:</span>${planets[t.a].domain} & ${planets[t.b].domain}</div>
     <div><span class="label">Motion:</span>${t.a} ${planets[t.a].motion}, ${t.b} ${planets[t.b].motion}</div>
   </div>`;
+/* ---------- BLOG RSS FEED ---------- */
+const RSS_URL = "https://244738582.hs-sites-na2.com/starryjae/rss.xml";
+
+fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`)
+  .then(res => res.json())
+  .then(data => {
+    const wrap = document.getElementById("blog-feed");
+    if(!data.items || !data.items.length){
+      wrap.innerHTML = "<div class='tarot-placeholder'>No posts yet ✦</div>";
+      return;
+    }
+
+    wrap.innerHTML = data.items.slice(0,3).map(post => `
+      <div class="blog-post">
+        <h3>${post.title}</h3>
+        <p>${post.description.replace(/<[^>]*>?/gm,'').slice(0,120)}…</p>
+        <a href="${post.link}" target="_blank">Read more ✧</a>
+      </div>
+    `).join("");
+  })
+  .catch(()=>{
+    document.getElementById("blog-feed").innerHTML =
+      "<div class='tarot-placeholder'>The stars are quiet right now ✦</div>";
+  });
 
 });
 </script>
