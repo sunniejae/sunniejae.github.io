@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{{SIGN}} Wiki</title>
+<title>LEO Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="assets/{{sign}}fav.png">
+<link rel="icon" type="image/png" href="assets/leofav.png">
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
@@ -12,10 +12,11 @@
 @font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
 
 :root {
---primary: #9a9dff;
-    --accent: #ff73d5;  
-    --dark: #000;
-    --light: #fff;
+--primary: #f17611;
+    --accent: #b9ff29;  
+    --dark: #231102;
+    --light: #fafff0;
+
 
 }
 
@@ -23,7 +24,7 @@ body {
     margin: 0;
     padding: 20px;
     background-color: var(--dark);
-    background-image: url('assets/background-{{SIGN}}.png');
+    background-image: url('assets/background-LEO.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -269,7 +270,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 /* HOVER: press + glow */
 .sign-nav a:hover {
-    background: var(--primary);
+    background: var(--sign-color);
     color: #000;
     transform: translate(2px, 2px);
 }
@@ -302,7 +303,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
       <div class="site-title"><a href="https://www.sunniejae.com/astro/home">Starry Jae</a></div>
     </div>
 <div class="header-left">
-      <img src="assets/{{sign}}fav.png" alt="Starry Jae Logo" class="site-logo">
+      <img src="assets/leofav.png" alt="Starry Jae Logo" class="site-logo">
     </div>
     <div class="header-right">
       <a href="https://www.sunniejae.com">home</a> •
@@ -321,7 +322,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>{{SIGN}}</h1>
+<h1>LEO</h1>
 <small>{{element}} • Fixed • Ruled by {{planet}}</small>
 </div>
 
@@ -338,15 +339,15 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h4>Ruling Planet:</h4> {{planet}}<br><span style="font-family:Astro4;">U</span><br>
 <h4>Symbol:</h4> {{symbol}}<br><br>
 <h4>Constellation:</h4><br>
-<img src="assets/constellation-{{SIGN}}.png" width="250"><br><br>
+<img src="assets/constellation-LEO.png" width="250"><br><br>
 <h4>House:</h4> {{house}}<br><br>
 <h4>Colors:</h4> {{colors}}<br><br>
 
 <h4>Crystal:</h4><br>
-<img src="assets/CRYSTAL-{{sign}}.png" width="250"><br><br>
+<img src="assets/CRYSTAL-leo.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="assets/FLOWER-{{sign}}.png" width="250">
+<img src="assets/FLOWER-leo.png" width="250">
 </div>
 </td>
 
@@ -466,7 +467,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 </span>
 
 <span class="sign-nav">
-<a href="{{sign}}.html" style="--sign-color:#88e7db;">
+<a href="leo.html" style="--sign-color:#88e7db;">
 <span style="font-family:Astro4;">q</span> 
 </a>
 </span>
