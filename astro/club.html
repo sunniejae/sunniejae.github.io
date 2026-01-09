@@ -5,13 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Starry Jae - Astrology Journaling Club by SunnieJae</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
-    <!-- Klaviyo Tracking -->
-    <script async type='text/javascript' src='https://static.klaviyo.com/onsite/js/Unmjg7/klaviyo.js?company_id=Unmjg7'></script>
-    <script type="text/javascript"> 
-    //Initialize Klaviyo object on page load
-    !function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}(); 
-    </script>
+    <link rel="icon" href="assets/starryjaelogo.png" />
     
     <style>
         @font-face {
@@ -612,6 +606,39 @@
             max-width: 400px;
             margin: 0 auto;
         }
+.spread-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.spread-container .card {
+    width: 120px;
+    height: 200px;
+    perspective: 1000px;
+}
+
+.spread-container .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.6s;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 16, 0.4);
+}
+
+.spread-container .card img:hover {
+    transform: translateY(-8px) scale(1.05);
+}
+
+.card-meaning {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--silver);
+    text-align: center;
+}
 
         .card-image-container {
             width: 100%;
@@ -951,6 +978,54 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(255, 179, 214, 0.4);
         }
+
+        /* === MEMBER LOCK SYSTEM === */
+.member-lock {
+  position: relative;
+}
+
+.member-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 16, 0.92);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  border-radius: 20px;
+}
+
+.member-overlay-content {
+  text-align: center;
+  max-width: 420px;
+  padding: 2rem;
+}
+
+.member-overlay-content h3 {
+  font-family: 'Starbim', serif;
+  color: var(--primary);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.member-overlay-content p {
+  color: var(--silver);
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.member-overlay-content a {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  background: linear-gradient(135deg, var(--pink), var(--secondary));
+  color: white;
+  text-decoration: none;
+  font-family: 'Starbim', serif;
+}
+.member-overlay-content a:hover {
+  transform: translateY(-2px);
     </style>
 </head>
 <body>
@@ -1014,16 +1089,32 @@
                     </div>
                 </div>
 
-                <div class="tool-card card-draw-tool">
-                    <h3>🔮 Daily Cosmic Card</h3>
-                    <div class="card-image-container">
-                        <img id="card-image" src="card-back.png" alt="Cosmic Card" class="card-image">
-                    </div>
-                    <button id="draw-card">Draw Your Card</button>
-                    <div class="tool-result" id="card-message">Click above to receive your message</div>
-                </div>
-            </div>
-        </div>
+                <div class="tool-card card-draw-tool member-lock">
+  <div class="member-overlay">
+    <div class="member-overlay-content">
+      <h3>Daily Tarot Spread</h3>
+      <p>This 3-card spread is reserved for club members.</p>
+      <a href="/join.html">Join to unlock</a>
+    </div>
+  </div>
+  
+  <h3>🔮 Daily 3-Card Spread</h3>
+  
+  <div class="spread-container">
+    <div class="card"><img src="cards/back.png" alt="Card 1" class="card-image"></div>
+    <div class="card"><img src="cards/back.png" alt="Card 2" class="card-image"></div>
+    <div class="card"><img src="cards/back.png" alt="Card 3" class="card-image"></div>
+  </div>
+  
+  <button id="draw-spread">Draw Your Cards</button>
+  
+  <div class="meanings">
+    <p class="card-meaning"></p>
+    <p class="card-meaning"></p>
+    <p class="card-meaning"></p>
+  </div>
+</div>
+
     </section>
 
     <!-- Daily Prompts Section -->
@@ -1072,47 +1163,39 @@
         </div>
     </section>
 
-    <!-- Resources Section -->
-    <section id="resources" class="features" style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
-        <div class="container">
-            <h2 class="section-title">Free Resources</h2>
-            <p class="section-subtitle">Download guides, templates, and other stff like that</p>
-            
-            <div class="resource-card">
-                <h3>📖 Astrology Journaling Guide</h3>
-                <p>coming soon.</p>
-                <a href="#" class="download-btn" onclick="alert('coming soon.'); return false;">Download PDF</a>
-            </div>
+    <section id="resources" class="features member-lock"
+  style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
 
-            <div class="resource-card">
-                <h3>🌙 Monthly Lunar Calendar</h3>
-                <p>coming soon</p>
-                <a href="#" class="download-btn" onclick="alert('coming soon.'); return false;">Download PDF</a>
-            </div>
+  <div class="container">
 
-            <div class="resource-card">
-                <h3>⭐ Birth Chart Worksheet</h3>
-                <p>coming soone.</p>
-                <a href="#" class="download-btn" onclick="alert('coming soon'); return false;">Download PDF</a>
-            </div>
-
-            <div class="resource-card">
-                <h3>✨ Zodiac Reference Guide</h3>
-                <p>coming soon</p>
-                <a href="#" class="download-btn" onclick="alert('coming soon'); return false;">Download PDF</a>
-            </div>
-  <div style="margin-top: 4rem;">
-      <h2 class="section-title">Latest from the Blog</h2>
-      <p class="section-subtitle"> Musings and More</p>
-
-      <div class="blog-feed" id="medium-feed">
-        <p style="text-align:center; color: var(--gray);">
-          Loading latest yaps…
-        </p>
+    <!-- LOCK OVERLAY -->
+    <div class="member-overlay">
+      <div class="member-overlay-content">
+        <h3>Member Resources</h3>
+        <p>Guides, templates, and downloads inside the Circle.</p>
+        <a href="/join.html">Join to Unlock ✨</a>
       </div>
     </div>
+
+    <!-- NORMAL CONTENT -->
+    <h2 class="section-title">Free Resources</h2>
+    <p class="section-subtitle">Download guides, templates, and more</p>
+
+    <div class="resource-card">
+      <h3>📖 Astrology Journaling Guide</h3>
+      <p>Coming soon.</p>
+      <a href="#" class="download-btn" onclick="alert('Coming soon'); return false;">Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>🌙 Monthly Lunar Calendar</h3>
+      <p>Coming soon.</p>
+      <a href="#" class="download-btn" onclick="alert('Coming soon'); return false;">Download PDF</a>
+    </div>
+
   </div>
 </section>
+
 
     <!-- Zodiac Section -->
     <section class="zodiac-section">
@@ -1121,7 +1204,7 @@
             <p class="section-subtitle">Explore each sign's unique journaling journey</p>
             
             <div class="zodiac-wheel">
-                <a href="/astro/aries.html"div class="zodiac-sign"></a>
+                <div class="zodiac-sign">
                     <div class="sign-icon">♈</div>
                     <div class="sign-name">Aries</div>
                 </div>
@@ -1195,27 +1278,13 @@
                 </a>
             </div>
 
-            <div class="newsletter-section">
-                <h3>✨ Get Cosmic Insights in Your Inbox</h3>
-                <p>Join our newsletter for weekly prompts, lunar updates, and exclusive astrology content</p>
-                <form id="newsletter-form">
-                    <input type="email" id="newsletter-email" placeholder="Enter your email" required>
-                    <button type="submit" class="newsletter-submit">Subscribe</button>
-                </form>
-                <p style="font-size: 0.85rem; margin-top: 1rem; color: var(--gray);">
-                    🎁 Subscribers get a special offer on our Astrology 2026 planner! Email me for more details at jayme@sunniejae.com
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
+            <!-- CTA Section -->
     <section id="join" class="cta-section">
         <div class="container">
             <div class="cta-content">
                 <h2>Let's Hang Out</h2>
                 <p>Join our community of dreamers, divas, and dudes.</p>
-                <a href="#" class="btn btn-primary"><span>Join the Club</span></a>
+                <a href="/join.html" class="btn btn-primary"><span>Join the Club</span></a>
             </div>
         </div>
     </section>
@@ -1696,6 +1765,35 @@ fetch(MEDIUM_FEED)
     document.getElementById("medium-feed").innerHTML =
       "<p style='color:var(--gray)'>Unable to load posts.</p>";
   });
+const cardImages = [
+    'cards/card1.png',
+    'cards/card2.png',
+    'cards/card3.png',
+    'cards/card4.png',
+    'cards/card5.png'
+    // add all your custom card images here
+];
+
+const cardMeanings = {
+    'cards/card1.png': "Card 1 Meaning: self-reflection and growth.",
+    'cards/card2.png': "Card 2 Meaning: intuition and guidance.",
+    'cards/card3.png': "Card 3 Meaning: transformation and clarity.",
+    'cards/card4.png': "Card 4 Meaning: challenges and lessons.",
+    'cards/card5.png': "Card 5 Meaning: new opportunities."
+};
+
+const drawButton = document.getElementById('draw-spread');
+const cardElements = document.querySelectorAll('.spread-container .card img');
+const meaningElements = document.querySelectorAll('.card-meaning');
+
+drawButton.addEventListener('click', () => {
+    const shuffled = [...cardImages].sort(() => 0.5 - Math.random());
+    cardElements.forEach((img, index) => {
+        img.src = shuffled[index];
+        meaningElements[index].textContent = cardMeanings[shuffled[index]] || "";
+    });
+});
+
     </script>
 </body>
 </html>
