@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member Lock Test Page</title>
+<style>
+  body { font-family: sans-serif; background: #000010; color: #f0f0f5; padding: 2rem; }
+  h2 { color: #FFD700; }
+  
+  .member-lock { position: relative; margin-bottom: 2rem; padding: 1rem; border: 1px solid #444; border-radius: 15px; }
+  .member-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,16,0.92);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    border-radius: 15px;
+    text-align: center;
+  }
+  .member-overlay h3 { color: #FFD700; margin-bottom: 1rem; }
+  .member-overlay a {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff69b4, #00ffff);
+    color: #fff;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>Member Lock Test</h1>
+
+<!-- HubSpot Form -->
+<div id="hubspot-form">
+  <h2>Join Form</h2>
+  <div id="form-container"></div>
+</div>
+
+<!-- Member-only Section: Daily Tarot -->
+<div class="member-lock">
+  <div class="member-overlay">
+    <div>
+      <h3>Daily Tarot Spread</h3>
+      <p>This 3-card spread is reserved for club members.</p>
+      <a href="join.html">Join to unlock</a>
+    </div>
+  </div>
+  <h2>🔮 Daily 3-Card Spread</h2>
+  <p>Cards will show here when unlocked.</p>
+</div>
+
+<!-- Member-only Section: Resources -->
+<div class="member-lock">
+  <div class="member-overlay">
+    <div>
+      <h3>Member Resources</h3>
+      <p>Guides and downloads inside the Circle.</p>
+      <a href="join.html">Join to Unlock</a>
+    </div>
+  </div>
+  <h2>📖 Free Resources</h2>
+  <p>Resources will show here when unlocked.</p>
+</div>
+
+<!-- HubSpot Embed -->
+<script charset="utf-8" type="text/javascript" src="//js-na2.hsforms.net/forms/embed/v2.js"></script>
+<script>
+hbspt.forms.create({
+  portalId: "244738582",
+  formId: "70267e59-ecfb-4f46-8771-4f9d268cd62c",
+  target: "#form-container"
+});
+</script>
+
+<!-- Membership Check JS -->
+<script>
+async function checkMembership(email) {
+  try {
+    const res = await fetch("/check-member", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+
+    document.querySelectorAll(".member-lock").forEach(section => {
+      const overlay = section.querySelector(".member-overlay");
+      if (data.member) {
+        overlay.style.display = "none"; // show content
+      } else {
+        overlay.style.display = "flex"; // keep locked
+      }
+    });
+  } catch (err) {
+    console.error("Membership check failed", err);
+  }
+}
+
+// Example: simulate email submission after form fills
+// In real use, hook into HubSpot onFormSubmit callback
+document.addEventListener("DOMContentLoaded", () => {
+  // For testing, prompt for an email
+  const testEmail = prompt("Enter email to test membership:");
+  if (testEmail) checkMembership(testEmail);
+});
+</script>
+
+</body>
+</html>
