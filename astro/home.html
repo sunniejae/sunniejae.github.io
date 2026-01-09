@@ -176,7 +176,12 @@ h2{
 
 
 .tarot-display{text-align:center;letter-spacing:3px; line-height:1.6;}
-.tarot-card-img{max-width:280px;border-radius:15px}
+.tarot-card-img{max-width:300px;margin:auto}
+.tarot-card-img img {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+}
 .draw-button{margin-top:2rem;padding:1rem 3rem;border-radius:50px}
 
 .tarot-placeholder{color:var(--gray);font-style:italic}
@@ -381,7 +386,7 @@ function updateTimer(){
   }
   const now=new Date();
   const tomorrow=new Date(now);
-  tomorrow.setHours(24,0,0,0);
+  tomorrow.setHours(21,0,0,0);
   const mins=Math.floor((tomorrow-now)/60000);
   timer.textContent=`Next draw in ${Math.floor(mins/60)}h ${mins%60}m`;
 }
