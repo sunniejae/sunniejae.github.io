@@ -47,7 +47,7 @@ jobs:
       - name: Deploy Node API to Azure
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'starryjae-api'
+          app-name: 'sunniejae'
           slot-name: 'Production'
           package: api-deploy
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
