@@ -10,19 +10,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read  # Required for actions/checkout
+      contents: read
 
     steps:
-      # Step 1: Checkout your repo
       - uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '24.x'
 
-      # Step 3: Install dependencies and build your API
       - name: Install and build API
         run: |
           cd api
@@ -30,7 +27,6 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      # Step 4: Upload artifact for deployment
       - name: Upload API artifact
         uses: actions/upload-artifact@v4
         with:
@@ -42,17 +38,16 @@ jobs:
     needs: build
 
     steps:
-      # Step 5: Download artifact from build job
       - name: Download API artifact
         uses: actions/download-artifact@v4
         with:
           name: node-api
+          path: api-deploy
 
-      # Step 6: Deploy to Azure Web App
       - name: Deploy Node API to Azure
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'starryjae-api' # your Azure Web App name
+          app-name: 'starryjae-api'
           slot-name: 'Production'
-          package: api
+          package: api-deploy
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
