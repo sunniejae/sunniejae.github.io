@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/f9933dfb-ebf7-470f-b64e-9b3715707527/resourceGroups/SunnieJae/providers/Microsoft.Web/sites/sunniejae",
+    "appService.deploySubpath": "."
 }
