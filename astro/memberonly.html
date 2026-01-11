@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members Only - Starry Jae</title>
+<link rel="icon" href="assets/starryjaelogo.png">
+<style>
+/* PASSWORD GATE — prevent content flash */
+/* ==== PASSWORD GATE IMPROVED ==== */
+#gate {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(63,61,122,0.7), rgba(0,168,163,0.5));
+    border-radius: 25px;
+    padding: 4rem 2rem;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.7);
+    text-align: center;
+    color: var(--silver);
+    gap: 1.5rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+#gate h2.section-title {
+    font-size: 3rem;
+    color: var(--primary);
+    letter-spacing: 2px;
+}
+
+#gate p.section-subtitle {
+    font-size: 1.3rem;
+    font-family: 'Jaewriting', serif;
+    color: var(--accent);
+}
+
+#password {
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    border: 2px solid var(--primary);
+    font-size: 1rem;
+    width: 250px;
+    text-align: center;
+    background: rgba(0,0,16,0.5);
+    color: var(--silver);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#password:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 20px rgba(255,179,214,0.5);
+}
+
+#unlock-btn {
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--pink), var(--secondary));
+    color: white;
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+#unlock-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255,179,214,0.5);
+}
+
+/* ==== SECTION SPACING ==== */
+section {
+    padding: 6rem 2rem;
+}
+
+.resources, .card-draw-tool {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#protected-content {
+    display: none;
+}
+        @font-face {
+            font-family: 'Jaewriting';
+            src: url('Jaewriting-Regular.otf') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Milky';
+            src: url('tan-mon-cheri.woff') format('woff');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000010;
+            --white: #ffffff;
+            --dark-gray: #404040;
+            --gray: #bfbfdc;
+            --silver: #f0f0f5;
+            --pink: #ffb3d6;
+            --teal: #00a8a3;
+            --dark-purple: #3f3d7a;
+            --accent: #00c9c2;
+            --secondary: #c13886;
+            --primary: #9a9ad4;
+        }
+
+        body {
+            font-family: 'Jaewriting', serif;
+            background: var(--black);
+            color: var(--silver);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated starfield background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 179, 214, 0.5), 0 0 40px rgba(255, 179, 214, 0.3); }
+            50% { text-shadow: 0 0 30px rgba(255, 179, 214, 0.8), 0 0 60px rgba(255, 179, 214, 0.4); }
+        }
+/* 3-Card Spread Section */
+.spread-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 140px;
+    perspective: 1000px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,16,0.4);
+    transition: transform 0.5s;
+}
+
+.card img:hover {
+    transform: translateY(-8px) scale(1.05);
+}
+
+.card-label {
+    font-family: 'Milky', 'Cinzel', serif;
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.card-meaning {
+    font-family: 'Jaewriting', serif;
+    font-size: 0.85rem;
+    color: var(--silver);
+    margin-top: 0.25rem;
+}
+
+
+/* Flip container */
+.card-image-container {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 25px rgba(0,0,16,0.4);
+}
+
+/* Flipped state */
+.card-image-container.flipped .card-image {
+    transform: rotateY(180deg);
+}
+
+/* Hover lift */
+.card-image-container:hover .card-image {
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .cards-row {
+        flex-direction: column;
+        gap: 2.5rem;
+        align-items: center;
+    }
+}
+
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Jaewriting', 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--silver);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--pink);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--pink);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 0 4rem;
+            position: relative;
+        }
+
+        .moon-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            animation: float 6s infinite ease-in-out, fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .moon-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px rgba(154, 154, 212, 0.6));
+        }
+
+        h1 {
+            font-family: 'Milky', 'Cinzel', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            animation: fadeInUp 1s ease-out 0.4s backwards, glow 3s infinite ease-in-out;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-family: 'Jaewriting', 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--silver);
+            animation: fadeInUp 1s ease-out 0.8s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-family: 'Milky', 'Cinzel', serif;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink), var(--secondary));
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(255, 179, 214, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--pink));
+            transition: left 0.4s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 179, 214, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--black);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(154, 154, 212, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--dark-purple), transparent);
+        }
+
+        .section-title {
+            font-family: 'Milky', 'Cinzel', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-family: 'Jaewriting', 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 179, 214, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--pink);
+            box-shadow: 0 20px 40px rgba(255, 179, 214, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .feature-card h3 {
+            font-family: 'Milky', 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .feature-card p {
+            color: var(--silver);
+            line-height: 1.8;
+        }
+
+        /* Zodiac Section */
+        .zodiac-section {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);
+        }
+
+        .zodiac-wheel {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .zodiac-sign {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.15);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .zodiac-sign:hover {
+            background: rgba(63, 61, 122, 0.5);
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .zodiac-sign .sign-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .zodiac-sign .sign-name {
+            font-family: 'Milky', 'Cinzel', serif;
+            color: var(--primary);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+                /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 168, 163, 0.2);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--silver);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--accent);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--pink);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                padding: 4rem 0 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .zodiac-wheel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* === NEW FEATURE STYLES === */
+
+       
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tool-card {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .tool-card h3 {
+            font-family: 'Milky', 'Cinzel', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .tool-card input,
+        .tool-card select {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: rgba(0, 0, 16, 0.5);
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            color: var(--silver);
+            font-family: 'Lora', serif;
+        }
+
+        .tool-card button {
+            background: linear-gradient(135deg, var(--accent), var(--teal));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-family: 'Milky', 'Cinzel', serif;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            align-items: center;
+        }
+
+        .tool-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 201, 194, 0.4);
+        }
+
+        .card-draw-tool {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .card-image-container {
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto 1.5rem;
+            aspect-ratio: 9 / 16;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 16, 0.5);
+            border: 2px solid var(--gray);
+            transition: all 0.5s ease;
+        }
+
+        .card-image-container.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .tool-result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 201, 194, 0.1);
+            border-radius: 8px;
+            color: var(--silver);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+/* Spread selector container */
+.spread-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    font-family: 'Jaewriting', serif;
+}
+
+/* Label */
+.spread-selector label {
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+/* Dropdown styling */
+#spread-type {
+    padding: 0.75rem 1rem;
+    border-radius: 25px;
+    border: 2px solid var(--accent);
+    background: rgba(0, 0, 16, 0.5);
+    color: var(--silver);
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+#spread-type:hover, #spread-type:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 15px rgba(255, 179, 214, 0.4);
+    outline: none;
+}
+
+/* Shuffle button next to dropdown */
+#shuffle-cards {
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--pink), var(--secondary));
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#shuffle-cards::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--secondary), var(--pink));
+    transition: left 0.4s ease;
+}
+
+#shuffle-cards:hover::before {
+    left: 0;
+}
+
+#shuffle-cards span {
+    position: relative;
+    z-index: 1;
+}
+
+#shuffle-cards:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 179, 214, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .spread-selector {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    #shuffle-cards {
+        width: 100%;
+    }
+    #spread-type {
+        width: 100%;
+    }
+}
+
+          /* Resources Section */
+        .resource-card {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            border-color: var(--pink);
+            transform: translateY(-5px);
+        }
+
+        .resource-card h3 {
+            font-family: 'Milky', 'Cinzel', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .resource-card p {
+            color: var(--silver);
+            margin-bottom: 1rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--teal));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: 'Milky', serif;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 201, 194, 0.4);
+        }
+
+      
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate" class="container">
+    <h2 class="section-title">Members Only</h2>
+    <p class="section-subtitle">Enter your password to unlock the content:</p>
+    <input type="password" id="password" placeholder="Password">
+    <button id="unlock-btn">Unlock</button>
+</div>
+
+<!-- PROTECTED CONTENT -->
+<div id="protected-content" class="container">
+
+    <!-- RESOURCES -->
+    <section class="resources">
+        <h2 class="section-title">Resources</h2>
+        <p class="section-subtitle">Download guides, templates, and more</p>
+
+        <div class="resource-card">
+            <h3>Astrology Guide PDF</h3>
+            <p>Download your free astrology guide to enhance your practice.</p>
+            <a href="resources/astrology-guide.pdf" class="download-btn" target="_blank">Download</a>
+        </div>
+        <div class="resource-card">
+            <h3>Journal Templates</h3>
+            <p>Printable templates to track your lunar and planetary transits.</p>
+            <a href="resources/journal-templates.pdf" class="download-btn" target="_blank">Download</a>
+        </div>
+    </section>
+
+    <!-- 3-CARD SPREAD -->
+<section class="card-spread">
+  <h2 class="section-title">3-Card Spread</h2>
+
+  <p class="section-subtitle">Select a spread and shuffle the cards to see what the universe has in store for you</p>
+
+  <!-- Spread selection -->
+  <div class="spread-controls" style="text-align:center; margin-bottom:2rem;">
+    <select id="spread-type" class="spread-dropdown">
+      <option value="past-present-future">Past, Present, Future</option>
+      <option value="yes-no">Yes / No / Maybe</option>
+      <option value="relationship">Relationship Spread</option>
+    </select>
+    <button id="shuffle-cards" class="btn btn-primary"><span>Shuffle Cards</span></button>
+  </div>
+
+  <!-- Cards container -->
+  <div class="spread-container">
+    <div class="card">
+      <div class="card-image-container">
+        <img src="assets/card-back.png" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+    <div class="card">
+      <div class="card-image-container">
+        <img src="assets/card-back.png" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+    <div class="card">
+      <div class="card-image-container">
+        <img src="assets/card-back.png" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+// ===== PASSWORD GATE =====
+const STORED_HASH = "81c4d66f638dcab2657a7544fab9ae6dd226c1e8d1de463e0d7a60893327dc45"; // SHA-256 of your password
+
+async function unlock() {
+    const input = document.getElementById('password').value;
+    const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
+
+    if(hashHex === STORED_HASH){
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('protected-content').style.display = 'block';
+        drawCards(); // draw cards immediately after unlock
+    } else {
+        alert('Incorrect password. Try again!');
+    }
+}
+
+document.getElementById('unlock-btn').addEventListener('click', unlock);
+
+// ===== 3-CARD SPREAD =====
+const cards = [
+    { name: "Card 1", image: "assets/tarot/highpriest.png", meaning: "Represents reflection and lessons from the past." },
+    { name: "Card 2", image: "assets/tarot/temperance.png", meaning: "Focuses on your current situation and challenges." },
+    { name: "Card 3", image: "assets/tarot/theemperor.png", meaning: "Hints at opportunities and what’s coming." },
+    { name: "Card 4", image: "assets/tarot/theempress.png", meaning: "Signifies growth and transformation." },
+    { name: "Card 5", image: "assets/tarot/wheeloffortune.png", meaning: "Represents intuition and inner guidance." },
+    { name: "Card 6", image: "assets/card6.png", meaning: "Highlights hidden influences or secrets." }
+];
+
+const spreads = {
+    "past-present-future": [
+        { label: "Past", description: "Something that has an effect on your current situation that needs to be addressed" },
+        { label: "Present", description: "Your current state of mind" },
+        { label: "Future", description: "What will come if you don't make adjustments" }
+    ],
+    "yes-no": [
+        { label: "Yes", description: "What if I said yes?" },
+        { label: "No", description: "What if I said no?" },
+        { label: "Maybe", description: "What if I don't commit either way?" }
+    ],
+    "relationship": [
+        { label: "You", description: "Your current feelings and state" },
+        { label: "Partner", description: "Their current feelings and state" },
+        { label: "Outcome", description: "Potential result if nothing changes" }
+    ]
+};
+
+// Get random cards
+function getRandomCards(num) {
+    const copy = [...cards];
+    const selected = [];
+    for(let i=0; i<num; i++) {
+        const idx = Math.floor(Math.random() * copy.length);
+        selected.push(copy.splice(idx, 1)[0]);
+    }
+    return selected;
+}
+
+// Draw and assign cards
+function drawCards() {
+    const cardElements = document.querySelectorAll('.card');
+    const spreadType = document.getElementById('spread-type').value;
+    const labels = spreads[spreadType];
+    const drawn = getRandomCards(3);
+
+    cardElements.forEach((cardEl, i) => {
+        const container = cardEl.querySelector('.card-image-container');
+        const img = container.querySelector('.card-image');
+        const meaningEl = cardEl.querySelector('.card-meaning');
+        const labelEl = cardEl.querySelector('.card-label');
+
+        // Update label
+        labelEl.textContent = labels[i].label;
+
+        // Show spread description under label
+        meaningEl.textContent = labels[i].description;
+
+        // Store front image & meaning
+        cardEl.dataset.frontImage = drawn[i].image;
+        cardEl.dataset.meaning = drawn[i].meaning;
+
+        // Reset card flip
+        container.classList.remove('flipped');
+        img.src = "assets/tarot/card-back.png";
+
+        // Click to flip
+        container.onclick = function() {
+            container.classList.toggle('flipped');
+            if(container.classList.contains('flipped')){
+                img.src = cardEl.dataset.frontImage;
+                meaningEl.textContent = cardEl.dataset.meaning; // show card meaning
+            } else {
+                img.src = "assets/tarot/card-back.png";
+                meaningEl.textContent = labels[i].description; // revert to spread description
+            }
+        }
+    });
+}
+
+// Shuffle button & spread dropdown
+document.getElementById('shuffle-cards').addEventListener('click', drawCards);
+document.getElementById('spread-type').addEventListener('change', drawCards);
+
+
+</script>
+
+</body>
+</html>
