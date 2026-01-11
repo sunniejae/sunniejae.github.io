@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Starry Jae - Astrology Journaling Club by SunnieJae</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="icon" href="assets/starryjaelogo.png" />
-    
     <style>
+/* PASSWORD GATE — prevent content flash */
+#protected-content {
+    display: none;
+}
         @font-face {
             font-family: 'Jaewriting';
             src: url('Jaewriting-Regular.ttf') format('truetype');
@@ -606,39 +608,6 @@
             max-width: 400px;
             margin: 0 auto;
         }
-.spread-container {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 1.5rem 0;
-}
-
-.spread-container .card {
-    width: 120px;
-    height: 200px;
-    perspective: 1000px;
-}
-
-.spread-container .card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.6s;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0, 0, 16, 0.4);
-}
-
-.spread-container .card img:hover {
-    transform: translateY(-8px) scale(1.05);
-}
-
-.card-meaning {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--silver);
-    text-align: center;
-}
 
         .card-image-container {
             width: 100%;
@@ -979,11 +948,26 @@
             box-shadow: 0 5px 20px rgba(255, 179, 214, 0.4);
         }
     </style>
+    <script defer src="gate.js"></script>
 </head>
 <body>
+    <!-- PASSWORD GATE -->
+<div id="gate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000010;z-index:9999;">
+  <div style="background:rgba(63,61,122,0.4);padding:2.5rem;border-radius:20px;text-align:center;">
+    <h2 style="font-family:'Milky',serif;color:var(--primary);margin-bottom:1rem;">
+      🔒 Members Only
+    </h2>
+    <input type="password" id="password" placeholder="Password"
+      style="padding:1rem;border-radius:25px;border:none;width:250px;margin-bottom:1rem;" />
+    <br />
+    <button onclick="unlock()" class="btn btn-primary">
+      <span>Enter</span>
+    </button>
+  </div>
+</div>
     <!-- Animated starfield -->
     <div class="stars" id="starfield"></div>
-
+<div id="protected-content">
     <!-- Header -->
     <header>
         <div class="container">
@@ -999,20 +983,19 @@
             </nav>
         </div>
     </header>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="moon-icon">
-                <svg viewBox="0 0 100 100" fill="none" xmlns="https://www.w3.org/2000/svg">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="50" cy="50" r="45" fill="url(#moonGradient)"/>
                     <circle cx="35" cy="35" r="8" fill="rgba(0, 0, 16, 0.3)"/>
                     <circle cx="60" cy="45" r="5" fill="rgba(0, 0, 16, 0.2)"/>
                     <circle cx="45" cy="65" r="6" fill="rgba(0, 0, 16, 0.25)"/>
                     <defs>
                         <radialGradient id="moonGradient">
-                            <stop offset="0%" stop-color="#F5FBFA"/>
-                            <stop offset="100%" stop-color="#19022A"/>
+                            <stop offset="0%" stop-color="#9a9ad4"/>
+                            <stop offset="100%" stop-color="#00c9c2"/>
                         </radialGradient>
                     </defs>
                 </svg>
@@ -1020,14 +1003,20 @@
             <h1>Starry Jae</h1>
             <p class="subtitle">An Astrology Journaling Club by SunnieJae</p>
             <p class="hero-description">
-                coming soon
+                Join our celestial community of seekers exploring the cosmos within. Through astrology and intentional journaling, 
+                we map the movements of planets to the rhythms of our souls, discovering wisdom written in the stars.
             </p>
-        </section>
+            <div class="cta-buttons">
+                <a href="#join" class="btn btn-primary"><span>Begin Your Journey</span></a>
+                <a href="#features" class="btn btn-secondary">Explore More</a>
+            </div>
+        </div>
+    </section>
 
     <!-- Interactive Tools Section -->
     <section id="tools" class="features">
         <div class="container">
-            <h2 class="section-title">Tools</h2>
+            <h2 class="section-title">Cosmic Tools</h2>
             <p class="section-subtitle">Explore astrology with interactive calculators</p>
             
             <div class="tools-grid">
@@ -1041,39 +1030,23 @@
                     </div>
                 </div>
 
-                <div class="tool-card card-draw-tool member-lock">
-  <div class="member-overlay">
-    <div class="member-overlay-content">
-      <h3>Daily Tarot Spread</h3>
-      <p>This 3-card spread is reserved for club members.</p>
-      <a href="join.html">Join to unlock</a>
-    </div>
-  </div>
-  
-  <h3>🔮 Daily 3-Card Spread</h3>
-  
-  <div class="spread-container">
-    <div class="card"><img src="cards/back.png" alt="Card 1" class="card-image"></div>
-    <div class="card"><img src="cards/back.png" alt="Card 2" class="card-image"></div>
-    <div class="card"><img src="cards/back.png" alt="Card 3" class="card-image"></div>
-  </div>
-  
-  <button id="draw-spread">Draw Your Cards</button>
-  
-  <div class="meanings">
-    <p class="card-meaning"></p>
-    <p class="card-meaning"></p>
-    <p class="card-meaning"></p>
-  </div>
-</div>
-
+                <div class="tool-card card-draw-tool">
+                    <h3>🔮 Daily Cosmic Card</h3>
+                    <div class="card-image-container">
+                        <img id="card-image" src="card-back.png" alt="Cosmic Card" class="card-image">
+                    </div>
+                    <button id="draw-card">Draw Your Card</button>
+                    <div class="tool-result" id="card-message">Click above to receive your message</div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Daily Prompts Section -->
     <section id="prompts" class="features" style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
         <div class="container">
-            <h2 class="section-title">Today's Prompts</h2>
-            <p class="section-subtitle">Journal prompts based on the current astrological transits</p>
+            <h2 class="section-title">Today's Cosmic Prompts</h2>
+            <p class="section-subtitle">Journal with the rhythms of the universe</p>
             
             <div class="prompt-card">
                 <span class="prompt-label">✨ Daily Reflection</span>
@@ -1095,12 +1068,12 @@
     <!-- Journal Section -->
     <section id="journal" class="features">
         <div class="container">
-            <h2 class="section-title">Your Starry Journal</h2>
+            <h2 class="section-title">Your Cosmic Journal</h2>
             <p class="section-subtitle">Private journaling saved to your device only</p>
             
             <div class="journal-container">
                 <div class="journal-input-area">
-                    <textarea id="journal-input" placeholder="start journaling here... (Ctrl+Enter to save)"></textarea>
+                    <textarea id="journal-input" placeholder="Begin your cosmic reflections... (Ctrl+Enter to save)"></textarea>
                     <div class="journal-actions">
                         <div class="streak-display">
                             🔥 Streak: <span id="streak-count">0 days</span>
@@ -1115,39 +1088,47 @@
         </div>
     </section>
 
-    <section id="resources" class="features member-lock"
-  style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
+    <!-- Resources Section -->
+    <section id="resources" class="features" style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
+        <div class="container">
+            <h2 class="section-title">Free Resources</h2>
+            <p class="section-subtitle">Download guides, templates, and cosmic wisdom</p>
+            
+            <div class="resource-card">
+                <h3>📖 Astrology Journaling Guide</h3>
+                <p>A comprehensive guide to journaling with the cosmos. Includes prompts for each zodiac season, moon phase practices, and birth chart exploration exercises.</p>
+                <a href="#" class="download-btn" onclick="alert('This would download a PDF guide. Connect to your actual PDF file.'); return false;">Download PDF</a>
+            </div>
 
-  <div class="container">
+            <div class="resource-card">
+                <h3>🌙 Monthly Lunar Calendar</h3>
+                <p>Track moon phases, optimal journaling times, and cosmic events throughout the month. Perfect for planning your spiritual practice.</p>
+                <a href="#" class="download-btn" onclick="alert('This would download a calendar PDF. Connect to your actual PDF file.'); return false;">Download PDF</a>
+            </div>
 
-    <!-- LOCK OVERLAY -->
-    <div class="member-overlay">
-      <div class="member-overlay-content">
-        <h3>Member Resources</h3>
-        <p>Guides, templates, and downloads inside the Circle.</p>
-        <a href="join.html">Join to Unlock ✨</a>
+            <div class="resource-card">
+                <h3>⭐ Birth Chart Worksheet</h3>
+                <p>A guided worksheet to explore your natal chart. Deep dive into your sun, moon, rising signs and discover what makes you cosmically unique.</p>
+                <a href="#" class="download-btn" onclick="alert('This would download a worksheet PDF. Connect to your actual PDF file.'); return false;">Download PDF</a>
+            </div>
+
+            <div class="resource-card">
+                <h3>✨ Zodiac Reference Guide</h3>
+                <p>Quick reference for all twelve signs including elements, ruling planets, key traits, and journaling themes for self-discovery.</p>
+                <a href="#" class="download-btn" onclick="alert('This would download a reference guide. Connect to your actual PDF file.'); return false;">Download PDF</a>
+            </div>
+  <div style="margin-top: 4rem;">
+      <h2 class="section-title">Latest from the Blog</h2>
+      <p class="section-subtitle">Cosmic wisdom and astrology insights</p>
+
+      <div class="blog-feed" id="medium-feed">
+        <p style="text-align:center; color: var(--gray);">
+          Loading latest posts…
+        </p>
       </div>
     </div>
-
-    <!-- NORMAL CONTENT -->
-    <h2 class="section-title">Free Resources</h2>
-    <p class="section-subtitle">Download guides, templates, and more</p>
-
-    <div class="resource-card">
-      <h3>📖 Astrology Journaling Guide</h3>
-      <p>Coming soon.</p>
-      <a href="#" class="download-btn" onclick="alert('Coming soon'); return false;">Download PDF</a>
-    </div>
-
-    <div class="resource-card">
-      <h3>🌙 Monthly Lunar Calendar</h3>
-      <p>Coming soon.</p>
-      <a href="#" class="download-btn" onclick="alert('Coming soon'); return false;">Download PDF</a>
-    </div>
-
   </div>
 </section>
-
 
     <!-- Zodiac Section -->
     <section class="zodiac-section">
@@ -1211,17 +1192,21 @@
     <!-- Community Section -->
     <section id="community" class="features">
         <div class="container">
-            <h2 class="section-title">Finding Content</h2>
-            <p class="section-subtitle">Here's the best ways to keep up with Starry Jae</p>
+            <h2 class="section-title">Join Our Cosmic Community</h2>
+            <p class="section-subtitle">Connect with fellow stargazers and seekers</p>
             
             <div class="community-links">
-                <a href="https://244738582.hs-sites-na2.com/starryjae" target="_blank" class="community-link">
-                    <div class="community-icon">📝</div>
-                    <h3>Subscription Blog</h3>
-                    <p>Monthly Astrology Updates: Transits, Moon Phases, and more</p>
+                <a href="https://instagram.com/sunniejae" target="_blank" class="community-link">
+                    <div class="community-icon">📸</div>
+                    <h3>Instagram</h3>
+                    <p>Daily inspiration & cosmic content</p>
                 </a>
 
-        
+                <a href="https://pinterest.com/sunniejae" target="_blank" class="community-link">
+                    <div class="community-icon">📌</div>
+                    <h3>Pinterest</h3>
+                    <p>Journaling prompts & astrology boards</p>
+                </a>
 
                 <a href="https://medium.com/@sunniejae" target="_blank" class="community-link">
                     <div class="community-icon">✍️</div>
@@ -1230,13 +1215,27 @@
                 </a>
             </div>
 
-            <!-- CTA Section -->
+            <div class="newsletter-section">
+                <h3>✨ Get Cosmic Insights in Your Inbox</h3>
+                <p>Join our newsletter for weekly prompts, lunar updates, and exclusive astrology content</p>
+                <form id="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-submit">Subscribe</button>
+                </form>
+                <p style="font-size: 0.85rem; margin-top: 1rem; color: var(--gray);">
+                    🎁 Free gift: Download our Birth Chart Journaling Guide when you subscribe!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
     <section id="join" class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Let's Hang Out</h2>
-                <p>Join our community of dreamers, divas, and dudes.</p>
-                <a href="join.html" class="btn btn-primary"><span>Join the Club</span></a>
+                <h2>Your Cosmic Journey Awaits</h2>
+                <p>Join our community of dreamers, seekers, and stargazers. Start journaling with the cosmos today and discover the magic that happens when you align your inner world with the celestial rhythms above.</p>
+                <a href="#" class="btn btn-primary"><span>Join the Circle</span></a>
             </div>
         </div>
     </section>
@@ -1250,10 +1249,10 @@
                 <a href="#">✧</a>
                 <a href="#">⋆</a>
             </div>
-            <p>&copy; 2025 Starry Jae by SunnieJae.</p>
+            <p>&copy; 2025 Starry Jae by SunnieJae. Written in the stars, journaled on Earth.</p>
         </div>
     </footer>
-
+</div>
     <script>
         // Create animated starfield
         function createStars() {
@@ -1717,35 +1716,6 @@ fetch(MEDIUM_FEED)
     document.getElementById("medium-feed").innerHTML =
       "<p style='color:var(--gray)'>Unable to load posts.</p>";
   });
-const cardImages = [
-    'cards/card1.png',
-    'cards/card2.png',
-    'cards/card3.png',
-    'cards/card4.png',
-    'cards/card5.png'
-    // add all your custom card images here
-];
-
-const cardMeanings = {
-    'cards/card1.png': "Card 1 Meaning: self-reflection and growth.",
-    'cards/card2.png': "Card 2 Meaning: intuition and guidance.",
-    'cards/card3.png': "Card 3 Meaning: transformation and clarity.",
-    'cards/card4.png': "Card 4 Meaning: challenges and lessons.",
-    'cards/card5.png': "Card 5 Meaning: new opportunities."
-};
-
-const drawButton = document.getElementById('draw-spread');
-const cardElements = document.querySelectorAll('.spread-container .card img');
-const meaningElements = document.querySelectorAll('.card-meaning');
-
-drawButton.addEventListener('click', () => {
-    const shuffled = [...cardImages].sort(() => 0.5 - Math.random());
-    cardElements.forEach((img, index) => {
-        img.src = shuffled[index];
-        meaningElements[index].textContent = cardMeanings[shuffled[index]] || "";
-    });
-});
-
     </script>
 </body>
 </html>
