@@ -1,37 +1,31 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(express.static('public')); // serves front-end files
 
+// Serve all static files from root
+app.use(express.static(path.join(process.cwd())));
+
+// HubSpot email verification endpoint
 const HUBSPOT_PAT = process.env.HUBSPOT_PAT;
 
-// Endpoint to verify email against HubSpot contacts
 app.post('/verify-email', async (req, res) => {
   const { email } = req.body;
 
   try {
-    // v3 HubSpot API with PAT authentication
     const response = await fetch(
-      `https://api.hubapi.com/crm/v3/objects/contacts?properties=email&limit=1&filter=email=${encodeURIComponent(email)}`,
-      {
-        headers: {
-          Authorization: `Bearer ${HUBSPOT_PAT}`,
-          'Content-Type': 'application/json'
-        }
-      }
+      `https://api.hubapi.com/contacts/v1/contact/email/${email}/profile?hapikey=${HUBSPOT_PAT}`
     );
 
-    const data = await response.json();
-
-    if (data.results && data.results.length > 0) {
-      res.json({ access: true }); // email is a HubSpot contact
+    if (response.status === 200) {
+      res.json({ access: true });
     } else {
-      res.json({ access: false }); // email not found
+      res.json({ access: false });
     }
   } catch (err) {
     console.error(err);
@@ -39,6 +33,16 @@ app.post('/verify-email', async (req, res) => {
   }
 });
 
-// Listen on Azure-assigned port or fallback 3000
+// Fallback route for root
+app.get('/', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'index.html'));
+});
+
+// Optional: handle other unknown routes gracefully
+app.use((req, res) => {
+  res.status(404).send('Page not found');
+});
+
+// Listen on Azure-assigned port
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
