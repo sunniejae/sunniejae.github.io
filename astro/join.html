@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Join Starry Jae ✦ Astrology Journaling Club</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="assets/starryjaelogo.png" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Jaewriting';
+      src: url('Jaewriting-Regular.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Milky';
+      src: url('tan-mon-cheri.woff') format('woff');
+    }
+
+    :root {
+      --black:#000010;
+      --silver:#f0f0f5;
+      --primary:#9a9ad4;
+      --accent:#00c9c2;
+      --pink:#ffb3d6;
+      --secondary:#c13886;
+    }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+
+    body {
+      background: var(--black);
+      color: var(--silver);
+      font-family: 'Lora', serif;
+      overflow-x: hidden;
+    }
+
+    /* Starfield */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%,100%{opacity:.3}
+      50%{opacity:1}
+    }
+
+    /* Layout */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Milky','Cinzel',serif;
+      font-size: 3rem;
+      color: var(--primary);
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 25px rgba(154,154,212,.5);
+    }
+
+    .subtitle {
+      font-family: 'Jaewriting', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .intro {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      opacity: .95;
+    }
+
+    /* Card */
+  .join-card {
+  background: rgba(245, 245, 255, 0.85); /* light, almost white */
+  border: 1px solid rgba(154, 154, 212, 0.4);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  color: #000; /* ensures text inside card is dark */
+}
+
+    .join-card h2 {
+      font-family: 'Milky', serif;
+      color: var(----dark   );
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .join-card p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      color: var(--dark);
+    }
+
+    /* Form placeholder styling */
+    .form-frame {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* Benefits */
+    .benefits {
+      margin-top: 3rem;
+      text-align: left;
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .benefit {
+      background: rgba(0,0,16,.4);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid rgba(255,179,214,.2);
+    }
+
+    .benefit span {
+      font-family: 'Milky', serif;
+      color: var(--dark-purple);
+      display: block;
+      margin-bottom: .3rem;
+    }
+
+    /* Footer */
+    .back-link {
+      margin-top: 3rem;
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-family: 'Jaewriting', serif;
+      font-size: 1.1rem;
+    }
+    .back-link:hover { color: var(--pink); }
+
+    @media(max-width:600px){
+      h1{font-size:2.3rem}
+      .join-card{padding:2.2rem 1.5rem}
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+  <h1>Join Starry Jae</h1>
+  <div class="subtitle">your astrology journaling sanctuary ✦</div>
+
+  <p class="intro">
+    After joining, you'll get an email with the password to the unlocked version of the club site! ✨
+  </p>
+
+  <div class="join-card">
+    <h2>✨ Become a Member</h2>
+    <p>
+      Sign up below to unlock member-only tools, tarot pulls, resources,
+      and guided journaling experiences.
+    </p>
+
+    <!-- 🔮 HUBSPOT / KLAVIYO FORM GOES HERE -->
+<div class="form-frame">
+
+ <script charset="utf-8" type="text/javascript" src="//js-na2.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    portalId: "244738582",
+    formId: "70267e59-ecfb-4f46-8771-4f9d268cd62c",
+    region: "na2"
+  });
+</script>
+
+</div>
+    <!-- END FORM -->
+    <div class="benefits">
+      <div class="benefit">
+        <span>🔮 Daily Tarot</span>
+        One 3 card pull per day — access to interpretations from yours truly.
+      </div>
+      <div class="benefit">
+        <span>🌙 Lunar Journaling</span>
+        Prompts aligned to the Moon & current transits.
+      </div>
+      <div class="benefit">
+        <span>✨ Member Resources</span>
+        Workbooks, calendars, and astrology tools.
+      </div>
+    </div>
+  </div>
+
+  <a href="/astro/club" class="back-link">← back to Starry Jae</a>
+</div>
+
+<script>
+  // Stars
+  const starWrap = document.getElementById('stars');
+  for(let i=0;i<90;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.width=s.style.height=(Math.random()*2+1)+'px';
+    s.style.animationDelay=Math.random()*3+'s';
+    starWrap.appendChild(s);
+  }
+</script>
+
+</body>
+</html>
