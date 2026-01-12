@@ -2,42 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AQUARIUS Wiki</title>
+<title>{{SIGN}} Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/astro/assets/favicons/{sign}.png">
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
+<link rel="icon" type="image/png" href="/astro/assets/favicons/{{sign}}.png">
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
+@font-face { font-family: 'Starbim'; src: url('/astro/assets/fonts/Starbim.ttf') format('truetype'); }
+@font-face { font-family: 'Jaewriting'; src: url('/astro/assets/fonts/Jaewriting-Regular.otf') format('opentype'); }
+@font-face { font-family: 'Astro4'; src: url('/astro/assets/fonts/Astrocomplete-Regular.otf') format('opentype'); }
 
 
 :root {
---primary: #88e7db;
-    --accent: #645cf5;  
-    --dark: #010605;
-    --light: #F4F3FE;
+--primary: #9a9dff;
+    --accent: #ff73d5;  
+    --dark: #000;
+    --light: #fff;
 
 }
 
 body {
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     background-color: var(--dark);
-    background-image: url('/astro/assets/backgrounds/{sign}.png');
+    background-image: url('/astro/assets/backgrounds/{{sign}}.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
     color: var(--light);
-    cursor: url('assets/cursor-star.cur'), auto;
 }
 
 [style*="font-family:Astro4"],
 .astro4 {
     color: var(--primary) !important;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 a { text-decoration: none; }
-a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 /* ================= SITE HEADER ================= */
 
 #site-header {
@@ -100,7 +100,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 #wiki-frame {
-    max-width: 960px;
+    max-width: 1000px;
     margin: auto;
     background: var(--dark);
     border: 4px ridge var(--primary);
@@ -168,7 +168,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 .sidebar-box h3 {
-    margin: 0px 0 13px;
+    margin: 0px 0px 13px;
     font-family: 'Starbim';
     background: var(--accent);
     color: var(--dark);
@@ -185,8 +185,18 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     color: var(--dark);
     padding: 4px;
     text-align: center;
-    font-size: 17px;
-    letter-spacing: 0.1em;
+    font-size: 25px;
+    letter-spacing: 0.3rem;
+}
+
+.sidebar-box h5 {
+    margin: 5px 75px 0px;
+    font-family: 'Jaewriting';
+    color: var(--light);
+    padding: 0px;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 0.2rem;
 }
 /* ================= CONTENT ================= */
 #content {
@@ -265,18 +275,10 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
         box-shadow 0.15s ease,
         filter 0.15s ease;
 }
-.sign-nav a {
-    color: inherit;
-    text-decoration: none;
-}
 
-.site-title a:visited {
-    color: inherit;
-    text-decoration: none;
-}
 /* HOVER: press + glow */
 .sign-nav a:hover {
-    background: var(--sign-color);
+    background: var(--primary);
     color: #000;
     transform: translate(2px, 2px);
 }
@@ -309,7 +311,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
       <div class="site-title"><a href="https://www.sunniejae.com/astro/home">Starry Jae</a></div>
     </div>
 <div class="header-left">
-      <img src="/astro/assets/favicons/{sign2}.png" alt="Starry Jae Logo" class="site-logo">
+      <img src="/astro/assets/favicons/{{sign}}2.png" alt="Starry Jae Logo" class="site-logo">
     </div>
     <div class="header-right">
       <a href="https://www.sunniejae.com">home</a> •
@@ -328,8 +330,8 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>AQUARIUS</h1>
-<small>Air • Fixed • Ruled by Saturn and Uranus</small>
+<h1>{{SIGN}}</h1>
+<small>{{element}} • {{modality}} • Ruled by {{planet}}</small>
 </div>
 
 <table id="wiki-table">
@@ -339,21 +341,21 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <td id="sidebar">
 <div class="sidebar-box">
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">q</span><br>
-<h4>Element:</h4> Air<br><span style="font-family:Astro4;">H</span><br>
-<h4>Modality:</h4> Fixed<br><span style="font-family:Astro4;">f</span><br>
-<h4>Ruling Planet:</h4> Saturn and Uranus<br><span style="font-family:Astro4;">U</span><br>
-<h4>Symbol:</h4> The Waterbearer<br><br>
+<h4>Glyph:</h4><span style="font-family:Astro4;">{{sign-glyph}}</span><br>
+<h4>Element:</h4><span style="font-family:Astro4;">{{element-glyph}}</span><br><h5>{{element}}</h5><br>
+<h4>Modality:</h4><span style="font-family:Astro4;">{{modality-glyph}}</span><br><h5>{{modality}}</h5><br>
+<h4>Ruling Planet:</h4><span style="font-family:Astro4;">U</span><br><h5>{{planet}}</h5><br>
+<h4>Symbol:</h4><h5>{{symbol}}</h5><br>
 <h4>Constellation:</h4><br>
-<img src="/astro/assets/constellations/{sign}.png" width="250"><br><br>
-<h4>House:</h4> 11th<br><br>
-<h4>Colors:</h4> Blue and Silver<br><br>
+<img src="/astro/assets/constellations/{{sign}}.png" width="250"><br><br>
+<h4>House:</h4><h5>{{house}}</h5><br>
+<h4>Colors:</h4><h5>{{colors}}</h5><br>
 
 <h4>Crystal:</h4><br>
-<img src="/astro/assets/crystals/{sign}.png" width="250"><br><br>
+<img src="/astro/assets/crystals/{{sign}}.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="/astro/assets/flowers/{sign}.png" width="250">
+<img src="/astro/assets/flowers/{{sign}}.png" width="250"><br>
 </div>
 </td>
 
@@ -370,11 +372,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Innovation</li>
-<li>Independence</li>
-<li>Humanitarianism</li>
-<li>Intellectualism</li>
-<li>Open-mindedness</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -383,12 +381,8 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Unpredictability</li>
-<li>Detachment</li>
-<li>Over-intellectualization</li>
-<li>Rebelliousness</li>
-<li>Emotional detachment</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -396,53 +390,23 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p>Careers:</p>
-<ul>
-<li>Sociology</li>
-<li>Science & Technology</li>
-<li>Human Rights Advocacy</li>
-<li>Environmental Science</li>
-</ul>
-<p>Education:</p>
-<ul>
-<li>Social Sciences</li>
-<li>Engineering</li>
-<li>Environmental Studies</li>
-<li>Philosophy</li>
-</ul>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Aquarius rules the nervous system and the immune system. Mental stimulation is key to maintaining good emotional stability. Grounding techniques include breathing exercises, meditation, and spending time in nature.
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical:</p>
-<ul>
-<li>Galileo Galilei</li>
-<li>Thomas Edison</li>
-<li>Charles Darwin</li>
-<li>Abraham Lincoln</li>
-</ul>
-<p>Modern:</p>
-<ul>
-<li>Steve Jobs</li>
-<li>Marie Curie</li>
-<li>Leonardo da Vinci</li>
-<li>Isaac Newton</li>
-</ul>
-<p>Fictional:</p>
-<ul>
-<li>Lisa Simpson (The Simpsons)</li>
-<li>Spock (Star Trek)</li>  
-<li>Katniss Everdeen (The Hunger Games)</li>
-<li>Hiro Hamada (Big Hero 6)</li>
-</ul>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -523,7 +487,7 @@ Aquarius rules the nervous system and the immune system. Mental stimulation is k
 </span>
 
 <span class="sign-nav">
-<a href="home.html" style="--sign-color:#77cbb4;">
+<a href="/astro/home.html" style="--sign-color:#77cbb4;">
 <span style="font-family:'Starbim';">Astro Home</span> 
 </a>
 </span>
@@ -535,7 +499,7 @@ Aquarius rules the nervous system and the immune system. Mental stimulation is k
 </span>
 
 <span class="sign-nav">
-<a href="club.html" style="--sign-color:#00c9c2;">
+<a href="/club/public/club.html" style="--sign-color:#00c9c2;">
 <span style="font-family:'Starbim';">Join the Club</span> 
 </a>
 </span>

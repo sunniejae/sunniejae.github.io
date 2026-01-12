@@ -2,44 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>VIRGO Wiki</title>
+<title>{{SIGN}} Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="assets/virgofav.png">
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
+<link rel="icon" type="image/png" href="/astro/assets/favicons/{{sign}}.png">
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
-@font-face { font-family: 'Starbim'; src: url('Starbim.ttf') format('truetype'); }
-@font-face { font-family: 'Jaewriting'; src: url('Jaewriting-Regular (2).otf') format('opentype'); }
-@font-face { font-family: 'Astro4'; src: url('Astrocomplete-Regular.otf') format('opentype'); }
+@font-face { font-family: 'Starbim'; src: url('/astro/assets/fonts/Starbim.ttf') format('truetype'); }
+@font-face { font-family: 'Jaewriting'; src: url('/astro/assets/fonts/Jaewriting-Regular.otf') format('opentype'); }
+@font-face { font-family: 'Astro4'; src: url('/astro/assets/fonts/Astrocomplete-Regular.otf') format('opentype'); }
+
 
 :root {
---primary: #e0ad87;
-    --accent: #462b89;  
-    --dark: #020202;
-    --light: #f0edf9;
+--primary: #9a9dff;
+    --accent: #ff73d5;  
+    --dark: #000;
+    --light: #fff;
 
 }
 
 body {
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     background-color: var(--dark);
-    background-image: url('assets/background-VIRGO.png');
+    background-image: url('/astro/assets/backgrounds/{{sign}}.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
     color: var(--light);
-    cursor: url('assets/cursor-star.cur'), auto;
 }
 
 [style*="font-family:Astro4"],
 .astro4 {
     color: var(--primary) !important;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 a { text-decoration: none; }
-a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 /* ================= SITE HEADER ================= */
 
 #site-header {
@@ -102,7 +100,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 #wiki-frame {
-    max-width: 960px;
+    max-width: 1000px;
     margin: auto;
     background: var(--dark);
     border: 4px ridge var(--primary);
@@ -170,7 +168,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 .sidebar-box h3 {
-    margin: 0px 0 13px;
+    margin: 0px 0px 13px;
     font-family: 'Starbim';
     background: var(--accent);
     color: var(--dark);
@@ -187,8 +185,18 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     color: var(--dark);
     padding: 4px;
     text-align: center;
-    font-size: 17px;
-    letter-spacing: 0.1em;
+    font-size: 25px;
+    letter-spacing: 0.3rem;
+}
+
+.sidebar-box h5 {
+    margin: 5px 75px 0px;
+    font-family: 'Jaewriting';
+    color: var(--light);
+    padding: 0px;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 0.2rem;
 }
 /* ================= CONTENT ================= */
 #content {
@@ -270,7 +278,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 /* HOVER: press + glow */
 .sign-nav a:hover {
-    background: var(--sign-color);
+    background: var(--primary);
     color: #000;
     transform: translate(2px, 2px);
 }
@@ -303,7 +311,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
       <div class="site-title"><a href="https://www.sunniejae.com/astro/home">Starry Jae</a></div>
     </div>
 <div class="header-left">
-      <img src="assets/virgofav2.png" alt="Starry Jae Logo" class="site-logo">
+      <img src="/astro/assets/favicons/{{sign}}2.png" alt="Starry Jae Logo" class="site-logo">
     </div>
     <div class="header-right">
       <a href="https://www.sunniejae.com">home</a> •
@@ -322,8 +330,8 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>VIRGO</h1>
-<small>{{element}} • Fixed • Ruled by {{planet}}</small>
+<h1>{{SIGN}}</h1>
+<small>{{element}} • {{modality}} • Ruled by {{planet}}</small>
 </div>
 
 <table id="wiki-table">
@@ -334,20 +342,20 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <div class="sidebar-box">
 <h3>Infocard</h3>
 <h4>Glyph:</h4><span style="font-family:Astro4;">{{sign-glyph}}</span><br>
-<h4>Element:</h4> {{element}}<br><span style="font-family:Astro4;">{{element-glyph}}/span><br>
-<h4>Modality:</h4> {{modality}}<br><span style="font-family:Astro4;">{{modality-glyph}}</span><br>
-<h4>Ruling Planet:</h4> {{planet}}<br><span style="font-family:Astro4;">U</span><br>
-<h4>Symbol:</h4> {{symbol}}<br><br>
+<h4>Element:</h4><span style="font-family:Astro4;">{{element-glyph}}</span><br><h5>{{element}}</h5><br>
+<h4>Modality:</h4><span style="font-family:Astro4;">{{modality-glyph}}</span><br><h5>{{modality}}</h5><br>
+<h4>Ruling Planet:</h4><span style="font-family:Astro4;">U</span><br><h5>{{planet}}</h5><br>
+<h4>Symbol:</h4><h5>{{symbol}}</h5><br>
 <h4>Constellation:</h4><br>
-<img src="assets/constellation-VIRGO.png" width="250"><br><br>
-<h4>House:</h4> {{house}}<br><br>
-<h4>Colors:</h4> {{colors}}<br><br>
+<img src="/astro/assets/constellations/{{sign}}.png" width="250"><br><br>
+<h4>House:</h4><h5>{{house}}</h5><br>
+<h4>Colors:</h4><h5>{{colors}}</h5><br>
 
 <h4>Crystal:</h4><br>
-<img src="assets/CRYSTAL-virgo.png" width="250"><br><br>
+<img src="/astro/assets/crystals/{{sign}}.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="assets/FLOWER-virgo.png" width="250">
+<img src="/astro/assets/flowers/{{sign}}.png" width="250"><br>
 </div>
 </td>
 
@@ -364,10 +372,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Analitical</li>
-<li>Practical</li>
-<li>Loyal</li>
-<li>Hardworking</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -376,11 +381,8 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Overly critical</li>
-<li>Perfectionist</li>
-<li>Self-critical</li>
-<li>Overly concerned with details</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -388,50 +390,23 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<p>Careers:</p>
-<ul>
-<li>Healthcare</li>
-<li>Research</li>
-<li>Education</li>
-<li>Administration</li>
-</ul>
-<p>Education:</p>
-<ul>
-<li>Science</li>
-<li>Mathematics</li>
-<li>Medicine</li>
-<li>Business</li>
-</ul>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-    Virgo rules the digestive system. They are prone to digestive issues, anxiety, and stress-related conditions.</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<p>Historical:</p>
-<ul>   
-<li>Mother Teresa</li>
-<li>Agatha Christie</li>
-<li>Michael Jackson</li>
-</ul>
-<p>Modern:</p>
-<ul>
-<li>Prince Harry</li>
-<li>Beyoncé</li>
-<li>Keanu Reeves</li>
-</ul>
-<p>Fictional:</p>
-<ul>
-<li>Hermione Granger (Harry Potter)</li>
-<li>Lisa Simpson (The Simpsons)</li>
-<li>Velma Dinkley (Scooby-Doo)</li>
-</ul>
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -500,7 +475,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 </span>
 
 <span class="sign-nav">
-<a href="virgo.html" style="--sign-color:#88e7db;">
+<a href="aquarius.html" style="--sign-color:#88e7db;">
 <span style="font-family:Astro4;">q</span> 
 </a>
 </span>
@@ -512,19 +487,19 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 </span>
 
 <span class="sign-nav">
-<a href="home.html" style="--sign-color:#77cbb4;">
+<a href="/astro/home.html" style="--sign-color:#77cbb4;">
 <span style="font-family:'Starbim';">Astro Home</span> 
 </a>
 </span>
 
 <span class="sign-nav">
-<a href="www.sunniejae.com" style="--sign-color:#9a9dff;">
+<a href="/index.html" style="--sign-color:#9a9dff;">
 <span style="font-family:'Starbim';">Sunnie Jae</span> 
 </a>
 </span>
 
 <span class="sign-nav">
-<a href="club.html" style="--sign-color:#00c9c2;">
+<a href="/club/public/club.html" style="--sign-color:#00c9c2;">
 <span style="font-family:'Starbim';">Join the Club</span> 
 </a>
 </span>

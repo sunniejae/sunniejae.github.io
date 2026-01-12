@@ -2,44 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ARIES Wiki</title>
+<title>{{SIGN}} Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/astro/assets/favicons/aries.png">
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
+<link rel="icon" type="image/png" href="/astro/assets/favicons/{{sign}}.png">
 <!-- ================= CUSTOM FONTS ================= -->
 <style>
 @font-face { font-family: 'Starbim'; src: url('/astro/assets/fonts/Starbim.ttf') format('truetype'); }
 @font-face { font-family: 'Jaewriting'; src: url('/astro/assets/fonts/Jaewriting-Regular.otf') format('opentype'); }
 @font-face { font-family: 'Astro4'; src: url('/astro/assets/fonts/Astrocomplete-Regular.otf') format('opentype'); }
 
+
 :root {
---primary: #d01f49;
-    --accent: #ffc545;  
-    --dark: #121111;
-    --light: #f9f0de;
+--primary: #9a9dff;
+    --accent: #ff73d5;  
+    --dark: #000;
+    --light: #fff;
 
 }
 
 body {
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     background-color: var(--dark);
-    background-image: url('/astro/assets/backgrounds/aries.png');
+    background-image: url('/astro/assets/backgrounds/{{sign}}.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
     color: var(--light);
-    cursor: url('assets/cursor-star.cur'), auto;
 }
 
 [style*="font-family:Astro4"],
 .astro4 {
     color: var(--primary) !important;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 a { text-decoration: none; }
-a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 /* ================= SITE HEADER ================= */
 
 #site-header {
@@ -67,20 +65,20 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     font-family: 'Starbim';
     font-size: 14px;
     letter-spacing: 3px;
-    color: #ffc545;
+    color: var(--accent);
     text-align: left;
 }
 .site-title a {
-    color: #ffc545;
+    color: var(--accent);
     text-decoration: none;
 }
 
 .site-title a:visited {
-    color: #ffc545;
+    color: var(--accent);
 }
 
 .site-title a:hover {
-    color: var(--accent);
+    color: var(--primary);
 }
 
 .header-right {
@@ -102,7 +100,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 #wiki-frame {
-    max-width: 960px;
+    max-width: 1000px;
     margin: auto;
     background: var(--dark);
     border: 4px ridge var(--primary);
@@ -170,7 +168,7 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
 }
 
 .sidebar-box h3 {
-    margin: 0px 0 13px;
+    margin: 0px 0px 13px;
     font-family: 'Starbim';
     background: var(--accent);
     color: var(--dark);
@@ -187,8 +185,18 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     color: var(--dark);
     padding: 4px;
     text-align: center;
-    font-size: 17px;
-    letter-spacing: 0.1em;
+    font-size: 25px;
+    letter-spacing: 0.3rem;
+}
+
+.sidebar-box h5 {
+    margin: 5px 75px 0px;
+    font-family: 'Jaewriting';
+    color: var(--light);
+    padding: 0px;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 0.2rem;
 }
 /* ================= CONTENT ================= */
 #content {
@@ -239,14 +247,13 @@ a:hover { cursor: url('assets/cursor-star-glow.cur'), pointer; }
     display: inline-flex;
     align-items: center;
     gap: 2px;
-text-decoration: none;
+
     padding: 8px 16px;
     border-radius: 999px; /* pill shape */
 
     font-family: 'Starbim', sans-serif;
     font-size: 14px;
     font-weight: bold;
-    
     
 
     border: 2px solid #000;
@@ -268,19 +275,10 @@ text-decoration: none;
         box-shadow 0.15s ease,
         filter 0.15s ease;
 }
-.sign-nav a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.site-title a:visited {
-    color: inherit;
-    text-decoration: none;
-}
 
 /* HOVER: press + glow */
 .sign-nav a:hover {
-    background: var(--sign-color);
+    background: var(--primary);
     color: #000;
     transform: translate(2px, 2px);
 }
@@ -313,7 +311,7 @@ text-decoration: none;
       <div class="site-title"><a href="https://www.sunniejae.com/astro/home">Starry Jae</a></div>
     </div>
 <div class="header-left">
-      <img src="/astro/assets/favicons/aries2.png" alt="Starry Jae Logo" class="site-logo">
+      <img src="/astro/assets/favicons/{{sign}}2.png" alt="Starry Jae Logo" class="site-logo">
     </div>
     <div class="header-right">
       <a href="https://www.sunniejae.com">home</a> •
@@ -322,14 +320,18 @@ text-decoration: none;
 
   </div>
 </header>
+
+<div id="wiki-frame">
+
 <!-- ================= MARQUEE ================= -->
 <marquee id="marquee" scrollamount="4">
 ☆ ☆
 </marquee>
+
 <!-- ================= HEADER ================= -->
 <div id="wiki-header">
-<h1>ARIES</h1>
-<small>Fire • Cardinal • Ruled by Mars</small>
+<h1>{{SIGN}}</h1>
+<small>{{element}} • {{modality}} • Ruled by {{planet}}</small>
 </div>
 
 <table id="wiki-table">
@@ -339,21 +341,21 @@ text-decoration: none;
 <td id="sidebar">
 <div class="sidebar-box">
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">a</span><br>
-<h4>Element:</h4> Fire<br><span style="font-family:Astro4;">K</span><br>
-<h4>Modality:</h4> Cardinal<br><span style="font-family:Astro4;">d</span><br>
-<h4>Ruling Planet:</h4> Mars<br><span style="font-family:Astro4;">P</span><br>
-<h4>Symbol:</h4> The Ram<br><br>
+<h4>Glyph:</h4><span style="font-family:Astro4;">{{sign-glyph}}</span><br>
+<h4>Element:</h4><span style="font-family:Astro4;">{{element-glyph}}</span><br><h5>{{element}}</h5><br>
+<h4>Modality:</h4><span style="font-family:Astro4;">{{modality-glyph}}</span><br><h5>{{modality}}</h5><br>
+<h4>Ruling Planet:</h4><span style="font-family:Astro4;">U</span><br><h5>{{planet}}</h5><br>
+<h4>Symbol:</h4><h5>{{symbol}}</h5><br>
 <h4>Constellation:</h4><br>
-<img src="/astro/assets/constellations/aries.png" width="250"><br><br>
-<h4>House:</h4> 1st<br><br>
-<h4>Colors:</h4> Red and Gold<br><br>
+<img src="/astro/assets/constellations/{{sign}}.png" width="250"><br><br>
+<h4>House:</h4><h5>{{house}}</h5><br>
+<h4>Colors:</h4><h5>{{colors}}</h5><br>
 
 <h4>Crystal:</h4><br>
-<img src="/astro/assets/crystals/aries.png" width="250"><br><br>
+<img src="/astro/assets/crystals/{{sign}}.png" width="250"><br><br>
 
 <h4>Flower:</h4><br>
-<img src="/astro/assets/flowers/aries.png" width="250">
+<img src="/astro/assets/flowers/{{sign}}.png" width="250"><br>
 </div>
 </td>
 
@@ -363,20 +365,14 @@ text-decoration: none;
 <section class="content-box">
 <h2>Sign Overview</h2>
 <div class="inner">
-As the first sign of the zodiac, Aries is known for its pioneering spirit and natural leadership qualities. Aries individuals are often energetic, confident, and quick to act. They are driven by their desire to take charge and make things happen.</div>
+{{Overview}}</div>
 </section>
 
 <section class="content-box">
 <h2>Strengths</h2>
 <div class="inner">
 <ul>
-<li>Leadership</li>
-<li>Courage</li>
-<li>Determination</li>
-<li>Enthusiasm</li>
-<li>Confidence</li>
-<li>Passion</li>
-<li>Optimism</li>
+<li>{{STRENGTHS}}</li>
 </ul>
 </div>
 </section>
@@ -385,13 +381,8 @@ As the first sign of the zodiac, Aries is known for its pioneering spirit and na
 <h2>Weaknesses</h2>
 <div class="inner">
 <ul>
-<li>Impulsiveness</li>
-<li>Aggressiveness</li>
-<li>Selfishness</li>
-<li>Stubbornness</li>
-<li>Rudeness</li>
-<li>Quick temper</li>
-</ul>
+<li>{{WEAKNESSES}}</li>
+
 </div>
 </section>
 
@@ -399,42 +390,23 @@ As the first sign of the zodiac, Aries is known for its pioneering spirit and na
 <section class="content-box">
 <h2>Career & Education Paths</h2>
 <div class="inner">
-<h3>Careers:</h3>
-<ul>
-<li>Entrepreneur</li>
-<li>Manager</li>
-<li>Leader</li>
-<li>Sales</li>
-<li>Military</li>
-<li>Sports</li>
-<li>Emergency Services</li>
-</ul>
-<h3>Education:</h3>
-<ul>
-<li>Business Administration</li>
-<li>Marketing</li>
-<li>Physical Education</li>
-<li>Political Science</li>
-<li>Criminal Justice</li>
-</ul>
+<p><strong>Careers:</strong> {{CAREERS}}</p>
+<p><strong>Education:</strong> {{MAJORS}}</p>
 </div>
 </section>
 
 <section class="content-box">
 <h2>Health & Wellness</h2>
 <div class="inner">
-Aries rules the head and adrenal system. Stress, headaches, and burnout can appear when energy isn’t released physically. Regular movement and competition are essential.</div>
+{{HEALTH}}</div>
 </section>
 
 <section class="content-box">
 <h2>Famous Figures</h2>
 <div class="inner">
-<h3>Historical:</h3><br>
-Leonardo da Vinci<br>
-<h3>Modern:</h3><br>
-Lady Gaga<br>
-<h3>Fictional:</h3><br>
-Chandler Bing (Friends)
+<p>Historical: {{HISTORICAL}}</p>
+<p>Modern: {{MODERN}}</p>
+<p>Fictional: {{FICTIONAL}}</p>
 </div>
 </section>
 
@@ -515,7 +487,7 @@ Chandler Bing (Friends)
 </span>
 
 <span class="sign-nav">
-<a href="home.html" style="--sign-color:#77cbb4;">
+<a href="/astro/home.html" style="--sign-color:#77cbb4;">
 <span style="font-family:'Starbim';">Astro Home</span> 
 </a>
 </span>
@@ -527,7 +499,7 @@ Chandler Bing (Friends)
 </span>
 
 <span class="sign-nav">
-<a href="club.html" style="--sign-color:#00c9c2;">
+<a href="/club/public/club.html" style="--sign-color:#00c9c2;">
 <span style="font-family:'Starbim';">Join the Club</span> 
 </a>
 </span>
