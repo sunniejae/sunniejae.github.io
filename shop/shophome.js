@@ -1,4 +1,6 @@
-// Sample Products Data
+// ============================
+// PRODUCT DATA
+// ============================
 const products = {
     exclusive: [
         {
@@ -6,21 +8,24 @@ const products = {
             title: "Astrology Planner: 2026",
             price: "$50",
             image: "assets/astrojournal.png",
-            type: "exclusive"
+            type: "exclusive",
+            description: "A guided astrology planner designed for journaling based on transits, and reflection."
         },
         {
             id: 2,
             title: "Personalized Album Keychain",
             price: "$25",
             image: "assets/comingsoon.png",
-            type: "exclusive"
+            type: "exclusive",
+            description: "Custom keychain inspired by your favorite album or artist."
         },
         {
             id: 3,
-            title: "NOTHING TO SEE HERE",
-            price: "XD",
+            title: "Tarot Reading",
+            price: "TBD",
             image: "assets/comingsoon.png",
-            type: "exclusive"
+            type: "exclusive",
+            description: "One-on-one intuitive tarot reading tailored to your question."
         },
         {
             id: 4,
@@ -33,11 +38,12 @@ const products = {
     direct: [
         {
             id: 5,
-            title: "Going Mental: A Tour Through the Mind of a Girl Named Lisa ",
+            title: "Going Mental: A Tour Through the Mind of a Girl Named Lisa",
             price: "$3.33 on Kindle | $5.55 in Paperback",
             image: "assets/goingmental2.png",
             type: "direct",
-            link: "https://www.amazon.com/dp/B0GB5KCGRJ/ref=cm_sw_r_as_gl_api_gl_i_37AMD81Q5NM3DDZKJWDZ?linkCode=ml1&tag=jaymeallen-20&linkId=bec1e7eed538f1329d0eb4111770f143"
+            description: "A surreal, introspective poetry collection.",
+            link: "https://www.amazon.com/dp/B0GB5KCGRJ/"
         },
         {
             id: 6,
@@ -45,7 +51,8 @@ const products = {
             price: "$9.99",
             image: "assets/popsocket.png",
             type: "direct",
-            link: "https://www.amazon.com/dp/B0FJKGT8YN?linkCode=ssc&tag=onamzjaymeall-20&creativeASIN=B0FJKGT8YN&asc_item-id=amzn1.ideas.289HTFNOY1ZES&ref_=aip_sf_list_spv_ons_mixed_d_asin&th=1"
+            description: "Official Pop Socket Brand - Sunnie Jae Logo.",
+            link: "https://www.amazon.com/dp/B0FJKGT8YN"
         },
         {
             id: 7,
@@ -53,6 +60,7 @@ const products = {
             price: "$20",
             image: "assets/girldinner.png",
             type: "direct",
+            description: "Comfort tee inspired by the Girl Dinner phenomenon.",
             link: "https://amzn.to/4smpp8z"
         },
         {
@@ -61,40 +69,48 @@ const products = {
             price: "$8.99",
             image: "assets/spaghetti-CHAEWON.png",
             type: "direct",
-            link: "https://www.redbubble.com/shop/ap/176087573",
-        },
+            description: "K-pop inspired sticker pack.",
+            link: "https://www.redbubble.com/shop/ap/176087573"
+        }
     ]
 };
 
-// Wishlist stored in memory
+// ============================
+// STATE
+// ============================
 let wishlist = [];
 
-// Initialize the shop
+// ============================
+// INIT
+// ============================
 function init() {
     renderProducts();
     updateWishlistCount();
     attachEventListeners();
 }
 
-// Render products to the page
+// ============================
+// RENDER PRODUCTS
+// ============================
 function renderProducts() {
     const exclusiveGrid = document.getElementById('exclusiveProducts');
     const directGrid = document.getElementById('directProducts');
 
-    // Render exclusive products
-    products.exclusive.forEach(product => {
-        const card = createProductCard(product);
-        exclusiveGrid.appendChild(card);
+    exclusiveGrid.innerHTML = '';
+    directGrid.innerHTML = '';
+
+    products.exclusive.forEach(p => {
+        exclusiveGrid.appendChild(createProductCard(p));
     });
 
-    // Render direct products
-    products.direct.forEach(product => {
-        const card = createProductCard(product);
-        directGrid.appendChild(card);
+    products.direct.forEach(p => {
+        directGrid.appendChild(createProductCard(p));
     });
 }
 
-// Create a product card element
+// ============================
+// PRODUCT CARD
+// ============================
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
@@ -115,9 +131,20 @@ function createProductCard(product) {
     price.className = 'product-price';
     price.textContent = product.price;
 
+    info.appendChild(title);
+    info.appendChild(price);
+
+    if (product.description) {
+        const desc = document.createElement('p');
+        desc.className = 'product-description';
+        desc.textContent = product.description;
+        info.appendChild(desc);
+    }
+
     const type = document.createElement('div');
     type.className = 'product-type';
-    type.textContent = product.type === 'exclusive' ? 'Exclusive to Order' : 'Direct Order';
+    type.textContent =
+        product.type === 'exclusive' ? 'Exclusive to Order' : 'Direct Order';
 
     const actions = document.createElement('div');
     actions.className = 'product-actions';
@@ -126,7 +153,9 @@ function createProductCard(product) {
         const wishlistBtn = document.createElement('button');
         wishlistBtn.className = 'btn btn-wishlist';
         wishlistBtn.textContent = 'Add to Wishlist';
-        wishlistBtn.onclick = () => addToWishlist(product);
+        wishlistBtn.addEventListener('click', e => {
+            addToWishlist(product, e.target);
+        });
         actions.appendChild(wishlistBtn);
     } else {
         const orderBtn = document.createElement('a');
@@ -137,8 +166,6 @@ function createProductCard(product) {
         actions.appendChild(orderBtn);
     }
 
-    info.appendChild(title);
-    info.appendChild(price);
     info.appendChild(type);
     info.appendChild(actions);
 
@@ -148,53 +175,52 @@ function createProductCard(product) {
     return card;
 }
 
-// Add product to wishlist
-function addToWishlist(product) {
-    // Check if already in wishlist
-    const exists = wishlist.find(item => item.id === product.id);
-    if (exists) {
+// ============================
+// WISHLIST
+// ============================
+function addToWishlist(product, btn) {
+    if (wishlist.find(item => item.id === product.id)) {
         alert('This item is already in your wishlist!');
         return;
     }
 
     wishlist.push(product);
     updateWishlistCount();
-    
-    // Visual feedback
-    const btn = event.target;
-    const originalText = btn.textContent;
-    btn.textContent = 'Added!';
-    btn.style.backgroundColor = 'var(--teal)';
-    btn.style.color = 'var(--white)';
-    
-    setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.backgroundColor = '';
-        btn.style.color = '';
-    }, 1000);
+
+    if (btn) {
+        const original = btn.textContent;
+        btn.textContent = 'Added!';
+        btn.disabled = true;
+
+        setTimeout(() => {
+            btn.textContent = original;
+            btn.disabled = false;
+        }, 1000);
+    }
 }
 
-// Remove product from wishlist
 function removeFromWishlist(productId) {
     wishlist = wishlist.filter(item => item.id !== productId);
     updateWishlistCount();
     renderWishlist();
 }
 
-// Update wishlist count badge
 function updateWishlistCount() {
-    const countElement = document.getElementById('wishlistCount');
-    countElement.textContent = wishlist.length;
-    countElement.style.display = wishlist.length > 0 ? 'flex' : 'none';
+    const count = document.getElementById('wishlistCount');
+    count.textContent = wishlist.length;
+    count.style.display = wishlist.length ? 'flex' : 'none';
 }
 
-// Render wishlist in modal
+// ============================
+// WISHLIST MODAL
+// ============================
 function renderWishlist() {
-    const wishlistItems = document.getElementById('wishlistItems');
-    wishlistItems.innerHTML = '';
+    const container = document.getElementById('wishlistItems');
+    container.innerHTML = '';
 
-    if (wishlist.length === 0) {
-        wishlistItems.innerHTML = '<div class="empty-wishlist">Your wishlist is empty. Add some exclusive items to get started!</div>';
+    if (!wishlist.length) {
+        container.innerHTML =
+            '<div class="empty-wishlist">Your wishlist is empty.</div>';
         return;
     }
 
@@ -203,7 +229,6 @@ function renderWishlist() {
         item.className = 'wishlist-item';
 
         const img = document.createElement('img');
-        img.className = 'wishlist-item-image';
         img.src = product.image;
         img.alt = product.title;
 
@@ -221,6 +246,13 @@ function renderWishlist() {
         info.appendChild(title);
         info.appendChild(price);
 
+        if (product.description) {
+            const desc = document.createElement('div');
+            desc.className = 'wishlist-item-description';
+            desc.textContent = product.description;
+            info.appendChild(desc);
+        }
+
         const removeBtn = document.createElement('button');
         removeBtn.className = 'remove-btn';
         removeBtn.textContent = 'Remove';
@@ -230,100 +262,42 @@ function renderWishlist() {
         item.appendChild(info);
         item.appendChild(removeBtn);
 
-        wishlistItems.appendChild(item);
+        container.appendChild(item);
     });
 }
 
-// Handle order form submission
-function handleOrderSubmit(e) {
-    e.preventDefault();
-
-    if (wishlist.length === 0) {
-        alert('Your wishlist is empty! Please add items before requesting an order.');
-        return;
-    }
-
-    const name = document.getElementById('customerName').value;
-    const email = document.getElementById('customerEmail').value;
-    const subscribe = document.getElementById('subscribeEmails').checked;
-
-    // Build wishlist text
-    const wishlistText = wishlist.map(item => 
-        `- ${item.title} (${item.price})`
-    ).join('%0D%0A');
-
-    // Build email body
-    const body = `Name: ${name}%0D%0A%0D%0AEmail: ${email}%0D%0A%0D%0AWishlist:%0D%0A${wishlistText}%0D%0A%0D%0ASubscribe to emails from Sunnie Jae: ${subscribe ? 'Yes' : 'No'}`;
-
-    // Create mailto link
-    const mailtoLink = `mailto:orders@sunniejae.com?subject=SUNNIE JAE SHOP ORDER&body=${body}`;
-
-    // Open email client
-    window.location.href = mailtoLink;
-
-    // Close modal after a short delay
-    setTimeout(() => {
-        closeModal('wishlistModal');
-        // Clear form
-        document.getElementById('orderForm').reset();
-        document.getElementById('subscribeEmails').checked = true;
-    }, 500);
+// ============================
+// MODALS
+// ============================
+function openModal(id) {
+    document.getElementById(id).classList.add('active');
+    if (id === 'wishlistModal') renderWishlist();
 }
 
-// Modal functions
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.add('active');
-    
-    if (modalId === 'wishlistModal') {
-        renderWishlist();
-    }
+function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
 }
 
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.remove('active');
-}
-
-// Attach event listeners
+// ============================
+// EVENTS
+// ============================
 function attachEventListeners() {
-    // Wishlist button
-    document.getElementById('wishlistBtn').addEventListener('click', () => {
+    document.getElementById('wishlistBtn')?.addEventListener('click', () => {
         openModal('wishlistModal');
     });
 
-    // Info button
-    document.getElementById('infoBtn').addEventListener('click', () => {
-        openModal('infoModal');
-    });
-
-    // Close buttons
-    document.getElementById('closeWishlist').addEventListener('click', () => {
+    document.getElementById('closeWishlist')?.addEventListener('click', () => {
         closeModal('wishlistModal');
     });
 
-    document.getElementById('closeInfo').addEventListener('click', () => {
-        closeModal('infoModal');
+    document.getElementById('wishlistModal')?.addEventListener('click', e => {
+        if (e.target.id === 'wishlistModal') closeModal('wishlistModal');
     });
-
-    // Close modals when clicking outside
-    document.getElementById('wishlistModal').addEventListener('click', (e) => {
-        if (e.target.id === 'wishlistModal') {
-            closeModal('wishlistModal');
-        }
-    });
-
-    document.getElementById('infoModal').addEventListener('click', (e) => {
-        if (e.target.id === 'infoModal') {
-            closeModal('infoModal');
-        }
-    });
-
-    // Order form submission
-    document.getElementById('orderForm').addEventListener('submit', handleOrderSubmit);
 }
 
-// Initialize when DOM is loaded
+// ============================
+// DOM READY
+// ============================
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {

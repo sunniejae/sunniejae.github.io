@@ -6,19 +6,7 @@
 <title>Members Only - Starry Jae</title>
 <link rel="icon" href="/astro/assets/favicons/{{sign}}.png">
 <style>
-    @font-face {
-            font-family: 'Jaewriting';
-            src: url('/assets/fonts/Jaewriting-Regular.otf') format('truetype');
-        }
-        
-        @font-face {
-            font-family: 'Milky';
-            src: url('/assets/fonts/tan-mon-cheri.woff') format('woff');
-        }
-         @font-face {
-            font-family: 'Astro';
-            src: url('/assets/fonts/Astro4-Regular.otf') format('woff');
-        }
+    
 /* PASSWORD GATE — prevent content flash */
 /* ==== PASSWORD GATE IMPROVED ==== */
 #gate {
@@ -98,12 +86,12 @@ section {
 }
         @font-face {
             font-family: 'Jaewriting';
-            src: url('Jaewriting-Regular.otf') format('truetype');
+            src: url('/assets/fonts/Jaewriting-Regular.otf') format('truetype');
         }
         
         @font-face {
             font-family: 'Milky';
-            src: url('tan-mon-cheri.woff') format('woff');
+            src: url('/assets/fonts/tan-mon-cheri.woff') format('woff');
         }
         
         * {
@@ -179,95 +167,92 @@ section {
             0%, 100% { text-shadow: 0 0 20px rgba(255, 179, 214, 0.5), 0 0 40px rgba(255, 179, 214, 0.3); }
             50% { text-shadow: 0 0 30px rgba(255, 179, 214, 0.8), 0 0 60px rgba(255, 179, 214, 0.4); }
         }
-/* 3-Card Spread Section */
+/* =========================
+   TAROT SPREAD — LARGE SCALE
+   ========================= */
+
+/* Wider spread area */
 .spread-container {
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0;
+    align-items: flex-start;
+    gap: 4rem;
+    margin: 4rem 0;
     flex-wrap: wrap;
 }
-.section-description {
-    display: flex;
-    justify-content: center;
-    width: 75%;
-    color: #bfbfdc;
-    font-family: 'Jaewriting';
-    font-size: 1rem;
-    letter-spacing: 2px;
-}
+
+/* BIG cards */
 .card {
-    width: 140px;
-    perspective: 1000px;
+    width: 260px; /* was 140px */
     text-align: center;
+    perspective: 1600px;
 }
 
-.card img {
-    width: 100%;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0,0,16,0.4);
-    transition: transform 0.5s;
-}
-
-.card img:hover {
-    transform: translateY(-8px) scale(1.05);
-}
-
-.card-label {
-    font-family: 'Jaewriting', 'Cinzel', serif;
-    color: var(--primary);
-    font-weight: 600;
-    margin-top: 0.5rem;
-}
-
-.card-meaning {
-    font-family: 'Milky', serif;
-    font-size: 0.85rem;
-    color: var(--silver);
-    margin-top: 0.25rem;
-    letter-spacing: 3px;
-}
-
-
-/* Flip container */
+/* Let card image scale fully */
 .card-image-container {
     width: 100%;
+    max-width: none; /* remove size cap */
     aspect-ratio: 9 / 16;
-    perspective: 1000px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(0,0,16,0.6);
+    border: 2px solid var(--gray);
+    box-shadow: 0 20px 45px rgba(0,0,0,.6);
+    transition: transform .5s ease, box-shadow .5s ease;
     cursor: pointer;
 }
 
+/* Hover lift + glow */
+.card-image-container:hover {
+    transform: translateY(-10px) scale(1.06);
+    box-shadow: 0 30px 65px rgba(255,179,214,.35);
+}
+
+/* Image fill */
 .card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 15px;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    box-shadow: 0 10px 25px rgba(0,0,16,0.4);
 }
 
-/* Flipped state */
+/* Flip */
 .card-image-container.flipped .card-image {
     transform: rotateY(180deg);
 }
 
-/* Hover lift */
-.card-image-container:hover .card-image {
-    transform: translateY(-5px) scale(1.05);
+/* Larger labels */
+.card-label {
+    font-size: 1.3rem;
+    margin-top: 1.2rem;
+    color: var(--primary);
 }
 
-/* Mobile */
+/* Larger meanings */
+.card-meaning {
+    font-size: 1rem;
+    margin-top: .75rem;
+    letter-spacing: 2px;
+    color: var(--silver);
+}
+
+/* =========================
+   MOBILE SAFETY
+   ========================= */
 @media (max-width: 768px) {
-    .cards-row {
-        flex-direction: column;
+    .card {
+        width: 220px;
+    }
+
+    .spread-container {
         gap: 2.5rem;
-        align-items: center;
     }
 }
 
-
+@media (max-width: 480px) {
+    .card {
+        width: 200px;
+    }
+}
         /* Header */
         header {
             padding: 2rem 0;
@@ -885,7 +870,7 @@ section {
                 <ul class="nav-links">
                     <li><a href="club.html">Home</a></li> |
                     <li> <a href="home.html">Astro</a></li> |
-                    <li><a href="https://sunniejae.com/shop">Sunnie Shop</a></li> |
+                    <li><a href="/shop/home.html">Sunnie Shop</a></li> |
                     <li><a href="#resources">Resources</a></li> |
                     <li><a href="#3-card">3 Card Spread</a></li>
                 </ul>
@@ -943,21 +928,21 @@ section {
   <div class="spread-container">
     <div class="card">
       <div class="card-image-container">
-        <img src="assets/card-back.png" alt="Card" class="card-image">
+        <img src="/assets/tarot/card-back.png" alt="Card" class="card-image">
       </div>
       <div class="card-label">Label</div>
       <div class="card-meaning">Spread description</div>
     </div>
     <div class="card">
       <div class="card-image-container">
-        <img src="assets/card-back.png" alt="Card" class="card-image">
+        <img src="/assets/tarot/card-back.png" alt="Card" class="card-image">
       </div>
       <div class="card-label">Label</div>
       <div class="card-meaning">Spread description</div>
     </div>
     <div class="card">
       <div class="card-image-container">
-        <img src="assets/card-back.png" alt="Card" class="card-image">
+        <img src="/assets/tarot/card-back.png" alt="Card" class="card-image">
       </div>
       <div class="card-label">Label</div>
       <div class="card-meaning">Spread description</div>
@@ -990,12 +975,12 @@ document.getElementById('unlock-btn').addEventListener('click', unlock);
 
 // ===== 3-CARD SPREAD =====
 const cards = [
-    { name: "Card 1", image: "/membersonly/assets/tarot/highpriest.png", meaning: "Represents reflection and lessons from the past." },
-    { name: "Card 2", image: "/membersonly/assets/tarot/temperance.png", meaning: "Focuses on your current situation and challenges." },
-    { name: "Card 3", image: "/membersonly/assets/tarot/theemperor.png", meaning: "Hints at opportunities and what’s coming." },
-    { name: "Card 4", image: "/membersonly/assets/tarot/theempress.png", meaning: "Signifies growth and transformation." },
-    { name: "Card 5", image: "/membersonly/assets/tarot/wheeloffortune.png", meaning: "Represents intuition and inner guidance." },
-    { name: "Card 6", image: "/membersonly/assets/card6.png", meaning: "Highlights hidden influences or secrets." }
+    { name: "Card 1", image: "/assets/tarot/highpriest.png", meaning: "Represents reflection and lessons from the past." },
+    { name: "Card 2", image: "/assets/tarot/temperance.png", meaning: "Focuses on your current situation and challenges." },
+    { name: "Card 3", image: "/assets/tarot/theemperor.png", meaning: "Hints at opportunities and what’s coming." },
+    { name: "Card 4", image: "/assets/tarot/theempress.png", meaning: "Signifies growth and transformation." },
+    { name: "Card 5", image: "/assets/tarot/wheeloffortune.png", meaning: "Represents intuition and inner guidance." },
+    { name: "Card 6", image: "/assets/card6.png", meaning: "Highlights hidden influences or secrets." }
 ];
 
 const spreads = {
@@ -1061,7 +1046,7 @@ function drawCards() {
                 img.src = cardEl.dataset.frontImage;
                 meaningEl.textContent = cardEl.dataset.meaning; // show card meaning
             } else {
-                img.src = "assets/tarot/card-back.png";
+                img.src = "/assets/tarot/card-back.png";
                 meaningEl.textContent = labels[i].description; // revert to spread description
             }
         }
