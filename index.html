@@ -845,10 +845,10 @@
         const nowPlaying = document.getElementById('now-playing');
 
         const tracks = [
-            { title: "Bad Day : Daniel Powter", src: "assets/audio/badday.mp3.mp3" },
-            { title: "Promiscuous : Nelly Furtado", src: "assets/audio/promiscuous.mp3" },
-            { title: "Hey There Delilah : Plain White Ts", src: "assets/audio/delilah.mp3" }
-        ];
+  { title: "Bad Day : Daniel Powter", src: "/assets/audio/badday.mp3" },
+  { title: "Promiscuous : Nelly Furtado", src: "/assets/audio/promiscuous.mp3" },
+  { title: "Hey There Delilah : Plain White T's", src: "/assets/audio/delilah.mp3" }
+];
 
         let currentTrack = 0;
         let isPlaying = false;
@@ -881,6 +881,10 @@
             isPlaying = true;
             playBtn.textContent = '⏸';
         }
+        audio.addEventListener("error", () => {
+  console.error("Audio error:", audio.src);
+  nowPlaying.textContent = "⚠️ Track failed to load";
+});
 
         function pause(){
             audio.pause();
