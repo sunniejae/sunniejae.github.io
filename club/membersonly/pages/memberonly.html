@@ -51,7 +51,6 @@
 
 #password:focus {
     border-color: var(--pink);
-    box-shadow: 0 0 20px rgba(255,179,214,0.5);
 }
 
 #unlock-btn {
@@ -69,7 +68,6 @@
 
 #unlock-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(255,179,214,0.5);
 }
 
 /* ==== SECTION SPACING ==== */
@@ -121,6 +119,8 @@ section {
             color: var(--silver);
             overflow-x: hidden;
             line-height: 1.6;
+            letter-spacing: 3px;
+            justify-content: center;
         }
 
         /* Animated starfield background */
@@ -174,7 +174,15 @@ section {
     margin: 2rem 0;
     flex-wrap: wrap;
 }
-
+.section-description {
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    color: #bfbfdc;
+    font-family: 'Jaewriting';
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
 .card {
     width: 140px;
     perspective: 1000px;
@@ -194,17 +202,18 @@ section {
 }
 
 .card-label {
-    font-family: 'Milky', 'Cinzel', serif;
+    font-family: 'Jaewriting', 'Cinzel', serif;
     color: var(--primary);
     font-weight: 600;
     margin-top: 0.5rem;
 }
 
 .card-meaning {
-    font-family: 'Jaewriting', serif;
+    font-family: 'Milky', serif;
     font-size: 0.85rem;
     color: var(--silver);
     margin-top: 0.25rem;
+    letter-spacing: 3px;
 }
 
 
@@ -307,19 +316,6 @@ section {
             position: relative;
         }
 
-        .moon-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 2rem;
-            animation: float 6s infinite ease-in-out, fadeInUp 1s ease-out 0.2s backwards;
-        }
-
-        .moon-icon svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 30px rgba(154, 154, 212, 0.6));
-        }
-
         h1 {
             font-family: 'Milky', 'Cinzel', serif;
             font-size: 4.5rem;
@@ -415,7 +411,7 @@ section {
 
         /* Features Section */
         .features {
-            padding: 6rem 0;
+            padding: 10rem 0;
             position: relative;
         }
 
@@ -445,9 +441,8 @@ section {
             font-style: italic;
             font-size: 1.3rem;
             color: var(--accent);
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
-
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -507,7 +502,18 @@ section {
             color: var(--silver);
             line-height: 1.8;
         }
-
+      .section-description {
+    display: block;           /* make it block */
+    text-align: justify;       /* center the text */
+    margin: 0 auto 3rem;      /* center the block and give bottom spacing */
+    max-width: 600px;         /* constrain width so it doesn’t stretch too wide */
+    font-family: 'Jaewriting', 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--silver);
+    letter-spacing: 2px;
+    line-height: 1.6;
+}
+        
         /* Zodiac Section */
         .zodiac-section {
             padding: 6rem 0;
@@ -848,7 +854,7 @@ section {
 </style>
 </head>
 <body>
-
+<div class="stars"></div>
 <!-- PASSWORD GATE -->
 <div id="gate" class="container">
     <h2 class="section-title">Members Only</h2>
@@ -859,8 +865,32 @@ section {
 
 <!-- PROTECTED CONTENT -->
 <div id="protected-content" class="container">
-
-    <!-- RESOURCES -->
+<header>
+        <div class="container">
+            <nav>
+                <div class="logo">✦ Starry Jae ✦</div>
+                <ul class="nav-links">
+                    <li><a href="club.html">Home</a></li>
+                    <li> <a href="home.html">Astro</a></li>
+                    <li><a href="https://sunniejae.com/shop">Sunnie Shop</a></li>
+                    <li><a href="club.html#journal">Journal</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#3-card">3 Card Spread</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Starry Jae</h1>
+            <p class="subtitle">An Astrology Journaling Club by SunnieJae</p>
+            <p class="hero-description">
+                Members only Resources
+            </p>
+        </section>
+        
+        <!-- RESOURCES -->
     <section class="resources">
         <h2 class="section-title">Resources</h2>
         <p class="section-subtitle">Download guides, templates, and more</p>
@@ -881,7 +911,11 @@ section {
 <section class="card-spread">
   <h2 class="section-title">3-Card Spread</h2>
 
-  <p class="section-subtitle">Select a spread and shuffle the cards to see what the universe has in store for you</p>
+  <p class="section-subtitle">Membership Perk</p>
+  <p class="section-description">
+  Think of what you'd like insight on. Select a spread according to that inquiry.<br>
+  **For detailed and personalized readings, visit the Sunnie Shop and add "tarot reading" to your wishlist. </p>
+  
 
   <!-- Spread selection -->
   <div class="spread-controls" style="text-align:center; margin-bottom:2rem;">
@@ -1026,7 +1060,23 @@ function drawCards() {
 document.getElementById('shuffle-cards').addEventListener('click', drawCards);
 document.getElementById('spread-type').addEventListener('change', drawCards);
 
+// ==== STARFIELD BACKGROUND ====
+function createStars(count = 100) {
+    const starsContainer = document.querySelector('.stars');
+    for(let i=0; i<count; i++){
+        const star = document.createElement('div');
+        star.classList.add('star');
+        const size = Math.random() * 2 + 1; // 1px to 3px
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        starsContainer.appendChild(star);
+    }
+}
 
+createStars(150); 
 </script>
 
 </body>

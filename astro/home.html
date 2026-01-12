@@ -19,7 +19,7 @@
 body{
   background:var(--black);color:var(--silver);
   font-family:'Jaewriting',system-ui,sans-serif;
-  line-height:1.8;overflow-x:hidden
+  line-height:1.8;overflow-x:hidden;
 }
 
 nav{
@@ -45,7 +45,7 @@ nav{
 h2{
   font-family:'Milky';font-size:2.5em;margin-bottom:2rem;
   background:linear-gradient(135deg,var(--silver),var(--primary));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent; text-align: center;
 }
 
 .transit{
@@ -78,6 +78,7 @@ h2{
   font-family:'Milky';
   margin-right:1rem;
   font-size:1.5rem;
+  align-content: center;
 }
 
 .blog-feed{
@@ -182,7 +183,7 @@ h2{
   max-width: 540px;
   height: auto;
 }
-.draw-button{margin-top:2rem;padding:1rem 3rem;border-radius:50px}
+.draw-button{margin-top:2rem;padding:1rem 3rem;border-radius:50px;align-items:center;}
 
 .tarot-placeholder{color:var(--gray);font-style:italic}
 .tarot-timer{color:var(--accent);margin-top:.5rem}
@@ -195,7 +196,7 @@ h2{
   <div class="logo">Starry Jae</div>
   <div class="nav-links">
     <a href="#explore-signs">Sign Wikis</a>
-    <a href="/astro/club.html">Join the Club</a>
+    <a href="/club/public/join.html">Join the Club</a>
     <a href="/index.html">Home</a>
     <a href="/shop/home.html">Shop</a>
   </div>
@@ -325,28 +326,28 @@ wrap.innerHTML+=`
 
 /* ---------- TAROT DATA ---------- */
 const majorArcana=[
- {name:"The Fool",meaning:"New beginnings, innocence, spontaneity",image:"assets/tarot/00-fool.png"},
- {name:"The Magician",meaning:"Manifestation, power, inspired action",image:"assets/tarot/01-magician.png"},
- {name:"The High Priestess",meaning:"Intuition, sacred knowledge",image:"assets/tarot/02-high-priestess.png"},
- {name:"The Empress",meaning:"Nurturing, abundance, creation",image:"assets/tarot/theempress.png"},
- {name:"The Emperor",meaning:"Authority, structure, leadership",image:"assets/tarot/theemperor.png"},
- {name:"The Hierophant",meaning:"Tradition, spiritual wisdom",image:"assets/tarot/highpriest.png"},
- {name:"The Lovers",meaning:"Alignment, choices, relationships",image:"assets/tarot/lovers.png"},
- {name:"The Chariot",meaning:"Control, momentum, victory",image:"assets/tarot/chariot.png"},
- {name:"Strength",meaning:"Compassion, courage, inner power",image:"assets/tarot/08-strength.png"},
- {name:"The Hermit",meaning:"Introspection, inner guidance",image:"assets/tarot/09-hermit.png"},
- {name:"Wheel of Fortune",meaning:"Cycles, destiny, turning point",image:"assets/tarot/wheeloffortune.png"},
- {name:"Justice",meaning:"Truth, fairness, accountability",image:"assets/tarot/11-justice.png"},
- {name:"The Hanged Man",meaning:"Pause, surrender, perspective",image:"assets/tarot/12-hanged.png"},
- {name:"Death",meaning:"Endings, rebirth, transformation",image:"/assets/tarot/13-death.png"},
- {name:"Temperance",meaning:"Balance, harmony, integration",image:"/assets/tarot/temperance.png"},
- {name:"The Devil",meaning:"Attachments, shadow self",image:"/assets/tarot/15-devil.png"},
- {name:"The Tower",meaning:"Sudden change, revelation",image:"/assets/tarot/16-tower.png"},
- {name:"The Star",meaning:"Hope, renewal, guidance",image:"/assets/tarot/17-star.png"},
- {name:"The Moon",meaning:"Illusion, intuition, subconscious",image:"/assets/tarot/18-moon.png"},
- {name:"The Sun",meaning:"Joy, vitality, success",image:"/assets/tarot/19-sun.png"},
- {name:"Judgement",meaning:"Awakening, inner call",image:"/assets/tarot/20-judgement.png"},
- {name:"The World",meaning:"Completion, fulfillment",image:"/assets/tarot/21-world.png"}
+ {name:"The Fool",meaning:"New beginnings, innocence, spontaneity",image:"/club/membersonly/assets/tarot/00-fool.png"},
+ {name:"The Magician",meaning:"Manifestation, power, inspired action",image:"/club/membersonly/assets/tarot/01-magician.png"},
+ {name:"The High Priestess",meaning:"Intuition, sacred knowledge",image:"/club/membersonly/assets/tarot/02-high-priestess.png"},
+ {name:"The Empress",meaning:"Nurturing, abundance, creation",image:"/club/membersonly/assets/tarot/theempress.png"},
+ {name:"The Emperor",meaning:"Authority, structure, leadership",image:"/club/membersonly/assets/tarot/tarot/theemperor.png"},
+ {name:"The Hierophant",meaning:"Tradition, spiritual wisdom",image:"/club/membersonly/assets/tarot/highpriest.png"},
+ {name:"The Lovers",meaning:"Alignment, choices, relationships",image:"/club/membersonly/assets/tarot/lovers.png"},
+ {name:"The Chariot",meaning:"Control, momentum, victory",image:"/club/membersonly/assets/tarot/chariot.png"},
+ {name:"Strength",meaning:"Compassion, courage, inner power",image:"/club/membersonly/assets/tarot/08-strength.png"},
+ {name:"The Hermit",meaning:"Introspection, inner guidance",image:"/club/membersonly/assets/tarot/09-hermit.png"},
+ {name:"Wheel of Fortune",meaning:"Cycles, destiny, turning point",image:"/club/membersonly/assets/tarot/wheeloffortune.png"},
+ {name:"Justice",meaning:"Truth, fairness, accountability",image:"/club/membersonly/assets/tarot/11-justice.png"},
+ {name:"The Hanged Man",meaning:"Pause, surrender, perspective",image:"/club/membersonly/assets/tarot/12-hanged.png"},
+ {name:"Death",meaning:"Endings, rebirth, transformation",image:"/club/membersonly/assets/tarot/13-death.png"},
+ {name:"Temperance",meaning:"Balance, harmony, integration",image:"/club/membersonly/assets/tarot/temperance.png"},
+ {name:"The Devil",meaning:"Attachments, shadow self",image:"/club/membersonly/assets/tarot/15-devil.png"},
+ {name:"The Tower",meaning:"Sudden change, revelation",image:"//club/membersonly/assets/tarot/16-tower.png"},
+ {name:"The Star",meaning:"Hope, renewal, guidance",image:"/club/membersonly/assets/tarot/17-star.png"},
+ {name:"The Moon",meaning:"Illusion, intuition, subconscious",image:"/club/membersonly/assets/tarot/18-moon.png"},
+ {name:"The Sun",meaning:"Joy, vitality, success",image:"/club/membersonly/assets/tarot/19-sun.png"},
+ {name:"Judgement",meaning:"Awakening, inner call",image:"/club/membersonly/assets/tarot/20-judgement.png"},
+ {name:"The World",meaning:"Completion, fulfillment",image:"/club/membersonly/assets/tarot/21-world.png"}
 ];
 
 /* ---------- TAROT LOGIC ---------- */
@@ -413,7 +414,7 @@ function drawCard(){
     setInterval(updateTimer,60000);
   }else{
     document.getElementById("tarot-card").innerHTML=
-      `<div class="tarot-placeholder">Draw your daily card ✵</div>`;
+      `<div class="tarot-placeholder">Draw your daily card</div>`;
   }
   btn.addEventListener("click",drawCard);
 })();

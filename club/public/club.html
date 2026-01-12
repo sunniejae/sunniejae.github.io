@@ -318,6 +318,7 @@
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            margin-bottom: 2rem;
         }
 
         .feature-card::before {
@@ -330,16 +331,6 @@
             background: radial-gradient(circle, rgba(255, 179, 214, 0.1) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s ease;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--pink);
-            box-shadow: 0 20px 40px rgba(255, 179, 214, 0.2);
         }
 
         .feature-icon {
@@ -518,7 +509,35 @@
         }
 
         /* === NEW FEATURE STYLES === */
+.membership-card {
+            background: rgba(63, 61, 122, 0.3);
+            border: 1px solid rgba(0, 168, 163, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
 
+        .membership-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 201, 194, 0.2);
+        }
+
+        .membership-label {
+            font-family: 'Milky', 'Cinzel', serif;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .membership-text {
+            color: var(--silver);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-style: italic;
+        }
         /* Prompt Cards */
         .prompt-card {
             background: rgba(63, 61, 122, 0.3);
@@ -564,6 +583,7 @@
             border-radius: 15px;
             padding: 2rem;
             text-align: center;
+            margin-bottom: 2rem;
         }
 
         .tool-card h3 {
@@ -595,6 +615,7 @@
             cursor: pointer;
             margin-top: 1rem;
             transition: all 0.3s ease;
+            margin-bottom: 2rem;
         }
 
         .tool-card button:hover {
@@ -1039,35 +1060,27 @@
                             <p id="moon-phase-description" style="font-size: 0.95rem; line-height: 1.6; color: var(--silver);"></p>
                         </div>
                     </div>
+                    <h3> ★  ★  ★</h3>
+                     <div class="prompt-card">
+                <span class="prompt-label">🌙 Moon Phase Journaling</span>
+                <p class="prompt-text" id="moon-prompt"></p>
+            </div>
                 </div>
 
                 <div class="tool-card card-draw-tool member-lock">
-  <div class="member-overlay">
-    <div class="member-overlay-content">
-      <h3>Daily Tarot Spread</h3>
-      <p>This 3-card spread is reserved for club members.</p>
-      <a href="join.html">Join to unlock</a>
-    </div>
-  </div>
-  
-  <h3>🔮 Daily 3-Card Spread</h3>
-  
-  <div class="spread-container">
-    <div class="card"><img src="cards/back.png" alt="Card 1" class="card-image"></div>
-    <div class="card"><img src="cards/back.png" alt="Card 2" class="card-image"></div>
-    <div class="card"><img src="cards/back.png" alt="Card 3" class="card-image"></div>
-  </div>
-  
-  <button id="draw-spread">Draw Your Cards</button>
-  
-  <div class="meanings">
-    <p class="card-meaning"></p>
-    <p class="card-meaning"></p>
-    <p class="card-meaning"></p>
-  </div>
+  <h3>Members Only Content </h3>
+  <p>For free downloadable resources and unlimited three card tarot spreads, join the club!</p>
+<div class="membership-card">
+                <span class="membership-label"> ★ Join ★</span>
+                <p class="membership-text">Get your password</p>
+            </div>
+  <h3> ★  ★  ★</h3>
+<div class="membership-card">
+                <span class="membership-label"> ★ Enter ★</span>
+                <p class="membership-text">Use your password</p>
+            </div>
 </div>
-
-    </section>
+ </section>
 
     <!-- Daily Prompts Section -->
     <section id="prompts" class="features" style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
@@ -1078,11 +1091,6 @@
             <div class="prompt-card">
                 <span class="prompt-label">✨ Daily Reflection</span>
                 <p class="prompt-text" id="daily-prompt"></p>
-            </div>
-
-            <div class="prompt-card">
-                <span class="prompt-label">🌙 Moon Phase Journaling</span>
-                <p class="prompt-text" id="moon-prompt"></p>
             </div>
 
             <div class="prompt-card">
@@ -1114,40 +1122,6 @@
             </div>
         </div>
     </section>
-
-    <section id="resources" class="features member-lock"
-  style="background: linear-gradient(180deg, transparent, rgba(63, 61, 122, 0.15), transparent);">
-
-  <div class="container">
-
-    <!-- LOCK OVERLAY -->
-    <div class="member-overlay">
-      <div class="member-overlay-content">
-        <h3>Member Resources</h3>
-        <p>Guides, templates, and downloads inside the Circle.</p>
-        <a href="join.html">Join to Unlock ✨</a>
-      </div>
-    </div>
-
-    <!-- NORMAL CONTENT -->
-    <h2 class="section-title">Free Resources</h2>
-    <p class="section-subtitle">Download guides, templates, and more</p>
-
-    <div class="resource-card">
-      <h3>📖 Astrology Journaling Guide</h3>
-      <p>Coming soon.</p>
-      <a href="#" class="download-btn" onclick="alert('Coming soon'); return false;">Download PDF</a>
-    </div>
-
-    <div class="resource-card">
-      <h3>🌙 Monthly Lunar Calendar</h3>
-      <p>Coming soon.</p>
-      <a href="#" class="download-btn" onclick="alert('Coming soon'); return false;">Download PDF</a>
-    </div>
-
-  </div>
-</section>
-
 
     <!-- Zodiac Section -->
     <section class="zodiac-section">
