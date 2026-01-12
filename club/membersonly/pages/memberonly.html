@@ -6,6 +6,19 @@
 <title>Members Only - Starry Jae</title>
 <link rel="icon" href="/astro/assets/favicons/{{sign}}.png">
 <style>
+    @font-face {
+            font-family: 'Jaewriting';
+            src: url('/assets/fonts/Jaewriting-Regular.otf') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Milky';
+            src: url('/assets/fonts/tan-mon-cheri.woff') format('woff');
+        }
+         @font-face {
+            font-family: 'Astro';
+            src: url('/assets/fonts/Astro4-Regular.otf') format('woff');
+        }
 /* PASSWORD GATE — prevent content flash */
 /* ==== PASSWORD GATE IMPROVED ==== */
 #gate {
@@ -977,12 +990,12 @@ document.getElementById('unlock-btn').addEventListener('click', unlock);
 
 // ===== 3-CARD SPREAD =====
 const cards = [
-    { name: "Card 1", image: "assets/tarot/highpriest.png", meaning: "Represents reflection and lessons from the past." },
-    { name: "Card 2", image: "assets/tarot/temperance.png", meaning: "Focuses on your current situation and challenges." },
-    { name: "Card 3", image: "assets/tarot/theemperor.png", meaning: "Hints at opportunities and what’s coming." },
-    { name: "Card 4", image: "assets/tarot/theempress.png", meaning: "Signifies growth and transformation." },
-    { name: "Card 5", image: "assets/tarot/wheeloffortune.png", meaning: "Represents intuition and inner guidance." },
-    { name: "Card 6", image: "assets/card6.png", meaning: "Highlights hidden influences or secrets." }
+    { name: "Card 1", image: "/membersonly/assets/tarot/highpriest.png", meaning: "Represents reflection and lessons from the past." },
+    { name: "Card 2", image: "/membersonly/assets/tarot/temperance.png", meaning: "Focuses on your current situation and challenges." },
+    { name: "Card 3", image: "/membersonly/assets/tarot/theemperor.png", meaning: "Hints at opportunities and what’s coming." },
+    { name: "Card 4", image: "/membersonly/assets/tarot/theempress.png", meaning: "Signifies growth and transformation." },
+    { name: "Card 5", image: "/membersonly/assets/tarot/wheeloffortune.png", meaning: "Represents intuition and inner guidance." },
+    { name: "Card 6", image: "/membersonly/assets/card6.png", meaning: "Highlights hidden influences or secrets." }
 ];
 
 const spreads = {
@@ -1039,7 +1052,7 @@ function drawCards() {
 
         // Reset card flip
         container.classList.remove('flipped');
-        img.src = "assets/tarot/card-back.png";
+        img.src = "/assets/tarot/card-back.png";
 
         // Click to flip
         container.onclick = function() {

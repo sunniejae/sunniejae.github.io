@@ -10,14 +10,17 @@
     <style>
         @font-face {
             font-family: 'Jaewriting';
-            src: url('Jaewriting-Regular.ttf') format('truetype');
+            src: url('/assets/fonts/Jaewriting-Regular.otf') format('truetype');
         }
         
         @font-face {
             font-family: 'Milky';
-            src: url('tan-mon-cheri.woff') format('woff');
+            src: url('/assets/fonts/tan-mon-cheri.woff') format('woff');
         }
-        
+         @font-face {
+            font-family: 'Astro';
+            src: url('/assets/fonts/Astro4-Regular.otf') format('woff');
+        }
         * {
             margin: 0;
             padding: 0;
@@ -39,7 +42,7 @@
         }
 
         body {
-            font-family: 'Lora', serif;
+            font-family: 'Jaewriting', serif;
             background: var(--black);
             color: var(--silver);
             overflow-x: hidden;
@@ -98,7 +101,7 @@
             margin: 0 auto;
             padding: 0 2rem;
         }
-
+a {text-decoration: none; color:var(--white); font-size: 25px;}
         /* Header */
         header {
             padding: 2rem 0;
@@ -113,7 +116,7 @@
 
         .logo {
             font-family: 'Jaewriting', 'Cinzel', serif;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--primary);
             letter-spacing: 2px;
@@ -383,6 +386,7 @@
 
         .zodiac-sign .sign-icon {
             font-size: 2.5rem;
+            font-family: 'Astro';
             margin-bottom: 0.5rem;
         }
 
@@ -527,7 +531,7 @@
         .membership-label {
             font-family: 'Milky', 'Cinzel', serif;
             color: var(--primary);
-            font-size: 1.2rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             display: block;
         }
@@ -1011,11 +1015,10 @@
             <nav>
                 <div class="logo">✦ Starry Jae ✦</div>
                 <ul class="nav-links">
-                    <li><a href="#tools">Tools</a></li>
-                    <li><a href="#prompts">Prompts</a></li>
-                    <li><a href="#journal">Journal</a></li>
-                    <li><a href="#resources">Resources</a></li>
-                    <li><a href="#community">Community</a></li>
+                    <li><a href="/club/membersonly/pages/memberonly.html">Member Perks</a> |
+                    <li><a href="#prompts">Prompts</a></li> |
+                    <li><a href="#journal">Journal</a></li> |
+                    <li><a href="#community">Follow</a></li>
                 </ul>
             </nav>
         </div>
@@ -1038,7 +1041,6 @@
                     </defs>
                 </svg>
             </div>
-            <h1>Starry Jae</h1>
             <p class="subtitle">An Astrology Journaling Club by SunnieJae</p>
             <p class="hero-description">
                 coming soon
@@ -1059,7 +1061,7 @@
                             <p id="current-moon-phase" style="font-size: 1.3rem; font-family: 'Milky', serif; margin-bottom: 1rem;"></p>
                             <p id="moon-phase-description" style="font-size: 0.95rem; line-height: 1.6; color: var(--silver);"></p>
                         </div>
-                    </div>
+                    </div><br>
                     <h3> ★  ★  ★</h3>
                      <div class="prompt-card">
                 <span class="prompt-label">🌙 Moon Phase Journaling</span>
@@ -1069,15 +1071,15 @@
 
                 <div class="tool-card card-draw-tool member-lock">
   <h3>Members Only Content </h3>
-  <p>For free downloadable resources and unlimited three card tarot spreads, join the club!</p>
+  <p>For free downloadable resources and unlimited three card tarot spreads, join the club!</p><br>
 <div class="membership-card">
                 <span class="membership-label"> ★ Join ★</span>
-                <p class="membership-text">Get your password</p>
-            </div>
+                <p class="membership-text"><a href="join.html">Get your password</a></p>
+            </div> <br>
   <h3> ★  ★  ★</h3>
 <div class="membership-card">
                 <span class="membership-label"> ★ Enter ★</span>
-                <p class="membership-text">Use your password</p>
+                 <p class="membership-text"><a href="/club/membersonly/pages/memberonly.html">Use your password</a></p>
             </div>
 </div>
  </section>
@@ -1131,7 +1133,7 @@
             
             <div class="zodiac-wheel">
                 <div class="zodiac-sign">
-                    <div class="sign-icon">♈</div>
+                    <div class="sign-icon">a</div>
                     <div class="sign-name">Aries</div>
                 </div>
                 <div class="zodiac-sign">
