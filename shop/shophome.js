@@ -7,7 +7,7 @@ const products = {
             id: 1,
             title: "Astrology Planner: 2026",
             price: "$50",
-            image: "assets/astrojournal.png",
+            image: "assets/journalsigns.png",
             type: "exclusive",
             description: "A guided astrology planner designed for journaling based on transits, and reflection."
         },
@@ -23,7 +23,7 @@ const products = {
             id: 3,
             title: "Tarot Reading",
             price: "TBD",
-            image: "assets/comingsoon.png",
+            image: "assets/tarotreading.png",
             type: "exclusive",
             description: "One-on-one intuitive tarot reading tailored to your question."
         },
@@ -49,7 +49,7 @@ const products = {
             id: 6,
             title: "Sunnie Jae PopSocket",
             price: "$9.99",
-            image: "assets/popsocket.png",
+            image: "assets/sunniejaepopsocket.png",
             type: "direct",
             description: "Official Pop Socket Brand - Sunnie Jae Logo.",
             link: "https://www.amazon.com/dp/B0FJKGT8YN"
@@ -58,7 +58,7 @@ const products = {
             id: 7,
             title: "Girl Dinner T Shirt",
             price: "$20",
-            image: "assets/girldinner.png",
+            image: "assets/girldinnershirt.png",
             type: "direct",
             description: "Comfort tee inspired by the Girl Dinner phenomenon.",
             link: "https://amzn.to/4smpp8z"
@@ -67,7 +67,7 @@ const products = {
             id: 8,
             title: "Spaghetti Le Sserafim Sticker Pack",
             price: "$8.99",
-            image: "assets/spaghetti-CHAEWON.png",
+            image: "assets/spaghetti- EUNCHAE.png",
             type: "direct",
             description: "K-pop inspired sticker pack.",
             link: "https://www.redbubble.com/shop/ap/176087573"
