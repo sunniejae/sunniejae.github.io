@@ -19,12 +19,11 @@
 
 
 }
-
 body {
     margin: 0;
     padding: 10px;
     background-color: var(--dark);
-    background-image: url('/astro/assets/backgrounds/aquarius.png');
+    background-image: url('/astro/assets/backgrounds/{{sign}}.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -34,7 +33,7 @@ body {
 [style*="font-family:Astro4"],
 .astro4 {
     color: var(--primary) !important;
-    font-size: 30px;
+    font-size: 35px;
 }
 
 a { text-decoration: none; }
@@ -187,6 +186,7 @@ a { text-decoration: none; }
     text-align: center;
     font-size: 25px;
     letter-spacing: 0.3rem;
+    border-radius: 800;
 }
 
 .sidebar-box h5 {
@@ -247,7 +247,7 @@ a { text-decoration: none; }
     display: inline-flex;
     align-items: center;
     gap: 2px;
-
+    color: var(--dark);
     padding: 8px 16px;
     border-radius: 999px; /* pill shape */
 
@@ -278,8 +278,8 @@ a { text-decoration: none; }
 
 /* HOVER: press + glow */
 .sign-nav a:hover {
-    background: var(--primary);
-    color: #000;
+    background: var(--sign-color);
+    color: var(--dark);
     transform: translate(2px, 2px);
 }
 
@@ -291,12 +291,45 @@ a { text-decoration: none; }
 
 /* Glyph size */
 .sign-nav a span {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1;
 }
 
+/* Unvisited link */
+a:link {
+  color: var(--dark);
+}
 
+/* Visited link */
+a:visited {
+  color: var(--accent);
+}
 
+/* Mouse over link */
+a:hover {
+  color: var(--dark);
+}
+
+/* Selected link */
+a:active {
+  color: none;
+}
+.header-right a {
+    color: var(--light);
+    text-decoration: none;
+    padding: 2px px;
+}
+.sidebar-box h4 a {
+    margin: 10px 75px 13px;
+    font-family: 'Starbim';
+    background: var(--primary);
+    color: var(--dark);
+    padding: 4px;
+    text-align: center;
+    font-size: 25px;
+    letter-spacing: 0.3rem;
+    border-radius: 800;
+}
 </style>
 </head>
 
@@ -341,10 +374,10 @@ a { text-decoration: none; }
 <td id="sidebar">
 <div class="sidebar-box">
 <h3>Infocard</h3>
-<h4>Glyph:</h4><span style="font-family:Astro4;">q</span><br>
-<h4>Element:</h4><span style="font-family:Astro4;">I</span><br><h5>Air</h5><br>
-<h4>Modality:</h4><span style="font-family:Astro4;">f</span><br><h5>Fixed</h5><br>
-<h4>Ruling Planet:</h4><span style="font-family:Astro4;">U  S</span><br><h5>Uranus and Saturn</h5><br>
+<h4>Glyph</h4><span style="font-family:Astro4;">q</span><br>
+<h4><a href="elements.html">Element</a></h4><span style="font-family:Astro4;">I</span><br><h5>Air</h5><br>
+<h4><a href="modalities.html">Modality</a></h4><span style="font-family:Astro4;">f</span><br><h5>Fixed</h5><br>
+<h4><a href="planets.html">Planet</a></h4><span style="font-family:Astro4;">U  S</span><br><h5>Uranus and Saturn</h5><br>
 <h4>Symbol:</h4><h5>The Waterbearer</h5><br>
 <h4>Constellation:</h4><br>
 <img src="/astro/assets/constellations/aquarius.png" width="450"><br><br>
