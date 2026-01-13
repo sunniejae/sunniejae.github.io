@@ -7,187 +7,271 @@
 <link rel="icon" type="image/png" href="/astro/assets/favicons/{{sign}}.png">
 <meta name="google-adsense-account" content="ca-pub-1997099522384709">
 <style>
-:root{
-  --black:#000010;--silver:#f0f0f5;--gray:#bfbfdc;
-  --accent:#00c9c2;--primary:#9a9ad4;--secondary:#c13886;
-}
-@font-face{font-family:'Jaewriting';src:url('/assets/fonts/Jaewriting-Regular.otf')}
-@font-face{font-family:'Milky';src:url('/assets/fonts/FTMilky-FREE.otf')}
-@font-face{font-family:'Astro';src:url('/assets/fonts/Astrocomplete-Regular.otf')}
+/* ===========================
+   GRIMOIRE + Y2K WIKI
+=========================== */
 
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:var(--black);color:var(--silver);
-  font-family:'Jaewriting',system-ui,sans-serif;
-  line-height:1.8;overflow-x:hidden;
-}
+/* FONTS */
+@font-face { font-family: 'Starbim'; src: url('/assets/fonts/Starbim.ttf') format('truetype'); }
+@font-face { font-family: 'Jaewriting'; src: url('/assets/fonts/PublicPixel.otf') format('opentype'); }
+@font-face { font-family: 'Astro4'; src: url('/assets/fonts/Astrocomplete-Regular.otf') format('opentype'); }
 
-nav{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:2rem 3rem;background:rgba(0,0,16,0.8);
-  backdrop-filter:blur(20px)
-}
-.logo{
-  font-family:'Milky';font-size:2.2rem;letter-spacing:3px;
-  background:linear-gradient(135deg,#ffb3d6,var(--accent),var(--primary));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent
-}
-.nav-links{display:flex;gap:2rem}
-.nav-links a{color:var(--gray);text-decoration:none; font-size: 20px;}
-a{color: #77cbb4; text-decoration: none; letter-spacing: 3px; font-size: 24px;}
-.container{max-width:1200px;margin:auto;padding:4rem 2rem}
+/* VARIABLES */
+:root {
+    --primary: #8e7cae;   
+    --accent:  #b77ea3;  
+    --dark:    #0b0a0f; 
+    --light:   #f7f0f5;
+    --gray:    #E6E5E8;
+    --blue:    #231651;
+    --red:     #5d2a42;
 
-.card{
-  background:linear-gradient(135deg,rgba(154,154,212,.08),rgba(63,61,122,.4));
-  border-radius:30px;padding:3rem;margin-bottom:3rem
-}
 
-h2{
-  font-family:'Milky';font-size:2.5em;margin-bottom:2rem;
-  background:linear-gradient(135deg,var(--silver),var(--primary));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent; text-align: center;
-}
-
-.transit{
-  margin-bottom:2rem;padding:1.5rem;
-  background:#1D1D45;
-  border-left:3px solid var(--primary);
-  border-radius:15px;
-  line-height:1.8;
 }
 
 
-.transit-header{
-  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap
+/* GLOBAL */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Jaewriting', monospace;
+    color: var(--light);
+    line-height: 1.8;
+    background: var(--dark);
+    overflow-x: hidden;
+    position: relative;
+    text-align: center;
+    margin-left: 24px;
+    margin-right: 24px;
+    font-size: 20px;
 }
 
-.glyphs{
-  background:rgba(0,0,0,.3);
-  padding:.5rem 1rem;border-radius:25px
+/* STARFIELD BACKGROUND */
+#stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: -1;
 }
 
-.astro-symbol{
-  font-family:'Astro';
-  font-size:2.5rem;
-  letter-spacing:.35rem;
-  white-space:nowrap
+/* HEADER NAV */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 3px ridge var(--primary);
+    background: rgba(10,10,16,0.85);
 }
 
-.label{
-  color:var(--accent);
-  font-family:'Milky';
-  margin-right:1rem;
-  font-size:2rem;
-  align-content: center;
+.logo {
+    font-family: 'Starbim';
+    font-size: 1rem;
+    color: var(--primary);
+    letter-spacing: 1px;
+    margin-right: 15px;
 }
 
-.blog-feed{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:1.5rem;
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    margin-left: 2rem;
+    font-size: .75rem;
 }
 
-.blog-post{
-  background:#1D1D45;
-  border-radius:20px;
-  padding:1.5rem;
-  border-left:3px solid var(--accent);
-  transition:transform .2s ease, box-shadow .2s ease;
+.nav-links a {
+    color: var(--light);
+    font-weight: bold;
 }
 
-.blog-post:hover{
-  transform:translateY(-4px);
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
+.nav-links a:hover {
+    color: var(--accent);
 }
 
-.blog-post h3{
-  font-family:'Milky';
-  font-size:1.9rem;
-  margin-bottom:.5rem;
-  background:linear-gradient(135deg,var(--silver),var(--primary));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+/* CONTAINER */
+.container {
+    max-width: 960px;
+    margin: auto;
+    padding: 2rem 1rem;
 }
 
-.blog-post p{
-  color:var(--gray);
-  font-size:.95rem;
-  line-height:1.6;
+/* CARDS */
+.card {
+    background: var(--dark);
+    border: 3px ridge var(--red);
+    padding: 16px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    text-align: center;
+    margin-right: 24px;
+    margin-left: 24px;
 }
 
-.blog-post a{
-  color:var(--accent);
-  text-decoration:none;
-  display:inline-block;
-  margin-top:.75rem;
+.card h2 {
+    font-family: 'Starbim';
+    font-size: 40px;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    background: var(--dark);
 }
 
-.sign-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:1rem
+/* TRANSITS */
+.transit {
+    background: var(--gray);
+    color: var(--dark);
+    border-left:24px ridge var(--accent);
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    margin-right: 25px;
+    border-radius: 8px;
+    text-align: center;
+    align-items: center;
 }
 
-  .sign-btn[data-sign="Aries"]:hover{
-  background:#ffc545;
-}
-.sign-btn[data-sign="Taurus"]:hover{
-  background:#a73af6;
-}
-.sign-btn[data-sign="Gemini"]:hover{
-  background:#32d2ff;
-}
-.sign-btn[data-sign="Cancer"]:hover{
-  background:#ec9cd0;
-}
-.sign-btn[data-sign="Leo"]:hover{
-  background:#b9ff29;
-}
-.sign-btn[data-sign="Virgo"]:hover{
-  background:#462b89;
-}
-.sign-btn[data-sign="Libra"]:hover{
-  background:#630da7;
-}
-.sign-btn[data-sign="Scorpio"]:hover{
-  background:#633223;
-}
-.sign-btn[data-sign="Sagittarius"]:hover{
-  background:#f01ff7;
-}
-.sign-btn[data-sign="Capricorn"]:hover{
-  background:#50c2c2;
-}
-.sign-btn[data-sign="Aquarius"]:hover{
-  background:#645cf5;
-}
-.sign-btn[data-sign="Pisces"]:hover{
-  background:#77cbb4;
-}
-.sign-btn{
-  padding:1rem;
-  border-radius:50px;
-  background:rgba(154,154,212,.15);
-  text-align:center;
-  text-decoration:none;
-  font-family:'Astro';
-  color:var(--silver);
-  transition:background .3s ease, box-shadow .3s ease, transform .2s ease;
+.transit-header {
+    display: flex;
+    flex-direction: column;  /* stack label and symbols vertically */
+    align-items: center;     /* center horizontally */
+    justify-content: center; /* center vertically if needed */
+    text-align: center;      /* for inline text inside */
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+    font-size: 24px;
 }
 
+.glyphs {
+    margin-top: 6px;         /* optional spacing above symbols */
+margin-bottom: 10px
+;}
+.label {
+    font-family: 'Starbim';
+    font-size: 30px;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
-.tarot-display{text-align:center;letter-spacing:3px; line-height:1.6;}
-.tarot-card-img{max-width:300px;margin:auto}
+/* ASTRO SYMBOLS */
+
+.astro-symbol {
+    font-family: 'Astro4';
+    font-size: 30px;
+    letter-spacing: 0.2em;
+}
+
+/* TAROT */
+.tarot-display {
+    text-align: center;
+    font-family: 'Jaewriting';
+    letter-spacing: 2px;
+}
+
 .tarot-card-img img {
-  width: 100%;
-  max-width: 540px;
-  height: auto;
+    width: 100%;
+    max-width: 300px;
+    border: 3px ridge var(--primary);
+    border-radius: 10px;
 }
-.draw-button{margin-top:2rem;padding:1rem 3rem;border-radius:50px;align-items:center;}
 
-.tarot-placeholder{color:var(--gray);font-style:italic}
-.tarot-timer{color:var(--accent);margin-top:.5rem}
+.draw-button {
+    font-family: 'Starbim';
+    font-size: 14px;
+    background: var(--accent);
+    color: var(--dark);
+    border: 2px ridge var(--light);
+    padding: 10px 24px;
+    margin-top: 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--dark);
+}
+
+.draw-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 0 var(--dark);
+}
+
+/* BLOG */
+.blog-feed {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.blog-post {
+    background: #f2f0e6;
+    color: #0a0a10;
+    border: 3px ridge var(--primary);
+    border-radius: 8px;
+    padding: 12px;
+
+}
+
+.blog-post h3 {
+    font-family: 'Starbim';
+    font-size: 20px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+}
+
+/* -------------------------
+   LINKS
+------------------------- */
+a {
+    text-decoration: none; /* remove underline */
+    color: inherit;        /* inherit from parent by default */
+}
+
+a:hover {
+    text-decoration: none; /* ensure hover doesn't add underline */
+}
+
+/* -------------------------
+   SIGN BUTTONS
+------------------------- */
+.sign-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-family: 'Astro4'; /* mystical font */
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--sign-color); /* individual color for each sign */
+    background: var(--light);
+    border: 2px solid var(--sign-color);
+    box-shadow: 4px 4px 0 var(--dark);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Set the hover background to a darker shade of the sign color */
+.sign-btn:hover {
+    transform: translate(2px, 2px);
+    
+    color: var(--light);
+    background-color: var(--sign-color); /* uses the sign's color as background */
+}
+
+/* PLACEHOLDERS */
+.tarot-placeholder {
+    font-style: italic;
+    font-family: 'Jaewriting';
+    color: var(--gray);
+    text-align: center;
+}
 </style>
+
+
 </head>
 
 <body>
@@ -207,46 +291,81 @@ h2{
 <div class="container">
 
 <div class="card">
-  <h2>Today's Transits</h2>
+  <h2>Today's Transits</h2><br>
   <div id="transits"></div>
 </div>
 
 <div class="card">
-  <h2>Daily Tarot Draw</h2>
+  <h2>Daily Tarot Draw</h2><br>
   <div id="tarot-container">
-    <div id="tarot-card" class="tarot-display"></div>
+    <div id="tarot-card" class="tarot-display"></div><br>
     <button id="draw-btn" class="draw-button">Draw Your Card</button>
   </div>
 </div>
 
 <div class="card">
-  <h2>From the Starry Jae Blog</h2>
+  <h2>From the Starry Jae Blog</h2><br>
   <div id="blog-feed" class="blog-feed">
     <div class="tarot-placeholder">She's Thinking...</div>
   </div>
 </div>
-
 <div class="card">
-  <h2 id="explore-signs">Explore Your Sign</h2>
-  <div class="sign-grid">
-    <a class="sign-btn" data-sign="Aries">a</a>
-    <a class="sign-btn" data-sign="Taurus">u</a>
-    <a class="sign-btn" data-sign="Gemini">g</a>
-    <a class="sign-btn" data-sign="Cancer">c</a>
-    <a class="sign-btn" data-sign="Leo">l</a>
-    <a class="sign-btn" data-sign="Virgo">r</a>
-    <a class="sign-btn" data-sign="Libra">b</a>
-    <a class="sign-btn" data-sign="Scorpio">s</a>
-    <a class="sign-btn" data-sign="Sagittarius">t</a>
-    <a class="sign-btn" data-sign="Capricorn">n</a>
-    <a class="sign-btn" data-sign="Aquarius">q</a>
-    <a class="sign-btn" data-sign="Pisces">p</a>
-  </div>
+<div class="sign-grid">
+  <a class="sign-btn" data-sign="Aries" style="--sign-color:#d01f49;">a</a>
+  <a class="sign-btn" data-sign="Taurus" style="--sign-color:#50c878;">u</a>
+  <a class="sign-btn" data-sign="Gemini" style="--sign-color:#ffe866;">g</a>
+  <a class="sign-btn" data-sign="Cancer" style="--sign-color:#6e8aa5;">c</a>
+  <a class="sign-btn" data-sign="Leo" style="--sign-color:#f17611;">l</a>
+  <a class="sign-btn" data-sign="Virgo" style="--sign-color:#e0ad87;">r</a>
+  <a class="sign-btn" data-sign="Libra" style="--sign-color:#e60498;">b</a>
+  <a class="sign-btn" data-sign="Scorpio" style="--sign-color:#952a6a;">s</a>
+  <a class="sign-btn" data-sign="Sagittarius" style="--sign-color:#2d41e7;">t</a>
+  <a class="sign-btn" data-sign="Capricorn" style="--sign-color:#7a5455;">n</a>
+  <a class="sign-btn" data-sign="Aquarius" style="--sign-color:#88e7db;">q</a>
+  <a class="sign-btn" data-sign="Pisces" style="--sign-color:#a73af6;">p</a>
+</div>
+</div>
 </div>
 
-</div>
-
+<!-- ===========================
+     STARFIELD CANVAS
+=========================== -->
+<canvas id="stars"></canvas>
 <script>
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+for (let i = 0; i < 120; i++) {
+    stars.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*1.2,
+        d: Math.random()*1.5
+    });
+}
+
+function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fill();
+        s.y += s.d*0.2;
+        if (s.y > canvas.height) s.y = 0;
+    });
+    requestAnimationFrame(draw);
+}
+draw();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+    
 /* ---------- AUTO MIDNIGHT REFRESH ---------- */
 function scheduleMidnightRefresh(){
   const now = new Date();
@@ -318,10 +437,9 @@ const moonColor=signColors[planets.Moon.sign];
 
 wrap.innerHTML+=`
 <div class="transit">
-  <div class="transit-header">
-    <div><span class="label">Moon Phase:</span>${moonPhase.name} in <span style="color:${moonColor}">${planets.Moon.sign}</span></div>
-    <div class="glyphs">
-      <span class="astro-symbol" style="color:${moonColor}">${moonPhase.glyph}</span>
+  <div class="transit-header"><br>
+    <div><span class="label">Moon Phase:</span><br>${moonPhase.name} in <span style="color:${moonColor}">${planets.Moon.sign}</span></div><br>
+      <span class="astro-symbol" style="color:${moonColor}">${moonPhase.glyph}</span><br>
     </div>
   </div>
 </div>`;
@@ -484,9 +602,9 @@ found.slice(0,3).forEach(t=>{
         </span>
       </div>
     </div>
-    <div><span class="label">Keyword:</span>${t.asp.k}</div>
-    <div><span class="label">Affecting:</span>${planets[t.a].domain} & ${planets[t.b].domain}</div>
-    <div><span class="label">Motion:</span>${t.a} ${planets[t.a].motion}, ${t.b} ${planets[t.b].motion}</div>
+    <div><span class="label">Keyword:</span><br>${t.asp.k}</div><br>
+    <div><span class="label">Affecting:</span><br>${planets[t.a].domain} & ${planets[t.b].domain}</div><br>
+    <div><span class="label">Motion:</span><br>${t.a} ${planets[t.a].motion}, ${t.b} ${planets[t.b].motion}</div><br>
   </div>`;
 /* ---------- BLOG RSS FEED ---------- */
 const RSS_URL = "https://244738582.hs-sites-na2.com/starryjae/rss.xml";

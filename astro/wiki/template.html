@@ -23,7 +23,7 @@
 [style*="font-family:Astro4"],
 .astro4 {
     color: var(--primary);
-    font-size: 30px;
+    font-size: 40px;
 }
 .header-right {
     font-family: 'Jaewriting';
@@ -140,7 +140,7 @@ a {
 
 /* ================= SIDEBAR ================= */
 #sidebar {
-    width: 220px;
+    width: 200px;
     background: linear-gradient(to right, var(--accent), var(--primary));
     border: 3px inset var(--primary);
 }
@@ -169,10 +169,10 @@ a {
     background: var(--primary);
     color: var(--dark);
     padding: 6px 14px;
-    font-size: 20px;
+    font-size: 25px;
     letter-spacing: 0.1em;
     border-radius: 999px;
-    margin: 75px;
+    margin: 50px;
 }
 
 /* Clickable h4 links + subtle hover */
@@ -198,7 +198,7 @@ a {
 
 /* Sidebar images */
 .sidebar-box img {
-    max-width: 100%;
+    max-width: 300px;
     height: auto;
     margin: 6px 0 12px;
     image-rendering: crisp-edges;
@@ -304,12 +304,11 @@ a {
     <img src="/astro/assets/favicons/{{sign}}2.png" class="site-logo" alt="">
     <div class="site-title"><a href="/astro/home.html">Starry Jae</a></div>
     <div class="header-right">
-      <a href="/">home</a> • <a href="/contact">contact</a>
-    </div>
+<a href="/astro/home.html">home</a> • <a href="/shop/home.html">sunnie shop</a> • <a href="/club/public/club.html">club</a>    </div>
   </div>
 </header>
 
-<marquee id="marquee" scrollamount="4">☆ ☆</marquee>
+<marquee id="marquee" scrollamount="4">☆{{marquee}} ☆</marquee>
 <br>
 <div id="wiki-header">
   <h1>{{SIGN}}</h1>
@@ -324,27 +323,18 @@ a {
     <h3>Infocard</h3>
  <h4><a href="/elements.html">Glyph</a></h4>
 <span style="font-family:Astro4;">{{sign-glyph}}</span><br>
-<br>
     <h4><a href="/elements.html">Element</a></h4><br>
     <h5>{{element}}</h5><br><span style="font-family:Astro4;">{{element-glyph}}</span><br>
-<br><br>
     <h4><a href="/modalities.html">Modality</a></h4>
     <h5>{{modality}}</h5><br><span style="font-family:Astro4;">{{modality-glyph}}</span><br>
-<br><br>
     <h4><a href="/planets.html">Ruling Planet</a></h4><br><h5>{{planet}}</h5><span style="font-family:Astro4;">{{planet-glyph}}</span><br>
- <br><br>
-
-    <h4>Symbol</h4><br>
-    <h5>{{symbol}}</h5>
-<br><br>
+    <h4>Symbol</h4><br><h5>{{symbol}}</h5><br>
+<h4>House</h4><br><h5>{{house}}</h5><br>
     <h4>Constellation</h4><br>
     <img src="/astro/assets/constellations/{{sign}}.png">
-<br><br>
-    <h4>Colors</h4><br>
-    <h5>{{colors}}</h5>
-<br><br>
+<br>
+    <h4>Colors</h4><br><h5>{{colors}}</h5><br>
  <h4><a href="/crystals.html">Crystal</a></h4><br>    <img src="/astro/assets/crystals/{{sign}}.png">
-<br><br>
     <h4><a href="/flowers.html">Flowers</a></h4><br>
     <img src="/astro/assets/flowers/{{sign}}.png"><br>
   </div>
@@ -366,6 +356,24 @@ a {
   <h2>Weaknesses</h2>
   <div class="inner"><ul><li>{{WEAKNESSES}}</li></ul></div>
 </section>
+
+<section class="content-box">
+  <h2>Careers</h2>
+  <div class="inner">{{careers}}</div>
+</section>
+
+<section class="content-box">
+  <h2>Famous {{signian}}</h2>
+  <h3>Historical</h3><br>
+  <div class="inner">{{historical}}</div>
+  <br>
+  <h3>Modern</h3>
+  <div class="inner">{{modern}}</div>
+  <br>
+  <h3>Fictional</h3>
+  <div class="inner">{{fictional}}</div>
+</section>
+
 <section class="content-box">
   <h2>Explore Other Signs</h2>
   <div class="inner">
