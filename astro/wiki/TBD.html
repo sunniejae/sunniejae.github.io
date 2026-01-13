@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Under Construction</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/astro/assets/favicons/default.png">
+
+<!-- ================= FONTS ================= -->
+<style>
+@font-face { font-family: 'Starbim'; src: url('/assets/fonts/Starbim.ttf') format('truetype'); }
+@font-face { font-family: 'Jaewriting'; src: url('/assets/fonts/PublicPixel.otf') format('opentype'); }
+
+:root {
+    --dark: #000;
+    --light: #fff;
+    --accent: #ff73d5;
+    --primary: #9a9dff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark);
+    font-family: 'Jaewriting', monospace;
+    color: var(--light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Starbim';
+    font-size: 64px;
+    color: var(--primary);
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-family: 'Starbim';
+    font-size: 32px;
+    color: var(--accent);
+    margin-bottom: 1em;
+}
+
+p {
+    font-size: 20px;
+    margin-bottom: 2em;
+}
+
+img {
+    max-width: 300px;
+    margin-bottom: 2em;
+}
+
+/* Optional: simple bounce animation for the construction icon */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.construction-icon {
+    animation: bounce 2s infinite;
+}
+
+a.home-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: var(--dark);
+    font-family: 'Starbim';
+    font-size: 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+a.home-link:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    color: var(--light);
+}
+</style>
+</head>
+
+<body>
+
+<img src="/astro/assets/under-construction.png" alt="Under Construction" class="construction-icon">
+
+<h1>Page Under Construction</h1>
+<h2>Coming Soon!</h2>
+<p>We are working hard to build this part of the wiki. Stay tuned for updates!</p>
+
+<a href="/astro/home.html" class="home-link">Return Home</a>
+
+</body>
+</html>

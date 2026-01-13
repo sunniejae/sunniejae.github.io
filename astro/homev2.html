@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Starry Jae — Daily Transits</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/astro/assets/favicons/{{sign}}.png">
+<meta name="google-adsense-account" content="ca-pub-1997099522384709">
+<style>
+/* ===========================
+   GRIMOIRE + Y2K WIKI
+=========================== */
+
+/* FONTS */
+@font-face { font-family: 'Starbim'; src: url('/assets/fonts/Starbim.ttf') format('truetype'); }
+@font-face { font-family: 'Jaewriting'; src: url('/assets/fonts/PublicPixel.otf') format('opentype'); }
+@font-face { font-family: 'Astro4'; src: url('/assets/fonts/Astrocomplete-Regular.otf') format('opentype'); }
+
+/* VARIABLES */
+:root {
+    --primary: #8e7cae;   
+    --accent:  #b77ea3;  
+    --dark:    #0b0a0f; 
+    --light:   #f7f0f5;
+    --gray:    #E6E5E8;
+    --blue:    #231651;
+    --red:     #5d2a42;
+
+
+}
+
+
+/* GLOBAL */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Jaewriting', monospace;
+    color: var(--light);
+    line-height: 1.8;
+    background: var(--dark);
+    overflow-x: hidden;
+    position: relative;
+    text-align: center;
+    margin-left: 24px;
+    margin-right: 24px;
+    font-size: 20px;
+}
+
+/* STARFIELD BACKGROUND */
+#stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: -1;
+}
+
+/* HEADER NAV */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 3px ridge var(--primary);
+    background: rgba(10,10,16,0.85);
+}
+
+.logo {
+    font-family: 'Starbim';
+    font-size: 1rem;
+    color: var(--primary);
+    letter-spacing: 1px;
+    margin-right: 15px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    margin-left: 2rem;
+    font-size: .75rem;
+}
+
+.nav-links a {
+    color: var(--light);
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+/* CONTAINER */
+.container {
+    max-width: 960px;
+    margin: auto;
+    padding: 2rem 1rem;
+}
+
+/* CARDS */
+.card {
+    background: var(--dark);
+    border: 3px ridge var(--red);
+    padding: 16px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    text-align: center;
+    margin-right: 24px;
+    margin-left: 24px;
+}
+
+.card h2 {
+    font-family: 'Starbim';
+    font-size: 40px;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    background: var(--dark);
+}
+
+/* TRANSITS */
+.transit {
+    background: var(--gray);
+    color: var(--dark);
+    border-left:24px ridge var(--accent);
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    margin-right: 25px;
+    border-radius: 8px;
+    text-align: center;
+    align-items: center;
+}
+
+.transit-header {
+    display: flex;
+    flex-direction: column;  /* stack label and symbols vertically */
+    align-items: center;     /* center horizontally */
+    justify-content: center; /* center vertically if needed */
+    text-align: center;      /* for inline text inside */
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+    font-size: 24px;
+}
+
+.glyphs {
+    margin-top: 6px;         /* optional spacing above symbols */
+margin-bottom: 10px
+;}
+.label {
+    font-family: 'Starbim';
+    font-size: 30px;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* ASTRO SYMBOLS */
+
+.astro-symbol {
+    font-family: 'Astro4';
+    font-size: 30px;
+    letter-spacing: 0.2em;
+}
+
+/* TAROT */
+.tarot-display {
+    text-align: center;
+    font-family: 'Jaewriting';
+    letter-spacing: 2px;
+}
+
+.tarot-card-img img {
+    width: 100%;
+    max-width: 300px;
+    border: 3px ridge var(--primary);
+    border-radius: 10px;
+}
+
+.draw-button {
+    font-family: 'Starbim';
+    font-size: 14px;
+    background: var(--accent);
+    color: var(--dark);
+    border: 2px ridge var(--light);
+    padding: 10px 24px;
+    margin-top: 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--dark);
+}
+
+.draw-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 0 var(--dark);
+}
+
+/* BLOG */
+.blog-feed {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.blog-post {
+    background: #f2f0e6;
+    color: #0a0a10;
+    border: 3px ridge var(--primary);
+    border-radius: 8px;
+    padding: 12px;
+
+}
+
+.blog-post h3 {
+    font-family: 'Starbim';
+    font-size: 20px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+}
+
+/* -------------------------
+   LINKS
+------------------------- */
+a {
+    text-decoration: none; /* remove underline */
+    color: inherit;        /* inherit from parent by default */
+}
+
+a:hover {
+    text-decoration: none; /* ensure hover doesn't add underline */
+}
+
+/* -------------------------
+   SIGN BUTTONS
+------------------------- */
+.sign-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-family: 'Astro4'; /* mystical font */
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--sign-color); /* individual color for each sign */
+    background: var(--light);
+    border: 2px solid var(--sign-color);
+    box-shadow: 4px 4px 0 var(--dark);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Set the hover background to a darker shade of the sign color */
+.sign-btn:hover {
+    transform: translate(2px, 2px);
+    
+    color: var(--light);
+    background-color: var(--sign-color); /* uses the sign's color as background */
+}
+
+/* PLACEHOLDERS */
+.tarot-placeholder {
+    font-style: italic;
+    font-family: 'Jaewriting';
+    color: var(--gray);
+    text-align: center;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">Starry Jae</div>
+  <a href="/club/membersonly/pages/memberonly.html">→ MEMBERS  ONLY  AREA ←</a>
+  <div class="nav-links">
+    <a href="#explore-signs">Sign Wikis</a> |
+    <a href="#daily-tarot-draw">Tarot</a> |
+    <a href="/club/public/club.html">Club</a> |
+    <a href="/index.html">Home</a> |
+    <a href="/shop/home.html">Shop</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<div class="card">
+  <h2>Today's Transits</h2><br>
+  <div id="transits"></div>
+</div>
+
+<div class="card">
+  <h2>Daily Tarot Draw</h2><br>
+  <div id="tarot-container">
+    <div id="tarot-card" class="tarot-display"></div><br>
+    <button id="draw-btn" class="draw-button">Draw Your Card</button>
+  </div>
+</div>
+
+<div class="card">
+  <h2>From the Starry Jae Blog</h2><br>
+  <div id="blog-feed" class="blog-feed">
+    <div class="tarot-placeholder">She's Thinking...</div>
+  </div>
+</div>
+<div class="card">
+<div class="sign-grid">
+  <a class="sign-btn" data-sign="Aries" style="--sign-color:#d01f49;">a</a>
+  <a class="sign-btn" data-sign="Taurus" style="--sign-color:#50c878;">u</a>
+  <a class="sign-btn" data-sign="Gemini" style="--sign-color:#ffe866;">g</a>
+  <a class="sign-btn" data-sign="Cancer" style="--sign-color:#6e8aa5;">c</a>
+  <a class="sign-btn" data-sign="Leo" style="--sign-color:#f17611;">l</a>
+  <a class="sign-btn" data-sign="Virgo" style="--sign-color:#e0ad87;">r</a>
+  <a class="sign-btn" data-sign="Libra" style="--sign-color:#e60498;">b</a>
+  <a class="sign-btn" data-sign="Scorpio" style="--sign-color:#952a6a;">s</a>
+  <a class="sign-btn" data-sign="Sagittarius" style="--sign-color:#2d41e7;">t</a>
+  <a class="sign-btn" data-sign="Capricorn" style="--sign-color:#7a5455;">n</a>
+  <a class="sign-btn" data-sign="Aquarius" style="--sign-color:#88e7db;">q</a>
+  <a class="sign-btn" data-sign="Pisces" style="--sign-color:#a73af6;">p</a>
+</div>
+</div>
+</div>
+
+<!-- ===========================
+     STARFIELD CANVAS
+=========================== -->
+<canvas id="stars"></canvas>
+<script>
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+for (let i = 0; i < 120; i++) {
+    stars.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*1.2,
+        d: Math.random()*1.5
+    });
+}
+
+function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fill();
+        s.y += s.d*0.2;
+        if (s.y > canvas.height) s.y = 0;
+    });
+    requestAnimationFrame(draw);
+}
+draw();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+    
+/* ---------- AUTO MIDNIGHT REFRESH ---------- */
+function scheduleMidnightRefresh(){
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setDate(midnight.getDate()+1);
+  midnight.setHours(0,0,1,0);
+  setTimeout(()=>location.reload(), midnight-now);
+}
+scheduleMidnightRefresh();
+
+/* ---------- UTIL ---------- */
+const norm = d => ((d%360)+360)%360;
+const diff = (a,b)=>Math.abs(a-b)>180?360-Math.abs(a-b):Math.abs(a-b);
+
+/* ---------- SYMBOLS ---------- */
+const planetSymbols={Sun:'S',Moon:'M',Mercury:'R',Venus:'V',Mars:'P',Jupiter:'J',Saturn:'T',Uranus:'U',Neptune:'N',Pluto:'O',Chiron:'i',Node:'A'};
+const signSymbols={Aries:'a',Taurus:'u',Gemini:'g',Cancer:'c',Leo:'l',Virgo:'r',Libra:'b',Scorpio:'s',Sagittarius:'t',Capricorn:'n',Aquarius:'q',Pisces:'p'};
+const signColors={
+Aries:'#d01f49',Taurus:'#50c878',Gemini:'#FFE866',Cancer:'#6e8aa5',
+  Leo:'#f17611',Virgo:'#e0ad87',Libra:'#e60498',Scorpio:'#952a6a',
+  Sagittarius:'#2d41e7',Capricorn:'#7a5455',Aquarius:'#88e7db',Pisces:'#A73AF6'
+};
+const aspectSymbols={conjunction:'&',opposition:'-',square:'!',trine:'k',sextile:"'"};
+
+/* ---------- PLANETS ---------- */
+const planets={
+  Sun:{lon:280,speed:.9856,domain:"identity"},
+  Moon:{lon:90,speed:13.176,domain:"emotions"},
+  Mercury:{lon:270,speed:-1.2,domain:"communication"},
+  Venus:{lon:275,speed:1.2,domain:"love"},
+  Mars:{lon:260,speed:.5,domain:"action"},
+  Jupiter:{lon:100,speed:-.083,domain:"growth"},
+  Saturn:{lon:330,speed:.033,domain:"structure"},
+  Uranus:{lon:50,speed:-.012,domain:"change"},
+  Neptune:{lon:355,speed:.006,domain:"dreams"},
+  Pluto:{lon:300,speed:.004,domain:"transformation"},
+  Chiron:{lon:15,speed:.01,domain:"healing"},
+  Node:{lon:350,speed:-.003,domain:"destiny"}
+};
+
+const signs=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+const ref=new Date("2026-01-01");
+const days=Math.floor((new Date()-ref)/86400000);
+
+Object.values(planets).forEach(p=>{
+  p.pos=norm(p.lon+p.speed*days);
+  p.sign=signs[Math.floor(p.pos/30)];
+  p.motion=p.speed<0?"Retrograde":"Direct";
+});
+
+/* ---------- MOON PHASE ---------- */
+function getMoonPhase(){
+  const syn=29.530588853;
+  const ref=new Date("2024-01-11T11:57:00Z");
+  const age=((new Date()-ref)/86400000)%syn;
+  if(age<1.8) return {name:"New Moon",glyph:","};
+  if(age<5.5) return {name:"Waxing Crescent",glyph:"k"};
+  if(age<9.2) return {name:"First Quarter",glyph:"Y"};
+  if(age<12.9) return {name:"Waxing Gibbous",glyph:"h"};
+  if(age<16.6) return {name:"Full Moon",glyph:"z"};
+  if(age<20.3) return {name:"Waning Gibbous",glyph:"j"};
+  if(age<24) return {name:"Last Quarter",glyph:"W"};
+  return {name:"Waning Crescent",glyph:"Zs"};
+}
+
+const wrap=document.getElementById("transits");
+const moonPhase=getMoonPhase();
+const moonColor=signColors[planets.Moon.sign];
+
+wrap.innerHTML+=`
+<div class="transit">
+  <div class="transit-header"><br>
+    <div><span class="label">Moon Phase:</span><br>${moonPhase.name} in <span style="color:${moonColor}">${planets.Moon.sign}</span></div><br>
+      <span class="astro-symbol" style="color:${moonColor}">${moonPhase.glyph}</span><br>
+    </div>
+  </div>
+</div>`;
+
+/* ---------- TAROT DATA ---------- */
+const majorArcana=[
+ {name:"The Fool",meaning:"New beginnings, innocence, spontaneity",image:"/club/membersonly/assets/tarot/00-fool.png"},
+ {name:"The Magician",meaning:"Manifestation, power, inspired action",image:"/club/membersonly/assets/tarot/01-magician.png"},
+ {name:"The High Priestess",meaning:"Intuition, sacred knowledge",image:"/club/membersonly/assets/tarot/02-high-priestess.png"},
+ {name:"The Empress",meaning:"Nurturing, abundance, creation",image:"/club/membersonly/assets/tarot/theempress.png"},
+ {name:"The Emperor",meaning:"Authority, structure, leadership",image:"/club/membersonly/assets/tarot/tarot/theemperor.png"},
+ {name:"The Hierophant",meaning:"Tradition, spiritual wisdom",image:"/club/membersonly/assets/tarot/highpriest.png"},
+ {name:"The Lovers",meaning:"Alignment, choices, relationships",image:"/club/membersonly/assets/tarot/lovers.png"},
+ {name:"The Chariot",meaning:"Control, momentum, victory",image:"/club/membersonly/assets/tarot/chariot.png"},
+ {name:"Strength",meaning:"Compassion, courage, inner power",image:"/club/membersonly/assets/tarot/08-strength.png"},
+ {name:"The Hermit",meaning:"Introspection, inner guidance",image:"/club/membersonly/assets/tarot/09-hermit.png"},
+ {name:"Wheel of Fortune",meaning:"Cycles, destiny, turning point",image:"/club/membersonly/assets/tarot/wheeloffortune.png"},
+ {name:"Justice",meaning:"Truth, fairness, accountability",image:"/club/membersonly/assets/tarot/11-justice.png"},
+ {name:"The Hanged Man",meaning:"Pause, surrender, perspective",image:"/club/membersonly/assets/tarot/12-hanged.png"},
+ {name:"Death",meaning:"Endings, rebirth, transformation",image:"/club/membersonly/assets/tarot/13-death.png"},
+ {name:"Temperance",meaning:"Balance, harmony, integration",image:"/club/membersonly/assets/tarot/temperance.png"},
+ {name:"The Devil",meaning:"Attachments, shadow self",image:"/club/membersonly/assets/tarot/15-devil.png"},
+ {name:"The Tower",meaning:"Sudden change, revelation",image:"//club/membersonly/assets/tarot/16-tower.png"},
+ {name:"The Star",meaning:"Hope, renewal, guidance",image:"/club/membersonly/assets/tarot/17-star.png"},
+ {name:"The Moon",meaning:"Illusion, intuition, subconscious",image:"/club/membersonly/assets/tarot/18-moon.png"},
+ {name:"The Sun",meaning:"Joy, vitality, success",image:"/club/membersonly/assets/tarot/19-sun.png"},
+ {name:"Judgement",meaning:"Awakening, inner call",image:"/club/membersonly/assets/tarot/20-judgement.png"},
+ {name:"The World",meaning:"Completion, fulfillment",image:"/club/membersonly/assets/tarot/21-world.png"}
+];
+
+/* ---------- TAROT LOGIC ---------- */
+function getTodaysDraw(){
+  const saved=localStorage.getItem("daily_tarot");
+  if(!saved) return null;
+  const data=JSON.parse(saved);
+  if(new Date(data.date).toDateString()===new Date().toDateString()){
+    return data.card;
+  }
+  return null;
+}
+
+function saveTodaysDraw(index){
+  localStorage.setItem("daily_tarot",JSON.stringify({
+    card:index,
+    date:new Date().toISOString()
+  }));
+}
+
+function displayCard(index){
+  const c=majorArcana[index];
+  document.getElementById("tarot-card").innerHTML=`
+    <img src="${c.image}" alt="${c.name}" class="tarot-card-img">
+    <div><strong>${c.name}</strong></div>
+    <div>${c.meaning}</div>
+  `;
+}
+
+function updateTimer(){
+  const btn=document.getElementById("draw-btn");
+  if(!btn.disabled) return;
+  let timer=document.querySelector(".tarot-timer");
+  if(!timer){
+    timer=document.createElement("div");
+    timer.className="tarot-timer";
+    document.getElementById("tarot-container").appendChild(timer);
+  }
+  const now=new Date();
+  const tomorrow=new Date(now);
+  tomorrow.setHours(21,0,0,0);
+  const mins=Math.floor((tomorrow-now)/60000);
+  timer.textContent=`Next draw in ${Math.floor(mins/60)}h ${mins%60}m`;
+}
+
+function drawCard(){
+  const i=Math.floor(Math.random()*majorArcana.length);
+  saveTodaysDraw(i);
+  displayCard(i);
+  const btn=document.getElementById("draw-btn");
+  btn.disabled=true;
+  btn.textContent="Card Drawn for Today ✦";
+  updateTimer();
+}
+
+(function initTarot(){
+  const btn=document.getElementById("draw-btn");
+  const saved=getTodaysDraw();
+  if(saved!==null){
+    displayCard(saved);
+    btn.disabled=true;
+    btn.textContent="Card Drawn for Today ✦";
+    updateTimer();
+    setInterval(updateTimer,60000);
+  }else{
+    document.getElementById("tarot-card").innerHTML=
+      `<div class="tarot-placeholder">Draw your daily card</div>`;
+  }
+  btn.addEventListener("click",drawCard);
+})();
+  
+/* ---------- SIGN WIKI LINKS ---------- */
+const signWikiLinks = {
+  Aries: "wiki/aries.html",
+  Taurus: "wiki/taurus.html",
+  Gemini: "wiki/gemini.html",
+  Cancer: "wiki/cancer.html",
+  Leo: "wiki/leo.html",
+  Virgo: "wiki/virgo.html",
+  Libra: "wiki/libra.html",
+  Scorpio: "wiki/scorpio.html",
+  Sagittarius: "wiki/sagittarius.html",
+  Capricorn: "wiki/capricorn.html",
+  Aquarius: "wiki/aquarius.html",
+  Pisces: "wiki/pisces.html"
+};
+
+document.querySelectorAll(".sign-btn").forEach(btn=>{
+  const sign = btn.dataset.sign;
+  if(signWikiLinks[sign]){
+    btn.href = signWikiLinks[sign];
+    btn.title = `${sign} Wiki`;
+  }
+});  /* ---------- ASPECTS ---------- */
+const aspects=[
+  {n:"conjunction",a:0,o:6,k:"focus"},
+  {n:"opposition",a:180,o:6,k:"polarity"},
+  {n:"square",a:90,o:5,k:"tension"},
+  {n:"trine",a:120,o:5,k:"flow"},
+  {n:"sextile",a:60,o:4,k:"opportunity"}
+];
+
+let found=[];
+const names=Object.keys(planets);
+for(let i=0;i<names.length;i++){
+  for(let j=i+1;j<names.length;j++){
+    aspects.forEach(x=>{
+      if(Math.abs(diff(planets[names[i]].pos,planets[names[j]].pos)-x.a)<=x.o){
+        found.push({a:names[i],b:names[j],asp:x});
+      }
+    });
+  }
+}
+
+found.slice(0,3).forEach(t=>{
+  const cA=signColors[planets[t.a].sign];
+  const cB=signColors[planets[t.b].sign];
+  wrap.innerHTML+=`
+  <div class="transit">
+    <div class="transit-header">
+      <div>
+        <span class="label">Transit:</span> <br>
+        ${t.a} in <span style="color:${cA}">${planets[t.a].sign}</span>
+        ${t.asp.n}
+        ${t.b} in <span style="color:${cB}">${planets[t.b].sign}</span>
+      </div>
+      <div class="glyphs">
+        <span class="astro-symbol">
+          <span style="color:${cA}">${planetSymbols[t.a]}${signSymbols[planets[t.a].sign]}</span>
+          ${aspectSymbols[t.asp.n]}
+          <span style="color:${cB}">${planetSymbols[t.b]}${signSymbols[planets[t.b].sign]}</span>
+        </span>
+      </div>
+    </div>
+    <div><span class="label">Keyword:</span><br>${t.asp.k}</div><br>
+    <div><span class="label">Affecting:</span><br>${planets[t.a].domain} & ${planets[t.b].domain}</div><br>
+    <div><span class="label">Motion:</span><br>${t.a} ${planets[t.a].motion}, ${t.b} ${planets[t.b].motion}</div><br>
+  </div>`;
+/* ---------- BLOG RSS FEED ---------- */
+const RSS_URL = "https://244738582.hs-sites-na2.com/starryjae/rss.xml";
+
+fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`)
+  .then(res => res.json())
+  .then(data => {
+    const wrap = document.getElementById("blog-feed");
+    if(!data.items || !data.items.length){
+      wrap.innerHTML = "<div class='tarot-placeholder'>No posts yet ✦</div>";
+      return;
+    }
+
+    wrap.innerHTML = data.items.slice(0,3).map(post => `
+      <div class="blog-post">
+        <h3>${post.title}</h3>
+        <p>${post.description.replace(/<[^>]*>?/gm,'').slice(0,120)}…</p>
+        <a href="${post.link}" target="_blank">Read more ✧</a>
+      </div>
+    `).join("");
+  })
+  .catch(()=>{
+    document.getElementById("blog-feed").innerHTML =
+      "<div class='tarot-placeholder'>The stars are quiet right now ✦</div>";
+  });
+
+});
+</script>
+</body>
+</html>
