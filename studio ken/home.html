@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Studio Ken Arcade</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'Starbim'; src: url('/assets/fonts/Starbim.ttf') format('truetype'); }
+@font-face { font-family: 'pixel'; src: url('/assets/fonts/PublicPixel.otf') format('opentype'); }
+
+:root{
+  --neon-cyan:#00ffff;
+  --neon-pink:#ff2975;
+  --neon-purple:#c700b5;
+  --neon-violet:#b000ff;
+  --neon-yellow:#ffd319;
+  --dark:#0a0015;
+  --purple:#1a0033;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:#000;
+  color:var(--neon-cyan);
+  font-family:'pixel',monospace;
+  overflow:hidden;
+  position:relative;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/* Animated grid floor */
+.grid-floor{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:60vh;
+  background:
+    linear-gradient(0deg,transparent 24%,rgba(255,0,255,.1) 25%,rgba(255,0,255,.1) 26%,transparent 27%,transparent 74%,rgba(255,0,255,.1) 75%,rgba(255,0,255,.1) 76%,transparent 77%),
+    linear-gradient(90deg,transparent 24%,rgba(255,0,255,.1) 25%,rgba(255,0,255,.1) 26%,transparent 27%,transparent 74%,rgba(255,0,255,.1) 75%,rgba(255,0,255,.1) 76%,transparent 77%);
+  background-size:50px 50px;
+  transform:perspective(500px) rotateX(60deg);
+  transform-origin:bottom;
+  animation:gridMove 20s linear infinite;
+  opacity:.5;
+}
+
+@keyframes gridMove{
+  0%{background-position:0 0}
+  100%{background-position:0 50px}
+}
+
+/* Scanlines */
+.scanlines{
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,.05),
+    rgba(0,0,0,.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events:none;
+  z-index:999;
+  animation:scanline 8s linear infinite;
+}
+
+@keyframes scanline{
+  0%{transform:translateY(0)}
+  100%{transform:translateY(100%)}
+}
+
+/* Main container */
+.arcade-room{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:2rem;
+}
+
+/* Title */
+.title{
+  font-family:'Press Start 2P',monospace;
+  font-size:2.5rem;
+  text-align:center;
+  margin:2rem 0;
+  color:#fff;
+  text-shadow:
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan),
+    2px 2px 0 #000;
+  animation:titlePulse 2s ease-in-out infinite;
+  letter-spacing:.2rem;
+}
+
+@keyframes titlePulse{
+  0%,100%{opacity:1}
+  50%{opacity:.7}
+}
+
+.subtitle{
+  font-size:1.2rem;
+  color:#fff;
+  text-align:center;
+  margin-bottom:3rem;
+  text-shadow:
+    0 0 15px var(--neon-yellow),
+    1px 1px 0 #000;
+}
+
+/* Cabinets grid */
+.cabinets{
+  display:flex;
+  gap:2rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:1400px;
+}
+
+/* Individual cabinet */
+.cabinet{
+  width:280px;
+  background:linear-gradient(180deg,#1a0033,#0a0015);
+  border:3px solid var(--neon-violet);
+  box-shadow:
+    0 0 20px var(--neon-violet),
+    inset 0 0 20px rgba(176,0,255,.1);
+  position:relative;
+  cursor:pointer;
+  transition:transform .3s ease;
+}
+
+.cabinet:hover{
+  transform:scale(1.05) translateY(-10px);
+  box-shadow:
+    0 0 40px var(--neon-pink),
+    0 0 60px var(--neon-violet),
+    inset 0 0 20px rgba(255,41,117,.2);
+}
+
+.cabinet::before{
+  content:'';
+  position:absolute;
+  top:-20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120%;
+  height:20px;
+  background:linear-gradient(90deg,transparent,var(--neon-violet),transparent);
+  border-radius:50%;
+}
+
+/* Screen */
+.screen{
+  margin:20px;
+  border:4px solid #000;
+  box-shadow:inset 0 0 20px rgba(0,255,255,.3);
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:4/3;
+  background:#000;
+}
+
+.screen img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(1.2) contrast(1.1);
+}
+
+.screen::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,255,255,.03) 2px,
+      rgba(0,255,255,.03) 4px
+    );
+  pointer-events:none;
+}
+
+/* Insert coin overlay */
+.coin-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:'Press Start 2P',monospace;
+  font-size:.7rem;
+  color:var(--neon-yellow);
+  text-shadow:0 0 10px var(--neon-yellow);
+  animation:blink 1.5s steps(2) infinite;
+}
+
+@keyframes blink{50%{opacity:0}}
+
+.coin-slot{
+  width:60px;
+  height:60px;
+  margin-top:1rem;
+  background:radial-gradient(circle,var(--neon-pink),var(--neon-violet));
+  border-radius:50%;
+  box-shadow:
+    0 0 20px var(--neon-pink),
+    inset 0 0 10px #000;
+  animation:coinGlow 2s ease-in-out infinite;
+  position:relative;
+}
+
+.coin-slot::after{
+  content:'¢';
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  color:#fff;
+  text-shadow:0 0 5px #000;
+}
+
+@keyframes coinGlow{
+  0%,100%{box-shadow:0 0 20px var(--neon-pink),inset 0 0 10px #000}
+  50%{box-shadow:0 0 40px var(--neon-pink),0 0 60px var(--neon-yellow),inset 0 0 10px #000}
+}
+
+/* Control panel */
+.controls{
+  background:linear-gradient(180deg,#2a2a2a,#1a1a1a);
+  padding:1rem;
+  border-top:2px solid #000;
+}
+
+.project-name{
+  font-family:'Press Start 2P',monospace;
+  font-size:.7rem;
+  color:var(--neon-cyan);
+  text-align:center;
+  text-shadow:0 0 5px var(--neon-cyan);
+  margin-bottom:.5rem;
+}
+
+.project-type{
+  font-size:.9rem;
+  color:var(--neon-yellow);
+  text-align:center;
+}
+
+/* Modal */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  padding:2rem;
+}
+
+.modal.active{display:flex}
+
+.modal-cabinet{
+  max-width:1000px;
+  width:100%;
+  background:linear-gradient(180deg,#1a0033,#0a0015);
+  border:4px solid var(--neon-cyan);
+  box-shadow:
+    0 0 40px var(--neon-cyan),
+    0 0 80px var(--neon-pink);
+  position:relative;
+}
+
+.modal-header{
+  background:#000;
+  padding:1rem 2rem;
+  border-bottom:2px solid var(--neon-cyan);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.modal-title{
+  font-family:'Press Start 2P',monospace;
+  font-size:1.2rem;
+  color:var(--neon-yellow);
+  text-shadow:0 0 10px var(--neon-yellow);
+}
+
+.credits{
+  font-family:'Press Start 2P',monospace;
+  font-size:.7rem;
+  color:var(--neon-pink);
+  text-shadow:0 0 5px var(--neon-pink);
+}
+
+.modal-content{
+  padding:2rem;
+}
+
+.modal-content img{
+  width:100%;
+  border:4px solid #000;
+  box-shadow:0 0 20px rgba(0,255,255,.3);
+  margin-bottom:2rem;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;
+  margin-bottom:2rem;
+}
+
+.stat-box{
+  background:rgba(0,255,255,.1);
+  border:2px solid var(--neon-cyan);
+  padding:1rem;
+  font-family:'Press Start 2P',monospace;
+  font-size:.6rem;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,255,255,.3);
+}
+
+.exit-btn{
+  display:block;
+  margin:0 auto;
+  padding:1rem 2rem;
+  font-family:'Press Start 2P',monospace;
+  font-size:.8rem;
+  background:var(--neon-pink);
+  color:#000;
+  border:none;
+  cursor:pointer;
+  text-shadow:none;
+  box-shadow:0 0 20px var(--neon-pink);
+  transition:all .3s;
+}
+
+.exit-btn:hover{
+  background:var(--neon-yellow);
+  box-shadow:0 0 40px var(--neon-yellow);
+}
+
+/* Stars background */
+.stars{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(2px 2px at 20% 30%,white,transparent),
+    radial-gradient(2px 2px at 60% 70%,white,transparent),
+    radial-gradient(1px 1px at 50% 50%,white,transparent),
+    radial-gradient(1px 1px at 80% 10%,white,transparent),
+    radial-gradient(2px 2px at 90% 60%,white,transparent),
+    radial-gradient(1px 1px at 33% 80%,white,transparent);
+  background-size:200% 200%;
+  animation:twinkle 8s ease-in-out infinite;
+  opacity:.6;
+}
+
+@keyframes twinkle{
+  0%,100%{opacity:.6}
+  50%{opacity:.3}
+}
+
+@media(max-width:768px){
+  .title{font-size:1.5rem}
+  .cabinets{gap:1rem}
+  .cabinet{width:240px}
+}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="grid-floor"></div>
+<div class="scanlines"></div>
+
+<div class="arcade-room">
+  <h1 class="title">STUDIO KEN</h1>
+  <p class="subtitle">◆ CRAFT · COOK · CATS · MINIATURES ◆</p>
+
+  <div class="cabinets">
+    
+    <div class="cabinet" onclick="openGame('Down Aisle','/studioken/assets/aisle.png',['SCALE: 1:35','MATERIAL: FOAM + RESIN','TIME: 40 HRS','DIFFICULTY: ★★★★☆'])">
+      <div class="screen">
+        <img src="/studio ken/assets/aisle.png" alt="Down the Aisle">
+        <div class="coin-overlay">
+          <div>INSERT COIN</div>
+          <div class="coin-slot"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="project-name">Down the Aisle</div>
+        <div class="project-type">Acrylic on Canvas</div>
+      </div>
+    </div>
+
+    <div class="cabinet" onclick="openGame('STREET NIGHTS','https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=400',['SCALE: 1:24','MATERIAL: WOOD + LED','TIME: 55 HRS','DIFFICULTY: ★★★★★'])">
+      <div class="screen">
+        <img src="/studio ken/assets/streetnight1.png" alt="Street Nights">
+        <div class="coin-overlay">
+          <div>INSERT COIN</div>
+          <div class="coin-slot"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="project-name">Street Nights</div>
+        <div class="project-type">Acrylic on Canvas</div>
+      </div>
+    </div>
+
+    <div class="cabinet" onclick="openGame('Blue Room','https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400',['SCALE: 1:12','MATERIAL: CLAY + POLYMER','TIME: 32 HRS','DIFFICULTY: ★★★☆☆'])">
+      <div class="screen">
+        <img src="/studio ken/assets/blueroom.png" alt="Retro Cafe">
+        <div class="coin-overlay">
+          <div>INSERT COIN</div>
+          <div class="coin-slot"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="project-name">Blue Room</div>
+        <div class="project-type">Acrylic on Canvas</div>
+      </div>
+    </div>
+
+    <div class="cabinet" onclick="openGame('Abandoned','https://images.unsplash.com/photo-1573865526739-10c1d3a1f0cc?w=400',['SCALE: 1:6','MATERIAL: FELT + FABRIC','TIME: 28 HRS','DIFFICULTY: ★★☆☆☆'])">
+      <div class="screen">
+        <img src="/studio ken/assets/gas.png" alt="Abandoned">
+        <div class="coin-overlay">
+          <div>INSERT COIN</div>
+          <div class="coin-slot"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="project-name">Abandoned on the Way</div>
+        <div class="project-type">Acrylic on Canvas</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal" id="modal" onclick="closeGame(event)">
+  <div class="modal-cabinet">
+    <div class="modal-header">
+      <div class="modal-title" id="gameTitle">PROJECT</div>
+      <div class="credits">CREDIT: 1</div>
+    </div>
+    <div class="modal-content">
+      <img id="gameImg" src="" alt="">
+      <div class="stats-grid" id="gameStats"></div>
+      <button class="exit-btn" onclick="closeGame()">⚡ GAME OVER ⚡</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function openGame(title,img,stats){
+  document.getElementById('gameTitle').textContent = title;
+  document.getElementById('gameImg').src = img;
+
+  const wrap = document.getElementById('gameStats');
+  wrap.innerHTML = '';
+  stats.forEach(s=>{
+    const d = document.createElement('div');
+    d.className='stat-box';
+    d.textContent=s;
+    wrap.appendChild(d);
+  });
+
+  document.getElementById('modal').classList.add('active');
+}
+
+function closeGame(e){
+  if(!e || e.target.id === 'modal' || e.target.classList.contains('exit-btn')){
+    document.getElementById('modal').classList.remove('active');
+  }
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key === 'Escape') closeGame();
+});
+</script>
+
+</body>
+</html>
