@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{{SIGN}} Wiki</title>
+<title>ARIES Wiki</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/astro/assets/favicons/{{sign}}.png">
+<link rel="icon" type="image/png" href="/astro/assets/favicons/aries.png">
 
 <!-- ================= FONTS ================= -->
 <style>
@@ -18,13 +18,12 @@
     --accent: #ffc545;  
     --dark: #121111;
     --light: #f9f0de;
-
 }
 
 [style*="font-family:Astro4"],
 .astro4 {
     color: var(--primary);
-    font-size: 30px;
+    font-size: 40px;
 }
 .header-right {
     font-family: 'Jaewriting';
@@ -44,7 +43,7 @@ body {
     margin: 0;
     padding: 10px;
     background-color: var(--dark);
-    background-image: url('/astro/assets/backgrounds/{{sign}}.png');
+    background-image: url('/astro/assets/backgrounds/aries.png');
     background-repeat: repeat;
     background-attachment: fixed;
     font-family: 'Jaewriting', monospace;
@@ -141,7 +140,7 @@ a {
 
 /* ================= SIDEBAR ================= */
 #sidebar {
-    width: 220px;
+    width: 200px;
     background: linear-gradient(to right, var(--accent), var(--primary));
     border: 3px inset var(--primary);
 }
@@ -170,10 +169,10 @@ a {
     background: var(--primary);
     color: var(--dark);
     padding: 6px 14px;
-    font-size: 20px;
+    font-size: 25px;
     letter-spacing: 0.1em;
     border-radius: 999px;
-    margin: 75px;
+    margin: 50px;
 }
 
 /* Clickable h4 links + subtle hover */
@@ -199,7 +198,7 @@ a {
 
 /* Sidebar images */
 .sidebar-box img {
-    max-width: 100%;
+    max-width: 300px;
     height: auto;
     margin: 6px 0 12px;
     image-rendering: crisp-edges;
@@ -216,7 +215,12 @@ a {
     border: 2px solid var(--primary);
     margin-bottom: 14px;
 }
-
+.content-box img{
+   max-width: 200px;
+    height: auto;
+    margin: 6px 0 12px;
+    image-rendering: crisp-edges;
+}
 .content-box h2 {
     margin: 0;
     padding: 6px;
@@ -302,19 +306,18 @@ a {
 
 <header id="site-header">
   <div class="header-inner">
-    <img src="/astro/assets/favicons/{{sign}}2.png" class="site-logo" alt="">
+    <img src="/astro/assets/favicons/aries2.png" class="site-logo" alt="">
     <div class="site-title"><a href="/astro/home.html">Starry Jae</a></div>
     <div class="header-right">
-      <a href="/">home</a> • <a href="/contact">contact</a>
-    </div>
+<a href="/astro/home.html">home</a> • <a href="/shop/home.html">sunnie shop</a> • <a href="/club/public/club.html">club</a>    </div>
   </div>
 </header>
 
-<marquee id="marquee" scrollamount="4">☆ ☆</marquee>
+<marquee id="marquee" scrollamount="4">☆{{marquee}} ☆</marquee>
 <br>
 <div id="wiki-header">
-  <h1>{{SIGN}}</h1>
-  <small>{{element}} • {{modality}} • Ruled by {{planet}}</small>
+  <h1>ARIES</h1>
+  <small>Fire • Cardinal • Ruled by Mars</small>
 </div>
 <br>
 <table id="wiki-table">
@@ -324,30 +327,18 @@ a {
   <div class="sidebar-box">
     <h3>Infocard</h3>
  <h4><a href="/elements.html">Glyph</a></h4>
-<span style="font-family:Astro4;">{{sign-glyph}}</span><br>
-<br>
+<span style="font-family:Astro4;">a</span><br>
+<h4>Constellation</h4><br>
+    <img src="/astro/assets/constellations/aries.png">
     <h4><a href="/elements.html">Element</a></h4><br>
-    <h5>{{element}}</h5><br><span style="font-family:Astro4;">{{element-glyph}}</span><br>
-<br><br>
+    <h5>Fire</h5><br><span style="font-family:Astro4;">K</span><br>
     <h4><a href="/modalities.html">Modality</a></h4>
-    <h5>{{modality}}</h5><br><span style="font-family:Astro4;">{{modality-glyph}}</span><br>
-<br><br>
-    <h4><a href="/planets.html">Ruling Planet</a></h4><br><h5>{{planet}}</h5><span style="font-family:Astro4;">{{planet-glyph}}</span><br>
- <br><br>
-
-    <h4>Symbol</h4><br>
-    <h5>{{symbol}}</h5>
-<br><br>
-    <h4>Constellation</h4><br>
-    <img src="/astro/assets/constellations/{{sign}}.png">
-<br><br>
-    <h4>Colors</h4><br>
-    <h5>{{colors}}</h5>
-<br><br>
- <h4><a href="/crystals.html">Crystal</a></h4><br>    <img src="/astro/assets/crystals/{{sign}}.png">
-<br><br>
-    <h4><a href="/flowers.html">Flowers</a></h4><br>
-    <img src="/astro/assets/flowers/{{sign}}.png"><br>
+    <h5>Cardinal</h5><br><span style="font-family:Astro4;">d</span><br>
+    <h4><a href="/planets.html">Ruling Planet</a></h4><br><h5>P</h5><span style="font-family:Astro4;">P</span><br>
+    <h4>Symbol</h4><br><h5>The Ram</h5><br>
+<h4>House</h4><br><h5>1st : Identity, The Physical Self, Ego</h5>
+<br>
+    <h4>Colors</h4><br><h5>Red</h5><br>
   </div>
 </td>
 
@@ -367,6 +358,30 @@ a {
   <h2>Weaknesses</h2>
   <div class="inner"><ul><li>{{WEAKNESSES}}</li></ul></div>
 </section>
+
+<section class="content-box">
+  <h2>Careers</h2>
+  <div class="inner">{{careers}}</div>
+</section>
+
+<section class="content-box">
+  <h2>Famous Aries</h2>
+  <h3>Historical</h3><br>
+  <div class="inner">Vincent Van Gogh || Artist || 1800s</div>
+  <br>
+  <h3>Modern</h3>
+  <div class="inner">Lad Gaga || Musician</div>
+  <br>
+  <h3>Fictional</h3>
+  <div class="inner">Regina George || Mean Girls</div>
+</section>
+
+<section class="content-box">
+  <h2>Flower and Crystal</h2>
+   <div class="inner"><img src="/astro/assets/flowers/aries.png">
+   <img src="/astro/assets/crystals/aries.png"></div>
+</section>
+
 <section class="content-box">
   <h2>Explore Other Signs</h2>
   <div class="inner">
