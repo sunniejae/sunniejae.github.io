@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K-pop Fandom Shop</title>
     <style>
-        @font-face {
-            font-family: 'Brat';
-            src: url('/assets/FUNKHOUS.ttf');
-        }
-        
+       @font-face { font-family:'Jaewriting'; src:url('/assets/fonts/Jaewriting-Regular.otf') format('truetype'); }
+    @font-face { font-family:'Cheri'; src:url('/assets/fonts/tan-mon-cheri.woff') format('truetype'); }
+    @font-face { font-family:'Aego'; src:url('/assets/fonts/AeogoPixellated-Regular.ttf') format('truetype'); } 
+    @font-face { font-family:'BRAT'; src:url('/assets/fonts/FUNKHOUS.TTF') format('truetype'); }
+    @font-face { font-family:'KingSans'; src:url('/assets/fonts/KingSans-FREE.otf') format('truetype'); }
+    @font-face { font-family:'Starbim'; src:url('/assets/fonts/Starbim.ttf') format('truetype'); }
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +18,7 @@
         }
         
         body {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: 'KingSans',system-ui, -apple-system, sans-serif;
             min-height: 100vh;
             transition: background-color 0.3s ease;
         }
@@ -144,6 +145,8 @@
             font-size: 0.875rem;
             color: #666;
             margin: 0 0 1rem 0;
+            font-family: 'KingSans';
+            letter-spacing: 1px;
         }
         
         .product-btn {
@@ -322,17 +325,10 @@
             background: none;
             border: none;
             cursor: pointer;
-            color: #999;
+            color: #9a9dfe;
             font-size: 1.25rem;
         }
         
- {
-            padding: 0.75rem;
-            border-radius: 8px;
-            border: 2px solid #e0e0e0;
-            font-size: 1rem;
-            width: 100%;
-        }
         
         .form-checkbox-label {
             display: flex;
@@ -397,7 +393,7 @@
 <body>
     <header class="header" id="header">
         <div class="header-content">
-            <h1>🌟 Fandom Shop</h1>
+            <h1>SunnieJae Fandom Shop</h1>
             
             <div class="member-selector" id="memberSelector"></div>
             

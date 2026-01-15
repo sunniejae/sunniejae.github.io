@@ -1,44 +1,44 @@
 // Member data with planet placeholders
 const MEMBERS = {
-  SUMIN: { 
-    name: 'SUMIN', 
-    colors: { primary: '#FF6B9D', secondary: '#FFE5EC', accent: '#C41E3A', dark: '#8B0A1F' },
-    description: 'Bold and energetic! You match with SUMIN, someone who brings passion and excitement to everything they do.'
+  TWO: { 
+    name: 'TWO', 
+    colors: { primary: '#d1d5d4', secondary: '#F6F6F6', accent: '#F4A8FE', dark: '#111316' },
+    description: 'Bold and energetic! You match with TWO, someone who brings passion and excitement to everything they do.'
   },
-  SIEUN: { 
-    name: 'SIEUN', 
+  ONE: { 
+    name: 'ONE', 
     colors: { primary: '#9D84FF', secondary: '#E8E0FF', accent: '#6B4CE6', dark: '#4A2FB8' },
-    description: 'Elegant and mysterious! You match with SIEUN, someone who captivates with grace and thoughtful charm.'
+    description: 'Elegant and mysterious! You match with ONE, someone who captivates with grace and thoughtful charm.'
   },
-  ISA: { 
-    name: 'ISA', 
+  THREE: { 
+    name: 'THREE', 
     colors: { primary: '#FF8A5B', secondary: '#FFE4D6', accent: '#E85D2C', dark: '#B8441A' },
-    description: 'Fierce and confident! You match with ISA, someone who leads with strength and determination.'
+    description: 'Fierce and confident! You match with THREE, someone who leads with strength and determination.'
   },
-  SEEUN: { 
-    name: 'SEEUN', 
+  FOUR: { 
+    name: 'FOUR', 
     colors: { primary: '#4ECDC4', secondary: '#D4F4F2', accent: '#2BA89E', dark: '#1A7A72' },
-    description: 'Bright and optimistic! You match with SEEUN, someone who spreads joy and positive energy everywhere.'
+    description: 'Bright and optimistic! You match with FOUR, someone who spreads joy and positive energy everywhere.'
   },
-  YOON: { 
-    name: 'YOON', 
+  FIVE: { 
+    name: 'FIVE', 
     colors: { primary: '#1bca21', secondary: '#a7db5d', accent: '#62466B', dark: '#004602' },
-    description: 'Steady and reliable! You match with YOON, someone who brings warmth and stability to any situation.'
+    description: 'Steady and reliable! You match with FIVE, someone who brings warmth and stability to any situation.'
   },
-  J: { 
-    name: 'J', 
+  SIX: { 
+    name: 'SIX', 
     colors: { primary: '#6BCF7F', secondary: '#E0F7E4', accent: '#45A557', dark: '#2F7A3E' },
-    description: 'Fresh and unique! You match with J, someone who stands out with their creative and refreshing personality.'
+    description: 'Fresh and unique! You match with SIX, someone who stands out with their creative and refreshing personality.'
   },
-  neptune: { 
-    name: 'Neptune', 
+  SEVEN: { 
+    name: 'SEVEN', 
     colors: { primary: '#A8DADC', secondary: '#E8F5F6', accent: '#457B9D', dark: '#1D3557' },
-    description: 'Calm and thoughtful! You match with Neptune, someone who brings depth and serenity to everything they touch.'
+    description: 'Calm and thoughtful! You match with SEVEN, someone who brings depth and serenity to everything they touch.'
   },
-  pluto: { 
-    name: 'Pluto', 
+  EIGHT: { 
+    name: 'EIGHT', 
     colors: { primary: '#F4A6D7', secondary: '#FDE8F3', accent: '#E056A8', dark: '#A83C77' },
-    description: 'Sweet and charming! You match with Pluto, someone who wins hearts with their adorable and lovable nature.'
+    description: 'Sweet and charming! You match with EIGHT, someone who wins hearts with their adorable and lovable nature.'
   }
 };
 
@@ -47,70 +47,70 @@ const QUIZ_DATA = [
   {
     question: "What's your favorite color?",
     answers: [
-      { text: "Pink/Red", members: ['SUMIN', 'pluto'] },
-      { text: "Purple/Violet", members: ['SIEUN'] },
-      { text: "Orange/Coral", members: ['ISA'] },
-      { text: "Teal/Turquoise", members: ['SEEUN'] },
-      { text: "Yellow/Gold", members: ['YOON'] },
-      { text: "Green/Mint", members: ['J'] },
-      { text: "Blue/Navy", members: ['neptune'] }
+      { text: "Pink/Red", members: ['TWO', 'EIGHT'] },
+      { text: "Purple/Violet", members: ['ONE'] },
+      { text: "Orange/Coral", members: ['THREE'] },
+      { text: "Teal/Turquoise", members: ['FOUR'] },
+      { text: "Yellow/Gold", members: ['FIVE'] },
+      { text: "Green/Mint", members: ['SIX'] },
+      { text: "Blue/Navy", members: ['SEVEN'] }
     ]
   },
   {
     question: "Are you more...",
     answers: [
-      { text: "Introvert", members: ['SIEUN', 'neptune', 'pluto'] },
-      { text: "Extrovert", members: ['SUMIN', 'ISA', 'SEEUN', 'YOON', 'J'] }
+      { text: "Introvert", members: ['ONE', 'SEVEN', 'EIGHT'] },
+      { text: "Extrovert", members: ['TWO', 'THREE', 'FOUR', 'FIVE', 'SIX'] }
     ]
   },
   {
     question: "Which describes you better?",
     answers: [
-      { text: "Down to earth", members: ['YOON', 'J', 'neptune'] },
-      { text: "Head in the clouds", members: ['SUMIN', 'SIEUN', 'ISA', 'SEEUN', 'pluto'] }
+      { text: "Down to earth", members: ['FIVE', 'SIX', 'SEVEN'] },
+      { text: "Head in the clouds", members: ['TWO', 'ONE', 'THREE', 'FOUR', 'EIGHT'] }
     ]
   },
   {
     question: "Do you follow your...",
     answers: [
-      { text: "Head", members: ['SIEUN', 'YOON', 'neptune'] },
-      { text: "Heart", members: ['SUMIN', 'ISA', 'SEEUN', 'J', 'pluto'] }
+      { text: "Head", members: ['ONE', 'FIVE', 'SEVEN'] },
+      { text: "Heart", members: ['TWO', 'THREE', 'FOUR', 'SIX', 'EIGHT'] }
     ]
   },
   {
     question: "Which appeals to you more?",
     answers: [
-      { text: "Order", members: ['SIEUN', 'YOON', 'neptune', 'J'] },
-      { text: "Chaos", members: ['SUMIN', 'ISA', 'SEEUN', 'pluto'] }
+      { text: "Order", members: ['ONE', 'FIVE', 'SEVEN', 'SIX'] },
+      { text: "Chaos", members: ['TWO', 'THREE', 'FOUR', 'EIGHT'] }
     ]
   },
   {
     question: "Pick your favorite animal:",
     answers: [
-      { text: "Cat", members: ['SUMIN', 'SIEUN'] },
-      { text: "Dog", members: ['ISA', 'SEEUN'] },
-      { text: "Rabbit", members: ['pluto'] },
-      { text: "Bird", members: ['J'] },
-      { text: "Fish", members: ['neptune'] },
-      { text: "Tiger", members: ['YOON'] }
+      { text: "Cat", members: ['TWO', 'ONE'] },
+      { text: "Dog", members: ['THREE', 'FOUR'] },
+      { text: "Rabbit", members: ['EIGHT'] },
+      { text: "Bird", members: ['SIX'] },
+      { text: "Fish", members: ['SEVEN'] },
+      { text: "Tiger", members: ['FIVE'] }
     ]
   },
   {
     question: "Which artist do you also follow?",
     answers: [
-      { text: "NewJeans", members: ['SUMIN', 'pluto'] },
-      { text: "aespa", members: ['SIEUN', 'neptune'] },
-      { text: "IVE", members: ['ISA', 'YOON'] },
-      { text: "ITZY", members: ['SEEUN', 'J'] }
+      { text: "NewSIXeans", members: ['TWO', 'EIGHT'] },
+      { text: "aespa", members: ['ONE', 'SEVEN'] },
+      { text: "IVE", members: ['THREE', 'FIVE'] },
+      { text: "ITZY", members: ['FOUR', 'SIX'] }
     ]
   },
   {
     question: "Pick your favorite era:",
     answers: [
-      { text: "Debut Era", members: ['SUMIN', 'ISA'] },
-      { text: "First Comeback", members: ['SIEUN', 'SEEUN'] },
-      { text: "Peak Era", members: ['YOON', 'J'] },
-      { text: "Latest Release", members: ['neptune', 'pluto'] }
+      { text: "Debut Era", members: ['TWO', 'THREE'] },
+      { text: "First Comeback", members: ['ONE', 'FOUR'] },
+      { text: "Peak Era", members: ['FIVE', 'SIX'] },
+      { text: "Latest Release", members: ['SEVEN', 'EIGHT'] }
     ]
   }
 ];
@@ -171,7 +171,7 @@ const PRODUCTS = [
 ];
 
 // State
-let currentBias = 'SUMIN';
+let currentBias = 'TWO';
 let wishlist = [];
 let quizStep = 0;
 let quizAnswers = [];
@@ -357,7 +357,7 @@ function renderProducts() {
             🛍️ Shop on Redbubble
           </a>` :
           `<button class="product-btn" style="background-color: ${isInWishlist ? '#ccc' : theme.primary}" 
-            ${isInWishlist ? 'disabled' : ''} 
+            ${isInWishlist ? 'dTHREEbled' : ''} 
             onclick="addToWishlist('${product.id}')">
             ♡ ${isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}
           </button>`
