@@ -13,22 +13,23 @@
 
   <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="logo">Sunnie Jae's Naya Shop</div>
+    <div class="logo">Sunnie Jae's Fandom Shop</div>
 
     <div class="sidebar-section">
-      <div class="sidebar-title">Your Bias</div>
+      <div class="sidebar-title">Shop by Group</div>
       <select class="bias-selector" id="biasSelector">
-        <option value="">Select Your Bias</option>
-        <option value="ONE">ONE</option>
-        <option value="TWO">TWO</option>
-        <option value="THREE">THREE</option>
-        <option value="FOUR">FOUR</option>
-        <option value="FIVE">FIVE</option>
-        <option value="SIX">SIX</option>
+        <option value="ONEUS">ONEUS</option>
+        <option value="LESSERAFIM">LESSERAFIM</option>
+        <option value="IZNA">IZNA</option>
+        <option value="STAYC">STAYC</option>
+        <option value="STRAYKIDS">STRAYKIDS</option>
+        <option value="AESPA">AESPA</option>
+        <option value="ILLIT">ILLIT</option>
       </select>
+      
     </div>
 
-    <button class="sidebar-btn" onclick="openQuiz()">💿 Bias Matching Quiz</button>
+    <button class="sidebar-btn" onclick="openQuiz()">💿 Group Matching Quiz</button>
     <button class="sidebar-btn" onclick="openHowToOrder()">ℹ️ How to Order</button>
 
     <button class="sidebar-btn primary" onclick="openWishlist()">
@@ -36,8 +37,6 @@
     </button>
 
     <button class="nav-btn"><a href="/shop/home.html">Shop Sunnie</a></button>
-    <button class="nav-btn"><a href="/kpop/home.html">K-Shop</a></button>
-
     <div class="sidebar-section" style="margin-top:auto;">
       <div class="sidebar-title">Now Playing</div>
       <div class="playlist-container" id="playlistContainer"></div>
@@ -46,13 +45,6 @@
 
   <!-- Main Content -->
   <main class="main-content">
-
-    <div class="mobile-header">
-      <div class="logo">⟡ K-Shop</div>
-      <button class="btn btn-primary" onclick="openWishlist()">
-        ♡ <span id="wishlistCountMobile">0</span>
-      </button>
-    </div>
 
     <!-- Hero -->
     <div class="hero-section">

@@ -10,9 +10,9 @@ const products = [
         type: "exclusive",
         description: "Premium phone case featuring your bias! Custom designed with exclusive artwork.",
         images: [
-            "/kpop/placeholders/blanks/MEMBER-1.png",
-            "/kpop/placeholders/blanks/MEMBER-2.png",
-            "/kpop/placeholders/blanks/MEMBER-3.png"
+            "/kpop/home/blanks/GROUP.png",
+            "/kpop/home/blanks/GROUP.png",
+            "/kpop/home/blanks/GROUP.png"
         ]
     },
     {
@@ -21,8 +21,8 @@ const products = [
         type: "exclusive",
         description: "Adorable miniature lightstick keychain. Perfect for your keys or bag!",
         images: [
-            "/kpop/placeholders/blanks/MEMBER-1.png",
-            "/kpop/placeholders/blanks/MEMBER-2.png"
+            "/kpop/home/blanks/GROUP.png",
+            "/kpop/home/blanks/GROUP.png"
         ]
     },
     {
@@ -31,8 +31,8 @@ const products = [
         type: "exclusive",
         description: "Cute animal-themed keychain representing your bias's unique charm.",
         images: [
-            "/kpop/placeholders/blanks/MEMBER-1.png",
-            "/kpop/placeholders/blanks/MEMBER-2.png"
+            "/kpop/home/blanks/GROUP.png",
+            "/kpop/home/blanks/GROUP.png"
         ]
     },
     {
@@ -41,7 +41,7 @@ const products = [
         type: "redbubble",
         description: "Vibrant stickers from their latest comeback era. Collect them all!",
         images: [
-            "/kpop/placeholders/blanks/MEMBER.png"
+            "/kpop/home/blanks/GROUP.png"
         ],
         redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/comeback-stickers"
     },
@@ -51,7 +51,10 @@ const products = [
         type: "redbubble",
         description: "Signature-style graphics perfect for laptops, notebooks, and more.",
         images: [
-            "/kpop/placeholders/blanks/MEMBER.png"
+            "/kpop/home/blanks/GROUP.png",
+            "/kpop/home/autographics/GROUP/2.png",
+            "/kpop/home/autographics/GROUP/3.png",
+            "/kpop/home/autographics/GROUP/4.png"
         ],
         redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/autographics"
     },
@@ -59,9 +62,13 @@ const products = [
         id: 6,
         name: "Hangul Name Art",
         type: "redbubble",
-        description: "Beautiful Korean typography featuring member names in Hangul.",
+        description: "Beautiful Korean typography featuring group names in Hangul.",
         images: [
-            "/kpop/placeholders/hangul/MEMBER.png"
+            "/kpop/home/hangul/GROUP/1.png",
+            "/kpop/home/hangul/GROUP/2.png",
+            "/kpop/home/hangul/GROUP/3.png",
+            "/kpop/home/hangul/GROUP/4.png",
+            "/kpop/home/hangul/GROUP/5.png",
         ],
         redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/hangul-names"
     }
@@ -76,7 +83,7 @@ function openProductModal(product) {
     carouselIndex = 0;
 
     const images = product.images.map(img =>
-        currentBias ? img.replace('MEMBER', currentBias) : img.replace('/MEMBER', '')
+        currentBias ? img.replace('GROUP', currentBias) : img.replace('/GROUP', '')
     );
 
     const container = document.getElementById('productModalContent');
@@ -115,7 +122,7 @@ function goToSlide(index) {
 
 function updateCarousel() {
     const images = activeProduct.images.map(img =>
-        currentBias ? img.replace('MEMBER', currentBias) : img.replace('/MEMBER', '')
+        currentBias ? img.replace('GROUP', currentBias) : img.replace('/GROUP', '')
     );
 
     document.getElementById('carouselImage').src = images[carouselIndex];
@@ -130,107 +137,116 @@ const quizQuestions = [
     {
         question: "What's your favorite color?",
         options: [
-            { text: "Purple/Blue", answer: "A", members: ["ONE", "THREE"] },
-            { text: "Pink/Red", answer: "B", members: ["TWO", "FOUR"] },
-            { text: "Green/Yellow", answer: "C", members: ["ONE", "FOUR"] },
-            { text: "Black/White", answer: "D", members: ["THREE"] }
+            { text: "Purple/Blue", answer: "A", groups: ["ONEUS", "IZNA"] },
+            { text: "Pink/Red", answer: "B", groups: ["LESSERAFIM", "STAYC"] },
+            { text: "Green/Yellow", answer: "C", groups: ["ONEUS", "STAYC"] },
+            { text: "Black/White", answer: "D", groups: ["IZNA"] }
         ]
     },
     {
         question: "Are you an introvert or extrovert?",
         options: [
-            { text: "Introvert - I recharge alone", answer: "A", members: ["ONE", "THREE"] },
-            { text: "Extrovert - I love being around people", answer: "B", members: ["TWO", "FOUR"] }
+            { text: "Introvert - I recharge alone", answer: "A", groups: ["ONEUS", "IZNA"] },
+            { text: "Extrovert - I love being around people", answer: "B", groups: ["LESSERAFIM", "STAYC"] }
         ]
     },
     {
         question: "Down to earth or head in the clouds?",
         options: [
-            { text: "Down to earth - practical and grounded", answer: "A", members: ["ONE", "FOUR"] },
-            { text: "Head in the clouds - dreamy and imaginative", answer: "B", members: ["TWO", "THREE"] }
+            { text: "Down to earth - practical and grounded", answer: "A", groups: ["ONEUS", "STAYC"] },
+            { text: "Head in the clouds - dreamy and imaginative", answer: "B", groups: ["LESSERAFIM", "IZNA"] }
         ]
     },
     {
         question: "Do you lead with your head or heart?",
         options: [
-            { text: "Head - logic and reason", answer: "A", members: ["ONE", "THREE"] },
-            { text: "Heart - feelings and intuition", answer: "B", members: ["TWO", "FOUR"] }
+            { text: "Head - logic and reason", answer: "A", groups: ["ONEUS", "IZNA"] },
+            { text: "Heart - feelings and intuition", answer: "B", groups: ["LESSERAFIM", "STAYC"] }
         ]
     },
     {
         question: "Order or chaos?",
         options: [
-            { text: "Order - I love organization and structure", answer: "A", members: ["ONE", "FOUR"] },
-            { text: "Chaos - spontaneity is exciting!", answer: "B", members: ["TWO", "THREE"] }
+            { text: "Order - I love organization and structure", answer: "A", groups: ["ONEUS", "STAYC"] },
+            { text: "Chaos - spontaneity is exciting!", answer: "B", groups: ["LESSERAFIM", "IZNA"] }
         ]
     },
     {
         question: "What's your favorite animal?",
         options: [
-            { text: "Cat", answer: "A", members: ["ONE"] },
-            { text: "Dog", answer: "B", members: ["TWO"] },
-            { text: "Rabbit", answer: "C", members: ["THREE"] },
-            { text: "Bird", answer: "D", members: ["FOUR"] }
+            { text: "Cat", answer: "A", groups: ["ONEUS"] },
+            { text: "Dog", answer: "B", groups: ["LESSERAFIM"] },
+            { text: "Rabbit", answer: "C", groups: ["IZNA"] },
+            { text: "Bird", answer: "D", groups: ["STAYC"] }
         ]
     }
 ];
 
-// Member profiles
-const members = {
-    ONE: {
-        name: "ONE",
-        color: "#FF5470",
-        secondaryColor: "#C71E27",
-        image: "/kpop/placeholders/ONE-profile.png",
-        heroImage: "/kpop/placeholders/hero/ONE.png",
-        fallbackImage: "/kpop/placeholders/blanks/ONE.png",
-        playlistId: "PLqyKQU80K0fE0vi2qlYB8FF87ggJHnkX_&si=nw6Wy84DNk1JwnLp"
+// Group profiles
+const groups = {
+    ONEUS: {
+        name: "ONEUS",
+        color: "#105B87",
+        secondaryColor: "#00966C",
+        image: "/kpop/home/ONEUS-profile.png",
+        heroImage: "/kpop/home/hero/ONEUS.png",
+        fallbackImage: "/kpop/home/blanks/ONEUS.png",
+        playlistId: "PLqyKQU80K0fGDkP_Dp_Lwz_mCO0trA1DO"
     },
-    TWO: {
-        name: "TWO",
-        color: "#9BB1FF",
-        secondaryColor: "#6A8BD3",
-        image: "/kpop/placeholders/TWO-profile.png",
-        heroImage: "/kpop/placeholders/hero/TWO.png",
-        fallbackImage: "/kpop/placeholders/blanks/TWO.png",
-        playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
+    LESSERAFIM: {
+        name: "LESSERAFIM",
+        color: "#75A2D8",
+        secondaryColor: "#000558",
+        image: "/kpop/home/LESSERAFIM-profile.png",
+        heroImage: "/kpop/home/hero/LESSERAFIM.png",
+        fallbackImage: "/kpop/home/blanks/LESSERAFIM.png",
+        playlistId: "PLqyKQU80K0fGVVVIt9YmgkD6Rfcf6eZP-"
     },
-    THREE: {
-        name: "THREE",
-        color: "#FFC343",
-        secondaryColor: "#FF6F00",
-        image: "/kpop/placeholders/THREE-profile.png",
-        heroImage: "/kpop/placeholders/hero/THREE.png",
-        fallbackImage: "/kpop/placeholders/blanks/THREE.png",
-        playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
+    IZNA: {
+        name: "IZNA",
+        color: "#F6F5AE",
+        secondaryColor: "#980A54",
+        image: "/kpop/home/IZNA-profile.png",
+        heroImage: "/kpop/home/hero/IZNA.png",
+        fallbackImage: "/kpop/home/blanks/IZNA.png",
+        playlistId: "PLqyKQU80K0fG6PSSaZvLSPTFbQyyT05LR"
     },
-    FOUR: {
-        name: "FOUR",
-        color: "#ff9800",
+    STAYC: {
+        name: "STAYC",
+        color: "#E8A8C7",
         secondaryColor: "#ffb74d",
-        image: "/kpop/placeholders/FOUR-profile.png",
-        heroImage: "/kpop/placeholders/hero/FOUR.png",
-        fallbackImage: "/kpop/placeholders/blanks/FOUR.png",
-        playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
+        image: "/kpop/home/STAYC-profile.png",
+        heroImage: "/kpop/home/hero/STAYC.png",
+        fallbackImage: "/kpop/home/blanks/STAYC.png",
+        playlistId: "PLqyKQU80K0fE0vi2qlYB8FF87ggJHnkX_"
     },
-    FIVE: {
-        name: "FIVE",
-        color: "#D0B3F9",
-        secondaryColor: "#8D7FB6",
-        image: "/kpop/placeholders/FIVE-profile.png",
-        heroImage: "/kpop/placeholders/hero/FIVE.png",
-        fallbackImage: "/kpop/placeholders/blanks/FIVE.png",
-        playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
+    STRAYKIDS: {
+        name: "STRAYKIDS",
+        color: "#BC1111",
+        secondaryColor: "#412446",
+        image: "/kpop/home/STRAYKIDS-profile.png",
+        heroImage: "/kpop/home/hero/STRAYKIDS.png",
+        fallbackImage: "/kpop/home/blanks/STRAYKIDS.png",
+        playlistId: "PLqyKQU80K0fHriYcAWjp6_UtY5P0ggdFH"
     },
-    SIX: {
-        name: "SIX",
+    AESPA: {
+        name: "AESPA",
+        color: "#BD93E9",
+        secondaryColor: "#8CEAEE",
+        image: "/kpop/home/AESPA-profile.png",
+        heroImage: "/kpop/home/hero/AESPA.png",
+        fallbackImage: "/kpop/home/blanks/AESPA.png",
+        playlistId: "PLqyKQU80K0fGoyzyge6v38Mjq-JtGyQfj"
+    },
+    ILLIT: {
+        name: "ILLIT",
         color: "#FFB3D9",
         secondaryColor: "#F1057D",
-        image: "/kpop/placeholders/SIX-profile.png",
-        heroImage: "/kpop/placeholders/hero/SIX.png",
-        fallbackImage: "/kpop/placeholders/blanks/SIX.png",
-        playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
-    }
+        image: "/kpop/home/ILLIT-profile.png",
+        heroImage: "/kpop/home/hero/ILLIT.png",
+        fallbackImage: "/kpop/home/blanks/ILLIT.png",
+        playlistId: "PLqyKQU80K0fEcZWhFwjhCLLIAIVMmcUGn"
+    },
 };
 
 /* ===============================
@@ -273,10 +289,10 @@ function updateTheme(bias) {
     const root = document.documentElement;
     const heroImg = document.getElementById('heroImage');
 
-    if (!members[bias]) {
+    if (!groups[bias]) {
         // Reset
-        root.style.setProperty('--primary-color', DEFAULT_THEME.primary);
-        root.style.setProperty('--secondary-color', DEFAULT_THEME.secondary);
+        root.style.setProperty('--primary-color', ALL_THEME.primary);
+        root.style.setProperty('--secondary-color', ALL_THEME.secondary);
         document.getElementById('mainTitle').textContent = 'Discover';
         document.getElementById('mainSubtitle').textContent =
             'Show your bias some love with exclusive merch';
@@ -286,12 +302,12 @@ function updateTheme(bias) {
         return;
     }
 
-    root.style.setProperty('--primary-color', members[bias].color);
-    root.style.setProperty('--secondary-color', members[bias].secondaryColor);
-    document.getElementById('mainTitle').textContent = members[bias].name;
-    document.getElementById('mainSubtitle').textContent = `Exclusive ${members[bias].name} merchandise`;
-    document.getElementById('heroBadge').textContent = `${members[bias].name} Collection`;
-    heroImg.src = members[bias].heroImage;
+    root.style.setProperty('--primary-color', groups[bias].color);
+    root.style.setProperty('--secondary-color', groups[bias].secondaryColor);
+    document.getElementById('mainTitle').textContent = groups[bias].name;
+    document.getElementById('mainSubtitle').textContent = `Exclusive ${groups[bias].name} merchandise`;
+    document.getElementById('heroBadge').textContent = `${groups[bias].name} Collection`;
+    heroImg.src = groups[bias].heroImage;
     heroImg.style.display = 'block';
     heroImg.onerror = () => (heroImg.style.display = 'none');
 }
@@ -305,11 +321,11 @@ function renderProducts() {
 
     products.forEach(product => {
         const imagePath = currentBias
-            ? product.images[0].replace('MEMBER', currentBias)
-            : product.images[0].replace('/MEMBER', '');
+            ? product.images[0].replace('GROUP', currentBias)
+            : product.images[0].replace('/GROUP', '');
 
         const fallbackText = currentBias
-            ? members[currentBias]?.name
+            ? groups[currentBias]?.name
             : 'Select a bias';
 
         const card = document.createElement('div');
@@ -375,7 +391,7 @@ function addToWishlist(productId) {
         name: product.name,
         type: product.type,
         bias: currentBias || 'no-bias',
-        biasName: currentBias ? members[currentBias]?.name : 'No bias selected'
+        biasName: currentBias ? groups[currentBias]?.name : 'No bias selected'
     };
 
     wishlist.push(wishlistItem);
@@ -480,7 +496,7 @@ function renderQuiz(questionIndex) {
 
 function selectQuizAnswer(questionIndex, optionIndex) {
     const q = quizQuestions[questionIndex];
-    quizAnswers[questionIndex] = q.options[optionIndex].members;
+    quizAnswers[questionIndex] = q.options[optionIndex].groups;
 
     const container = document.getElementById('quizContent');
     container.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
@@ -490,13 +506,13 @@ function selectQuizAnswer(questionIndex, optionIndex) {
 }
 
 function showQuizResult() {
-    const memberCount = {};
-    Object.values(quizAnswers).forEach(membersArr => membersArr.forEach(member => {
-        memberCount[member] = (memberCount[member] || 0) + 1;
+    const groupCount = {};
+    Object.values(quizAnswers).forEach(groupsArr => groupsArr.forEach(group => {
+        groupCount[group] = (groupCount[group] || 0) + 1;
     }));
 
-    const maxCount = Math.max(...Object.values(memberCount));
-    const winners = Object.keys(memberCount).filter(m => memberCount[m] === maxCount);
+    const maxCount = Math.max(...Object.values(groupCount));
+    const winners = Object.keys(groupCount).filter(m => groupCount[m] === maxCount);
     const result = winners[Math.floor(Math.random() * winners.length)];
 
     currentBias = result;
@@ -509,9 +525,9 @@ function showQuizResult() {
     content.innerHTML = `
         <div class="quiz-result">
             <h2>Your Bias Match:</h2>
-            <h2>${members[result]?.name || result}! ♡</h2>
-            <img src="${members[result]?.image}" alt="${members[result]?.name}" onerror="this.style.display='none'">
-            <p>Perfect match! The shop theme has been updated to ${members[result]?.name}. Start shopping for exclusive ${members[result]?.name} merchandise!</p>
+            <h2>${groups[result]?.name || result}! ♡</h2>
+            <img src="${groups[result]?.image}" alt="${groups[result]?.name}" onerror="this.style.display='none'">
+            <p>Perfect match! The shop theme has been updated to ${groups[result]?.name}. Start shopping for exclusive ${groups[result]?.name} merchandise!</p>
             <button class="btn btn-primary" onclick="closeQuiz()" style="width: 100%;">☘︎ Start Shopping!</button>
         </div>
     `;
@@ -536,12 +552,12 @@ function updatePlaylist() {
             <div class="playlist-placeholder" onclick="openPlaylist()">
                 <div style="font-size: 2em; margin-bottom: 8px;">🎵</div>
                 <div style="font-size: 0.85em; color: var(--text-muted);">
-                    ${currentBias ? 'Play ' + members[currentBias]?.name + ' music' : 'Click to play music'}
+                    ${currentBias ? 'Play ' + groups[currentBias]?.name + ' music' : 'Click to play music'}
                 </div>
             </div>
         `;
     } else {
-        const playlistId = currentBias && members[currentBias]?.playlistId ? members[currentBias].playlistId : 'PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-';
+        const playlistId = currentBias && groups[currentBias]?.playlistId ? groups[currentBias].playlistId : 'PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-';
         container.innerHTML = `
             <iframe 
                 class="playlist-embed"
