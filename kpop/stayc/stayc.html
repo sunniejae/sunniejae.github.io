@@ -753,11 +753,11 @@
                 <div class="sidebar-title">Your Bias</div>
                 <select class="bias-selector" id="biasSelector">
                     <option value="">Select Your Bias</option>
-                    <option value="ONE">ONE</option>
-                    <option value="TWO">TWO</option>
-                    <option value="THREE">THREE</option>
-                    <option value="FOUR">FOUR</option>
-                    <option value="FIVE">FIVE</option>
+                    <option value="SUMIN">SUMIN</option>
+                    <option value="SEEUN">SEEUN</option>
+                    <option value="SIEUN">SIEUN</option>
+                    <option value="YOON">YOON</option>
+                    <option value="J">J</option>
                     <option value="SIX">SIX</option>
                 </select>
             </div>
@@ -884,28 +884,28 @@ const products = [
         name: "Phone Case",
         type: "exclusive",
         description: "Premium phone case featuring your bias! Custom designed with exclusive artwork.",
-        imageTemplate: "/kpop/placeholders/blanks/MEMBER.png"
+        imageTemplate: "/kpop/stayc/blanks/MEMBER.png"
     },
     {
         id: 2,
         name: "Lightstick Keychain",
         type: "exclusive",
         description: "Adorable miniature lightstick keychain. Perfect for your keys or bag!",
-        imageTemplate: "/kpop/placeholders/blanks/MEMBER.png"
+        imageTemplate: "/kpop/stayc/blanks/MEMBER.png"
     },
     {
         id: 3,
         name: "Animal Icon Keychain",
         type: "exclusive",
         description: "Cute animal-themed keychain representing your bias's unique charm.",
-        imageTemplate: "/kpop/placeholders/blanks/MEMBER.png"
+        imageTemplate: "/kpop/stayc/blanks/MEMBER.png"
     },
     {
         id: 4,
         name: "Comeback Era Stickers",
         type: "redbubble",
         description: "Vibrant stickers from their latest comeback era. Collect them all!",
-        imageTemplate: "/kpop/placeholders/blanks/MEMBER.png",
+        imageTemplate: "/kpop/stayc/blanks/MEMBER.png",
         redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/comeback-stickers"
     },
     {
@@ -913,7 +913,7 @@ const products = [
         name: "Autographics Collection",
         type: "redbubble",
         description: "Signature-style graphics perfect for laptops, notebooks, and more.",
-        imageTemplate: "/kpop/placeholders/blanks/MEMBER.png",
+        imageTemplate: "/kpop/stayc/blanks/MEMBER.png",
         redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/autographics"
     },
     {
@@ -921,7 +921,7 @@ const products = [
         name: "Hangul Name Art",
         type: "redbubble",
         description: "Beautiful Korean typography featuring member names in Hangul.",
-        imageTemplate: "/kpop/placeholders/hangul/MEMBER.png",
+        imageTemplate: "/kpop/stayc/hangul/MEMBER.png",
         redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/hangul-names"
     }
 ];
@@ -931,105 +931,105 @@ const quizQuestions = [
     {
         question: "What's your favorite color?",
         options: [
-            { text: "Purple/Blue", answer: "A", members: ["ONE", "THREE"] },
-            { text: "Pink/Red", answer: "B", members: ["TWO", "FOUR"] },
-            { text: "Green/Yellow", answer: "C", members: ["ONE", "FOUR"] },
-            { text: "Black/White", answer: "D", members: ["THREE"] }
+            { text: "Purple/Blue", answer: "A", members: ["SUMIN", "SIEUN"] },
+            { text: "Pink/Red", answer: "B", members: ["SEEUN", "YOON"] },
+            { text: "Green/Yellow", answer: "C", members: ["SUMIN", "YOON"] },
+            { text: "Black/White", answer: "D", members: ["SIEUN"] }
         ]
     },
     {
         question: "Are you an introvert or extrovert?",
         options: [
-            { text: "Introvert - I recharge alone", answer: "A", members: ["ONE", "THREE"] },
-            { text: "Extrovert - I love being around people", answer: "B", members: ["TWO", "FOUR"] }
+            { text: "Introvert - I recharge alone", answer: "A", members: ["SUMIN", "SIEUN"] },
+            { text: "Extrovert - I love being around people", answer: "B", members: ["SEEUN", "YOON"] }
         ]
     },
     {
         question: "Down to earth or head in the clouds?",
         options: [
-            { text: "Down to earth - practical and grounded", answer: "A", members: ["ONE", "FOUR"] },
-            { text: "Head in the clouds - dreamy and imaginative", answer: "B", members: ["TWO", "THREE"] }
+            { text: "Down to earth - practical and grounded", answer: "A", members: ["SUMIN", "YOON"] },
+            { text: "Head in the clouds - dreamy and imaginative", answer: "B", members: ["SEEUN", "SIEUN"] }
         ]
     },
     {
         question: "Do you lead with your head or heart?",
         options: [
-            { text: "Head - logic and reason", answer: "A", members: ["ONE", "THREE"] },
-            { text: "Heart - feelings and intuition", answer: "B", members: ["TWO", "FOUR"] }
+            { text: "Head - logic and reason", answer: "A", members: ["SUMIN", "SIEUN"] },
+            { text: "Heart - feelings and intuition", answer: "B", members: ["SEEUN", "YOON"] }
         ]
     },
     {
         question: "Order or chaos?",
         options: [
-            { text: "Order - I love organization and structure", answer: "A", members: ["ONE", "FOUR"] },
-            { text: "Chaos - spontaneity is exciting!", answer: "B", members: ["TWO", "THREE"] }
+            { text: "Order - I love organization and structure", answer: "A", members: ["SUMIN", "YOON"] },
+            { text: "Chaos - spontaneity is exciting!", answer: "B", members: ["SEEUN", "SIEUN"] }
         ]
     },
     {
         question: "What's your favorite animal?",
         options: [
-            { text: "Cat", answer: "A", members: ["ONE"] },
-            { text: "Dog", answer: "B", members: ["TWO"] },
-            { text: "Rabbit", answer: "C", members: ["THREE"] },
-            { text: "Bird", answer: "D", members: ["FOUR"] }
+            { text: "Cat", answer: "A", members: ["SUMIN"] },
+            { text: "Dog", answer: "B", members: ["SEEUN"] },
+            { text: "Rabbit", answer: "C", members: ["SIEUN"] },
+            { text: "Bird", answer: "D", members: ["YOON"] }
         ]
     }
 ];
 
 // Member profiles
 const members = {
-    ONE: {
-        name: "ONE",
+    SUMIN: {
+        name: "SUMIN",
         color: "#FF5470",
         secondaryColor: "#C71E27",
-        image: "/kpop/placeholders/ONE-profile.png",
-        heroImage: "/kpop/placeholders/hero/ONE.png",
-        fallbackImage: "/kpop/placeholders/blanks/ONE.png",
+        image: "/kpop/stayc/SUMIN-profile.png",
+        heroImage: "/kpop/stayc/hero/SUMIN.png",
+        fallbackImage: "/kpop/stayc/blanks/SUMIN.png",
         playlistId: "PLqyKQU80K0fE0vi2qlYB8FF87ggJHnkX_&si=nw6Wy84DNk1JwnLp"
     },
-    TWO: {
-        name: "TWO",
+    SEEUN: {
+        name: "SEEUN",
         color: "#9BB1FF",
         secondaryColor: "#6A8BD3",
-        image: "/kpop/placeholders/TWO-profile.png",
-        heroImage: "/kpop/placeholders/hero/TWO.png",
-        fallbackImage: "/kpop/placeholders/blanks/TWO.png",
+        image: "/kpop/stayc/SEEUN-profile.png",
+        heroImage: "/kpop/stayc/hero/SEEUN.png",
+        fallbackImage: "/kpop/stayc/blanks/SEEUN.png",
         playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
     },
-    THREE: {
-        name: "THREE",
+    SIEUN: {
+        name: "SIEUN",
         color: "#FFC343",
         secondaryColor: "#FF6F00",
-        image: "/kpop/placeholders/THREE-profile.png",
-        heroImage: "/kpop/placeholders/hero/THREE.png",
-        fallbackImage: "/kpop/placeholders/blanks/THREE.png",
+        image: "/kpop/stayc/SIEUN-profile.png",
+        heroImage: "/kpop/stayc/hero/SIEUN.png",
+        fallbackImage: "/kpop/stayc/blanks/SIEUN.png",
         playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
     },
-    FOUR: {
-        name: "FOUR",
+    YOON: {
+        name: "YOON",
         color: "#ff9800",
         secondaryColor: "#ffb74d",
-        image: "/kpop/placeholders/FOUR-profile.png",
-        heroImage: "/kpop/placeholders/hero/FOUR.png",
-        fallbackImage: "/kpop/placeholders/blanks/FOUR.png",
+        image: "/kpop/stayc/YOON-profile.png",
+        heroImage: "/kpop/stayc/hero/YOON.png",
+        fallbackImage: "/kpop/stayc/blanks/YOON.png",
         playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
     },
-    FIVE: {
-        name: "FIVE",
+    J: {
+        name: "J",
         color: "#D0B3F9",
         secondaryColor: "#8D7FB6",
-        image: "/kpop/placeholders/FIVE-profile.png",
-        heroImage: "/kpop/placeholders/hero/FIVE.png",
-        fallbackImage: "/kpop/placeholders/blanks/FIVE.png",
+        image: "/kpop/stayc/J-profile.png",
+        heroImage: "/kpop/stayc/hero/J.png",
+        fallbackImage: "/kpop/stayc/blanks/J.png",
         playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
     },
     SIX: {
         name: "SIX",
         color: "#FFB3D9",
         secondaryColor: "#F1057D",
-        image: "/kpop/placeholders/SIX-profile.png",
-        heroImage: "/kpop/placeholders/hero/SIX.png",
-        fallbackImage: "/kpop/placeholders/blanks/SIX.png",
+        image: "/kpop/stayc/SIX-profile.png",
+        heroImage: "/kpop/stayc/hero/SIX.png",
+        fallbackImage: "/kpop/stayc/blanks/SIX.png",
         playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
     }
 };
