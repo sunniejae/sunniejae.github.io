@@ -29,9 +29,9 @@ const products = {
         },
         {
             id: 4,
-            title: "NOTHING TO SEE HERE",
-            price: "XD",
-            image: "assets/comingsoon.png",
+            title: "But Just One - Sakura Meme Shirt",
+            price: "$30",
+            image: "assets/JUSTONE.png",
             type: "exclusive"
         }
     ],
