@@ -2,42 +2,42 @@
 const MEMBERS = {
   TWO: { 
     name: 'TWO', 
-    colors: { primary: '#d1d5d4', secondary: '#F6F6F6', accent: '#F4A8FE', dark: '#111316' },
+    colors: { primary: '#d1d5d4', light: '#F6F6F6', accent: '#F4A8FE', dark: '#111316' },
     description: 'Bold and energetic! You match with TWO, someone who brings passion and excitement to everything they do.'
   },
   ONE: { 
     name: 'ONE', 
-    colors: { primary: '#9D84FF', secondary: '#E8E0FF', accent: '#6B4CE6', dark: '#4A2FB8' },
+    colors: { primary: '#e4ec97', light: '#f4f4ff', accent: '#c876a4', dark: '#0e192e' },
     description: 'Elegant and mysterious! You match with ONE, someone who captivates with grace and thoughtful charm.'
   },
   THREE: { 
     name: 'THREE', 
-    colors: { primary: '#FF8A5B', secondary: '#FFE4D6', accent: '#E85D2C', dark: '#B8441A' },
+    colors: { primary: '#34f063', light: '#eef1f6', accent: '#71cbd4', dark: '#71cbd4' },
     description: 'Fierce and confident! You match with THREE, someone who leads with strength and determination.'
   },
   FOUR: { 
     name: 'FOUR', 
-    colors: { primary: '#4ECDC4', secondary: '#D4F4F2', accent: '#2BA89E', dark: '#1A7A72' },
+    colors: { primary: '#d783ad', light: '#f1f2ea', accent: '#05736e', dark: '#020610' },
     description: 'Bright and optimistic! You match with FOUR, someone who spreads joy and positive energy everywhere.'
   },
   FIVE: { 
     name: 'FIVE', 
-    colors: { primary: '#1bca21', secondary: '#a7db5d', accent: '#62466B', dark: '#004602' },
+    colors: { primary: '#c495da', light: '#effbf2', accent: '#345d7d', dark: '#390919' },
     description: 'Steady and reliable! You match with FIVE, someone who brings warmth and stability to any situation.'
   },
   SIX: { 
     name: 'SIX', 
-    colors: { primary: '#6BCF7F', secondary: '#E0F7E4', accent: '#45A557', dark: '#2F7A3E' },
+    colors: { primary: '#dc81d8', light: '#e8e7fc', accent: '#4cbcce', dark: '#11454e' },
     description: 'Fresh and unique! You match with SIX, someone who stands out with their creative and refreshing personality.'
   },
   SEVEN: { 
     name: 'SEVEN', 
-    colors: { primary: '#A8DADC', secondary: '#E8F5F6', accent: '#457B9D', dark: '#1D3557' },
+    colors: { primary: '#dc81d8', light: '#f0f0f0', accent: '#bf66bc', dark: '#052724' },
     description: 'Calm and thoughtful! You match with SEVEN, someone who brings depth and serenity to everything they touch.'
   },
   EIGHT: { 
     name: 'EIGHT', 
-    colors: { primary: '#F4A6D7', secondary: '#FDE8F3', accent: '#E056A8', dark: '#A83C77' },
+    colors: { primary: '#65c2d3', light: '#fafbfb', accent: '#b2b5ed', dark: '#062524' },
     description: 'Sweet and charming! You match with EIGHT, someone who wins hearts with their adorable and lovable nature.'
   }
 };
@@ -264,24 +264,26 @@ function initMemberSelector() {
 // Update theme colors
 function updateTheme() {
   const theme = MEMBERS[currentBias].colors;
-  document.body.style.backgroundColor = theme.secondary;
-  
+
+  const root = document.documentElement;
+
+  root.style.setProperty('--color-primary', theme.primary);
+  root.style.setProperty('--color-light', theme.light);
+  root.style.setProperty('--color-accent', theme.accent);
+  root.style.setProperty('--color-dark', theme.dark);
+
+  // Header gradient stays special
   const header = document.getElementById('header');
-  header.style.background = `linear-gradient(135deg, ${theme.primary} 0%, ${theme.accent} 100%)`;
-  
-  const quizBtn = document.getElementById('quizBtn');
-  quizBtn.style.color = theme.primary;
-  
-  const wishlistFab = document.getElementById('wishlistFab');
-  wishlistFab.style.backgroundColor = theme.accent;
-  
-  const wishlistBadge = document.getElementById('wishlistBadge');
-  wishlistBadge.style.backgroundColor = theme.dark;
+  header.style.background = `linear-gradient(
+    135deg,
+    ${theme.primary} 0%,
+    ${theme.accent} 100%
+  )`;
+}
+
   
   // Update all themed elements
   updateThemedElements(theme);
-}
-
 // Update hero image
 function updateHeroImage() {
   const heroImg = document.getElementById('heroImg');
@@ -345,7 +347,7 @@ function renderProducts() {
     const isInWishlist = wishlist.some(item => item.id === product.id);
     
     card.innerHTML = `
-      <div class="product-image" style="background-color: ${theme.secondary}">
+      <div class="product-image" style="background-color: ${theme.dark}">
         <img src="${imageUrl}" alt="${product.name}" onerror="this.src='${fallbackUrl}'">
       </div>
       <div class="product-info">
@@ -354,7 +356,7 @@ function renderProducts() {
         <p class="product-description">${product.description}</p>
         ${product.type === 'redbubble' ? 
           `<a href="${product.redbubbleUrl}" target="_blank" rel="noopener noreferrer" class="product-btn" style="background-color: ${theme.primary}">
-            🛍️ Shop on Redbubble
+            Shop on Redbubble
           </a>` :
           `<button class="product-btn" style="background-color: ${isInWishlist ? '#ccc' : theme.primary}" 
             ${isInWishlist ? 'dTHREEbled' : ''} 
@@ -504,7 +506,7 @@ function renderQuiz() {
     btn.style.color = theme.dark;
     
     btn.addEventListener('mouseenter', () => {
-      btn.style.backgroundColor = theme.secondary;
+      btn.style.backgroundColor = theme.light;
     });
     
     btn.addEventListener('mouseleave', () => {
