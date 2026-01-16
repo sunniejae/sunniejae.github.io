@@ -1,35 +1,45 @@
-// Member data 
+// Member data with planet placeholders
 const MEMBERS = {
-  MAI: { 
-    name: 'MAI', 
-    colors: { primary: '#ff5470', secondary: '#faf0e6', accent: '#ce2029', dark: '#660708' },
-    description: 'Bold and energetic! You match with MAI, someone who brings passion and excitement to everything they do.'
+  LESSERAFIM: { 
+    name: 'LESSERAFIM', 
+    colors: { primary: '#502c3a', light: '#f0eff2', accent: '#3f4e67', dark: '#111316' },
+    description: 'Bold and energetic! You match with LESSERAFIM, someone who brings passion and excitement to everything they do.'
   },
-  JEEMIN: { 
-    name: 'JEEMIN', 
-    colors: { primary: '#9bb1ff', secondary: '#eceef2', accent: '#6a8bd3', dark: '#364964' },
-    description: 'Elegant and mysterious! You match with JEEMIN, someone who captivates with grace and thoughtful charm.'
+  ONEUS: { 
+    name: 'ONEUS', 
+    colors: { primary: '#026199', light: '#E5FFF8', accent: '#00966c', dark: '#00070B' },
+    description: 'Elegant and mysterious! You match with ONEUS, someone who captivates with grace and thoughtful charm.'
   },
-  KOKO: { 
-    name: 'KOKO', 
-    colors: { primary: '#FF8A5B', secondary: '#FFE4D6', accent: '#E85D2C', dark: '#B8441A' },
-    description: 'Fierce and confident! You match with KOKO, someone who leads with strength and determination.'
+  IZNA: { 
+    name: 'IZNA', 
+    colors: { primary: '#34f063', light: '#eef1f6', accent: '#71cbd4', dark: '#71cbd4' },
+    description: 'Fierce and confident! You match with IZNA, someone who leads with strength and determination.'
   },
-  SARANG: { 
-    name: 'SARANG', 
-    colors: { primary: '#a8e6cf', secondary: '#f2fffa', accent: '#408169', dark: '#202925' },
-    description: 'Bright and optimistic! You match with SARANG, someone who spreads joy and positive energy everywhere.'
+  STAYC: { 
+    name: 'STAYC', 
+    colors: { primary: '#d783ad', light: '#f1f2ea', accent: '#05736e', dark: '#020610' },
+    description: 'Bright and optimistic! You match with STAYC, someone who spreads joy and positive energy everywhere.'
   },
-  JUNGEUN: { 
-    name: 'JUNGEUN', 
-    colors: { primary: '#d0b3f9', secondary: '##efebf4', accent: '#8d7fb6', dark: '#4b426d' },
-    description: 'Steady and reliable! You match with JUNGEUN, someone who brings warmth and stability to any situation.'
+  AESPA: { 
+    name: 'AESPA', 
+    colors: { primary: '#bd93e9', light: '#F7FEFE', accent: '#8ceaee', dark: '#0D0517' },
+    description: 'Steady and reliable! You match with AESPA, someone who brings warmth and stability to any situation.'
   },
-  SAEBI: { 
-    name: 'SAEBI', 
-    colors: { primary: '#ffb3d9', secondary: '#f1f5f6', accent: '#f60380', dark: '#812c45' },
-    description: 'Fresh and unique! You match with SAEBI, someone who stands out with their creative and refreshing personality.'
+  SKZ: { 
+    name: 'SKZ', 
+    colors: { primary: '#dc81d8', light: '#e8e7fc', accent: '#4cbcce', dark: '#11454e' },
+    description: 'Fresh and unique! You match with SKZ, someone who stands out with their creative and refreshing personality.'
   },
+  SOLOISTS: { 
+    name: 'SOLOISTS', 
+    colors: { primary: '#dc81d8', light: '#f0f0f0', accent: '#bf66bc', dark: '#052724' },
+    description: 'Calm and thoughtful! You match with SOLOISTS, someone who brings depth and serenity to everything they touch.'
+  },
+  ILLIT: { 
+    name: 'ILLIT', 
+    colors: { primary: '#65c2d3', light: '#fafbfb', accent: '#b2b5ed', dark: '#062524' },
+    description: 'Sweet and charming! You match with ILLIT, someone who wins hearts with their adorable and lovable nature.'
+  }
 };
 
 // Quiz questions and answers
@@ -37,70 +47,70 @@ const QUIZ_DATA = [
   {
     question: "What's your favorite color?",
     answers: [
-      { text: "Red", members: ['MAI',] },
-      { text: "Blue", members: ['JEEMIN'] },
-      { text: "Yellow", members: ['KOKO'] },
-      { text: "Green", members: ['SARANG'] },
-      { text: "Purple", members: ['JUNGEUN'] },
-      { text: "Pink", members: ['SAEBI'] },
-
+      { text: "Pink/Red", members: ['LESSERAFIM', 'ILLIT'] },
+      { text: "Purple/Violet", members: ['ONEUS'] },
+      { text: "Orange/Coral", members: ['IZNA'] },
+      { text: "Teal/Turquoise", members: ['STAYC'] },
+      { text: "Yellow/Gold", members: ['AESPA'] },
+      { text: "Green/Mint", members: ['SKZ'] },
+      { text: "Blue/Navy", members: ['SOLOISTS'] }
     ]
   },
   {
     question: "Are you more...",
     answers: [
-      { text: "Introvert", members: ['JEEMIN',] },
-      { text: "Extrovert", members: ['MAI', 'KOKO', 'SARANG', 'JUNGEUN', 'SAEBI'] }
+      { text: "Introvert", members: ['ONEUS', 'SOLOISTS', 'ILLIT'] },
+      { text: "Extrovert", members: ['LESSERAFIM', 'IZNA', 'STAYC', 'AESPA', 'SKZ'] }
     ]
   },
   {
     question: "Which describes you better?",
     answers: [
-      { text: "Down to earth", members: ['JUNGEUN', 'SAEBI'] },
-      { text: "Head in the clouds", members: ['MAI', 'JEEMIN', 'KOKO', 'SARANG'] }
+      { text: "Down to earth", members: ['AESPA', 'SKZ', 'SOLOISTS'] },
+      { text: "Head in the clouds", members: ['LESSERAFIM', 'ONEUS', 'IZNA', 'STAYC', 'ILLIT'] }
     ]
   },
   {
     question: "Do you follow your...",
     answers: [
-      { text: "Head", members: ['JEEMIN', 'JUNGEUN'] },
-      { text: "Heart", members: ['MAI', 'KOKO', 'SARANG', 'SAEBI'] }
+      { text: "Head", members: ['ONEUS', 'AESPA', 'SOLOISTS'] },
+      { text: "Heart", members: ['LESSERAFIM', 'IZNA', 'STAYC', 'SKZ', 'ILLIT'] }
     ]
   },
   {
     question: "Which appeals to you more?",
     answers: [
-      { text: "Order", members: ['JEEMIN', 'JUNGEUN','SAEBI'] },
-      { text: "Chaos", members: ['MAI', 'KOKO', 'SARANG'] }
+      { text: "Order", members: ['ONEUS', 'AESPA', 'SOLOISTS', 'SKZ'] },
+      { text: "Chaos", members: ['LESSERAFIM', 'IZNA', 'STAYC', 'ILLIT'] }
     ]
   },
   {
     question: "Pick your favorite animal:",
     answers: [
-      { text: "Fox", members: ['MAI'] },
-      { text: "Bear", members: ['JEEMIN'] },
-      { text: "Cat", members: ['KOKO'] },
-      { text: "Dog", members: ['SARANG'] },
-      { text: "Cheetah", members: ['JUNGEUN'] },
-      { text: "Bunny", members: ['SAEBI'] }
+      { text: "Cat", members: ['LESSERAFIM', 'ONEUS'] },
+      { text: "Dog", members: ['IZNA', 'STAYC'] },
+      { text: "Rabbit", members: ['ILLIT'] },
+      { text: "Bird", members: ['SKZ'] },
+      { text: "Fish", members: ['SOLOISTS'] },
+      { text: "Tiger", members: ['AESPA'] }
     ]
   },
   {
     question: "Which artist do you also follow?",
     answers: [
-      { text: "NewJeans", members: ['MAI'] },
-      { text: "aespa", members: ['JEEMIN'] },
-      { text: "IVE", members: ['KOKO', 'JUNGEUN'] },
-      { text: "ITZY", members: ['SARANG', 'SAEBI'] }
+      { text: "NewSKZeans", members: ['LESSERAFIM', 'ILLIT'] },
+      { text: "aespa", members: ['ONEUS', 'SOLOISTS'] },
+      { text: "IVE", members: ['IZNA', 'AESPA'] },
+      { text: "ITZY", members: ['STAYC', 'SKZ'] }
     ]
   },
   {
     question: "Pick your favorite era:",
     answers: [
-      { text: "Debut Era", members: ['MAI', 'KOKO'] },
-      { text: "First Comeback", members: ['JEEMIN', 'SARANG'] },
-      { text: "Peak Era", members: ['JUNGEUN', 'SAEBI'] },
-      { text: "Latest Release", members: ['MAI'] }
+      { text: "Debut Era", members: ['LESSERAFIM', 'IZNA'] },
+      { text: "First Comeback", members: ['ONEUS', 'STAYC'] },
+      { text: "Peak Era", members: ['AESPA', 'SKZ'] },
+      { text: "Latest Release", members: ['SOLOISTS', 'ILLIT'] }
     ]
   }
 ];
@@ -161,7 +171,7 @@ const PRODUCTS = [
 ];
 
 // State
-let currentBias = 'MAI';
+let currentBias = 'LESSERAFIM';
 let wishlist = [];
 let quizStep = 0;
 let quizAnswers = [];
@@ -254,30 +264,32 @@ function initMemberSelector() {
 // Update theme colors
 function updateTheme() {
   const theme = MEMBERS[currentBias].colors;
-  document.body.style.backgroundColor = theme.secondary;
-  
+
+  const root = document.documentElement;
+
+  root.style.setProperty('--color-primary', theme.primary);
+  root.style.setProperty('--color-light', theme.light);
+  root.style.setProperty('--color-accent', theme.accent);
+  root.style.setProperty('--color-dark', theme.dark);
+
+  // Header gradient stays special
   const header = document.getElementById('header');
-  header.style.background = `linear-gradient(135deg, ${theme.primary} 0%, ${theme.dark} 100%)`;
-  
-  const quizBtn = document.getElementById('quizBtn');
-  quizBtn.style.color = theme.primary;
-  
-  const wishlistFab = document.getElementById('wishlistFab');
-  wishlistFab.style.backgroundColor = theme.accent;
-  
-  const wishlistBadge = document.getElementById('wishlistBadge');
-  wishlistBadge.style.backgroundColor = theme.dark;
+  header.style.background = `linear-gradient(
+    135deg,
+    ${theme.primary} 0%,
+    ${theme.accent} 100%
+  )`;
+}
+
   
   // Update all themed elements
   updateThemedElements(theme);
-}
-
 // Update hero image
 function updateHeroImage() {
   const heroImg = document.getElementById('heroImg');
-  heroImg.src = `/kpop/assets/hero-${currentBias}.png`;
+  heroImg.src = `/kpop/home/hero/${currentBias}.png`;
   heroImg.onerror = () => {
-    heroImg.src = `/kpop/assets/blank-${currentBias}.png`;
+    heroImg.src = `/kpop/home/blank/${currentBias}.png`;
   };
 }
 
@@ -329,13 +341,13 @@ function renderProducts() {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    const imageUrl = `/kpop/assets/${product.imageFormat}-${currentBias}.png`;
-    const fallbackUrl = `/kpop/assets/blank-${currentBias}.png`;
+    const imageUrl = `/kpop/home/${product.imageFormat}/${currentBias}.png`;
+    const fallbackUrl = `/kpop/home/blank/${currentBias}.png`;
     
     const isInWishlist = wishlist.some(item => item.id === product.id);
     
     card.innerHTML = `
-      <div class="product-image" style="background-color: ${theme.secondary}">
+      <div class="product-image" style="background-color: ${theme.dark}">
         <img src="${imageUrl}" alt="${product.name}" onerror="this.src='${fallbackUrl}'">
       </div>
       <div class="product-info">
@@ -344,10 +356,10 @@ function renderProducts() {
         <p class="product-description">${product.description}</p>
         ${product.type === 'redbubble' ? 
           `<a href="${product.redbubbleUrl}" target="_blank" rel="noopener noreferrer" class="product-btn" style="background-color: ${theme.primary}">
-            🛍️ Shop on Redbubble
+            Shop on Redbubble
           </a>` :
           `<button class="product-btn" style="background-color: ${isInWishlist ? '#ccc' : theme.primary}" 
-            ${isInWishlist ? 'disabled' : ''} 
+            ${isInWishlist ? 'dIZNAbled' : ''} 
             onclick="addToWishlist('${product.id}')">
             ♡ ${isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}
           </button>`
@@ -403,8 +415,8 @@ function renderWishlist() {
     form.style.display = 'none';
   } else {
     container.innerHTML = wishlist.map(item => {
-      const imageUrl = `/kpop/assets/${item.imageFormat}-${currentBias}.png`;
-      const fallbackUrl = `/kpop/assets/blank-${currentBias}.png`;
+      const imageUrl = `/kpop/home/${item.imageFormat}/${currentBias}.png`;
+      const fallbackUrl = `/kpop/home/blank/${currentBias}.png`;
       
       return `
         <div class="wishlist-item">
@@ -494,7 +506,7 @@ function renderQuiz() {
     btn.style.color = theme.dark;
     
     btn.addEventListener('mouseenter', () => {
-      btn.style.backgroundColor = theme.secondary;
+      btn.style.backgroundColor = theme.light;
     });
     
     btn.addEventListener('mouseleave', () => {
@@ -544,11 +556,11 @@ function showQuizResult(memberKey) {
   
   // Set result image
   const resultImage = document.getElementById('resultImage');
-  resultImage.src = `/kpop/assets/result-${memberKey}.png`;
+  resultImage.src = `/kpop/home/result/${memberKey}.png`;
   resultImage.onerror = () => {
-    resultImage.src = `/kpop/assets/hero-${memberKey}.png`;
+    resultImage.src = `/kpop/home/hero/${memberKey}.png`;
     resultImage.onerror = () => {
-      resultImage.src = `/kpop/assets/blank-${memberKey}.png`;
+      resultImage.src = `/kpop/home/blank/${memberKey}.png`;
     };
   };
   
