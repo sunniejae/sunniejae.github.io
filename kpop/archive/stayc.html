@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-pop Fandom Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1db954;
+            --secondary-color: #1ed760;
+            --bg-dark: #121212;
+            --bg-card: #181818;
+            --bg-elevated: #282828;
+            --text-color: #ffffff;
+            --text-muted: #b3b3b3;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #000000;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 0.75em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .bias-selector {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-elevated);
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .bias-selector:hover {
+            background: #333;
+        }
+
+        .sidebar-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            border-radius: 500px;
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-btn:hover {
+            border-color: var(--text-color);
+            transform: scale(1.02);
+        }
+
+        .sidebar-btn.primary {
+            background: var(--primary-color);
+            border: none;
+            color: #000;
+        }
+
+        .sidebar-btn.primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .wishlist-badge {
+            margin-left: auto;
+            background: var(--primary-color);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-dark) 300px);
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 340px;
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.6) 0%, var(--bg-dark) 100%);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            background: linear-gradient(180deg, transparent 0%, rgba(18, 18, 18, 0.8) 100%);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .content-wrapper {
+            padding: 0 24px 24px 24px;
+        }
+
+        .header-section {
+            margin-bottom: 32px;
+        }
+
+        .header-section h1 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .header-section p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 24px;
+            padding-bottom: 100px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.3s cubic-bezier(0.3, 0, 0.4, 1);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            background: var(--bg-elevated);
+        }
+
+        .product-image-container {
+            position: relative;
+            margin-bottom: 16px;
+            aspect-ratio: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-image-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        }
+
+        .play-button {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.3s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card:hover .play-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-info {
+            margin-bottom: 12px;
+        }
+
+        .product-title {
+            font-size: 1em;
+            font-weight: 700;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-type {
+            display: inline-block;
+            font-size: 0.75em;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            font-size: 0.875em;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 16px;
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            border-radius: 500px;
+            color: var(--text-color);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            border-color: var(--text-color);
+            transform: scale(1.04);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 48px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+
+        .modal h2 {
+            font-size: 2em;
+            font-weight: 900;
+            margin-bottom: 24px;
+        }
+
+        /* Quiz */
+        .quiz-question {
+            margin-bottom: 32px;
+        }
+
+        .quiz-question h3 {
+            margin-bottom: 16px;
+            color: var(--text-color);
+            font-size: 1.2em;
+        }
+
+        .quiz-question h3:first-of-type {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            font-weight: 400;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: var(--bg-elevated);
+            border-color: var(--primary-color);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(29, 185, 84, 0.1);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+        }
+
+        /* Wishlist */
+        .wishlist-item {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .wishlist-category {
+            margin-bottom: 32px;
+        }
+
+        .wishlist-category h3 {
+            font-size: 1.2em;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 8px 16px;
+            border-radius: 500px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Quiz Result */
+        .quiz-result {
+            text-align: center;
+            padding: 32px 0;
+        }
+
+        .quiz-result img {
+            max-width: 200px;
+            border-radius: 12px;
+            margin: 24px auto;
+            display: block;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .quiz-result h2 {
+            font-size: 2.5em;
+            margin-bottom: 16px;
+        }
+
+        .quiz-result p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        /* Info Modal */
+        .info-modal-content {
+            line-height: 1.8;
+        }
+
+        .info-modal-content h3 {
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .info-modal-content ul {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .info-modal-content li {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .info-modal-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Playlist */
+        .playlist-container {
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .playlist-placeholder {
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .playlist-placeholder:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .playlist-embed {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+
+        .playlist-controls {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .playlist-info {
+            flex: 1;
+        }
+
+        .playlist-title {
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .playlist-artist {
+            font-size: 0.75em;
+            color: var(--text-muted);
+        }
+
+        .collapse-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .collapse-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                padding: 0;
+            }
+
+            .hero-section {
+                height: 240px;
+            }
+
+            .content-wrapper {
+                padding: 0 16px 16px 16px;
+            }
+
+            .header-section h1 {
+                font-size: 2em;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 16px;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+
+            /* Mobile menu button */
+            .mobile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px;
+                background: #000;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-header {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">⟡ K-Shop</div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Your Bias</div>
+                <select class="bias-selector" id="biasSelector">
+                    <option value="">Select Your Bias</option>
+                    <option value="SUMIN">SUMIN</option>
+                    <option value="SEEUN">SEEUN</option>
+                    <option value="SIEUN">SIEUN</option>
+                    <option value="YOON">YOON</option>
+                </select>
+            </div>
+
+            <button class="sidebar-btn" onclick="openQuiz()">
+                💿 Find Your Bias
+            </button>
+            
+            <button class="sidebar-btn" onclick="openHowToOrder()">
+                ℹ️ How to Order
+            </button>
+            
+            <button class="sidebar-btn primary" onclick="openWishlist()">
+                ♡ Your Wishlist
+                <span class="wishlist-badge" id="wishlistCount">0</span>
+            </button>
+
+            <div class="sidebar-section" style="margin-top: auto;">
+                <div class="sidebar-title">Now Playing</div>
+                <div class="playlist-container" id="playlistContainer">
+                    <div class="playlist-placeholder" onclick="openPlaylist()">
+                        <div style="font-size: 2em; margin-bottom: 8px;">🎵</div>
+                        <div style="font-size: 0.85em; color: var(--text-muted);">Click to play music</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="mobile-header">
+                <div class="logo">⟡ K-Shop</div>
+                <button class="btn btn-primary" onclick="openWishlist()">
+                    ♡ <span id="wishlistCountMobile">0</span>
+                </button>
+            </div>
+
+            <!-- Hero Section -->
+            <div class="hero-section" id="heroSection">
+                <img id="heroImage" class="hero-image" src="" alt="Hero" style="display: none;">
+                <div class="hero-content">
+                    <span class="hero-badge" id="heroBadge">Collection</span>
+                    <h1 id="mainTitle" style="font-size: 4em; font-weight: 900; margin: 0;">Discover</h1>
+                    <p id="mainSubtitle" style="font-size: 1em; color: var(--text-color); margin-top: 8px;">Show your bias some love with exclusive merch</p>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2>All Products</h2>
+                </div>
+
+                <div class="product-grid" id="productGrid"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div class="modal" id="quizModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeQuiz()">&times;</button>
+            <div id="quizContent"></div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="modal" id="wishlistModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWishlist()">&times;</button>
+            <h2>♡ Your Wishlist</h2>
+            <div id="wishlistContent"></div>
+            <div id="wishlistForm" style="margin-top: 32px;">
+                <h3 style="margin-bottom: 24px;">Place Your Order</h3>
+                <div class="form-group">
+                    <label>Name *</label>
+                    <input type="text" id="orderName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="orderEmail" required>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="subscribeCheck" checked>
+                    <label for="subscribeCheck">Subscribe to emails from Sunnie Jae</label>
+                </div>
+                <button class="btn btn-primary" onclick="submitOrder()" style="width: 100%;">
+                    ♡ Request Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Order Modal -->
+    <div class="modal" id="howToOrderModal">
+        <div class="modal-content info-modal-content">
+            <button class="modal-close" onclick="closeHowToOrder()">&times;</button>
+            <h2>How to Order</h2>
+            <p>Products on this page are available via Redbubble or By Request.</p>
+            
+            <h3>☘︎ Redbubble Items</h3>
+            <p>Items available on Redbubble are linked directly to the collection. Simply click the "Shop on Redbubble" button on any product card.</p>
+            
+            <h3>🎧 Exclusive Items</h3>
+            <p>For custom items, use the "Add to Wishlist" function. Once you've built your wishlist, click the heart icon or scroll down to the order form.</p>
+            
+            <h3>♡ Special Requests</h3>
+            <p>For more details or special requests, email: <a href="mailto:orders@sunniejae.com">orders@sunniejae.com</a></p>
+            
+            <button class="btn btn-primary" onclick="closeHowToOrder()" style="margin-top: 24px; width: 100%;">
+                Got it!
+            </button>
+        </div>
+    </div>
+
+        <script>
+/* ===============================
+   DATA
+================================ */
+// Product Database
+const products = [
+    {
+        id: 1,
+        name: "Phone Case",
+        type: "exclusive",
+        description: "Premium phone case featuring your bias! Custom designed with exclusive artwork.",
+        imageTemplate: "assets/phonecase-MEMBER.png"
+    },
+    {
+        id: 2,
+        name: "Lightstick Keychain",
+        type: "exclusive",
+        description: "Adorable miniature lightstick keychain. Perfect for your keys or bag!",
+        imageTemplate: "assets/lightstickkeychain-MEMBER.png"
+    },
+    {
+        id: 3,
+        name: "Animal Icon Keychain",
+        type: "exclusive",
+        description: "Cute animal-themed keychain representing your bias's unique charm.",
+        imageTemplate: "assets/animalkeychain-MEMBER.png"
+    },
+    {
+        id: 4,
+        name: "Comeback Era Stickers",
+        type: "redbubble",
+        description: "Vibrant stickers from their latest comeback era. Collect them all!",
+        imageTemplate: "assets/stickers-MEMBER.png",
+        redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/comeback-stickers"
+    },
+    {
+        id: 5,
+        name: "Autographics Collection",
+        type: "redbubble",
+        description: "Signature-style graphics perfect for laptops, notebooks, and more.",
+        imageTemplate: "assets/autographics-MEMBER.png",
+        redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/autographics"
+    },
+    {
+        id: 6,
+        name: "Hangul Name Art",
+        type: "redbubble",
+        description: "Beautiful Korean typography featuring member names in Hangul.",
+        imageTemplate: "assets/hangul-MEMBER.png",
+        redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/hangul-names"
+    }
+];
+
+// Quiz Questions
+const quizQuestions = [
+    {
+        question: "What's your favorite color?",
+        options: [
+            { text: "Purple/Blue", answer: "A", members: ["SUMIN", "SIEUN"] },
+            { text: "Pink/Red", answer: "B", members: ["SEEUN", "YOON"] },
+            { text: "Green/Yellow", answer: "C", members: ["SUMIN", "YOON"] },
+            { text: "Black/White", answer: "D", members: ["SIEUN"] }
+        ]
+    },
+    {
+        question: "Are you an introvert or extrovert?",
+        options: [
+            { text: "Introvert - I recharge alone", answer: "A", members: ["SUMIN", "SIEUN"] },
+            { text: "Extrovert - I love being around people", answer: "B", members: ["SEEUN", "YOON"] }
+        ]
+    },
+    {
+        question: "Down to earth or head in the clouds?",
+        options: [
+            { text: "Down to earth - practical and grounded", answer: "A", members: ["SUMIN", "YOON"] },
+            { text: "Head in the clouds - dreamy and imaginative", answer: "B", members: ["SEEUN", "SIEUN"] }
+        ]
+    },
+    {
+        question: "Do you lead with your head or heart?",
+        options: [
+            { text: "Head - logic and reason", answer: "A", members: ["SUMIN", "SIEUN"] },
+            { text: "Heart - feelings and intuition", answer: "B", members: ["SEEUN", "YOON"] }
+        ]
+    },
+    {
+        question: "Order or chaos?",
+        options: [
+            { text: "Order - I love organization and structure", answer: "A", members: ["SUMIN", "YOON"] },
+            { text: "Chaos - spontaneity is exciting!", answer: "B", members: ["SEEUN", "SIEUN"] }
+        ]
+    },
+    {
+        question: "What's your favorite animal?",
+        options: [
+            { text: "Cat", answer: "A", members: ["SUMIN"] },
+            { text: "Dog", answer: "B", members: ["SEEUN"] },
+            { text: "Rabbit", answer: "C", members: ["SIEUN"] },
+            { text: "Bird", answer: "D", members: ["YOON"] }
+        ]
+    }
+];
+
+// Member profiles
+const members = {
+    SUMIN: {
+        name: "SUMIN",
+        color: "#e9f299",
+        secondaryColor: "#d883a3",
+        image: "/assets/SUMIN-profile.png",
+        heroImage: "/kpop/assets/hero-SUMIN.png",
+        fallbackImage: "/kpop/assets/blank-SUMIN.png",
+        playlistId: "PLqyKQU80K0fE0vi2qlYB8FF87ggJHnkX_&si=nw6Wy84DNk1JwnLp"
+    },
+    SEEUN: {
+        name: "SEEUN",
+        color: "#e91e63",
+        secondaryColor: "#f06292",
+        image: "assets/SEEUN-profile.png",
+        heroImage: "assets/hero-SEEUN.png",
+        fallbackImage: "assets/blank-SEEUN.png",
+        playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
+    },
+    SIEUN: {
+        name: "SIEUN",
+        color: "#2196f3",
+        secondaryColor: "#64b5f6",
+        image: "assets/SIEUN-profile.png",
+        heroImage: "assets/hero-SIEUN.png",
+        fallbackImage: "assets/blank-SIEUN.png",
+        playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
+    },
+    YOON: {
+        name: "YOON",
+        color: "#ff9800",
+        secondaryColor: "#ffb74d",
+        image: "assets/YOON-profile.png",
+        heroImage: "assets/hero-YOON.png",
+        fallbackImage: "assets/blank-YOON.png",
+        playlistId: "PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-"
+    }
+};
+
+/* ===============================
+   STATE
+================================ */
+let currentBias = localStorage.getItem('selectedBias') || '';
+let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+let quizAnswers = {};
+let playlistExpanded = localStorage.getItem('playlistExpanded') === 'true';
+const DEFAULT_THEME = { primary: '#1db954', secondary: '#1ed760' };
+
+/* ===============================
+   INITIALIZATION
+================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    if (currentBias) {
+        document.getElementById('biasSelector').value = currentBias;
+        updateTheme(currentBias);
+    }
+    renderProducts();
+    updateWishlistCount();
+    updatePlaylist();
+});
+
+/* ===============================
+   BIAS SELECTOR
+================================ */
+document.getElementById('biasSelector').addEventListener('change', (e) => {
+    currentBias = e.target.value;
+    localStorage.setItem('selectedBias', currentBias);
+    updateTheme(currentBias);
+    renderProducts();
+    updatePlaylist();
+});
+
+/* ===============================
+   THEME UPDATE
+================================ */
+function updateTheme(bias) {
+    const root = document.documentElement;
+    const heroImg = document.getElementById('heroImage');
+
+    if (!members[bias]) {
+        // Reset
+        root.style.setProperty('--primary-color', DEFAULT_THEME.primary);
+        root.style.setProperty('--secondary-color', DEFAULT_THEME.secondary);
+        document.getElementById('mainTitle').textContent = 'Discover';
+        document.getElementById('mainSubtitle').textContent =
+            'Show your bias some love with exclusive merch';
+        document.getElementById('heroBadge').textContent = 'Collection';
+        heroImg.style.display = 'none';
+        heroImg.src = '';
+        return;
+    }
+
+    root.style.setProperty('--primary-color', members[bias].color);
+    root.style.setProperty('--secondary-color', members[bias].secondaryColor);
+    document.getElementById('mainTitle').textContent = members[bias].name;
+    document.getElementById('mainSubtitle').textContent = `Exclusive ${members[bias].name} merchandise`;
+    document.getElementById('heroBadge').textContent = `${members[bias].name} Collection`;
+    heroImg.src = members[bias].heroImage;
+    heroImg.style.display = 'block';
+    heroImg.onerror = () => (heroImg.style.display = 'none');
+}
+
+/* ===============================
+   PRODUCTS
+================================ */
+function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '';
+
+    products.forEach(product => {
+        const imagePath = currentBias
+            ? product.imageTemplate.replace('MEMBER', currentBias)
+            : product.imageTemplate.replace('-MEMBER', '');
+
+        const fallbackText = currentBias
+            ? members[currentBias]?.name
+            : 'Select a bias';
+
+        const card = document.createElement('div');
+        card.className = 'product-card';
+
+        card.innerHTML = `
+            <div class="product-image-container">
+                <img class="product-image" alt="${product.name}">
+                <div class="product-image-fallback" style="display:none">
+                    ${product.name}<br>
+                    <small>${fallbackText}</small>
+                </div>
+                <div class="play-button">
+                    ${product.type === 'exclusive' ? '♡' : '☘︎'}
+                </div>
+            </div>
+            <div class="product-info">
+                <span class="product-type">${product.type === 'exclusive' ? '🎧 Exclusive' : '☘︎ Redbubble'}</span>
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-description">${product.description}</p>
+            </div>
+            <div class="product-actions">
+                ${product.type === 'exclusive'
+                    ? `<button class="btn btn-primary">♡ Add to Wishlist</button>`
+                    : `<button class="btn btn-primary">☘︎ Shop Now</button>`
+                }
+            </div>
+        `;
+
+        const img = card.querySelector('.product-image');
+        const fallback = card.querySelector('.product-image-fallback');
+        img.src = imagePath;
+        img.onerror = () => { img.style.display = 'none'; fallback.style.display = 'flex'; };
+
+        const actionBtn = card.querySelector('.btn-primary');
+        actionBtn.onclick = product.type === 'exclusive'
+            ? () => addToWishlist(product.id)
+            : () => window.open(product.redbubbleLink, '_blank');
+
+        grid.appendChild(card);
+    });
+}
+
+/* ===============================
+   WISHLIST
+================================ */
+function addToWishlist(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const wishlistItem = {
+        productId,
+        name: product.name,
+        type: product.type,
+        bias: currentBias || 'no-bias',
+        biasName: currentBias ? members[currentBias]?.name : 'No bias selected'
+    };
+
+    wishlist.push(wishlistItem);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    updateWishlistCount();
+    alert(`⟡ ${product.name} added to wishlist!`);
+}
+
+function updateWishlistCount() {
+    const count = wishlist.length;
+    document.getElementById('wishlistCount').textContent = count;
+    const mobileCount = document.getElementById('wishlistCountMobile');
+    if (mobileCount) mobileCount.textContent = count;
+}
+
+function openWishlist() {
+    const modal = document.getElementById('wishlistModal');
+    const content = document.getElementById('wishlistContent');
+
+    if (!wishlist.length) {
+        content.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:40px;">Your wishlist is empty.</p>';
+        modal.classList.add('active');
+        return;
+    }
+
+    const grouped = wishlist.reduce((acc, item) => {
+        acc[item.type] ??= [];
+        acc[item.type].push(item);
+        return acc;
+    }, {});
+
+    content.innerHTML = Object.entries(grouped)
+        .map(([type, items]) => `
+            <div class="wishlist-category">
+                <h3>${type === 'exclusive' ? '🎧 Exclusive' : '☘︎ Redbubble'} (${items.length})</h3>
+                ${items.map(item => `
+                    <div class="wishlist-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small style="color:var(--text-muted)">Bias: ${item.biasName}</small>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromWishlist(${wishlist.indexOf(item)})">Remove</button>
+                    </div>
+                `).join('')}
+            </div>
+        `).join('');
+
+    modal.classList.add('active');
+}
+
+function closeWishlist() {
+    document.getElementById('wishlistModal').classList.remove('active');
+}
+
+function removeFromWishlist(index) {
+    wishlist.splice(index, 1);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    updateWishlistCount();
+    openWishlist(); // Refresh
+}
+
+function submitOrder() {
+    const name = document.getElementById('orderName').value.trim();
+    const email = document.getElementById('orderEmail').value.trim();
+    const subscribe = document.getElementById('subscribeCheck').checked;
+
+    if (!name || !email) { alert('Please fill in your name and email!'); return; }
+    if (!wishlist.length) { alert('Your wishlist is empty!'); return; }
+
+    const wishlistText = wishlist.map((item, i) => `${i + 1}. ${item.name} (${item.biasName})`).join('\n');
+    const emailBody = `Name: ${name}\n\nEmail: ${email}\n\nWishlist:\n${wishlistText}\n\nSubscribe to emails: ${subscribe ? 'Yes' : 'No'}`;
+    const mailtoLink = `mailto:orders@sunniejae.com?subject=KPOP FANDOM SHOP ORDER&body=${encodeURIComponent(emailBody)}`;
+    window.location.href = mailtoLink;
+}
+
+/* ===============================
+   QUIZ
+================================ */
+function openQuiz() { quizAnswers = {}; renderQuiz(0); document.getElementById('quizModal').classList.add('active'); }
+function closeQuiz() { document.getElementById('quizModal').classList.remove('active'); }
+
+function renderQuiz(questionIndex) {
+    const content = document.getElementById('quizContent');
+    if (questionIndex >= quizQuestions.length) { showQuizResult(); return; }
+
+    const q = quizQuestions[questionIndex];
+    content.innerHTML = `
+        <h2>⟡ Bias Matching Quiz ⟡</h2>
+        <div class="quiz-question">
+            <h3>Question ${questionIndex + 1} of ${quizQuestions.length}</h3>
+            <h3>${q.question}</h3>
+            <div class="quiz-options">
+                ${q.options.map((opt, i) => `
+                    <div class="quiz-option" onclick="selectQuizAnswer(${questionIndex}, ${i})">
+                        ${opt.text}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function selectQuizAnswer(questionIndex, optionIndex) {
+    const q = quizQuestions[questionIndex];
+    quizAnswers[questionIndex] = q.options[optionIndex].members;
+
+    const container = document.getElementById('quizContent');
+    container.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    container.querySelectorAll('.quiz-option')[optionIndex].classList.add('selected');
+
+    setTimeout(() => renderQuiz(questionIndex + 1), 400);
+}
+
+function showQuizResult() {
+    const memberCount = {};
+    Object.values(quizAnswers).forEach(membersArr => membersArr.forEach(member => {
+        memberCount[member] = (memberCount[member] || 0) + 1;
+    }));
+
+    const maxCount = Math.max(...Object.values(memberCount));
+    const winners = Object.keys(memberCount).filter(m => memberCount[m] === maxCount);
+    const result = winners[Math.floor(Math.random() * winners.length)];
+
+    currentBias = result;
+    localStorage.setItem('selectedBias', result);
+    document.getElementById('biasSelector').value = result;
+    updateTheme(result);
+    renderProducts();
+
+    const content = document.getElementById('quizContent');
+    content.innerHTML = `
+        <div class="quiz-result">
+            <h2>Your Bias Match:</h2>
+            <h2>${members[result]?.name || result}! ♡</h2>
+            <img src="${members[result]?.image}" alt="${members[result]?.name}" onerror="this.style.display='none'">
+            <p>Perfect match! The shop theme has been updated to ${members[result]?.name}. Start shopping for exclusive ${members[result]?.name} merchandise!</p>
+            <button class="btn btn-primary" onclick="closeQuiz()" style="width: 100%;">☘︎ Start Shopping!</button>
+        </div>
+    `;
+}
+
+/* ===============================
+   HOW TO ORDER MODAL
+================================ */
+function openHowToOrder() { document.getElementById('howToOrderModal').classList.add('active'); }
+function closeHowToOrder() { document.getElementById('howToOrderModal').classList.remove('active'); }
+
+/* ===============================
+   PLAYLIST
+================================ */
+function openPlaylist() { playlistExpanded = true; localStorage.setItem('playlistExpanded', 'true'); updatePlaylist(); }
+function closePlaylist() { playlistExpanded = false; localStorage.setItem('playlistExpanded', 'false'); updatePlaylist(); }
+
+function updatePlaylist() {
+    const container = document.getElementById('playlistContainer');
+    if (!playlistExpanded) {
+        container.innerHTML = `
+            <div class="playlist-placeholder" onclick="openPlaylist()">
+                <div style="font-size: 2em; margin-bottom: 8px;">🎵</div>
+                <div style="font-size: 0.85em; color: var(--text-muted);">
+                    ${currentBias ? 'Play ' + members[currentBias]?.name + ' music' : 'Click to play music'}
+                </div>
+            </div>
+        `;
+    } else {
+        const playlistId = currentBias && members[currentBias]?.playlistId ? members[currentBias].playlistId : 'PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-';
+        container.innerHTML = `
+            <iframe 
+                class="playlist-embed"
+                src="https://www.youtube.com/embed/videoseries?list=${playlistId}&autoplay=0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+            ></iframe>
+            <button class="btn btn-close" onclick="closePlaylist()">Close</button>
+        `;
+    }
+}
+</script>
+
+</body>
+</html>

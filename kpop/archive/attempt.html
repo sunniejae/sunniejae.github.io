@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-pop Fandom Shop</title>
+    <style>
+           @font-face { font-family:'Jaewriting'; src:url('/assets/fonts/Jaewriting-Regular.otf') format('truetype'); }
+    @font-face { font-family:'Aego'; src:url('/assets/fonts/AeogoPixellated-Regular.ttf') format('truetype'); }
+    @font-face { font-family:'KingSans'; src:url('/assets/fonts/KingSans-FREE.otf') format('opentype'); } 
+    @font-face { font-family:'BRAT'; src:url('/assets/fonts/FUNKHOUS.TTF') format('truetype'); }
+    @font-face { font-family:'Spotify'; src:url('/assets/fonts/Gotham-Black.otf') format('truetype'); }
+    @font-face { font-family:'Starbim'; src:url('/assets/fonts/Starbim.ttf') format('truetype'); }
+    @font-face {font-family: 'KILBY'; src: url('/assets/fonts/KILBY.otf'); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1db954;
+            --secondary-color: #1ED760;
+            --bg-color: #191414;
+            --card-bg: #000000;
+            --text-color: #ffffff;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-color)
+        }
+
+        body {
+            font-family: 'KingSans', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.5s ease;
+            letter-spacing: 1px;
+            font-size: 16px;
+        }
+
+/* ================= HEADER ================= */
+#site-header {
+    margin-bottom: 12px;
+    border: 4px ridge var(--primary);
+    background: var(--dark);
+    font-family: 'Spotify';
+}
+
+.header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 10px 14px;
+    gap: 12px;
+    font-family: 'Spotify';
+    color: var(--secondary-color)
+}
+
+.site-logo {
+    height: 30px;
+    image-rendering: crisp-edges;
+}
+
+.site-title {
+    font-family: 'Spotify';
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--accent);
+}
+
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .bias-selector {
+            padding: 12px 24px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            color: var(--text-color);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bias-selector:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(8, 55, 35, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-color);
+        }
+
+        .wishlist-btn {
+            position: relative;
+        }
+
+        .wishlist-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(8, 55, 35, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+        }
+
+        .product-description {
+            font-size: 0.9em;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-type {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .type-exclusive {
+            background: rgba(164, 227, 186, 0.2);
+            color: var(--text-color);
+        }
+
+        .type-redbubble {
+            background: rgba(14, 92, 42, 0.2);
+            color: var(--secondary-color);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid var(--primary-color);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--text-color);
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-question h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(147, 51, 234, 0.1);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--secondary-color);
+            background: rgba(74, 199, 118, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .wishlist-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .wishlist-category {
+            margin-bottom: 30px;
+        }
+
+        .wishlist-category h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .quiz-result img {
+            max-width: 200px;
+            border-radius: 15px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .quiz-result h2 {
+            color: var(--secondary-color);
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .info-modal-content {
+            line-height: 1.8;
+        }
+
+        .info-modal-content h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .info-modal-content h3 {
+            color: var(--primary-color);
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .info-modal-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-modal-content li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="site-header">
+  <div class="header-inner">
+    <img src="/assets/favicon.png" class="site-logo" alt="">
+    <div class="site-title"><a href="/index.html">Sunnie Jae's Fandom Shop</a></div>
+    <div class="header-right">
+<a href="/index.html">home</a> • <a href="/shop/home.html">sunnie shop</a> • <a href="/club/public/club.html">astro club</a>    </div>
+  </div>
+</header>
+
+    <div class="controls">
+        <select class="bias-selector" id="biasSelector">
+            <option value="">Select Your Bias</option>
+            <option value="ONE">ONE</option>
+            <option value="TWO">TWO</option>
+            <option value="THREE">THREE</option>
+            <option value="FOUR">FOUR</option>
+        </select>
+        
+        <button class="btn btn-secondary" onclick="openQuiz()">
+            💿 Don't have a bias? Take our quiz!
+        </button>
+        
+        <button class="btn" onclick="openHowToOrder()">
+            ℹ️ How to Order
+        </button>
+        
+        <button class="btn wishlist-btn" onclick="openWishlist()">
+             ♡ Wishlist ♡
+            <span class="wishlist-count" id="wishlistCount">0</span>
+        </button>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+
+    <!-- Quiz Modal -->
+    <div class="modal" id="quizModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeQuiz()">&times;</button>
+            <div id="quizContent"></div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="modal" id="wishlistModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWishlist()">&times;</button>
+            <h2 style="margin-bottom: 25px; color: var(--secondary-color);">💖 Your Wishlist</h2>
+            <div id="wishlistContent"></div>
+            <div id="wishlistForm" style="margin-top: 30px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;">Place Your Order</h3>
+                <div class="form-group">
+                    <label>Name *</label>
+                    <input type="text" id="orderName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="orderEmail" required>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="subscribeCheck" checked>
+                    <label for="subscribeCheck">Subscribe to emails from Sunnie Jae</label>
+                </div>
+                <button class="btn" onclick="submitOrder()" style="width: 100%;">
+                    ✿ Request Order ✿
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Order Modal -->
+    <div class="modal" id="howToOrderModal">
+        <div class="modal-content info-modal-content">
+            <button class="modal-close" onclick="closeHowToOrder()">&times;</button>
+            <h2>How to Order</h2>
+            <p>Products on this page are available via Redbubble or By Request.</p>
+            
+            <h3>✿ Redbubble Items</h3>
+            <p>Items available on Redbubble are linked directly to the collection. Simply click the "Shop on Redbubble" button on any product card.</p>
+            
+            <h3>☘︎ Exclusive Items</h3>
+            <p>For custom items, use the "Add to Wishlist" function. Once you've built your wishlist, click the heart icon or scroll down to the order form.</p>
+            
+            <h3>♡ Special Requests</h3>
+            <p>For more details or special requests, email: <a href="mailto:orders@sunniejae.com" style="color: var(--secondary-color);">orders@sunniejae.com</a></p>
+            
+            <button class="btn" onclick=" closeHowToOrder()" style="margin-top: 20px; width: 100%;">
+                Got it!
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Product Database
+        const products = [
+            {
+                id: 1,
+                name: "Phone Case",
+                type: "exclusive",
+                description: "Premium phone case featuring your bias! Custom designed with exclusive artwork.",
+                imageTemplate: "assets/phonecase-MEMBER.png"
+            },
+            {
+                id: 2,
+                name: "Lightstick Keychain",
+                type: "exclusive",
+                description: "Adorable miniature lightstick keychain. Perfect for your keys or bag!",
+                imageTemplate: "assets/lightstickkeychain-MEMBER.png"
+            },
+            {
+                id: 3,
+                name: "Animal Icon Keychain",
+                type: "exclusive",
+                description: "Cute animal-themed keychain representing your bias's unique charm.",
+                imageTemplate: "assets/animalkeychain-MEMBER.png"
+            },
+            {
+                id: 4,
+                name: "Comeback Era Stickers",
+                type: "redbubble",
+                description: "Vibrant stickers from their latest comeback era. Collect them all!",
+                imageTemplate: "assets/stickers-MEMBER.png",
+                redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/comeback-stickers"
+            },
+            {
+                id: 5,
+                name: "Autographics Collection",
+                type: "redbubble",
+                description: "Signature-style graphics perfect for laptops, notebooks, and more.",
+                imageTemplate: "assets/autographics-MEMBER.png",
+                redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/autographics"
+            },
+            {
+                id: 6,
+                name: "Hangul Name Art",
+                type: "redbubble",
+                description: "Beautiful Korean typography featuring member names in Hangul.",
+                imageTemplate: "assets/hangul-MEMBER.png",
+                redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/hangul-names"
+            }
+        ];
+
+        // Quiz Questions
+        const quizQuestions = [
+            {
+                question: "What's your favorite color?",
+                options: [
+                    { text: "Purple/Blue", answer: "A", members: ["ONE", "THREE"] },
+                    { text: "Pink/Red", answer: "B", members: ["TWO", "FOUR"] },
+                    { text: "Green/Yellow", answer: "C", members: ["ONE", "FOUR"] },
+                    { text: "Black/White", answer: "D", members: ["THREE"] }
+                ]
+            },
+            {
+                question: "Are you an introvert or extrovert?",
+                options: [
+                    { text: "Introvert - I recharge alone", answer: "A", members: ["ONE", "THREE"] },
+                    { text: "Extrovert - I love being around people", answer: "B", members: ["TWO", "FOUR"] }
+                ]
+            },
+            {
+                question: "Down to earth or head in the clouds?",
+                options: [
+                    { text: "Down to earth - practical and grounded", answer: "A", members: ["ONE", "FOUR"] },
+                    { text: "Head in the clouds - dreamy and imaginative", answer: "B", members: ["TWO", "THREE"] }
+                ]
+            },
+            {
+                question: "Do you lead with your head or heart?",
+                options: [
+                    { text: "Head - logic and reason", answer: "A", members: ["ONE", "THREE"] },
+                    { text: "Heart - feelings and intuition", answer: "B", members: ["TWO", "FOUR"] }
+                ]
+            },
+            {
+                question: "Order or chaos?",
+                options: [
+                    { text: "Order - I love organization and structure", answer: "A", members: ["ONE", "FOUR"] },
+                    { text: "Chaos - spontaneity is exciting!", answer: "B", members: ["TWO", "THREE"] }
+                ]
+            },
+            {
+                question: "What's your favorite animal?",
+                options: [
+                    { text: "Cat", answer: "A", members: ["ONE"] },
+                    { text: "Dog", answer: "B", members: ["TWO"] },
+                    { text: "Rabbit", answer: "C", members: ["THREE"] },
+                    { text: "Bird", answer: "D", members: ["FOUR"] }
+                ]
+            }
+        ];
+
+        // Member profiles
+        const members = {
+            ONE: {
+                name: "ONE",
+                color: "#9333ea",
+                secondaryColor: "#7c3aed",
+                image: "assets/ONE-profile.png"
+            },
+            TWO: {
+                name: "TWO",
+                color: "#ec4899",
+                secondaryColor: "#db2777",
+                image: "assets/TWO-profile.png"
+            },
+            THREE: {
+                name: "THREE",
+                color: "#06b6d4",
+                secondaryColor: "#0891b2",
+                image: "assets/THREE-profile.png"
+            },
+            FOUR: {
+                name: "FOUR",
+                color: "#f59e0b",
+                secondaryColor: "#d97706",
+                image: "assets/FOUR-profile.png"
+            }
+        };
+
+        // State
+        let currentBias = localStorage.getItem('selectedBias') || '';
+        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        let quizAnswers = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentBias) {
+                document.getElementById('biasSelector').value = currentBias;
+                updateTheme(currentBias);
+            }
+            renderProducts();
+            updateWishlistCount();
+        });
+
+        // Bias selector change
+        document.getElementById('biasSelector').addEventListener('change', (e) => {
+            currentBias = e.target.value;
+            localStorage.setItem('selectedBias', currentBias);
+            if (currentBias) {
+                updateTheme(currentBias);
+            }
+            renderProducts();
+        });
+
+        // Update theme
+        function updateTheme(bias) {
+            if (!members[bias]) return;
+            
+            const root = document.documentElement;
+            root.style.setProperty('--primary-color', members[bias].color);
+            root.style.setProperty('--secondary-color', members[bias].secondaryColor);
+        }
+
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = products.map(product => {
+                const imagePath = currentBias 
+                    ? product.imageTemplate.replace('MEMBER', currentBias)
+                    : product.imageTemplate.replace('-MEMBER', '');
+                
+                return `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${imagePath}" alt="${product.name}" 
+                                 style="max-width: 100%; max-height: 100%; object-fit: cover;"
+                                 onerror="this.parentElement.innerHTML='${product.name}<br>${currentBias ? 'for ' + members[currentBias]?.name : 'Select a bias to see themed version'}'">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <span class="product-type ${product.type === 'exclusive' ? 'type-exclusive' : 'type-redbubble'}">
+                                ${product.type === 'exclusive' ? '⭐ Exclusive' : '🛍️ Redbubble'}
+                            </span>
+                            <p class="product-description">${product.description}</p>
+                            <div class="product-actions">
+                                ${product.type === 'exclusive' 
+                                    ? `<button class="btn" onclick="addToWishlist(${product.id})" style="flex: 1;">❤️ Add to Wishlist</button>`
+                                    : `<button class="btn" onclick="window.open('${product.redbubbleLink}', '_blank')" style="flex: 1;">🛍️ Shop on Redbubble</button>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Add to wishlist
+        function addToWishlist(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const wishlistItem = {
+                productId,
+                name: product.name,
+                type: product.type,
+                bias: currentBias || 'no-bias',
+                biasName: currentBias ? members[currentBias]?.name : 'No bias selected'
+            };
+
+            wishlist.push(wishlistItem);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
+            
+            // Visual feedback
+            alert(`${product.name} added to wishlist!`);
+        }
+
+        // Update wishlist count
+        function updateWishlistCount() {
+            document.getElementById('wishlistCount').textContent = wishlist.length;
+        }
+
+        // Open wishlist
+        function openWishlist() {
+            const modal = document.getElementById('wishlistModal');
+            const content = document.getElementById('wishlistContent');
+            
+            if (wishlist.length === 0) {
+                content.innerHTML = '<p style="text-align: center; padding: 40px; color: #94a3b8;">Your wishlist is empty. Add some items to get started!</p>';
+            } else {
+                const categorized = {};
+                wishlist.forEach(item => {
+                    if (!categorized[item.type]) {
+                        categorized[item.type] = [];
+                    }
+                    categorized[item.type].push(item);
+                });
+
+                content.innerHTML = Object.keys(categorized).map(type => `
+                    <div class="wishlist-category">
+                        <h3>${type === 'exclusive' ? '⭐ Exclusive Items' : '🛍️ Redbubble Items'} (${categorized[type].length})</h3>
+                        ${categorized[type].map((item, index) => `
+                            <div class="wishlist-item">
+                                <strong>${item.name}</strong>
+                                <br>
+                                <small style="color: #94a3b8;">Bias: ${item.biasName}</small>
+                                <button onclick="removeFromWishlist(${wishlist.indexOf(item)})" 
+                                        style="float: right; background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                                    Remove
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `).join('');
+            }
+            
+            modal.classList.add('active');
+        }
+
+        // Close wishlist
+        function closeWishlist() {
+            document.getElementById('wishlistModal').classList.remove('active');
+        }
+
+        // Remove from wishlist
+        function removeFromWishlist(index) {
+            wishlist.splice(index, 1);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
+            openWishlist(); // Refresh
+        }
+
+        // Submit order
+        function submitOrder() {
+            const name = document.getElementById('orderName').value.trim();
+            const email = document.getElementById('orderEmail').value.trim();
+            const subscribe = document.getElementById('subscribeCheck').checked;
+
+            if (!name || !email) {
+                alert('Please fill in your name and email!');
+                return;
+            }
+
+            if (wishlist.length === 0) {
+                alert('Your wishlist is empty!');
+                return;
+            }
+
+            const wishlistText = wishlist.map((item, i) => 
+                `${i + 1}. ${item.name} (${item.biasName})`
+            ).join('\n');
+
+            const emailBody = `Name: ${name}\n\nEmail: ${email}\n\nWishlist:\n${wishlistText}\n\nSubscribe to emails: ${subscribe ? 'Yes' : 'No'}`;
+            
+            const mailtoLink = `mailto:orders@sunniejae.com?subject=KPOP FANDOM SHOP ORDER&body=${encodeURIComponent(emailBody)}`;
+            
+            window.location.href = mailtoLink;
+        }
+
+        // Quiz functions
+        function openQuiz() {
+            quizAnswers = {};
+            renderQuiz(0);
+            document.getElementById('quizModal').classList.add('active');
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizModal').classList.remove('active');
+        }
+
+        function renderQuiz(questionIndex) {
+            const content = document.getElementById('quizContent');
+            
+            if (questionIndex >= quizQuestions.length) {
+                showQuizResult();
+                return;
+            }
+
+            const q = quizQuestions[questionIndex];
+            content.innerHTML = `
+                <h2 style="color: var(--secondary-color); margin-bottom: 30px;">
+                    ✨ Bias Matching Quiz ✨
+                </h2>
+                <div class="quiz-question">
+                    <h3>Question ${questionIndex + 1} of ${quizQuestions.length}</h3>
+                    <h3>${q.question}</h3>
+                    <div class="quiz-options">
+                        ${q.options.map((opt, i) => `
+                            <div class="quiz-option" onclick="selectQuizAnswer(${questionIndex}, ${i})">
+                                ${opt.text}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectQuizAnswer(questionIndex, optionIndex) {
+            const q = quizQuestions[questionIndex];
+            const option = q.options[optionIndex];
+            
+            // Store the members associated with this answer
+            if (!quizAnswers[questionIndex]) {
+                quizAnswers[questionIndex] = [];
+            }
+            quizAnswers[questionIndex] = option.members;
+            
+            // Visual feedback
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(o => o.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            // Move to next question after brief delay
+            setTimeout(() => {
+                renderQuiz(questionIndex + 1);
+            }, 500);
+        }
+
+        function showQuizResult() {
+            // Tally up member occurrences
+            const memberCount = {};
+            Object.values(quizAnswers).forEach(members => {
+                members.forEach(member => {
+                    memberCount[member] = (memberCount[member] || 0) + 1;
+                });
+            });
+
+            // Find member(s) with highest count
+            const maxCount = Math.max(...Object.values(memberCount));
+            const winners = Object.keys(memberCount).filter(m => memberCount[m] === maxCount);
+            
+            // Pick first winner (or random if multiple)
+            const result = winners[Math.floor(Math.random() * winners.length)];
+            
+            // Save to localStorage and update UI
+            currentBias = result;
+            localStorage.setItem('selectedBias', result);
+            document.getElementById('biasSelector').value = result;
+            updateTheme(result);
+            renderProducts();
+
+            const content = document.getElementById('quizContent');
+            content.innerHTML = `
+                <div class="quiz-result">
+                    <h2>Your Bias Match:</h2>
+                    <h2>${members[result]?.name || result}! 💖</h2>
+                    <img src="${members[result]?.image}" alt="${members[result]?.name}"
+                         onerror="this.style.display='none'">
+                    <p style="margin: 20px 0; line-height: 1.8;">
+                        Perfect match! The shop theme has been updated to ${members[result]?.name}.
+                        Start shopping for exclusive ${members[result]?.name} merchandise!
+                    </p>
+                    <button class="btn" onclick="closeQuiz()" style="width: 100%;">
+                        Start Shopping!
+                    </button>
+                </div>
+            `;
+        }
+
+        // How to order modal
+        function openHowToOrder() {
+            document.getElementById('howToOrderModal').classList.add('active');
+        }
+
+        function closeHowToOrder() {
+            document.getElementById('howToOrderModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
