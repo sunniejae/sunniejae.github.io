@@ -5,6 +5,7 @@
 <title>Studio Ken Arcade</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/studio ken/assets/faviconn.png">
 <style>
   @font-face { font-family: 'Starbim'; src: url('/assets/fonts/Starbim.ttf') format('truetype'); }
 @font-face { font-family: 'pixel'; src: url('/assets/fonts/PublicPixel.otf') format('opentype'); }
@@ -20,7 +21,10 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-
+a {
+    text-decoration: none;
+    color: inherit;
+}
 body{
   background:#000;
   color:var(--neon-cyan);
@@ -30,7 +34,53 @@ body{
   letter-spacing: 2px;
   font-size: 14px;
 }
+/* -------------------------
+   LINKS
+------------------------- */
+a {
+    text-decoration: none; /* remove underline */
+    color: inherit;        /* inherit from parent by default */
+}
 
+a:hover {
+    text-decoration: none; /* ensure hover doesn't add underline */
+}
+/* -------------------------
+   NAV BUTTONS
+------------------------- */
+
+.nav-grid {
+    margin-top: 15px;
+   margin-bottom: 12px;
+    border: 4px ridge var(--primary);
+    background: var(--dark); 
+    justify-content: center;
+   align-content: space-between;
+   margin-left: 75px;
+}
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 16px;
+    margin-bottom: 15px;
+    border-radius: 999px;
+    font-family: 'Starbim';
+    font-weight: bold;
+    font-size: 15px;
+    color: var(--neon-purple);
+    background: var(--light);
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 4px 4px 0 var(--dark);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-btn:hover {
+    transform: translate(2px, 2px);
+    
+    color: var(--light);
+    background-color: var(--dark);
+}
 /* Animated grid floor */
 .grid-floor{
   position:fixed;
@@ -247,15 +297,14 @@ body{
 
 .project-name{
   font-family:'Press Start 2P',monospace;
-  font-size:.7rem;
+  font-size:.9rem;
   color:var(--neon-cyan);
   text-align:center;
-  text-shadow:0 0 5px var(--neon-cyan);
-  margin-bottom:.5rem;
+  margin-bottom:.75rem;
 }
 
 .project-type{
-  font-size:.9rem;
+  font-size:.6rem;
   color:var(--neon-yellow);
   text-align:center;
 }
@@ -382,17 +431,28 @@ body{
   .cabinets{gap:1rem}
   .cabinet{width:240px}
 }
+
+.stars,
+.grid-floor {
+  pointer-events: none;
+}
+
 </style>
 </head>
 <body>
-
+<header id="site-header">
+  <div class="nav-grid">
+  <a class="nav-btn" href="/index.html">Home</a>
+  <a class="nav-btn" href="/shop/home.html">Shop</a>
+<a class="nav-btn" href="/contact.html">Contact</a>
+</header>
 <div class="stars"></div>
 <div class="grid-floor"></div>
 <div class="scanlines"></div>
 
 <div class="arcade-room">
   <h1 class="title">STUDIO KEN</h1>
-  <p class="subtitle">◆ CRAFT · COOK · CATS · MINIATURES ◆</p>
+  <p class="subtitle">◆ COOKING & CRAFTING ◆</p>
 
   <div class="cabinets">
     

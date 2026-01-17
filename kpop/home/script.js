@@ -197,64 +197,80 @@ const groups = {
         name: "ONEUS",
         color: "#105B87",
         secondaryColor: "#00966C",
+        accent: "#e1e1f0",
         image: "/kpop/home/ONEUS-profile.png",
         heroImage: "/kpop/home/hero/ONEUS.png",
         fallbackImage: "/kpop/home/blanks/ONEUS.png",
-        playlistId: "PLqyKQU80K0fGDkP_Dp_Lwz_mCO0trA1DO"
+        playlistId: "PLqyKQU80K0fGDkP_Dp_Lwz_mCO0trA1DO",
+        fandom: "Tomoon",
     },
     LESSERAFIM: {
         name: "LESSERAFIM",
-        color: "#75A2D8",
-        secondaryColor: "#000558",
+        color: "#000558",
+        secondaryColor: "#75A2D8",
+        accent: "#941443",
+        contrast: "#f3f3f3",
         image: "/kpop/home/LESSERAFIM-profile.png",
         heroImage: "/kpop/home/hero/LESSERAFIM.png",
         fallbackImage: "/kpop/home/blanks/LESSERAFIM.png",
-        playlistId: "PLqyKQU80K0fGVVVIt9YmgkD6Rfcf6eZP-"
+        playlistId: "PLqyKQU80K0fGVVVIt9YmgkD6Rfcf6eZP-",
+        fandom: "Fearnot"
     },
     IZNA: {
         name: "IZNA",
         color: "#F6F5AE",
         secondaryColor: "#980A54",
+         accent: "#0c0d37",
         image: "/kpop/home/IZNA-profile.png",
         heroImage: "/kpop/home/hero/IZNA.png",
         fallbackImage: "/kpop/home/blanks/IZNA.png",
-        playlistId: "PLqyKQU80K0fG6PSSaZvLSPTFbQyyT05LR"
+        playlistId: "PLqyKQU80K0fG6PSSaZvLSPTFbQyyT05LR",
+        fandom: "naya"
     },
     STAYC: {
         name: "STAYC",
         color: "#E8A8C7",
-        secondaryColor: "#ffb74d",
+        secondaryColor: "#f63e7b",
+        accent: "#f63e7b",
+        contrast: "#390b4a",
         image: "/kpop/home/STAYC-profile.png",
         heroImage: "/kpop/home/hero/STAYC.png",
         fallbackImage: "/kpop/home/blanks/STAYC.png",
-        playlistId: "PLqyKQU80K0fE0vi2qlYB8FF87ggJHnkX_"
+        playlistId: "PLqyKQU80K0fE0vi2qlYB8FF87ggJHnkX_",
+        fandom: "swith"
     },
     STRAYKIDS: {
         name: "STRAYKIDS",
         color: "#BC1111",
         secondaryColor: "#412446",
+         accent: "#bbbbc7",
         image: "/kpop/home/STRAYKIDS-profile.png",
         heroImage: "/kpop/home/hero/STRAYKIDS.png",
         fallbackImage: "/kpop/home/blanks/STRAYKIDS.png",
-        playlistId: "PLqyKQU80K0fHriYcAWjp6_UtY5P0ggdFH"
+        playlistId: "PLqyKQU80K0fHriYcAWjp6_UtY5P0ggdFH",
+        fandom: "stay"
     },
     AESPA: {
         name: "AESPA",
         color: "#BD93E9",
         secondaryColor: "#8CEAEE",
+         accent: "#2024aa",
         image: "/kpop/home/AESPA-profile.png",
         heroImage: "/kpop/home/hero/AESPA.png",
         fallbackImage: "/kpop/home/blanks/AESPA.png",
-        playlistId: "PLqyKQU80K0fGoyzyge6v38Mjq-JtGyQfj"
+        playlistId: "PLqyKQU80K0fGoyzyge6v38Mjq-JtGyQfj",
+        fandom: "MY"
     },
     ILLIT: {
         name: "ILLIT",
         color: "#FFB3D9",
         secondaryColor: "#F1057D",
+         accent: "#fdd7f7",
         image: "/kpop/home/ILLIT-profile.png",
         heroImage: "/kpop/home/hero/ILLIT.png",
         fallbackImage: "/kpop/home/blanks/ILLIT.png",
-        playlistId: "PLqyKQU80K0fEcZWhFwjhCLLIAIVMmcUGn"
+        playlistId: "PLqyKQU80K0fEcZWhFwjhCLLIAIVMmcUGn",
+        fandom: "Gllit"
     },
 };
 
@@ -313,8 +329,10 @@ function updateTheme(bias) {
 
     root.style.setProperty('--primary-color', groups[bias].color);
     root.style.setProperty('--secondary-color', groups[bias].secondaryColor);
-    document.getElementById('mainTitle').textContent = groups[bias].name;
-    document.getElementById('mainSubtitle').textContent = `Exclusive ${groups[bias].name} merchandise`;
+    root.style.setProperty('--accent', groups[bias].accent);
+    root.style.setProperty('--contrast', groups[bias].contrast);
+    document.getElementById('mainTitle').textContent = groups[bias].shoptitle;
+    document.getElementById('mainSubtitle').textContent = `Sunnie Jae designs for ${groups[bias].fandom}`;
     document.getElementById('heroBadge').textContent = `${groups[bias].name} Collection`;
     heroImg.src = groups[bias].heroImage;
     heroImg.style.display = 'block';
@@ -348,12 +366,12 @@ function renderProducts() {
                     <small>${fallbackText}</small>
                 </div>
                 <div class="play-button">
-                    ${product.type === 'exclusive' ? '♡' : '☘︎'}
+                    ${product.type === 'exclusive' ? '♡' : '💿'}
                 </div>
             </div>
             <div class="product-info">
                 <span class="product-type">
-                    ${product.type === 'exclusive' ? '🎧 Exclusive' : '☘︎ Redbubble'}
+                    ${product.type === 'exclusive' ? '🎧 Exclusive' : '💿 Redbubble'}
                 </span>
                 <h3 class="product-title">${product.name}</h3>
                 <p class="product-description">${product.description}</p>
@@ -361,7 +379,7 @@ function renderProducts() {
             <div class="product-actions">
                 ${product.type === 'exclusive'
                     ? `<button class="btn btn-primary">♡ Add to Wishlist</button>`
-                    : `<button class="btn btn-primary">☘︎ Shop Now</button>`
+                    : `<button class="btn btn-primary">Shop Now</button>`
                 }
             </div>
         `;
@@ -435,7 +453,7 @@ function openWishlist() {
     content.innerHTML = Object.entries(grouped)
         .map(([type, items]) => `
             <div class="wishlist-category">
-                <h3>${type === 'exclusive' ? '🎧 Exclusive' : '☘︎ Redbubble'} (${items.length})</h3>
+                <h3>${type === 'exclusive' ? '🎧 Exclusive' : '💿 Redbubble'} (${items.length})</h3>
                 ${items.map(item => `
                     <div class="wishlist-item">
                         <div>
@@ -537,7 +555,7 @@ function showQuizResult() {
             <h2>${groups[result]?.name || result}! ♡</h2>
             <img src="${groups[result]?.image}" alt="${groups[result]?.name}" onerror="this.style.display='none'">
             <p>Perfect match! The shop theme has been updated to ${groups[result]?.name}. Start shopping for exclusive ${groups[result]?.name} merchandise!</p>
-            <button class="btn btn-primary" onclick="closeQuiz()" style="width: 100%;">☘︎ Start Shopping!</button>
+            <button class="btn btn-primary" onclick="closeQuiz()" style="width: 100%;">Start Shopping!</button>
         </div>
     `;
 }
