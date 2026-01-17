@@ -10,9 +10,8 @@ const products = [
         type: "exclusive",
         description: "Premium phone case featuring your bias! Custom designed with exclusive artwork.",
         images: [
-            "/kpop/home/blanks/GROUP.png",
-            "/kpop/home/blanks/GROUP.png",
-            "/kpop/home/blanks/GROUP.png"
+            "/kpop/home/phonecase/GROUP/0.png",
+            "/kpop/home/phonecase/GROUP/1.png",
         ]
     },
     {
@@ -21,8 +20,8 @@ const products = [
         type: "exclusive",
         description: "Adorable miniature lightstick keychain. Perfect for your keys or bag!",
         images: [
-            "/kpop/home/blanks/GROUP.png",
-            "/kpop/home/blanks/GROUP.png"
+            "/kpop/home/lightsticks/GROUP/0.png",
+            "/kpop/home/lightsticks/GROUP/1.png",
         ]
     },
     {
@@ -31,17 +30,25 @@ const products = [
         type: "exclusive",
         description: "Cute animal-themed keychain representing your bias's unique charm.",
         images: [
-            "/kpop/home/blanks/GROUP.png",
-            "/kpop/home/blanks/GROUP.png"
+            "/kpop/home/animals/GROUP/0.png",
+            "/kpop/home/animals/GROUP/1.png",
+        
         ]
     },
     {
         id: 4,
-        name: "Comeback Era Stickers",
+        name: "Member Collage Style",
         type: "redbubble",
-        description: "Vibrant stickers from their latest comeback era. Collect them all!",
+        description: "Cute collage style stickers and apparel.",
         images: [
-            "/kpop/home/blanks/GROUP.png"
+            "/kpop/home/collage/GROUP/0.png",
+            "/kpop/home/collage/GROUP/2.png",
+            "/kpop/home/collage/GROUP/3.png",
+            "/kpop/home/collage/GROUP/4.png",
+            "/kpop/home/collage/GROUP/5.png",
+            "/kpop/home/collage/GROUP/6.png",
+            "/kpop/home/collage/GROUP/7.png",
+            
         ],
         redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/comeback-stickers"
     },
@@ -51,7 +58,7 @@ const products = [
         type: "redbubble",
         description: "Signature-style graphics perfect for laptops, notebooks, and more.",
         images: [
-            "/kpop/home/blanks/GROUP.png",
+            "/kpop/home/autographics/GROUP/0.png",
             "/kpop/home/autographics/GROUP/2.png",
             "/kpop/home/autographics/GROUP/3.png",
             "/kpop/home/autographics/GROUP/4.png"
@@ -64,11 +71,13 @@ const products = [
         type: "redbubble",
         description: "Beautiful Korean typography featuring group names in Hangul.",
         images: [
+            "/kpop/home/hangul/GROUP/0.png",
             "/kpop/home/hangul/GROUP/1.png",
             "/kpop/home/hangul/GROUP/2.png",
             "/kpop/home/hangul/GROUP/3.png",
             "/kpop/home/hangul/GROUP/4.png",
             "/kpop/home/hangul/GROUP/5.png",
+            "/kpop/home/hangul/GROUP/6.png",
         ],
         redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/hangul-names"
     }
