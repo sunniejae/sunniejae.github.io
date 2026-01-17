@@ -20,8 +20,8 @@ const products = [
         type: "exclusive",
         description: "Adorable miniature lightstick keychain. Perfect for your keys or bag!",
         images: [
-            "/kpop/home/lightsticks/GROUP/0.png",
-            "/kpop/home/lightsticks/GROUP/1.png",
+            "/kpop/home/lightstick/GROUP/0.png",
+            "/kpop/home/lightstick/GROUP/1.png",
         ]
     },
     {
