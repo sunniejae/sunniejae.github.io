@@ -613,65 +613,128 @@ header {
 
 <script>
 // Pin data and generation
+/* =====================================================
+   PIN DATA
+===================================================== */
 const pinData = [
-    { id: "1", title: "Webcomic Style: Self Portrait", description: "Exploring techniques to bring simple webcomic art to", tags: ["webcomic", "self portrait", "digital art", "character design", "cartoon style"] },
-    { id: "2", title: "Siberian", description: "Color block portrait of a siberian cat", tags: ["cat", "siberian", "animal portrait", "colorblock", "pet art", "feline"] },
-    { id: "3", title: "Winter", description: "Colorblock portrait of Winter from Aespa (smoothed)", tags: ["kpop", "aespa", "winter", "idol", "colorblock", "portrait", "korean"] },
-    { id: "4", title: "NingNing", description: "Colorblock portrait of NingNing from Aespa (smoothed)", tags: ["kpop", "aespa", "ningning", "idol", "colorblock", "portrait", "korean"] },
-    { id: "5", title: "iLand 2: n/a Finale", description: "izna ot7 color block portrait", tags: ["iland", "izna", "kpop", "group portrait", "colorblock", "idol", "survival show"] },
-    { id: "6", title: "Webcomic Portrait", description: "Hailey Reed from Not Just Another Werewolf Romance", tags: ["webcomic", "character", "werewolf", "romance", "hailey reed", "fiction"] },
-    { id: "7", title: "It's a Bubblegum, Bitch", description: "Colorblock portrait of Brittney Spears (holographic)", tags: ["britney spears", "pop icon", "holographic", "colorblock", "bubblegum", "celebrity"] },
-    { id: "8", title: "Losing Feeling", description: "Exploring techniques for creative portraits (commissioned)", tags: ["commission", "portrait", "creative", "experimental", "digital art", "emotion"] },
-    { id: "9", title: "MoonSun", description: "Colorblock portrait of Moonbyul and Solar from Mamamoo", tags: ["mamamoo", "moonbyul", "solar", "kpop", "duo", "colorblock", "portrait"] },
-    { id: "10", title: "Blonde Bombshell", description: "Digital pastel portrait of Marilyn Monroe", tags: ["marilyn monroe", "classic", "pastel", "vintage", "hollywood", "icon", "blonde"] },
-    { id: "11", title: "Seeing is Believing", description: "Digital pastel piece of a greco-roman bust", tags: ["classical", "greco-roman", "bust", "sculpture", "pastel", "ancient art", "statue"] }
+  { id: "1", title: "Webcomic Self Portrait", description: "Exploring techniques", tags: ["webcomic", "self portrait"], type: "image" },
+  { id: "2", title: "Siberian", description: "Color block portrait of a cat", tags: ["cat", "pet art"], type: "image" },
+  { id: "3", title: "Winter Speedpaint", description: "Colorblock speedpaint video", tags: ["video", "speedpaint"], type: "video", poster: "https://sunniejae.blob.core.windows.net/sunniejae/3.png", src: "https://sunniejae.blob.core.windows.net/sunniejae/3.mp4" }
 ];
 
-const masonry = document.getElementById('masonry-container');
+const masonry = document.getElementById("masonry-container");
+const modal = document.getElementById("modal");
+const modalContent = document.getElementById("modalContent");
+const closeModalBtn = document.getElementById("closeModal");
 
+/* =====================================================
+   LAZY LOADER (images + videos)
+===================================================== */
+const lazyObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    if (el.tagName === "IMG") el.src = el.dataset.src;
+    if (el.tagName === "VIDEO") el.src = el.dataset.src;
+    observer.unobserve(el);
+  });
+}, { rootMargin: "200px", threshold: 0.1 });
+
+/* =====================================================
+   RENDER PINS
+===================================================== */
 pinData.forEach(pin => {
-    const pinElement = document.createElement('div');
-    pinElement.className = 'pin';
-    pinElement.innerHTML = `
-        <div class="pin-image">
-            <img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}" loading="lazy">
-            <div class="pin-overlay">
-                <div class="pin-actions">
-                    <button class="tags-btn" data-pin-id="${pin.id}">Tags</button>
-                    <button class="share-btn" data-pin-id="${pin.id}">Share</button>
-                    <div class="tags-menu" id="tags-${pin.id}">
-                        ${pin.tags.map(tag => `
-                            <span class="tag-item" data-tag="${tag}">#${tag}</span>
-                        `).join('')}
-                    </div>
-                    <div class="share-menu" id="menu-${pin.id}">
-                        <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">
-                            <span class="share-icon">🔗</span>
-                            Copy link
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="twitter" data-pin-id="${pin.id}">
-                            <span class="share-icon">🖤</span>
-                            Share on X
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="pinterest" data-pin-id="${pin.id}">
-                            <span class="share-icon">🧡</span>
-                            Share on Pinterest
-                        </a>
-                        <a href="#" class="share-option social-share" data-platform="tumblr" data-pin-id="${pin.id}">
-                            <span class="share-icon">💜</span>
-                            Share on Tumblr
-                        </a>
-                    </div>
-                </div>
-            </div>
+  const el = document.createElement("div");
+  el.className = "pin";
+  el.dataset.pinId = pin.id;
+
+  const mediaHTML = pin.type === "video"
+    ? `<video class="pin-video lazy-video" muted loop playsinline preload="none" poster="${pin.poster}" data-src="${pin.src}"></video>`
+    : `<img class="lazy" data-src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}">`;
+
+  el.innerHTML = `
+    <div class="pin-image">
+      ${mediaHTML}
+      <div class="pin-overlay">
+        <div class="pin-actions">
+          <button class="tags-btn" data-pin-id="${pin.id}">Tags</button>
+          <button class="share-btn" data-pin-id="${pin.id}">Share</button>
+          <div class="tags-menu" id="tags-${pin.id}">${pin.tags.map(t => `<span class="tag-item" data-tag="${t}">#${t}</span>`).join("")}</div>
+          <div class="share-menu" id="menu-${pin.id}">
+            <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">🔗 Copy link</a>
+            <a href="#" class="share-option social-share" data-platform="twitter" data-pin-id="${pin.id}">🖤 X</a>
+            <a href="#" class="share-option social-share" data-platform="pinterest" data-pin-id="${pin.id}">🧡 Pinterest</a>
+            <a href="#" class="share-option social-share" data-platform="tumblr" data-pin-id="${pin.id}">💜 Tumblr</a>
+          </div>
         </div>
-        <div class="pin-info">
-            <div class="pin-title">${pin.title}</div>
-            <div class="pin-description">${pin.description}</div>
-        </div>
-    `;
-    masonry.appendChild(pinElement);
+      </div>
+    </div>
+    <div class="pin-info">
+      <div class="pin-title">${pin.title}</div>
+      <div class="pin-description">${pin.description}</div>
+    </div>
+  `;
+
+  masonry.appendChild(el);
+
+  const img = el.querySelector(".lazy");
+  const video = el.querySelector(".lazy-video");
+  if (img) lazyObserver.observe(img);
+  if (video) lazyObserver.observe(video);
+
+  /* Hover play (desktop) */
+  if (video) {
+    el.addEventListener("mouseenter", () => video.play().catch(() => {}));
+    el.addEventListener("mouseleave", () => { video.pause(); video.currentTime = 0; });
+  }
+
+  /* Click → modal */
+  el.addEventListener("click", e => {
+    if (!e.target.closest(".tags-btn") && !e.target.closest(".share-btn")) {
+      openModal(pin);
+    }
+  });
 });
+
+/* =====================================================
+   MODAL LOGIC
+===================================================== */
+function openModal(pin) {
+  modalContent.innerHTML = "";
+  if (pin.type === "video") {
+    modalContent.innerHTML = `<video controls autoplay playsinline src="${pin.src}" poster="${pin.poster}"></video>`;
+  } else {
+    modalContent.innerHTML = `<img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}">`;
+  }
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  modal.style.display = "none";
+  modalContent.innerHTML = "";
+}
+
+closeModalBtn.addEventListener("click", closeModal);
+modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+/* =====================================================
+   URL SHARING + SCROLL
+===================================================== */
+function buildPinURL(pinId) {
+  const url = new URL(window.location.href);
+  url.searchParams.set("pin", pinId);
+  return url.toString();
+}
+function scrollToPin(pinId) {
+  const pin = document.querySelector(`[data-pin-id="${pinId}"]`);
+  if (!pin) return;
+  pin.scrollIntoView({ behavior: "smooth", block: "center" });
+  pin.classList.add("pin-highlight");
+  setTimeout(() => pin.classList.remove("pin-highlight"), 2000);
+}
+const urlPin = new URLSearchParams(window.location.search).get("pin");
+if (urlPin) window.addEventListener("load", () => scrollToPin(urlPin));
 
 // Share functionality
 document.addEventListener('click', function(e) {
