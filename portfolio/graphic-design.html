@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunnie Jae Creates - Designs</title>
-    <link rel="icon" type="image/png" href="/assets/favicon.png>
+<link rel="icon" type="image/png" href="/assets/favicon.png">
     <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
     <style>
         :root {
@@ -253,7 +253,12 @@
             cursor: pointer;
             transition: transform 0.2s ease;
         }
-
+        .gallery-item img {
+             width: 100%;
+             height: 100%;
+            object-fit: cover;
+             display: block;
+        }
         .gallery-item:hover {
             transform: scale(1.02);
         }
@@ -813,36 +818,47 @@
         </div>
 
         <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="design-element"></div>
-                <div class="overlay-text">Branding<br>Logo Designs</div>
-            </div>
-           <div class="gallery-item has-image">
-                <img src="https://imgur.com/1lCKjkB.png" alt="Conceptual Logo Designs">
-                <div class="overlay-text">Conceptual<br>Logo Designs</div>
-            </div>
-            <div class="gallery-item">
-                <div class="design-element"></div>
-                <div class="overlay-text">Commissioned<br>Designs</div>
-            </div>
-            <div class="gallery-item has-image">
-                <img placeholder="https://imgur.com/w31bIPR.png" alt="Email Campaign Graphics">
-                <div class="overlay-text">Email Campaign<br>Graphics</div>
-            </div>
-            <div class="gallery-item">
-                <div class="design-element"></div>
-                <div class="overlay-text">Product<br>Promotion</div>
-            </div>
-            <div class="gallery-item">
-                <div class="design-element"></div>
-                <div class="overlay-text">Sticker<br>Designs</div>
-            </div>
-            <div class="gallery-item">
-                <div class="design-element"></div>
-                <div class="overlay-text">Poster/Print<br>Designs</div>
-            </div>
-        </div>
+    <div class="gallery-item has-image">
+        <img src="/studio ken/assets/faviconn.png" alt="Studio Ken Logo">
+        <div class="overlay-text">Branding<br>Logo Designs</div>
     </div>
+
+    <div class="gallery-item has-image">
+        <img src="/assets/graphicdesign/phone icons/photos.png" alt="Conceptual Logo Designs">
+        <div class="overlay-text">Custom<br>Phone Icons</div>
+    </div>
+
+    <div class="gallery-item has-image">
+        <img src="/assets/throwbacks/2016.png" alt="Coming Soon">
+        <div class="overlay-text">Coming<br>Soon</div>
+    </div>
+
+    <div class="gallery-item has-image">
+        <img src="/assets/throwbacks/movienight.png" alt="Coming Soon">
+        <div class="overlay-text">Coming<br>Soon</div>
+    </div>
+
+    <div class="gallery-item has-image">
+        <img src="/assets/throwbacks/offtotheraces.jpeg" alt="Coming Soon">
+        <div class="overlay-text">Coming<br>Soon</div>
+    </div>
+
+    <div class="gallery-item has-image">
+        <img src="/assets/throwbacks/churchbathroom.png" alt="Coming Soon">
+        <div class="overlay-text">Coming<br>Soon</div>
+    </div>
+
+    <div class="gallery-item has-image">
+        <img src="/assets/throwbacks/evermores.png" alt="Coming Soon">
+        <div class="overlay-text">Coming<br>Soon</div>
+    </div>
+
+    <div class="gallery-item has-image">
+        <img src="/assets/throwbacks/engagementstairs.jpeg" alt="Coming Soon">
+        <div class="overlay-text">Coming<br>Soon</div>
+    </div>
+</div>
+
 
     <!-- Modal with Carousel -->
     <div id="modal" class="modal">
@@ -928,60 +944,49 @@
                 subtitle: "Custom Commissioned Work",
                 description: "Custom icons to be used for iPhone shortcuts.",
                 images: [
-                    { type: 'gradient', background: 'var(--gradient-pink-variants)', elementClass: 'nth-child(3)' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Client+Work+1' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=Client+Work+2' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/f0f0f5/000000?text=Client+Work+3' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/bfbfdc/000000?text=Client+Work+4' }
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/phone.png' },
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/imessage.png' },
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/calendar.png' },
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/email.png' },
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/notes.png' },
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/camera.png' },
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/games.png' },
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/photos.png' },
+                    { type: 'image', url: '/assets/graphicdesign/phone icons/safari.png' },
                 ]
             },
             {
-                title: "Email Campaign Graphics",
-                subtitle: "Digital Marketing Design",
-                description: "Eye-catching email campaign designs that boost engagement and conversion rates through compelling visual storytelling.",
+                title: "More Work Coming Soon",
+                subtitle: "the girls are working hard",
+                description: "all the girls are girling, girling",
                 images: [
-                    { type: 'image', url: 'https://imgur.com/w31bIPR.png' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/9a9ad4/ffffff?text=Email+Header' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/00a8a3/ffffff?text=Newsletter+Design' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=CTA+Buttons' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Email+Footer' }
+                    { type: 'image', url: '/assets/favicon.png' },
                 ]
             },
             {
-                title: "Product Promotion",
-                subtitle: "Marketing & Advertising",
-                description: "Dynamic promotional materials designed to showcase products in their best light and drive sales through visual appeal.",
+                title: "More Work Coming Soon",
+                subtitle: "the girls are working hard",
+                description: "all the girls are girling, girling",
                 images: [
-                    { type: 'gradient', background: 'var(--gradient-radial)', elementClass: 'nth-child(5)' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/3f3d7a/ffffff?text=Product+Banner' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/00c9c2/ffffff?text=Social+Media+Ad' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/9a9ad4/ffffff?text=Promo+Poster' }
+                    { type: 'image', url: '/assets/favicon.png' },
                 ]
             },
-            {
-                title: "Sticker Designs",
-                subtitle: "Product Design & Illustration",
-                description: "Fun and vibrant sticker designs that bring personality to any surface, from laptops to water bottles.",
+           {
+                title: "More Work Coming Soon",
+                subtitle: "the girls are working hard",
+                description: "all the girls are girling, girling",
                 images: [
-                    { type: 'gradient', background: 'var(--gradient-multi)', elementClass: 'nth-child(6)' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Sticker+Pack+1' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/00a8a3/ffffff?text=Sticker+Pack+2' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=Custom+Stickers' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/9a9ad4/ffffff?text=Holographic+Set' }
+                    { type: 'image', url: '/assets/favicon.png' },
                 ]
             },
-            {
-                title: "Poster/Print Designs",
-                subtitle: "Print Design & Typography",
-                description: "Bold poster designs and print materials that command attention and communicate messages effectively.",
+        {
+                title: "More Work Coming Soon",
+                subtitle: "the girls are working hard",
+                description: "all the girls are girling, girling",
                 images: [
-                    { type: 'gradient', background: 'var(--gradient-blue-purple)', elementClass: 'nth-child(7)' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/3f3d7a/ffffff?text=Concert+Poster' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/00c9c2/ffffff?text=Art+Exhibition' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/c13886/ffffff?text=Event+Flyer' },
-                    { type: 'image', url: 'https://via.placeholder.com/600x600/ffb3d6/000000?text=Typography+Poster' }
+                    { type: 'image', url: '/assets/favicon.png' },
                 ]
-            }
+            },
         ];
 
         function createCarouselSlide(image, index) {
