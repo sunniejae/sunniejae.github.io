@@ -471,27 +471,22 @@
       </div>
     </div>
   </div>
-
-  <!-- HubSpot Embed Script -->
-  <script charset="utf-8" type="text/javascript" src="//js-na2.hsforms.net/forms/embed/v2.js"></script>
-  <script>
-    hbspt.forms.create({
-      portalId: "244738582",
-      formId: "329eca18-e280-4e1a-bde5-a6053e4fade8",
-      region: "na2",
-      target: "#hubspotForm",
-      onFormReady: function($form) {
-        // fill hidden wishlist field if already set
-        const wishlistField = document.querySelector('input[name="wishlist_items"]');
-        if (wishlistField) wishlistField.value = "";
-      },
-      onFormSubmit: function($form) {
-        // JS will fill the hidden field before submit
-        const event = new Event('wishlist:submit');
-        window.dispatchEvent(event);
+<script charset="utf-8" type="text/javascript" src="//js-na2.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    portalId: "244738582",
+    formId: "329eca18-e280-4e1a-bde5-a6053e4fade8",
+    region: "na2",
+    target: "#hubspotForm",
+    onFormReady: function($form) {
+      // Fill hidden wishlist field when form loads
+      const wishlistField = document.querySelector('input[name="wishlist_items"]');
+      if (wishlistField) {
+        wishlistField.value = ""; // start empty
       }
-    });
-  </script>
+    }
+  });
+</script>
 
   <script src="shophome.js"></script>
 </body>

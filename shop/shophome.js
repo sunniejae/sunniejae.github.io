@@ -90,6 +90,12 @@ function saveWishlist() {
 function loadWishlist() {
   const saved = localStorage.getItem("sj_wishlist");
   wishlist = saved ? JSON.parse(saved) : [];
+
+  // Ensure qty is always a number
+  wishlist = wishlist.map(item => ({
+    ...item,
+    qty: Number(item.qty) || 1
+  }));
 }
 
 function setWishlistHiddenField() {
@@ -97,7 +103,7 @@ function setWishlistHiddenField() {
   if (!wishlistField) return;
 
   wishlistField.value = wishlist
-    .map(item => item.title)
+    .map(item => `${item.title} (x${item.qty})`)
     .join(" | ");
 }
 
@@ -193,14 +199,20 @@ function createProductCard(product) {
 // WISHLIST
 // ============================
 function addToWishlist(product) {
-  if (wishlist.find(item => item.id === product.id)) {
-    alert("This item is already in your wishlist!");
-    return;
+  const existing = wishlist.find(item => item.id === product.id);
+
+  if (existing) {
+    existing.qty = Number(existing.qty) + 1;
+  } else {
+    wishlist.push({
+      ...product,
+      qty: 1
+    });
   }
 
-  wishlist.push(product);
   saveWishlist();
   updateWishlistCount();
+  setWishlistHiddenField();
 }
 
 function removeFromWishlist(productId) {
@@ -208,6 +220,7 @@ function removeFromWishlist(productId) {
   saveWishlist();
   updateWishlistCount();
   renderWishlist();
+  setWishlistHiddenField();
 }
 
 function updateWishlistCount() {
@@ -257,6 +270,39 @@ function renderWishlist() {
       desc.textContent = product.description;
       info.appendChild(desc);
     }
+
+    // QTY CONTROLS
+    const qtyControls = document.createElement("div");
+    qtyControls.className = "qty-controls";
+
+    const minusBtn = document.createElement("button");
+    minusBtn.className = "remove-btn";
+    minusBtn.textContent = "-";
+    minusBtn.addEventListener("click", () => {
+      product.qty = Math.max(1, Number(product.qty) - 1);
+      saveWishlist();
+      renderWishlist();
+      setWishlistHiddenField();
+    });
+
+    const qtyDisplay = document.createElement("span");
+    qtyDisplay.textContent = `Qty: ${product.qty}`;
+
+    const plusBtn = document.createElement("button");
+    plusBtn.className = "btn btn-secondary";
+    plusBtn.textContent = "+";
+    plusBtn.addEventListener("click", () => {
+      product.qty = Number(product.qty) + 1;
+      saveWishlist();
+      renderWishlist();
+      setWishlistHiddenField();
+    });
+
+    qtyControls.appendChild(minusBtn);
+    qtyControls.appendChild(qtyDisplay);
+    qtyControls.appendChild(plusBtn);
+
+    info.appendChild(qtyControls);
 
     const removeBtn = document.createElement("button");
     removeBtn.className = "remove-btn";
