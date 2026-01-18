@@ -1,6 +1,7 @@
-// ============================
-// PRODUCT DATA
-// ============================
+/* ======================================================
+   PRODUCT DATA
+====================================================== */
+
 const products = {
   exclusive: [
     {
@@ -75,14 +76,16 @@ const products = {
   ]
 };
 
-// ============================
-// STATE
-// ============================
+/* ======================================================
+   STATE
+====================================================== */
+
 let wishlist = [];
 
-// ============================
-// HELPERS
-// ============================
+/* ======================================================
+   STORAGE
+====================================================== */
+
 function saveWishlist() {
   localStorage.setItem("sj_wishlist", JSON.stringify(wishlist));
 }
@@ -91,25 +94,49 @@ function loadWishlist() {
   const saved = localStorage.getItem("sj_wishlist");
   wishlist = saved ? JSON.parse(saved) : [];
 
-  // Ensure qty is always a number
   wishlist = wishlist.map(item => ({
     ...item,
     qty: Number(item.qty) || 1
   }));
 }
 
-function setWishlistHiddenField() {
-  const wishlistField = document.querySelector('input[name="wishlist_items"]');
-  if (!wishlistField) return;
+/* ======================================================
+   HUBSPOT SYNC
+====================================================== */
 
-  wishlistField.value = wishlist
+function getWishlistText() {
+  if (!wishlist.length) return '';
+
+  return wishlist
     .map(item => `${item.title} (x${item.qty})`)
     .join(" | ");
 }
 
-// ============================
-// INIT
-// ============================
+function syncWishlistToHubSpot() {
+  const iframe = document.querySelector("#hubspotForm iframe");
+  if (!iframe) return;
+
+  const value = getWishlistText();
+
+  const interval = setInterval(() => {
+    try {
+      const doc = iframe.contentWindow.document;
+      const field = doc.querySelector('input[name="wishlist_items"]');
+
+      if (field) {
+        field.value = value;
+        clearInterval(interval);
+      }
+    } catch {
+      // iframe not ready yet
+    }
+  }, 100);
+}
+
+/* ======================================================
+   INIT
+====================================================== */
+
 function init() {
   loadWishlist();
   renderProducts();
@@ -117,9 +144,10 @@ function init() {
   attachEventListeners();
 }
 
-// ============================
-// RENDER PRODUCTS
-// ============================
+/* ======================================================
+   PRODUCT RENDERING
+====================================================== */
+
 function renderProducts() {
   const exclusiveGrid = document.getElementById("exclusiveProducts");
   const directGrid = document.getElementById("directProducts");
@@ -131,232 +159,172 @@ function renderProducts() {
   products.direct.forEach(p => directGrid.appendChild(createProductCard(p)));
 }
 
-// ============================
-// PRODUCT CARD
-// ============================
 function createProductCard(product) {
   const card = document.createElement("div");
   card.className = "product-card";
 
-  const img = document.createElement("img");
-  img.className = "product-image";
-  img.src = product.image;
-  img.alt = product.title;
+  card.innerHTML = `
+    <img class="product-image" src="${product.image}" alt="${product.title}">
+    <div class="product-info">
+      <div class="product-title">${product.title}</div>
+      <div class="product-price">${product.price}</div>
+      ${product.description ? `<div class="product-description">${product.description}</div>` : ''}
+      <div class="product-type">
+        ${product.type === "exclusive" ? "Exclusive to Order" : "Direct Order"}
+      </div>
+      <div class="product-actions"></div>
+    </div>
+  `;
 
-  const info = document.createElement("div");
-  info.className = "product-info";
-
-  const title = document.createElement("h3");
-  title.className = "product-title";
-  title.textContent = product.title;
-
-  const price = document.createElement("div");
-  price.className = "product-price";
-  price.textContent = product.price;
-
-  info.appendChild(title);
-  info.appendChild(price);
-
-  if (product.description) {
-    const desc = document.createElement("p");
-    desc.className = "product-description";
-    desc.textContent = product.description;
-    info.appendChild(desc);
-  }
-
-  const type = document.createElement("div");
-  type.className = "product-type";
-  type.textContent = product.type === "exclusive" ? "Exclusive to Order" : "Direct Order";
-
-  const actions = document.createElement("div");
-  actions.className = "product-actions";
+  const actions = card.querySelector(".product-actions");
 
   if (product.type === "exclusive") {
-    const wishlistBtn = document.createElement("button");
-    wishlistBtn.className = "btn btn-wishlist";
-    wishlistBtn.textContent = "Add to Wishlist";
-    wishlistBtn.addEventListener("click", () => addToWishlist(product));
-    actions.appendChild(wishlistBtn);
+    const btn = document.createElement("button");
+    btn.className = "btn btn-wishlist";
+    btn.textContent = "Add to Wishlist";
+    btn.addEventListener("click", () => addToWishlist(product));
+    actions.appendChild(btn);
   } else {
-    const orderBtn = document.createElement("a");
-    orderBtn.className = "btn btn-secondary";
-    orderBtn.textContent = "Order Now";
-    orderBtn.href = product.link;
-    orderBtn.target = "_blank";
-    actions.appendChild(orderBtn);
+    const link = document.createElement("a");
+    link.className = "btn btn-secondary";
+    link.textContent = "Order Now";
+    link.href = product.link;
+    link.target = "_blank";
+    actions.appendChild(link);
   }
-
-  info.appendChild(type);
-  info.appendChild(actions);
-
-  card.appendChild(img);
-  card.appendChild(info);
 
   return card;
 }
 
-// ============================
-// WISHLIST
-// ============================
+/* ======================================================
+   WISHLIST LOGIC
+====================================================== */
+
 function addToWishlist(product) {
   const existing = wishlist.find(item => item.id === product.id);
 
   if (existing) {
-    existing.qty = Number(existing.qty) + 1;
+    existing.qty += 1;
   } else {
-    wishlist.push({
-      ...product,
-      qty: 1
-    });
+    wishlist.push({ ...product, qty: 1 });
   }
 
   saveWishlist();
   updateWishlistCount();
-  setWishlistHiddenField();
+  syncWishlistToHubSpot();
 }
 
-function removeFromWishlist(productId) {
-  wishlist = wishlist.filter(item => item.id !== productId);
+function removeFromWishlist(id) {
+  wishlist = wishlist.filter(item => item.id !== id);
   saveWishlist();
   updateWishlistCount();
   renderWishlist();
-  setWishlistHiddenField();
+  syncWishlistToHubSpot();
 }
 
 function updateWishlistCount() {
-  const count = document.getElementById("wishlistCount");
-  count.textContent = wishlist.length;
-  count.style.display = wishlist.length ? "flex" : "none";
+  const el = document.getElementById("wishlistCount");
+  el.textContent = wishlist.length;
+  el.style.display = wishlist.length ? "flex" : "none";
 }
 
-// ============================
-// WISHLIST MODAL
-// ============================
+/* ======================================================
+   WISHLIST MODAL
+====================================================== */
 function renderWishlist() {
-  const container = document.getElementById("wishlistItems");
-  container.innerHTML = "";
+  const wishlistContainer = document.getElementById("wishlistItems");
 
-  if (!wishlist.length) {
-    container.innerHTML = '<div class="empty-wishlist">Your wishlist is empty.</div>';
+  if (!wishlistContainer) {
+    console.warn("wishlistItems container not found");
     return;
   }
 
-  wishlist.forEach(product => {
-    const item = document.createElement("div");
-    item.className = "wishlist-item";
+  wishlistContainer.innerHTML = "";
 
-    const img = document.createElement("img");
-    img.className = "wishlist-item-image";
-    img.src = product.image;
-    img.alt = product.title;
+  if (!wishlist.length) {
+    wishlistContainer.innerHTML = `
+      <p class="empty-wishlist">Your wishlist is empty.</p>
+    `;
+    return;
+  }
 
-    const info = document.createElement("div");
-    info.className = "wishlist-item-info";
+  wishlist.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "wishlist-item";
 
-    const title = document.createElement("div");
-    title.className = "wishlist-item-title";
-    title.textContent = product.title;
+    div.innerHTML = `
+      <img src="${item.image}" class="wishlist-item-image" alt="${item.title}">
+      <div class="wishlist-item-info">
+        <div class="wishlist-item-title">${item.title}</div>
+        <div class="wishlist-item-price">${item.price}</div>
+        <div class="wishlist-item-description">${item.description}</div>
 
-    const price = document.createElement("div");
-    price.className = "wishlist-item-price";
-    price.textContent = product.price;
+        <div class="qty-controls">
+          <button onclick="updateQty(${item.id}, -1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="updateQty(${item.id}, 1)">+</button>
+          <button class="remove-btn" onclick="removeFromWishlist(${item.id})">Remove</button>
+        </div>
+      </div>
+    `;
 
-    info.appendChild(title);
-    info.appendChild(price);
-
-    if (product.description) {
-      const desc = document.createElement("div");
-      desc.className = "wishlist-item-description";
-      desc.textContent = product.description;
-      info.appendChild(desc);
-    }
-
-    // QTY CONTROLS
-    const qtyControls = document.createElement("div");
-    qtyControls.className = "qty-controls";
-
-    const minusBtn = document.createElement("button");
-    minusBtn.className = "remove-btn";
-    minusBtn.textContent = "-";
-    minusBtn.addEventListener("click", () => {
-      product.qty = Math.max(1, Number(product.qty) - 1);
-      saveWishlist();
-      renderWishlist();
-      setWishlistHiddenField();
-    });
-
-    const qtyDisplay = document.createElement("span");
-    qtyDisplay.textContent = `Qty: ${product.qty}`;
-
-    const plusBtn = document.createElement("button");
-    plusBtn.className = "btn btn-secondary";
-    plusBtn.textContent = "+";
-    plusBtn.addEventListener("click", () => {
-      product.qty = Number(product.qty) + 1;
-      saveWishlist();
-      renderWishlist();
-      setWishlistHiddenField();
-    });
-
-    qtyControls.appendChild(minusBtn);
-    qtyControls.appendChild(qtyDisplay);
-    qtyControls.appendChild(plusBtn);
-
-    info.appendChild(qtyControls);
-
-    const removeBtn = document.createElement("button");
-    removeBtn.className = "remove-btn";
-    removeBtn.textContent = "Remove";
-    removeBtn.addEventListener("click", () => removeFromWishlist(product.id));
-
-    item.appendChild(img);
-    item.appendChild(info);
-    item.appendChild(removeBtn);
-
-    container.appendChild(item);
+    wishlistContainer.appendChild(div);
   });
 }
+function updateQty(productId, delta) {
+  wishlist = wishlist.map(item => {
+    if (item.id === productId) {
+      return {
+        ...item,
+        qty: Math.max(1, Number(item.qty) + delta)
+      };
+    }
+    return item;
+  });
 
-// ============================
-// MODALS
-// ============================
+  saveWishlist();
+  renderWishlist();
+  setWishlistHiddenField();
+}
+/* ======================================================
+   MODALS
+====================================================== */
+
 function openModal(id) {
   document.getElementById(id).classList.add("active");
-  if (id === "wishlistModal") renderWishlist();
+
+  if (id === "wishlistModal") {
+    renderWishlist();
+    syncWishlistToHubSpot();
+  }
 }
 
 function closeModal(id) {
   document.getElementById(id).classList.remove("active");
 }
 
-// ============================
-// EVENTS
-// ============================
+/* ======================================================
+   EVENTS
+====================================================== */
+
 function attachEventListeners() {
   document.getElementById("wishlistBtn")?.addEventListener("click", () => openModal("wishlistModal"));
   document.getElementById("closeWishlist")?.addEventListener("click", () => closeModal("wishlistModal"));
-  document.getElementById("wishlistModal")?.addEventListener("click", (e) => {
+  document.getElementById("wishlistModal")?.addEventListener("click", e => {
     if (e.target.id === "wishlistModal") closeModal("wishlistModal");
   });
 
   document.getElementById("infoBtn")?.addEventListener("click", () => openModal("infoModal"));
   document.getElementById("closeInfo")?.addEventListener("click", () => closeModal("infoModal"));
-  document.getElementById("infoModal")?.addEventListener("click", (e) => {
+  document.getElementById("infoModal")?.addEventListener("click", e => {
     if (e.target.id === "infoModal") closeModal("infoModal");
   });
-
-  // HubSpot form submit
-  const orderForm = document.getElementById("orderForm");
-  if (orderForm) {
-    orderForm.addEventListener("submit", (e) => {
-      setWishlistHiddenField();
-    });
-  }
 }
 
-// ============================
-// DOM READY
-// ============================
+/* ======================================================
+   DOM READY
+====================================================== */
+
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
