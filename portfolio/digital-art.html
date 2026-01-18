@@ -28,6 +28,10 @@
     --gradient-secondary: linear-gradient(135deg, var(--secondary), var(--pink));
 }
 
+a {
+    text-decoration: none;
+    color: inherit
+}
 * {
     margin: 0;
     padding: 0;
@@ -36,7 +40,7 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--light-pink);
+    background: var(--silver);
     color: var(--black);
     line-height: 1.5;
 }
@@ -79,10 +83,7 @@ header {
 .logo-text {
     font-weight: 700;
     font-size: 20px;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: var(--dark-purple);
-    background-clip: text;
+    color: var(--dark-purple);
 }
 
 .nav-pills {
@@ -132,7 +133,6 @@ header {
     flex: 1;
     max-width: 600px;
     margin: 0 20px;
-    position: relative;
 }
 
 .search-box {
@@ -194,7 +194,6 @@ header {
 .masonry {
     columns: 5;
     column-gap: 20px;
-    column-fill: balance;
 }
 
 .pin {
@@ -203,9 +202,9 @@ header {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    background: var(--black);
+    background: var(--white);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    cursor: zoom-in;
+    cursor: pointer;
     border: 1px solid var(--silver);
 }
 
@@ -218,17 +217,19 @@ header {
 .pin-image {
     position: relative;
     overflow: hidden;
+    background: var(--black);
 }
 
-.pin img {
+.pin img,
+.pin video {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 20px 20px 0 0;
     transition: transform 0.4s ease;
 }
 
-.pin:hover img {
+.pin:hover img,
+.pin:hover video {
     transform: scale(1.08);
 }
 
@@ -257,7 +258,7 @@ header {
     gap: 12px;
 }
 
-.share-btn {
+.action-btn {
     background: var(--gradient);
     color: var(--white);
     border: none;
@@ -270,7 +271,7 @@ header {
     box-shadow: var(--shadow);
 }
 
-.share-btn:hover {
+.action-btn:hover {
     background: var(--gradient-secondary);
     transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
@@ -278,38 +279,44 @@ header {
 
 .tags-btn {
     background: var(--gradient-secondary);
-    color: var(--white);
-    border: none;
     padding: 6px 12px;
-    border-radius: 18px;
-    font-weight: 300;
     font-size: 10px;
+    font-weight: 300;
+    border-radius: 18px;
 }
 
 .tags-btn:hover {
     background: var(--gradient);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
 }
 
-.tags-menu {
+.dropdown-menu {
     position: absolute;
     top: 70px;
-    left: 20px;
     background: var(--white);
     border: 2px solid var(--gray);
     border-radius: 16px;
     padding: 16px;
     box-shadow: var(--shadow-hover);
     display: none;
+    z-index: 1000;
+    min-width: 200px;
+}
+
+.dropdown-menu.active {
+    display: flex;
+}
+
+.tags-menu {
+    left: 20px;
     flex-wrap: wrap;
     gap: 8px;
     max-width: 280px;
-    z-index: 1000;
 }
 
-.tags-menu.active {
-    display: flex;
+.share-menu {
+    right: 20px;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .tag-item {
@@ -330,27 +337,6 @@ header {
     color: var(--white);
     transform: translateY(-2px);
     box-shadow: var(--shadow);
-}
-
-
-.share-menu {
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    background: var(--white);
-    border: 2px solid var(--gray);
-    border-radius: 16px;
-    padding: 12px;
-    box-shadow: var(--shadow-hover);
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    min-width: 200px;
-    z-index: 1000;
-}
-
-.share-menu.active {
-    display: flex;
 }
 
 .share-option {
@@ -392,20 +378,6 @@ header {
     color: var(--white);
 }
 
-.share-option[data-platform="reddit"]:hover {
-    background: #ff4500;
-    color: var(--white);
-}
-
-.share-icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-}
-
 .pin-info {
     padding: 16px;
     background: var(--white);
@@ -422,6 +394,72 @@ header {
     font-size: 14px;
     color: var(--dark-gray);
     line-height: 1.5;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 16, 0.85);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 16, 0.5);
+    animation: scaleIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modal-media {
+    width: 800px;
+    height: 600px;
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    display: block;
+    background: var(--black);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: var(--gradient);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-hover);
+    z-index: 1;
+}
+
+.modal-close:hover {
+    background: var(--gradient-secondary);
+    transform: rotate(90deg) scale(1.1);
 }
 
 /* Chat Button */
@@ -450,7 +488,7 @@ header {
     transform: scale(1.1) rotate(10deg);
 }
 
-#chatWindow {
+.chat-window {
     position: fixed;
     bottom: 110px;
     right: 30px;
@@ -464,6 +502,10 @@ header {
     flex-direction: column;
     z-index: 1000;
     overflow: hidden;
+}
+
+.chat-window.active {
+    display: flex;
 }
 
 .chat-header {
@@ -496,15 +538,33 @@ header {
 
 .message:nth-child(even) {
     background: var(--pink);
-    margin-left: 20px;
 }
 
 .message:nth-child(odd) {
-    background: var(--accent);
-    margin-left: 20px;
-    color: var(--white);
+    background: var(--pink);
 }
 
+/* Notification */
+.notification {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    background: var(--gradient);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    z-index: 10000;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: var(--shadow-hover);
+    animation: slideIn 0.3s ease;
+}
+
+.notification.tag-search {
+    background: var(--gradient-secondary);
+}
+
+/* Animations */
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -513,6 +573,37 @@ header {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
@@ -537,7 +628,7 @@ header {
 @media (max-width: 480px) {
     .masonry { columns: 1; }
     .container { padding: 16px; }
-    #chatWindow { 
+    .chat-window { 
         width: calc(100vw - 32px);
         right: 16px;
     }
@@ -549,7 +640,7 @@ header {
     }
 }
 
-/* Custom scrollbar */
+/* Scrollbar */
 .chat-messages::-webkit-scrollbar {
     width: 6px;
 }
@@ -588,315 +679,141 @@ header {
     </div>
     
     <div class="profile-actions">
-        <button class="profile-btn">🔔</button>
-        <button class="profile-btn">💬</button>
-        <button class="profile-btn">👤</button>
+        <button class="profile-btn"><a href="/shop/home.html">🔔</a></button>
+        <button class="profile-btn"><a href="/contact.html">💬</a></button>
+        <button class="profile-btn"><a href="/club/public/club.html">🫂</a></button>
     </div>
 </header>
 
 <div class="container">
-    <div class="masonry" id="masonry-container">
-        <!-- Pins will be generated by JavaScript -->
-    </div>
+    <div class="masonry" id="masonry"></div>
 </div>
 
 <button class="chat-button">💬</button>
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">Messages from Sunnie Jae</div>
+    <div class="chat-messages" id="chatMessages"></div>
+</div>
 
-<div id="chatWindow">
-    <div class="chat-header">
-        Chat with Sunnie Jae ✨
-    </div>
-    <div class="chat-messages" id="chatMessages">
-        <!-- Messages will appear here -->
-    </div>
+<div class="modal" id="modal">
+    <button class="modal-close" id="closeModal">❌</button>
+    <div class="modal-content" id="modalContent"></div>
 </div>
 
 <script>
-// Pin data and generation
-/* =====================================================
-   PIN DATA
-===================================================== */
+// Pin data
 const pinData = [
-  { id: "1", title: "Webcomic Self Portrait", description: "Exploring techniques", tags: ["webcomic", "self portrait"], type: "image" },
-  { id: "2", title: "Siberian", description: "Color block portrait of a cat", tags: ["cat", "pet art"], type: "image" },
-  { id: "3", title: "Winter Speedpaint", description: "Colorblock speedpaint video", tags: ["video", "speedpaint"], type: "video", poster: "https://sunniejae.blob.core.windows.net/sunniejae/3.png", src: "https://sunniejae.blob.core.windows.net/sunniejae/3.mp4" }
-];
+    { 
+        id: "4", 
+        title: "Webcomic Self Portrait", 
+        description: "Exploring techniques", 
+        tags: ["webcomic", "self portrait"], 
+        type: "image" 
+    },
+    { 
+        id: "2", 
+        title: "Siberian", 
+        description: "Color block portrait of a cat", 
+        tags: ["cat", "pet art"], 
+        type: "image" 
+    },
+    { 
+        id: "3", 
+        title: "Winter Speedpaint", 
+        description: "Colorblock speedpaint video", 
+        tags: ["video", "speedpaint"], 
+        type: "video", 
+        poster: "/assets/digitalart/3.png", 
+        src: "/assets/videos/3.mp4" 
+    },
 
-const masonry = document.getElementById("masonry-container");
-const modal = document.getElementById("modal");
-const modalContent = document.getElementById("modalContent");
-const closeModalBtn = document.getElementById("closeModal");
-
-/* =====================================================
-   LAZY LOADER (images + videos)
-===================================================== */
-const lazyObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const el = entry.target;
-    if (el.tagName === "IMG") el.src = el.dataset.src;
-    if (el.tagName === "VIDEO") el.src = el.dataset.src;
-    observer.unobserve(el);
-  });
-}, { rootMargin: "200px", threshold: 0.1 });
-
-/* =====================================================
-   RENDER PINS
-===================================================== */
-pinData.forEach(pin => {
-  const el = document.createElement("div");
-  el.className = "pin";
-  el.dataset.pinId = pin.id;
-
-  const mediaHTML = pin.type === "video"
-    ? `<video class="pin-video lazy-video" muted loop playsinline preload="none" poster="${pin.poster}" data-src="${pin.src}"></video>`
-    : `<img class="lazy" data-src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}">`;
-
-  el.innerHTML = `
-    <div class="pin-image">
-      ${mediaHTML}
-      <div class="pin-overlay">
-        <div class="pin-actions">
-          <button class="tags-btn" data-pin-id="${pin.id}">Tags</button>
-          <button class="share-btn" data-pin-id="${pin.id}">Share</button>
-          <div class="tags-menu" id="tags-${pin.id}">${pin.tags.map(t => `<span class="tag-item" data-tag="${t}">#${t}</span>`).join("")}</div>
-          <div class="share-menu" id="menu-${pin.id}">
-            <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">🔗 Copy link</a>
-            <a href="#" class="share-option social-share" data-platform="twitter" data-pin-id="${pin.id}">🖤 X</a>
-            <a href="#" class="share-option social-share" data-platform="pinterest" data-pin-id="${pin.id}">🧡 Pinterest</a>
-            <a href="#" class="share-option social-share" data-platform="tumblr" data-pin-id="${pin.id}">💜 Tumblr</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pin-info">
-      <div class="pin-title">${pin.title}</div>
-      <div class="pin-description">${pin.description}</div>
-    </div>
-  `;
-
-  masonry.appendChild(el);
-
-  const img = el.querySelector(".lazy");
-  const video = el.querySelector(".lazy-video");
-  if (img) lazyObserver.observe(img);
-  if (video) lazyObserver.observe(video);
-
-  /* Hover play (desktop) */
-  if (video) {
-    el.addEventListener("mouseenter", () => video.play().catch(() => {}));
-    el.addEventListener("mouseleave", () => { video.pause(); video.currentTime = 0; });
-  }
-
-  /* Click → modal */
-  el.addEventListener("click", e => {
-    if (!e.target.closest(".tags-btn") && !e.target.closest(".share-btn")) {
-      openModal(pin);
-    }
-  });
-});
-
-/* =====================================================
-   MODAL LOGIC
-===================================================== */
-function openModal(pin) {
-  modalContent.innerHTML = "";
-  if (pin.type === "video") {
-    modalContent.innerHTML = `<video controls autoplay playsinline src="${pin.src}" poster="${pin.poster}"></video>`;
-  } else {
-    modalContent.innerHTML = `<img src="https://sunniejae.blob.core.windows.net/sunniejae/${pin.id}.png" alt="${pin.title}">`;
-  }
-  modal.style.display = "flex";
-}
-
-function closeModal() {
-  modal.style.display = "none";
-  modalContent.innerHTML = "";
-}
-
-closeModalBtn.addEventListener("click", closeModal);
-modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-
-/* =====================================================
-   URL SHARING + SCROLL
-===================================================== */
-function buildPinURL(pinId) {
-  const url = new URL(window.location.href);
-  url.searchParams.set("pin", pinId);
-  return url.toString();
-}
-function scrollToPin(pinId) {
-  const pin = document.querySelector(`[data-pin-id="${pinId}"]`);
-  if (!pin) return;
-  pin.scrollIntoView({ behavior: "smooth", block: "center" });
-  pin.classList.add("pin-highlight");
-  setTimeout(() => pin.classList.remove("pin-highlight"), 2000);
-}
-const urlPin = new URLSearchParams(window.location.search).get("pin");
-if (urlPin) window.addEventListener("load", () => scrollToPin(urlPin));
-
-// Share functionality
-document.addEventListener('click', function(e) {
-    // Handle tags button clicks
-    if (e.target.classList.contains('tags-btn')) {
-        e.stopPropagation();
-        const pinId = e.target.dataset.pinId;
-        const menu = document.getElementById(`tags-${pinId}`);
-        
-        // Close all other menus
-        document.querySelectorAll('.tags-menu, .share-menu').forEach(m => {
-            if (m.id !== `tags-${pinId}`) {
-                m.classList.remove('active');
-            }
-        });
-        
-        menu.classList.toggle('active');
-    }
+    { 
+        id: "1", 
+        title: "If I Knew Then", 
+        description: "Exploring techniques", 
+        tags: ["digital art", "surreal"], 
+        type: "image" 
+    },
     
-    // Handle tag clicks
-    if (e.target.classList.contains('tag-item')) {
-        const tag = e.target.dataset.tag;
-        const searchBox = document.querySelector('.search-box');
-        searchBox.value = tag;
-        searchBox.focus();
-        
-        // Trigger search
-        const event = new Event('input', { bubbles: true });
-        searchBox.dispatchEvent(event);
-        
-        // Close all menus
-        document.querySelectorAll('.tags-menu').forEach(menu => {
-            menu.classList.remove('active');
-        });
-        
-        // Show notification
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            background: var(--gradient-secondary);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            z-index: 10000;
-            font-size: 14px;
-            font-weight: 600;
-            box-shadow: var(--shadow-hover);
-            animation: slideIn 0.3s ease;
-        `;
-        notification.textContent = `🏷️ Searching for "${tag}"`;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 2000);
-    }
-    
-    // Handle share button clicks
-    if (e.target.classList.contains('share-btn')) {
-        e.stopPropagation();
-        const pinId = e.target.dataset.pinId;
-        const menu = document.getElementById(`menu-${pinId}`);
-        
-        // Close all other menus
-        document.querySelectorAll('.share-menu, .tags-menu').forEach(m => {
-            if (m.id !== `menu-${pinId}`) {
-                m.classList.remove('active');
-            }
-        });
-        
-        menu.classList.toggle('active');
-    }
-    
-    // Handle copy link
-    if (e.target.classList.contains('copy-link') || e.target.closest('.copy-link')) {
-        e.preventDefault();
-        const pinId = e.target.dataset.pinId || e.target.closest('.copy-link').dataset.pinId;
-        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
-        
-        navigator.clipboard.writeText(imageUrl).then(() => {
-            // Create temporary notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 30px;
-                background: var(--gradient);
-                color: white;
-                padding: 16px 24px;
-                border-radius: 12px;
-                z-index: 10000;
-                font-size: 14px;
-                font-weight: 600;
-                box-shadow: var(--shadow-hover);
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = '🔗 Link copied!';
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 2000);
-        });
-    }
-    
-    // Handle social sharing
-    if (e.target.classList.contains('social-share') || e.target.closest('.social-share')) {
-        e.preventDefault();
-        const link = e.target.closest('.social-share');
-        const platform = link.dataset.platform;
-        const pinId = link.dataset.pinId;
-        const imageUrl = `https://sunniejae.blob.core.windows.net/sunniejae/${pinId}.png`;
-        const pinTitle = pinData.find(p => p.id === pinId)?.title || `Art ${pinId}`;
-        const description = pinData.find(p => p.id === pinId)?.description || 'Check out this amazing artwork!';
-        
-        let shareUrl = '';
-        
-        switch(platform) {
-            case 'twitter':
-                shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${pinTitle} - ${description}`)}&url=${encodeURIComponent(imageUrl)}`;
-                break;
-            case 'pinterest':
-                shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
-                break;
-            case 'tumblr':
-                shareUrl = `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pinTitle)}&caption=${encodeURIComponent(description)}&source=${encodeURIComponent(imageUrl)}&canonicalUrl=${encodeURIComponent(window.location.href)}`;
-                break;
-            case 'reddit':
-                shareUrl = `https://reddit.com/submit?url=${encodeURIComponent(imageUrl)}&title=${encodeURIComponent(`${pinTitle} - ${description}`)}`;
-                break;
-        }
-        
-        if (shareUrl) {
-            window.open(shareUrl, '_blank', 'width=600,height=600');
-        }
-    }
-    
-    // Close menus when clicking outside
-    if (!e.target.closest('.share-btn') && !e.target.closest('.share-menu') && 
-        !e.target.closest('.tags-btn') && !e.target.closest('.tags-menu')) {
-        document.querySelectorAll('.share-menu, .tags-menu').forEach(menu => {
-            menu.classList.remove('active');
-        });
-    }
-});
+     { 
+        id: "6", 
+        title: "Finale", 
+        description: "First OT7 izna", 
+        tags: ["digital art", "color block", "kpop", "izna"], 
+        type: "image" 
+    },
 
-// Chat functionality
-const chatButton = document.querySelector('.chat-button');
-const chatWindow = document.getElementById('chatWindow');
-const chatMessages = document.getElementById('chatMessages');
-let chatOpen = false;
-let chatIndex = 0;
-
-const chatMessagesList = [
+  { 
+        id: "7", 
+        title: "Hailey", 
+        description: "Webcomic portrait of the main character in Love Bites Back", 
+        tags: ["digital art", "webcomic", "hailey", "love bites back"], 
+        type: "image" 
+    },  { 
+        id: "8", 
+        title: "It's (a bubblegum), Bitch", 
+        description: "Webcomic styled celebrity portrait", 
+        tags: ["digital art", "webcomic", "celebrity", "britney spears"], 
+        type: "image" 
+    },
+      { 
+        id: "9", 
+        title: "Now You See Me", 
+        description: "surreal portrait", 
+        tags: ["digital art", "commissioned", "portrait"], 
+        type: "image" 
+    },
+      { 
+        id: "10", 
+        title: "MoonSun", 
+        description: "Moonbyul and Solar from Mamamoo", 
+        tags: ["digital art", "color block", "kpop", "mamamoo"], 
+        type: "image" 
+    },
+      { 
+        id: "11", 
+        title: "Bombshell", 
+        description: "Digital art celebrity portrait", 
+        tags: ["digital art", "color block", "kpop", "izna"], 
+        type: "image" 
+    },
+      { 
+        id: "12", 
+        title: "Flowers Pt 1", 
+        description: "honeysuckle, orchid, and sunflower", 
+        tags: ["digital art", "flowers"], 
+        type: "image" 
+    },
+      { 
+        id: "13", 
+        title: "Flowers Pt 2", 
+        description: "peony, dandelion, and rose ", 
+        tags: ["digital art", "flowers"], 
+        type: "image" 
+    },
+      { 
+        id: "14", 
+        title: "Crystals Pt 1", 
+        description: "turquoise, amethyst, sapphire, emerald, and diamond", 
+        tags: ["digital art", "crystals"], 
+        type: "image" 
+    },
+      { 
+        id: "15", 
+        title: "Going, Going...", 
+        description: "First OT7 izna", 
+        tags: ["digital art", "surreal", "commissioned"], 
+        type: "image" 
+    },
+      { 
+        id: "16", 
+        title: "Am I Pretty Yet?", 
+        description: "Portrait inspired by vintage blush", 
+        tags: ["digital art", "out of my mind", "portrait"], 
+        type: "image" 
+    },
+]
+const chatMessages = [
     "heeyyy, welcome to my digital art portfolio ✨",
     "no pressure, but you can share any images using the share button on the post.",
     "if you're looking for something special, you can use the search bar for keywords or titles",
@@ -908,84 +825,262 @@ const chatMessagesList = [
     "byeeeee 💖"
 ];
 
-chatButton.addEventListener('click', () => {
-    if (!chatOpen) {
-        chatWindow.style.display = 'flex';
-        chatOpen = true;
-        
-        if (chatIndex < chatMessagesList.length) {
-            const interval = setInterval(() => {
-                if (chatIndex >= chatMessagesList.length) {
-                    clearInterval(interval);
-                    return;
-                }
-                
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message';
-                messageDiv.textContent = chatMessagesList[chatIndex];
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                chatIndex++;
-            }, 1500);
+// DOM elements
+const masonry = document.getElementById("masonry");
+const searchBox = document.querySelector('.search-box');
+const chatButton = document.querySelector('.chat-button');
+const chatWindow = document.getElementById('chatWindow');
+const chatMessagesContainer = document.getElementById('chatMessages');
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modalContent');
+const closeModalBtn = document.getElementById('closeModal');
+
+// State
+let chatIndex = 0;
+
+// Lazy loading observer
+const lazyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const el = entry.target;
+            if (el.dataset.src) {
+                el.src = el.dataset.src;
+                lazyObserver.unobserve(el);
+            }
         }
+    });
+}, { rootMargin: "200px" });
+
+// Utility functions
+function showNotification(message, isTagSearch = false) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${isTagSearch ? 'tag-search' : ''}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 2000);
+}
+
+function buildPinHTML(pin) {
+    const mediaHTML = pin.type === "video"
+        ? `<video muted loop playsinline preload="none" poster="${pin.poster}" data-src="${pin.src}"></video>`
+        : `<img data-src="/assets/digitalart/${pin.id}.png" alt="${pin.title}">`;
+
+    const tagsHTML = pin.tags.map(t => `<span class="tag-item" data-tag="${t}">#${t}</span>`).join("");
+
+    return `
+        <div class="pin-image">
+            ${mediaHTML}
+            <div class="pin-overlay">
+                <div class="pin-actions">
+                    <button class="action-btn tags-btn" data-pin-id="${pin.id}">Tags</button>
+                    <button class="action-btn share-btn" data-pin-id="${pin.id}">Share</button>
+                    <div class="dropdown-menu tags-menu" id="tags-${pin.id}">${tagsHTML}</div>
+                    <div class="dropdown-menu share-menu" id="menu-${pin.id}">
+                        <a href="#" class="share-option copy-link" data-pin-id="${pin.id}">🔗 Copy link</a>
+                        <a href="#" class="share-option" data-platform="twitter" data-pin-id="${pin.id}">🖤 X</a>
+                        <a href="#" class="share-option" data-platform="pinterest" data-pin-id="${pin.id}">🧡 Pinterest</a>
+                        <a href="#" class="share-option" data-platform="tumblr" data-pin-id="${pin.id}">💜 Tumblr</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pin-info">
+            <div class="pin-title">${pin.title}</div>
+            <div class="pin-description">${pin.description}</div>
+        </div>
+    `;
+}
+
+// Render pins
+function renderPins() {
+    pinData.forEach(pin => {
+        const el = document.createElement("div");
+        el.className = "pin";
+        el.dataset.pinId = pin.id;
+        el.innerHTML = buildPinHTML(pin);
+        masonry.appendChild(el);
+
+        const media = el.querySelector("img, video");
+        if (media) lazyObserver.observe(media);
+
+        const video = el.querySelector("video");
+        if (video) {
+            el.addEventListener("mouseenter", () => video.play().catch(() => {}));
+            el.addEventListener("mouseleave", () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+        }
+
+        // Click to open modal
+        el.addEventListener("click", (e) => {
+            if (!e.target.closest('.tags-btn') && !e.target.closest('.share-btn') && 
+                !e.target.closest('.dropdown-menu')) {
+                openModal(pin);
+            }
+        });
+    });
+}
+
+// Modal functions
+function openModal(pin) {
+    modalContent.innerHTML = '';
+    
+    if (pin.type === "video") {
+        const video = document.createElement('video');
+        video.className = 'modal-media';
+        video.src = pin.src;
+        video.poster = pin.poster;
+        video.controls = true;
+        video.autoplay = true;
+        video.loop = true;
+        modalContent.appendChild(video);
     } else {
-        chatWindow.style.display = 'none';
-        chatOpen = false;
+        const img = document.createElement('img');
+        img.className = 'modal-media';
+        img.src = `/assets/digitalart/${pin.id}.png`;
+        img.alt = pin.title;
+        modalContent.appendChild(img);
+    }
+    
+    modal.classList.add('active');
+}
+
+function closeModal() {
+    modal.classList.remove('active');
+    setTimeout(() => {
+        modalContent.innerHTML = '';
+    }, 300);
+}
+
+closeModalBtn.addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
+
+// Event delegation for all clicks
+document.addEventListener('click', (e) => {
+    const target = e.target;
+
+    // Tags button
+    if (target.classList.contains('tags-btn')) {
+        e.stopPropagation();
+        const menu = document.getElementById(`tags-${target.dataset.pinId}`);
+        closeAllMenus(menu);
+        menu.classList.toggle('active');
+    }
+
+    // Tag item
+    if (target.classList.contains('tag-item')) {
+        searchBox.value = target.dataset.tag;
+        searchBox.focus();
+        searchBox.dispatchEvent(new Event('input', { bubbles: true }));
+        closeAllMenus();
+        showNotification(`🏷️ Searching for "${target.dataset.tag}"`, true);
+    }
+
+    // Share button
+    if (target.classList.contains('share-btn')) {
+        e.stopPropagation();
+        const menu = document.getElementById(`menu-${target.dataset.pinId}`);
+        closeAllMenus(menu);
+        menu.classList.toggle('active');
+    }
+
+    // Copy link
+    if (target.closest('.copy-link')) {
+        e.preventDefault();
+        const pinId = target.closest('.copy-link').dataset.pinId;
+        const imageUrl = `https://sunniejae.com/assets/digitalart/${pinId}.png`;
+        
+        navigator.clipboard.writeText(imageUrl).then(() => {
+            showNotification('🔗 Link copied!');
+        });
+    }
+
+    // Social sharing
+    const shareLink = target.closest('.share-option:not(.copy-link)');
+    if (shareLink) {
+        e.preventDefault();
+        const { platform, pinId } = shareLink.dataset;
+        const pin = pinData.find(p => p.id === pinId);
+        const imageUrl = `https://sunniejae.com/assets/digitalart/${pinId}.png`;
+        const text = `${pin.title} - ${pin.description} by Sunnie Jae`;
+        
+        const shareUrls = {
+            twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(imageUrl)}`,
+            pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(text)}`,
+            tumblr: `https://www.tumblr.com/widgets/share/tool?posttype=photo&title=${encodeURIComponent(pin.title)}&caption=${encodeURIComponent(pin.description)}&source=${encodeURIComponent(imageUrl)}`
+        };
+        
+        if (shareUrls[platform]) {
+            window.open(shareUrls[platform], '_blank', 'width=600,height=600');
+        }
+    }
+
+    // Close menus when clicking outside
+    if (!target.closest('.share-btn') && !target.closest('.tags-btn') && 
+        !target.closest('.dropdown-menu')) {
+        closeAllMenus();
     }
 });
 
-// Search functionality
-const searchBox = document.querySelector('.search-box');
-searchBox.addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    const pins = document.querySelectorAll('.pin');
-    
-    pins.forEach(pin => {
-        const title = pin.querySelector('.pin-title').textContent.toLowerCase();
-        const description = pin.querySelector('.pin-description').textContent.toLowerCase();
-        const pinId = pin.querySelector('.share-btn').dataset.pinId;
-        const pinTags = pinData.find(p => p.id === pinId)?.tags || [];
-        const tagsText = pinTags.join(' ').toLowerCase();
-        
-        if (title.includes(searchTerm) || description.includes(searchTerm) || 
-            tagsText.includes(searchTerm) || searchTerm === '') {
-            pin.style.display = 'block';
-        } else {
-            pin.style.display = 'none';
+function closeAllMenus(except = null) {
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        if (menu !== except) {
+            menu.classList.remove('active');
         }
+    });
+}
+
+// Search functionality
+searchBox.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    
+    document.querySelectorAll('.pin').forEach(pin => {
+        const pinId = pin.dataset.pinId;
+        const pinInfo = pinData.find(p => p.id === pinId);
+        
+        const searchableText = [
+            pinInfo.title,
+            pinInfo.description,
+            ...pinInfo.tags
+        ].join(' ').toLowerCase();
+        
+        pin.style.display = searchableText.includes(searchTerm) || !searchTerm ? 'block' : 'none';
     });
 });
 
-// Save button functionality
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('save-btn')) {
-        const btn = e.target;
-        const originalText = btn.textContent;
-        btn.textContent = 'Saved! ✓';
-        btn.style.background = 'var(--gradient-secondary)';
-        
-        setTimeout(() => {
-            btn.textContent = originalText;
-            btn.style.background = 'var(--gradient)';
-        }, 2500);
+// Chat functionality
+chatButton.addEventListener('click', () => {
+    chatWindow.classList.toggle('active');
+    
+    if (chatWindow.classList.contains('active') && chatIndex === 0) {
+        const interval = setInterval(() => {
+            if (chatIndex >= chatMessages.length) {
+                clearInterval(interval);
+                return;
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.textContent = chatMessages[chatIndex];
+            chatMessagesContainer.appendChild(messageDiv);
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+            chatIndex++;
+        }, 2000);
     }
 });
 
-// Add CSS animation for slideOut
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideOut {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-    }
-`;
-document.head.appendChild(style);
+// Initialize
+renderPins();
 </script>
 
 </body>
