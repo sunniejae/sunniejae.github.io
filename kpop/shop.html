@@ -80,13 +80,9 @@
     <h2>♡ Your Wishlist</h2>
     <div id="wishlistContent"></div>
 
-    <div id="wishlistForm">
-      <h3>Place Your Order</h3>
-      <input id="orderName" placeholder="Name">
-      <input id="orderEmail" placeholder="Email">
-      <label><input type="checkbox" id="subscribeCheck" checked> Subscribe</label>
-      <button class="btn btn-primary" onclick="submitOrder()">♡ Request Order</button>
+    <div id="hubspotForm"></div>
     </div>
+
   </div>
 </div>
 
@@ -104,6 +100,19 @@
     <div id="productModalContent"></div>
   </div>
 </div>
+<script charset="utf-8" type="text/javascript" src="//js-na2.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    if (window.hbspt) {
+      hbspt.forms.create({
+        portalId: "244738582",
+        formId: "53753dee-ac44-4da7-b6d7-f35d6965029b",
+        region: "na2",
+        target: "#hubspotForm"
+      });
+    }
+  });
+</script>
 
 <script src="script.js"></script>
 </body>

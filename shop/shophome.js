@@ -271,21 +271,7 @@ function renderWishlist() {
     wishlistContainer.appendChild(div);
   });
 }
-function updateQty(productId, delta) {
-  wishlist = wishlist.map(item => {
-    if (item.id === productId) {
-      return {
-        ...item,
-        qty: Math.max(1, Number(item.qty) + delta)
-      };
-    }
-    return item;
-  });
 
-  saveWishlist();
-  renderWishlist();
-  setWishlistHiddenField();
-}
 /* ======================================================
    MODALS
 ====================================================== */
