@@ -35,7 +35,7 @@ Wrong choices may lead to danger!`,
                 ]
             },
             
-            hallway: {
+            foyer: {
                 background: 'foyer.gif',
                 title: 'THE HALLWAY',
                 text: `You stand in the foyer, the walls adorned with old, dusty paintings and cobwebs stretching from corner to corner. 
@@ -173,35 +173,132 @@ go upstairs to continue your haunted adventure`,
 
                 ]
 },
-                
-            wrong1: {
-                background: 'dead.gif',
-                title: 'WRONG ANSWER!',
-                text: `The ghost of Luis G appears!
-                
-"Think more carefully..."
-
-Try again?`,
+library: {
+                background: 'library.gif',
+                title: 'THE LIBRARY',
+                text: `Welcome to the library. <br> Be quiet- you might disturb someone reading-`,
                 buttons: [
-                    { text: 'TRY AGAIN', nextScene: 'entrance' },
-                    { text: 'GIVE UP', nextScene: 'start' }
+                    { text: '*SNEEZE*', nextScene: 'kelsea' },
+                    { text: 'HOLD STILL', nextScene: 'kelsea1' }
+
+                ]
+},
+kelsea: {
+                background: 'kelsea.gif',
+                title: 'I WARNED YOU',
+                text: `hi. <br>
+i’m kelsea the cat. <br>
+i was reading my 1000th book of the year, so this better be good`,
+                buttons: [
+                    { text: 'UHH..', nextScene: 'dead3' },
+                    { text: 'WHAT ARE YOU READING?', nextScene: 'kelsea2' }
+
+                ]
+},
+kelsea2: {
+                background: 'kelsea.gif',
+                title: 'BE POLITE',
+                text: `oh- what am i reading?<br>
+I’m glad you asked. <br>
+it’s a book of riddles. <br>
+wanna try?`,
+                buttons: [
+                    { text: 'SURE', nextScene: 'kelsea3' },
+                    { text: 'NO', nextScene: 'dead3' }
+
+                ]
+},
+kelsea3: {
+                background: 'kelsea.gif',
+                title: 'THE RIDDLE',
+                text: `What weighs nothing, but can make the strongest person fall?`,
+                buttons: [
+                    { text: 'A FEATHER', nextScene: 'wrong3' },
+                    { text: 'A STONE', nextScene: 'wrong3' },
+                    { text: 'AN EGO', nextScene: 'kelsea4' },
+
+                ]
+},
+kelsea4: {
+                background: 'kelsea.gif',
+                title: 'DONT OVERSTAY YOUR WELCOME',
+                text: `Now get out of here so I can start book 1001!`,
+                buttons: [
+                    { text: 'LEAVE', nextScene: 'leavelibrary' },
+                    { text: 'NO', nextScene: 'dead3' }
+
+                ],
+},
+ leavelibrary: {
+                background: 'leavelibrary.gif',
+                title: 'WHERE TO GO',
+                text: `You turn around, unsure where to go next. <br> There are two doors in front of you. <br> Which will you choose?`,
+                buttons: [
+                    { text: 'LEFT', nextScene: 'jesse' },
+                    { text: 'RIGHT', nextScene: 'brenda' }
+
                 ]
             },
-            
-            wrong2: {
-                background: 'dead.gif',
-                title: 'WRONG ANSWER!',
-                text: `The ghost of Luis G appears again!
-                
-"So close, yet so far..."
-
-Try again?`,
+ jesse: {
+                background: 'emptybathroom.gif',
+                title: 'THE BATHROOM',
+                text: `you walk into what seems to be the bathroom
+                <br> I hope it’s not already occupied-`,
                 buttons: [
-                    { text: 'TRY AGAIN', nextScene: 'library' },
-                    { text: 'GIVE UP', nextScene: 'start' }
+                    { text: 'EW, SAME', nextScene: '' },
+                    { text: 'I MEAN', nextScene: '' }
                 ]
-            }
-        };
+            },
+jesse2: {
+                background: 'jesse.gif',
+                title: 'AW MAN',
+                text: `Ope! Looks like someone was here after all...`,
+                buttons: [
+                    { text: 'EW!', nextScene: 'dead4' },
+                    { text: 'PARDON ME', nextScene: 'jesse3' }
+
+                ]
+},
+jesse3: {
+                background: 'jesse.gif',
+                title: 'HEY TRIBE',
+                text: `It's me.<br> The man, the myth, the legend... <br> The Wizard Jesse.`,
+                buttons: [
+                    { text: 'HELLO', nextScene: 'jesse4' },
+                    { text: 'UGH', nextScene: 'dead4' }
+
+                ]
+},
+jesse4: {
+                background: 'jesse.gif',
+                title: 'SAVIOR',
+                text: `I can get you out of here, just solve my final riddle.`,
+                buttons: [
+                    { text: 'YES PLEASE', nextScene: '' },
+                    { text: 'NO WAY', nextScene: 'dead4' }
+
+                ]
+},
+jesse5: {
+                background: 'jesse.gif',
+                title: 'THE RIDDLE',
+                text: `I can be long or short. <br> I can be grown or bought. <br> I can be painted, or left bare. <br> I can be round, or I can be square. <br> What am I?`,
+                buttons: [
+                    { text: 'PENCIL', nextScene: 'winner' },
+                    { text: 'BRUSH', nextScene: 'wrong4' },
+                    { text: 'ROAD', nextScene: 'wrong4' }
+
+                ]
+},
+   winner: {
+                background: 'winner.gif',
+                title: 'CONGRATS',
+                text: `You did it! <br> By golly, you did it. <br> Play Again?`,
+                buttons: [
+                    { text: 'RESTART', nextScene: 'start' },
+                ]
+},
+           };
 
         let currentScene = 'start';
 
