@@ -1,7 +1,7 @@
         // Game data structure
         const gameData = {
             start: {
-                background: '1.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/1.gif',
                 title: 'LUIS G\'S MANSION',
                 text: ` <p class="riddle-text">
 Welcome to Luis G's Mansion... <br> A relic of an office incentive competition <br>
@@ -14,7 +14,7 @@ Welcome to Luis G's Mansion... <br> A relic of an office incentive competition <
             },
             
             instructions: {
-                background: 'idle.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/idle.gif',
                 title: 'INSTRUCTIONS',
                 text: `Read each riddle carefully.
                 
@@ -27,7 +27,7 @@ Wrong choices may lead to danger!`,
             },
             
             entrance: {
-                background: 'entry.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/entry.gif',
                 title: 'THE ENTRANCE HALL',
                 text: 'The air is cold, the floors creak beneath your feet, and strange whispers echo through the halls. <br> Solve the riddles of the mansion and face challenges from some familiar faces. Only the smartest will escape... Are you ready?',
                  buttons: [
@@ -36,7 +36,7 @@ Wrong choices may lead to danger!`,
             },
             
             foyer: {
-                background: 'foyer.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/foyer.gif',
                 title: 'THE HALLWAY',
                 text: `You stand in the foyer, the walls adorned with old, dusty paintings and cobwebs stretching from corner to corner. 
 The room feels colder as you aproach the desk, where a piece of parchment rests atop it.
@@ -48,7 +48,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
             },
             
             parchment: {
-                background: 'parchment.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/parchment.gif',
                 title: 'DUSTY PARCHMENT',
                 text: `I have cities, but no houses. I have forests, but no trees. I have rivers, but no water. 
 <br> What am I?`,
@@ -59,7 +59,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
                 ]
             },
             shakeevent: {
-                background: 'shakeevent.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/shakeevent.gif',
                 title: 'THE MANSION RESPONDS',
                 text: `confidently, you speak your answer out loud. as you do, the room begins to shake.`,
                 buttons: [
@@ -70,7 +70,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
             },
             
             basement: {
-                background: 'basement.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/basement.gif',
                 title: 'DUSTY BASEMENT!',
                 text: 'You run down the set of stairs that you notice in the corner. You end up in a dirty, cluttered basement. <br> When you get there, you’re greeted by the fabled Sunnie Jae.',
                 buttons: [
@@ -79,7 +79,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
             },
 
             sunnie1: {
-                background: 'sunnie1.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie1.gif',
                 title: 'SUNNIEJAE',
                 text: `I have a gift for you! But you must answer a riddle before I'll give it to you.`,
                 buttons: [
@@ -88,7 +88,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
                 ]
             },
         sunnie2: {
-                background: 'sunnie2.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie2.gif',
                 title: 'RIDDLE',
                 text: `The more of this there is, the less of it you see. <br> What is it?`,
                 buttons: [
@@ -98,7 +98,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
                 ]
             },
                  sunnie3: {
-                background: 'sunnie2.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie2.gif',
                 title: 'GOOD ONE',
                 text: `Wow, you actually got it right. <b> Here's your gift.`,
                 buttons: [
@@ -107,7 +107,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
                 ]
 },
                  sunnie4: {
-                background: 'sunnie4.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie4.gif',
                 title: 'YOUR GIFT',
                 text: `Yup! It's another key. Good luck finding out which room it goes to!`,
                 buttons: [
@@ -117,7 +117,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
                 ]  
                 },
                 grandroom: {
-                background: 'grandroom.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/grandroom.gif',
                 title: 'IT WORKED',
                 text: `The door opens and you step into another dusty room with creaky floorboards and a really really overworked A/C unit`,
                 buttons: [
@@ -126,7 +126,7 @@ The room feels colder as you aproach the desk, where a piece of parchment rests 
                 ]
 },
                   grandroom2: {
-                background: 'grandroom.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/grandroom.gif',
                 title: 'HAUNTING WHISPERS',
                 text: `you hear breathing behind you, and before you could even turn around, you see...
 a haunted... fairy? `,
@@ -137,7 +137,7 @@ a haunted... fairy? `,
                 ]
 },
                   gracie: {
-                background: 'gracie.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie.gif',
                 title: 'SCARY FAIRY',
                 text: `hello everyone<br>
 i’m scary fairy gracie<br>
@@ -152,7 +152,7 @@ and so is the riddle i’m about to give to you`,
                 ]
                 },
                   gracie3: {
-                background: 'gracie.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie.gif',
                 title: 'THE RIDDLE',
                 text: `I am not alive, but I grow; I do not have lungs, but I need air. I do not have a mouth, but water kills me. <br> What am I?`,
                 buttons: [
@@ -163,7 +163,7 @@ and so is the riddle i’m about to give to you`,
                 ]
 },
                   gracie4: {
-                background: 'gracie.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie.gif',
                 title: 'GOOD ANSWER',
                 text: `I’m so proud of you. <br>
 go upstairs to continue your haunted adventure`,
@@ -174,7 +174,7 @@ go upstairs to continue your haunted adventure`,
                 ]
 },
 library: {
-                background: 'library.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/library.gif',
                 title: 'THE LIBRARY',
                 text: `Welcome to the library. <br> Be quiet- you might disturb someone reading-`,
                 buttons: [
@@ -184,7 +184,7 @@ library: {
                 ]
 },
 kelsea: {
-                background: 'kelsea.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea.gif',
                 title: 'I WARNED YOU',
                 text: `hi. <br>
 i’m kelsea the cat. <br>
@@ -196,7 +196,7 @@ i was reading my 1000th book of the year, so this better be good`,
                 ]
 },
 kelsea2: {
-                background: 'kelsea.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea.gif',
                 title: 'BE POLITE',
                 text: `oh- what am i reading?<br>
 I’m glad you asked. <br>
@@ -209,7 +209,7 @@ wanna try?`,
                 ]
 },
 kelsea3: {
-                background: 'kelsea.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea.gif',
                 title: 'THE RIDDLE',
                 text: `What weighs nothing, but can make the strongest person fall?`,
                 buttons: [
@@ -220,7 +220,7 @@ kelsea3: {
                 ]
 },
 kelsea4: {
-                background: 'kelsea.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea.gif',
                 title: 'DONT OVERSTAY YOUR WELCOME',
                 text: `Now get out of here so I can start book 1001!`,
                 buttons: [
@@ -230,7 +230,7 @@ kelsea4: {
                 ],
 },
  leavelibrary: {
-                background: 'leavelibrary.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/leavelibrary.gif',
                 title: 'WHERE TO GO',
                 text: `You turn around, unsure where to go next. <br> There are two doors in front of you. <br> Which will you choose?`,
                 buttons: [
@@ -240,7 +240,7 @@ kelsea4: {
                 ]
             },
  jesse: {
-                background: 'emptybathroom.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/emptybathroom.gif',
                 title: 'THE BATHROOM',
                 text: `you walk into what seems to be the bathroom
                 <br> I hope it’s not already occupied-`,
@@ -250,7 +250,7 @@ kelsea4: {
                 ]
             },
 jesse2: {
-                background: 'jesse.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse.gif',
                 title: 'AW MAN',
                 text: `Ope! Looks like someone was here after all...`,
                 buttons: [
@@ -260,7 +260,7 @@ jesse2: {
                 ]
 },
 jesse3: {
-                background: 'jesse.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse.gif',
                 title: 'HEY TRIBE',
                 text: `It's me.<br> The man, the myth, the legend... <br> The Wizard Jesse.`,
                 buttons: [
@@ -270,7 +270,7 @@ jesse3: {
                 ]
 },
 jesse4: {
-                background: 'jesse.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse.gif',
                 title: 'SAVIOR',
                 text: `I can get you out of here, just solve my final riddle.`,
                 buttons: [
@@ -280,7 +280,7 @@ jesse4: {
                 ]
 },
 jesse5: {
-                background: 'jesse.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse.gif',
                 title: 'THE RIDDLE',
                 text: `I can be long or short. <br> I can be grown or bought. <br> I can be painted, or left bare. <br> I can be round, or I can be square. <br> What am I?`,
                 buttons: [
@@ -291,7 +291,7 @@ jesse5: {
                 ]
 },
    winner: {
-                background: 'winner.gif',
+                background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/winner.gif',
                 title: 'CONGRATS',
                 text: `You did it! <br> By golly, you did it. <br> Play Again?`,
                 buttons: [
