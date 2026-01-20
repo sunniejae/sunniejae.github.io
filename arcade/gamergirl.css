@@ -236,7 +236,7 @@ canvas {
             margin-top: 15px;
             margin-bottom: 12px;
             border: 4px ridge var(--teal);
-            background: #5d525a;
+            background: var(--white);
             justify-content: center;
             align-content: space-between;
             display: flex;
@@ -265,7 +265,6 @@ canvas {
             transform: translate(2px, 2px);
             color:var(--purple);
             border-color: var(--lavender);
-            letter-spacing: 2px;
         }
 /* Mobile wrap */
 @media (max-width: 480px) {
