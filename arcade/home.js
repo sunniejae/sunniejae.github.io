@@ -15,7 +15,7 @@ const menuItems = [
 { label: 'DESKTOP', icon: '🏠', link: '/index.html' },
   { label: 'FLAPPY CAT', icon: '🐱', link: 'flappycat.html' },
   { label: 'SNAKIE JAE', icon: '🐍', link: 'snake.html' },
-  { label: 'LUIS G MANSION', icon: '👻', link: '/luisg/enter.html' }
+  { label: 'LUIS G MANSION', icon: '👻', link: 'luisg.html' }
 ];
 
 // Colors matching your theme

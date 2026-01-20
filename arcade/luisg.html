@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luis G's Mansion</title>
+    <meta name="google-adsense-account" content="ca-pub-1997099522384709">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
+    <style>
+
+@font-face {
+  font-family: Starbim;
+  src: url("/assets/fonts/Starbim.ttf");
+}
+@font-face {
+  font-family: Aego;
+  src: url("/assets/fonts/AeogoPixellated-Regular.ttf");
+}
+@font-face { 
+  font-family: 'Brat'; 
+  src: url('/assets/fonts/FUNKHOUS.TTF') format('truetype'); 
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: none;
+}
+
+:root {
+  --pink: #ffb3d6;
+  --lavender: #9a9ad4;
+  --purple: #3f3d7a;
+  --teal: #00c9c2;
+  --white: #ffffff;
+  --silver: #f0f0f5;
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(circle at top, #c0c0c0, #3f3d7a);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: 'Aego', sans-serif;
+}
+
+/* Background Stars */
+.stars-background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stars-background .star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: twinkle 3s ease-in-out infinite;
+  box-shadow: 0 0 2px var(--white);
+}
+
+.stars-background .star:nth-child(even) {
+  background: var(--pink);
+}
+
+.stars-background .star:nth-child(3n) {
+  animation-duration: 4s;
+}
+
+.stars-background .star:nth-child(5n) {
+  animation-duration: 2.5s;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Nav Grid */
+.nav-grid {
+  margin-top: 15px;
+  margin-bottom: 12px;
+  border: 4px ridge var(--teal);
+  background: var(--white);
+  justify-content: center;
+  align-content: space-between;
+  display: flex;
+  gap: 20px;
+  padding: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+  border-radius: 999px;
+  font-family: 'Starbim';
+  font-weight: bold;
+  font-size: 12px;
+  color: var(--purple);
+  background: #ffb3d6;
+  border-width: 2px;
+  border: var(--pink);
+  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-btn:hover {
+  transform: translate(2px, 2px);
+  color: var(--purple);
+  border-color: var(--lavender);
+}
+
+/* Handheld Container */
+.handheld {
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(180deg, #fff, #e9e6ff);
+  border-radius: 32px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.header h1 {
+  font-size: 18px;
+  letter-spacing: 4px;
+  color: #c13886;
+  font-family: 'Starbim';
+}
+
+.subtitle {
+  font-size: 25px;
+  color: var(--lavender);
+  font-family: 'Brat';
+}
+
+.power-led {
+  width: 8px;
+  height: 8px;
+  background: #c13886;
+  border-radius: 50%;
+  margin: 6px auto 0;
+  box-shadow: 0 0 12px var(--pink);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Screen Frame */
+.screen-frame {
+  background: linear-gradient(145deg, #3f3d7a, #2a295c);
+  padding: 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.screen {
+  position: relative;
+  background: #0a0a0a;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+
+/* Game Screen Layers */
+#backgrounds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.background-image.active {
+  opacity: 1;
+}
+
+#scenes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.game-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.game-content.active {
+  opacity: 1;
+}
+
+.title-bar {
+  font-size: 16px;
+  color: var(--white);
+  text-shadow: 0 0 10px var(--pink);
+  margin-bottom: 12px;
+  text-align: center;
+  font-family: 'Starbim';
+}
+
+.text-area {
+  width: 100%;
+  max-width: 100%;
+}
+
+.text-box {
+  background: rgba(0, 0, 0, 0.85);
+  word-spacing: 3px;
+  letter-spacing: 1.5px;
+  border: 3px solid var(--teal);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.riddle-text {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--teal);
+  text-shadow: 0 0 5px rgba(0, 201, 194, 0.5);
+  min-height: 50px;
+}
+
+.input-area {
+  margin-top: 10px;
+}
+
+#riddleInput {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid var(--teal);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--teal);
+  font-family: 'Aego', sans-serif;
+  font-size: 12px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0, 201, 194, 0.3);
+}
+
+#riddleInput:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 12px rgba(255, 179, 214, 0.5);
+}
+
+.screen-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  z-index: 3;
+}
+
+/* Start Overlay */
+.start-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10;
+  border-radius: 14px;
+}
+
+.start-text {
+  font-family: 'Starbim', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-align: center;
+  color: var(--pink);
+  text-shadow: 0 0 10px var(--pink);
+  animation: blink 1.5s infinite;
+  padding: 0 20px;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* D-Pad */
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  grid-template-rows: repeat(3, 44px);
+  gap: 6px;
+}
+
+.dpad button {
+  background: #3f3d7a;
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.dpad button:active {
+  transform: scale(0.95);
+  background: #2a295c;
+}
+
+.dpad .up {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.dpad .left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.dpad .center {
+  grid-column: 2;
+  grid-row: 2;
+  background: #2a295c;
+  border-radius: 10px;
+}
+
+.dpad .right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.dpad .down {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* A/B Buttons */
+.buttons {
+  display: flex;
+  gap: 14px;
+}
+
+.btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--pink), #c13886);
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-family: 'Aego';
+  cursor: pointer;
+  box-shadow: 0 4px 0 #a12870;
+  transition: all 0.1s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #a12870, 0 0 20px rgba(255, 179, 214, 0.6);
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #a12870;
+}
+
+.btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 14px;
+  color: var(--purple);
+  margin-top: 12px;
+}
+
+.scorebar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  color: #ffb3d6;
+  margin-bottom: 6px;
+  padding: 0 4px;
+}
+
+.scorebar strong {
+  color: #ffffff;
+  font-family: 'Brat';
+}
+
+.choice-prompt {
+  display: none;
+  text-align: center;
+  font-size: 12px;
+  color: var(--pink);
+  margin-top: 8px;
+  text-shadow: 0 0 5px rgba(255, 179, 214, 0.5);
+}
+
+.blink {
+  animation: blink 1s infinite;
+  color: var(--pink);
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .nav-grid {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .handheld {
+    max-width: 95vw;
+  }
+}
+    </style>
+</head>
+<body>
+  <!-- Stars Background -->
+  <div class="stars-background" id="stars"></div>
+
+  <!-- Navigation -->
+  <div class="nav-grid">
+    <a class="nav-btn" href="/index.html">Home</a>
+    <a class="nav-btn" href="/arcade/home.html">Games</a>
+    <a class="nav-btn" href="/shop/home.html">Shop</a>
+    <a class="nav-btn" href="/contact.html">Contact</a>
+  </div>
+
+  <!-- Handheld Console -->
+  <div class="handheld">
+    <!-- Header -->
+    <div class="header">
+      <h1>Sunnie Jae</h1>
+      <div class="subtitle">LUIS G's MANSION</div>
+      <div class="power-led"></div>
+    </div>
+
+    <!-- Screen -->
+    <div class="screen-frame">
+      <div class="screen">
+        <!-- Start Overlay -->
+        <div id="startOverlay" class="start-overlay">
+          <div class="start-text">USE YOUR KEYBOARD TO PRESS A TO START</div>
+        </div>
+
+        <!-- Game Layers -->
+        <div id="backgrounds"></div>
+        <div id="scenes"></div>
+        <div class="screen-glow"></div>
+      </div>
+    </div>
+
+
+    <!-- Controls -->
+    <div class="controls">
+      <!-- D-Pad (left side) -->
+      <div class="dpad">
+        <button class="up">↑</button>
+        <button class="left">←</button>
+        <div class="center"></div>
+        <button class="right">→</button>
+        <button class="down">↓</button>
+      </div>
+
+      <!-- A/B Buttons (right side) -->
+      <div class="buttons">
+        <button class="btn btnB">B</button>
+        <button class="btn btnA">A</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">© 2025 SUNNIE JAE</div>
+  </div>
+
+  <script>
+/// Soundtrack ///
+const soundtrack = new Audio("https://sunniejae.blob.core.windows.net/sunniejae/assets/lscenessg/soundtrack.mp3");
+soundtrack.loop = true;
+soundtrack.volume = 0.4;
+
+let audioPlaying = false;
+
+// Generate stars
+function generateStars() {
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    starsContainer.appendChild(star);
+  }
+}
+
+/* ===============================
+   GAME DATA
+================================ */
+
+const gameData = {
+  start: {
+    id: "start",
+    title: "LUIS G'S MANSION",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/luis1.png',
+    text: ` Welcome to Luis G's Mansion... <br>
+            A relic of an office incentive competition<br>
+            Solve the riddles to survive.<br>
+            Enter if you dare.<br>
+            Survive if you can.<br>
+            <span class="blink">► A: START ◄</span><br>
+            <span class="blink">► B: INSTRUCTIONS ◄</span>`,
+    choiceA: "ENTER THE MANSION",
+    choiceB: "INSTRUCTIONS",
+    nextA: "foyer",
+    nextB: "instructions"
+  },
+
+  instructions: {
+    id: "instructions",
+    title: "INSTRUCTIONS",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/idle.png',
+    text: `Read each riddle carefully.<br>
+           Choose your answer wisely.<br>
+           Wrong choices may lead to danger, and there are no save points!<br>
+           <span class="blink">► A: BACK ◄</span><br>
+           <span class="blink">► B: LETS-A-GO ◄</span>`,
+    choiceA: "BACK",
+    choiceB: "LETS-A-GO",
+    nextA: "start",
+    nextB: "foyer"
+  },
+
+  foyer: {
+    id: "foyer",
+    title: "THE FOYER",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/foyer.png',
+    text: `You stand in the foyer, the walls adorned with old, dusty paintings and cobwebs stretching from corner to corner.<br>
+           The room feels colder as you walk further from the door.<br>On the floor, a rolled parchment rests alone.<br>
+           Read the parchment?<br>
+           <span class="blink">► A: YES ◄</span><br>
+           <span class="blink">► B: NO ◄</span>`,
+    choiceA: "YES",
+    choiceB: "NO",
+    nextA: "parchment",
+    nextB: "cowardsexit"
+  },
+
+  cowardsexit: {
+    id: "cowardsexit",
+    title: "COWARD",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/coward.png',
+    text: `Taking the Cowards Exit, are ya?<br>You have died from being a scaredy-cat.<br>
+           <span class="blink">► A: START OVER ◄</span><br>
+           <span class="blink">► B: START OVER ◄</span>`,
+    choiceA: "START OVER",
+    choiceB: "START OVER",
+    nextA: "start",
+    nextB: "start"
+  },
+
+  parchment: {
+    id: "parchment",
+    title: "DUSTY PARCHMENT",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/parchment.png",
+    text: `I have cities, but no houses. I have forests, but no trees.<br><br>What am I?`,
+    input: {
+      answers: ["map"],
+      success: "shakeevent",
+      failure: "wrong"
+    }
+  },
+
+  wrong: {
+    id: "wrong",
+    title: "WRONG ANSWER",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png',
+    text: `That's not right.<br>
+           The mansion punishes the unwise.<br>
+           <span class="blink">► A: START OVER ◄</span><br>
+           <span class="blink">► B: START OVER ◄</span>`,
+    choiceA: "START OVER",
+    choiceB: "START OVER",
+    nextA: "start",
+    nextB: "start"
+  },
+
+  shakeevent: {
+    id: "shakeevent",
+    title: "THE MANSION RESPONDS",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/shakeevent.png',
+    text: `Confidently, you speak your answer out loud. As you do, the room begins to shake.<br>
+           <span class="blink">► A: RUN ◄</span><br>
+           <span class="blink">► B: HIDE ◄</span>`,
+    choiceA: "RUN",
+    choiceB: "HIDE",
+    nextA: "basement",
+    nextB: "collapsed"
+  },
+
+  collapsed: {
+    id: "collapsed",
+    title: "GONER",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/collapsed.png',
+    text: `You tried to hide under the stairs, but the ceiling collapsed on you.<br>
+           You have died.<br>
+           <span class="blink">► A: START OVER ◄</span><br>
+           <span class="blink">► B: START OVER ◄</span>`,
+    choiceA: "START OVER",
+    choiceB: "INSTRUCTIONS",
+    nextA: "start",
+    nextB: "instructions"
+  },
+
+  basement: {
+    id: "basement",
+    title: "DUSTY BASEMENT",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/basement.png',
+    text: `You run down the set of stairs that you notice in the corner. You end up in a dirty, cluttered basement.<br>
+           When you get there, you're greeted by the fabled Sunnie Jae.<br>
+           <span class="blink">► A: SAY HI ◄</span><br>
+           <span class="blink">► B: STAY SILENT ◄</span>`,
+    choiceA: "SAY HI",
+    choiceB: "STAY SILENT",
+    nextA: "sunnie1",
+    nextB: "sunnie1"
+  },
+
+  sunnie1: {
+    id: "sunnie1",
+    title: "SUNNIE JAE",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie1.png',
+    text: `Well hello there,<br>
+           It's me, Sunnie Jae!<br>
+           Answer my riddle, and I'll give you a pngt.<br>
+           <span class="blink">► A: OKAY ◄</span><br>
+           <span class="blink">► B: NO THANKS ◄</span>`,
+    choiceA: "OKAY",
+    choiceB: "NO THANKS",
+    nextA: "sunnie2",
+    nextB: "entrance"
+  },
+
+  sunnie2: {
+    id: "sunnie2",
+    title: "SUNNIE'S RIDDLE",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie2.png',
+    text: `I'm tall when I'm young, and short when I'm old.<br>
+           What am I?<br>
+    `,
+ input: {
+      answers: ["candle"],
+      success: "sunniesgift",
+      failure: "wrong"
+    }
+  },
+
+  entrance: {
+    id: "entrance",
+    title: "THE ENTRANCE",
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/entrance.png',
+    text: `You have survived the first test.<br>
+           The mansion doors open to the next challenge.<br>
+           <span class="blink">► A: CONTINUE ◄</span><br>
+           <span class="blink">► B: CONTINUE ◄</span>`,
+    choiceA: "CONTINUE",
+    choiceB: "CONTINUE",
+    nextA: "start",
+    nextB: "start"
+  }
+};
+
+/* ===============================
+   CORE VARIABLES
+================================ */
+let currentScene = "start";
+let typingInterval = null;
+let isTyping = false;
+let isGameStarted = false;
+
+/* ===============================
+   BUTTON GLOW + DISABLE
+================================ */
+function setButtonsDisabled(state) {
+  const btnA = document.querySelector(".btnA");
+  const btnB = document.querySelector(".btnB");
+
+  btnA.disabled = state;
+  btnB.disabled = state;
+
+  if (state) {
+    btnA.classList.add("disabled");
+    btnB.classList.add("disabled");
+  } else {
+    btnA.classList.remove("disabled");
+    btnB.classList.remove("disabled");
+  }
+}
+
+/* ===============================
+   TYPEWRITER EFFECT
+================================ */
+function typeWriter(element, html, speed = 22, onComplete) {
+  element.innerHTML = "";
+  let i = 0;
+  let isTag = false;
+  let buffer = "";
+
+  clearInterval(typingInterval);
+  isTyping = true;
+
+  setButtonsDisabled(true);
+
+  typingInterval = setInterval(() => {
+    if (i >= html.length) {
+      clearInterval(typingInterval);
+      isTyping = false;
+      setButtonsDisabled(false);
+
+      if (onComplete) onComplete();
+      return;
+    }
+
+    const char = html[i];
+    buffer += char;
+
+    if (char === "<") isTag = true;
+    if (char === ">") isTag = false;
+
+    element.innerHTML = buffer;
+    i++;
+
+    if (isTag) return;
+  }, speed);
+}
+
+/* ===============================
+   RENDER FUNCTIONS
+================================ */
+function renderBackground(src) {
+  const backgrounds = document.getElementById("backgrounds");
+  backgrounds.innerHTML = `
+    <img src="${src}" class="background-image active" alt="Background">
+  `;
+}
+
+function renderScene(scene) {
+  const scenes = document.getElementById("scenes");
+
+  scenes.innerHTML = `
+    <div class="game-content active">
+      <div class="text-area">
+        <div class="text-box">
+          <p class="riddle-text"></p>
+          <div class="input-area" id="inputArea" style="display:none;">
+            <input id="riddleInput" type="text" placeholder="Type your answer..." />
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const textElement = scenes.querySelector(".riddle-text");
+
+  typeWriter(textElement, scene.text, 60, () => {
+    showChoices(scene.choiceA, scene.choiceB);
+
+    if (scene.input) {
+      document.getElementById("inputArea").style.display = "block";
+      document.getElementById("riddleInput").focus();
+    }
+  });
+}
+
+function showChoices(aText, bText) {
+  document.getElementById("choiceA").textContent = aText;
+  document.getElementById("choiceB").textContent = bText;
+  document.getElementById("choicePrompt").style.display = "block";
+}
+
+function checkRiddleAnswer(scene) {
+  const userAnswer = document.getElementById("riddleInput").value.trim().toLowerCase();
+  const correctAnswers = scene.input.answers.map(a => a.toLowerCase());
+
+  if (correctAnswers.includes(userAnswer)) {
+    loadScene(scene.input.success);
+  } else {
+    loadScene(scene.input.failure);
+  }
+}
+
+/* ===============================
+   LOAD SCENE
+================================ */
+function loadScene(sceneKey) {
+  currentScene = sceneKey;
+  const scene = gameData[sceneKey];
+
+  renderBackground(scene.background);
+  renderScene(scene);
+}
+
+/* ===============================
+   START SCREEN
+================================ */
+function showStartOverlay() {
+  document.getElementById("startOverlay").style.display = "flex";
+  setButtonsDisabled(true);
+}
+
+function hideStartOverlay() {
+  document.getElementById("startOverlay").style.display = "none";
+  setButtonsDisabled(false);
+}
+
+/* ===============================
+   A/B BUTTONS
+================================ */
+function chooseOption(option) {
+  // START BUTTON
+  if (!isGameStarted) {
+    hideStartOverlay();
+    isGameStarted = true;
+    loadScene("start");
+    if (!audioPlaying) {
+      soundtrack.play();
+      audioPlaying = true;
+    }
+    return;
+  }
+
+  const scene = gameData[currentScene];
+  if (isTyping) return;
+
+  if (scene.input && option === "A") {
+    checkRiddleAnswer(scene);
+    return;
+  }
+
+  if (option === "A") loadScene(scene.nextA);
+  if (option === "B") loadScene(scene.nextB);
+}
+
+/* ===============================
+   INIT
+================================ */
+function init() {
+  generateStars();
+  
+  const btnA = document.querySelector(".btnA");
+  const btnB = document.querySelector(".btnB");
+
+  btnA.addEventListener("click", () => chooseOption("A"));
+  btnB.addEventListener("click", () => chooseOption("B"));
+
+  showStartOverlay();
+}
+
+/* ===============================
+   KEYBOARD CONTROLS
+================================ */
+document.addEventListener("keydown", (e) => {
+  const key = e.key.toLowerCase();
+
+  // START GAME
+  if (!isGameStarted && key === "a") {
+    chooseOption("A");
+    return;
+  }
+
+  if (!isGameStarted) return;
+
+  if (key === "a") chooseOption("A");
+  if (key === "b") chooseOption("B");
+});
+
+/* ===============================
+   RUN
+================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  init();
+});
+  </script>
+</body>
+</html>
