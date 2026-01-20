@@ -14,16 +14,16 @@ let audioStarted = false;
 
         const gameData = {
 start: {
-    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/outside.gif',
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/luis1.gif',
     title: 'LUIS G\'S MANSION',
     text: ` <p class="riddle-text">
             Welcome to Luis G's Mansion... <br> A relic of an office incentive competition
-            <br><br>
-            Solve the riddles to survive. Enter if you dare.
-            <br><br>
-            Survive if you can.
-            <br> <br>
-            <span class="blink">► PRESS START ◄</span>`,
+            <br>
+            Solve the riddles to survive.
+            <br>
+             Enter if you dare.
+            <br>
+            Survive if you can.`,
     buttons: [
             { text: 'START GAME', nextScene: 'foyer' },
             { text: 'INSTRUCTIONS', nextScene: 'instructions' }
@@ -34,22 +34,23 @@ instructions: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/idle.gif',
     title: 'INSTRUCTIONS',
     text: `Read each riddle carefully.
-        <br><br>
+        <br>
         Choose your answer wisely.
-        <br><br>
+        <br>
         Wrong choices may lead to danger, and there are no save points!`,
     buttons: [
-        { text: 'BACK TO START', nextScene: 'Lets-a-go!' }
+        { text: 'BACK', nextScene: 'start' },
+        { text: 'LETS-A-GO', nextScene: 'foyer' }
             ]
 },
                      
 foyer: {
-    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/foyer.gif',
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/foyer1.gif',
     title: 'THE THE FOYER',
     text: `You stand in the foyer, the walls adorned with old, dusty paintings and cobwebs stretching from corner to corner. 
-    <br><br>
+    <br>
     The room feels colder as you walk further from the door. <br> On the floor, a rolled parchment rests alone.
-    <br><br>
+    <br>
     Read the parchment?`,
     buttons: [
         { text: 'YES', nextScene: 'parchment' },
@@ -61,7 +62,7 @@ parchment: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/parchment.gif',
     title: 'DUSTY PARCHMENT',
     text: `I have cities, but no houses. I have forests, but no trees. I have rivers, but no water.
-        <br><br>
+        <br>
         What am I?`,
     buttons: [
         { text: 'Encyclopedia', nextScene: 'shakeevent' },
@@ -76,10 +77,21 @@ shakeevent: {
     text: `confidently, you speak your answer out loud. as you do, the room begins to shake.`,
     buttons: [
         { text: 'RUN!', nextScene: 'basement' },
-        { text: 'HIDE!', nextScene: 'dead' },
+        { text: 'HIDE!', nextScene: 'collapsed' },
             ]
 },
-            
+
+collapsed: {
+    background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/collapsed.gif',
+    title: 'GONER',
+    text: `You tried to hide under the stairs, but the ceiling collapsed on you.
+    <br>
+    You have died.`,
+    buttons: [
+        { text: 'START OVER?', nextScene: 'start' },
+            ]
+},
+
 basement: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/basement.gif',
     title: 'DUSTY BASEMENT!',
@@ -144,7 +156,10 @@ room2: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/room1.gif',
     title: 'HAUNTING WHISPERS',
     text: `you hear breathing behind you, and before you could even turn around, you see...
-a haunted... fairy? `,
+    <br>
+    a haunted...
+    <br>
+    fairy? `,
     buttons: [
         { text: 'HELLO?', nextScene: 'gracie' },
         { text: 'EW!', nextScene: 'dead' }
@@ -155,7 +170,7 @@ gracie: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie1.gif',
     title: 'SCARY FAIRY',
     text: `hello everyone
-        <br><br>
+        <br>
         i’m scary fairy gracie
         <br>
         the bags under my eyes are designer,
@@ -204,7 +219,7 @@ kelsea: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea1.gif',
     title: 'I WARNED YOU',
     text: `WHO DISTURBS MY SELF CARE TIME?!
-        <br><br>
+        <br>
         I’m kelsea the cat.
         <br>
         I was reading my 1000th book of the year, so this better be good`,
@@ -218,7 +233,7 @@ kelsea1: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea1.gif',
     title: 'I WARNED YOU',
     text: `Did you really think I wouldn't see you?
-    <br><br>
+    <br>
     I’m kelsea the cat.
     <br>
     I was reading my 1000th book of the year, so this better be good`,
@@ -236,7 +251,7 @@ kelsea2: {
         I’m glad you asked.
         <br>
         It’s a book of riddles.
-        <br><br>
+        <br>
         Wanna try?`,
     buttons: [
         { text: 'SURE', nextScene: 'kelsea3' },
@@ -247,11 +262,13 @@ kelsea2: {
 kelsea3: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea2.gif',
     title: 'THE RIDDLE',
-    text: `What weighs nothing, but can make the strongest person fall?`,
+    text: `You measure my life in hours.
+    <br>
+    I am quicker when I am thinner, and I am slower when I am thicker. `,
     buttons: [
-        { text: 'A FEATHER', nextScene: 'wrong' },
-        { text: 'A STONE', nextScene: 'wrong' },
-        { text: 'AN EGO', nextScene: 'kelsea4' },
+        { text: ' ', nextScene: 'wrong' },
+        { text: '', nextScene: 'wrong' },
+        { text: 'A CANDLE', nextScene: 'kelsea4' },
              ]
 },
 
@@ -300,7 +317,11 @@ jesse: {
 jesse2: {
     background: 'https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse2.gif',
     title: 'HEY TRIBE',
-    text: `It's me.<br> The man, the myth, the legend... <br> The Wizard Jesse.`,
+    text: `It's me.
+        <br> 
+        The man, the myth, the legend... 
+        <br>
+        The Wizard Jesse.`,
     buttons: [
         { text: 'HELLO', nextScene: 'jesse3' },
         { text: 'UGH', nextScene: 'dead' }
@@ -430,31 +451,34 @@ function renderScene(scene) {
 
     scenes.innerHTML = `
         <div class="game-content active">
-            <div class="title-bar">${scene.title}</div>
 
-            <div class="text-box">
-                <p class="riddle-text"></p>
-            </div>
+    <div class="title-bar">${scene.title}</div>
 
-            <div class="button-container">
-                ${buttonsHTML}
-            </div>
-
-            <div class="credits">
-                © 2026 LUIS G'S MANSION • INSERT COIN
-            </div>
+    <div class="text-area">
+        <div class="text-box">
+            <p class="riddle-text"></p>
         </div>
+    </div>
+
+</div>
+
+<div class="ui-bottom">
+    <div class="button-container">
+        ${buttonsHTML}
+    </div>
+
+    <div class="credits">
+        © 2025 SUNNIE JAE
+    </div>
+</div>
+
     `;
 
     const textElement = scenes.querySelector(".riddle-text");
-    typeWriter(textElement, scene.text, 22);
+    typeWriter(textElement, scene.text, 60);
 }
 
 
-
-/* ===============================
-   CLICK TO FINISH TEXT
-================================ */
 
 document.addEventListener("click", () => {
     if (!isTyping) return;
@@ -467,6 +491,16 @@ document.addEventListener("click", () => {
         textElement.innerHTML = gameData[currentScene].text;
     }
 });
+
+function showChoices(aText, bText) {
+  document.getElementById("optionA").textContent = aText;
+  document.getElementById("optionB").textContent = bText;
+  document.getElementById("choicePrompt").style.display = "block";
+}
+
+function hideChoices() {
+  document.getElementById("choicePrompt").style.display = "none";
+}
 
 
 
