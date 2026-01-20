@@ -74,7 +74,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 1px;
+            padding: 10px 10px;
             border-radius: 999px;
             font-family: 'Starbim';
             font-weight: bold;
@@ -87,6 +87,27 @@
         }
 
         .music-btn:hover {
+            transform: translate(2px, 2px);
+            color: #940000;
+            border-color: #940000;
+        }
+        .vers-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 10px;
+            border-radius: 999px;
+            font-family: 'Starbim';
+            font-weight: bold;
+            font-size: 15px;
+            color: #e9e9f5;
+            background: #0f0f1e;
+            border: 2px solid #b4b4c4;
+            box-shadow: 4px 4px 0 #000;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .vers-btn:hover {
             transform: translate(2px, 2px);
             color: #940000;
             border-color: #940000;

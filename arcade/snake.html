@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Y2K Dream Snake</title>
+
+<!-- BRAND FONT -->
+<style>
+@font-face {
+  font-family: 'Starbim';
+  src: url('/assets/fonts/Starbim.ttf') format('truetype');
+}
+
+/* ===============================
+   BRAND PALETTE
+================================ */
+:root {
+  --black: #000010;
+  --white: #ffffff;
+  --dark-gray: #404040;
+  --gray: #bfbfdc;
+  --silver: #f0f0f5;
+  --pink: #ffb3d6;
+  --teal: #00a8a3;
+  --dark-purple: #3f3d7a;
+  --accent: #00c9c2;
+  --secondary: #c13886;
+  --primary: #9a9ad4;
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+html, body {
+  height: 100%;
+  margin: 0;
+  background: radial-gradient(circle at top, var(--primary), var(--dark-purple));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Starbim', monospace;
+}
+
+/* ===============================
+   CANVAS STYLING
+================================ */
+canvas {
+  background: var(--silver);
+  border-radius: 18px;
+  border: 6px solid var(--primary);
+  image-rendering: pixelated;
+  box-shadow:
+    0 0 20px var(--primary),
+    0 0 40px var(--secondary);
+  transition: transform 0.15s ease;
+}
+
+/* DEATH EFFECT */
+canvas.dead {
+  animation: deathShake 0.4s ease, deathFlash 0.4s ease;
+}
+
+@keyframes deathShake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-6px, 4px); }
+  40% { transform: translate(6px, -4px); }
+  60% { transform: translate(-4px, -2px); }
+  80% { transform: translate(4px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes deathFlash {
+  0% { box-shadow: 0 0 60px var(--secondary); }
+  100% { box-shadow: 0 0 20px var(--primary); }
+}
+</style>
+</head>
+
+<body>
+
+<script>
+/* ===============================
+   CONSTANTS
+================================ */
+var COLS = 26,
+    ROWS = 26,
+    EMPTY = 0,
+    SNAKE = 1,
+    FRUIT = 2,
+    LEFT = 0,
+    UP = 1,
+    RIGHT = 2,
+    DOWN = 3,
+    KEY_LEFT = 37,
+    KEY_UP = 38,
+    KEY_RIGHT = 39,
+    KEY_DOWN = 40;
+
+var canvas, ctx, keystate, frames, score;
+var highScore = localStorage.getItem("snakeHighScore") || 0;
+var isDead = false;
+
+/* ===============================
+   GRID
+================================ */
+var grid = {
+  width: null,
+  height: null,
+  _grid: null,
+
+  init: function(d, c, r) {
+    this.width = c;
+    this.height = r;
+    this._grid = [];
+    for (var x = 0; x < c; x++) {
+      this._grid.push([]);
+      for (var y = 0; y < r; y++) {
+        this._grid[x].push(d);
+      }
+    }
+  },
+
+  set: function(val, x, y) {
+    this._grid[x][y] = val;
+  },
+
+  get: function(x, y) {
+    return this._grid[x][y];
+  }
+};
+
+/* ===============================
+   SNAKE
+================================ */
+var snake = {
+  direction: null,
+  last: null,
+  _queue: null,
+
+  init: function(d, x, y) {
+    this.direction = d;
+    this._queue = [];
+    this.insert(x, y);
+  },
+
+  insert: function(x, y) {
+    this._queue.unshift({ x: x, y: y });
+    this.last = this._queue[0];
+  },
+
+  remove: function() {
+    return this._queue.pop();
+  }
+};
+
+/* ===============================
+   FOOD
+================================ */
+function setFood() {
+  var empty = [];
+  for (var x = 0; x < grid.width; x++) {
+    for (var y = 0; y < grid.height; y++) {
+      if (grid.get(x, y) === EMPTY) {
+        empty.push({ x: x, y: y });
+      }
+    }
+  }
+  var randpos = empty[Math.floor(Math.random() * empty.length)];
+  grid.set(FRUIT, randpos.x, randpos.y);
+}
+
+/* ===============================
+   MAIN
+================================ */
+function main() {
+  canvas = document.createElement("canvas");
+  canvas.width = COLS * 20;
+  canvas.height = ROWS * 20;
+  ctx = canvas.getContext("2d");
+  ctx.textBaseline = "top";
+
+  document.body.appendChild(canvas);
+
+  frames = 0;
+  keystate = {};
+
+  document.addEventListener("keydown", e => keystate[e.keyCode] = true);
+  document.addEventListener("keyup", e => delete keystate[e.keyCode]);
+
+  init();
+  loop();
+}
+
+/* ===============================
+   INIT
+================================ */
+function init() {
+  score = 0;
+  isDead = false;
+  canvas.classList.remove("dead");
+
+  grid.init(EMPTY, COLS, ROWS);
+
+  var sp = { x: Math.floor(COLS / 2), y: ROWS - 1 };
+  snake.init(UP, sp.x, sp.y);
+  grid.set(SNAKE, sp.x, sp.y);
+
+  setFood();
+}
+
+/* ===============================
+   LOOP
+================================ */
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+/* ===============================
+   UPDATE
+================================ */
+function update() {
+  frames++;
+
+  if (keystate[KEY_LEFT] && snake.direction !== RIGHT) snake.direction = LEFT;
+  if (keystate[KEY_UP] && snake.direction !== DOWN) snake.direction = UP;
+  if (keystate[KEY_RIGHT] && snake.direction !== LEFT) snake.direction = RIGHT;
+  if (keystate[KEY_DOWN] && snake.direction !== UP) snake.direction = DOWN;
+
+  if (frames % 7 === 0) {
+    var nx = snake.last.x;
+    var ny = snake.last.y;
+
+    if (snake.direction === LEFT) nx--;
+    if (snake.direction === UP) ny--;
+    if (snake.direction === RIGHT) nx++;
+    if (snake.direction === DOWN) ny++;
+
+    if (
+      nx < 0 || nx >= grid.width ||
+      ny < 0 || ny >= grid.height ||
+      grid.get(nx, ny) === SNAKE
+    ) {
+      isDead = true;
+      canvas.classList.add("dead");
+
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem("snakeHighScore", highScore);
+      }
+
+      setTimeout(init, 600);
+      return;
+    }
+
+    if (grid.get(nx, ny) === FRUIT) {
+      score++;
+      setFood();
+    } else {
+      var tail = snake.remove();
+      grid.set(EMPTY, tail.x, tail.y);
+    }
+
+    grid.set(SNAKE, nx, ny);
+    snake.insert(nx, ny);
+  }
+}
+
+/* ===============================
+   DRAW
+================================ */
+function draw() {
+  var tw = canvas.width / grid.width;
+  var th = canvas.height / grid.height;
+
+  ctx.fillStyle = "#f0f0f5";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  /* SNAKE GRADIENT */
+  if (snake._queue.length > 1) {
+    var head = snake._queue[0];
+    var tail = snake._queue[snake._queue.length - 1];
+
+    var gradient = ctx.createLinearGradient(
+      head.x * tw, head.y * th,
+      tail.x * tw, tail.y * th
+    );
+
+    gradient.addColorStop(0, "#9a9ad4");
+    gradient.addColorStop(1, "#c13886");
+
+    ctx.fillStyle = gradient;
+    snake._queue.forEach(seg =>
+      ctx.fillRect(seg.x * tw, seg.y * th, tw, th)
+    );
+  }
+
+  /* FRUIT */
+  for (var x = 0; x < grid.width; x++) {
+    for (var y = 0; y < grid.height; y++) {
+      if (grid.get(x, y) === FRUIT) {
+        ctx.fillStyle = "#000010";
+        ctx.fillRect(x * tw, y * th, tw, th);
+      }
+    }
+  }
+
+  /* UI */
+  ctx.fillStyle = "#3f3d7a";
+  ctx.font = "14px Starbim";
+  ctx.fillText("SCORE " + score, 12, 8);
+  ctx.fillText("BEST " + highScore, canvas.width - 120, 8);
+
+  /* GAME OVER */
+  if (isDead) {
+    ctx.fillStyle = "rgba(0,0,16,0.6)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#ffb3d6";
+    ctx.font = "28px Starbim";
+    ctx.textAlign = "center";
+    ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 10);
+    ctx.textAlign = "left";
+  }
+}
+
+main();
+</script>
+
+</body>
+</html>
