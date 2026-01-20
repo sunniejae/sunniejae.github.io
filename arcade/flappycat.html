@@ -3,17 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>🐍 Snake-ie Jae</title>
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
-<meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
-
+  <title>Sunnie Jae ✧ </title>
+  <meta name="google-adsense-account" content="ca-pub-1997099522384709">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
   <link rel="stylesheet" href="gamergirl.css">
 </head>
 
 <body>
- <!-- Background Stars -->
+  <!-- Background Stars -->
   <div class="stars-background">
     <!-- Top scattered stars -->
     <div class="star" style="left: 8%; top: 5%;"></div>
@@ -81,52 +79,57 @@
     </div>
   </nav>
 
-  <main class="handheld">
+  <!-- Main Container -->
+  <div class="container">
+    <main class="handheld">
 
-    <!-- BRAND -->
-    <header class="header">
-      <h1>SUNNIE JAE</h1>
-      <span class="subtitle">SNAKE</span>
-      <div class="power-led"></div>
-    </header>
+      <!-- Header -->
+      <header class="header">
+        <h1>SUNNIE JAE</h1>
+        <div class="subtitle">Flappy Cat</div>
+        <div class="power-led"></div>
+      </header>
 
-    <!-- SCREEN -->
-    <section class="screen-frame">
-      <div class="scorebar">
-  <span>⭐ SCORE: <strong id="score">0</strong></span>
-  <span>👑 BEST: <strong id="highScore">0</strong></span>
-</div>
-      <div class="screen">
-        <canvas id="game" width="256" height="256"></canvas>
-        <div class="screen-glow"></div>
-      </div>
-    </section>
+      <!-- Screen Frame -->
+      <section class="screen-frame">
+        <div class="screen">
+          <canvas id="game" width="256" height="256"></canvas>
+          <div class="screen-glow"></div>
+        </div>
 
-    <!-- CONTROLS -->
-    <section class="controls">
+        <!-- Score Bar -->
+        <div class="scorebar">
+          <span>⭐ SCORE: <strong id="score">0</strong></span>
+          <span>👑 BEST: <strong id="highScore">0</strong></span>
+        </div>
+      </section>
 
-      <div class="dpad">
-  <button class="up" data-dir="up">▲</button>
-  <button class="left" data-dir="left">◀</button>
-  <div class="center"></div>
-  <button class="right" data-dir="right">▶</button>
-  <button class="down" data-dir="down">▼</button>
-</div>
+      <!-- Controls -->
+      <section class="controls">
+        <!-- D-Pad -->
+        <div class="dpad">
+          <button class="up" data-dir="up">▲</button>
+          <button class="left" data-dir="left">◀</button>
+          <div class="center"></div>
+          <button class="right" data-dir="right">▶</button>
+          <button class="down" data-dir="down">▼</button>
+        </div>
 
+        <!-- Action Buttons -->
+        <div class="buttons">
+          <button class="btn b">B</button>
+          <button class="btn a">A</button>
+        </div>
+      </section>
 
-      <div class="buttons">
-        <button class="btn a">A</button>
-        <button class="btn b">B</button>
-      </div>
+      <!-- Footer -->
+      <footer class="footer">
+        ✧ press start ✧
+      </footer>
 
-    </section>
+    </main>
+  </div>
 
-    <footer class="footer">
-      ✧ press start ✧
-    </footer>
-
-  </main>
-
-  <script src="scripts/snake.js"></script>
+  <script src="scripts/bird.js"></script>
 </body>
 </html>
