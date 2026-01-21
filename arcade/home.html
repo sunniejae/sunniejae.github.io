@@ -2,20 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sunnie Jae ✧ </title>
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
-<meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
+  <title>DS Main Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Main CSS -->
   <link rel="stylesheet" href="gamergirl.css">
+
+  <!-- Menu-specific additions -->
+  <style>
+    .menu-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: 'Starbim';
+    }
+
+    .menu-item {
+      padding: 8px 14px;
+      border-radius: 12px;
+      color: var(--white);
+      opacity: 0.6;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .menu-item.active {
+      background: linear-gradient(180deg, var(--pink), var(--secondary));
+      color: var(--black);
+      opacity: 1;
+      box-shadow: 0 0 12px var(--pink);
+      transform: translateX(6px);
+    }
+  </style>
 </head>
 
 <body>
-<!-- Background Stars -->
+
+  <!-- Background Stars -->
   <div class="stars-background">
-    <!-- Top scattered stars -->
     <div class="star" style="left: 8%; top: 5%;"></div>
     <div class="star" style="left: 22%; top: 8%;"></div>
     <div class="star" style="left: 35%; top: 3%;"></div>
@@ -23,56 +48,9 @@
     <div class="star" style="left: 65%; top: 4%;"></div>
     <div class="star" style="left: 78%; top: 9%;"></div>
     <div class="star" style="left: 92%; top: 6%;"></div>
-
-    <!-- Upper-mid cascade -->
-    <div class="star" style="left: 12%; top: 18%;"></div>
-    <div class="star" style="left: 28%; top: 22%;"></div>
-    <div class="star" style="left: 45%; top: 15%;"></div>
-    <div class="star" style="left: 60%; top: 20%;"></div>
-    <div class="star" style="left: 75%; top: 17%;"></div>
-    <div class="star" style="left: 88%; top: 23%;"></div>
-
-    <!-- Center magical cluster -->
-    <div class="star" style="left: 18%; top: 35%;"></div>
-    <div class="star" style="left: 32%; top: 38%;"></div>
-    <div class="star" style="left: 48%; top: 32%;"></div>
-    <div class="star" style="left: 52%; top: 40%;"></div>
-    <div class="star" style="left: 68%; top: 36%;"></div>
-    <div class="star" style="left: 82%; top: 33%;"></div>
-
-    <!-- Mid-lower sparkle trail -->
-    <div class="star" style="left: 10%; top: 52%;"></div>
-    <div class="star" style="left: 25%; top: 55%;"></div>
-    <div class="star" style="left: 40%; top: 48%;"></div>
-    <div class="star" style="left: 55%; top: 53%;"></div>
-    <div class="star" style="left: 70%; top: 50%;"></div>
-    <div class="star" style="left: 85%; top: 54%;"></div>
-
-    <!-- Lower dreamy scatter -->
-    <div class="star" style="left: 15%; top: 68%;"></div>
-    <div class="star" style="left: 30%; top: 72%;"></div>
-    <div class="star" style="left: 45%; top: 65%;"></div>
-    <div class="star" style="left: 62%; top: 70%;"></div>
-    <div class="star" style="left: 77%; top: 67%;"></div>
-    <div class="star" style="left: 90%; top: 73%;"></div>
-
-    <!-- Bottom twinkling edge -->
-    <div class="star" style="left: 12%; top: 85%;"></div>
-    <div class="star" style="left: 27%; top: 88%;"></div>
-    <div class="star" style="left: 42%; top: 82%;"></div>
-    <div class="star" style="left: 58%; top: 87%;"></div>
-    <div class="star" style="left: 73%; top: 84%;"></div>
-    <div class="star" style="left: 88%; top: 89%;"></div>
-
-    <!-- Accent sparkles -->
-    <div class="star" style="left: 5%; top: 25%;"></div>
-    <div class="star" style="left: 95%; top: 45%;"></div>
-    <div class="star" style="left: 3%; top: 60%;"></div>
-    <div class="star" style="left: 97%; top: 78%;"></div>
-    <div class="star" style="left: 50%; top: 92%;"></div>
   </div>
 
-  <!-- Navigation -->
+  <!-- Top Navigation -->
   <nav class="arcade-nav">
     <div class="nav-grid">
       <a href="/index.html" class="nav-btn">Desktop</a>
@@ -80,53 +58,125 @@
       <a href="/shop/home.html" class="nav-btn">Shop</a>
     </div>
   </nav>
-  <main class="handheld">
 
-    <!-- BRAND -->
+  <!-- DS CONTAINER -->
+  <div class="handheld ds container">
+
+    <!-- Header -->
     <header class="header">
-      <h1>SUNNIE JAE</h1>
-      <span class="subtitle">GAMER GIRL</span>
+      <h1>MAGICAL SYSTEM</h1>
+      <div class="subtitle">MAIN MENU</div>
       <div class="power-led"></div>
     </header>
 
-    <!-- SCREEN -->
-    <section class="screen-frame">
-        <div class="scorebar">
-  <span>⭐ <strong id="score">0</strong></span>
-  <span>👑 <strong id="highScore">0</strong></span>
-</div>
-
+    <!-- TOP SCREEN -->
+    <div class="screen-frame">
       <div class="screen">
-        <canvas id="game" width="256" height="256"></canvas>
-        <div class="screen-glow"></div>
+        <div class="screen-bg" style="background-image: radial-gradient(circle, #9a9ad4, #3f3d7a);">
+          <div class="text-overlay">
+            <ul class="menu-list" id="menu">
+              <li class="menu-item active" data-link="/index.html">⛅ Desktop</li>
+              <li class="menu-item" data-link="snake.html">🐍 Snakie Jae</li>
+              <li class="menu-item" data-link="flappycat.html">🐈 Flappy Cat</li>
+              <li class="menu-item" data-link="playthrough.html">👻 Luis G's Mansion</li>
+              <li class="menu-item" data-link="lovebitesback.html">🐺 COMING SOON</li>
+              <li class="menu-item" data-link="/shop/home.html">🛍️ STORE</li>
+              <li class="menu-item" data-link="/kpop/shop.html">💿 MUSIC</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <!-- CONTROLS -->
-    <section class="controls">
+    <!-- BOTTOM SCREEN -->
+    <div class="bottom-screen">
 
-      <div class="dpad">
-  <button class="up" data-dir="up">▲</button>
-  <button class="left" data-dir="left">◀</button>
-  <div class="center"></div>
-  <button class="right" data-dir="right">▶</button>
-  <button class="down" data-dir="down">▼</button>
-</div>
-
-
-      <div class="buttons">
-        <button class="btn a">A</button>
-        <button class="btn b">B</button>
+      <!-- D-PAD -->
+      <div class="bottom-left">
+        <div class="dpad">
+          <button class="up">▲</button>
+          <button class="left">◀</button>
+          <div class="center"></div>
+          <button class="right">▶</button>
+          <button class="down">▼</button>
+        </div>
       </div>
 
-    </section>
+      <!-- Description -->
+      <div class="bottom-center">
+        <div class="text-box" id="menu-description">
+          Begin a new adventure.
+        </div>
+      </div>
 
-    <footer class="footer">
-      ✧ press start ✧
-    </footer>
+      <!-- A / B Buttons -->
+      <div class="bottom-right">
+        <div class="buttons">
+          <button class="btn" id="btn-a">A</button>
+          <button class="btn" id="btn-b">B</button>
+        </div>
+      </div>
 
-  </main>
+    </div>
 
-  <script src="home.js"></script>
+    <footer class="footer">© Magical System</footer>
+  </div>
+
+  <!-- MENU LOGIC -->
+  <script>
+    const items = document.querySelectorAll(".menu-item");
+    const desc = document.getElementById("menu-description");
+
+    const descriptions = [
+      "Back to Sunnie Jae.",
+      "I'm a ssssnaaakkeeee.",
+      "Inspired by the core memory of Flappy Bird. That was a crazy time to be a teenager.",
+      "This one is full of inside jokes that you're probably on the outside of.",
+      "Otome tropes loading...",
+      "Shop Sunnie Jae",
+      "For a specific type of person"
+    ];
+
+    let index = 0;
+
+    function updateMenu() {
+      items.forEach((item, i) => {
+        item.classList.toggle("active", i === index);
+      });
+      desc.textContent = descriptions[index];
+    }
+
+    document.querySelector(".up").onclick = () => {
+      index = (index - 1 + items.length) % items.length;
+      updateMenu();
+    };
+
+    document.querySelector(".down").onclick = () => {
+      index = (index + 1) % items.length;
+      updateMenu();
+    };
+
+    document.getElementById("btn-a").onclick = () => {
+      const link = items[index].dataset.link;
+      if (link) window.location.href = link;
+    };
+
+    document.getElementById("btn-b").onclick = () => {
+      index = 0;
+      updateMenu();
+    };
+
+    // Click / tap support
+    items.forEach((item, i) => {
+      item.addEventListener("click", () => {
+        index = i;
+        updateMenu();
+        window.location.href = item.dataset.link;
+      });
+    });
+
+    updateMenu();
+  </script>
+
 </body>
 </html>
