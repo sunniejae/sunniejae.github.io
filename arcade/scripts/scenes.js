@@ -68,15 +68,15 @@ export const gameData = {
   shakeevent: {
     id: "shakeevent",
     title: "THE SHAKE",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/shake.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/shakeevent.png",
     pages: [
-      "The parchment trembles.",
-      "A secret door opens. You step through..."
+      "confidently, you speak your answer out loud.",
+      " as you do, the room begins to shake."
     ],
-    choiceA: "CONTINUE",
-    choiceB: "CONTINUE",
-    nextA: "hallway",
-    nextB: "hallway",
+    choiceA: "RUN",
+    choiceB: "HIDE",
+    nextA: "basement",
+    nextB: "dead",
     statsA: { courage: 2 }
   },
 
@@ -99,7 +99,7 @@ export const gameData = {
   cowardsexit: {
     id: "cowardsexit",
     title: "THE EXIT",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/exit.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.png",
     pages: [
       "You run back to the door.",
       "The mansion laughs behind you."
@@ -110,80 +110,84 @@ export const gameData = {
     nextB: "start"
   },
 
-  hallway: {
-    id: "hallway",
-    title: "THE HALLWAY",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/hallway.png",
+  basement: {
+    id: "basement",
+    title: "SAFE DOWN HERE",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/basement.png",
     pages: [
-      "You walk down the hallway.",
-      "A portrait stares at you with empty eyes.",
-      "There are two doors: left and right."
+      "You run down the set of stairs that you notice in the corner. You end up in a dirty, cluttered basement.",
+      "When you get there, you're greeted by the fabled Sunnie Jae.",
     ],
-    choiceA: "LEFT",
-    choiceB: "RIGHT",
-    nextA: "leftdoor",
-    nextB: "rightdoor",
-    statsA: { curiosity: 1 },
-    statsB: { kindness: 1 }
+    choiceA: "SAY HI",
+    choiceB: "STARE SILENTLY",
+    nextA: "sunnie1",
+    nextB: "sunnie1",
+    statsA: {charisma: 1 },
+    statsB: { charisma: -1 }
   },
 
-  leftdoor: {
-    id: "leftdoor",
-    title: "LEFT DOOR",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/left.png",
+ sunnie1: {
+    id: "sunnie1",
+    title: "SUNNIE JAE",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie1.png",
     pages: [
-      "The left door creaks open.",
-      "A dark room awaits."
+      "`I have a gift for you!",
+      "But you must answer a riddle before I'll give it to you.",
     ],
-    choiceA: "CONTINUE",
-    choiceB: "BACK",
-    nextA: "riddle2",
-    nextB: "hallway",
-    statsA: { courage: 1 }
+    choiceA: "SAY: OKAY",
+    choiceB: "SAY: NO THANKS",
+    nextA: "sunniesriddle",
+    nextB: "dead",
+    statsA: {courage : 1, curiousity: 1 },
+    statsB: {charisma : -1 }
   },
 
-  rightdoor: {
-    id: "rightdoor",
-    title: "RIGHT DOOR",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/right.png",
+ sunniesriddle: {
+    id: "sunniesriddle",
+    title: "sunniesriddle PARCHMENT",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie2.png",
     pages: [
-      "The right door opens into a bright room.",
-      "A voice whispers..."
-    ],
-    choiceA: "CONTINUE",
-    choiceB: "BACK",
-    nextA: "riddle2",
-    nextB: "hallway",
-    statsA: { kindness: 1 }
-  },
-
-  riddle2: {
-    id: "riddle2",
-    title: "RIDDLE ROOM",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/riddle2.png",
-    pages: [
-      "I speak without a mouth and hear without ears. I have nobody, but I come alive with wind. What am I?"
+      "The more of this there is, the less of it you see.<br>What am I?"
     ],
     input: {
-      answers: ["echo"],
-      success: "ending",
-      failure: "wrong2"
+      answers: ["darkness, the dark, dark"],
+      success: "sunniesgift",
+      failure: "wrong"
     }
   },
 
-  wrong2: {
-    id: "wrong2",
-    title: "WRONG",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    sunniesgift: {
+    id: "sunniesgift",
+    title: "sunniesgift",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunniesgift.png",
     pages: [
-      "Not quite.",
-      "Try again."
+      "Wow, you actually got it right.",
+      "Here's your gift.",
+      "Yup! I's a key. Good luckinf with finding which room it goes to!",
     ],
-    choiceA: "TRY AGAIN",
-    choiceB: "EXIT",
-    nextA: "riddle2",
-    nextB: "cowardsexit"
+    choiceA: "SAY:THANKS",
+    choiceB: "SAY: I DONT CARE",
+    nextA: "twodoors1",
+    nextB: "dead",
+    statsA: {charisma: 1 },
+    statsB: { curiosity: -1 }
   },
+
+    twodoors1: {
+    id: "twodoors1",
+    title: "CHOOSE WISELY",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/twodoors.png",
+    pages: [
+      "Where do you want to go?",
+    ],
+    choiceA: "LEFT",
+    choiceB: "RIGHT",
+    nextA: "ending",
+    nextB: "ending",
+    statsA: {curiosity: 1 },
+    statsB: { courage: 1 }
+  },
+  
 
   ending: {
     id: "ending",
@@ -235,7 +239,7 @@ export const gameData = {
     title: "KIND ENDING",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/ending.png",
     pages: [
-      "Your kindness saved you.",
+      "Your charisma saved you.",
       "You escaped the mansion with a warm heart.",
       "The mansion lets you go peacefully."
     ],

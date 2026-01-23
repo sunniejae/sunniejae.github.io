@@ -10,9 +10,9 @@ soundtrack.volume = 0.4;
 ================================ */
 const stats = {
   courage: 0,
-  kindness: 0,
-  curiosity: 0
-};
+  charisma: 0,
+  curiosity: 0,
+  };
 
 /* ===============================
    CORE VARIABLES
@@ -122,11 +122,11 @@ function checkRiddleAnswer(scene) {
    CONDITIONAL ENDING
 ================================ */
 function getEnding() {
-  const { courage, kindness, curiosity } = stats;
+  const { courage, charisma, curiosity } = stats;
 
-  if (courage >= kindness && courage >= curiosity && courage >= 3) return "braveEnding";
-  if (kindness >= courage && kindness >= curiosity && kindness >= 3) return "kindEnding";
-  if (curiosity >= courage && curiosity >= kindness && curiosity >= 3) return "curiousEnding";
+  if (courage >= charisma && courage >= curiosity && courage >= 3) return "braveEnding";
+  if (charisma >= courage && charisma >= curiosity && charisma >= 3) return "kindEnding";
+  if (curiosity >= courage && curiosity >= charisma && curiosity >= 3) return "curiousEnding";
   return "neutralEnding";
 }
 
