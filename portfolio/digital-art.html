@@ -725,8 +725,8 @@ const pinData = [
         description: "Colorblock speedpaint video", 
         tags: ["video", "speedpaint"], 
         type: "video", 
-        poster: "/assets/digitalart/3.png", 
-        src: "/assets/videos/3.mp4" 
+        poster: "https://sunniejae.blob.core.windows.net/sunniejae/assets/digital%20art/3.png", 
+        src: "https://sunniejae.blob.core.windows.net/sunniejae/assets/digital%20art/videos/3.mp4" 
     },
 
     { 
@@ -951,7 +951,7 @@ function showNotification(message, isTagSearch = false) {
 function buildPinHTML(pin) {
     const mediaHTML = pin.type === "video"
         ? `<video muted loop playsinline preload="none" poster="${pin.poster}" data-src="${pin.src}"></video>`
-        : `<img data-src="/assets/digitalart/${pin.id}.png" alt="${pin.title}">`;
+        : `<img data-src="https://sunniejae.blob.core.windows.net/sunniejae/assets/digital%20art/${pin.id}.png" alt="${pin.title}">`;
 
     const tagsHTML = pin.tags.map(t => `<span class="tag-item" data-tag="${t}">#${t}</span>`).join("");
 
@@ -1026,7 +1026,7 @@ function openModal(pin) {
     } else {
         const img = document.createElement('img');
         img.className = 'modal-media';
-        img.src = `/assets/digitalart/${pin.id}.png`;
+        img.src = `https://sunniejae.blob.core.windows.net/sunniejae/assets/digital%20art/${pin.id}.png`;
         img.alt = pin.title;
         modalContent.appendChild(img);
     }
@@ -1082,7 +1082,7 @@ document.addEventListener('click', (e) => {
     if (target.closest('.copy-link')) {
         e.preventDefault();
         const pinId = target.closest('.copy-link').dataset.pinId;
-        const imageUrl = `https://sunniejae.com/assets/digitalart/${pinId}.png`;
+        const imageUrl = `https://sunniejae.comhttps://sunniejae.blob.core.windows.net/sunniejae/assets/digital%20art/${pinId}.png`;
         
         navigator.clipboard.writeText(imageUrl).then(() => {
             showNotification('🔗 Link copied!');
@@ -1095,7 +1095,7 @@ document.addEventListener('click', (e) => {
         e.preventDefault();
         const { platform, pinId } = shareLink.dataset;
         const pin = pinData.find(p => p.id === pinId);
-        const imageUrl = `https://sunniejae.com/assets/digitalart/${pinId}.png`;
+        const imageUrl = `https://sunniejae.comhttps://sunniejae.blob.core.windows.net/sunniejae/assets/digital%20art/${pinId}.png`;
         const text = `${pin.title} - ${pin.description} by Sunnie Jae`;
         
         const shareUrls = {
