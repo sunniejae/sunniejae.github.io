@@ -29,9 +29,7 @@ export const gameData = {
     choiceA: "BACK",
     choiceB: "BACK",
     nextA: "start",
-    nextB: "start",
-    statsA: { curiosity: 1 },
-    statsB: { curiosity: 1 }
+    nextB: "start"
   },
 
   foyer: {
@@ -39,12 +37,11 @@ export const gameData = {
     title: "THE FOYER",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/foyer.png",
     pages: [
-      "You stand in the foyer, the walls adorned with old, dusty paintings and cobwebs stretching from corner to corner.",
-      "The room feels colder as you walk further from the door.",
-      "On the floor, a rolled parchment rests alone. Read the parchment?"
+      "You stand in the foyer, the walls adorned with dusty paintings.",
+      "A rolled parchment lies on the floor."
     ],
-    choiceA: "YES",
-    choiceB: "NO",
+    choiceA: "READ IT",
+    choiceB: "LEAVE",
     nextA: "parchment",
     nextB: "cowardsexit",
     statsA: { curiosity: 1 },
@@ -61,8 +58,19 @@ export const gameData = {
     input: {
       answers: ["map"],
       success: "shakeevent",
-      failure: "wrong"
+      failure: "wrongParchment"
     }
+  },
+
+  wrongParchment: {
+    id: "wrongParchment",
+    title: "WRONG",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    pages: ["That answer fades into dust."],
+    choiceA: "TRY AGAIN",
+    choiceB: "RUN",
+    nextA: "parchment",
+    nextB: "cowardsexit"
   },
 
   shakeevent: {
@@ -70,153 +78,150 @@ export const gameData = {
     title: "THE SHAKE",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/shakeevent.png",
     pages: [
-      "confidently, you speak your answer out loud.",
-      " as you do, the room begins to shake."
+      "The mansion trembles.",
+      "A staircase opens beneath you."
     ],
-    choiceA: "RUN",
-    choiceB: "HIDE",
+    choiceA: "RUN DOWN",
+    choiceB: "FREEZE",
     nextA: "basement",
     nextB: "dead",
     statsA: { courage: 2 }
   },
 
-  wrong: {
-    id: "wrong",
-    title: "WRONG",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
-    pages: [
-      "That’s not right.",
-      "Try again."
-    ],
-    choiceA: "TRY AGAIN",
-    choiceB: "EXIT",
-    nextA: "parchment",
-    nextB: "cowardsexit",
-    statsA: { courage: -1 },
-    statsB: { courage: -2 }
-  },
-
-  cowardsexit: {
-    id: "cowardsexit",
-    title: "THE EXIT",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.png",
-    pages: [
-      "You run back to the door.",
-      "The mansion laughs behind you."
-    ],
-    choiceA: "RESTART",
-    choiceB: "RESTART",
-    nextA: "start",
-    nextB: "start"
-  },
-
   basement: {
     id: "basement",
-    title: "SAFE DOWN HERE",
+    title: "THE BASEMENT",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/basement.png",
     pages: [
-      "You run down the set of stairs that you notice in the corner. You end up in a dirty, cluttered basement.",
-      "When you get there, you're greeted by the fabled Sunnie Jae.",
+      "A cluttered basement.",
+      "A figure steps forward. It's Sunnie Jae."
     ],
     choiceA: "SAY HI",
-    choiceB: "STARE SILENTLY",
+    choiceB: "STARE",
     nextA: "sunnie1",
     nextB: "sunnie1",
-    statsA: {charisma: 1 },
+    statsA: { charisma: 1 },
     statsB: { charisma: -1 }
   },
 
- sunnie1: {
+  sunnie1: {
     id: "sunnie1",
     title: "SUNNIE JAE",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie1.png",
     pages: [
-      "`I have a gift for you!",
-      "But you must answer a riddle before I'll give it to you.",
+      "`I have a gift for you...`",
+      "`If you answer my riddle.`"
     ],
-    choiceA: "SAY: OKAY",
-    choiceB: "SAY: NO THANKS",
+    choiceA: "OKAY",
+    choiceB: "NO THANKS",
     nextA: "sunniesriddle",
-    nextB: "dead",
-    statsA: {courage : 1, curiousity: 1 },
-    statsB: {charisma : -1 }
+    nextB: "dead"
   },
 
- sunniesriddle: {
+  sunniesriddle: {
     id: "sunniesriddle",
-    title: "sunniesriddle PARCHMENT",
+    title: "SUNNIE'S RIDDLE",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie2.png",
     pages: [
-      "The more of this there is, the less of it you see.<br>What am I?"
+      "The more of this there is, the less you see.<br>What is it?"
     ],
     input: {
-      answers: ["darkness, the dark, dark"],
+      answers: ["darkness"],
       success: "sunniesgift",
-      failure: "wrong"
+      failure: "wrongSunnie"
     }
   },
 
-    sunniesgift: {
+  wrongSunnie: {
+    id: "wrongSunnie",
+    title: "NOT QUITE",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    pages: ["Sunnie tilts her head."],
+    choiceA: "TRY AGAIN",
+    choiceB: "LEAVE",
+    nextA: "sunniesriddle",
+    nextB: "dead"
+  },
+
+  sunniesgift: {
     id: "sunniesgift",
-    title: "sunniesgift",
+    title: "SUNNIE'S GIFT",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunniesgift.png",
     pages: [
-      "Wow, you actually got it right.",
-      "Here's your gift.",
-      "Yup! I's a key. Good luckinf with finding which room it goes to!",
+      "She hands you a key.",
+      "`Kindness travels far here.`"
     ],
-    choiceA: "SAY:THANKS",
-    choiceB: "SAY: I DONT CARE",
+    choiceA: "THANK HER",
+    choiceB: "SAY NOTHING",
     nextA: "twodoors1",
-    nextB: "dead",
-    statsA: {charisma: 1 },
-    statsB: { curiosity: -1 }
+    nextB: "twodoors1",
+    statsA: { charisma: 1, hasKey: 1 },
+    statsB: { hasKey: 1 }
   },
 
-    twodoors1: {
+  twodoors1: {
     id: "twodoors1",
-    title: "CHOOSE WISELY",
+    title: "TWO DOORS",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/twodoors.png",
-    pages: [
-      "Where do you want to go?",
-    ],
+    pages: ["Two doors stand before you."],
     choiceA: "LEFT",
     choiceB: "RIGHT",
-    nextA: "ending",
-    nextB: "ending",
-    statsA: {curiosity: 1 },
-    statsB: { courage: 1 }
-  },
-  
-
-  ending: {
-    id: "ending",
-    title: "ESCAPE",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/ending.png",
-    pages: [
-      "You escaped the mansion.",
-      "But the mansion never forgets..."
-    ],
-    choiceA: "CONTINUE",
-    choiceB: "CONTINUE",
-    nextA: "endingStats",
-    nextB: "endingStats"
+    nextA: "gracieRoom",
+    nextB: "library"
   },
 
-  endingStats: {
-    id: "endingStats",
-    title: "CREDITS + STATS",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/ending.png",
+  gracieRoom: {
+    id: "gracieRoom",
+    title: "GRACIE",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie.png",
     pages: [
-      "Credits:",
-      "Sunnie Jae • Game Design",
-      "Luis G • Mansion",
-      "Thanks for playing!"
+      "Gracie blocks the path.",
+      "`Prove your courage.`"
     ],
-    choiceA: "RESTART",
-    choiceB: "RESTART",
-    nextA: "start",
-    nextB: "start"
+    choiceA: "ANSWER",
+    choiceB: "RETREAT",
+    nextA: "gracieRiddle",
+    nextB: "neutralEnding"
+  },
+
+  gracieRiddle: {
+    id: "gracieRiddle",
+    title: "GRACIE'S RIDDLE",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracieRiddle.png",
+    pages: [
+      "I speak without a mouth and hear without ears. What am I?"
+    ],
+    input: {
+      answers: ["echo"],
+      success: "braveEnding",
+      failure: "dead"
+    }
+  },
+
+  library: {
+    id: "library",
+    title: "THE LIBRARY",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/library.png",
+    pages: [
+      "A towering library.",
+      "One book sticks out."
+    ],
+    choiceA: "PULL BOOK",
+    choiceB: "LEAVE",
+    nextA: "libraryPuzzle",
+    nextB: "neutralEnding"
+  },
+
+  libraryPuzzle: {
+    id: "libraryPuzzle",
+    title: "BOOK PUZZLE",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/libraryPuzzle.png",
+    pages: ["Unscramble: OETRP"],
+    input: {
+      answers: ["rope"],
+      success: "curiousEnding",
+      failure: "dead"
+    }
   },
 
   braveEnding: {
@@ -224,24 +229,8 @@ export const gameData = {
     title: "BRAVE ENDING",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/ending.png",
     pages: [
-      "Your courage saved you.",
-      "You escaped the mansion with your head held high.",
-      "The mansion respects you."
-    ],
-    choiceA: "RESTART",
-    choiceB: "RESTART",
-    nextA: "start",
-    nextB: "start"
-  },
-
-  kindEnding: {
-    id: "kindEnding",
-    title: "KIND ENDING",
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/ending.png",
-    pages: [
-      "Your charisma saved you.",
-      "You escaped the mansion with a warm heart.",
-      "The mansion lets you go peacefully."
+      "Your courage carried you through.",
+      "The mansion bows."
     ],
     choiceA: "RESTART",
     choiceB: "RESTART",
@@ -254,9 +243,8 @@ export const gameData = {
     title: "CURIOUS ENDING",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/ending.png",
     pages: [
-      "Your curiosity saved you.",
-      "You found a hidden exit behind the bookshelf.",
-      "The mansion can’t hide from you."
+      "You outsmarted the mansion.",
+      "It had nowhere left to hide."
     ],
     choiceA: "RESTART",
     choiceB: "RESTART",
@@ -266,11 +254,38 @@ export const gameData = {
 
   neutralEnding: {
     id: "neutralEnding",
-    title: "NEUTRAL ENDING",
+    title: "ESCAPE",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/ending.png",
     pages: [
-      "You escaped the mansion.",
-      "But the mansion never forgets..."
+      "You escaped.",
+      "The mansion watches silently."
+    ],
+    choiceA: "RESTART",
+    choiceB: "RESTART",
+    nextA: "start",
+    nextB: "start"
+  },
+
+  cowardsexit: {
+    id: "cowardsexit",
+    title: "THE EXIT",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.png",
+    pages: [
+      "You flee.",
+      "The mansion laughs."
+    ],
+    choiceA: "RESTART",
+    choiceB: "RESTART",
+    nextA: "start",
+    nextB: "start"
+  },
+
+  dead: {
+    id: "dead",
+    title: "DEAD",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.png",
+    pages: [
+      "The mansion claims another soul."
     ],
     choiceA: "RESTART",
     choiceB: "RESTART",

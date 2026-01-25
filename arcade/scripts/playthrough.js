@@ -6,13 +6,16 @@ soundtrack.loop = true;
 soundtrack.volume = 0.4;
 
 /* ===============================
-   HIDDEN STATS
+   STATS & CHECKPOINTS
 ================================ */
 const stats = {
   courage: 0,
   charisma: 0,
   curiosity: 0,
-  };
+  riddlesSolved: 0
+};
+
+let checkpoint = { scene: "start", page: 0 };
 
 /* ===============================
    CORE VARIABLES
@@ -24,21 +27,15 @@ let isTyping = false;
 let continuePrompt;
 
 /* ===============================
-   BUTTON GLOW + DISABLE
+   BUTTON HANDLING
 ================================ */
 function setButtonsDisabled(state) {
   const btnA = document.querySelector(".btn.a");
   const btnB = document.querySelector(".btn.b");
   btnA.disabled = state;
   btnB.disabled = state;
-
-  if (state) {
-    btnA.classList.add("disabled");
-    btnB.classList.add("disabled");
-  } else {
-    btnA.classList.remove("disabled");
-    btnB.classList.remove("disabled");
-  }
+  btnA.classList.toggle("disabled", state);
+  btnB.classList.toggle("disabled", state);
 }
 
 /* ===============================
@@ -49,7 +46,6 @@ function typeWriter(element, html, speed = 22, onComplete) {
   let i = 0;
   let isTag = false;
   let buffer = "";
-
   clearInterval(typingInterval);
   isTyping = true;
   setButtonsDisabled(true);
@@ -62,15 +58,12 @@ function typeWriter(element, html, speed = 22, onComplete) {
       if (onComplete) onComplete();
       return;
     }
-
     const char = html[i];
     buffer += char;
     if (char === "<") isTag = true;
     if (char === ">") isTag = false;
-
     element.innerHTML = buffer;
     i++;
-    if (isTag) return;
   }, speed);
 }
 
@@ -78,28 +71,27 @@ function typeWriter(element, html, speed = 22, onComplete) {
    RENDER FUNCTIONS
 ================================ */
 function renderBackground(src) {
-  const screenBg = document.getElementById("screenBg");
-  screenBg.style.backgroundImage = `url('${src}')`;
+  document.getElementById("screenBg").style.backgroundImage = `url('${src}')`;
 }
 
 function renderScene(scene) {
   const textElement = document.querySelector(".riddle-text");
-  typeWriter(textElement, scene.pages[currentPage], 40, () => {
-    updateContinuePrompt(scene);
-  });
+  typeWriter(textElement, scene.pages[currentPage], 40, () => updateContinuePrompt(scene));
 }
 
 /* ===============================
-   STATS
+   STATS FUNCTIONS
 ================================ */
 function applyStats(statsObj) {
   if (!statsObj) return;
-
   for (const key in statsObj) {
-    if (stats.hasOwnProperty(key)) {
-      stats[key] += statsObj[key];
-    }
+    if (stats.hasOwnProperty(key)) stats[key] += statsObj[key];
   }
+}
+
+function saveCheckpoint(sceneKey, page = 0) {
+  checkpoint.scene = sceneKey;
+  checkpoint.page = page;
 }
 
 /* ===============================
@@ -111,23 +103,36 @@ function checkRiddleAnswer(scene) {
 
   if (correctAnswers.includes(userAnswer)) {
     applyStats(scene.statsSuccess || { curiosity: 1 });
+    stats.riddlesSolved += 1;
+    saveCheckpoint(scene.input.success, 0); // checkpoint after solving
     loadScene(scene.input.success);
   } else {
     applyStats(scene.statsFailure || {});
-    loadScene(scene.input.failure);
+    loadScene("wrong");
   }
 }
 
 /* ===============================
-   CONDITIONAL ENDING
+   ENDINGS
 ================================ */
 function getEnding() {
   const { courage, charisma, curiosity } = stats;
+  let ending;
 
-  if (courage >= charisma && courage >= curiosity && courage >= 3) return "braveEnding";
-  if (charisma >= courage && charisma >= curiosity && charisma >= 3) return "kindEnding";
-  if (curiosity >= courage && curiosity >= charisma && curiosity >= 3) return "curiousEnding";
-  return "neutralEnding";
+  if (courage >= charisma && courage >= curiosity && courage >= 3) ending = "braveEnding";
+  else if (charisma >= courage && charisma >= curiosity && charisma >= 3) ending = "kindEnding";
+  else if (curiosity >= courage && curiosity >= charisma && curiosity >= 3) ending = "curiousEnding";
+  else ending = "neutralEnding";
+
+  // Hard reset after game completion
+  stats.courage = 0;
+  stats.charisma = 0;
+  stats.curiosity = 0;
+  stats.riddlesSolved = 0;
+  checkpoint.scene = "start";
+  checkpoint.page = 0;
+
+  return ending;
 }
 
 /* ===============================
@@ -137,25 +142,19 @@ function loadScene(sceneKey) {
   currentScene = sceneKey;
   currentPage = 0;
   const scene = gameData[sceneKey];
-
   renderBackground(scene.background);
   renderScene(scene);
 }
 
 /* ===============================
-   ADVANCE PAGE OR SCENE
+   ADVANCE PAGE
 ================================ */
 function advancePageOrScene() {
   const scene = gameData[currentScene];
-
   if (currentPage < scene.pages.length - 1) {
     currentPage++;
     renderScene(scene);
-    return;
   }
-
-  if (scene.input) return;
-  if (scene.choiceA && scene.choiceB) return;
 }
 
 /* ===============================
@@ -165,35 +164,44 @@ function chooseOption(option) {
   const scene = gameData[currentScene];
   if (isTyping) return;
 
-  // If still on multi-page scene, just advance
   if (currentPage < scene.pages.length - 1) {
     advancePageOrScene();
     return;
   }
 
-  // Apply stats for the option
   if (option === "A") applyStats(scene.statsA);
   if (option === "B") applyStats(scene.statsB);
 
-  // If it's a riddle scene, only A submits
+  // Handle checkpoint back option
+  if (scene.choiceB === "BACK TO CHECKPOINT" && option === "B") {
+    loadScene(checkpoint.scene);
+    currentPage = checkpoint.page;
+    return;
+  }
+
+  // Riddle submission
   if (scene.input && option === "A") {
     checkRiddleAnswer(scene);
     return;
   }
 
-  // If you reach the ending scene, choose stats-based ending
+  // Require at least 3 riddles to exit
+  if ((scene.nextA === "ending" || scene.nextB === "ending") && stats.riddlesSolved < 3) {
+    alert("You must solve at least 3 riddles before exiting!");
+    return;
+  }
+
   if (currentScene === "ending") {
     loadScene(getEnding());
     return;
   }
 
-  // Load next scenes for choices
   if (option === "A" && scene.nextA) loadScene(scene.nextA);
   if (option === "B" && scene.nextB) loadScene(scene.nextB);
 }
 
 /* ===============================
-   PROMPT UPDATE
+   PROMPT
 ================================ */
 function updateContinuePrompt(scene) {
   const inputBox = document.getElementById("riddleInput");
@@ -201,23 +209,16 @@ function updateContinuePrompt(scene) {
   if (currentPage < scene.pages.length - 1) {
     continuePrompt.innerText = "Press A to continue";
     inputBox.style.display = "none";
-    return;
-  }
-
-  if (scene.input) {
+  } else if (scene.input) {
     continuePrompt.innerText = "Enter your answer (Press Enter)";
     inputBox.style.display = "block";
-    return;
-  }
-
-  if (scene.choiceA && scene.choiceB) {
+  } else if (scene.choiceA && scene.choiceB) {
     continuePrompt.innerText = `A: ${scene.choiceA} | B: ${scene.choiceB}`;
     inputBox.style.display = "none";
-    return;
+  } else {
+    continuePrompt.innerText = "Press A to continue";
+    inputBox.style.display = "none";
   }
-
-  continuePrompt.innerText = "Press A to continue";
-  inputBox.style.display = "none";
 }
 
 /* ===============================
@@ -227,14 +228,15 @@ document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
   const scene = gameData[currentScene];
 
+  // Only submit riddle when pressing Enter
   if (scene.input) {
     if (key === "enter") {
       checkRiddleAnswer(scene);
-      return;
     }
-    return;
+    return; // ignore A/B while in riddle input
   }
 
+  // Normal choices / page advance
   if (key === "a") chooseOption("A");
   if (key === "b") chooseOption("B");
 });
@@ -246,21 +248,22 @@ function init() {
   continuePrompt = document.getElementById("continuePrompt");
 
   document.querySelector(".btn.a").addEventListener("click", () => {
-    const scene = gameData[currentScene];
-    if (scene.input) checkRiddleAnswer(scene);
-    else chooseOption("A");
-  });
+  const scene = gameData[currentScene];
+  if (scene.input) {
+    // Only submit when clicking A if it's a riddle
+    checkRiddleAnswer(scene);
+  } else {
+    chooseOption("A");
+  }
+});
 
-  document.querySelector(".btn.b").addEventListener("click", () => {
-    const scene = gameData[currentScene];
-    if (scene.input) return;
-    chooseOption("B");
-  });
+document.querySelector(".btn.b").addEventListener("click", () => {
+  const scene = gameData[currentScene];
+  if (!scene.input) chooseOption("B"); // ignore B for riddles
+});
+
 
   loadScene("start");
 }
 
-/* ===============================
-   RUN
-================================ */
 document.addEventListener("DOMContentLoaded", init);
