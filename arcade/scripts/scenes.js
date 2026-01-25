@@ -216,7 +216,7 @@ export const gameData = {
     id: "libraryPuzzle",
     title: "BOOK PUZZLE",
     background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/libraryPuzzle.png",
-    pages: ["Unscramble: OETRP"],
+    pages: ["Unscramble: OERP"],
     input: {
       answers: ["rope"],
       success: "curiousEnding",
