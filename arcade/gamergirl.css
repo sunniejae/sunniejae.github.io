@@ -17,6 +17,18 @@ a {
 a:hover {
   text-decoration: none;
 }
+strong {
+  color: var(--silver);
+  font-family: 'Starbim';
+  font-size: 24px;
+  text-decoration: double;
+  text-transform: uppercase;
+-webkit-text-stroke-color: var(--secondary);
+-webkit-text-stroke-width: 1px;
+letter-spacing: 1.5px;
+
+}
+
 
 :root {
   --black: #000010;
@@ -125,7 +137,7 @@ body {
 .riddle-text {
   color: var(--white);
   font-family: "Press Start 2P", sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.3;
 }
 
@@ -202,7 +214,7 @@ body {
   border-radius: 12px;
   min-height: 56px;
   font-family: 'Aego', sans-serif;
-  color: var(--accent);
+  color: var(--silver);
   font-size: 20px;
   line-height: 1.3;
   letter-spacing: 1.3px;
@@ -238,7 +250,10 @@ body {
   background: linear-gradient(180deg, var(--pink), var(--secondary));
   border: none;
   color: white;
-  font-size: 18px;
+  font-size: 22px;
+  font-family: 'Starbim';
+  -webkit-text-stroke-color: var(--black);
+-webkit-text-stroke-width: 1px;
 }
 
 /* Footer */
@@ -443,4 +458,25 @@ body {
   display: flex;
   justify-content: space-between;
   gap: 6px;
+}
+/* Prompt text (Press A to continue, etc.) */
+.prompt-text {
+  color: var(--silver);
+  font-weight: bold;
+}
+
+/* Choice labels (A: and B:) */
+.choice-label {
+  color: var(--silver);
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+/* Choice text (the actual choice description) */
+.choice-text {
+  font-family:'Starbim';
+  color: var(--pink);
+  font-size: 20px;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
 }

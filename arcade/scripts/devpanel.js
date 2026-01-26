@@ -1,19 +1,17 @@
 // ===============================
-// DEV PANEL
+// TIMEWARP DEV PANEL
 // ===============================
 import { gameData } from "./scenes.js";
 import { state, renderScene, renderBackground, updatePrompt } from "./playthrough.js";
 
-// Dev panel state
-let devPanel, devPanelHeader, statsDisplay, sceneList;
-let isDragging = false;
-let offsetX = 0, offsetY = 0;
+// Panel elements
+let devPanel, devHeader, statsDisplay, sceneList;
+let isDragging = false, offsetX = 0, offsetY = 0;
 
 // ===============================
 // CREATE PANEL
 // ===============================
 function createDevPanel() {
-  // Only create once
   if (devPanel) return;
 
   devPanel = document.createElement("div");
@@ -22,8 +20,8 @@ function createDevPanel() {
     position: fixed;
     top: 50px;
     left: 50px;
-    width: 300px;
-    background: rgba(0,0,0,0.85);
+    width: 320px;
+    background: rgba(0,0,0,0.9);
     color: white;
     font-family: monospace;
     z-index: 9999;
@@ -31,34 +29,43 @@ function createDevPanel() {
     border-radius: 12px;
     user-select: none;
     display: none;
+    padding-bottom: 10px;
   `;
 
-  // Header (for drag)
-  devPanelHeader = document.createElement("div");
-  devPanelHeader.style.cssText = `
+  // HEADER (draggable)
+  devHeader = document.createElement("div");
+  devHeader.style.cssText = `
     background: #ff69b4;
-    padding: 6px;
+    padding: 8px;
     cursor: move;
     text-align: center;
     font-weight: bold;
   `;
-  devPanelHeader.innerText = "DEV PANEL (~)";
-  devPanel.appendChild(devPanelHeader);
+  devHeader.innerText = "TIMEWARP DEV PANEL (~)";
+  devPanel.appendChild(devHeader);
 
-  // Stats display
+  // STATS DISPLAY
   statsDisplay = document.createElement("div");
-  statsDisplay.style.cssText = "padding: 8px; font-size: 14px; border-bottom: 1px solid #fff;";
+  statsDisplay.style.cssText = `
+    padding: 8px;
+    font-size: 14px;
+    border-bottom: 1px solid #fff;
+  `;
   devPanel.appendChild(statsDisplay);
 
-  // Scene list
+  // SCENE LIST CONTAINER
   sceneList = document.createElement("div");
-  sceneList.style.cssText = "padding: 8px; max-height: 300px; overflow-y: auto;";
+  sceneList.style.cssText = `
+    padding: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+  `;
   devPanel.appendChild(sceneList);
 
-  // Create teleport buttons for each scene
-  for (let key in gameData) {
+  // Add warp buttons for each scene
+  Object.keys(gameData).forEach(sceneKey => {
     const btn = document.createElement("button");
-    btn.innerText = key;
+    btn.innerText = sceneKey;
     btn.style.cssText = `
       display: block;
       width: 100%;
@@ -66,18 +73,21 @@ function createDevPanel() {
       background: #333;
       color: #fff;
       border: none;
-      padding: 4px;
+      padding: 6px;
       border-radius: 6px;
       cursor: pointer;
+      text-align: left;
     `;
-    btn.onclick = () => teleportTo(key);
+    btn.addEventListener("click", () => teleportTo(sceneKey));
     sceneList.appendChild(btn);
-  }
+  });
 
   document.body.appendChild(devPanel);
 
-  // Drag logic
-  devPanelHeader.addEventListener("mousedown", e => {
+  // ===============================
+  // DRAG LOGIC
+  // ===============================
+  devHeader.addEventListener("mousedown", e => {
     isDragging = true;
     offsetX = e.clientX - devPanel.offsetLeft;
     offsetY = e.clientY - devPanel.offsetTop;
@@ -90,9 +100,7 @@ function createDevPanel() {
     }
   });
 
-  window.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+  window.addEventListener("mouseup", () => isDragging = false);
 }
 
 // ===============================
@@ -107,14 +115,12 @@ function toggleDevPanel() {
 // ===============================
 // TELEPORT FUNCTION
 // ===============================
-function teleportTo(sceneKey) {
+function teleportTo(sceneKey, page = 0) {
   if (!gameData[sceneKey]) return console.warn("Scene not found:", sceneKey);
 
-  // Reset page
   state.currentScene = sceneKey;
-  state.currentPage = 0;
+  state.currentPage = page;
 
-  // Render scene properly
   const scene = gameData[sceneKey];
   renderBackground(scene.background);
   renderScene(scene);
@@ -139,7 +145,7 @@ function updateStats() {
 }
 
 // ===============================
-// STAT REVEAL / ENDING CHECK
+// DEV ENDING CHECK
 // ===============================
 function getDevEnding() {
   const s = state.stats;
@@ -149,15 +155,15 @@ function getDevEnding() {
   else if (s.curiosity >= s.courage && s.curiosity >= s.charisma && s.curiosity >= 3) ending = "Curious Ending";
   else ending = "Neutral Ending";
 
-  alert(`Dev Ending: ${ending}\nStats:\nCourage: ${s.courage}\nCharisma: ${s.charisma}\nCuriosity: ${s.curiosity}\nRiddles Solved: ${s.riddlesSolved}`);
+  alert(`Dev Ending: ${ending}\n\nStats:\nCourage: ${s.courage}\nCharisma: ${s.charisma}\nCuriosity: ${s.curiosity}\nRiddles Solved: ${s.riddlesSolved}`);
 }
 
 // ===============================
-// KEYBIND
+// KEYBIND SHORTCUTS
 // ===============================
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", e => {
   if (e.key === "~") toggleDevPanel();
-  if (e.key === "e" && devPanel.style.display === "block") getDevEnding();
+  if (e.key.toLowerCase() === "e" && devPanel?.style.display === "block") getDevEnding();
 });
 
 // ===============================

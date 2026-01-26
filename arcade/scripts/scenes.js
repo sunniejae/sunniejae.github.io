@@ -4,24 +4,41 @@ export const gameData = {
      START
   ================================ */
   start: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/luis1.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/luis.webp",
     pages: [
-      "Welcome to Luis G's Mansion",
-      "An ancient relic of an office competition ages ago.",
-      "Follow the prompts using the A and B buttons to make important decisions.",
+      "Welcome to <strong> Luis G's Mansion </strong>",
+      "An ancient relic of an office competition past.",
+      "Follow the prompts using the <strong>A</strong> and <strong>B</strong> buttons to make important decisions.",
       "Solve the riddles of the mansion and face challenges from familiar faces.",
-      "Only the smartest escape.<br><br>Are you ready?"
+      "Only the smartest escape.<br><br><strong>Are you ready?</strong>"
     ],
     choiceA: "Let's-a-go!",
-    nextA: "foyer"
+    nextA: "foyer",
+    choiceB: "Instructions",
+    nextB: "instructions",
+    statsA: { courage: 1},
+    statsB: {curiosity: 1}
   },
 
+  instructions: {
+  background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/idle.webp",
+pages: [
+  "How to Play: <br> Use the <strong> A </strong> and <strong> B </strong> buttons to make key decisions through the story. <br> Answer the riddles to clear the encounters by entering your answer in the submission text box. <br> Build your <strong> Courage, Curiosity, </strong> and <strong> Charisma </strong> to determine your fate."
+],
+choiceA: "back to start",
+nextA: "start",
+choiceB: "enter the mansion",
+nextB: "foyer",
+statsA: { courage: -1},
+statsB: { courage: 1}
+  },
+  
   foyer: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/foyer.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/foyer.webp",
     pages: [
       "The door creaks open easily, as though it has been waiting for you.",
       "You stand in the foyer. Dusty paintings line the walls.",
-      "A parchment rests alone on the floor.<br><br>Read it?"
+      "A parchment rests alone on the floor.<br><br><strong>Read it?</strong>"
     ],
     choiceA: "YES",
     choiceB: "GO BACK",
@@ -32,9 +49,9 @@ export const gameData = {
   },
 
   parchment: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/parchment.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/parchment.webp",
     pages: [
-      "I have cities, but no houses.<br>I have forests, but no trees.<br>I have rivers, but no water. <br> What am I?"
+      "I have cities, but no houses.<br>I have forests, but no trees.<br>I have rivers, but no water. <br> <strong> What am I? </strong>"
     ],
     input: {
       answers: ["map"],
@@ -47,11 +64,11 @@ export const gameData = {
 
 
   shakeevent: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/shakeevent.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/shakeevent.webp",
     pages: [
       "You speak the answer aloud.",
       "The mansion begins to shake.",
-      "How do you react?"
+      "<strong> DECISION POINT </strong>"
     ],
     choiceA: "RUN!",
     choiceB: "HIDE!",
@@ -62,12 +79,12 @@ export const gameData = {
   },
 
   basement: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/basement.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/basement.webp",
     pages: [
       "You race down the stairs into a cluttered basement.",
       "A figure waits for you.",
       "The fabled Sunnie Jae.",
-      "What do you do?"
+      "<strong> DECISION POINT </strong>"
     ],
     choiceA: "SAY HI",
     choiceB: "HOLD STILL",
@@ -78,11 +95,11 @@ export const gameData = {
   },
 
   sunnie1: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie1.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie.webp",
     pages: [
       "I have a gift for you.",
       "But first—answer my riddle.",
-      "How do you respond?"
+      "<strong> DECISION POINT </strong>"
     ],
     choiceA: "OKAY",
     choiceB: "NO THANKS",
@@ -93,9 +110,9 @@ export const gameData = {
   },
 
   sunniesriddle: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie2.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunnie.webp",
     pages: [
-      "The more of this there is, the less you see."
+      "The more of this there is, the less you see. <br> <strong> What am I? </strong>"
     ],
     input: {
       answers: ["darkness"],
@@ -107,13 +124,13 @@ export const gameData = {
   },
 
   sunnie3: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunniesgift.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/sunniesgift.webp",
     pages: [
       "Wow. You actually got it right.",
       "Here’s your gift.",
       "It's another key.",
       "Good luck figuring out where it goes.",
-      "How do you respond?"
+      "<strong> DECISION POINT </strong>"
     ],
     choiceA: "THANKS",
     choiceB: "I DON'T CARE",
@@ -124,19 +141,19 @@ export const gameData = {
   },
 
   sunnie4: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/threedoors.png",
-    pages: ["Which door will you try?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/doors.webp",
+    pages: ["<strong> DECISION POINT </strong>"],
     choiceA: "Door One",
     choiceB: "Door Two",
     statsA: { curiosity: 1},
     statsB: { courage: 1},
-    nextA: "wrongroom",
+    nextA: "grandroom",
     nextB: "dead"
   },
 
   grandroom: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/grandroom.png",
-    pages: ["The key works.", "You step into a vast, dusty room."],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/grandroom.webp",
+    pages: ["The key works.", "You step into a vast, dusty room.", "<strong> DECISION POINT </strong>"],
     choiceA: "Enter",
     choiceB: "Turn Around",
     statsA: { courage: 1},
@@ -146,8 +163,9 @@ export const gameData = {
   },
 
   grandroom2: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie1.png",
-    pages: ["You hear breathing behind you.", "A haunted fairy appears.", 'What do you do?'],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie.webp",
+    pages: ["You hear breathing behind you.", "A haunted fairy appears.", "<strong> DECISION POINT </strong>"
+],
     choiceA: "HELLO?",
     choiceB: "EW!",
     statsA: { charisma: 1 },
@@ -157,8 +175,9 @@ export const gameData = {
   },
 
   gracie: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie2.png",
-    pages: ["I'm Scary Fairy Gracie.", "The bags under my eyes are designer.", "What do you say?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie.webp",
+    pages: ["I'm Scary Fairy Gracie.", "The bags under my eyes are designer.", "<strong> DECISION POINT </strong>"
+],
     choiceA: "OKAY",
     choiceB: "NOT AGAIN",
     statsA: { charisma: 1 },
@@ -168,30 +187,41 @@ export const gameData = {
   },
 
   graciesriddle: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie2.png",
-    pages: ["I am not alive, but I grow. <br> What am I?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie.webp",
+    pages: ["I am not alive, but I grow. <br> <strong> What am I? </strong>"],
     input: {
       answers: ["fire"],
-      success: "library"
+      success: "graciesuccess"
     },
     statsSuccess: { curiosity: 1 },
     statsFailure: {curiosity: -1 }
   },
 
+  graciesuccess: {
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/gracie.webp",
+ pages: ["I'm proud of you. Go ahead and leave using this convenient secret passageway to the library.", "<strong> DECISION POINT </strong>"],
+ choiceA: "WHAT ABOUT AN EXIT",
+ choiceB: "SEE YOU LATER THEN",
+ statsA: { charisma: -1},
+ statsB: { charisma: 1},
+ nextA: "dead2",
+ nextB: "library"
+  },
+
   library: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/library.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/library.webp",
     pages: ["Welcome to the library.", "Be quiet.", "What do you do?"],
     choiceA: "*SNEEZE*",
     choiceB: "HOLD STILL",
     statsA: { charisma: -1 },
     statsB: { charisma: 1 },
-    nextA: "kelsea",
+    nextA: "kelsea2",
     nextB: "kelsea2"
   },
 
   kelsea2: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea1.png",
-    pages: ["Who interrupts my self care time???", "Oh. It's you.", "I was finishing my 1000th book of 2025, so you better have something good to say.", "How do you respond?"
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea.webp",
+    pages: ["Who interrupts my self care time???", "Oh. It's you.", "I was finishing my 1000th book of 2025, so you better have something good to say.", "<strong> DECISION POINT </strong>"
           ],
     choiceA: "WHAT ARE YOU READING?",
     choiceB: "I DON'T WANT TO BE HERE",
@@ -202,18 +232,18 @@ export const gameData = {
   },
 
   kelsea3: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea2.png",
-    pages: ["I'm so glad you asked!", "It's a book of riddles.", "Wanna try one?", "How do you respond?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea.webp",
+    pages: ["I'm so glad you asked!", "It's a book of riddles.", "Wanna try one?", "<strong> DECISION POINT </strong>"],
     choiceA: "NO THANKS, I'M GOOD",
     choiceB: "I'D LOVE TO.",
     statsA: { charisma: -1 },
     statsB: { charisma: 1 },
-    nextA: "kelseasriddle",
-    nextB: "dead3" 
+    nextA: "dead3",
+    nextB: "kelseasriddle" 
   },
 
   kelseasriddle: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea2.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/kelsea.webp",
     pages: ["What weighs nothing, but can make the strongest person fall?"],
     input: {
       answers: ["ego"],
@@ -225,8 +255,8 @@ export const gameData = {
   },
 
   leavelibrary: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/twodoors.png",
-    pages: ["Two doors await you.", "Which do you enter?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/doors2.webp",
+    pages: ["Two doors await you.", "Which do you enter? <br><strong> DECISION POINT </strong>"],
     choiceA: "LEFT",
     choiceB: "RIGHT",
     statsA: { charisma: 1 },
@@ -236,8 +266,8 @@ export const gameData = {
   },
 
   jesse: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/bathroom.png",
-    pages: ["You step into what appears to be the bathroom.", "The lights flicker.<br><br>Someone clears their throat behind you.", "How do you react?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/bathroom.webp",
+    pages: ["You step into what appears to be the bathroom.", "The lights flicker.<br><br>Someone clears their throat behind you.", "<strong> DECISION POINT </strong>"],
     choiceA: "Uh—sorry!",
     choiceB: "EW.",
     statsA: { charisma: 1 },
@@ -247,8 +277,8 @@ export const gameData = {
   },
 
   jesse2: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jessie1.png",
-    pages: ["Ope! Guess someone *was* in here.", "It's me.<br>The man. The myth. The Wizard Jesse.", "How do you respond?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse.webp",
+    pages: ["Ope! Guess someone *was* in here.", "It's me.<br>The man. The myth. The Wizard Jesse.", "<strong> DECISION POINT </strong>"],
     choiceA: "HELLO",
     choiceB: "UGH",
     statsA: { charisma: 1 },
@@ -258,8 +288,8 @@ export const gameData = {
   },
 
   jesse3: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jessie2.png",
-    pages: ["I can get you out of this place.", "But only if you solve my final riddle.", "How do you respond?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse.webp",
+    pages: ["I can get you out of this place.", "But only if you solve my final riddle.", "<strong> DECISION POINT </strong>"],
     choiceA: "YES PLEASE",
     choiceB: "NO WAY",
     statsA: { courage: 1 },
@@ -268,8 +298,8 @@ export const gameData = {
   },
 
   jessesriddle: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jessie2.png",
-    pages: ["I can be long or short.", "I can be grown or bought.", "I can be painted or left bare.", "I can be round or square."],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse.webp",
+    pages: ["I can be long or short.", "I can be grown or bought.", "I can be painted or left bare.", "I can be round or square. <br> <strong> What am I? </strong>"],
     input: {
       answers: ["hair"],
       success: "jesse5",
@@ -280,16 +310,16 @@ export const gameData = {
   },
 
   jesse5: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jessie2.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/jesse.webp",
     pages: ["Correct.", "You've got a good head on your shoulders."],
     choiceA: "LEAVE BATHROOM",
     statsA: { courage: 1 },
-    nextA: "ending"
+    nextA: "statEnding"
   },
 
   brenda: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/pianoroom.png",
-    pages: ["You enter a grand piano room.", "What do you do?", "A ghostly melody drifts through the air."],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/pianoroom.webp",
+    pages: ["You enter a grand piano room.", "What do you do?", "A ghostly melody drifts through the air.", "<strong> DECISION POINT </strong>"],
     choiceA: "FOLLOW THE MUSIC",
     choiceB: "BACK AWAY",
     statsA: { curiosity: 1 },
@@ -298,8 +328,8 @@ export const gameData = {
   },
 
   brenda2: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/brenda1.png",
-    pages: ["A translucent figure sits at the piano.", "She turns slowly.<br><br>'I was a princess once.'", "How do you react?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/brenda.webp",
+    pages: ["A translucent figure sits at the piano.", "She turns slowly.<br><br>'I was a princess once.'", "<strong> DECISION POINT </strong>"],
     choiceA: "LISTEN",
     choiceB: "RUN",
     statsA: { charisma: 1 },
@@ -309,8 +339,8 @@ export const gameData = {
   },
 
   brenda3: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/brenda2.png",
-    pages: ["They called me Ghost Princess Brenda.", "Solve my riddle, and I'll bless your journey.", "How do you respond?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/brenda.webp",
+    pages: ["They called me Ghost Princess Brenda.", "Solve my riddle, and I'll bless your journey.", "<strong> DECISION POINT </strong>"],
     choiceA: "OKAY",
     choiceB: "NO",
     statsA: { courage: 1 },
@@ -320,8 +350,8 @@ export const gameData = {
   },
 
   brendasriddle: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/brenda2.png",
-    pages: ["I speak without a mouth and hear without ears.", "I have no body, but I come alive with wind."],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/brenda.webp",
+    pages: ["I speak without a mouth and hear without ears.", "I have no body, but I come alive with wind.<br> <strong>What am I?</strong>"],
     input: {
       answers: ["echo"],
       success: "brenda5",
@@ -332,20 +362,21 @@ export const gameData = {
   },
 
   brenda5: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/brenda2.png",
-    pages: ["Thank you for listening.", "Kindness is rarer than courage here.", "What do you do next?"],
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/brenda.webp",
+    pages: ["Thank you for listening.", "Kindness is rarer than courage here.", "<strong> DECISION POINT </strong>"],
     choiceA: "LEAVE QUIETLY",
     choiceB: "SCREAM",
     statsA: { charisma: 1 },
     statsB: { charisma: -1 },
-    nextA: "ending"
+    nextA: "statEnding",
+    nextB: "dead4"
   },
 
   /* ===============================
      DEAD / FAIL STATES
   ================================ */
   wrongparchment: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.webp",
     pages: [
       "Lol, wrong!"
     ],
@@ -356,7 +387,7 @@ export const gameData = {
   },
 
 wrongsunnie: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.webp",
     pages: [
       "Lol, wrong!"
     ],
@@ -367,7 +398,7 @@ wrongsunnie: {
   },
 
   wronggracie: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.webp",
     pages: [
       "Lol, wrong!"
     ],
@@ -378,7 +409,7 @@ wrongsunnie: {
   },
 
   wrongkelsea: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.webp",
     pages: [
       "Lol, wrong!"
     ],
@@ -389,7 +420,7 @@ wrongsunnie: {
   },
 
   wrongjesse: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.webp",
     pages: [
       "Lol, wrong!"
     ],
@@ -400,7 +431,7 @@ wrongsunnie: {
   },
 
   wrongbrenda: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/wrong.webp",
     pages: [
       "Lol, wrong!"
     ],
@@ -411,31 +442,47 @@ wrongsunnie: {
   },
 
   dead: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.webp",
     pages: ["Oof.", "You didn’t make it."],
-    choiceA: "TRY AGAIN",
-    nextA: "start"
+    choiceA: "START OVER",
+    nextA: "start",
+    choiceB: "LAST CHECKPOINT",
+    nextB: "parchment",
+    statsA: { curiosity: 1},
+    statsB: { courage: 1}
   },
 
   dead2: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.webp",
     pages: ["You were not careful.", "You’re dead."],
-    choiceA: "TRY AGAIN",
-    nextA: "start"
+    choiceA: "START OVER",
+    nextA: "start",
+    choiceB: "LAST CHECKPOINT",
+    nextB: "sunnie4",
+    statsA: { curiosity: 1},
+    statsB: { courage: 1}
   },
 
   dead3: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.webp",
     pages: ["Wrong choice.", "Better luck next time."],
-    choiceA: "TRY AGAIN",
-    nextA: "start"
+     choiceA: "START OVER",
+    nextA: "start",
+    choiceB: "LAST CHECKPOINT",
+    nextB: "library",
+    statsA: { curiosity: 1},
+    statsB: { courage: 1}
   },
 
   dead4: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.png",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/dead.webp",
     pages: ["Oof.", "Whatever you said wasn't very polite.<br><br>You're dead now."],
-    choiceA: "TRY AGAIN",
-    nextA: "start"
+     choiceA: "START OVER",
+    nextA: "start",
+    choiceB: "LAST CHECKPOINT",
+    nextB: "leavelibrary",
+    statsA: { curiosity: 1},
+    statsB: { courage: 1}
   },
 
   
@@ -443,7 +490,7 @@ wrongsunnie: {
      ENDINGS
   ================================ */
   neutralEnding: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/lscenessg/luisg_mansion_neutral.jpg",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/luis.webp",
     pages: [
       "The house remains as quietly as you leave it, the weight of unanswered questions pressing down on your shoulders.",
       "Shadows linger in the corners of your vision, whispers echo in your ears, but nothing truly reaches out.",
@@ -454,7 +501,7 @@ wrongsunnie: {
   },
 
   curiousEnding: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/lscenessg/luisg_mansion_curious.jpg",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/luis.webp",
     pages: [
       "Your insatiable curiosity drives you deeper into the mansion’s hidden corners.",
       "You uncover secret rooms, arcane symbols, and remnants of past tragedies. Each revelation spins your mind, yet you press on.",
@@ -465,7 +512,7 @@ wrongsunnie: {
   },
 
   kindEnding: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/lscenessg/luisg_mansion_kind.jpg",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/luis.webp",
     pages: [
       "Wherever fear and sorrow lingered in the mansion, your presence offered a glimmer of comfort.",
       "The spirits pause, some even acknowledging your kindness. You soothe the restless and leave with your heart lighter than it arrived.",
@@ -476,7 +523,7 @@ wrongsunnie: {
   },
 
   braveEnding: {
-    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/lscenessg/luisg_mansion_brave.jpg",
+    background: "https://sunniejae.blob.core.windows.net/sunniejae/assets/luisg/luis.webp",
     pages: [
       "Fear does not stop you, and the mansion takes note. You stride boldly through haunted halls, confronting specters and curses alike.",
       "The darkness recoils before your courage, revealing truths others might never see.",

@@ -68,7 +68,23 @@ function typeWriter(element, html, speed = 40, onComplete) {
    RENDER FUNCTIONS
 ================================ */
 function renderBackground(src) {
-  document.getElementById("screenBg").style.backgroundImage = `url('${src}')`;
+  const screen = document.getElementById("screenBg");
+  screen.style.backgroundImage = `url('${src}')`;
+
+  // Keep or create the riddle-text container
+  let textElement = screen.querySelector(".riddle-text");
+  if (!textElement) {
+    textElement = document.createElement("div");
+    textElement.className = "riddle-text";
+    textElement.style.cssText = `
+      padding: 20px;
+      color: white;
+      font-family: 'Starbim';
+      font-size: 18px;
+      text-shadow: 0 0 5px black;
+    `;
+    screen.appendChild(textElement);
+  }
 }
 
 function renderScene(scene) {
@@ -84,7 +100,7 @@ function applyStats(statsObj) {
   for (const key in statsObj) {
     if (stats.hasOwnProperty(key)) stats[key] += statsObj[key];
   }
-  updateStats(); // Update dev panel live
+  updateStats();
 }
 
 function saveCheckpoint(sceneKey, page = 0) {
@@ -102,11 +118,11 @@ function checkRiddleAnswer(scene) {
   if (correctAnswers.includes(userAnswer)) {
     applyStats(scene.statsSuccess || { curiosity: 1 });
     stats.riddlesSolved += 1;
-    saveCheckpoint(scene.input.success, 0); // checkpoint after solving
+    saveCheckpoint(scene.input.success, 0);
     loadScene(scene.input.success);
   } else {
     applyStats(scene.statsFailure || {});
-    loadScene(scene.input.failure || "wrong");
+    loadScene(scene.input.failure || "wrongparchment");
   }
 }
 
@@ -115,16 +131,17 @@ function checkRiddleAnswer(scene) {
 ================================ */
 function getEnding() {
   const { courage, charisma, curiosity } = stats;
-  let ending;
+  let endingScene;
 
-  if (courage >= charisma && courage >= curiosity && courage >= 3) ending = "braveEnding";
-  else if (charisma >= courage && charisma >= curiosity && charisma >= 3) ending = "kindEnding";
-  else if (curiosity >= courage && curiosity >= charisma && curiosity >= 3) ending = "curiousEnding";
-  else ending = "neutralEnding";
+  if (courage >= charisma && courage >= curiosity && courage >= 3) endingScene = "braveEnding";
+  else if (charisma >= courage && charisma >= curiosity && charisma >= 3) endingScene = "kindEnding";
+  else if (curiosity >= courage && curiosity >= charisma && curiosity >= 3) endingScene = "curiousEnding";
+  else endingScene = "neutralEnding";
 
-  showStatEndScreen(ending);
+  // Load the ending scene
+  loadScene(endingScene);
 
-  // Hard reset after game completion
+  // Reset stats and checkpoint
   stats.courage = 0;
   stats.charisma = 0;
   stats.curiosity = 0;
@@ -132,7 +149,7 @@ function getEnding() {
   checkpoint.scene = "start";
   checkpoint.page = 0;
 
-  return ending;
+  updateStats();
 }
 
 /* ===============================
@@ -153,14 +170,14 @@ function advanceOrChoose(option) {
   const scene = gameData[currentScene];
   if (isTyping) return;
 
-  // If there are more pages, just advance page
+  // Advance pages first
   if (currentPage < scene.pages.length - 1) {
     currentPage++;
     renderScene(scene);
     return;
   }
 
-  // If scene has riddle input, A submits
+  // Riddle input
   if (scene.input && option === "A") {
     checkRiddleAnswer(scene);
     return;
@@ -170,55 +187,49 @@ function advanceOrChoose(option) {
   if (option === "A") applyStats(scene.statsA);
   if (option === "B") applyStats(scene.statsB);
 
-  // Require 3 riddles to exit
-  if ((scene.nextA === "ending" || scene.nextB === "ending") && stats.riddlesSolved < 3) {
+  // Require 3 riddles before stat-based ending
+  if ((scene.nextA === "statEnding" || scene.nextB === "statEnding") && stats.riddlesSolved < 3) {
     alert("You must solve at least 3 riddles before exiting!");
     return;
   }
 
-  // Go to next scene
-  if (option === "A" && scene.nextA) loadScene(scene.nextA);
-  if (option === "B" && scene.nextB) loadScene(scene.nextB);
+  // Determine next scene
+  let nextSceneKey = option === "A" ? scene.nextA : scene.nextB;
+  if (!nextSceneKey) return;
+
+  if (nextSceneKey === "statEnding") {
+    getEnding();
+  } else {
+    loadScene(nextSceneKey);
+  }
 }
 
 /* ===============================
-   PROMPT
+   CONTINUE PROMPT
 ================================ */
 function updateContinuePrompt(scene) {
   const inputBox = document.getElementById("riddleInput");
 
   if (currentPage < scene.pages.length - 1) {
-    continuePrompt.innerText = "Press A to continue";
+    continuePrompt.innerHTML = `<span class="prompt-text">Press A to continue</span>`;
     inputBox.style.display = "none";
   } else if (scene.input) {
-    continuePrompt.innerText = "Enter your answer (Press Enter)";
+    continuePrompt.innerHTML = `<span class="prompt-text">Enter your answer (Press Enter)</span>`;
     inputBox.style.display = "block";
   } else if (scene.choiceA && scene.choiceB) {
-    continuePrompt.innerText = `A: ${scene.choiceA} | B: ${scene.choiceB}`;
+    continuePrompt.innerHTML = `
+      <span class="choice-label">A:</span> 
+      <span class="choice-text">${scene.choiceA}</span> |
+      <span class="choice-label">B:</span> 
+      <span class="choice-text">${scene.choiceB}</span>
+    `;
     inputBox.style.display = "none";
   } else {
-    continuePrompt.innerText = "Press A to continue";
+    continuePrompt.innerHTML = `<span class="prompt-text">Press A to continue</span>`;
     inputBox.style.display = "none";
   }
 }
 
-/* ===============================
-   STAT END SCREEN
-================================ */
-function showStatEndScreen(endingScene) {
-  const screen = document.getElementById("screenBg");
-  screen.innerHTML = `
-    <div style="padding: 20px; color: white; font-family: 'Starbim';">
-      <h2>Ending: ${endingScene}</h2>
-      <p>Courage: ${stats.courage}</p>
-      <p>Charisma: ${stats.charisma}</p>
-      <p>Curiosity: ${stats.curiosity}</p>
-      <p>Riddles Solved: ${stats.riddlesSolved}</p>
-      <button id="restartBtn">Restart</button>
-    </div>
-  `;
-  document.getElementById("restartBtn").addEventListener("click", () => loadScene("start"));
-}
 
 /* ===============================
    INIT
@@ -226,28 +237,25 @@ function showStatEndScreen(endingScene) {
 function init() {
   continuePrompt = document.getElementById("continuePrompt");
 
-  // Button listeners
+  // Buttons
   document.querySelector(".btn.a").addEventListener("click", () => advanceOrChoose("A"));
   document.querySelector(".btn.b").addEventListener("click", () => advanceOrChoose("B"));
 
-  // Keyboard controls
+  // Keyboard
   document.addEventListener("keydown", (e) => {
     const key = e.key.toLowerCase();
     const scene = gameData[currentScene];
 
-    // Toggle dev panel
     if (key === "=") {
       toggleDevPanel();
       return;
     }
 
-    // Submit riddle
     if (scene.input && key === "enter") {
       checkRiddleAnswer(scene);
       return;
     }
 
-    // Normal choices / page advance
     if (!scene.input) {
       if (key === "a") advanceOrChoose("A");
       if (key === "b") advanceOrChoose("B");
@@ -257,14 +265,14 @@ function init() {
   // Start first scene
   loadScene("start");
 
-  // Initialize dev panel
+  // Dev panel
   createDevPanel();
 }
 
 document.addEventListener("DOMContentLoaded", init);
 
 /* ===============================
-   EXPORT FOR DEV PANEL
+   EXPORT
 ================================ */
 export const state = { currentScene, currentPage, stats };
-export { renderScene, renderBackground, updateContinuePrompt as updatePrompt };
+export { renderScene, renderBackground, updateContinuePrompt as updatePrompt, advanceOrChoose, loadScene };
