@@ -111,15 +111,15 @@ header {
 
 /* 🔒 Z-INDEX LOCK (ABSOLUTE GUARANTEE) */
 .layer-skintone     { z-index: 1; }
-.layer-eyes         { z-index: 4; }
-.layer-eyeshadow    { z-index: 5; }
+.layer-eyes         { z-index: 5; }
+.layer-eyeshadow    { z-index: 2; }
 .layer-lips         { z-index: 6; }
 .layer-shirt        { z-index: 7; }
 .layer-shorts       { z-index: 8; }
-.layer-socks        { z-index: 2; }
+.layer-socks        { z-index: 4; }
 .layer-shoes        { z-index: 9; }
 .layer-accessories  { z-index: 10; }
-.layer-hair         { z-index: 2; } 
+.layer-hair         { z-index: 3; } 
 
 .magic-save {
   padding: 14px 32px;
