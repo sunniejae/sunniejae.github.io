@@ -13,7 +13,13 @@
 @font-face { font-family: 'Kilby'; src: url('/assets/fonts/KILBY.otf') format('opentype'); }
 @font-face { font-family: 'Cheri'; src: url('/assets/fonts/tan-mon-cheri.woff') format('opentype'); }
 @font-face { font-family: 'PP'; src: url('/assets/fonts/Powerpuff.otf') format('opentype'); }
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: none;
+}
 :root {
   --black: #000010;
   --white: #ffffff;
@@ -44,6 +50,7 @@ header {
   background: var(--gray);
   box-shadow: var(--shadow);
   font-family: 'PP';
+  font-size: 25px;
 }
 
 .logo {
@@ -104,12 +111,12 @@ header {
 
 /* 🔒 Z-INDEX LOCK (ABSOLUTE GUARANTEE) */
 .layer-skintone     { z-index: 1; }
-.layer-eyes         { z-index: 3; }
-.layer-eyeshadow    { z-index: 4; }
-.layer-lips         { z-index: 5; }
-.layer-shirt        { z-index: 6; }
-.layer-shorts       { z-index: 7; }
-.layer-socks        { z-index: 8; }
+.layer-eyes         { z-index: 4; }
+.layer-eyeshadow    { z-index: 5; }
+.layer-lips         { z-index: 6; }
+.layer-shirt        { z-index: 7; }
+.layer-shorts       { z-index: 8; }
+.layer-socks        { z-index: 3; }
 .layer-shoes        { z-index: 9; }
 .layer-accessories  { z-index: 10; }
 .layer-hair         { z-index: 2; } /* penultimate / top */
@@ -220,4 +227,88 @@ header {
   background: var(--gradient-secondary);
   color: white;
   transform: scale(1.05);
+}
+/* =========================
+   MAGICAL ARCADE NAV 🌸
+========================= */
+.nav-grid {
+  margin-top: 15px;
+  margin-bottom: 12px;
+  border: 4px ridge var(--teal);
+  background: var(--white);
+  justify-content: center;
+  align-content: space-between;
+  display: flex;
+  gap: 20px;
+  padding: 12px;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+  border-radius: 999px;
+  font-family: 'Starbim';
+  font-weight: bold;
+  font-size: 12px;
+  color: var(--dark-purple);
+  background: var(--pink);
+  border-width: 2px;
+  border: var(--pink);
+  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-btn:hover {
+  transform: translate(2px, 2px);
+  color: var(--dark-purple);
+  border-color: var(--primary);
+}
+
+@media (max-width: 480px) {
+  .bottom-screen {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .buttons {
+    flex-direction: row;
+  }
+}
+.stats-container {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 10px;
+  background: rgba(0,0,0,0.7);
+  border: 2px solid var(--pink);
+  border-radius: 12px;
+  color: var(--white);
+  font-family: "pixel", sans-serif;
+  font-size: 14px;
+  width: fit-content;
+}
+.menu-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: 'Starbim';
+}
+
+.menu-item {
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--white);
+  opacity: 0.7;
+  transition: all 0.15s ease;
+}
+
+.menu-item.active {
+  background: linear-gradient(180deg, var(--pink), var(--secondary));
+  color: var(--black);
+  opacity: 1;
+  box-shadow: 0 0 12px var(--pink);
+  transform: translateX(6px);
 }
