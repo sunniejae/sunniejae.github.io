@@ -1,5 +1,5 @@
 import { gameData } from "./scenes.js";
-import { createDevPanel, toggleDevPanel, teleportTo, updateStats, getDevEnding } from "./devpanel.js";
+import { createDevPanel, toggleDevPanel, updateStats } from "./devpanel.js";
 
 /// Soundtrack ///
 const soundtrack = new Audio("https://sunniejae.blob.core.windows.net/sunniejae/assets/lscenessg/soundtrack.mp3");
@@ -30,36 +30,21 @@ let continuePrompt;
 /* ===============================
    BUTTON HANDLING
 ================================ */
-document.querySelector(".btn.a").addEventListener("click", () => advanceOrChoose("A"));
-document.querySelector(".btn.b").addEventListener("click", () => advanceOrChoose("B"));
-
-
-document.addEventListener("keydown", (e) => {
-  const key = e.key.toLowerCase();
-  const scene = gameData[currentScene];
-
-  if (key === "=") {
-    toggleDevPanel();
-    return;
-  }
-
-  if (key === "enter" && scene.input) {
-    checkRiddleAnswer(scene);
-    return;
-  }
-
-  if (key === "a") advanceOrChoose("A");
-  if (key === "b") advanceOrChoose("B");
-});
-
+function setButtonsDisabled(state) {
+  const btnA = document.querySelector(".btn.a");
+  const btnB = document.querySelector(".btn.b");
+  btnA.disabled = state;
+  btnB.disabled = state;
+  btnA.classList.toggle("disabled", state);
+  btnB.classList.toggle("disabled", state);
+}
 
 /* ===============================
    TYPEWRITER EFFECT
 ================================ */
-function typeWriter(element, html, speed = 22, onComplete) {
+function typeWriter(element, html, speed = 40, onComplete) {
   element.innerHTML = "";
   let i = 0;
-  let isTag = false;
   let buffer = "";
   clearInterval(typingInterval);
   isTyping = true;
@@ -73,10 +58,7 @@ function typeWriter(element, html, speed = 22, onComplete) {
       if (onComplete) onComplete();
       return;
     }
-    const char = html[i];
-    buffer += char;
-    if (char === "<") isTag = true;
-    if (char === ">") isTag = false;
+    buffer += html[i];
     element.innerHTML = buffer;
     i++;
   }, speed);
@@ -169,7 +151,6 @@ function loadScene(sceneKey) {
 ================================ */
 function advanceOrChoose(option) {
   const scene = gameData[currentScene];
-
   if (isTyping) return;
 
   // If there are more pages, just advance page
@@ -199,7 +180,6 @@ function advanceOrChoose(option) {
   if (option === "A" && scene.nextA) loadScene(scene.nextA);
   if (option === "B" && scene.nextB) loadScene(scene.nextB);
 }
-
 
 /* ===============================
    PROMPT
@@ -241,42 +221,40 @@ function showStatEndScreen(endingScene) {
 }
 
 /* ===============================
-   KEYBOARD CONTROLS
-================================ */
-document.addEventListener("keydown", (e) => {
-  const key = e.key.toLowerCase();
-  const scene = gameData[currentScene];
-
-  // Toggle dev panel
-  if (key === "=") {
-    toggleDevPanel();
-    return;
-  }
-
-  // Only submit riddle when pressing Enter
-  if (scene.input) {
-    if (key === "enter") checkRiddleAnswer(scene);
-    return; // ignore A/B while in riddle input
-  }
-});
-
-/* ===============================
    INIT
 ================================ */
 function init() {
   continuePrompt = document.getElementById("continuePrompt");
 
-  document.querySelector(".btn.a").addEventListener("click", () => {
+  // Button listeners
+  document.querySelector(".btn.a").addEventListener("click", () => advanceOrChoose("A"));
+  document.querySelector(".btn.b").addEventListener("click", () => advanceOrChoose("B"));
+
+  // Keyboard controls
+  document.addEventListener("keydown", (e) => {
+    const key = e.key.toLowerCase();
     const scene = gameData[currentScene];
-    if (scene.input) checkRiddleAnswer(scene);
-    else chooseOption("A");
+
+    // Toggle dev panel
+    if (key === "=") {
+      toggleDevPanel();
+      return;
+    }
+
+    // Submit riddle
+    if (scene.input && key === "enter") {
+      checkRiddleAnswer(scene);
+      return;
+    }
+
+    // Normal choices / page advance
+    if (!scene.input) {
+      if (key === "a") advanceOrChoose("A");
+      if (key === "b") advanceOrChoose("B");
+    }
   });
 
-  document.querySelector(".btn.b").addEventListener("click", () => {
-    const scene = gameData[currentScene];
-    if (!scene.input) chooseOption("B");
-  });
-
+  // Start first scene
   loadScene("start");
 
   // Initialize dev panel
