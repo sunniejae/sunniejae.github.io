@@ -1,5 +1,6 @@
-import { gameData } from "./scenes.js";
-import { createDevPanel, toggleDevPanel, teleportTo, updateStats, getDevEnding } from "./devpanel.js";
+import { gameData } from "./huntscenes.js";
+import { races } from "./races.js";
+import { createDevPanel, toggleDevPanel, teleportTo, updateStats, getDevEnding } from "./devpanelghosts.js";
 
 /// Soundtrack ///
 const soundtrack = new Audio("https://sunniejae.blob.core.windows.net/sunniejae/assets/lscenessg/soundtrack.mp3");
@@ -21,37 +22,25 @@ let checkpoint = { scene: "start", page: 0 };
 /* ===============================
    CORE VARIABLES
 ================================ */
-let currentScene = "start";
+let currentScene = "chooseRace"; // start with race selection
 let currentPage = 0;
 let typingInterval = null;
 let isTyping = false;
 let continuePrompt;
+let playerRace = null;
+let abilityUsed = false;
 
 /* ===============================
    BUTTON HANDLING
 ================================ */
-document.querySelector(".btn.a").addEventListener("click", () => advanceOrChoose("A"));
-document.querySelector(".btn.b").addEventListener("click", () => advanceOrChoose("B"));
-
-
-document.addEventListener("keydown", (e) => {
-  const key = e.key.toLowerCase();
-  const scene = gameData[currentScene];
-
-  if (key === "=") {
-    toggleDevPanel();
-    return;
-  }
-
-  if (key === "enter" && scene.input) {
-    checkRiddleAnswer(scene);
-    return;
-  }
-
-  if (key === "a") advanceOrChoose("A");
-  if (key === "b") advanceOrChoose("B");
-});
-
+function setButtonsDisabled(state) {
+  const btnA = document.querySelector(".btn.a");
+  const btnB = document.querySelector(".btn.b");
+  btnA.disabled = state;
+  btnB.disabled = state;
+  btnA.classList.toggle("disabled", state);
+  btnB.classList.toggle("disabled", state);
+}
 
 /* ===============================
    TYPEWRITER EFFECT
@@ -120,7 +109,7 @@ function checkRiddleAnswer(scene) {
   if (correctAnswers.includes(userAnswer)) {
     applyStats(scene.statsSuccess || { curiosity: 1 });
     stats.riddlesSolved += 1;
-    saveCheckpoint(scene.input.success, 0); // checkpoint after solving
+    saveCheckpoint(scene.input.success, 0);
     loadScene(scene.input.success);
   } else {
     applyStats(scene.statsFailure || {});
@@ -135,20 +124,23 @@ function getEnding() {
   const { courage, charisma, curiosity } = stats;
   let ending;
 
-  if (courage >= charisma && courage >= curiosity && courage >= 3) ending = "braveEnding";
+  if (playerRace?.name === "The Bound") ending = "boundEnding";
+  else if (playerRace?.name === "The Witness") ending = "witnessEnding";
+  else if (courage >= charisma && courage >= curiosity && courage >= 3) ending = "braveEnding";
   else if (charisma >= courage && charisma >= curiosity && charisma >= 3) ending = "kindEnding";
   else if (curiosity >= courage && curiosity >= charisma && curiosity >= 3) ending = "curiousEnding";
   else ending = "neutralEnding";
 
   showStatEndScreen(ending);
 
-  // Hard reset after game completion
   stats.courage = 0;
   stats.charisma = 0;
   stats.curiosity = 0;
   stats.riddlesSolved = 0;
-  checkpoint.scene = "start";
+  checkpoint.scene = "chooseRace";
   checkpoint.page = 0;
+  playerRace = null;
+  abilityUsed = false;
 
   return ending;
 }
@@ -159,47 +151,111 @@ function getEnding() {
 function loadScene(sceneKey) {
   currentScene = sceneKey;
   currentPage = 0;
+  abilityUsed = false;
+  
+  // Race selection scene
+  if (sceneKey === "chooseRace") {
+    renderRaceSelection();
+    return;
+  }
+
   const scene = gameData[sceneKey];
   renderBackground(scene.background);
   renderScene(scene);
 }
 
 /* ===============================
-   ADVANCE OR CHOOSE OPTION
+   ADVANCE PAGE
 ================================ */
-function advanceOrChoose(option) {
+function advancePageOrScene() {
   const scene = gameData[currentScene];
-
-  if (isTyping) return;
-
-  // If there are more pages, just advance page
   if (currentPage < scene.pages.length - 1) {
     currentPage++;
     renderScene(scene);
+  }
+}
+
+/* ===============================
+   CHOOSE OPTION
+================================ */
+function chooseOption(option) {
+  if (currentScene === "chooseRace") return handleRaceSelection(option);
+
+  const scene = gameData[currentScene];
+  if (isTyping) return;
+
+  if (currentPage < scene.pages.length - 1) {
+    advancePageOrScene();
     return;
   }
 
-  // If scene has riddle input, A submits
+  if (option === "A") applyStats(scene.statsA);
+  if (option === "B") applyStats(scene.statsB);
+
+  if (scene.choiceB === "BACK TO CHECKPOINT" && option === "B") {
+    loadScene(checkpoint.scene);
+    currentPage = checkpoint.page;
+    return;
+  }
+
   if (scene.input && option === "A") {
     checkRiddleAnswer(scene);
     return;
   }
 
-  // Apply stats
-  if (option === "A") applyStats(scene.statsA);
-  if (option === "B") applyStats(scene.statsB);
-
-  // Require 3 riddles to exit
   if ((scene.nextA === "ending" || scene.nextB === "ending") && stats.riddlesSolved < 3) {
     alert("You must solve at least 3 riddles before exiting!");
     return;
   }
 
-  // Go to next scene
+  if (currentScene === "ending") {
+    loadScene(getEnding());
+    return;
+  }
+
   if (option === "A" && scene.nextA) loadScene(scene.nextA);
   if (option === "B" && scene.nextB) loadScene(scene.nextB);
 }
 
+/* ===============================
+   RACE SELECTION
+================================ */
+function renderRaceSelection() {
+  const screen = document.getElementById("screenBg");
+  screen.innerHTML = `
+    <div style="padding:20px;color:white;font-family:'Starbim'">
+      <h2>Choose Your Archetype</h2>
+      ${Object.values(races).map((r, i) => `
+        <div class="race-option" data-key="${Object.keys(races)[i]}">
+          <h3>${r.name}</h3>
+          <p>${Object.values(r.features).map(f => f.description).join("<br>")}</p>
+        </div>
+      `).join("")}
+      <p>Press A/B (or more) to select your race.</p>
+    </div>
+  `;
+}
+
+function handleRaceSelection(option) {
+  // Map A=first race, B=second, C=third, etc.
+  const raceKeys = Object.keys(races);
+  const index = option === "A" ? 0 : option === "B" ? 1 : option === "C" ? 2 : 3;
+  const chosenRace = raceKeys[index];
+  playerRace = races[chosenRace];
+  applyStats(playerRace.stats);
+  alert(`You are now a ${playerRace.name}!`);
+  loadScene("start");
+}
+
+/* ===============================
+   ABILITY USAGE
+================================ */
+function useAbility(featureKey) {
+  if (!playerRace) return alert("Select a race first.");
+  if (abilityUsed) return alert("Ability already used this scene.");
+  playerRace.features[featureKey].action();
+  abilityUsed = true;
+}
 
 /* ===============================
    PROMPT
@@ -237,7 +293,7 @@ function showStatEndScreen(endingScene) {
       <button id="restartBtn">Restart</button>
     </div>
   `;
-  document.getElementById("restartBtn").addEventListener("click", () => loadScene("start"));
+  document.getElementById("restartBtn").addEventListener("click", () => loadScene("chooseRace"));
 }
 
 /* ===============================
@@ -247,17 +303,11 @@ document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
   const scene = gameData[currentScene];
 
-  // Toggle dev panel
-  if (key === "=") {
-    toggleDevPanel();
-    return;
-  }
+  if (key === "=") { toggleDevPanel(); return; }
+  if (scene.input && key === "enter") { checkRiddleAnswer(scene); return; }
 
-  // Only submit riddle when pressing Enter
-  if (scene.input) {
-    if (key === "enter") checkRiddleAnswer(scene);
-    return; // ignore A/B while in riddle input
-  }
+  if (key === "a") chooseOption("A");
+  if (key === "b") chooseOption("B");
 });
 
 /* ===============================
@@ -277,9 +327,8 @@ function init() {
     if (!scene.input) chooseOption("B");
   });
 
-  loadScene("start");
+  loadScene("chooseRace");
 
-  // Initialize dev panel
   createDevPanel();
 }
 
@@ -288,5 +337,5 @@ document.addEventListener("DOMContentLoaded", init);
 /* ===============================
    EXPORT FOR DEV PANEL
 ================================ */
-export const state = { currentScene, currentPage, stats };
-export { renderScene, renderBackground, updateContinuePrompt as updatePrompt };
+export const state = { currentScene, currentPage, stats, playerRace };
+export { renderScene, renderBackground, updateContinuePrompt as updatePrompt, useAbility };

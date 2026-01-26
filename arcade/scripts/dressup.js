@@ -34,7 +34,9 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/4.PNG",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/5.PNG",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/6.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/7.PNG"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/7.PNG",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/8.png"
+
   ],
   socks: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/2.PNG",
@@ -47,7 +49,7 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/3.PNG",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/4.PNG",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/5.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/6.png"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/6.PNG"
   ],
   hair: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/1.PNG",
@@ -55,10 +57,10 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/3.PNG",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/4.PNG",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/5.PNG",
-     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/6.PNG",
-     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/7.PNG",
-     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/8.PNG",
-     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/9.PNG"
+     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/6.png",
+     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/7.png",
+     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/8.png",
+     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/9.png"
   ],
   eyes: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/1.PNG",
@@ -92,7 +94,6 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/7.PNG",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/8.PNG",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/9.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/10.PNG"
   ]
 };
 
