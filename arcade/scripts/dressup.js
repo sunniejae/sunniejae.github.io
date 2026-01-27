@@ -6,19 +6,19 @@ const controls = document.getElementById("controls");
 
 const CATEGORIES = {
   skintone: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/1.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/4.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/5.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/6.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/7.PNG"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/1.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/4.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/5.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/6.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/7.png"
   ],
   shirt: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/1.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/4.PNG"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/1.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/4.png"
   ],
   shirtdesign: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/2.png",
@@ -42,70 +42,70 @@ const CATEGORIES = {
 ],
   
   shorts: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/1.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/4.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/5.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/6.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/7.PNG",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/1.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/4.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/5.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/6.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/7.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/8.png"
 
   ],
   socks: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/4.PNG"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/4.png"
   ],
   shoes: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/1.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/4.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/5.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/6.PNG"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/1.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/4.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/5.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/6.png"
   ],
   hair: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/1.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/4.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/5.PNG",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/1.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/4.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/5.png",
      "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/6.png",
      "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/7.png",
      "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/8.png",
      "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/9.png"
   ],
   eyes: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/1.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/4.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/5.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/6.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/7.PNG"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/1.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/4.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/5.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/6.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/7.png"
   ],
   eyeshadow: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/1.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/4.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/5.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/6.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/7.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/8.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/9.PNG",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/1.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/4.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/5.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/6.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/7.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/8.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/9.png",
   ],
 
    lips: [
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/1.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/2.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/3.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/4.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/5.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/6.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/7.PNG",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/8.PNG",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/1.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/2.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/3.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/4.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/5.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/6.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/7.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/8.png",
   ],
   handhelds: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/1.png",
