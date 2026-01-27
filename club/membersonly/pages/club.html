@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members Only - Starry Jae</title>
+<link rel="icon" href="https://sunniejae.blob.core.windows.net/sunniejae/assets/astro/logos/{{sign}}.png">
+<style>
+/* =========================
+   FONT FACES
+========================= */
+@font-face {
+    font-family: 'Jaewriting';
+    src: url('/assets/fonts/Jaewriting-Regular.otf') format('truetype');
+}
+@font-face {
+    font-family: 'Milky';
+    src: url('/assets/fonts/tan-mon-cheri.woff') format('woff');
+}
+
+/* =========================
+   ROOT COLORS
+========================= */
+:root {
+    --black: #0b0a0f;
+    --dark-gray: #231651;
+    --gray: #bfbfdc;
+    --silver: #E6E5E8;
+    --pink: #ffb3d6;
+    --teal: #231651;
+    --dark-purple: #5d2a42;
+    --accent: #b77ea3;
+    --secondary: #8e7cae;
+    --primary: #9a9ad4;
+}
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Jaewriting', serif;
+    background: var(--black);
+    color: var(--silver);
+    overflow-x: hidden;
+    line-height: 1.6;
+    letter-spacing: 3px;
+    justify-content: center;
+}
+
+/* =========================
+   STARFIELD BACKGROUND
+========================= */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+}
+@keyframes twinkle {
+    0%,100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes glow {
+    0%,100% { text-shadow: 0 0 20px rgba(255,179,214,0.25), 0 0 40px rgba(255,179,214,0.15); }
+    50% { text-shadow: 0 0 30px rgba(242,216,228,0.464), 0 0 60px rgba(255,179,214,0.2); }
+}
+
+/* =========================
+   PASSWORD GATE
+========================= */
+#gate {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(63,61,122,0.7), rgba(0,168,163,0.5));
+    border-radius: 25px;
+    padding: 4rem 2rem;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.7);
+    text-align: center;
+    color: var(--silver);
+    gap: 1.5rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+#gate h2.section-title {
+    font-size: 3rem;
+    color: var(--primary);
+    letter-spacing: 2px;
+}
+#gate p.section-subtitle {
+    font-size: 1.3rem;
+    font-family: 'Jaewriting', serif;
+    color: var(--accent);
+}
+#password {
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    border: 2px solid var(--primary);
+    font-size: 1rem;
+    width: 250px;
+    text-align: center;
+    background: rgba(0,0,16,0.5);
+    color: var(--silver);
+    outline: none;
+    transition: all 0.3s ease;
+}
+#password:focus { border-color: var(--pink); }
+#unlock-btn {
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--pink), var(--secondary));
+    color: white;
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+#unlock-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* =========================
+   HEADER & NAV
+========================= */
+header {
+    padding: 2rem 0;
+    animation: fadeInUp 1s ease-out;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-family: 'Jaewriting', 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+.nav-links a {
+    color: var(--silver);
+    text-decoration: none;
+    font-size: 0.95rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--pink);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--pink); }
+.nav-links a:hover::after { width: 100%; }
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+    text-align: center;
+    padding: 6rem 0 4rem;
+}
+.hero h1 {
+    font-family: 'Milky', 'Cinzel', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    letter-spacing: 3px;
+    animation: fadeInUp 1s ease-out 0.4s backwards, glow 3s infinite ease-in-out;
+}
+.subtitle {
+    font-family: 'Jaewriting', 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: 2rem;
+}
+.hero-description {
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--silver);
+}
+
+/* =========================
+   RESOURCES SECTION
+========================= */
+.resources {
+    padding: 6rem 2rem;
+}
+.resource-card {
+    background: rgba(63, 61, 122, 0.3);
+    border: 1px solid rgba(0,168,163,0.2);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+.resource-card:hover {
+    border-color: var(--pink);
+    transform: translateY(-5px);
+}
+.resource-card h3 { font-family: 'Milky', serif; color: var(--primary); margin-bottom: 1rem; }
+.resource-card p { color: var(--silver); margin-bottom: 1rem; }
+.download-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Milky', serif;
+    transition: all 0.3s ease;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,201,194,0.4);
+}
+
+/* =========================
+   3-CARD SPREAD
+========================= */
+.spread-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4rem;
+    margin: 4rem 0;
+    flex-wrap: wrap;
+}
+.tarot-card {
+    width: 260px;
+    text-align: center;
+    perspective: 1600px;
+}
+.tarot-card .card-image-container {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(0,0,16,0.6);
+    border: 2px solid var(--gray);
+    box-shadow: 0 20px 45px rgba(0,0,0,.6);
+    transition: transform .5s ease, box-shadow .5s ease;
+    cursor: pointer;
+}
+.tarot-card .card-image-container:hover {
+    transform: translateY(-10px) scale(1.06);
+    box-shadow: 0 30px 65px rgba(255,179,214,.35);
+}
+.tarot-card .card-label { font-size: 1.3rem; margin-top: 1.2rem; color: var(--primary); }
+.tarot-card .card-meaning { font-size: 1rem; margin-top: .75rem; letter-spacing: 2px; color: var(--silver); }
+.tarot-card .card-image-container.flipped { transform: rotateY(180deg); }
+
+/* Spread selector */
+.spread-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    font-family: 'Jaewriting', serif;
+}
+.spread-selector label { color: var(--accent); font-size: 1.2rem; margin-right: 0.5rem; }
+#spread-type {
+    padding: 0.75rem 1rem;
+    border-radius: 25px;
+    border: 2px solid var(--accent);
+    background: rgba(0,0,16,0.5);
+    color: var(--silver);
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+#shuffle-cards {
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--pink), var(--secondary));
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+#shuffle-cards::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--secondary), var(--pink));
+    transition: left 0.4s ease;
+}
+#shuffle-cards:hover::before { left: 0; }
+#shuffle-cards span { position: relative; z-index: 1; }
+#shuffle-cards:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255,179,214,0.5);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(0,168,163,0.2);
+    margin-top: 4rem;
+}
+footer p { color: var(--silver); font-size: 0.9rem; }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    .hero { padding: 4rem 0 2rem; }
+    .nav-links { gap: 1rem; font-size: 0.85rem; }
+    .spread-container { gap: 2.5rem; }
+}
+@media (max-width: 480px) {
+    .spread-selector { flex-direction: column; gap: 0.5rem; }
+    #shuffle-cards, #spread-type { width: 100%; }
+    .tarot-card { width: 200px; }
+}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+
+<!-- PASSWORD GATE -->
+<div id="gate" class="container">
+    <h2 class="section-title">Members Only</h2>
+    <p class="section-subtitle">Enter your password to unlock the content:</p>
+    <input type="password" id="password" placeholder="Password">
+    <button id="unlock-btn">Unlock</button>
+</div>
+
+<!-- PROTECTED CONTENT -->
+<div id="protected-content" class="container" style="display:none;">
+
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">✦ Starry Jae ✦</div>
+            <ul class="nav-links">
+                <li><a href="club.html">Home</a></li> |
+                <li><a href="home.html">Astro</a></li> |
+                <li><a href="/shop/home.html">Sunnie Shop</a></li> |
+                <li><a href="#resources">Resources</a></li> |
+                <li><a href="#3-card">3 Card Spread</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h1>Starry Jae</h1>
+        <p class="subtitle">An Astrology Journaling Club by SunnieJae</p>
+        <p class="hero-description">Members only Resources</p>
+    </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources" class="resources">
+    <h2 class="section-title">Resources</h2>
+    <p class="section-subtitle">Download guides, templates, and more</p>
+
+    <div class="resource-card">
+        <h3>Astrology Guide PDF</h3>
+        <p>Download your free astrology guide to enhance your practice.</p>
+        <a href="resources/astrology-guide.pdf" class="download-btn" target="_blank">Download</a>
+    </div>
+    <div class="resource-card">
+        <h3>Journal Templates</h3>
+        <p>Printable templates to track your lunar and planetary transits.</p>
+        <a href="resources/journal-templates.pdf" class="download-btn" target="_blank">Download</a>
+    </div>
+</section>
+
+<!-- 3-CARD SPREAD -->
+<section id="3-card" class="card-spread">
+  <h2 class="section-title">3-Card Spread</h2>
+  <p class="section-subtitle">Membership Perk</p>
+  <p class="section-description">
+    Think of what you'd like insight on. Select a spread according to that inquiry.<br>
+    **For detailed and personalized readings, visit the Sunnie Shop and add "tarot reading" to your wishlist.**
+  </p>
+
+  <div class="spread-controls" style="text-align:center; margin-bottom:2rem;">
+    <select id="spread-type" class="spread-dropdown">
+      <option value="past-present-future">Past, Present, Future</option>
+      <option value="yes-no">Yes / No / Maybe</option>
+      <option value="relationship">Relationship Spread</option>
+    </select>
+    <button id="shuffle-cards" class="btn btn-primary"><span>Shuffle Cards</span></button>
+  </div>
+
+  <div class="spread-container">
+    <div class="tarot-card">
+      <div class="card-image-container">
+        <img src="https://sunniejae.blob.core.windows.net/sunniejae/assets/tarot/card-back.png" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+    <div class="tarot-card">
+      <div class="card-image-container">
+        <img src="<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members Only - Starry Jae</title>
+<link rel="icon" href="/astro/assets/favicons/{{sign}}.png">
+<style>
+/* =========================
+   FONT FACES
+========================= */
+@font-face {
+    font-family: 'Jaewriting';
+    src: url('/assets/fonts/Jaewriting-Regular.otf') format('truetype');
+}
+@font-face {
+    font-family: 'Milky';
+    src: url('/assets/fonts/tan-mon-cheri.woff') format('woff');
+}
+
+/* =========================
+   ROOT COLORS
+========================= */
+:root {
+    --black: #0b0a0f;
+    --dark-gray: #231651;
+    --gray: #bfbfdc;
+    --silver: #E6E5E8;
+    --pink: #ffb3d6;
+    --teal: #231651;
+    --dark-purple: #5d2a42;
+    --accent: #b77ea3;
+    --secondary: #8e7cae;
+    --primary: #9a9ad4;
+}
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Jaewriting', serif;
+    background: var(--black);
+    color: var(--silver);
+    overflow-x: hidden;
+    line-height: 1.6;
+    letter-spacing: 3px;
+    justify-content: center;
+}
+
+/* =========================
+   STARFIELD BACKGROUND
+========================= */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+}
+@keyframes twinkle {
+    0%,100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes glow {
+    0%,100% { text-shadow: 0 0 20px rgba(255,179,214,0.25), 0 0 40px rgba(255,179,214,0.15); }
+    50% { text-shadow: 0 0 30px rgba(242,216,228,0.464), 0 0 60px rgba(255,179,214,0.2); }
+}
+
+/* =========================
+   PASSWORD GATE
+========================= */
+#gate {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(63,61,122,0.7), rgba(0,168,163,0.5));
+    border-radius: 25px;
+    padding: 4rem 2rem;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.7);
+    text-align: center;
+    color: var(--silver);
+    gap: 1.5rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+#gate h2.section-title {
+    font-size: 3rem;
+    color: var(--primary);
+    letter-spacing: 2px;
+}
+#gate p.section-subtitle {
+    font-size: 1.3rem;
+    font-family: 'Jaewriting', serif;
+    color: var(--accent);
+}
+#password {
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    border: 2px solid var(--primary);
+    font-size: 1rem;
+    width: 250px;
+    text-align: center;
+    background: rgba(0,0,16,0.5);
+    color: var(--silver);
+    outline: none;
+    transition: all 0.3s ease;
+}
+#password:focus { border-color: var(--pink); }
+#unlock-btn {
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--pink), var(--secondary));
+    color: white;
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+#unlock-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* =========================
+   HEADER & NAV
+========================= */
+header {
+    padding: 2rem 0;
+    animation: fadeInUp 1s ease-out;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-family: 'Jaewriting', 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+.nav-links a {
+    color: var(--silver);
+    text-decoration: none;
+    font-size: 0.95rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--pink);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--pink); }
+.nav-links a:hover::after { width: 100%; }
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+    text-align: center;
+    padding: 6rem 0 4rem;
+}
+.hero h1 {
+    font-family: 'Milky', 'Cinzel', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    letter-spacing: 3px;
+    animation: fadeInUp 1s ease-out 0.4s backwards, glow 3s infinite ease-in-out;
+}
+.subtitle {
+    font-family: 'Jaewriting', 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: 2rem;
+}
+.hero-description {
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--silver);
+}
+
+/* =========================
+   RESOURCES SECTION
+========================= */
+.resources {
+    padding: 6rem 2rem;
+}
+.resource-card {
+    background: rgba(63, 61, 122, 0.3);
+    border: 1px solid rgba(0,168,163,0.2);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+.resource-card:hover {
+    border-color: var(--pink);
+    transform: translateY(-5px);
+}
+.resource-card h3 { font-family: 'Milky', serif; color: var(--primary); margin-bottom: 1rem; }
+.resource-card p { color: var(--silver); margin-bottom: 1rem; }
+.download-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Milky', serif;
+    transition: all 0.3s ease;
+}
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,201,194,0.4);
+}
+
+/* =========================
+   3-CARD SPREAD
+========================= */
+.spread-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4rem;
+    margin: 4rem 0;
+    flex-wrap: wrap;
+}
+.tarot-card {
+    width: 260px;
+    text-align: center;
+    perspective: 1600px;
+}
+.tarot-card .card-image-container {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(0,0,16,0.6);
+    border: 2px solid var(--gray);
+    box-shadow: 0 20px 45px rgba(0,0,0,.6);
+    transition: transform .5s ease, box-shadow .5s ease;
+    cursor: pointer;
+}
+.tarot-card .card-image-container:hover {
+    transform: translateY(-10px) scale(1.06);
+    box-shadow: 0 30px 65px rgba(255,179,214,.35);
+}
+.tarot-card .card-label { font-size: 1.3rem; margin-top: 1.2rem; color: var(--primary); }
+.tarot-card .card-meaning { font-size: 1rem; margin-top: .75rem; letter-spacing: 2px; color: var(--silver); }
+.tarot-card .card-image-container.flipped { transform: rotateY(180deg); }
+
+/* Spread selector */
+.spread-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    font-family: 'Jaewriting', serif;
+}
+.spread-selector label { color: var(--accent); font-size: 1.2rem; margin-right: 0.5rem; }
+#spread-type {
+    padding: 0.75rem 1rem;
+    border-radius: 25px;
+    border: 2px solid var(--accent);
+    background: rgba(0,0,16,0.5);
+    color: var(--silver);
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+#shuffle-cards {
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-family: 'Milky', serif;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--pink), var(--secondary));
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+#shuffle-cards::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--secondary), var(--pink));
+    transition: left 0.4s ease;
+}
+#shuffle-cards:hover::before { left: 0; }
+#shuffle-cards span { position: relative; z-index: 1; }
+#shuffle-cards:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255,179,214,0.5);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(0,168,163,0.2);
+    margin-top: 4rem;
+}
+footer p { color: var(--silver); font-size: 0.9rem; }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    .hero { padding: 4rem 0 2rem; }
+    .nav-links { gap: 1rem; font-size: 0.85rem; }
+    .spread-container { gap: 2.5rem; }
+}
+@media (max-width: 480px) {
+    .spread-selector { flex-direction: column; gap: 0.5rem; }
+    #shuffle-cards, #spread-type { width: 100%; }
+    .tarot-card { width: 200px; }
+}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+
+<!-- PASSWORD GATE -->
+<div id="gate" class="container">
+    <h2 class="section-title">Members Only</h2>
+    <p class="section-subtitle">Enter your password to unlock the content:</p>
+    <input type="password" id="password" placeholder="Password">
+    <button id="unlock-btn">Unlock</button>
+</div>
+
+<!-- PROTECTED CONTENT -->
+<div id="protected-content" class="container" style="display:none;">
+
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">✦ Starry Jae ✦</div>
+            <ul class="nav-links">
+                <li><a href="club.html">Home</a></li> |
+                <li><a href="home.html">Astro</a></li> |
+                <li><a href="/shop/home.html">Sunnie Shop</a></li> |
+                <li><a href="#resources">Resources</a></li> |
+                <li><a href="#3-card">3 Card Spread</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h1>Starry Jae</h1>
+        <p class="subtitle">An Astrology Journaling Club by SunnieJae</p>
+        <p class="hero-description">Members only Resources</p>
+    </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources" class="resources">
+    <h2 class="section-title">Resources</h2>
+    <p class="section-subtitle">Download guides, templates, and more</p>
+
+    <div class="resource-card">
+        <h3>Astrology Guide PDF</h3>
+        <p>Download your free astrology guide to enhance your practice.</p>
+        <a href="resources/astrology-guide.pdf" class="download-btn" target="_blank">Download</a>
+    </div>
+    <div class="resource-card">
+        <h3>Journal Templates</h3>
+        <p>Printable templates to track your lunar and planetary transits.</p>
+        <a href="resources/journal-templates.pdf" class="download-btn" target="_blank">Download</a>
+    </div>
+</section>
+
+<!-- 3-CARD SPREAD -->
+<section id="3-card" class="card-spread">
+  <h2 class="section-title">3-Card Spread</h2>
+  <p class="section-subtitle">Membership Perk</p>
+  <p class="section-description">
+    Think of what you'd like insight on. Select a spread according to that inquiry.<br>
+    **For detailed and personalized readings, visit the Sunnie Shop and add "tarot reading" to your wishlist.**
+  </p>
+
+  <div class="spread-controls" style="text-align:center; margin-bottom:2rem;">
+    <select id="spread-type" class="spread-dropdown">
+      <option value="past-present-future">Past, Present, Future</option>
+      <option value="yes-no">Yes / No / Maybe</option>
+      <option value="relationship">Relationship Spread</option>
+    </select>
+    <button id="shuffle-cards" class="btn btn-primary"><span>Shuffle Cards</span></button>
+  </div>
+
+  <div class="spread-container">
+    <div class="tarot-card">
+      <div class="card-image-container">
+        <img src="https://sunniejae.blob.core.windows.net/sunniejae/assets/tarot/card-back.png" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+    <div class="tarot-card">
+      <div class="card-image-container">
+        <img src="https://sunniejae.blob.core.windows.net/sunniejae/assets/tarot/card-back.png" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+    <div class="tarot-card">
+      <div class="card-image-container">
+        <img src="https://sunniejae.blob.core.windows.net/sunniejae/assets/tarot/card-back.png" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+    <p>© 2026 Starry Jae. All rights reserved.</p>
+</footer>
+</div>
+
+<!-- SCRIPTS -->
+<script src="scripts/tarotdeck.js"></script>
+<script src="scripts/club.js"></script>
+</body>
+</html>
+" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+    <div class="tarot-card">
+      <div class="card-image-container">
+        <img src="https://sunniejae.blob.core.windows.net/sunniejaehttps://sunniejae.blob.core.windows.net/sunniejae/assets/tarot/card-back.png" alt="Card" class="card-image">
+      </div>
+      <div class="card-label">Label</div>
+      <div class="card-meaning">Spread description</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+    <p>© 2026 Starry Jae. All rights reserved.</p>
+</footer>
+</div>
+
+<!-- SCRIPTS -->
+<script type="module" src="/club/scripts/club.js"></script>
+
+</body>
+</html>

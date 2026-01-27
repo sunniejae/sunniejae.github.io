@@ -1,0 +1,169 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Jae - Astrology Journaling Club by SunnieJae</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="https://sunniejae.blob.core.windows.net/sunniejae/assets/astro/logos/{{sign}}.png">
+  <link rel="stylesheet" href="try.css" />
+  </head>
+<body>
+
+ <!-- 🌌 STARFIELD -->
+  <div id="starfield" class="stars"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Starry Jae</div>
+        <ul class="nav-links">
+            <li><a href="/club/membersonly/pages/memberonly.html">Members Only Area</a></li>
+          <li><a href="#daily-card">Tarot</a></li>
+          <li><a href="#journal">Journal</a></li>
+          <li><a href="#features">Explore</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="/index.html">SunnieJae</a></li>
+          <li><a href="/shop/home.html">Shop</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>Starry Jae</h1>
+      <p class="subtitle">Written in the stars ✨</p>
+      <p class="hero-description">
+        A cosmic space for intuition, reflection, tarot, and alignment.
+      </p>
+
+      <div class="cta-buttons">
+        <a href="#daily-card" class="btn btn-primary"><span>Draw Today’s Card</span></a>
+        <a href="#journal" class="btn btn-primary">Open Journal</a>
+        <a href="/astro/home.html" class="btn btn-primary">Astrology Home</a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔮 DAILY TAROT CARD -->
+  <section id="daily-card" class="features">
+    <div class="container">
+      <h2 class="section-title">Daily Tarot Draw</h2>
+      <p class="section-subtitle">One card. One message. Every day.</p>
+
+      <div class="feature-card card-draw-tool">
+        <div class="card-image-container">
+          <img id="daily-card-image" class="card-image" src="https://sunniejae.blob.core.windows.net/sunniejae/assets/tarot/card-back.png" alt="Daily Tarot Card" />
+
+        </div>
+
+        <h3 id="daily-card-name"></h3>
+        <p id="daily-card-meaning"></p>
+
+        <button id="draw-daily-card" class="btn btn-primary">
+          <span>Draw My Card</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌙 COSMIC PROMPTS -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">Journal by the Moon</h2>
+      <p class="section-subtitle">Prompts to reflect for today’s energy</p>
+
+      <div class="features-grid">
+        <div class="prompt-card feature-card">
+  <span class="prompt-label">Daily Reflection</span>
+  <p id="daily-prompt" class="prompt-text" data-prompt-type="general"></p>
+</div>
+
+<div class="prompt-card feature-card">
+  <span class="prompt-label">Moon Phase</span>
+  <p id="moon-prompt" class="prompt-text" data-prompt-type="moon"></p>
+</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ✍️ JOURNAL -->
+  <section id="journal" class="features">
+    <div class="container journal-container">
+      <h2 class="section-title">Journal</h2>
+      <p class="section-subtitle">Stored Locally</p>
+
+      <div class="journal-input-area">
+        <textarea
+          id="journal-input"
+          placeholder="Click a prompt to respond, or start yapping unprompted"
+        ></textarea>
+
+        <div class="journal-actions">
+          <span class="streak-display">✨ Daily reflection</span>
+          <button id="save-entry">Save Entry</button>
+        </div>
+      </div>
+
+      <div id="journal-entries"></div>
+    </div>
+  </section>
+
+  <!-- ✨ FEATURES -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title">Members Only Features</h2>
+      <p class="section-subtitle">What you get by joining</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔮</div>
+          <h3>Unlimited 3 Card Tarot Spreads</h3>
+          <p>Choose from a list of spread options, and shuffle and repeat however many times you want</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🌙</div>
+          <h3>Newsletter</h3>
+          <p>Monthly Sun Sign Survival Guides right to your inbox</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">✍️</div>
+          <h3>Free Downloadables</h3>
+          <p>PDFs with tarot spreads, astrology charts, and way more</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📖 BLOG -->
+  <section id="blog" class="features">
+    <div class="container">
+      <h2 class="section-title">Latest Writings</h2>
+      <p class="section-subtitle">From the cosmos to the page</p>
+
+      <div id="medium-feed" class="blog-feed"></div>
+    </div>
+  </section>
+
+  <!-- 🌌 FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="social-links">
+        <a href="#">✧</a>
+        <a href="#">☾</a>
+        <a href="#">✦</a>
+      </div>
+      <p>© Starry Jae — written in the stars ✨</p>
+    </div>
+  </footer>
+</body>
+<script type="module" src="/club/scripts/try.js"></script>
+
+</html>
