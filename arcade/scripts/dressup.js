@@ -1,283 +1,157 @@
-const controls = document.getElementById("controls");
+document.addEventListener("DOMContentLoaded", () => {
 
-/* =======================
-   CATEGORY DATA
-======================= */
+  const controls = document.getElementById("controls");
+  if (!controls) return;
 
-const CATEGORIES = {
-  shirt: [
-    {
-      id: "crop-tee",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/1.png",
-      versions: [1,2,3,4].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/${n}.png`
-      )
-    },
-    {
-      id: "costume-shirt",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/5.png",
-      versions: [
-        "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/5.png"
-      ]
-    },
-    {
-      id: "plaid-tank",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/6.png",
-      versions: [6,7].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/${n}.png`
-      )
-    }
-  ],
+  /* =======================
+     DATA
+  ======================= */
 
-  shirtdesign: [
-    {
-      id: "logos",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/1.png",
-      versions: [1,2,3,4,5].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/${n}.png`
-      )
-    },
-    {
-      id: "graphics",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/6.png",
-      versions: [6,7,8,9,10].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/${n}.png`
-      )
-    }
-  ],
+  const CATEGORIES = {
 
-  shorts: [
-    {
-      id: "jean-shorts",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/1.png",
-      versions: [1,2,3,4,5,6,7].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/${n}.png`
-      )
-    },
-    {
-      id: "tie-dye-sweats",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/8.png",
-      versions: [
-        "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/8.png"
-      ]
-    },
-    {
-      id: "plaid-skirt",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/9.png",
-      versions: [9,10].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/${n}.png`
-      )
-    }
-  ],
+    backgrounds: Array.from({ length: 6 }, (_, i) =>
+      `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/backgrounds/${i + 1}.png`
+    ),
 
-  socks: [
-    {
-      id: "fishnets",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/1.png",
-      versions: [
-        "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/1.png"
-      ]
-    },
-    {
-      id: "socks",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/2.png",
-      versions: [
-        "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/2.png"
-      ]
-    },
-    {
-      id: "combo",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/3.png",
-      versions: [
-        "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/3.png"
-      ]
-    }
-  ],
+    skintone: Array.from({ length: 7 }, (_, i) =>
+      `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/base/${i + 1}.png`
+    ),
 
-  shoes: [
-    {
-      id: "booties",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/1.png",
-      versions: [1,2,3,4,5].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/${n}.png`
-      )
-    },
-    {
-      id: "sneakers",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/6.png",
-      versions: [
-        "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/6.png"
-      ]
-    },
-    {
-      id: "costume-shoes",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/7.png",
-      versions: [
-        "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/7.png"
-      ]
-    }
-  ],
+    eyeshadow: Array.from({ length: 9 }, (_, i) =>
+      `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/${i + 1}.png`
+    ),
 
-  hair: [
-    {
-      id: "straight",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/1.png",
-      versions: [1,2,3,4,5].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/${n}.png`
-      )
-    },
-    {
-      id: "wavy",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/6.png",
-      versions: [6,7,8,9,10].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/${n}.png`
-      )
-    },
-    {
-      id: "costume-hair",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/11.png",
-      versions: [11,12,13].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/${n}.png`
-      )
-    }
-  ],
+    eyes: Array.from({ length: 7 }, (_, i) =>
+      `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/${i + 1}.png`
+    ),
 
-  eyes: Array.from({ length: 7 }, (_, i) =>
-    `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/${i+1}.png`
-  ),
+    lips: Array.from({ length: 8 }, (_, i) =>
+      `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/${i + 1}.png`
+    ),
 
-  eyeshadow: Array.from({ length: 9 }, (_, i) =>
-    `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyeshadow/${i+1}.png`
-  ),
+    hair: [
+      { thumb: h(1), versions: range(1,5,"hair") },
+      { thumb: h(6), versions: range(6,10,"hair") },
+      { thumb: h(11), versions: range(11,13,"hair") }
+    ],
 
-  lips: Array.from({ length: 8 }, (_, i) =>
-    `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/lips/${i+1}.png`
-  ),
+    shirt: [
+      { thumb: s(1), versions: range(1,4,"shirts") },
+      { thumb: s(5), versions: [s(5)] },
+      { thumb: s(6), versions: range(6,7,"shirts") }
+    ],
 
-  handhelds: [
-    {
-      id: "lightsticks",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/1.png",
-      versions: [1,2,3,4,5].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/${n}.png`
-      )
-    },
-    {
-      id: "hobbies",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/6.png",
-      versions: [6,7,8].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/${n}.png`
-      )
-    },
-    {
-      id: "drinks",
-      thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/9.png",
-      versions: [9,10,11,12].map(n =>
-        `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/${n}.png`
-      )
-    }
-  ]
-};
+    shirtdesign: [
+      { thumb: a(1), versions: range(1,5,"accessories") },
+      { thumb: a(6), versions: range(6,10,"accessories") }
+    ],
 
-/* =======================
-   VERSION UI
-======================= */
+    shorts: [
+      { thumb: sh(1), versions: range(1,7,"shorts") },
+      { thumb: sh(8), versions: [sh(8)] },
+      { thumb: sh(9), versions: range(9,10,"shorts") }
+    ],
 
-function showVersions(category, item) {
-  let bar = document.getElementById("versionBar");
+    socks: [
+      so(1), so(2), so(3)
+    ],
 
-  if (!bar) {
-    bar = document.createElement("div");
-    bar.id = "versionBar";
-    bar.className = "version-switch";
-    controls.prepend(bar);
+    shoes: [
+      { thumb: shs(1), versions: range(1,5,"shoes") },
+      { thumb: shs(6), versions: [shs(6)] },
+      { thumb: shs(7), versions: [shs(7)] }
+    ],
+
+    handhelds: [
+      { thumb: hh(1), versions: range(1,5,"handhelds") },
+      { thumb: hh(6), versions: range(6,8,"handhelds") },
+      { thumb: hh(9), versions: range(9,12,"handhelds") }
+    ]
+  };
+
+  /* =======================
+     HELPERS
+  ======================= */
+
+  function range(start, end, folder) {
+    return Array.from({ length: end - start + 1 }, (_, i) =>
+      `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/${folder}/${start + i}.png`
+    );
   }
 
-  bar.innerHTML = "";
+  const h  = n => `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/${n}.png`;
+  const s  = n => `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/${n}.png`;
+  const sh = n => `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/${n}.png`;
+  const so = n => `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/socks/${n}.png`;
+  const shs= n => `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/${n}.png`;
+  const a  = n => `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/${n}.png`;
+  const hh = n => `https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/${n}.png`;
 
-  item.versions.forEach((src, i) => {
-    const btn = document.createElement("button");
-    btn.textContent = i + 1;
-    btn.className = "version";
+  /* =======================
+     VERSION SWITCHER
+  ======================= */
 
-    btn.onclick = () => {
-      document.getElementById(category).src = src;
-      [...bar.children].forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    };
-
-    bar.appendChild(btn);
-  });
-}
-
-/* =======================
-   BUILD UI
-======================= */
-
-Object.entries(CATEGORIES).forEach(([category, items]) => {
-  const section = document.createElement("div");
-  section.className = "category";
-
-  const title = document.createElement("h3");
-  title.textContent = category;
-
-  const grid = document.createElement("div");
-  grid.className = "items";
-
-  const none = document.createElement("img");
-  none.src = "/assets/none.png";
-  none.onclick = () => document.getElementById(category).src = "";
-  grid.appendChild(none);
-
-  items.forEach(item => {
-    if (typeof item === "string") {
-      const img = document.createElement("img");
-      img.src = item;
-      img.onclick = () => {
-        document.getElementById(category).src = item;
-      };
-      grid.appendChild(img);
-      return;
+  function showVersions(targetId, versions) {
+    let bar = document.getElementById("versionBar");
+    if (!bar) {
+      bar = document.createElement("div");
+      bar.id = "versionBar";
+      bar.className = "version-switch";
+      controls.prepend(bar);
     }
 
-    const img = document.createElement("img");
-    img.src = item.thumb;
-    img.onclick = () => showVersions(category, item);
-    grid.appendChild(img);
+    bar.innerHTML = "";
+
+    versions.forEach((src, i) => {
+      const btn = document.createElement("button");
+      btn.textContent = i + 1;
+      btn.onclick = () => {
+        const el = document.getElementById(targetId);
+        if (el) el.src = src;
+      };
+      bar.appendChild(btn);
+    });
+  }
+
+  /* =======================
+     UI BUILD
+  ======================= */
+
+  Object.entries(CATEGORIES).forEach(([category, items]) => {
+
+    const section = document.createElement("div");
+    section.className = "category";
+
+    const title = document.createElement("h3");
+    title.textContent = category;
+
+    const grid = document.createElement("div");
+    grid.className = "items";
+
+    items.forEach(item => {
+      const img = document.createElement("img");
+
+      if (typeof item === "string") {
+        img.src = item;
+        img.onclick = () => {
+          if (category === "backgrounds") {
+            document.getElementById("bgLayer").style.backgroundImage = `url(${item})`;
+          } else {
+            const el = document.getElementById(category);
+            if (el) el.src = item;
+          }
+        };
+      } else {
+        img.src = item.thumb;
+        img.onclick = () => showVersions(category, item.versions);
+      }
+
+      grid.appendChild(img);
+    });
+
+    section.appendChild(title);
+    section.appendChild(grid);
+    controls.appendChild(section);
   });
 
-  section.appendChild(title);
-  section.appendChild(grid);
-  controls.appendChild(section);
-});
-
-/* =======================
-   EXPORT
-======================= */
-
-async function waitForImages(container) {
-  const imgs = container.querySelectorAll("img");
-  await Promise.all(
-    [...imgs].map(img =>
-      img.complete
-        ? Promise.resolve()
-        : new Promise(res => (img.onload = img.onerror = res))
-    )
-  );
-}
-
-document.getElementById("saveOutfit").addEventListener("click", async () => {
-  const doll = document.getElementById("dollCapture");
-  await waitForImages(doll);
-
-  const canvas = await html2canvas(doll, {
-    backgroundColor: null,
-    scale: 2,
-    useCORS: true
-  });
-
-  const link = document.createElement("a");
-  link.download = "sunniejae-dressup.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
 });
