@@ -16,15 +16,17 @@
 /* =======================
    RESET / VARIABLES
 ======================= */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-  a {
-            text-decoration: none;
-            color: inherit;
-        }
-        a:hover {
-            text-decoration: none;
-        }
-        
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 :root {
   --black: #000010;
   --white: #ffffff;
@@ -46,6 +48,7 @@ body {
   background: var(--black);
   padding: 50px 100px;
   font-family: 'Jaewriting', system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
 /* =======================
@@ -61,34 +64,45 @@ body {
 ======================= */
 .stage {
   width: 420px;
+  height: 850px;
   padding: 24px;
+  margin-right: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  margin-right: 50px;
+  gap: 12px;
   background: radial-gradient(circle at top, var(--primary), var(--silver));
 }
 
-/* WRAPPER SCALES FOR DISPLAY ONLY */
+/* VISUAL VIEWPORT */
+.doll-viewport {
+  width: 320px;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: visible;
+}
+
+/* SCALED DISPLAY */
 .doll-wrapper {
   transform: scale(0.1466);
   transform-origin: top center;
 }
 
-/* TRUE RENDER SIZE (EXPORT SAFE) */
+/* TRUE RENDER SIZE */
 .doll {
   position: relative;
   width: 2183px;
   height: 5331px;
+  border-radius: 28px;
+  overflow: hidden;
   background: linear-gradient(
     to bottom,
     rgba(255,255,255,.9),
     rgba(255,255,255,.5)
   );
-  border-radius: 28px;
   box-shadow: inset 0 0 30px rgba(154,154,212,.5);
-  overflow: hidden;
 }
 
 /* =======================
@@ -102,19 +116,9 @@ body {
   height: 100%;
   object-fit: contain;
   pointer-events: none;
-  transform: none !important;
-  filter: none !important;
 }
 
-/* BACKGROUND LAYER */
-.bg-layer {
-  z-index: 0;
-  background: transparent;
-}
-
-/* =======================
-   Z-INDEX LOCK
-======================= */
+/* Z ORDER */
 .layer-skintone    { z-index: 1; }
 .layer-eyeshadow   { z-index: 2; }
 .layer-hair        { z-index: 3; }
@@ -131,6 +135,8 @@ body {
    SAVE BUTTON
 ======================= */
 .magic-save {
+  margin-top: auto;
+  margin-bottom: 20px;
   padding: 14px 32px;
   border-radius: 30px;
   border: none;
@@ -140,7 +146,6 @@ body {
   background: var(--gradient);
   box-shadow: var(--shadow);
   transition: all .3s ease;
-  margin-bottom: 50px;
 }
 
 .magic-save:hover {
@@ -152,13 +157,14 @@ body {
    CONTROLS
 ======================= */
 .controls {
-  height: 850px;
   flex: 1;
+  height: 850px;
   padding: 24px;
   overflow-y: auto;
   background: radial-gradient(circle at top, #c0c0c0, var(--dark-purple));
 }
 
+/* CATEGORY */
 .category {
   margin-bottom: 28px;
 }
@@ -167,23 +173,30 @@ body {
   font-size: 30px;
   letter-spacing: .25em;
   text-transform: uppercase;
+  font-family: 'Brat';
   color: var(--black);
   margin-bottom: 10px;
-  font-family: 'Brat';
 }
 
+/* =======================
+   ITEMS → MOBILE FRIENDLY
+======================= */
 .items {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-  gap: 10px;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
 }
 
 .items img {
-  width: 100%;
+  flex: 0 0 72px;
+  height: 72px;
   border-radius: 14px;
   border: 2px solid var(--gray);
   background: var(--dark-purple);
   cursor: pointer;
+  scroll-snap-align: start;
   transition: all .25s ease;
 }
 
@@ -194,32 +207,10 @@ body {
 }
 
 /* =======================
-   BACKGROUNDS
-======================= */
-.bg-pink {
-  background: radial-gradient(circle at top, #ffb3d6, #ffffff);
-}
-
-.bg-teal {
-  background: radial-gradient(circle at top, #00c9c2, #f0f0f5);
-}
-
-.bg-purple {
-  background: radial-gradient(circle at top, #9a9ad4, #f0f0f5);
-}
-
-.bg-stars {
-  background:
-    radial-gradient(white 1px, transparent 1px),
-    radial-gradient(white 1px, transparent 1px),
-    linear-gradient(#3f3d7a, #000010);
-  background-size: 40px 40px, 60px 60px, cover;
-}
-
-/* =======================
-   BACKGROUND SELECTOR
+   BACKGROUND THUMBS
 ======================= */
 .bg-thumb {
+  flex: 0 0 90px;
   height: 70px;
   border-radius: 16px;
   background: var(--silver);
@@ -230,7 +221,6 @@ body {
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  text-transform: capitalize;
   transition: all .25s ease;
 }
 
@@ -244,94 +234,128 @@ body {
    NAV
 ======================= */
 .nav-grid {
-  margin-top: 5px;
-  margin-bottom: 12px;
-  margin-left: 250px;
-  margin-right: 250px;
-  border: 4px ridge var(--accent);
-  background: var(--white);
+  margin: 12px auto;
+  padding: 12px;
   display: flex;
   justify-content: center;
   gap: 20px;
-  padding: 12px;
+  border: 4px ridge var(--accent);
+  background: var(--white);
 }
 
 .nav-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+  padding: 10px 14px;
   border-radius: 999px;
   font-family: 'Starbim';
-  font-weight: bold;
   font-size: 12px;
-  color: var(--dark-purple);
   background: var(--pink);
   box-shadow: 4px 4px 0 #000;
-  transition: transform .15s ease, box-shadow .15s ease;
+  transition: transform .15s ease;
 }
 
 .nav-btn:hover {
   transform: translate(2px, 2px);
 }
-/* STAGE FIX */
-.stage {
-  width: 420px;
-  height: 850px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
 
-/* VISUAL CROPPED STAGE HEIGHT */
-.doll-viewport {
-  width: 320px;
-  height: 800px; /* must fully contain scaled doll */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  overflow: visible; /* default, safe */
-}
-
-
-/* SCALE ONLY VISUAL CONTENT */
-.doll-wrapper {
-  transform: scale(0.1466);
-  transform-origin: top center;
-}
-
-/* Container scroll styling */
-.controls {
-  flex: 1;
-  padding: 24px;
-  overflow-y: auto;
-  background: radial-gradient(circle at top, #c0c0c0, var(--dark-purple));
-
-  /* Optional for smooth scrolling */
-  scrollbar-width: thin;        /* Firefox */
-  scrollbar-color: var(--accent) var(--silver); /* Firefox */
-}
-
-/* Webkit Browsers: Chrome, Edge, Safari */
+/* =======================
+   SCROLLBAR STYLING
+======================= */
 .controls::-webkit-scrollbar {
-  width: 25px; /* width of the scrollbar */
+  width: 18px;
 }
 
 .controls::-webkit-scrollbar-track {
-  background: var(--silver);   /* track color */
-  border-radius: 12px;
+  background: var(--silver);
 }
 
 .controls::-webkit-scrollbar-thumb {
-  background: var(--accent);   /* draggable thumb */
+  background: var(--accent);
   border-radius: 12px;
-  border: 3px solid var(--white); /* padding effect */
-  transition: background 0.3s ease;
+  border: 3px solid var(--white);
 }
 
-.controls::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary); /* hover color */
-  transform: scale(1.05);
+/* =======================
+   MOBILE LAYOUT
+======================= */
+@media (max-width: 768px) {
+
+  body {
+    padding: 12px;
+  }
+
+  .game {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .stage {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+  }
+
+  .doll-viewport {
+    width: 100%;
+    height: 65vh;
+  }
+
+  .controls {
+    height: auto;
+    max-height: 40vh;
+    padding: 16px;
+  }
+
+  .category h3 {
+    font-size: 18px;
+    letter-spacing: .15em;
+  }
+
+  .nav-grid {
+    flex-wrap: wrap;
+  }
+}
+/* =======================
+   TABS
+======================= */
+
+.tabs {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  overflow-x: auto;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  font-family: 'Starbim';
+  font-size: 12px;
+  cursor: pointer;
+  background: var(--white);
+  color: var(--dark-purple);
+  box-shadow: 3px 3px 0 #000;
+  transition: transform .15s ease, background .15s ease;
+}
+
+.tab-btn.active {
+  background: var(--pink);
+  transform: translate(2px, 2px);
+}
+
+.category {
+  display: none;
+}
+
+.category.active {
+  display: block;
 }
