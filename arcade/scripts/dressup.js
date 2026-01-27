@@ -18,7 +18,8 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/1.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/2.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/3.png",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/4.png"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/4.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/5.png"
   ],
   shirtdesign: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/2.png",
@@ -63,7 +64,8 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/3.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/4.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/5.png",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/6.png"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/6.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shoes/7.png",
   ],
   hair: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/1.png",
@@ -74,7 +76,11 @@ const CATEGORIES = {
      "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/6.png",
      "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/7.png",
      "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/8.png",
-     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/9.png"
+     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/9.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/10.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/11.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/12.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/hair/13.png"
   ],
   eyes: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/eyes/1.png",
