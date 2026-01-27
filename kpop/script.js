@@ -8,8 +8,8 @@ const products = [
     type: "exclusive",
     description: "Premium phone case featuring your bias! Custom designed with exclusive artwork.",
     images: [
-      "/kpop/phonecase/GROUP/0.png",
-      "/kpop/phonecase/GROUP/1.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/phonecase/GROUP/0.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/phonecase/GROUP/1.png",
     ]
   },
   {
@@ -18,8 +18,8 @@ const products = [
     type: "exclusive",
     description: "Adorable miniature lightstick keychain. Perfect for your keys or bag!",
     images: [
-      "/kpop/lightstick/GROUP/0.png",
-      "/kpop/lightstick/GROUP/1.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/lightstick/GROUP/0.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/lightstick/GROUP/1.png",
     ]
   },
   {
@@ -28,8 +28,8 @@ const products = [
     type: "exclusive",
     description: "Cute animal-themed keychain representing your bias's unique charm.",
     images: [
-      "/kpop/animals/GROUP/0.png",
-      "/kpop/animals/GROUP/1.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/animals/GROUP/0.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/animals/GROUP/1.png",
     ]
   },
   {
@@ -38,13 +38,13 @@ const products = [
     type: "redbubble",
     description: "Cute collage style stickers and apparel.",
     images: [
-      "/kpop/collage/GROUP/0.png",
-      "/kpop/collage/GROUP/2.png",
-      "/kpop/collage/GROUP/3.png",
-      "/kpop/collage/GROUP/4.png",
-      "/kpop/collage/GROUP/5.png",
-      "/kpop/collage/GROUP/6.png",
-      "/kpop/collage/GROUP/7.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/0.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/2.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/3.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/4.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/5.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/6.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/7.png",
     ],
     redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/comeback-stickers"
   },
@@ -54,10 +54,10 @@ const products = [
     type: "redbubble",
     description: "Signature-style graphics perfect for laptops, notebooks, and more.",
     images: [
-      "/kpop/autographics/GROUP/0.png",
-      "/kpop/autographics/GROUP/2.png",
-      "/kpop/autographics/GROUP/3.png",
-      "/kpop/autographics/GROUP/4.png"
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/autographics/GROUP/0.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/autographics/GROUP/2.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/autographics/GROUP/3.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/autographics/GROUP/4.png"
     ],
     redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/autographics"
   },
@@ -67,13 +67,13 @@ const products = [
     type: "redbubble",
     description: "Beautiful Korean typography featuring group names in Hangul.",
     images: [
-      "/kpop/hangul/GROUP/0.png",
-      "/kpop/hangul/GROUP/1.png",
-      "/kpop/hangul/GROUP/2.png",
-      "/kpop/hangul/GROUP/3.png",
-      "/kpop/hangul/GROUP/4.png",
-      "/kpop/hangul/GROUP/5.png",
-      "/kpop/hangul/GROUP/6.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/0.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/1.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/2.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/3.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/4.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/5.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/6.png",
     ],
     redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/hangul-names"
   }
@@ -83,18 +83,18 @@ const products = [
    GROUP DATA
 ================================ */
 const groups = {
-ONEUS: { name: "ONEUS", color: "#00966C", secondaryColor: "#105B87", accent: "#f6f1e9", contrast: "#c3c3c762", heroImage: "/kpop/hero/ONEUS.png", fandom: "Tomoon" },
+ONEUS: { name: "ONEUS", color: "#00966C", secondaryColor: "#105B87", accent: "#f6f1e9", contrast: "#c3c3c762", heroImage: "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hero/ONEUS.png", fandom: "Tomoon" },
 
-  LESSERAFIM: { name: "LESSERAFIM", color: "#75A2D8", secondaryColor: "#000558", accent: "#767b91", contrast: "#D6FFF6", heroImage: "/kpop/hero/LESSERAFIM.png", fandom: "Fearnot" },
-  IZNA: { name: "IZNA", color: "#F6F5AE", secondaryColor: "#980A54", accent: "#AB92BF",contrast: "#CEABB1", heroImage: "/kpop/hero/IZNA.png", fandom: "naya" },
+  LESSERAFIM: { name: "LESSERAFIM", color: "#75A2D8", secondaryColor: "#000558", accent: "#767b91", contrast: "#D6FFF6", heroImage: "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hero/LESSERAFIM.png", fandom: "Fearnot" },
+  IZNA: { name: "IZNA", color: "#F6F5AE", secondaryColor: "#980A54", accent: "#AB92BF",contrast: "#CEABB1", heroImage: "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hero/IZNA.png", fandom: "naya" },
 
-  STAYC: { name: "STAYC", color: "#f63e7b", secondaryColor: "#e059e7", accent: "#CCD6EB",contrast: "#00FFC5", heroImage: "/kpop/hero/STAYC.png", fandom: "swith" },
+  STAYC: { name: "STAYC", color: "#f63e7b", secondaryColor: "#e059e7", accent: "#CCD6EB",contrast: "#00FFC5", heroImage: "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hero/STAYC.png", fandom: "swith" },
 
-  STRAYKIDS: { name: "STRAYKIDS", color: "#BC1111", secondaryColor: "#412446", accent: "#f6f1e9",contrast: "#909595", heroImage: "/kpop/hero/STRAYKIDS.png", fandom: "stay" },
+  STRAYKIDS: { name: "STRAYKIDS", color: "#BC1111", secondaryColor: "#412446", accent: "#f6f1e9",contrast: "#909595", heroImage: "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hero/STRAYKIDS.png", fandom: "stay" },
 
-  AESPA: { name: "AESPA", color: "#8CEAEE", secondaryColor: "#BD93E9", accent: "#395AE6", contrast: "#FD43ED",heroImage: "/kpop/hero/AESPA.png", fandom: "MY" },
+  AESPA: { name: "AESPA", color: "#8CEAEE", secondaryColor: "#BD93E9", accent: "#395AE6", contrast: "#FD43ED",heroImage: "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hero/AESPA.png", fandom: "MY" },
 
-  ILLIT: { name: "ILLIT", color: "#FFB3D9", secondaryColor: "#F1057D", accent: "#7F7EFF",contrast: "#9DFFF9", heroImage: "/kpop/hero/ILLIT.png", fandom: "Gllit" },
+  ILLIT: { name: "ILLIT", color: "#FFB3D9", secondaryColor: "#F1057D", accent: "#7F7EFF",contrast: "#9DFFF9", heroImage: "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hero/ILLIT.png", fandom: "Gllit" },
 };
 
 /* ===============================
