@@ -19,7 +19,9 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/2.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/3.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/4.png",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/5.png"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/5.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/6.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shirts/7.png"
   ],
   shirtdesign: [
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/2.png",
@@ -33,7 +35,7 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/10.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/11.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/12.png",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/12.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/accessories/13.png",
 
 
 
@@ -50,7 +52,9 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/5.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/6.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/7.png",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/8.png"
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/8.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/9.png",
+    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/10.png"
 
   ],
   socks: [
