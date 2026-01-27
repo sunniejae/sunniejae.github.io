@@ -194,13 +194,16 @@ Object.entries(CATEGORIES).forEach(([category, images]) => {
 /* =======================
    EXPORT
 ======================= */
+// Wait for all images in the container to fully load
 async function waitForImages(container) {
   const imgs = container.querySelectorAll("img");
   await Promise.all(
     [...imgs].map(img =>
       img.complete
         ? Promise.resolve()
-        : new Promise(res => (img.onload = img.onerror = res))
+        : new Promise(res => {
+            img.onload = img.onerror = res;
+          })
     )
   );
 }
@@ -208,12 +211,13 @@ async function waitForImages(container) {
 document.getElementById("saveOutfit").addEventListener("click", async () => {
   const doll = document.getElementById("dollCapture");
 
+  // Wait for all layers to fully load
   await waitForImages(doll);
 
   const canvas = await html2canvas(doll, {
     backgroundColor: null,
     scale: 2,
-    useCORS: true
+    useCORS: true  // attempts cross-origin support
   });
 
   const link = document.createElement("a");
@@ -221,4 +225,5 @@ document.getElementById("saveOutfit").addEventListener("click", async () => {
   link.href = canvas.toDataURL("image/png");
   link.click();
 });
+
 
