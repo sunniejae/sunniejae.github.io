@@ -118,8 +118,9 @@ header {
 .layer-shorts       { z-index: 8; }
 .layer-socks        { z-index: 4; }
 .layer-shoes        { z-index: 9; }
-.layer-accessories  { z-index: 10; }
+.layer-handhelds   { z-index: 10; }
 .layer-hair         { z-index: 3; } 
+.layer-shirtdesign   { z-index: 11; } 
 
 .magic-save {
   padding: 14px 32px;
