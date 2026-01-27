@@ -116,7 +116,10 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/6.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/7.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/8.png",
-  "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/9.png",]
+  "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/9.png",
+"https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/10.png",
+"https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/11.png",
+]
 };
 
 /* =======================
