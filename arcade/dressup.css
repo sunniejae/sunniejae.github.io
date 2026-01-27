@@ -1,5 +1,6 @@
-
-/* FONTS */
+/* =======================
+   FONTS
+======================= */
 @font-face { font-family: 'Aego'; src: url('/assets/fonts/AegoPizellated-Regular.ttf') format('truetype'); }
 @font-face { font-family: 'Astro'; src: url('/assets/fonts/Astrocomplete-Regular.otf') format('opentype'); }
 @font-face { font-family: 'Milky'; src: url('/assets/fonts/FTMilky-FREE.otf') format('opentype'); }
@@ -7,19 +8,16 @@
 @font-face { font-family: 'Spotify'; src: url('/assets/fonts/Gotham-Black.otf') format('opentype'); }
 @font-face { font-family: 'Jaewriting'; src: url('/assets/fonts/Jaewriting-Regular.otf') format('opentype'); }
 @font-face { font-family: 'Kilby'; src: url('/assets/fonts/KILBY.otf') format('opentype'); }
-@font-face { font-family: 'King'; src: url('/assets/fonts/KingSans-FREE.otf') format('opentype'); }
 @font-face { font-family: 'Pixel'; src: url('/assets/fonts/PublicPixel.otf') format('opentype'); }
 @font-face { font-family: 'Starbim'; src: url('/assets/fonts/Starbim.ttf') format('truetype'); }
-@font-face { font-family: 'Kilby'; src: url('/assets/fonts/KILBY.otf') format('opentype'); }
 @font-face { font-family: 'Cheri'; src: url('/assets/fonts/tan-mon-cheri.woff') format('opentype'); }
 @font-face { font-family: 'PP'; src: url('/assets/fonts/Powerpuff.otf') format('opentype'); }
-a {
-  text-decoration: none;
-  color: inherit;
-}
-a:hover {
-  text-decoration: none;
-}
+
+/* =======================
+   RESET / VARIABLES
+======================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
   --black: #000010;
   --white: #ffffff;
@@ -37,46 +35,22 @@ a:hover {
   --gradient-secondary: linear-gradient(135deg, var(--secondary), var(--pink));
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
   background: var(--silver);
   font-family: 'Jaewriting', system-ui, sans-serif;
 }
 
-/* Header */
-header {
-  padding: 16px 24px;
-  background: var(--gray);
-  box-shadow: var(--shadow);
-  font-family: 'PP';
-  font-size: 25px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--gradient);
-  color: white;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-}
-
-/* Layout */
+/* =======================
+   LAYOUT
+======================= */
 .game {
   display: flex;
   height: calc(100vh - 72px);
 }
 
-/* Stage */
+/* =======================
+   STAGE
+======================= */
 .stage {
   width: 420px;
   padding: 24px;
@@ -87,10 +61,17 @@ header {
   background: radial-gradient(circle at top, var(--primary), var(--silver));
 }
 
+/* WRAPPER SCALES FOR DISPLAY ONLY */
+.doll-wrapper {
+  transform: scale(0.1466);
+  transform-origin: top center;
+}
+
+/* TRUE RENDER SIZE (EXPORT SAFE) */
 .doll {
   position: relative;
-  width: 320px;
-  aspect-ratio: 2183 / 5331;
+  width: 2183px;
+  height: 5331px;
   background: linear-gradient(
     to bottom,
     rgba(255,255,255,.9),
@@ -98,30 +79,48 @@ header {
   );
   border-radius: 28px;
   box-shadow: inset 0 0 30px rgba(154,154,212,.5);
+  overflow: hidden;
 }
 
-.doll img {
+/* =======================
+   LAYERS
+======================= */
+.doll img,
+.bg-layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   pointer-events: none;
+  transform: none !important;
+  filter: none !important;
 }
 
-/* 🔒 Z-INDEX LOCK (ABSOLUTE GUARANTEE) */
-.layer-skintone     { z-index: 1; }
-.layer-eyes         { z-index: 5; }
-.layer-eyeshadow    { z-index: 2; }
-.layer-lips         { z-index: 6; }
-.layer-shirt        { z-index: 7; }
-.layer-shorts       { z-index: 8; }
-.layer-socks        { z-index: 4; }
-.layer-shoes        { z-index: 9; }
-.layer-handhelds   { z-index: 10; }
-.layer-hair         { z-index: 3; } 
-.layer-shirtdesign   { z-index: 11; } 
+/* BACKGROUND LAYER */
+.bg-layer {
+  z-index: 0;
+  background: transparent;
+}
 
+/* =======================
+   Z-INDEX LOCK
+======================= */
+.layer-skintone    { z-index: 1; }
+.layer-eyeshadow   { z-index: 2; }
+.layer-hair        { z-index: 3; }
+.layer-socks       { z-index: 4; }
+.layer-eyes        { z-index: 5; }
+.layer-lips        { z-index: 6; }
+.layer-shirt       { z-index: 7; }
+.layer-shorts      { z-index: 8; }
+.layer-shoes       { z-index: 9; }
+.layer-handhelds   { z-index: 10; }
+.layer-shirtdesign { z-index: 11; }
+
+/* =======================
+   SAVE BUTTON
+======================= */
 .magic-save {
   padding: 14px 32px;
   border-radius: 30px;
@@ -139,7 +138,9 @@ header {
   transform: translateY(-2px) scale(1.05);
 }
 
-/* Controls */
+/* =======================
+   CONTROLS
+======================= */
 .controls {
   flex: 1;
   padding: 24px;
@@ -180,16 +181,10 @@ header {
   border-color: var(--accent);
   transform: scale(1.08) rotate(-2deg);
 }
-/* Background layer (exported if visible) */
-.bg-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: 28px;
-  background: transparent;
-}
 
-/* Optional magical backgrounds */
+/* =======================
+   BACKGROUNDS
+======================= */
 .bg-pink {
   background: radial-gradient(circle at top, #ffb3d6, #ffffff);
 }
@@ -209,6 +204,10 @@ header {
     linear-gradient(#3f3d7a, #000010);
   background-size: 40px 40px, 60px 60px, cover;
 }
+
+/* =======================
+   BACKGROUND SELECTOR
+======================= */
 .bg-thumb {
   height: 70px;
   border-radius: 16px;
@@ -229,37 +228,61 @@ header {
   color: white;
   transform: scale(1.05);
 }
+
+/* =======================
+   NAV
+======================= */
 .nav-grid {
-            margin-top: 15px;
-            margin-bottom: 12px;
-            border: 4px ridge var(--accent);
-            background: var(--white);
-            justify-content: center;
-            align-content: space-between;
-            display: flex;
-            gap: 20px;
-            padding: 12px;
-        }
+  margin-top: 15px;
+  margin-bottom: 12px;
+  border: 4px ridge var(--accent);
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px;
+}
 
 .nav-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 10px;
+  padding: 10px;
   border-radius: 999px;
   font-family: 'Starbim';
   font-weight: bold;
   font-size: 12px;
   color: var(--dark-purple);
   background: var(--pink);
-  border-width: 2px;
-  border: var(--pink);
   box-shadow: 4px 4px 0 #000;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .nav-btn:hover {
   transform: translate(2px, 2px);
-  color: var(--dark-purple);
-  border-color: var(--primary);
 }
+/* STAGE FIX */
+.stage {
+  width: 420px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* VISUAL CROPPED STAGE HEIGHT */
+.doll-viewport {
+  width: 500px;
+height: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+/* SCALE ONLY VISUAL CONTENT */
+.doll-wrapper {
+  transform: scale(0.1466);
+  transform-origin: top center;
+}
+

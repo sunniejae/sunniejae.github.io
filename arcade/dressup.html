@@ -1,70 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Sunnie Jae Dress Up Games for Girls</title>
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<meta name="google-adsense-account" content="ca-pub-1997099522384709">
-<meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Sunnie Jae Dress Up Game</title>
 
-<link rel="stylesheet" href="/arcade/dressup.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-adsense-account" content="ca-pub-1997099522384709" />
+  <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d" />
 
-<!-- html2canvas -->
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/arcade/dressup.css" />
+
+  <!-- html2canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
+
 <body>
 
- <!-- Navigation -->
+  <!-- NAV -->
   <nav class="arcade-nav">
     <div class="nav-grid">
       <a href="/index.html" class="nav-btn">Desktop</a>
-      <a href="home.html" class="nav-btn">Games</a>
+      <a href="/arcade/home.html" class="nav-btn">Games</a>
       <a href="/shop/home.html" class="nav-btn">Shop</a>
     </div>
   </nav>
 
-<main class="game">
+  <!-- GAME -->
+  <main class="game">
 
-  <!-- Doll Stage -->
-  <section class="stage">
-<div class="doll" id="dollCapture">
-  <div id="bgLayer" class="bg-layer"></div>
+    <!-- STAGE -->
+    <section class="stage">
+<div class="doll-viewport">
+      <!-- SCALE WRAPPER (visual only) -->
+      <div class="doll-wrapper">
 
-  <!-- BASE -->
-  <img id="skintone" class="layer layer-skintone">
+        <!-- FULL RES CAPTURE TARGET -->
+        <div class="doll" id="dollCapture">
 
-  <!-- FACE & HAIR -->
-  <img id="hair" class="layer layer-hair">
-  <img id="eyes" class="layer layer-eyes">
-  <img id="eyeshadow" class="layer layer-eyeshadow">
-  <img id="lips" class="layer layer-lips">
+          <!-- BACKGROUND -->
+          <div id="bgLayer" class="bg-layer"></div>
 
-  <!-- CLOTHING -->
-  <img id="shirtdesign" class="layer layer-shirtdesign">
-  <img id="shirt" class="layer layer-shirt">
-  <img id="shorts" class="layer layer-shorts">
-  <img id="socks" class="layer layer-socks">
-  <img id="handhelds" class="layer layer-handhelds">
+          <!-- BASE -->
+          <img id="skintone" class="layer layer-skintone" alt="" />
 
-  <!-- TOP LAYER -->
-  <img id="shoes" class="layer layer-shoes">
+          <!-- FACE -->
+          <img id="eyeshadow" class="layer layer-eyeshadow" alt="" />
+          <img id="eyes" class="layer layer-eyes" alt="" />
+          <img id="lips" class="layer layer-lips" alt="" />
 
+          <!-- HAIR -->
+          <img id="hair" class="layer layer-hair" alt="" />
+
+          <!-- CLOTHING -->
+          <img id="shirt" class="layer layer-shirt" alt="" />
+          <img id="shirtdesign" class="layer layer-shirtdesign" alt="" />
+          <img id="shorts" class="layer layer-shorts" alt="" />
+          <img id="socks" class="layer layer-socks" alt="" />
+          <img id="shoes" class="layer layer-shoes" alt="" />
+
+          <!-- ACCESSORIES -->
+          <img id="handhelds" class="layer layer-handhelds" alt="" />
+
+        </div>
+      </div>
 </div>
 
+      <!-- SAVE -->
+      <button id="saveOutfit" class="magic-save">
+        ✨ Save Outfit ✨
+      </button>
 
+    </section>
 
-    <button id="saveOutfit" class="magic-save">
-      ✨ Save Outfit ✨
-    </button>
-  </section>
+    <!-- CONTROLS -->
+    <aside class="controls" id="controls"></aside>
 
-  <!-- Controls -->
-  <aside class="controls" id="controls"></aside>
+  </main>
 
-</main>
+  <!-- GAME SCRIPT -->
+  <script src="/arcade/scripts/dressup.js"></script>
 
-<script src="scripts/dressup.js"></script>
 </body>
 </html>

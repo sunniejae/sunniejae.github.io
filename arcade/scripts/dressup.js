@@ -114,7 +114,6 @@ const CATEGORIES = {
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/4.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/5.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/6.png",
-    "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/7.png",
     "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/8.png",
   "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/9.png",
 "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/handhelds/10.png",
@@ -195,18 +194,31 @@ Object.entries(CATEGORIES).forEach(([category, images]) => {
 /* =======================
    EXPORT
 ======================= */
+async function waitForImages(container) {
+  const imgs = container.querySelectorAll("img");
+  await Promise.all(
+    [...imgs].map(img =>
+      img.complete
+        ? Promise.resolve()
+        : new Promise(res => (img.onload = img.onerror = res))
+    )
+  );
+}
 
 document.getElementById("saveOutfit").addEventListener("click", async () => {
   const doll = document.getElementById("dollCapture");
 
+  await waitForImages(doll);
+
   const canvas = await html2canvas(doll, {
     backgroundColor: null,
-    scale: 4,
+    scale: 2,
     useCORS: true
   });
 
   const link = document.createElement("a");
-  link.download = "magical-girl-outfit.png";
+  link.download = "sunniejae-dressup.png";
   link.href = canvas.toDataURL("image/png");
   link.click();
 });
+
