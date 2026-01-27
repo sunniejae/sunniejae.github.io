@@ -152,10 +152,10 @@ header {
 }
 
 .category h3 {
-  font-size: 25px;
+  font-size: 30px;
   letter-spacing: .25em;
   text-transform: uppercase;
-  color: var(--dark-purple);
+  color: var(--secondary);
   margin-bottom: 10px;
   font-family: 'Brat';
 }
@@ -170,7 +170,7 @@ header {
   width: 100%;
   border-radius: 14px;
   border: 2px solid var(--gray);
-  background: var(--silver);
+  background: var(--dark-purple);
   cursor: pointer;
   transition: all .25s ease;
 }
