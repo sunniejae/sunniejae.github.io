@@ -228,7 +228,7 @@ loginButton.addEventListener("click", async ()=>{
 exportButton.addEventListener("click", async ()=>{
   const canvas = await html2canvas(spreadSection);
   const link=document.createElement("a");
-  link.download="spotify_tarot.png";
+  link.download="tarotfm_sunniejae.png";
   link.href=canvas.toDataURL("image/png");
   link.click();
 });
