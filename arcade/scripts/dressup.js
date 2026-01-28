@@ -63,11 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
           "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/6.png",
           "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/7.png",
         ] },
-        { thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/thumbnails/leggingssthumb.png",
+        { thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/thumbnails/leggingsthumb.png",
         versions: [
           "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/8.png",
         ] },
-        { thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/thumbnails/skirtthumb.png",
+        { thumb: "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/thumbnails/skirtsthumb.png",
         versions: [
           "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/9.png",
           "https://sunniejae.blob.core.windows.net/sunniejae/assets/dressup/shorts/10.png",

@@ -12,6 +12,13 @@
 @font-face { font-family: 'Starbim'; src: url('/assets/fonts/Starbim.ttf') format('truetype'); }
 @font-face { font-family: 'Cheri'; src: url('/assets/fonts/tan-mon-cheri.woff') format('opentype'); }
 @font-face { font-family: 'PP'; src: url('/assets/fonts/Powerpuff.otf') format('opentype'); }
+ a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:hover {
+            text-decoration: none;
+        }
 
 /* =======================
    RESET / VARIABLES
