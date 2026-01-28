@@ -44,73 +44,68 @@ a {
   --gradient-secondary: linear-gradient(135deg, var(--secondary), var(--pink));
 }
 
+/* =======================
+   BODY
+======================= */
 body {
-  background: var(--black);
-  padding: 50px 100px;
   font-family: 'Jaewriting', system-ui, sans-serif;
+  background: var(--black);
+  padding: 12px;
   overflow-x: hidden;
 }
 
 /* =======================
-   LAYOUT
+   GAME WRAPPER
 ======================= */
 .game {
   display: flex;
-  height: calc(100vh - 72px);
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* =======================
    STAGE
 ======================= */
 .stage {
-  width: 420px;
-  height: 700px;
-  padding: 24px;
-  margin-right: 50px;
+  width: 100%;
+  height: 65vh;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
   background: radial-gradient(circle at top, var(--primary), var(--silver));
-  border-radius: 8px;
-
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-/* VISUAL VIEWPORT */
+/* DOLL VIEWPORT */
 .doll-viewport {
-  width: 250px;
-  height: 700px;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   overflow: visible;
-  border-radius: 8px;
 }
 
 /* SCALED DISPLAY */
 .doll-wrapper {
-  transform: scale(0.1466);
+  transform: scale(0.12);
   transform-origin: top center;
 }
 
 /* TRUE RENDER SIZE */
 .doll {
   position: relative;
-  width: 1637px;
-  height: 4000px;
-  border-radius: 28px;
+  width: 2183px;
+  height: 5331px;
+  border-radius: 20px;
   overflow: hidden;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,.9),
-    rgba(255,255,255,.5)
-  );
-  box-shadow: inset 0 0 30px rgba(154,154,212,.5);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.5));
+  box-shadow: inset 0 0 20px rgba(154,154,212,0.5);
 }
 
-/* =======================
-   LAYERS
-======================= */
+/* LAYERS */
 .doll img,
 .bg-layer {
   position: absolute;
@@ -121,26 +116,6 @@ body {
   pointer-events: none;
 }
 
-.bg-pink {
-  background: radial-gradient(circle at top, #ffb3d6, #ffffff);
-}
-
-.bg-teal {
-  background: radial-gradient(circle at top, #00c9c2, #f0f0f5);
-}
-
-.bg-purple {
-  background: radial-gradient(circle at top, #9a9ad4, #f0f0f5);
-}
-
-.bg-stars {
-  background:
-    radial-gradient(white 1px, transparent 1px),
-    radial-gradient(white 1px, transparent 1px),
-    linear-gradient(#3f3d7a, #000010);
-  background-size: 40px 40px, 60px 60px, cover;
-}
-/* Z ORDER */
 .layer-skintone    { z-index: 1; }
 .layer-eyeshadow   { z-index: 2; }
 .layer-hair        { z-index: 3; }
@@ -157,10 +132,9 @@ body {
    SAVE BUTTON
 ======================= */
 .magic-save {
-  margin-top: auto;
-  margin-bottom: 15px;
-  padding: 14px 32px;
-  border-radius: 30px;
+  margin-top: 12px;
+  padding: 12px 28px;
+  border-radius: 24px;
   border: none;
   font-weight: 700;
   cursor: pointer;
@@ -168,7 +142,6 @@ body {
   background: var(--gradient);
   box-shadow: var(--shadow);
   transition: all .3s ease;
-  z-index: 999;
 }
 
 .magic-save:hover {
@@ -180,46 +153,48 @@ body {
    CONTROLS
 ======================= */
 .controls {
-  flex: 1;
-  height: 400px;
-  padding: 24px;
-  overflow-y: auto;
-  background: radial-gradient(circle at top, #c0c0c0, var(--dark-purple));
+  width: 100%;
+  max-height: 35vh;
+  padding: 12px;
+  overflow-x: auto;
+  display: flex;
   flex-direction: column;
-  margin-top: 150px;
-    border-radius: 25px;
-
+  gap: 12px;
+  background: radial-gradient(circle at top, #c0c0c0, var(--dark-purple));
+  border-radius: 12px;
 }
 
 /* CATEGORY */
 .category {
-  margin-bottom: 28px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category.active {
+  display: flex;
 }
 
 .category h3 {
-  font-size: 30px;
-  letter-spacing: .25em;
+  font-size: 16px;
+  letter-spacing: .15em;
   text-transform: uppercase;
   font-family: 'Brat';
   color: var(--black);
-  margin-bottom: 10px;
 }
 
-/* =======================
-   ITEMS → MOBILE FRIENDLY
-======================= */
+/* ITEMS */
 .items {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   overflow-x: auto;
-  padding-bottom: 10px;
   scroll-snap-type: x mandatory;
 }
 
 .items img {
-  flex: 0 0 72px;
-  height: 72px;
-  border-radius: 14px;
+  flex: 0 0 60px;
+  height: 60px;
+  border-radius: 12px;
   border: 2px solid var(--gray);
   background: var(--dark-purple);
   cursor: pointer;
@@ -230,38 +205,14 @@ body {
 .items img:hover {
   background: var(--gradient-secondary);
   border-color: var(--accent);
-  transform: scale(1.08) rotate(-2deg);
+  transform: scale(1.05);
 }
-  .none-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    font-size: 20px;
-    background: var(--gradient-secondary);
-  border-color: var(--accent);
-  font-family: 'Brat';
-  }
 
-  .version-btn {
-    width: 25px;
-    height: 25px;
-    font-size: 15px;
-    border-radius: 6px;
-      background: var(--gradient-secondary);
-  border-color: var(--accent);
-  font-family: 'Brat';
-  gap: 5px;
-  flex-direction: column;
-  display: flex;
-  margin-top: 8px;
-  }
-/* =======================
-   BACKGROUND THUMBS
-======================= */
+/* BACKGROUND THUMBS */
 .bg-thumb {
-  flex: 0 0 90px;
-  height: 70px;
-  border-radius: 16px;
+  flex: 0 0 70px;
+  height: 60px;
+  border-radius: 12px;
   background: var(--silver);
   border: 2px solid var(--gray);
   display: flex;
@@ -279,143 +230,73 @@ body {
   transform: scale(1.05);
 }
 
-/* =======================
-   NAV
-======================= */
+/* NAV GRID */
 .nav-grid {
-  margin: 12px auto;
-  padding: 12px;
-  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  border: 4px ridge var(--accent);
+  display: flex;
+  gap: 12px;
+  border: 3px ridge var(--accent);
   background: var(--white);
+  padding: 8px;
+  border-radius: 12px;
 }
 
 .nav-btn {
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: 999px;
   font-family: 'Starbim';
-  font-size: 12px;
+  font-size: 10px;
   background: var(--pink);
-  box-shadow: 4px 4px 0 #000;
+  box-shadow: 3px 3px 0 #000;
   transition: transform .15s ease;
 }
 
 .nav-btn:hover {
-  transform: translate(2px, 2px);
+  transform: translate(1px, 1px);
 }
 
-/* =======================
-   SCROLLBAR STYLING
-======================= */
-.controls::-webkit-scrollbar {
-  width: 18px;
-}
-
-.controls::-webkit-scrollbar-track {
-  background: var(--silver);
-}
-
-.controls::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 12px;
-  border: 3px solid var(--white);
-}
-
-/* =======================
-   MOBILE LAYOUT
-======================= */
-@media (max-width: 768px) {
-
-  body {
-    padding: 12px;
-  }
-
-  .game {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .stage {
-    width: 80%;
-    height: auto;
-    margin-right: 0;
-  }
-
-  .doll-viewport {
-    width: 80%;
-    height: auto;
-  }
-
-  .controls {
-    height: auto;
-    max-height: 40vh;
-    padding: 16px;
-  }
-
-  .category h3 {
-    font-size: 18px;
-    letter-spacing: .15em;
-  }
-
-  .nav-grid {
-    flex-wrap: wrap;
-  }
-}
-/* =======================
-   TABS
-======================= */
-
+/* TABS */
 .tabs {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   display: flex;
-  gap: 8px;
-  padding: 10px;
+  gap: 6px;
+  padding: 8px;
   background: linear-gradient(to right, var(--primary), var(--accent));
   overflow-x: auto;
-  flex-direction: row;
-  margin-bottom: 50px;
-}
-.controls::-webkit-scrollbar {
-  width: 18px;
-}
-
-.controls::-webkit-scrollbar-track {
-  background: var(--silver);
-}
-
-.controls::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 12px;
-  border: 3px solid var(--white);
+  margin-bottom: 16px;
 }
 
 .tab-btn {
   flex: 0 0 auto;
-  padding: 8px 8px;
+  padding: 6px 10px;
   border-radius: 999px;
   border: none;
   font-family: 'Starbim';
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
   background: var(--white);
   color: var(--dark-purple);
-  box-shadow: 3px 3px 0 #000;
+  box-shadow: 2px 2px 0 #000;
   transition: transform .15s ease, background .15s ease;
+  width: 120px;
 }
 
 .tab-btn.active {
   background: var(--pink);
-  transform: translate(2px, 2px);
+  transform: translate(1px, 1px);
 }
 
-.category {
-  display: none;
+/* SCROLLBAR */
+.controls::-webkit-scrollbar {
+  height: 12px;
 }
 
-.category.active {
-  display: block;
+.controls::-webkit-scrollbar-track {
+  background: var(--silver);
+}
+
+.controls::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 12px;
+  border: 2px solid var(--white);
 }
