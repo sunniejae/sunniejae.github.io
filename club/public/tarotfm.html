@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarot.fm by SunnieJae</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="https://sunniejae.blob.core.windows.net/sunniejae/assets/astro/logos/{{sign}}.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="tarotfm.css" />
+
+  <!-- html2canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+  <canvas id="starfield"></canvas>
+
+  <main id="app">
+
+    <!-- ✨ INTRO -->
+    <section id="intro">
+      <h1>TarotFM</h1>
+      <p class="subtitle">Your music knows what you’re feeling.</p>
+      <button id="login">Generate Reading</button>
+      <p class="disclaimer">Uses your public Last.fm listening data.</p>
+    </section>
+
+    <!-- ⏳ LOADING -->
+    <section id="loading" hidden>
+      <p class="loading-text">Listening to your energy…</p>
+    </section>
+
+    <!-- 🔮 TAROT SPREAD -->
+    <section id="spread" hidden>
+      <div class="cards-container">
+        
+        <div class="card-wrapper">
+          <div class="card major">
+            <div class="card-frame">
+              <div class="card-art"></div>
+              <div class="card-footer">
+                <div class="title"></div>
+              </div>
+            </div>
+          </div>
+          <div class="explanation-card" id="major-explanation">
+            <h4>Major Arcana</h4>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="card-wrapper">
+          <div class="card minor">
+            <div class="card-frame">
+              <div class="card-art"></div>
+              <div class="card-footer">
+                <div class="title"></div>
+              </div>
+            </div>
+          </div>
+          <div class="explanation-card" id="minor-explanation">
+            <h4>Minor Arcana</h4>
+            <p></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button id="export">Save Reading</button>
+        <p class="share-note">Perfect for sharing or journaling ✨</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JS -->
+  <script src="/club/scripts/tarotify.js"></script>
+</body>
+</html>
