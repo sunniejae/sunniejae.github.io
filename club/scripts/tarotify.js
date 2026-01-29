@@ -243,7 +243,7 @@ async function generateTarot(username){
     majorExplanation.innerHTML = `
       <h6>Major Arcana</h6>
       <h4>Archetype based on your Top Tracks this week</h4>
-      <p>${majorCard.meaning}</p>
+      <p>${majorCard.meaning}</p><br><br>
       <p class="track-info">
         The cards think you've listened to <span class="track-title">${topTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${topTracks[0]?.artist?.name || "Unknown"}</span> a LOT this week...
       </p>
@@ -252,7 +252,7 @@ async function generateTarot(username){
       <h6>Minor Arcana</h6>
       <h4>${minorCard.meaning}</h4>
       <h5>Number meaning:</h5><p>${minorCard.numberMeaning}</p>
-      <h5>Suit meaning:</h5><p>${minorCard.suitMeaning}</p>
+      <h5>Suit meaning:</h5><p>${minorCard.suitMeaning}</p><br><br>
       <p class="track-info">
         I divined that you listened to <span class="track-title">${recentTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${recentTracks[0]?.artist || "Unknown"}</span> very recently.
       </p>
@@ -391,7 +391,7 @@ exportButton.addEventListener("click", async () => {
       el.style.fontWeight = "bold";
       el.style.fontSize = "25px";
     });
-    
+
     cardDiv.appendChild(textDiv);
     return cardDiv;
   }
