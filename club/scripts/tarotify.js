@@ -40,12 +40,7 @@ const SUIT_MEANINGS = {
   Swords: "Thoughts, challenges, and conflict resolution.",
   Pentacles: "Practicality, resources, and material concerns."
 };
-const SUIT_LETTERS = {
-  Cups: "c",
-  Wands: "w",
-  Swords: "s",
-  Pentacles: "p"
-};
+const SUIT_LETTERS = { Cups: "c", Wands: "w", Swords: "s", Pentacles: "p" };
 
 const NUMBER_MEANINGS = {
   1: "New beginnings, opportunities, and potential.",
@@ -81,14 +76,11 @@ const exportButton = document.getElementById("export");
 /*************************************************
  * HELPERS
  *************************************************/
-
 function resolveMinorCardImage(number, suit) {
-  const suitLetter = SUIT_LETTERS[suit]; // s, w, c, p
+  const suitLetter = SUIT_LETTERS[suit];
   const basePath = "/assets/tarot/";
-
   const cardPath = `${basePath}${number}${suitLetter}.png`;
   const fallbackPath = `${basePath}${suit.toLowerCase()}.png`;
-
   return new Promise(resolve => {
     const img = new Image();
     img.onload = () => resolve(cardPath);
@@ -98,9 +90,7 @@ function resolveMinorCardImage(number, suit) {
 }
 
 function estimateTrackStats(tags) {
-  let energy = 0.5;
-  let valence = 0.5;
-
+  let energy = 0.5, valence = 0.5;
   const highEnergy = ["rock","metal","punk","dance","electronic","hip-hop"];
   const lowEnergy = ["ambient","chill","acoustic","folk","jazz"];
   const happy = ["pop","happy","uplifting","dance"];
@@ -114,10 +104,7 @@ function estimateTrackStats(tags) {
     if(sad.includes(t)) valence -= 0.1;
   });
 
-  return {
-    energy: Math.min(1, Math.max(0, energy)),
-    valence: Math.min(1, Math.max(0, valence))
-  };
+  return { energy: Math.min(1, Math.max(0, energy)), valence: Math.min(1, Math.max(0, valence)) };
 }
 
 function hashStringToNumber(str) {
@@ -136,6 +123,65 @@ function pickMajorArcana(avgEnergy, avgValence, username){
   return MAJOR_ARCANA[combinedIndex];
 }
 
+/*************************************************
+ * MINOR ARCANA FUNCTIONS
+ *************************************************/
+function pickMinorSuit(avgValence, trackHash) {
+  const probs = { Cups: 0, Wands: 0, Swords: 0, Pentacles: 0 };
+  const v = Math.min(1, Math.max(0, avgValence));
+
+  probs.Cups = Math.max(0, 0.3 - 0.2*v);
+  probs.Wands = Math.max(0, 0.3*v);
+  probs.Swords = Math.max(0, 0.2 + 0.2*(0.5-Math.abs(v-0.5)));
+  probs.Pentacles = Math.max(0, 0.2 + 0.1*v);
+
+  const total = probs.Cups + probs.Wands + probs.Swords + probs.Pentacles;
+  for (let key in probs) probs[key] /= total;
+
+  const hash01 = (trackHash % 1000) / 1000;
+  let cum = 0;
+  for (let suit of ["Cups","Wands","Swords","Pentacles"]) {
+    cum += probs[suit];
+    if(hash01 < cum) return suit;
+  }
+  return "Pentacles";
+}
+
+async function pickMinorArcanaFromRecent(recentTracks, username){
+  if(!recentTracks || recentTracks.length===0){
+    return { name:"Unknown", image:"/assets/tarot/cups.png", meaning:"No recent tracks available.", numberMeaning:"", suitMeaning:"" };
+  }
+
+  let totalEnergy = 0, totalValence = 0;
+  for(const track of recentTracks){
+    const tags = await fetchTrackTags(track.artist, track.name);
+    const stats = estimateTrackStats(tags);
+    totalEnergy += stats.energy;
+    totalValence += stats.valence;
+  }
+
+  const avgEnergy = totalEnergy/recentTracks.length;
+  const avgValence = totalValence/recentTracks.length;
+
+  const combinedTrackStr = recentTracks.map(t=>t.name+t.artist).join(",")+username;
+  const trackHash = hashStringToNumber(combinedTrackStr);
+
+  const suit = pickMinorSuit(avgValence, trackHash);
+  const number = ((Math.floor(avgEnergy*10)+trackHash)%10)+1;
+  const image = await resolveMinorCardImage(number, suit);
+
+  return {
+    name: `${number} of ${suit}`,
+    image: image,
+    meaning: `Reflects your recent listening habits in detail.`,
+    numberMeaning: NUMBER_MEANINGS[number],
+    suitMeaning: SUIT_MEANINGS[suit]
+  };
+}
+
+/*************************************************
+ * LAST.FM FETCH
+ *************************************************/
 async function fetchTrackTags(artist, track){
   const url=`https://ws.audioscrobbler.com/2.0/?method=track.gettoptags&artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(track)}&api_key=${API_KEY}&format=json`;
   try{
@@ -147,53 +193,6 @@ async function fetchTrackTags(artist, track){
   }
 }
 
-async function pickMinorArcanaFromRecent(recentTracks, username){
-  if(!recentTracks || recentTracks.length===0){
-    return {
-      name:"Unknown",
-      image:"/assets/tarot/cups.png",
-      meaning:"No recent tracks available.",
-      numberMeaning:"",
-      suitMeaning:""
-    };
-  }
-
-  let totalEnergy = 0;
-  let totalValence = 0;
-
-  for(const track of recentTracks){
-    const tags = await fetchTrackTags(track.artist, track.name);
-    const stats = estimateTrackStats(tags);
-    totalEnergy += stats.energy;
-    totalValence += stats.valence;
-  }
-
-  const avgEnergy = totalEnergy/recentTracks.length;
-  const avgValence = totalValence/recentTracks.length;
-
-  // User-specific hash
-  const combinedTrackStr = recentTracks.map(t=>t.name+t.artist).join(",")+username;
-  const trackHash = hashStringToNumber(combinedTrackStr);
-
-  const suitIndex = (Math.floor(avgValence*SUITS.length)+trackHash)%SUITS.length;
-  const number = ((Math.floor(avgEnergy*10)+trackHash)%10)+1;
-  const suit = SUITS[suitIndex];
-
-  const image = await resolveMinorCardImage(number, suit);
-
-return {
-  name: `${number} of ${suit}`,
-  image: image,
-  meaning: `Reflects your recent listening habits in detail.`,
-  numberMeaning: NUMBER_MEANINGS[number],
-  suitMeaning: SUIT_MEANINGS[suit]
-};
-
-}
-
-/*************************************************
- * FETCH DATA
- *************************************************/
 async function fetchTopTracks(username){
   const url=`https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${username}&api_key=${API_KEY}&format=json&limit=${TOP_TRACK_LIMIT}&period=7day`;
   const res=await fetch(url);
@@ -211,101 +210,58 @@ async function fetchRecentTracks(username){
 }
 
 /*************************************************
- * MAIN LOGIC: SAFE, USER-SPECIFIC TAROT
+ * MAIN TAROT GENERATION
  *************************************************/
-async function generateTarot(username) {
-  try {
-    console.log("Generating tarot for user:", username);
-
-    // Show loading
+async function generateTarot(username){
+  try{
     introSection.hidden = true;
     loadingSection.hidden = false;
     spreadSection.hidden = true;
 
-    /******** FETCH TOP TRACKS ********/
-    let topTracks = [];
-    try {
-      topTracks = await fetchTopTracks(username);
-      console.log("Top tracks fetched:", topTracks);
-    } catch (err) {
-      console.warn("Failed to fetch top tracks:", err);
-    }
-
-    const topTrack = topTracks[0] || { name: "Unknown", artist: { name: "Unknown" } };
-
-    // Compute average stats for Major Arcana
+    const topTracks = await fetchTopTracks(username).catch(()=>[]);
     let totalEnergy = 0, totalValence = 0;
-    for (const track of topTracks) {
-      try {
-        const tags = await fetchTrackTags(track.artist.name, track.name);
-        const stats = estimateTrackStats(tags);
-        totalEnergy += stats.energy;
-        totalValence += stats.valence;
-      } catch {
-        totalEnergy += 0.5;
-        totalValence += 0.5;
-      }
+    for(const track of topTracks){
+      const tags = await fetchTrackTags(track.artist.name, track.name).catch(()=>[]);
+      const stats = estimateTrackStats(tags);
+      totalEnergy += stats.energy;
+      totalValence += stats.valence;
     }
-
-    const avgEnergy = topTracks.length ? totalEnergy / topTracks.length : 0.5;
-    const avgValence = topTracks.length ? totalValence / topTracks.length : 0.5;
-
-    // Pick Major Arcana (user-specific + stats)
+    const avgEnergy = topTracks.length? totalEnergy/topTracks.length : 0.5;
+    const avgValence = topTracks.length? totalValence/topTracks.length : 0.5;
     const majorCard = pickMajorArcana(avgEnergy, avgValence, username);
-    console.log("Major card selected:", majorCard);
 
-    /******** FETCH RECENT TRACKS ********/
-    let recentTracks = [];
-    try {
-      recentTracks = await fetchRecentTracks(username);
-      console.log("Recent tracks fetched:", recentTracks);
-    } catch (err) {
-      console.warn("Failed to fetch recent tracks:", err);
-    }
-
-    // Pick Minor Arcana (user-specific + super detailed)
+    const recentTracks = await fetchRecentTracks(username).catch(()=>[]);
     const minorCard = await pickMinorArcanaFromRecent(recentTracks, username);
-    console.log("Minor card selected:", minorCard);
 
-    /******** RENDER CARDS ********/
+    // Render cards
     majorCardArt.style.backgroundImage = `url(${majorCard.image})`;
     majorCardTitle.textContent = majorCard.name;
-
     minorCardArt.style.backgroundImage = `url(${minorCard.image})`;
     minorCardTitle.textContent = minorCard.name;
 
-    /******** RENDER EXPLANATIONS ********/
+    // Render explanations
     majorExplanation.innerHTML = `
       <h6>Major Arcana</h6>
       <h4>Archetype based on your Top Tracks this week</h4>
       <p>${majorCard.meaning}</p>
-      <br>
       <p class="track-info">
-        The cards think you've been listening to <span class="track-title">${topTrack?.name}</span> by <span class="track-artist">${topTrack?.artist?.name}</span> a LOT this week.
+        The cards think you've listened to <span class="track-title">${topTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${topTracks[0]?.artist?.name || "Unknown"}</span> a LOT this week...
       </p>
     `;
-
-    // Parse number & suit safely
-    let [numberStr, , suit] = minorCard.name.split(" ");
-    const number = parseInt(numberStr) || 0;
-    suit = suit || "Unknown";
-
     minorExplanation.innerHTML = `
       <h6>Minor Arcana</h6>
       <h4>${minorCard.meaning}</h4>
-      <h5>Number meaning:</h5><p>${minorCard.numberMeaning || NUMBER_MEANINGS[number] || "Represents your energy."}</p>
-      <h5>Suit meaning:</h5><p>${minorCard.suitMeaning || SUIT_MEANINGS[suit] || "Represents your focus."}</p>
-      <br>
+      <h5>Number meaning:</h5><p>${minorCard.numberMeaning}</p>
+      <h5>Suit meaning:</h5><p>${minorCard.suitMeaning}</p>
       <p class="track-info">
-        I divined that you listened to <span class="track-title">${recentTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${recentTracks[0]?.artist || "Unknown"}</span> recently.
+        I divined that you listened to <span class="track-title">${recentTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${recentTracks[0]?.artist || "Unknown"}</span> very recently.
       </p>
     `;
 
-    // Show spread
     loadingSection.hidden = true;
     spreadSection.hidden = false;
 
-  } catch (err) {
+  }catch(err){
     console.error("Error generating tarot:", err);
     loadingSection.hidden = true;
     introSection.hidden = false;
@@ -313,12 +269,11 @@ async function generateTarot(username) {
   }
 }
 
-
 /*************************************************
  * EVENTS
  *************************************************/
 loginButton.addEventListener("click", async ()=>{
-  const username=prompt("Enter your Last.fm username:");
+  const username = prompt("Enter your Last.fm username:");
   if(!username) return;
   await generateTarot(username);
 });
@@ -356,6 +311,7 @@ exportButton.addEventListener("click", async () => {
   header.style.fontWeight = "bold";
   header.style.color = colorHeader;
   header.style.marginBottom = "50px";
+  header.style.marginTOP = "50px";
   wrapper.appendChild(header);
 
 
@@ -401,7 +357,6 @@ exportButton.addEventListener("click", async () => {
     // Color for track title / artist
     textDiv.querySelectorAll(".track-title").forEach(el => el.style.color = colorTitle);
     textDiv.querySelectorAll(".track-artist").forEach(el => el.style.color = colorArtist);
-    textDiv.querySelectorAll(".track-oracle").forEach(el => el.style.color = "var(--silver)");
 
     // Style headings (Number / Suit meaning)
     textDiv.querySelectorAll("h4").forEach(el => {
@@ -436,15 +391,7 @@ exportButton.addEventListener("click", async () => {
       el.style.fontWeight = "bold";
       el.style.fontSize = "25px";
     });
-
-        textDiv.querySelectorAll("track-oracle").forEach(el => {
-      el.style.fontSize = fontSizeHeading;
-      el.style.color = "#f5e7ed"; // can be different
-      el.style.marginTop = "30px";
-      el.style.marginBottom = "5px";
-      el.style.fontWeight = "bold";
-      el.style.fontSize = "20px";
-    });
+    
     cardDiv.appendChild(textDiv);
     return cardDiv;
   }
@@ -474,46 +421,35 @@ exportButton.addEventListener("click", async () => {
 
 
 
-  /* ===============================
-       STARFIELD BACKGROUND
-    =============================== */
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    const STAR_COUNT = 150;
+/*************************************************
+ * STARFIELD
+ *************************************************/
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+let stars = [];
+const STAR_COUNT = 150;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function createStars() {
-      stars = [];
-      for (let i = 0; i < STAR_COUNT; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 0.5,
-          speed: Math.random() * 0.3 + 0.05
-        });
-      }
-    }
-
-    function animateStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "white";
-      stars.forEach(star => {
-        star.y -= star.speed;
-        if (star.y < 0) star.y = canvas.height;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      requestAnimationFrame(animateStars);
-    }
-
-    createStars();
-    animateStars();
+function createStars(){
+  stars = [];
+  for(let i=0;i<STAR_COUNT;i++){
+    stars.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, size:Math.random()*2+0.5, speed:Math.random()*0.3+0.05 });
+  }
+}
+function animateStars(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
+  stars.forEach(star=>{
+    star.y -= star.speed;
+    if(star.y<0) star.y=canvas.height;
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(animateStars);
+}
+createStars();
+animateStars();
