@@ -40,6 +40,13 @@ const SUIT_MEANINGS = {
   Swords: "Thoughts, challenges, and conflict resolution.",
   Pentacles: "Practicality, resources, and material concerns."
 };
+const SUIT_LETTERS = {
+  Cups: "c",
+  Wands: "w",
+  Swords: "s",
+  Pentacles: "p"
+};
+
 const NUMBER_MEANINGS = {
   1: "New beginnings, opportunities, and potential.",
   2: "Balance, partnership, and decisions.",
@@ -74,6 +81,22 @@ const exportButton = document.getElementById("export");
 /*************************************************
  * HELPERS
  *************************************************/
+
+function resolveMinorCardImage(number, suit) {
+  const suitLetter = SUIT_LETTERS[suit]; // s, w, c, p
+  const basePath = "/assets/tarot/";
+
+  const cardPath = `${basePath}${number}${suitLetter}.png`;
+  const fallbackPath = `${basePath}${suit.toLowerCase()}.png`;
+
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => resolve(cardPath);
+    img.onerror = () => resolve(fallbackPath);
+    img.src = cardPath;
+  });
+}
+
 function estimateTrackStats(tags) {
   let energy = 0.5;
   let valence = 0.5;
@@ -128,7 +151,7 @@ async function pickMinorArcanaFromRecent(recentTracks, username){
   if(!recentTracks || recentTracks.length===0){
     return {
       name:"Unknown",
-      image:"images/minor_placeholder.jpg",
+      image:"/assets/tarot/cups.png",
       meaning:"No recent tracks available.",
       numberMeaning:"",
       suitMeaning:""
@@ -156,13 +179,16 @@ async function pickMinorArcanaFromRecent(recentTracks, username){
   const number = ((Math.floor(avgEnergy*10)+trackHash)%10)+1;
   const suit = SUITS[suitIndex];
 
-  return {
-    name:`${number} of ${suit}`,
-    image:"images/minor_placeholder.jpg",
-    meaning:`Reflects your recent listening habits in detail.`,
-    numberMeaning: NUMBER_MEANINGS[number]||"",
-    suitMeaning: SUIT_MEANINGS[suit]||""
-  };
+  const image = await resolveMinorCardImage(number, suit);
+
+return {
+  name: `${number} of ${suit}`,
+  image: image,
+  meaning: `Reflects your recent listening habits in detail.`,
+  numberMeaning: NUMBER_MEANINGS[number],
+  suitMeaning: SUIT_MEANINGS[suit]
+};
+
 }
 
 /*************************************************
@@ -271,7 +297,7 @@ async function generateTarot(username) {
       <h5>Suit meaning:</h5><p>${minorCard.suitMeaning || SUIT_MEANINGS[suit] || "Represents your focus."}</p>
       <br>
       <p class="track-info">
-        The cards have told me you listened to <span class="track-title">${recentTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${recentTracks[0]?.artist || "Unknown"}</span> recently.
+        I divined that you listened to <span class="track-title">${recentTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${recentTracks[0]?.artist || "Unknown"}</span> recently.
       </p>
     `;
 
