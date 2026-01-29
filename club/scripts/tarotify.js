@@ -77,58 +77,89 @@ const exportButton = document.getElementById("export");
 function estimateTrackStats(tags) {
   let energy = 0.5;
   let valence = 0.5;
+
   const highEnergy = ["rock","metal","punk","dance","electronic","hip-hop"];
   const lowEnergy = ["ambient","chill","acoustic","folk","jazz"];
   const happy = ["pop","happy","uplifting","dance"];
   const sad = ["sad","melancholic","dark","blues"];
 
-  tags.forEach(tag=>{
+  tags.forEach(tag => {
     const t = tag.toLowerCase();
-    if(highEnergy.includes(t)) energy+=0.1;
-    if(lowEnergy.includes(t)) energy-=0.1;
-    if(happy.includes(t)) valence+=0.1;
-    if(sad.includes(t)) valence-=0.1;
+    if(highEnergy.includes(t)) energy += 0.1;
+    if(lowEnergy.includes(t)) energy -= 0.1;
+    if(happy.includes(t)) valence += 0.1;
+    if(sad.includes(t)) valence -= 0.1;
   });
-  return { energy: Math.min(1,Math.max(0,energy)), valence: Math.min(1,Math.max(0,valence)) };
+
+  return {
+    energy: Math.min(1, Math.max(0, energy)),
+    valence: Math.min(1, Math.max(0, valence))
+  };
 }
 
-function pickMajorArcana(avgEnergy, avgValence){
-  const index = Math.floor(((avgEnergy+avgValence)/2)*MAJOR_ARCANA.length);
-  return MAJOR_ARCANA[Math.min(index, MAJOR_ARCANA.length-1)];
+function hashStringToNumber(str) {
+  let hash = 0;
+  for(let i=0;i<str.length;i++){
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+function pickMajorArcana(avgEnergy, avgValence, username){
+  const userHash = hashStringToNumber(username);
+  const statIndex = Math.floor(((avgEnergy+avgValence)/2) * MAJOR_ARCANA.length);
+  const combinedIndex = (userHash + statIndex) % MAJOR_ARCANA.length;
+  return MAJOR_ARCANA[combinedIndex];
 }
 
 async function fetchTrackTags(artist, track){
+  const url=`https://ws.audioscrobbler.com/2.0/?method=track.gettoptags&artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(track)}&api_key=${API_KEY}&format=json`;
   try{
-    const url = `https://ws.audioscrobbler.com/2.0/?method=track.gettoptags&artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(track)}&api_key=${API_KEY}&format=json`;
     const res = await fetch(url);
     const data = await res.json();
     return data.toptags?.tag?.map(t=>t.name)||[];
-  }catch{return [];}
+  }catch{
+    return [];
+  }
 }
 
-async function pickMinorArcanaFromRecent(recentTracks){
+async function pickMinorArcanaFromRecent(recentTracks, username){
   if(!recentTracks || recentTracks.length===0){
-    return {name:"Unknown", image:"images/minor_placeholder.jpg", meaning:"No recent tracks available.", numberMeaning:"", suitMeaning:""};
+    return {
+      name:"Unknown",
+      image:"images/minor_placeholder.jpg",
+      meaning:"No recent tracks available.",
+      numberMeaning:"",
+      suitMeaning:""
+    };
   }
 
-  let totalEnergy=0,totalValence=0;
+  let totalEnergy = 0;
+  let totalValence = 0;
+
   for(const track of recentTracks){
     const tags = await fetchTrackTags(track.artist, track.name);
     const stats = estimateTrackStats(tags);
-    totalEnergy+=stats.energy;
-    totalValence+=stats.valence;
+    totalEnergy += stats.energy;
+    totalValence += stats.valence;
   }
+
   const avgEnergy = totalEnergy/recentTracks.length;
   const avgValence = totalValence/recentTracks.length;
 
-  const suitIndex = Math.min(Math.floor(avgValence*SUITS.length), SUITS.length-1);
-  const number = Math.min(Math.floor(avgEnergy*10)+1,10);
+  // User-specific hash
+  const combinedTrackStr = recentTracks.map(t=>t.name+t.artist).join(",")+username;
+  const trackHash = hashStringToNumber(combinedTrackStr);
+
+  const suitIndex = (Math.floor(avgValence*SUITS.length)+trackHash)%SUITS.length;
+  const number = ((Math.floor(avgEnergy*10)+trackHash)%10)+1;
   const suit = SUITS[suitIndex];
 
   return {
     name:`${number} of ${suit}`,
     image:"images/minor_placeholder.jpg",
-    meaning:`Reflects your recent listening habits.`,
+    meaning:`Reflects your recent listening habits in detail.`,
     numberMeaning: NUMBER_MEANINGS[number]||"",
     suitMeaning: SUIT_MEANINGS[suit]||""
   };
@@ -139,82 +170,120 @@ async function pickMinorArcanaFromRecent(recentTracks){
  *************************************************/
 async function fetchTopTracks(username){
   const url=`https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${username}&api_key=${API_KEY}&format=json&limit=${TOP_TRACK_LIMIT}&period=7day`;
-  const res = await fetch(url);
-  const data = await res.json();
+  const res=await fetch(url);
+  const data=await res.json();
   if(!data.toptracks) throw new Error("User not found or no top tracks");
   return data.toptracks.track;
 }
 
 async function fetchRecentTracks(username){
   const url=`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${API_KEY}&format=json&limit=${RECENT_TRACK_LIMIT}`;
-  const res = await fetch(url);
-  const data = await res.json();
+  const res=await fetch(url);
+  const data=await res.json();
   if(!data.recenttracks) return [];
   return data.recenttracks.track.map(t=>({name:t.name, artist:t.artist["#text"]}));
 }
 
 /*************************************************
- * MAIN LOGIC
+ * MAIN LOGIC: SAFE, USER-SPECIFIC TAROT
  *************************************************/
-async function generateTarot(username){
-  try{
-    introSection.hidden=true;
-    loadingSection.hidden=false;
-    spreadSection.hidden=true;
+async function generateTarot(username) {
+  try {
+    console.log("Generating tarot for user:", username);
 
-    const topTracks = await fetchTopTracks(username);
-    const topTrack = topTracks[0];
+    // Show loading
+    introSection.hidden = true;
+    loadingSection.hidden = false;
+    spreadSection.hidden = true;
 
-    let totalEnergy=0,totalValence=0;
-    for(const track of topTracks){
-      const tags = await fetchTrackTags(track.artist.name, track.name);
-      const stats = estimateTrackStats(tags);
-      totalEnergy+=stats.energy;
-      totalValence+=stats.valence;
+    /******** FETCH TOP TRACKS ********/
+    let topTracks = [];
+    try {
+      topTracks = await fetchTopTracks(username);
+      console.log("Top tracks fetched:", topTracks);
+    } catch (err) {
+      console.warn("Failed to fetch top tracks:", err);
     }
-    const avgEnergy=totalEnergy/topTracks.length;
-    const avgValence=totalValence/topTracks.length;
-    const majorCard = pickMajorArcana(avgEnergy, avgValence);
 
-    const recentTracks = await fetchRecentTracks(username);
-    const minorCard = await pickMinorArcanaFromRecent(recentTracks);
+    const topTrack = topTracks[0] || { name: "Unknown", artist: { name: "Unknown" } };
 
-    majorCardArt.style.backgroundImage=`url(${majorCard.image})`;
-    majorCardTitle.textContent=majorCard.name;
-    minorCardArt.style.backgroundImage=`url(${minorCard.image})`;
-    minorCardTitle.textContent=minorCard.name;
+    // Compute average stats for Major Arcana
+    let totalEnergy = 0, totalValence = 0;
+    for (const track of topTracks) {
+      try {
+        const tags = await fetchTrackTags(track.artist.name, track.name);
+        const stats = estimateTrackStats(tags);
+        totalEnergy += stats.energy;
+        totalValence += stats.valence;
+      } catch {
+        totalEnergy += 0.5;
+        totalValence += 0.5;
+      }
+    }
 
-    majorExplanation.innerHTML=`
+    const avgEnergy = topTracks.length ? totalEnergy / topTracks.length : 0.5;
+    const avgValence = topTracks.length ? totalValence / topTracks.length : 0.5;
+
+    // Pick Major Arcana (user-specific + stats)
+    const majorCard = pickMajorArcana(avgEnergy, avgValence, username);
+    console.log("Major card selected:", majorCard);
+
+    /******** FETCH RECENT TRACKS ********/
+    let recentTracks = [];
+    try {
+      recentTracks = await fetchRecentTracks(username);
+      console.log("Recent tracks fetched:", recentTracks);
+    } catch (err) {
+      console.warn("Failed to fetch recent tracks:", err);
+    }
+
+    // Pick Minor Arcana (user-specific + super detailed)
+    const minorCard = await pickMinorArcanaFromRecent(recentTracks, username);
+    console.log("Minor card selected:", minorCard);
+
+    /******** RENDER CARDS ********/
+    majorCardArt.style.backgroundImage = `url(${majorCard.image})`;
+    majorCardTitle.textContent = majorCard.name;
+
+    minorCardArt.style.backgroundImage = `url(${minorCard.image})`;
+    minorCardTitle.textContent = minorCard.name;
+
+    /******** RENDER EXPLANATIONS ********/
+    majorExplanation.innerHTML = `
       <h4>Major Arcana</h4>
       <p>${majorCard.meaning}</p>
       <p class="track-info">
-        Weekly top track: <span class="track-title">${topTrack?.name||"Unknown"}</span> by <span class="track-artist">${topTrack?.artist?.name||"Unknown"}</span>
+        The cards think you've been listening to <span class="track-title">${topTrack?.name}</span> by <span class="track-artist">${topTrack?.artist?.name}</span> a LOT this week.
       </p>
     `;
 
-    let [numberStr,,suit]=minorCard.name.split(" ");
-    let number=parseInt(numberStr)||0;
-    suit=suit||"Unknown";
+    // Parse number & suit safely
+    let [numberStr, , suit] = minorCard.name.split(" ");
+    const number = parseInt(numberStr) || 0;
+    suit = suit || "Unknown";
 
-    minorExplanation.innerHTML=`
+    minorExplanation.innerHTML = `
       <h4>Minor Arcana</h4>
       <p>${minorCard.meaning}</p>
-      <p><strong>Number meaning:</strong> ${minorCard.numberMeaning||NUMBER_MEANINGS[number]||""}</p>
-      <p><strong>Suit meaning:</strong> ${minorCard.suitMeaning||SUIT_MEANINGS[suit]||""}</p>
+      <h6>Number meaning:</h6><p>${minorCard.numberMeaning || NUMBER_MEANINGS[number] || "Represents your energy."}</p>
+      <h6>Suit meaning:</h6><p>${minorCard.suitMeaning || SUIT_MEANINGS[suit] || "Represents your focus."}</p>
       <p class="track-info">
-        Most recent track: <span class="track-title">${recentTracks[0]?.name||"Unknown"}</span> by <span class="track-artist">${recentTracks[0]?.artist||"Unknown"}</span>
+        The cards have told me you listened to <span class="track-title">${recentTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${recentTracks[0]?.artist || "Unknown"}</span> recently.
       </p>
     `;
 
-    loadingSection.hidden=true;
-    spreadSection.hidden=false;
+    // Show spread
+    loadingSection.hidden = true;
+    spreadSection.hidden = false;
 
-  }catch(err){
-    loadingSection.hidden=true;
-    introSection.hidden=false;
-    alert("Error fetching Last.fm data: "+err.message);
+  } catch (err) {
+    console.error("Error generating tarot:", err);
+    loadingSection.hidden = true;
+    introSection.hidden = false;
+    alert("Error fetching Last.fm data. Please check your username or try again later.");
   }
 }
+
 
 /*************************************************
  * EVENTS
@@ -225,10 +294,163 @@ loginButton.addEventListener("click", async ()=>{
   await generateTarot(username);
 });
 
-exportButton.addEventListener("click", async ()=>{
-  const canvas = await html2canvas(spreadSection);
-  const link=document.createElement("a");
-  link.download="tarotfm_sunniejae.png";
-  link.href=canvas.toDataURL("image/png");
+exportButton.addEventListener("click", async () => {
+  // CONFIG: adjust these for font sizes/colors
+  const fontFamilyMain = "'JaeWriting', sans-serif";
+  const fontFamilyHeader = "'Milky', sans-serif";
+  const fontSizeHeader = "80px";
+  const fontSizeText = "40px";
+  const fontSizeHeading = "42px";       // Number/Suit meaning
+  const colorHeader = "#FFFFFF";
+  const colorText = "#FFFFFF";
+  const colorTitle = "#ffb3d6";         // track title
+  const colorArtist = "#1a98ca";        // track artist
+// Wait for all fonts to load
+  await document.fonts.ready;
+  // Create wrapper
+  const wrapper = document.createElement("div");
+  wrapper.style.width = "3264px";
+  wrapper.style.height = "1836px";
+  wrapper.style.background = getComputedStyle(document.body).background || "#000";
+  wrapper.style.display = "flex";
+  wrapper.style.flexDirection = "column";
+  wrapper.style.alignItems = "center";
+  wrapper.style.justifyContent = "flex-start";
+  wrapper.style.padding = "50px";
+  wrapper.style.boxSizing = "border-box";
+
+  // Header
+  const header = document.createElement("div");
+  header.textContent = "Tarot.fm by SunnieJae";
+  header.style.fontFamily = fontFamilyHeader;
+  header.style.fontSize = fontSizeHeader;
+  header.style.fontWeight = "bold";
+  header.style.color = colorHeader;
+  header.style.marginBottom = "50px";
+  wrapper.appendChild(header);
+
+
+  // Row container for cards
+  const row = document.createElement("div");
+  row.style.display = "flex";
+  row.style.flexDirection = "row";
+  row.style.justifyContent = "space-around";
+  row.style.alignItems = "flex-start";
+  row.style.width = "100%";
+  row.style.height = "100%";
+  row.style.gap = "80px"; // space between major/minor
+
+  // --- Helper function to create a card block ---
+  function createCardBlock(cardArtStyle, explanationHTML) {
+    const cardDiv = document.createElement("div");
+    cardDiv.style.display = "flex";
+    cardDiv.style.flexDirection = "row"; // card left, explanation right
+    cardDiv.style.alignItems = "flex-start";
+    cardDiv.style.gap = "30px"; // space between art and text
+
+    // Card art
+    const artDiv = document.createElement("div");
+    artDiv.style.backgroundImage = cardArtStyle.backgroundImage;
+    artDiv.style.backgroundSize = "cover";
+    artDiv.style.backgroundPosition = "center";
+    artDiv.style.width = "432px";
+    artDiv.style.height = "768px";
+    cardDiv.appendChild(artDiv);
+
+    // Text / explanation
+    const textDiv = document.createElement("div");
+    textDiv.innerHTML = explanationHTML;
+
+    // Font & color for main text
+    textDiv.style.fontFamily = fontFamilyMain;
+    textDiv.style.fontSize = fontSizeText;
+    textDiv.style.color = colorText;
+    textDiv.style.lineHeight = "1.5";
+    textDiv.style.maxWidth = "600px";
+    textDiv.style.textAlign = "left";
+
+    // Color for track title / artist
+    textDiv.querySelectorAll(".track-title").forEach(el => el.style.color = colorTitle);
+    textDiv.querySelectorAll(".track-artist").forEach(el => el.style.color = colorArtist);
+
+    // Style headings (Number / Suit meaning)
+    textDiv.querySelectorAll("h6").forEach(el => {
+      el.style.fontSize = fontSizeHeading;
+      el.style.color = colorTitle; // can be different
+      el.style.marginTop = "15px";
+      el.style.marginBottom = "5px";
+      el.style.fontWeight = "bold";
+    });
+
+    cardDiv.appendChild(textDiv);
+    return cardDiv;
+  }
+
+  // Create major and minor card blocks
+  const majorBlock = createCardBlock(majorCardArt.style, majorExplanation.innerHTML);
+  const minorBlock = createCardBlock(minorCardArt.style, minorExplanation.innerHTML);
+
+  row.appendChild(majorBlock);
+  row.appendChild(minorBlock);
+
+  wrapper.appendChild(row);
+  document.body.appendChild(wrapper);
+
+  // Render with html2canvas
+  const canvas = await html2canvas(wrapper, { backgroundColor: null, scale: 2, useCORS: true });
+
+  // Download
+  const link = document.createElement("a");
+  link.download = "tarotfm_sunniejae.png";
+  link.href = canvas.toDataURL("image/png");
   link.click();
+
+  // Cleanup
+  document.body.removeChild(wrapper);
 });
+
+
+
+  /* ===============================
+       STARFIELD BACKGROUND
+    =============================== */
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const STAR_COUNT = 150;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createStars() {
+      stars = [];
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 0.5,
+          speed: Math.random() * 0.3 + 0.05
+        });
+      }
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      stars.forEach(star => {
+        star.y -= star.speed;
+        if (star.y < 0) star.y = canvas.height;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      requestAnimationFrame(animateStars);
+    }
+
+    createStars();
+    animateStars();

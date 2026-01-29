@@ -144,6 +144,8 @@ main#app {
 .card {
   width: 260px;
   perspective: 1000px;
+  margin-top: 45px;
+  margin-bottom: 40px;
 }
 
 .card-frame {
@@ -209,6 +211,8 @@ main#app {
   flex: 1;
   max-width: 400px;
   backdrop-filter: blur(10px);
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .explanation-card h4 {
@@ -219,6 +223,7 @@ main#app {
 
 .explanation-card h5 {
   font-family: 'Milky', serif;
+  font-size: 24px;
   color: var(--silver);
   margin-bottom: 0.9rem;
 }
@@ -254,7 +259,7 @@ color: var(--silver);
 
 #export {
   font-family: 'Milky', serif;
-  padding: 0.8rem 2.5rem;
+  padding: 0.8rem 1rem;
   border-radius: 30px;
   border: 1px solid var(--primary);
   background: transparent;
@@ -269,7 +274,11 @@ color: var(--silver);
   color: var(--black);
   box-shadow: 0 10px 30px rgba(154,154,212,0.4);
 }
-
+#spread {
+  background: radial-gradient(circle at top, #1a1730, var(--black));
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .share-note {
   margin-top: 2rem;
   font-size: 0.85rem;
