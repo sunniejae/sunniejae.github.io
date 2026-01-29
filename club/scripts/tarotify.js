@@ -2,7 +2,7 @@
  * CONFIG
  *************************************************/
 const API_KEY = "5d8fee243f5e5315900f1a8efad7fb21";
-const TOP_TRACK_LIMIT = 11;
+const TOP_TRACK_LIMIT = 10;
 const RECENT_TRACK_LIMIT = 33;
 
 /*************************************************
