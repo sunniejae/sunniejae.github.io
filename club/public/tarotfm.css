@@ -223,23 +223,27 @@ main#app {
 
 .explanation-card h5 {
   font-family: 'Milky', serif;
-  font-size: 24px;
-  color: var(--silver);
+  font-size: 20px;
+  color: var(--primary);
   margin-bottom: 0.9rem;
 }
 .explanation-card h6 {
 font-size: 16px;
 line-height: 1;
-color: var(--accent);
+color: aqua;
 }
+
+
 .explanation-card p {
-font-size: 16px;
+font-size: 18px;
 line-height: 1.8;
 color: var(--silver);
+word-spacing: 2px;
 }
 .explanation-card p.track-info {
-  font-size: 0.9rem;       /* smaller than main meaning */   
-  margin-top: 0.5rem;
+  font-size: 14px;       /* smaller than main meaning */   
+  margin-top: 0.7rem;
+  word-spacing: 2px;
 }
 
 .explanation-card p.track-info .track-title {

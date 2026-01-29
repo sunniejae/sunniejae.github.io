@@ -250,8 +250,10 @@ async function generateTarot(username) {
 
     /******** RENDER EXPLANATIONS ********/
     majorExplanation.innerHTML = `
-      <h4>Major Arcana</h4>
+      <h6>Major Arcana</h6>
+      <h4>Archetype based on your Top Tracks this week</h4>
       <p>${majorCard.meaning}</p>
+      <br>
       <p class="track-info">
         The cards think you've been listening to <span class="track-title">${topTrack?.name}</span> by <span class="track-artist">${topTrack?.artist?.name}</span> a LOT this week.
       </p>
@@ -263,10 +265,11 @@ async function generateTarot(username) {
     suit = suit || "Unknown";
 
     minorExplanation.innerHTML = `
-      <h4>Minor Arcana</h4>
-      <p>${minorCard.meaning}</p>
-      <h6>Number meaning:</h6><p>${minorCard.numberMeaning || NUMBER_MEANINGS[number] || "Represents your energy."}</p>
-      <h6>Suit meaning:</h6><p>${minorCard.suitMeaning || SUIT_MEANINGS[suit] || "Represents your focus."}</p>
+      <h6>Minor Arcana</h6>
+      <h4>${minorCard.meaning}</h4>
+      <h5>Number meaning:</h5><p>${minorCard.numberMeaning || NUMBER_MEANINGS[number] || "Represents your energy."}</p>
+      <h5>Suit meaning:</h5><p>${minorCard.suitMeaning || SUIT_MEANINGS[suit] || "Represents your focus."}</p>
+      <br>
       <p class="track-info">
         The cards have told me you listened to <span class="track-title">${recentTracks[0]?.name || "Unknown"}</span> by <span class="track-artist">${recentTracks[0]?.artist || "Unknown"}</span> recently.
       </p>
@@ -299,8 +302,8 @@ exportButton.addEventListener("click", async () => {
   const fontFamilyMain = "'JaeWriting', sans-serif";
   const fontFamilyHeader = "'Milky', sans-serif";
   const fontSizeHeader = "80px";
-  const fontSizeText = "40px";
-  const fontSizeHeading = "42px";       // Number/Suit meaning
+  const fontSizeText = "36px";
+  const fontSizeHeading = "32px";       // Number/Suit meaning
   const colorHeader = "#FFFFFF";
   const colorText = "#FFFFFF";
   const colorTitle = "#ffb3d6";         // track title
@@ -372,16 +375,50 @@ exportButton.addEventListener("click", async () => {
     // Color for track title / artist
     textDiv.querySelectorAll(".track-title").forEach(el => el.style.color = colorTitle);
     textDiv.querySelectorAll(".track-artist").forEach(el => el.style.color = colorArtist);
+    textDiv.querySelectorAll(".track-oracle").forEach(el => el.style.color = "var(--silver)");
 
     // Style headings (Number / Suit meaning)
-    textDiv.querySelectorAll("h6").forEach(el => {
-      el.style.fontSize = fontSizeHeading;
-      el.style.color = colorTitle; // can be different
+    textDiv.querySelectorAll("h4").forEach(el => {
+      el.style.fontSize = "30px";
+      el.style.color = "#00FFF0"; // can be different
       el.style.marginTop = "15px";
       el.style.marginBottom = "5px";
       el.style.fontWeight = "bold";
+      el.style.lineHeight = "2"
+    });
+     textDiv.querySelectorAll("h5").forEach(el => {
+      el.style.fontSize = fontSizeHeading;
+      el.style.color = "#9a9ad4"; // can be different
+      el.style.marginTop = "30px";
+      el.style.marginBottom = "10px";
+      el.style.fontWeight = "bold";
+      el.style.fontSize = "28px";
+    });
+   textDiv.querySelectorAll("h6").forEach(el => {
+      el.style.fontSize = fontSizeHeading;
+      el.style.color = "#ffb3d6"; // can be different
+      el.style.marginTop = "30px";
+      el.style.marginBottom = "5px";
+      el.style.fontWeight = "bold";
+      el.style.fontSize = "28px";
+    });
+    textDiv.querySelectorAll("h6").forEach(el => {
+      el.style.fontSize = fontSizeHeading;
+      el.style.color = "#ffb3d6"; // can be different
+      el.style.marginTop = "30px";
+      el.style.marginBottom = "5px";
+      el.style.fontWeight = "bold";
+      el.style.fontSize = "25px";
     });
 
+        textDiv.querySelectorAll("track-oracle").forEach(el => {
+      el.style.fontSize = fontSizeHeading;
+      el.style.color = "#f5e7ed"; // can be different
+      el.style.marginTop = "30px";
+      el.style.marginBottom = "5px";
+      el.style.fontWeight = "bold";
+      el.style.fontSize = "20px";
+    });
     cardDiv.appendChild(textDiv);
     return cardDiv;
   }
