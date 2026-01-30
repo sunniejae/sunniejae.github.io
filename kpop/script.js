@@ -38,13 +38,14 @@ const products = [
     type: "redbubble",
     description: "Cute collage style stickers and apparel.",
     images: [
-      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/0.png",
-      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/2.png",
-      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/3.png",
-      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/4.png",
-      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/5.png",
-      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/6.png",
-      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/GROUP/7.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/IZNA/0.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/IZNA/1.JPG",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/IZNA/2.png",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/IZNA/3.jpg",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/IZNA/4.jpg",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/IZNA/5.jpg",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/IZNA/6.jpg",
+      "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/collage/IZNA/7.jpg",
     ],
     redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/comeback-stickers"
   },
@@ -75,7 +76,7 @@ const products = [
       "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/5.png",
       "https://sunniejae.blob.core.windows.net/sunniejae/assets/kpop/hangul/GROUP/6.png",
     ],
-    redbubbleLink: "https://www.redbubble.com/people/YOUR-SHOP/works/hangul-names"
+    redbubbleLink: "https://www.redbubble.com/people/sunniejae/shop?artistUserName=SunnieJae&collections=4422836&iaCode=all-departments&sortOrder=top%20selling"
   }
 ];
 
