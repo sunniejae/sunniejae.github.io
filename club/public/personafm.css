@@ -255,7 +255,7 @@ button:active {
 }
 
 .page-content h2 {
-  font-size: calc(clamp(30px, 7vw, 46px) + var(--regular-font-boost));
+  font-size: calc(clamp(34px, 8vw, 54px) + var(--regular-font-boost));
   margin: 6px 0 4px;
   font-family: var(--entry-font);
   color: var(--entry-ink);
@@ -465,6 +465,12 @@ button:active {
   margin-bottom: 0;
 }
 
+.signals-modal__divider {
+  border: 0;
+  border-top: 1px dashed var(--note-border);
+  margin: 10px 0;
+}
+
 .signals-modal__close {
   margin-top: 12px;
   border: 1px solid var(--note-border);
@@ -561,6 +567,10 @@ button:active {
   max-width: 100%;
   padding: 8px;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .share-sticker-row--hero .sticker-label {
@@ -578,6 +588,8 @@ button:active {
   font-size: clamp(14px, 1.5vw, 17px);
   margin-top: 2px;
   display: block;
+  width: 100%;
+  text-align: center;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -588,7 +600,7 @@ button:active {
 }
 
 .share-sticker-row--hero .sticker-artist {
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .share-sticker-row--hero .sticker-artist .sticker-icon {
@@ -680,7 +692,7 @@ button:active {
 #shareTopArtist {
   display: block !important;
   text-align: center;
-  margin: 4px 0 0 !important;
+  margin: 0 !important;
   font-size: calc(1.3 * clamp(14px, 1.5vw, 17px)) !important;
   line-height: 1.12 !important;
   white-space: nowrap !important;
@@ -692,6 +704,7 @@ button:active {
   display: block !important;
   text-align: center;
   font-size: clamp(14px, 1.5vw, 17px) !important;
+  margin: 0 !important;
   white-space: nowrap !important;
   text-overflow: ellipsis !important;
   overflow: hidden !important;
@@ -765,31 +778,41 @@ button:active {
   border: 3px solid var(--share-border);
   border-radius: 28px;
   overflow: hidden;
-  padding: 34px;
+  padding: 24px;
 }
 
 .share-inner {
   position: relative;
   height: 100%;
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 90px 12px 90px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   font-family: var(--entry-font);
 }
 
+.share-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+}
+
 .share-date {
-  position: absolute;
-  top: 0;
-  right: 0;
   margin: 0;
   font-family: "Noted", serif;
-  font-size: calc(20px + var(--regular-font-boost));
+  font-size: calc(24px + var(--regular-font-boost));
   color: rgba(16, 45, 73, 0.9);
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .share-stamp {
-  margin: 10px;
-  align-self: flex-start;
+  margin: 0;
+  align-self: center;
   border: 2px solid var(--stamp);
   color: var(--stamp);
   text-decoration: none;
@@ -801,15 +824,15 @@ button:active {
 }
 
 .share-period {
-  margin: 10px 0 0;
+  margin: 14px 0 0;
   color: var(--share-muted);
   letter-spacing: 0.04em;
   font-size: clamp(18px, 2.2vw, 24px);
 }
 
 .share-inner h2 {
-  margin: 6px 0 0;
-  font-size: clamp(40px, 4.8vw, calc(52px + var(--regular-font-boost)));
+  margin: 10px 0 0;
+  font-size: clamp(48px, 5.8vw, calc(62px + var(--regular-font-boost)));
   -webkit-text-stroke: 4px rgba(252,252,252,0.98);
   paint-order: stroke fill;
   line-height: 1.02;
@@ -818,7 +841,7 @@ button:active {
 }
 
 .share-hero {
-  margin-top: 4px;
+  margin-top: 12px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
   gap: 14px;
@@ -826,15 +849,21 @@ button:active {
 }
 
 .share-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   min-width: 0;
 }
 
 .share-blurb {
   position: relative;
-  margin: 8px 0 0;
-  padding: 10px 12px;
+  margin: 14px 0 0;
+  padding: 14px 14px 12px;
+  display: inline-block;
+  width: fit-content;
+  max-width: min(100%, 620px);
   color: var(--noted-darkest);
-  font-size: clamp(45px, 2.8vw, calc(26px + var(--regular-font-boost)));
+  font-size: clamp(30px, 3vw, calc(34px + var(--regular-font-boost)));
   line-height: 1.15;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -857,7 +886,7 @@ button:active {
 }
 
 .share-assets {
-  margin-top: 14px;
+  margin-top: 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
@@ -898,7 +927,7 @@ button:active {
 
 /* Optional share notes grid (if you use it) */
 .share-note-grid {
-  margin-top: 12px;
+  margin-top: 22px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -906,7 +935,7 @@ button:active {
 
 .share-note {
   position: relative;
-  padding: 10px;
+  padding: 14px;
   border-radius: 12px;
   background: linear-gradient(
     155deg,
@@ -961,8 +990,8 @@ button:active {
 }
 
 .found-on--share {
-  margin-top: auto;
-  padding-top: 16px;
+  margin-top: 28px;
+  padding-top: 22px;
   border-top: 1px dashed rgba(162, 178, 201, 0.55);
   opacity: 0.78;
   font-size: 11px;

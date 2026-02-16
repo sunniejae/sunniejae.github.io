@@ -13,6 +13,34 @@
 const LASTFM_API_KEY = "5d8fee243f5e5315900f1a8efad7fb21";
 const TOP_LIMIT = 100;
 const RECENT_LIMIT = 50;
+const ARTIST_IMAGE_FALLBACK = "/assets/noted/artistfallback.png";
+const LASTFM_PLACEHOLDER_ID = "2a96cbd8b46e442fc41c2b86b821562f";
+const ARTIST_TINT_ALPHA = 0.3;
+const TOP_ARTIST_TAG_FETCH_LIMIT = 5;
+const SHARE_DESTINATION_URL = "https://sunniejae.com/notedpersona";
+const SHARE_POST_TEXT = "my Noted Persona";
+
+const GENRE_RULES = [
+  { label: "hip hop", keys: ["hip hop", "rap", "trap", "drill", "boom bap"] },
+  { label: "pop", keys: ["pop", "dance pop", "indie pop", "k-pop", "synthpop"] },
+  { label: "rock", keys: ["rock", "alt rock", "indie rock", "punk", "metal", "grunge"] },
+  { label: "electronic", keys: ["electronic", "edm", "house", "techno", "dnb", "dubstep"] },
+  { label: "rnb", keys: ["rnb", "r&b", "soul", "neo soul"] },
+  { label: "acoustic", keys: ["acoustic", "folk", "singer-songwriter", "country", "americana"] },
+  { label: "ambient", keys: ["ambient", "lofi", "chill", "downtempo", "instrumental"] },
+  { label: "jazz", keys: ["jazz", "blues", "fusion"] },
+  { label: "classical", keys: ["classical", "orchestra", "baroque", "opera"] }
+];
+
+const EMOTION_RULES = [
+  { label: "nostalgic", keys: ["nostalgic", "nostalgia", "throwback", "retro"] },
+  { label: "melancholic", keys: ["sad", "melancholy", "heartbreak", "emotional"] },
+  { label: "romantic", keys: ["love", "romantic", "dreamy", "intimate"] },
+  { label: "energetic", keys: ["energetic", "hype", "party", "workout", "uplifting"] },
+  { label: "chaotic", keys: ["chaotic", "weird", "experimental", "quirky"] },
+  { label: "calm", keys: ["calm", "peaceful", "focus", "study", "sleep"] },
+  { label: "confident", keys: ["confident", "bold", "powerful", "anthem"] }
+];
 
 /* Canonical notebook+pen combos => fixed persona */
 const PERSONA_BY_LOADOUT = {
@@ -401,8 +429,11 @@ const el = {
   signalsModal: document.getElementById("signalsModal"),
   signalsModalBackdrop: document.getElementById("signalsModalBackdrop"),
   signalsModalCloseBtn: document.getElementById("signalsModalCloseBtn"),
+  paperReason: document.getElementById("paperReason"),
+  penReason: document.getElementById("penReason"),
   generateCardBtn: document.getElementById("generateCardBtn"),
   shareBtn: document.getElementById("shareBtn"),
+  socialShareBtn: document.getElementById("socialShareBtn"),
   saveBtn: document.getElementById("saveBtn"),
   previewWrap: document.getElementById("previewWrap"),
   previewImage: document.getElementById("previewImage"),
@@ -423,7 +454,14 @@ const el = {
   shareDataSummary: document.getElementById("shareDataSummary"),
   shareListenerStyle: document.getElementById("shareListenerStyle"),
   shareNotedUse: document.getElementById("shareNotedUse"),
-  shareLovesAboutNoted: document.getElementById("shareLovesAboutNoted")
+  shareLovesAboutNoted: document.getElementById("shareLovesAboutNoted"),
+  socialShareModal: document.getElementById("socialShareModal"),
+  socialShareBackdrop: document.getElementById("socialShareBackdrop"),
+  socialShareCloseBtn: document.getElementById("socialShareCloseBtn"),
+  shareXBtn: document.getElementById("shareXBtn"),
+  sharePinterestBtn: document.getElementById("sharePinterestBtn"),
+  shareTumblrBtn: document.getElementById("shareTumblrBtn"),
+  shareInstagramBtn: document.getElementById("shareInstagramBtn")
 };
 
 let currentModel = null;
@@ -442,6 +480,16 @@ function openSignalsModal() {
 function closeSignalsModal() {
   if (!el.signalsModal) return;
   el.signalsModal.hidden = true;
+}
+
+function openSocialShareModal() {
+  if (!el.socialShareModal) return;
+  el.socialShareModal.hidden = false;
+}
+
+function closeSocialShareModal() {
+  if (!el.socialShareModal) return;
+  el.socialShareModal.hidden = true;
 }
 
 /* =======================
@@ -560,20 +608,53 @@ function tierDrift(v) {
 ======================= */
 function pickNotebook(stats) {
   const s = computeSignals(stats);
-  const frac = (v) => v - Math.floor(v);
-  // Blend signals into a deterministic pseudo-random bucket (0..5).
-  // This keeps distribution close to even while still driven by listening metrics.
-  const score = frac(s.range * 1.37 + s.intensity * 0.91 + s.drift * 0.53);
-  const idx = Math.min(5, Math.floor(score * NOTEBOOK_OPTIONS.length));
+  const dominantEmotion = dominantLabel(stats.topEmotionTags || []);
+  if (dominantEmotion === "nostalgic" || dominantEmotion === "melancholic") return "locked diary";
+  if (dominantEmotion === "calm") return "composition notebook";
+  if (dominantEmotion === "romantic") return "bullet journal";
+  if (dominantEmotion === "confident" || dominantEmotion === "energetic") return "leather";
+  if (dominantEmotion === "chaotic") return "sketchbook";
+  // Fallback: choose notebook by valence.
+  // Higher valence -> brighter/open notebook feel.
+  const valence = clamp01(safeDivide(s.range + (1 - s.intensity), 2));
+  const idx = Math.min(5, Math.floor(valence * NOTEBOOK_OPTIONS.length));
   return NOTEBOOK_OPTIONS[idx];
 }
 
 function pickPen(stats) {
   const s = computeSignals(stats);
-  const frac = (v) => v - Math.floor(v);
-  const score = frac(s.range * 0.67 + s.intensity * 1.73 + s.drift * 1.11);
-  const idx = Math.min(5, Math.floor(score * PEN_OPTIONS.length));
+  const dominantGenre = dominantLabel(stats.topGenres || []);
+  if (dominantGenre === "classical" || dominantGenre === "jazz") return "calligraphy";
+  if (dominantGenre === "hip hop" || dominantGenre === "rnb") return "ballpoint pen";
+  if (dominantGenre === "ambient" || dominantGenre === "acoustic") return "pencil";
+  if (dominantGenre === "pop") return "sparkle gel pen";
+  if (dominantGenre === "electronic") return "red ink";
+  if (dominantGenre === "rock") return "red ink";
+  // Fallback: choose pen by energy.
+  // Higher energy -> bolder pen styles.
+  const energy = clamp01(safeDivide(s.drift + s.intensity, 2));
+  const idx = Math.min(5, Math.floor(energy * PEN_OPTIONS.length));
   return PEN_OPTIONS[idx];
+}
+
+function dominantLabel(labels) {
+  if (!Array.isArray(labels) || !labels.length) return "";
+  const map = {};
+  labels.forEach((label) => {
+    map[label] = (map[label] || 0) + 1;
+  });
+  return Object.entries(map).sort((a, b) => b[1] - a[1])[0]?.[0] || "";
+}
+
+function classifyTags(tags, rules) {
+  const out = [];
+  (tags || []).forEach((tagRaw) => {
+    const tag = String(tagRaw || "").toLowerCase().trim();
+    if (!tag) return;
+    const matched = rules.find((rule) => rule.keys.some((k) => tag.includes(k)));
+    if (matched) out.push(matched.label);
+  });
+  return out;
 }
 
 function pickPersonaFromLoadout(notebook, pen) {
@@ -641,6 +722,12 @@ function lastfmToNormalizedStats(raw) {
     topArtistPlays,
     recentOverlap,
     topGenres: [],
+    topEmotionTags: [],
+    topArtistCandidates:
+      (raw.topartists?.artist || [])
+        .slice(0, TOP_ARTIST_TAG_FETCH_LIMIT)
+        .map((a) => a?.name)
+        .filter(Boolean),
     periodLabel: "Last 30 Days",
     topTrackName: tracks[0]?.name || "Unknown Song",
     topTrackArtist: tracks[0]?.artist?.name || "Unknown Artist"
@@ -651,7 +738,7 @@ function lastfmToNormalizedStats(raw) {
    FETCH
 ======================= */
 async function fetchLastFmBundle(username) {
-  const [topRes, recentRes] = await Promise.all([
+  const [topRes, recentRes, topArtistsRes] = await Promise.all([
     fetch(
       `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${encodeURIComponent(
         username
@@ -661,17 +748,62 @@ async function fetchLastFmBundle(username) {
       `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(
         username
       )}&api_key=${LASTFM_API_KEY}&format=json&limit=${RECENT_LIMIT}`
+    ),
+    fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${encodeURIComponent(
+        username
+      )}&api_key=${LASTFM_API_KEY}&format=json&limit=${TOP_ARTIST_TAG_FETCH_LIMIT}&period=1month`
     )
   ]);
 
   const topData = await topRes.json();
   const recentData = await recentRes.json();
+  const topArtistsData = await topArtistsRes.json();
 
   if (!topData?.toptracks?.track?.length) {
     throw new Error("Could not load top tracks. Check username and profile visibility.");
   }
 
-  return { toptracks: topData.toptracks, recenttracks: recentData.recenttracks };
+  return {
+    toptracks: topData.toptracks,
+    recenttracks: recentData.recenttracks,
+    topartists: topArtistsData.topartists
+  };
+}
+
+async function fetchArtistTags(artistName) {
+  if (!artistName) return [];
+  try {
+    const res = await fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=${encodeURIComponent(
+        artistName
+      )}&api_key=${LASTFM_API_KEY}&format=json`
+    );
+    const data = await res.json();
+    const tags = Array.isArray(data?.toptags?.tag) ? data.toptags.tag : [];
+    return tags
+      .slice(0, 8)
+      .map((t) => t?.name)
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+async function enrichGenreAndEmotionTags(stats) {
+  const artistNames =
+    (Array.isArray(stats.topArtistCandidates) && stats.topArtistCandidates.length
+      ? stats.topArtistCandidates
+      : [stats.topArtistName]
+    ).filter(Boolean);
+
+  const tagsByArtist = await Promise.all(artistNames.map((name) => fetchArtistTags(name)));
+  const flatTags = tagsByArtist.flat();
+
+  const topGenres = classifyTags(flatTags, GENRE_RULES);
+  const topEmotionTags = classifyTags(flatTags, EMOTION_RULES);
+
+  return { topGenres, topEmotionTags };
 }
 
 /* =======================
@@ -687,6 +819,7 @@ function formatDataSummary(stats) {
 
 async function fetchTopArtistImage(artistName) {
   if (!artistName) return "";
+  const isUsableArtistImage = (url) => Boolean(url);
   try {
     const res = await fetch(
       `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${encodeURIComponent(
@@ -698,13 +831,60 @@ async function fetchTopArtistImage(artistName) {
     const preferredSizes = ["mega", "extralarge", "large", "medium", "small"];
     for (const size of preferredSizes) {
       const url = images.find((img) => img?.size === size)?.["#text"];
-      if (url) return String(url).replace(/^http:\/\//i, "https://");
+      if (isUsableArtistImage(url)) return String(url).replace(/^http:\/\//i, "https://");
     }
-    const any = images.find((img) => img?.["#text"])?.["#text"];
+    const any = images.find((img) => isUsableArtistImage(img?.["#text"]))?.["#text"];
     return any ? String(any).replace(/^http:\/\//i, "https://") : "";
   } catch {
     return "";
   }
+}
+
+function isLastFmPlaceholderUrl(url) {
+  return typeof url === "string" && url.includes(LASTFM_PLACEHOLDER_ID);
+}
+
+async function tintImageToColor(url, color) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth || img.width || 300;
+        canvas.height = img.naturalHeight || img.height || 300;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          resolve(url);
+          return;
+        }
+
+        // Keep original image visible, then apply a subtle hue tint overlay.
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = "source-atop";
+        ctx.globalAlpha = ARTIST_TINT_ALPHA;
+        ctx.fillStyle = color || "#000000";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = "source-over";
+        resolve(canvas.toDataURL("image/png"));
+      } catch {
+        resolve(url);
+      }
+    };
+    img.onerror = () => resolve(url);
+    img.src = url;
+  });
+}
+
+async function resolveArtistImageForRender(url) {
+  if (!url) return ARTIST_IMAGE_FALLBACK;
+  const normalized = String(url).replace(/^http:\/\//i, "https://");
+  if (!isLastFmPlaceholderUrl(normalized)) return normalized;
+
+  const ink =
+    getComputedStyle(document.documentElement).getPropertyValue("--entry-ink").trim() || "#2a2621";
+  return tintImageToColor(normalized, ink);
 }
 
 function formatShareDate(date = new Date()) {
@@ -712,6 +892,21 @@ function formatShareDate(date = new Date()) {
   const m = String(date.getMonth() + 1).padStart(2, "0");
   const y = String(date.getFullYear());
   return `${d}-${m}-${y}`;
+}
+
+function buildChoiceReasons(model) {
+  const paper = model.notebook;
+  const pen = model.pen;
+  const emotionLabels = Array.from(new Set(model.stats.topEmotionTags || []));
+  const genreLabels = Array.from(new Set(model.stats.topGenres || []));
+
+  const emotionText = emotionLabels.length ? emotionLabels.join(", ") : "your listening mood profile";
+  const genreText = genreLabels.length ? genreLabels.join(", ") : "your core genre profile";
+
+  const paperReason = `Paper: ${paper} was chosen from your emotion tags (${emotionText}).`;
+  const penReason = `Pen: ${pen} was chosen from your genre tags (${genreText}).`;
+
+  return { paperReason, penReason };
 }
 
 function renderPersona(model) {
@@ -727,8 +922,11 @@ function renderPersona(model) {
 
   el.personaTitle.textContent = copy.title;
   el.blurb.textContent = `"${copy.blurb}"`;
-
-  el.notebookImage.src = ASSETS_REGISTRY.notebooks[model.notebook];
+  const notebookImageSrc =
+    model.persona === "notes app is good enough"
+      ? "/assets/noted/phoneapp.png"
+      : ASSETS_REGISTRY.notebooks[model.notebook];
+  el.notebookImage.src = notebookImageSrc;
   el.penImage.src = ASSETS_REGISTRY.pens[model.pen];
 
   // Psychological signal labels + tiers
@@ -748,23 +946,18 @@ function renderPersona(model) {
   const topSongName = model.stats.topTrackName || "Unknown Song";
   const topSongArtist = model.stats.topTrackArtist || "Unknown Artist";
   const topArtistName = model.stats.topArtistName || "Unknown Artist";
-  const topArtistImage = model.stats.topArtistImage || "";
+  const topArtistImage = model.stats.topArtistImage || ARTIST_IMAGE_FALLBACK;
 
   el.topSongWeek.innerHTML = `"${topSongName}"<br>by<br>${topSongArtist}`;
   el.topArtistWeek.textContent = topArtistName;
   const artistImages = [el.topArtistImage, el.shareTopArtistImage].filter(Boolean);
-  if (topArtistImage) {
+  resolveArtistImageForRender(topArtistImage).then((resolvedImage) => {
     artistImages.forEach((img) => {
       img.crossOrigin = "anonymous";
-      img.src = topArtistImage;
+      img.src = resolvedImage;
       img.hidden = false;
     });
-  } else {
-    artistImages.forEach((img) => {
-      img.hidden = true;
-      img.removeAttribute("src");
-    });
-  }
+  });
 
   // Share card
   el.shareDate.textContent = formatShareDate();
@@ -772,7 +965,7 @@ function renderPersona(model) {
   el.shareTitle.textContent = copy.title;
   el.shareBlurb.textContent = `"${copy.blurb}"`;
 
-  el.shareNotebookImage.src = ASSETS_REGISTRY.notebooks[model.notebook];
+  el.shareNotebookImage.src = notebookImageSrc;
   el.sharePenImage.src = ASSETS_REGISTRY.pens[model.pen];
 
   el.shareTopSong.textContent = `"${topSongName}" by ${topSongArtist}`;
@@ -784,6 +977,9 @@ function renderPersona(model) {
   el.shareListenerStyle.textContent = copy.listenerStyle;
   el.shareNotedUse.innerHTML = stylizeNoted(copy.notedUse);
   el.shareLovesAboutNoted.innerHTML = stylizeNoted(copy.lovesAboutNoted);
+  const reasons = buildChoiceReasons(model);
+  if (el.paperReason) el.paperReason.textContent = reasons.paperReason;
+  if (el.penReason) el.penReason.textContent = reasons.penReason;
 
   el.result.hidden = false;
   if (el.signalsInfoBtn) {
@@ -827,6 +1023,67 @@ function dataUrlToFile(dataUrl, filename) {
   return new File([arr], filename, { type: mime });
 }
 
+async function ensureShareCardDataUrl() {
+  if (!currentModel) {
+    alert("Generate a persona first.");
+    return "";
+  }
+  if (!latestCardDataUrl) latestCardDataUrl = await captureShareCard();
+  return latestCardDataUrl;
+}
+
+function openShareComposer(url) {
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function socialText() {
+  return `${SHARE_POST_TEXT} · ${SHARE_DESTINATION_URL}`;
+}
+
+function createTweetUrl() {
+  const u = new URL("https://twitter.com/intent/tweet");
+  u.searchParams.set("text", socialText());
+  return u.toString();
+}
+
+function createPinterestUrl() {
+  const u = new URL("https://pinterest.com/pin/create/button/");
+  u.searchParams.set("url", SHARE_DESTINATION_URL);
+  u.searchParams.set("description", SHARE_POST_TEXT);
+  return u.toString();
+}
+
+function createTumblrUrl() {
+  const u = new URL("https://www.tumblr.com/widgets/share/tool");
+  u.searchParams.set("canonicalUrl", SHARE_DESTINATION_URL);
+  u.searchParams.set("title", "My Noted Persona");
+  u.searchParams.set("caption", SHARE_POST_TEXT);
+  return u.toString();
+}
+
+async function shareToInstagramStory() {
+  const dataUrl = await ensureShareCardDataUrl();
+  if (!dataUrl) return;
+
+  if (navigator.share && navigator.canShare) {
+    const file = dataUrlToFile(dataUrl, "notedpersona-story.png");
+    if (navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: "My Noted Persona",
+        text: socialText()
+      });
+      return;
+    }
+  }
+
+  const downloadLink = document.createElement("a");
+  downloadLink.download = "notedpersona-story.png";
+  downloadLink.href = dataUrl;
+  downloadLink.click();
+  alert("Image downloaded. Add it to Instagram Story and include this link: https://sunniejae.com/notedpersona");
+}
+
 /* =======================
    GENERATE FLOW
 ======================= */
@@ -842,6 +1099,9 @@ async function generatePersona(username) {
   try {
     const raw = await fetchLastFmBundle(username);
     const stats = lastfmToNormalizedStats(raw);
+    const enrichedTags = await enrichGenreAndEmotionTags(stats);
+    stats.topGenres = enrichedTags.topGenres;
+    stats.topEmotionTags = enrichedTags.topEmotionTags;
     stats.topArtistImage = await fetchTopArtistImage(stats.topArtistName);
 
     const signals = computeSignals(stats);
@@ -911,21 +1171,23 @@ el.signalsModal?.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && el.signalsModal && !el.signalsModal.hidden) {
     closeSignalsModal();
+    return;
+  }
+  if (e.key === "Escape" && el.socialShareModal && !el.socialShareModal.hidden) {
+    closeSocialShareModal();
   }
 });
 
 el.generateCardBtn?.addEventListener("click", async () => {
-  if (!currentModel) {
-    alert("Generate a persona first.");
-    return;
-  }
-  latestCardDataUrl = await captureShareCard();
+  latestCardDataUrl = await ensureShareCardDataUrl();
+  if (!latestCardDataUrl) return;
   el.previewImage.src = latestCardDataUrl;
   el.previewWrap.hidden = false;
 });
 
 el.saveBtn?.addEventListener("click", async () => {
-  if (!latestCardDataUrl) latestCardDataUrl = await captureShareCard();
+  latestCardDataUrl = await ensureShareCardDataUrl();
+  if (!latestCardDataUrl) return;
   const link = document.createElement("a");
   link.download = "notedfm-persona-card.png";
   link.href = latestCardDataUrl;
@@ -933,7 +1195,8 @@ el.saveBtn?.addEventListener("click", async () => {
 });
 
 el.shareBtn?.addEventListener("click", async () => {
-  if (!latestCardDataUrl) latestCardDataUrl = await captureShareCard();
+  latestCardDataUrl = await ensureShareCardDataUrl();
+  if (!latestCardDataUrl) return;
 
   if (navigator.share && navigator.canShare) {
     const file = dataUrlToFile(latestCardDataUrl, "notedfm-persona-card.png");
@@ -948,4 +1211,51 @@ el.shareBtn?.addEventListener("click", async () => {
   }
 
   window.open(latestCardDataUrl, "_blank", "noopener,noreferrer");
+});
+
+el.socialShareBtn?.addEventListener("click", async () => {
+  const dataUrl = await ensureShareCardDataUrl();
+  if (!dataUrl) return;
+  openSocialShareModal();
+});
+
+el.socialShareCloseBtn?.addEventListener("click", () => {
+  closeSocialShareModal();
+});
+
+el.socialShareBackdrop?.addEventListener("click", () => {
+  closeSocialShareModal();
+});
+
+el.socialShareModal?.addEventListener("click", (e) => {
+  if (e.target === el.socialShareModal) closeSocialShareModal();
+});
+
+el.shareXBtn?.addEventListener("click", async () => {
+  const dataUrl = await ensureShareCardDataUrl();
+  if (!dataUrl) return;
+  closeSocialShareModal();
+  window.open(dataUrl, "_blank", "noopener,noreferrer");
+  openShareComposer(createTweetUrl());
+});
+
+el.sharePinterestBtn?.addEventListener("click", async () => {
+  const dataUrl = await ensureShareCardDataUrl();
+  if (!dataUrl) return;
+  closeSocialShareModal();
+  window.open(dataUrl, "_blank", "noopener,noreferrer");
+  openShareComposer(createPinterestUrl());
+});
+
+el.shareTumblrBtn?.addEventListener("click", async () => {
+  const dataUrl = await ensureShareCardDataUrl();
+  if (!dataUrl) return;
+  closeSocialShareModal();
+  window.open(dataUrl, "_blank", "noopener,noreferrer");
+  openShareComposer(createTumblrUrl());
+});
+
+el.shareInstagramBtn?.addEventListener("click", async () => {
+  closeSocialShareModal();
+  await shareToInstagramStory();
 });
