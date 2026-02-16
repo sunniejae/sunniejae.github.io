@@ -49,33 +49,31 @@
           <div class="sticker-row">
             <div class="sticker sticker-song">
               <p class="sticker-icon" aria-hidden="true"></p>
-              <p class="sticker-label">Top song of the week</p>
-              <p id="topSongWeek" class="sticker-value">Loading...</p>
+              <p class="sticker-label">Favorite Song</p>
+              <p id="topSongWeek" class="sticker-value">Listening...</p>
             </div>
 
             <div class="sticker sticker-artist">
+              <p class="sticker-label">Favorite Artist</p>
+              <img id="topArtistImage" class="sticker-avatar" alt="Top artist image" hidden>
               <p class="sticker-icon" aria-hidden="true"></p>
-              <p class="sticker-label">Top artist of the week</p>
-              <p id="topArtistWeek" class="sticker-value">Loading...</p>
+              <p id="topArtistWeek" class="sticker-value">Listening...</p>
             </div>
           </div>
 
           <div class="loadout">
-            <div class="loadout-item">
+            <div class="loadout-item loadout-item--paper">
               <p class="asset-chip">paper</p>
               <img id="notebookImage" alt="Notebook style">
             </div>
-            <div class="loadout-item">
+            <div class="loadout-item loadout-item--pen">
               <p class="asset-chip">pen</p>
               <img id="penImage" alt="Pen style">
             </div>
           </div>
 
           <div class="copy-block entry-copy sticky-note">
-            <div class="signals-head">
-              <h3>Your listening style</h3>
-              <button id="signalsWhyBtn" type="button" class="why-btn">Why?</button>
-            </div>
+            <h3>Your listening style</h3>
             <p id="listenerStyle"></p>
             <div class="signals">
               <span id="diversitySignal"></span>
@@ -105,6 +103,7 @@
       <div class="actions">
         <button id="generateCardBtn" type="button">Generate Share Card</button>
         <button id="shareBtn" type="button">Share</button>
+        <button id="signalsInfoBtn" type="button">Why?</button>
         <button id="saveBtn" type="button">Save PNG</button>
       </div>
 
@@ -118,6 +117,7 @@
   <!-- share card (captured via html2canvas) -->
   <section id="shareCard" class="share-card" aria-hidden="true">
     <div class="share-inner">
+      <p id="shareDate" class="share-date"></p>
       <a
         id="shareStamp"
         class="share-stamp"
@@ -137,25 +137,25 @@
 
         <div class="share-sticker-row share-sticker-row--hero">
           <div class="sticker sticker-song share-sticker">
-            <p class="sticker-icon" aria-hidden="true">♪</p>
-            <p class="sticker-label">Top song of the week</p>
+            <p class="sticker-icon" aria-hidden="true"></p>
+            <p class="sticker-label">Favorite Song</p>
             <p id="shareTopSong" class="sticker-value"></p>
           </div>
 
           <div class="sticker sticker-artist share-sticker">
-            <p class="sticker-icon" aria-hidden="true">✶</p>
-            <p class="sticker-label">Top artist of the week</p>
+            <p class="sticker-label">Favorite Artist</p>
+            <p class="sticker-icon" aria-hidden="true"></p>
             <p id="shareTopArtist" class="sticker-value"></p>
           </div>
         </div>
       </div>
 
       <div class="share-assets">
-        <div class="share-asset-item">
+        <div class="share-asset-item share-asset-item--paper">
           <p class="asset-chip">paper</p>
           <img id="shareNotebookImage" alt="Notebook style for share card">
         </div>
-        <div class="share-asset-item">
+        <div class="share-asset-item share-asset-item--pen">
           <p class="asset-chip">pen</p>
           <img id="sharePenImage" alt="Pen style for share card">
         </div>
@@ -163,7 +163,7 @@
 
       <div class="share-note-grid">
         <div class="share-note">
-          <p class="share-note-title">Signals</p>
+          <p class="share-note-title">your style</p>
           <div class="signals share-signals">
             <span id="shareDiversitySignal"></span>
             <span id="shareObsessionSignal"></span>
@@ -208,12 +208,12 @@
       aria-modal="true"
       aria-labelledby="signalsModalTitle"
     >
-      <p id="signalsModalTitle" class="signals-modal__title">How these signals work</p>
+      <p id="signalsModalTitle" class="signals-modal__title">Style Definitions</p>
 
       <div class="signals-modal__body">
-        <p><strong>Range:</strong> how wide your listening spread is across artists.</p>
-        <p><strong>Intensity:</strong> how much one top artist dominates your total plays.</p>
-        <p><strong>Drift:</strong> how much your recent listening shifts away from your top set.</p>
+        <p><strong>Range:</strong><br> how many artists you listen to</p>
+        <p><strong>Intensity:</strong><br>how much one top artist dominates your total plays.</p>
+        <p><strong>Drift:</strong><br> how much your recent listening differs from your top set.</p>
       </div>
 
       <button id="signalsModalCloseBtn" type="button" class="signals-modal__close">Close</button>

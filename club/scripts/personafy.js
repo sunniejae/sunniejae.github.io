@@ -57,67 +57,73 @@ const PERSONA_ORDER = [
 const PERSONA_COPY = {
   archivist: {
     title: "The Archivist",
-    listenerStyle: "You don’t just listen — you document eras. Every track is a timestamp.",
+    listenerStyle:
+      "You don’t just replay songs — you keep them. Your favorites feel like artifacts, and every listen is a little note to the future.",
     notedUse:
-      "Your notebook reads like a private archive — entries layered carefully over time, each one protecting a version of you. You’ve always understood that today becomes memory faster than we expect.",
+      "Your notebook resembles an encyclopedia of You. You write to preserve, not just express. Permanence is important. You keep notes for the future, not just for you.",
     lovesAboutNoted:
-      "A space where nothing meaningful has to vanish. The kind of place people like you tend to keep forever.",
-    blurb: "I don’t lose eras. I preserve them.",
+      "A safe space to leave it all behind.",
+    blurb: "Today is already tomorrow's yesterday",
     stampText: "ARCHIVED"
   },
 
   "note taker": {
     title: "The Note Taker",
-    listenerStyle: "You notice everything. Patterns, lyrics, emotional shifts — the details are the story.",
+    listenerStyle:
+      "You catch the small things. A lyric, a rhythm shift, the exact moment a song changes your mood — that’s where the story is.",
     notedUse:
-      "Yours is the notebook people trust — attentive, precise, impossible to fool. You keep the small things because they always become the big things later.",
+      "Your notebook reads like minutes after a board meeting. The devil is in the details? Not for you. The details are the intrigue. You keep notes as a way of keeping memories.",
     lovesAboutNoted:
-      "Somewhere built for people who believe the details are the story.",
-    blurb: "Nothing important escapes me.",
+      "A place where details are encouraged, and controlled by you. Note as much- or as little- as you'd like.",
+    blurb: "If it's important, it's worth being Noted.",
     stampText: "RECORDED"
   },
 
   "casual journaler": {
     title: "The Casual Journaler",
-    listenerStyle: "You follow feeling, not routine. When something matters, you write it down.",
+    listenerStyle:
+      "You follow the feeling. You’ll replay what hits, but you’re always drifting toward something new — only the best songs earn a second page.",
     notedUse:
-      "Your notebook opens only when it has something real to hold. There are quiet stretches between entries — and somehow that makes them matter more.",
+      "Your notebook has gaps between entries that last from days to years. Consistency isn't as important as safety and accessibility. You keep notes because the moment calls for it, not out of devotion.",
     lovesAboutNoted:
-      "A place you can return to whenever life gives you something worth keeping.",
-    blurb: "I arrive when the moment does.",
+      "A place you can return to without FOMO. It's built for connection, not content",
+    blurb: "Whether it's been a day or a decade, your Notebook is always there.",
     stampText: "ENTRY MADE"
   },
 
   "main character energy": {
     title: "Main Character Energy",
-    listenerStyle: "You experience music cinematically. Songs aren’t background noise — they’re scene transitions.",
+    listenerStyle:
+      "You don’t put music on — you step into it. Every song is a scene, and you always know exactly what part of the story you’re in.",
     notedUse:
-      "Your notebook doesn’t just remember your life — it narrates it. Every era has a tone, every song a scene change.",
+      "Your notebook entries always ends in an autograph. Your entries read like the novel of your life, or like you're talking to a dear friend. You take notes with intention, expression, and because you care.",
     lovesAboutNoted:
       "Somewhere that understands your life was never background noise.",
-    blurb: "My life deserves a soundtrack.",
+    blurb: "Dear Diary...",
     stampText: "SCENE LOGGED"
   },
 
   "notes app is good enough": {
     title: "Notes App Is Good Enough",
-    listenerStyle: "If a thought matters, you capture it — quickly, effortlessly, and without ceremony.",
+    listenerStyle:
+      "You keep your favorites close, but you don’t overthink it. A song sticks, you save it. A thought shows up, you type it. That’s the whole system.",
     notedUse:
-      "You capture thoughts the second they appear — no rituals, no dramatics, just instinct. The important things rarely announce themselves twice.",
+      "You note thoughts the second they appear — no performance anxiety, and just the right amount of effort",
     lovesAboutNoted:
-      "A quieter corner of the internet where those passing thoughts tend to stay.",
-    blurb: "Captured before it disappeared.",
+      "A low stakes corner of the internet without like counts.",
+    blurb: "My phone IS my notebook",
     stampText: "QUICK CAPTURE"
   },
 
   doodler: {
     title: "The Doodler",
-    listenerStyle: "Your taste is exploratory and intuitive. You follow curiosity wherever it leads.",
+    listenerStyle:
+      "Your taste runs on curiosity. You follow whatever pulls at you, and half the time you don’t even know where you’re headed until you’re already there.",
     notedUse:
-      "Yours is filled with fragments — margins alive with half-ideas, sketches, questions without answers. Structure has never been your medium.",
+      "Your notebook is more abstract than a diary. You love the idea of a written journal, but you just end up sketching out your thoughts instead. Sometimes those scribbles say more than you could say in letters",
     lovesAboutNoted:
-      "A place where unfinished thoughts are still considered worth leaving behind.",
-    blurb: "Messy is where discovery lives.",
+      "You don't need to pour your heart out. Just express what feels right. ",
+    blurb: "A doodle says a million words",
     stampText: "IN PROGRESS"
   }
 };
@@ -309,7 +315,7 @@ const NOTEBOOK_STYLES = {
     entryInk: "#3b3028"
   },
   leather: {
-    texture: "/assets/noted/leatherbound.png",
+    texture: "/assets/noted/leatherboundpaper.png",
     entryFont: '"Noted", serif',
     entryInk: "#44271f"
   },
@@ -324,12 +330,12 @@ const NOTEBOOK_STYLES = {
     entryInk: "#382926"
   },
   "composition notebook": {
-    texture: "/assets/noted/composition.png",
+    texture: "/assets/noted/compositionpaper.png",
     entryFont: '"Noted", serif',
     entryInk: "#2e2e2e"
   },
   sketchbook: {
-    texture: "/assets/noted/sketchbook.png",
+    texture: "/assets/noted/sketchbookpaper.png",
     entryFont: '"Noted", serif',
     entryInk: "#2a2621"
   }
@@ -340,9 +346,9 @@ const PERSONA_BACKGROUND_OVERRIDES = {
 };
 
 const PEN_STYLES = {
-  "sparkle gel pen": { ink: "#5a2f7b", font: '"Lulu", serif' },
+  "sparkle gel pen": { ink: "#9b0994", font: '"Lulu", serif' },
   charcoal: { ink: "#303030", font: '"Jane", serif' },
-  "ballpoint pen": { ink: "#1f3f8b", font: '"Noted", serif' },
+  "ballpoint pen": { ink: "#1f3f8b", font: '"Jane", serif' },
   pencil: { ink: "#545454", font: '"Ken", serif' },
   "red ink": { ink: "#6f0014", font: '"Anne", serif' },
   calligraphy: { ink: "#261d1c", font: '"Elizabeth", serif' }
@@ -350,20 +356,20 @@ const PEN_STYLES = {
 
 const ASSETS_REGISTRY = {
   notebooks: {
-    "spiral notebook": "/assets/noted/spiralnotebook.png",
+    "spiral notebook": "/assets/noted/spiral.png",
     leather: "/assets/noted/leatherbound.png",
-    "bullet journal": "/assets/noted/bulletjournal.png",
-    "locked diary": "/assets/noted/diary.png",
+    "bullet journal": "/assets/noted/bullet.png",
+    "locked diary": "/assets/noted/locked.png",
     "composition notebook": "/assets/noted/composition.png",
     sketchbook: "/assets/noted/sketchbook.png"
   },
   pens: {
-    "sparkle gel pen": "/assets/home/openfolder.png",
-    charcoal: "/assets/home/openfolder.png",
-    "ballpoint pen": "/assets/home/openfolder.png",
-    pencil: "/assets/home/openfolder.png",
-    "red ink": "/assets/home/openfolder.png",
-    calligraphy: "/assets/home/openfolder.png"
+    "sparkle gel pen": "/assets/noted/gelpen.png",
+    charcoal: "/assets/noted/charcoal.png",
+    "ballpoint pen": "/assets/noted/ballpoint.png",
+    pencil: "/assets/noted/pencil.png",
+    "red ink": "/assets/noted/redink.png",
+    calligraphy: "/assets/noted/quill.png"
   }
 };
 
@@ -390,7 +396,8 @@ const el = {
   lovesAboutNoted: document.getElementById("lovesAboutNoted"),
   topSongWeek: document.getElementById("topSongWeek"),
   topArtistWeek: document.getElementById("topArtistWeek"),
-  signalsWhyBtn: document.getElementById("signalsWhyBtn"),
+  topArtistImage: document.getElementById("topArtistImage"),
+  signalsInfoBtn: document.getElementById("signalsInfoBtn"),
   signalsModal: document.getElementById("signalsModal"),
   signalsModalBackdrop: document.getElementById("signalsModalBackdrop"),
   signalsModalCloseBtn: document.getElementById("signalsModalCloseBtn"),
@@ -400,6 +407,7 @@ const el = {
   previewWrap: document.getElementById("previewWrap"),
   previewImage: document.getElementById("previewImage"),
   shareCard: document.getElementById("shareCard"),
+  shareDate: document.getElementById("shareDate"),
   shareStamp: document.getElementById("shareStamp"),
   sharePeriod: document.getElementById("sharePeriod"),
   shareTitle: document.getElementById("shareTitle"),
@@ -408,6 +416,7 @@ const el = {
   sharePenImage: document.getElementById("sharePenImage"),
   shareTopArtist: document.getElementById("shareTopArtist"),
   shareTopSong: document.getElementById("shareTopSong"),
+  shareTopArtistImage: document.getElementById("shareTopArtistImage"),
   shareDiversitySignal: document.getElementById("shareDiversitySignal"),
   shareObsessionSignal: document.getElementById("shareObsessionSignal"),
   shareOverlapSignal: document.getElementById("shareOverlapSignal"),
@@ -419,6 +428,11 @@ const el = {
 
 let currentModel = null;
 let latestCardDataUrl = "";
+
+if (el.signalsInfoBtn) {
+  el.signalsInfoBtn.hidden = true;
+  el.signalsInfoBtn.disabled = true;
+}
 
 function openSignalsModal() {
   if (!el.signalsModal) return;
@@ -444,8 +458,7 @@ function applyPersonaPalette(persona) {
   root.style.setProperty("--line", palette.line);
   root.style.setProperty("--stamp", palette.stamp);
 
-  root.style.setProperty("--bg-top", palette.bgTop);
-  root.style.setProperty("--bg-bottom", palette.bgBottom);
+  // Keep the outer page background consistent between input and results.
 
   root.style.setProperty("--ui-text", palette.uiText);
   root.style.setProperty("--ui-muted", palette.uiMuted);
@@ -547,22 +560,20 @@ function tierDrift(v) {
 ======================= */
 function pickNotebook(stats) {
   const s = computeSignals(stats);
-  if (s.range > 0.72 && s.exploratory) return "sketchbook";
-  if (s.intensity > 0.28) return "locked diary";
-  if (s.range > 0.58) return "leather";
-  if (s.intensity < 0.1) return "spiral notebook";
-  if (s.range < 0.42) return "composition notebook";
-  return "bullet journal";
+  const frac = (v) => v - Math.floor(v);
+  // Blend signals into a deterministic pseudo-random bucket (0..5).
+  // This keeps distribution close to even while still driven by listening metrics.
+  const score = frac(s.range * 1.37 + s.intensity * 0.91 + s.drift * 0.53);
+  const idx = Math.min(5, Math.floor(score * NOTEBOOK_OPTIONS.length));
+  return NOTEBOOK_OPTIONS[idx];
 }
 
 function pickPen(stats) {
   const s = computeSignals(stats);
-  if (s.exploratory && s.range > 0.68) return "charcoal";
-  if (s.intensity > 0.28) return "calligraphy";
-  if (s.range > 0.56) return "red ink";
-  if (s.intensity < 0.1) return "pencil";
-  if (s.range < 0.45) return "ballpoint pen";
-  return "sparkle gel pen";
+  const frac = (v) => v - Math.floor(v);
+  const score = frac(s.range * 0.67 + s.intensity * 1.73 + s.drift * 1.11);
+  const idx = Math.min(5, Math.floor(score * PEN_OPTIONS.length));
+  return PEN_OPTIONS[idx];
 }
 
 function pickPersonaFromLoadout(notebook, pen) {
@@ -671,18 +682,48 @@ function formatDataSummary(stats) {
   const plays = Number(stats?.totalPlays || 0).toLocaleString();
   const artists = Number(stats?.uniqueArtists || 0).toLocaleString();
   const topArtist = stats?.topArtistName || "Unknown Artist";
-  return `${tracks} top tracks • ${plays} plays • ${artists} artists • Top artist: ${topArtist}`;
+  return `Listened to your ${tracks} top tracks from the past 30 days and found ${plays} plays by ${artists} artists`;
+}
+
+async function fetchTopArtistImage(artistName) {
+  if (!artistName) return "";
+  try {
+    const res = await fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${encodeURIComponent(
+        artistName
+      )}&api_key=${LASTFM_API_KEY}&format=json`
+    );
+    const data = await res.json();
+    const images = Array.isArray(data?.artist?.image) ? data.artist.image : [];
+    const preferredSizes = ["mega", "extralarge", "large", "medium", "small"];
+    for (const size of preferredSizes) {
+      const url = images.find((img) => img?.size === size)?.["#text"];
+      if (url) return String(url).replace(/^http:\/\//i, "https://");
+    }
+    const any = images.find((img) => img?.["#text"])?.["#text"];
+    return any ? String(any).replace(/^http:\/\//i, "https://") : "";
+  } catch {
+    return "";
+  }
+}
+
+function formatShareDate(date = new Date()) {
+  const d = String(date.getDate()).padStart(2, "0");
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const y = String(date.getFullYear());
+  return `${d}-${m}-${y}`;
 }
 
 function renderPersona(model) {
   const copy = PERSONA_COPY[model.persona] || PERSONA_COPY["casual journaler"];
+  const stampLabel = `${model.username}'s Noted Persona`;
 
   applyPersonaPalette(model.persona);
   applyNotebookAndPen(model.notebook, model.pen);
 
   // Keep stamp minimal on both
-  el.stampText.textContent = "Noted";
-  el.shareStamp.textContent = "Noted";
+  el.stampText.textContent = stampLabel;
+  el.shareStamp.textContent = stampLabel;
 
   el.personaTitle.textContent = copy.title;
   el.blurb.textContent = `"${copy.blurb}"`;
@@ -696,9 +737,9 @@ function renderPersona(model) {
   const driftTier = tierDrift(model.signals.drift);
 
   // NOTE: We keep existing element IDs to avoid HTML edits.
-  el.diversitySignal.textContent = `Range ${pct(model.signals.range)} • ${rangeTier}`;
-  el.obsessionSignal.textContent = `Intensity ${pct(model.signals.intensity)} • ${intensityTier}`;
-  el.overlapSignal.textContent = `Drift ${pct(model.signals.drift)} • ${driftTier}`;
+  el.diversitySignal.innerHTML = `Range ${pct(model.signals.range)}<br>${rangeTier}`;
+  el.obsessionSignal.innerHTML = `Intensity ${pct(model.signals.intensity)}<br>${intensityTier}`;
+  el.overlapSignal.innerHTML = `Drift ${pct(model.signals.drift)}<br>${driftTier}`;
 
   el.listenerStyle.textContent = copy.listenerStyle;
   el.notedUse.innerHTML = stylizeNoted(copy.notedUse);
@@ -707,11 +748,26 @@ function renderPersona(model) {
   const topSongName = model.stats.topTrackName || "Unknown Song";
   const topSongArtist = model.stats.topTrackArtist || "Unknown Artist";
   const topArtistName = model.stats.topArtistName || "Unknown Artist";
+  const topArtistImage = model.stats.topArtistImage || "";
 
   el.topSongWeek.innerHTML = `"${topSongName}"<br>by<br>${topSongArtist}`;
   el.topArtistWeek.textContent = topArtistName;
+  const artistImages = [el.topArtistImage, el.shareTopArtistImage].filter(Boolean);
+  if (topArtistImage) {
+    artistImages.forEach((img) => {
+      img.crossOrigin = "anonymous";
+      img.src = topArtistImage;
+      img.hidden = false;
+    });
+  } else {
+    artistImages.forEach((img) => {
+      img.hidden = true;
+      img.removeAttribute("src");
+    });
+  }
 
   // Share card
+  el.shareDate.textContent = formatShareDate();
   el.sharePeriod.textContent = model.stats.periodLabel || "Last 30 Days";
   el.shareTitle.textContent = copy.title;
   el.shareBlurb.textContent = `"${copy.blurb}"`;
@@ -719,35 +775,46 @@ function renderPersona(model) {
   el.shareNotebookImage.src = ASSETS_REGISTRY.notebooks[model.notebook];
   el.sharePenImage.src = ASSETS_REGISTRY.pens[model.pen];
 
-  el.shareTopSong.innerHTML = `"${topSongName}"<br>by<br>${topSongArtist}`;
+  el.shareTopSong.textContent = `"${topSongName}" by ${topSongArtist}`;
   el.shareTopArtist.textContent = topArtistName;
-  el.shareDiversitySignal.textContent = `Range ${pct(model.signals.range)} • ${rangeTier}`;
-  el.shareObsessionSignal.textContent = `Intensity ${pct(model.signals.intensity)} • ${intensityTier}`;
-  el.shareOverlapSignal.textContent = `Drift ${pct(model.signals.drift)} • ${driftTier}`;
+  el.shareDiversitySignal.innerHTML = `Range ${pct(model.signals.range)}<br>${rangeTier}`;
+  el.shareObsessionSignal.innerHTML = `Intensity ${pct(model.signals.intensity)}<br>${intensityTier}`;
+  el.shareOverlapSignal.innerHTML = `Drift ${pct(model.signals.drift)}<br>${driftTier}`;
   el.shareDataSummary.textContent = formatDataSummary(model.stats);
   el.shareListenerStyle.textContent = copy.listenerStyle;
   el.shareNotedUse.innerHTML = stylizeNoted(copy.notedUse);
   el.shareLovesAboutNoted.innerHTML = stylizeNoted(copy.lovesAboutNoted);
 
   el.result.hidden = false;
+  if (el.signalsInfoBtn) {
+    el.signalsInfoBtn.hidden = false;
+    el.signalsInfoBtn.disabled = false;
+  }
 }
 
 /* =======================
    SHARE CARD CAPTURE
 ======================= */
 async function captureShareCard() {
-  const width = Math.ceil(el.shareCard.scrollWidth || el.shareCard.offsetWidth || 1080);
-  const height = Math.ceil(el.shareCard.scrollHeight || el.shareCard.offsetHeight || 1350);
-  const canvas = await html2canvas(el.shareCard, {
-    backgroundColor: null,
-    scale: 1,
-    width,
-    height,
-    windowWidth: width,
-    windowHeight: height,
-    useCORS: true
-  });
-  return canvas.toDataURL("image/png");
+  const width = 1080;
+  const height = 1920;
+  const prevInlineHeight = el.shareCard.style.height;
+
+  try {
+    el.shareCard.style.height = `${height}px`;
+    const canvas = await html2canvas(el.shareCard, {
+      backgroundColor: null,
+      scale: 1,
+      width,
+      height,
+      windowWidth: width,
+      windowHeight: height,
+      useCORS: true
+    });
+    return canvas.toDataURL("image/png");
+  } finally {
+    el.shareCard.style.height = prevInlineHeight;
+  }
 }
 
 function dataUrlToFile(dataUrl, filename) {
@@ -766,10 +833,16 @@ function dataUrlToFile(dataUrl, filename) {
 async function generatePersona(username) {
   el.loading.hidden = false;
   el.result.hidden = true;
+  closeSignalsModal();
+  if (el.signalsInfoBtn) {
+    el.signalsInfoBtn.hidden = true;
+    el.signalsInfoBtn.disabled = true;
+  }
 
   try {
     const raw = await fetchLastFmBundle(username);
     const stats = lastfmToNormalizedStats(raw);
+    stats.topArtistImage = await fetchTopArtistImage(stats.topArtistName);
 
     const signals = computeSignals(stats);
     const notebook = pickNotebook(stats);
@@ -818,7 +891,8 @@ el.usernameInput?.addEventListener("keydown", (e) => {
   }
 });
 
-el.signalsWhyBtn?.addEventListener("click", () => {
+el.signalsInfoBtn?.addEventListener("click", () => {
+  if (!currentModel) return;
   openSignalsModal();
 });
 
@@ -828,6 +902,10 @@ el.signalsModalCloseBtn?.addEventListener("click", () => {
 
 el.signalsModalBackdrop?.addEventListener("click", () => {
   closeSignalsModal();
+});
+
+el.signalsModal?.addEventListener("click", (e) => {
+  if (e.target === el.signalsModal) closeSignalsModal();
 });
 
 document.addEventListener("keydown", (e) => {
@@ -863,7 +941,7 @@ el.shareBtn?.addEventListener("click", async () => {
       await navigator.share({
         files: [file],
         title: "My Noted.fm Persona",
-        text: "found on noted ⟡"
+        text: "found on noted"
       });
       return;
     }

@@ -94,6 +94,10 @@
 
 * { box-sizing: border-box; }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -256,9 +260,8 @@ button:active {
   font-family: var(--entry-font);
   color: var(--entry-ink);
 
-  -webkit-text-stroke: 3px rgba(252,252,252,0.98);
+  -webkit-text-stroke: 5px rgba(252,252,252,0.98);
   paint-order: stroke fill;
-  text-shadow: 0 1px 0 rgba(218, 228, 240, 0.25);
 }
 
 .stamp {
@@ -268,7 +271,7 @@ button:active {
   color: var(--stamp);
   text-decoration: none;
   font-family: "Noted", serif;
-  font-size: calc(1em + var(--regular-font-boost));
+  font-size: calc(0.5em + var(--regular-font-boost));
   border-radius: 8px;
   padding: 4px 8px;
   background: rgba(235, 212, 222);
@@ -278,8 +281,8 @@ button:active {
   position: relative;
   margin: 10px 0 12px;
   padding: 12px 12px 10px;
-  color: var(--muted);
-  font-size: calc(20px + var(--regular-font-boost));
+  color: var(--noted-darkest);
+  font-size: calc(25px + var(--regular-font-boost));
   font-family: var(--entry-font);
   border-radius: 10px;
   background: linear-gradient(
@@ -308,20 +311,32 @@ button:active {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  align-items: start;
 }
 
 .loadout-item,
 .share-asset-item {
   position: relative;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .loadout-item img {
   width: 100%;
-  max-height: 160px;
+  height: 100%;
   object-fit: contain;
   background: linear-gradient(180deg, var(--note-a), var(--note-b));
   border-radius: 10px;
   border: 1px solid var(--note-border);
+}
+
+.loadout-item--paper {
+  aspect-ratio: 1 / 1;
+}
+
+.loadout-item--pen {
+  aspect-ratio: 16 / 9;
+  align-self: start;
 }
 
 .asset-chip {
@@ -345,7 +360,7 @@ button:active {
 .loadout-text {
   margin: 6px 0 0;
   color: rgba(16, 45, 73);
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.02em;
 }
 
@@ -367,32 +382,16 @@ button:active {
   font-family: 'Noted';
 }
 
-.signals-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.why-btn {
-  border: 1px solid var(--note-border);
-  background: var(--note-a);
-  color: rgba(16, 45, 73, 0.95);
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-family: "Spotify", sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
 .signals span {
-  border: 1px solid var(--note-border);
-  border-radius: 444px;
-  padding: 4px 9px;
+  border: 1px solid var(--noted-darkest);
+  border-radius: 999px;
+  padding: 9px 9px;
   color: rgba(16, 45, 73);
-  background: var(--note-a);
+  background: var(--note-b);
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .copy-block {
@@ -458,7 +457,7 @@ button:active {
   margin: 0 0 8px;
   color: var(--entry-ink);
   font-family: var(--entry-font);
-  font-size: clamp(14px, 2.4vw, calc(16px + var(--regular-font-boost)));
+  font-size: clamp(14px, 2.4vw, calc(20px + var(--regular-font-boost)));
   line-height: 1.35;
 }
 
@@ -554,23 +553,46 @@ button:active {
 
 .share-sticker-row--hero {
   margin: 0;
-  gap: 8px;
+  gap: 25px;
 }
 
 .share-sticker-row--hero .sticker {
-  width: 156px;
+  width: 200px;
   max-width: 100%;
   padding: 8px;
+  min-width: 0;
 }
 
 .share-sticker-row--hero .sticker-label {
-  font-size: 10px;
+  font-size: clamp(11px, 1.2vw, 13px);
   letter-spacing: 0.06em;
+  line-height: 1.1;
+  margin: 2px 0 2px;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .share-sticker-row--hero .sticker-value {
-  font-size: 13px;
-  -webkit-line-clamp: 3;
+  font-size: clamp(14px, 1.5vw, 17px);
+  margin-top: 2px;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.share-sticker-row--hero .sticker-icon {
+  margin-bottom: 2px;
+}
+
+.share-sticker-row--hero .sticker-artist {
+  justify-content: flex-start;
+}
+
+.share-sticker-row--hero .sticker-artist .sticker-icon {
+  margin: 0;
 }
 
 /* Tape */
@@ -593,24 +615,39 @@ button:active {
 .sticker-icon {
   margin: 0;
   color: var(--entry-ink);
-  font-size: clamp(16px, 3vw, calc(20px + var(--regular-font-boost)));
+  font-size: clamp(18px, 3.4vw, calc(22px + var(--regular-font-boost)));
   line-height: 1;
+}
+
+.sticker-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--sticker-border);
+  margin: 0 auto 4px;
+  margin-top: 10px;
 }
 
 .sticker-label {
   margin: 4px 0 0;
   text-transform: uppercase;
-  font-size: clamp(10px, 1.6vw, 12px);
+  font-size: clamp(10px, 1.55vw, 14px);
   letter-spacing: 0.09em;
-  color: var(--muted);
+  line-height: 1.12;
+  color: var(--noted-maroon);
   font-family: "Spotify", sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .sticker-value {
   margin: 6px 0 0;
   color: var(--entry-ink);
   font-family: var(--entry-font);
-  font-size: clamp(13px, 2.6vw, calc(18px + var(--regular-font-boost)));
+  font-size: clamp(15px, 2.9vw, calc(20px + var(--regular-font-boost)));
   line-height: 1.25;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -622,23 +659,43 @@ button:active {
   overflow: hidden;
 }
 
-#topSongWeek,
-#shareTopSong {
+#topSongWeek {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   margin: auto 0;
   -webkit-line-clamp: unset;
+  margin-right: 15px;
 }
 
-#topArtistWeek,
-#shareTopArtist {
+#topArtistWeek {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   margin: auto 0;
+}
+
+#shareTopArtist {
+  display: block !important;
+  text-align: center;
+  margin: 4px 0 0 !important;
+  font-size: calc(1.3 * clamp(14px, 1.5vw, 17px)) !important;
+  line-height: 1.12 !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+}
+
+#shareTopSong {
+  display: block !important;
+  text-align: center;
+  font-size: clamp(14px, 1.5vw, 17px) !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  margin-right: 0 !important;
 }
 
 /* ===== ACTIONS / PREVIEW ===== */
@@ -697,14 +754,14 @@ button:active {
   top: -9999px;
 
   width: 1080px;
-  height: auto;
+  height: 1920px;
 
   background: var(--share-paper);
   background-image: var(--share-paper-image);
   background-size: cover;
   background-position: center;
 
-  color: var(--share-ink);
+  color: var(--entry-ink);
   border: 3px solid var(--share-border);
   border-radius: 28px;
   overflow: hidden;
@@ -712,14 +769,26 @@ button:active {
 }
 
 .share-inner {
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
   font-family: var(--entry-font);
 }
 
-.share-stamp {
+.share-date {
+  position: absolute;
+  top: 0;
+  right: 0;
   margin: 0;
+  font-family: "Noted", serif;
+  font-size: calc(20px + var(--regular-font-boost));
+  color: rgba(16, 45, 73, 0.9);
+  letter-spacing: 0.04em;
+}
+
+.share-stamp {
+  margin: 10px;
   align-self: flex-start;
   border: 2px solid var(--stamp);
   color: var(--stamp);
@@ -740,11 +809,12 @@ button:active {
 
 .share-inner h2 {
   margin: 6px 0 0;
-  font-size: clamp(36px, 4.8vw, calc(52px + var(--regular-font-boost)));
-  -webkit-text-stroke: 3px rgba(252,252,252,0.98);
+  font-size: clamp(40px, 4.8vw, calc(52px + var(--regular-font-boost)));
+  -webkit-text-stroke: 4px rgba(252,252,252,0.98);
   paint-order: stroke fill;
   line-height: 1.02;
-  text-shadow: 0 1px 0 rgba(218, 228, 240, 0.22);
+    -webkit-text-stroke: 4px rgba(252,252,252,0.98);
+
 }
 
 .share-hero {
@@ -760,12 +830,30 @@ button:active {
 }
 
 .share-blurb {
+  position: relative;
   margin: 8px 0 0;
-  color: var(--share-muted);
-  font-size: clamp(18px, 2.8vw, calc(26px + var(--regular-font-boost)));
+  padding: 10px 12px;
+  color: var(--noted-darkest);
+  font-size: clamp(45px, 2.8vw, calc(26px + var(--regular-font-boost)));
   line-height: 1.15;
   overflow-wrap: anywhere;
   word-break: break-word;
+  border-radius: 12px;
+  background: linear-gradient(160deg, var(--note-a), var(--note-b));
+  border: 1px solid var(--note-border);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.share-blurb::before {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 9px;
+  background: var(--note-tape);
+  border: 1px solid var(--note-border);
+  top: -6px;
+  right: 14px;
+  transform: rotate(7deg);
 }
 
 .share-assets {
@@ -773,15 +861,33 @@ button:active {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+  padding: 0 12px;
+  align-items: start;
+  justify-items: center;
 }
 
 .share-asset-item img {
   width: 100%;
-  height: 180px;
+  height: 100%;
+  padding: 14px 12px 12px;
   object-fit: contain;
   border: 1px solid var(--note-border);
   border-radius: 16px;
   background: linear-gradient(180deg, var(--note-a), var(--note-b));
+}
+
+.share-asset-item {
+  width: min(100%, 420px);
+  margin: 0 auto;
+}
+
+.share-asset-item--paper {
+  aspect-ratio: 1 / 1;
+}
+
+.share-asset-item--pen {
+  aspect-ratio: 16 / 9;
+  align-self: start;
 }
 
 .share-asset-item .asset-chip {
@@ -844,6 +950,8 @@ button:active {
 .share-signals {
   margin: 0;
   gap: 6px;
+  justify-content: center;
+  align-items: center;
 }
 
 .share-signals span {
@@ -867,37 +975,13 @@ button:active {
 .glitter-pen .entry-copy p,
 .glitter-pen .share-inner h2,
 .glitter-pen .share-blurb {
-  text-shadow:
-    0 0 1px rgba(252, 252, 252, 0.90),
-    0 0 8px rgba(235, 212, 222, 0.45),
-    0 1px 0 rgba(16, 45, 73, 0.40);
-  animation: glitterTwinkle 5.8s ease-in-out infinite;
-}
-
-@keyframes glitterTwinkle {
-  0% {
-    text-shadow:
-      0 0 1px rgba(252, 252, 252, 0.85),
-      0 0 7px rgba(235, 212, 222, 0.38),
-      0 1px 0 rgba(16, 45, 73, 0.40);
-  }
-  50% {
-    text-shadow:
-      0 0 1px rgba(252, 252, 252, 0.95),
-      0 0 10px rgba(235, 212, 222, 0.55),
-      0 1px 0 rgba(16, 45, 73, 0.40);
-  }
-  100% {
-    text-shadow:
-      0 0 1px rgba(252, 252, 252, 0.85),
-      0 0 7px rgba(235, 212, 222, 0.38),
-      0 1px 0 rgba(16, 45, 73, 0.40);
-  }
+  text-shadow: none;
+  animation: none;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 700px) {
-  .loadout { grid-template-columns: 1fr; }
+  .loadout { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 
   /* keep stickers in a row on mobile too; still equal area */
   .sticker-row,
