@@ -4,7 +4,7 @@
    - Range (was Diversity)
    - Intensity (was Obsession)
    - Drift (was Overlap)
-   Includes optional tier words (Focused/Balanced/Expansive etc.)
+   Includes optional tier words aligned to each signal spectrum
 ============================================================================ */
 
 /* =======================
@@ -590,21 +590,21 @@ function computeSignals(stats) {
 }
 
 function tierRange(v) {
-  if (v < 0.36) return "Focused";
-  if (v < 0.66) return "Balanced";
-  return "Expansive";
+  if (v < 0.36) return "Creature of comfort";
+  if (v < 0.66) return "Between comfort and exploration";
+  return "Exploratory ear";
 }
 
 function tierIntensity(v) {
-  if (v < 0.21) return "Fluid";
-  if (v < 0.46) return "Anchored";
-  return "Devoted";
+  if (v < 0.21) return "Loyal to the sound, not the artist";
+  if (v < 0.46) return "Loyal to songs over artists";
+  return "Stan behavior";
 }
 
 function tierDrift(v) {
-  if (v < 0.26) return "Constant";
-  if (v < 0.56) return "Shifting";
-  return "Evolving";
+  if (v < 0.26) return "You know what you like";
+  if (v < 0.56) return "Trying some new sounds";
+  return "Experimenting with sound";
 }
 
 /* =======================
@@ -905,10 +905,10 @@ function buildChoiceReasons(model) {
   const genreLabels = Array.from(new Set(model.stats.topGenres || []));
 
   const emotionText = emotionLabels.length ? emotionLabels.join(", ") : "your listening mood profile";
-  const genreText = genreLabels.length ? genreLabels.join(", ") : "your core genre profile";
+  const genreText = genreLabels.length ? genreLabels.join(", ") : "your genre profile";
 
-  const paperReason = `Paper: ${paper} was chosen from your emotion tags (${emotionText}).`;
-  const penReason = `Pen: ${pen} was chosen from your genre tags (${genreText}).`;
+  const paperReason = `Your Notebook (${paper}) was chosen from the most common vibes in your recent listening (${emotionText}).`;
+  const penReason = `Your pen (${pen}) was chosen based on your most common genres (${genreText}).`;
 
   return { paperReason, penReason };
 }
