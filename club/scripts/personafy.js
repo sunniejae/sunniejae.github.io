@@ -1040,8 +1040,13 @@ function openShareComposer(url) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
+function currentPersonaTitle() {
+  if (!currentModel) return "My Noted Persona";
+  return PERSONA_COPY[currentModel.persona]?.title || "My Noted Persona";
+}
+
 function socialText() {
-  return `${SHARE_POST_TEXT} · ${SHARE_DESTINATION_URL}`;
+  return `I got ${currentPersonaTitle()} on Noted Persona. ${SHARE_DESTINATION_URL}`;
 }
 
 function createTweetUrl() {
@@ -1053,15 +1058,15 @@ function createTweetUrl() {
 function createPinterestUrl() {
   const u = new URL("https://pinterest.com/pin/create/button/");
   u.searchParams.set("url", SHARE_DESTINATION_URL);
-  u.searchParams.set("description", SHARE_POST_TEXT);
+  u.searchParams.set("description", socialText());
   return u.toString();
 }
 
 function createTumblrUrl() {
   const u = new URL("https://www.tumblr.com/widgets/share/tool");
   u.searchParams.set("canonicalUrl", SHARE_DESTINATION_URL);
-  u.searchParams.set("title", "My Noted Persona");
-  u.searchParams.set("caption", SHARE_POST_TEXT);
+  u.searchParams.set("title", `I got ${currentPersonaTitle()}`);
+  u.searchParams.set("caption", socialText());
   return u.toString();
 }
 
@@ -1074,7 +1079,7 @@ async function shareToInstagramStory() {
     if (navigator.canShare({ files: [file] })) {
       await navigator.share({
         files: [file],
-        title: "My Noted Persona",
+        title: `I got ${currentPersonaTitle()}`,
         text: socialText()
       });
       return;
@@ -1207,8 +1212,8 @@ el.shareBtn?.addEventListener("click", async () => {
     if (navigator.canShare({ files: [file] })) {
       await navigator.share({
         files: [file],
-        title: "My Noted.fm Persona",
-        text: "found on noted"
+        title: `I got ${currentPersonaTitle()}`,
+        text: socialText()
       });
       return;
     }
