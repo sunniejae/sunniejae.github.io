@@ -998,6 +998,20 @@ button:active {
   color: rgba(16, 45, 73, 0.76);
 }
 
+body.phone-notebook .found-on,
+body.phone-notebook .found-on--share,
+body.phone-notebook .found-on .found-text,
+body.phone-notebook .found-on--share .found-text,
+body.phone-notebook .found-on .noted-word,
+body.phone-notebook .found-on--share .noted-word {
+  color: var(--noted-lightBlue);
+}
+
+body.phone-notebook .share-date,
+body.phone-notebook .share-period {
+  color: var(--noted-lightBlue);
+}
+
 /* ===== GLITTER PEN ===== */
 .glitter-pen .page-content h2,
 .glitter-pen .blurb,

@@ -550,6 +550,10 @@ function applyNotebookAndPen(notebook, pen) {
   root.style.setProperty("--entry-ink", penStyle.ink || notebookStyle.entryInk);
 
   document.body.classList.toggle("glitter-pen", pen === "sparkle gel pen");
+  document.body.classList.toggle(
+    "phone-notebook",
+    currentModel?.persona === "notes app is good enough"
+  );
 }
 
 /* =======================
