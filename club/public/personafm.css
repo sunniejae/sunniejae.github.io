@@ -1,0 +1,918 @@
+/* ============================================================================
+   personafm.css — Noted.fm (in-universe Noted page)
+   - Uses Noted brand colors as the foundation (dark shell + cool paper)
+   - Keeps your classes and layout
+   - Stickers (song/artist) are ALWAYS a row, equal area
+============================================================================ */
+
+/* ===== FONTS ===== */
+@font-face { font-family: "Noted"; src: url("/assets/fonts/Noted-Regular.otf") format("opentype"); }
+@font-face { font-family: "Spotify"; src: url("/assets/fonts/Gotham-Black.otf") format("opentype"); }
+@font-face { font-family: "Lulu"; src: url("/assets/fonts/Lulu-Regular.otf") format("opentype"); }
+@font-face { font-family: "Jane"; src: url("/assets/fonts/Jane-Regular.otf") format("opentype"); }
+@font-face { font-family: "Ken"; src: url("/assets/fonts/Ken-Regular.otf") format("opentype"); }
+@font-face { font-family: "Anne"; src: url("/assets/fonts/Anne-Regular.otf") format("opentype"); }
+@font-face { font-family: "Elizabeth"; src: url("/assets/fonts/Elizabeth-Regular.otf") format("opentype"); }
+
+/* ===== TOKENS ===== */
+:root {
+  /* Noted BRAND (source-of-truth) */
+  --noted-darkest: #050505;
+  --noted-lightest: #EEEEF0;
+  --noted-paleBlue: #DAE4F0;
+  --noted-beige: #CBBFBF;
+  --noted-maroon: #4D243D;
+  --noted-pink: #EBD4DE;
+  --noted-darkBlue: #102D49;
+  --noted-lightBlue: #A2B2C9;
+  --noted-rose: #AF8B93;
+
+  /* App shell (Noted universe) */
+  --bg-top: var(--noted-darkest);
+  --bg-bottom: var(--noted-darkBlue);
+
+  --ui-text: var(--noted-lightest);
+  --ui-muted: var(--noted-lightBlue);
+  --ui-dim: var(--noted-rose);
+
+  --ui-input-border: rgba(162, 178, 201, 0.30);
+  --ui-input-bg: rgba(218, 228, 240, 0.10);
+
+  --ui-button-border: rgba(235, 212, 222, 0.42);
+  --ui-button-bg: rgba(235, 212, 222, 0.92);
+  --ui-button-text: var(--noted-darkBlue);
+
+  /* Artifact (paper) — cool Noted paper so it feels native */
+  --paper: #FCFCFC;
+  --paper-shadow: rgba(0,0,0,0.40);
+
+  --ink: var(--noted-darkest);
+  --entry-ink: var(--noted-darkBlue);
+
+  --muted: rgba(77, 36, 61, 0.74);  /* maroon-muted */
+  --line: rgba(162, 178, 201, 0.55);
+  --stamp: var(--noted-maroon);
+
+  /* Share */
+  --share-paper: #FCFCFC;
+  --share-ink: var(--noted-darkest);
+  --share-border: rgba(16, 45, 73, 0.55);
+  --share-muted: rgba(77, 36, 61, 0.70);
+
+  /* Textures */
+  --paper-image: none;
+  --share-paper-image: none;
+
+  /* Typography */
+  --entry-font: "Noted", serif;
+  --regular-font-boost: 0.75rem;
+
+  /* Publisher mark */
+  --mark-opacity: 0.82;
+  --mark-size: 12px;
+  --mark-letterspace: 0.12em;
+
+  /* Micro-materials */
+  --mist: rgba(218, 228, 240, 0.16);
+  --mist-strong: rgba(218, 228, 240, 0.26);
+  --rose-mist: rgba(235, 212, 222, 0.18);
+  --note-a: #dae4f0;
+  --note-b: #ebd4de;
+  --note-a-glow: rgba(218, 228, 240, 0.08);
+  --note-b-glow: rgba(235, 212, 222, 0.07);
+  --note-border: rgba(162, 178, 201, 0.45);
+  --note-tape: #ebd4de;
+  --sticker-a: #dae4f0;
+  --sticker-b: #ebd4de;
+  --sticker-border: #a2b2c9;
+  --sticker-tape: #ebd4de;
+
+  /* Sticker sizing controls */
+  --sticker-min: 132px;      /* main paper */
+  --share-sticker-min: 170px;/* share card */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ui-text);
+  font-family: "Spotify", sans-serif;
+
+  /* Noted starfield-ish depth without being loud */
+  background:
+    radial-gradient(circle at 18% 10%, var(--note-b-glow), transparent 52%),
+    radial-gradient(circle at 72% 18%, var(--note-a-glow), transparent 55%),
+    radial-gradient(circle at top, var(--bg-top), var(--bg-bottom));
+}
+
+.page {
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: 22px 14px 40px;
+}
+
+input, button { font: inherit; }
+
+/* ===== INTRO ===== */
+.intro {
+  text-align: center;
+  padding: 8px 0 2px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--ui-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: 0.92;
+}
+
+h1, .title {
+  margin: 6px 0 4px;
+  font-size: clamp(44px, 8vw, 72px);
+  font-family: "Spotify", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: 0 auto 6px;
+  max-width: 720px;
+  color: var(--ui-text);
+  opacity: 0.92;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.subsubtitle {
+  margin: 0 auto 16px;
+  max-width: 680px;
+  color: var(--ui-muted);
+  font-size: 14px;
+  line-height: 1.35;
+  opacity: 0.86;
+}
+
+.intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+input {
+  width: min(320px, 90vw);
+  border: 1px solid var(--ui-input-border);
+  border-radius: 999px;
+  background: var(--ui-input-bg);
+  color: var(--ui-text);
+  padding: 11px 14px;
+  outline: none;
+  backdrop-filter: blur(8px);
+}
+
+input::placeholder { color: rgba(238, 238, 240, 0.55); }
+
+input:focus {
+  border-color: rgba(218, 228, 240, 0.55);
+  box-shadow: 0 0 0 3px rgba(218, 228, 240, 0.12);
+}
+
+button {
+  border: 1px solid var(--ui-button-border);
+  border-radius: 999px;
+  background: var(--ui-button-bg);
+  color: var(--ui-button-text);
+  padding: 11px 16px;
+  cursor: pointer;
+  font-family: "Spotify", sans-serif;
+  transition: transform 0.08s ease, box-shadow 0.12s ease, filter 0.12s ease, opacity 0.12s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+  filter: saturate(1.02);
+}
+
+button:active {
+  transform: translateY(0px);
+  box-shadow: 0 9px 18px rgba(0,0,0,0.18);
+}
+
+.small-note {
+  color: var(--ui-dim);
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.95;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--ui-muted);
+  opacity: 0.92;
+}
+
+/* ===== RESULT ===== */
+.result { margin-top: 16px; }
+
+/* ===== PAPER ===== */
+.paper {
+  background: var(--paper);
+  background-image: var(--paper-image);
+  background-size: cover;
+  background-position: center;
+
+  color: var(--ink);
+
+  border: 2px solid rgba(162, 178, 201, 0.42);
+  border-radius: 16px;
+  padding: 12px;
+
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 12px;
+
+  /* Feels like a Noted “card” sitting in a dark room */
+  box-shadow:
+    0 26px 60px var(--paper-shadow),
+    0 0 0 1px rgba(235, 212, 222, 0.08) inset;
+}
+
+.spiral {
+  border-right: 1px solid rgba(162, 178, 201);
+  background:
+    radial-gradient(circle, rgba(16, 45, 73) 2px, transparent 3px)
+    center 8px / 12px 32px repeat-y;
+}
+
+.page-content h2 {
+  font-size: calc(clamp(30px, 7vw, 46px) + var(--regular-font-boost));
+  margin: 6px 0 4px;
+  font-family: var(--entry-font);
+  color: var(--entry-ink);
+
+  -webkit-text-stroke: 3px rgba(252,252,252,0.98);
+  paint-order: stroke fill;
+  text-shadow: 0 1px 0 rgba(218, 228, 240, 0.25);
+}
+
+.stamp {
+  margin: 0;
+  display: inline-block;
+  border: 1px solid var(--stamp);
+  color: var(--stamp);
+  text-decoration: none;
+  font-family: "Noted", serif;
+  font-size: calc(1em + var(--regular-font-boost));
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: rgba(235, 212, 222);
+}
+
+.blurb {
+  position: relative;
+  margin: 10px 0 12px;
+  padding: 12px 12px 10px;
+  color: var(--muted);
+  font-size: calc(20px + var(--regular-font-boost));
+  font-family: var(--entry-font);
+  border-radius: 10px;
+  background: linear-gradient(
+    160deg,
+    var(--note-a) 0%,
+    var(--note-b) 100%
+  );
+  border: 1px solid var(--note-border);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.blurb::before {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 9px;
+  background: var(--note-tape);
+  border: 1px solid var(--note-border);
+  top: -6px;
+  left: 14px;
+  transform: rotate(-8deg);
+}
+
+/* ===== LOADOUT ===== */
+.loadout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.loadout-item,
+.share-asset-item {
+  position: relative;
+}
+
+.loadout-item img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  background: linear-gradient(180deg, var(--note-a), var(--note-b));
+  border-radius: 10px;
+  border: 1px solid var(--note-border);
+}
+
+.asset-chip {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  margin: 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--note-border);
+  background: var(--note-a);
+  color: rgba(16, 45, 73, 0.92);
+  font-family: "Spotify", sans-serif;
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.loadout-text {
+  margin: 6px 0 0;
+  color: rgba(16, 45, 73);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.sticky-note-line {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 888px;
+  background: var(--note-a);
+  border: 1px solid var(--note-border);
+}
+
+/* ===== SIGNALS / BLOCKS ===== */
+.signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-family: 'Noted';
+}
+
+.signals-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.why-btn {
+  border: 1px solid var(--note-border);
+  background: var(--note-a);
+  color: rgba(16, 45, 73, 0.95);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-family: "Spotify", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.signals span {
+  border: 1px solid var(--note-border);
+  border-radius: 444px;
+  padding: 4px 9px;
+  color: rgba(16, 45, 73);
+  background: var(--note-a);
+}
+
+.copy-block {
+  border-left: 2px solid rgba(162, 178, 201, 0.62);
+  padding-left: 8px;
+  margin-top: 12px;
+}
+
+.copy-block h3 {
+  margin: 0 0 6px;
+  color: rgba(77, 36, 61);
+  text-transform: uppercase;
+  font-size: clamp(11px, 1.7vw, 13px);
+  letter-spacing: 0.12em;
+  font-family: "Spotify", sans-serif;
+  opacity: 0.95;
+}
+
+.copy-block p {
+  margin: 0;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.signals-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.signals-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.55);
+}
+
+.signals-modal__sheet {
+  position: relative;
+  z-index: 1;
+  width: min(520px, 100%);
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--note-border);
+  background: linear-gradient(160deg, var(--note-a), var(--note-b));
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+}
+
+.signals-modal__title {
+  margin: 0 0 8px;
+  color: rgba(16, 45, 73, 0.95);
+  font-family: "Spotify", sans-serif;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.signals-modal__body p {
+  margin: 0 0 8px;
+  color: var(--entry-ink);
+  font-family: var(--entry-font);
+  font-size: clamp(14px, 2.4vw, calc(16px + var(--regular-font-boost)));
+  line-height: 1.35;
+}
+
+.signals-modal__body p:last-child {
+  margin-bottom: 0;
+}
+
+.signals-modal__close {
+  margin-top: 12px;
+  border: 1px solid var(--note-border);
+  border-radius: 999px;
+  background: var(--ui-button-bg);
+  color: var(--ui-button-text);
+  padding: 8px 12px;
+  font-family: "Spotify", sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.entry-copy p {
+  font-family: var(--entry-font);
+  color: var(--entry-ink);
+  font-size: clamp(16px, 3.4vw, calc(20px + var(--regular-font-boost)));
+}
+
+.sticky-note {
+  position: relative;
+  border-left: 0;
+  padding: 10px 10px 10px 12px;
+  border-radius: 10px;
+  background: linear-gradient(
+    160deg,
+    var(--note-a) 0%,
+    var(--note-b) 100%
+  );
+  border: 1px solid var(--note-border);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.sticky-note::before {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 9px;
+  background: var(--note-tape);
+  border: 1px solid var(--note-border);
+  top: -6px;
+  right: 14px;
+  transform: rotate(8deg);
+}
+
+.noted-word {
+  font-family: "Noted", serif;
+  font-size: calc(1em + var(--regular-font-boost));
+  text-transform: none;
+}
+
+/* ===== STICKERS (ROW + EQUAL AREA ALWAYS) ===== */
+.sticker-row,
+.share-sticker-row {
+  margin: 12px 0 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* equal area = equal cell + equal height; no aspect-ratio fights */
+.sticker-row .sticker,
+.share-sticker-row .sticker {
+  height: 100%;
+  min-height: var(--sticker-min);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+
+  border: 1px solid var(--sticker-border);
+  border-radius: 12px;
+  padding: 10px 10px;
+  background: linear-gradient(160deg, var(--sticker-a), var(--sticker-b));
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+}
+
+/* Share card stickers a bit taller */
+.share-sticker-row .sticker {
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(160deg, var(--sticker-a), var(--sticker-b));
+  border-color: var(--sticker-border);
+}
+
+.share-sticker-row--hero {
+  margin: 0;
+  gap: 8px;
+}
+
+.share-sticker-row--hero .sticker {
+  width: 156px;
+  max-width: 100%;
+  padding: 8px;
+}
+
+.share-sticker-row--hero .sticker-label {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.share-sticker-row--hero .sticker-value {
+  font-size: 13px;
+  -webkit-line-clamp: 3;
+}
+
+/* Tape */
+.sticker-row .sticker::before,
+.share-sticker-row .sticker::before {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 9px;
+  background: var(--sticker-tape);
+  border: 1px solid var(--sticker-border);
+  top: -6px;
+  left: 10px;
+  transform: rotate(-7deg);
+}
+
+.sticker-song { transform: rotate(-1.3deg); }
+.sticker-artist { transform: rotate(1.1deg); }
+
+.sticker-icon {
+  margin: 0;
+  color: var(--entry-ink);
+  font-size: clamp(16px, 3vw, calc(20px + var(--regular-font-boost)));
+  line-height: 1;
+}
+
+.sticker-label {
+  margin: 4px 0 0;
+  text-transform: uppercase;
+  font-size: clamp(10px, 1.6vw, 12px);
+  letter-spacing: 0.09em;
+  color: var(--muted);
+  font-family: "Spotify", sans-serif;
+}
+
+.sticker-value {
+  margin: 6px 0 0;
+  color: var(--entry-ink);
+  font-family: var(--entry-font);
+  font-size: clamp(13px, 2.6vw, calc(18px + var(--regular-font-boost)));
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+
+  /* keep long titles sane */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#topSongWeek,
+#shareTopSong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto 0;
+  -webkit-line-clamp: unset;
+}
+
+#topArtistWeek,
+#shareTopArtist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto 0;
+}
+
+/* ===== ACTIONS / PREVIEW ===== */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: center;
+}
+
+.preview-wrap {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.preview-wrap img {
+  width: min(360px, 100%);
+  border-radius: 10px;
+  border: 1px solid rgba(238, 238, 240, 0.24);
+  box-shadow: 0 18px 38px rgba(0,0,0,0.25);
+}
+
+/* ===== FOUND ON NOTED MARK ===== */
+.found-on {
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(162, 178, 201, 0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+
+  opacity: var(--mark-opacity);
+  font-size: var(--mark-size);
+  letter-spacing: var(--mark-letterspace);
+  text-transform: lowercase;
+  color: rgba(16, 45, 73, 0.9);
+}
+
+.found-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  opacity: 0.98;
+  filter: saturate(0.95);
+}
+
+.found-text { white-space: nowrap; }
+
+/* ===== SHARE CARD ===== */
+.share-card {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+
+  width: 1080px;
+  height: auto;
+
+  background: var(--share-paper);
+  background-image: var(--share-paper-image);
+  background-size: cover;
+  background-position: center;
+
+  color: var(--share-ink);
+  border: 3px solid var(--share-border);
+  border-radius: 28px;
+  overflow: hidden;
+  padding: 34px;
+}
+
+.share-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--entry-font);
+}
+
+.share-stamp {
+  margin: 0;
+  align-self: flex-start;
+  border: 2px solid var(--stamp);
+  color: var(--stamp);
+  text-decoration: none;
+  font-family: "Noted", serif;
+  font-size: calc(1em + var(--regular-font-boost));
+  border-radius: 10px;
+  padding: 7px 10px;
+  background: var(--note-b);
+}
+
+.share-period {
+  margin: 10px 0 0;
+  color: var(--share-muted);
+  letter-spacing: 0.04em;
+  font-size: clamp(18px, 2.2vw, 24px);
+}
+
+.share-inner h2 {
+  margin: 6px 0 0;
+  font-size: clamp(36px, 4.8vw, calc(52px + var(--regular-font-boost)));
+  -webkit-text-stroke: 3px rgba(252,252,252,0.98);
+  paint-order: stroke fill;
+  line-height: 1.02;
+  text-shadow: 0 1px 0 rgba(218, 228, 240, 0.22);
+}
+
+.share-hero {
+  margin-top: 4px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 14px;
+  align-items: start;
+}
+
+.share-hero-copy {
+  min-width: 0;
+}
+
+.share-blurb {
+  margin: 8px 0 0;
+  color: var(--share-muted);
+  font-size: clamp(18px, 2.8vw, calc(26px + var(--regular-font-boost)));
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.share-assets {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.share-asset-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border: 1px solid var(--note-border);
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--note-a), var(--note-b));
+}
+
+.share-asset-item .asset-chip {
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+}
+
+/* Optional share notes grid (if you use it) */
+.share-note-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.share-note {
+  position: relative;
+  padding: 10px;
+  border-radius: 12px;
+  background: linear-gradient(
+    155deg,
+    var(--note-a) 0%,
+    var(--note-b) 100%
+  );
+  border: 1px solid var(--note-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.share-note::before {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 9px;
+  background: var(--note-tape);
+  border: 1px solid var(--note-border);
+  top: -6px;
+  left: 14px;
+  transform: rotate(-7deg);
+}
+
+.share-note-title {
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  font-family: "Spotify", sans-serif;
+  letter-spacing: 0.09em;
+  font-size: clamp(10px, 1.2vw, 12px);
+  color: rgba(16, 45, 73, 0.76);
+}
+
+.share-note-copy {
+  margin: 0;
+  line-height: 1.25;
+  font-size: clamp(12px, 1.9vw, calc(14px + var(--regular-font-boost)));
+  color: var(--entry-ink);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.share-signals {
+  margin: 0;
+  gap: 6px;
+}
+
+.share-signals span {
+  padding: 3px 8px;
+  font-size: clamp(10px, 1.1vw, 12px);
+  font-family: 'Noted';
+}
+
+.found-on--share {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(162, 178, 201, 0.55);
+  opacity: 0.78;
+  font-size: 11px;
+  color: rgba(16, 45, 73, 0.76);
+}
+
+/* ===== GLITTER PEN ===== */
+.glitter-pen .page-content h2,
+.glitter-pen .blurb,
+.glitter-pen .entry-copy p,
+.glitter-pen .share-inner h2,
+.glitter-pen .share-blurb {
+  text-shadow:
+    0 0 1px rgba(252, 252, 252, 0.90),
+    0 0 8px rgba(235, 212, 222, 0.45),
+    0 1px 0 rgba(16, 45, 73, 0.40);
+  animation: glitterTwinkle 5.8s ease-in-out infinite;
+}
+
+@keyframes glitterTwinkle {
+  0% {
+    text-shadow:
+      0 0 1px rgba(252, 252, 252, 0.85),
+      0 0 7px rgba(235, 212, 222, 0.38),
+      0 1px 0 rgba(16, 45, 73, 0.40);
+  }
+  50% {
+    text-shadow:
+      0 0 1px rgba(252, 252, 252, 0.95),
+      0 0 10px rgba(235, 212, 222, 0.55),
+      0 1px 0 rgba(16, 45, 73, 0.40);
+  }
+  100% {
+    text-shadow:
+      0 0 1px rgba(252, 252, 252, 0.85),
+      0 0 7px rgba(235, 212, 222, 0.38),
+      0 1px 0 rgba(16, 45, 73, 0.40);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 700px) {
+  .loadout { grid-template-columns: 1fr; }
+
+  /* keep stickers in a row on mobile too; still equal area */
+  .sticker-row,
+  .share-sticker-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .paper {
+    grid-template-columns: 12px 1fr;
+    padding: 10px;
+  }
+
+  /* if space is tight, reduce sticker min heights slightly */
+  :root {
+    --sticker-min: 118px;
+    --share-sticker-min: 150px;
+  }
+}

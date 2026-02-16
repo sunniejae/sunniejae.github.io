@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noted.fm — Your Notebook Persona</title>
+  <meta name="google-adsense-account" content="ca-pub-1997099522384709">
+  <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d">
+  <link rel="stylesheet" href="./personafm.css">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+  <main class="page">
+    <section class="intro">
+      <p class="eyebrow"><span class="noted-word">Noted</span> × Last.fm</p>
+
+      <h1 class="title">Noted.fm</h1>
+      <p class="subtitle">Your music already knows what your notebook looks like.</p>
+      <p class="subsubtitle">A listening persona, right out of your notebook.</p>
+
+      <div class="intro-actions">
+        <input id="usernameInput" type="text" placeholder="Enter Last.fm username" autocomplete="off" />
+        <button id="generateBtn" type="button">Generate</button>
+      </div>
+
+      <p class="small-note">Uses public Last.fm data only.</p>
+    </section>
+
+    <section id="loading" class="loading" hidden>Taking note of your listening patterns...</section>
+
+    <section id="result" class="result" hidden>
+      <article id="resultPaper" class="paper">
+        <div class="spiral" aria-hidden="true"></div>
+
+        <div id="entrySheet" class="page-content">
+          <a
+            id="stampText"
+            class="stamp"
+            href="https://inscribe.sunniejae.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Noted"
+          >Noted</a>
+
+          <h2 id="personaTitle">The Note Taker</h2>
+          <p id="blurb" class="blurb"></p>
+
+          <div class="sticker-row">
+            <div class="sticker sticker-song">
+              <p class="sticker-icon" aria-hidden="true"></p>
+              <p class="sticker-label">Top song of the week</p>
+              <p id="topSongWeek" class="sticker-value">Loading...</p>
+            </div>
+
+            <div class="sticker sticker-artist">
+              <p class="sticker-icon" aria-hidden="true"></p>
+              <p class="sticker-label">Top artist of the week</p>
+              <p id="topArtistWeek" class="sticker-value">Loading...</p>
+            </div>
+          </div>
+
+          <div class="loadout">
+            <div class="loadout-item">
+              <p class="asset-chip">paper</p>
+              <img id="notebookImage" alt="Notebook style">
+            </div>
+            <div class="loadout-item">
+              <p class="asset-chip">pen</p>
+              <img id="penImage" alt="Pen style">
+            </div>
+          </div>
+
+          <div class="copy-block entry-copy sticky-note">
+            <div class="signals-head">
+              <h3>Your listening style</h3>
+              <button id="signalsWhyBtn" type="button" class="why-btn">Why?</button>
+            </div>
+            <p id="listenerStyle"></p>
+            <div class="signals">
+              <span id="diversitySignal"></span>
+              <span id="obsessionSignal"></span>
+              <span id="overlapSignal"></span>
+            </div>
+          </div>
+
+          <div class="copy-block entry-copy sticky-note">
+            <h3>Your notebook</h3>
+            <p id="notedUse"></p>
+          </div>
+
+          <div class="copy-block entry-copy sticky-note">
+            <h3>What you’ll find on <span class="noted-word">Noted</span></h3>
+            <p id="lovesAboutNoted"></p>
+          </div>
+
+          <!-- subtle promo footer -->
+          <div class="found-on" aria-hidden="true">
+            <img class="found-icon" src="/assets/noted/logosticker.png" alt="">
+            <span class="found-text">found on <span class="noted-word">noted</span> ⟡</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="actions">
+        <button id="generateCardBtn" type="button">Generate Share Card</button>
+        <button id="shareBtn" type="button">Share</button>
+        <button id="saveBtn" type="button">Save PNG</button>
+      </div>
+
+      <section id="previewWrap" class="preview-wrap" hidden>
+        <h3>Card preview</h3>
+        <img id="previewImage" alt="Share card preview">
+      </section>
+    </section>
+  </main>
+
+  <!-- share card (captured via html2canvas) -->
+  <section id="shareCard" class="share-card" aria-hidden="true">
+    <div class="share-inner">
+      <a
+        id="shareStamp"
+        class="share-stamp"
+        href="https://inscribe.sunniejae.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open Noted"
+      >Noted</a>
+
+      <p id="sharePeriod" class="share-period">Last 30 Days</p>
+
+      <div class="share-hero">
+        <div class="share-hero-copy">
+          <h2 id="shareTitle">The Archivist</h2>
+          <p id="shareBlurb" class="share-blurb"></p>
+        </div>
+
+        <div class="share-sticker-row share-sticker-row--hero">
+          <div class="sticker sticker-song share-sticker">
+            <p class="sticker-icon" aria-hidden="true">♪</p>
+            <p class="sticker-label">Top song of the week</p>
+            <p id="shareTopSong" class="sticker-value"></p>
+          </div>
+
+          <div class="sticker sticker-artist share-sticker">
+            <p class="sticker-icon" aria-hidden="true">✶</p>
+            <p class="sticker-label">Top artist of the week</p>
+            <p id="shareTopArtist" class="sticker-value"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="share-assets">
+        <div class="share-asset-item">
+          <p class="asset-chip">paper</p>
+          <img id="shareNotebookImage" alt="Notebook style for share card">
+        </div>
+        <div class="share-asset-item">
+          <p class="asset-chip">pen</p>
+          <img id="sharePenImage" alt="Pen style for share card">
+        </div>
+      </div>
+
+      <div class="share-note-grid">
+        <div class="share-note">
+          <p class="share-note-title">Signals</p>
+          <div class="signals share-signals">
+            <span id="shareDiversitySignal"></span>
+            <span id="shareObsessionSignal"></span>
+            <span id="shareOverlapSignal"></span>
+          </div>
+        </div>
+
+        <div class="share-note">
+          <p class="share-note-title">Data</p>
+          <p id="shareDataSummary" class="share-note-copy"></p>
+        </div>
+
+        <div class="share-note">
+          <p class="share-note-title">Your listening style</p>
+          <p id="shareListenerStyle" class="share-note-copy"></p>
+        </div>
+
+        <div class="share-note">
+          <p class="share-note-title">Your notebook</p>
+          <p id="shareNotedUse" class="share-note-copy"></p>
+        </div>
+
+        <div class="share-note">
+          <p class="share-note-title">What you'll find on <span class="noted-word">Noted</span></p>
+          <p id="shareLovesAboutNoted" class="share-note-copy"></p>
+        </div>
+      </div>
+
+      <!-- footer mark on the share card too -->
+      <div class="found-on found-on--share" aria-hidden="true">
+        <img class="found-icon" src="/assets/noted/logosticker.png" alt="">
+        <span class="found-text">found on <span class="noted-word">noted</span></span>
+      </div>
+    </div>
+  </section>
+
+  <div id="signalsModal" class="signals-modal" hidden>
+    <div id="signalsModalBackdrop" class="signals-modal__backdrop"></div>
+    <div
+      class="signals-modal__sheet"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="signalsModalTitle"
+    >
+      <p id="signalsModalTitle" class="signals-modal__title">How these signals work</p>
+
+      <div class="signals-modal__body">
+        <p><strong>Range:</strong> how wide your listening spread is across artists.</p>
+        <p><strong>Intensity:</strong> how much one top artist dominates your total plays.</p>
+        <p><strong>Drift:</strong> how much your recent listening shifts away from your top set.</p>
+      </div>
+
+      <button id="signalsModalCloseBtn" type="button" class="signals-modal__close">Close</button>
+    </div>
+  </div>
+
+  <script src="/club/scripts/personafy.js"></script>
+</body>
+</html>
