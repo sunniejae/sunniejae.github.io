@@ -637,7 +637,9 @@ function stylizeNoted(text) {
 function computeSignals(stats) {
   const range = clamp01(safeDivide(stats.uniqueArtists, stats.totalTracks));
   const intensity = clamp01(safeDivide(stats.topArtistPlays, stats.totalPlays));
-  const streams = Math.max(0, Number(stats.totalPlays || 0));
+  const streamCountRaw = Number(stats?.streamCount);
+  const streamsSource = Number.isFinite(streamCountRaw) ? streamCountRaw : Number(stats.totalPlays || 0);
+  const streams = Math.max(0, streamsSource);
 
   // recentOverlap: 0..1 where higher means more consistent with favorites
   const overlap = clamp01(stats.recentOverlap);
@@ -743,7 +745,7 @@ function pickPersonaFromStreams(totalStreams) {
   if (logVolume < 2.35) return STREAM_PERSONA_ORDER[1];
   if (logVolume < 2.7) return STREAM_PERSONA_ORDER[2];
   if (logVolume < 3.0) return STREAM_PERSONA_ORDER[3];
-  if (logVolume < 3.35) return STREAM_PERSONA_ORDER[4];
+  if (logVolume < Math.log10(751)) return STREAM_PERSONA_ORDER[4];
   return STREAM_PERSONA_ORDER[5];
 }
 
@@ -810,6 +812,7 @@ function lastfmToNormalizedStats(raw) {
   return {
     totalTracks,
     totalPlays,
+    streamCount: totalPlays,
     uniqueArtists,
     topArtistName,
     topArtistPlays,
@@ -1056,6 +1059,7 @@ function spotifyToNormalizedStats(raw) {
   return {
     totalTracks,
     totalPlays,
+    streamCount: recent.length,
     uniqueArtists,
     topArtistName,
     topArtistPlays,
