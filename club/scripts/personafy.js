@@ -1412,7 +1412,7 @@ async function ensureShareCardDataUrl() {
     alert("Generate a persona first.");
     return "";
   }
-  if (!latestCardDataUrl) latestCardDataUrl = await captureShareCard();
+  latestCardDataUrl = await captureShareCard();
   if (latestCardDataUrl) setGenerateCardButtonMode("save");
   return latestCardDataUrl;
 }
@@ -1585,7 +1585,10 @@ document.addEventListener("keydown", (e) => {
 });
 
 el.generateCardBtn?.addEventListener("click", async () => {
-  if (el.generateCardBtn?.dataset.mode === "save" && latestCardDataUrl) {
+  latestCardDataUrl = await ensureShareCardDataUrl();
+  if (!latestCardDataUrl) return;
+
+  if (el.generateCardBtn?.dataset.mode === "save") {
     const link = document.createElement("a");
     link.download = "notedfm-persona-card.png";
     link.href = latestCardDataUrl;
@@ -1593,8 +1596,6 @@ el.generateCardBtn?.addEventListener("click", async () => {
     return;
   }
 
-  latestCardDataUrl = await ensureShareCardDataUrl();
-  if (!latestCardDataUrl) return;
   el.previewImage.src = latestCardDataUrl;
   el.previewWrap.hidden = false;
   setGenerateCardButtonMode("save");
