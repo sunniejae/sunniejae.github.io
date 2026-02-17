@@ -454,7 +454,6 @@ const el = {
   generateCardBtn: document.getElementById("generateCardBtn"),
   shareBtn: document.getElementById("shareBtn"),
   socialShareBtn: document.getElementById("socialShareBtn"),
-  saveBtn: document.getElementById("saveBtn"),
   startNotebookBtn: document.getElementById("startNotebookBtn"),
   previewWrap: document.getElementById("previewWrap"),
   previewImage: document.getElementById("previewImage"),
@@ -549,6 +548,13 @@ function openSocialShareModal() {
 function closeSocialShareModal() {
   if (!el.socialShareModal) return;
   el.socialShareModal.hidden = true;
+}
+
+function setGenerateCardButtonMode(mode = "generate") {
+  if (!el.generateCardBtn) return;
+  const normalized = mode === "save" ? "save" : "generate";
+  el.generateCardBtn.dataset.mode = normalized;
+  el.generateCardBtn.textContent = normalized === "save" ? "Save PNG" : "Generate Share Card";
 }
 
 /* =======================
@@ -1312,7 +1318,7 @@ function renderPersona(model) {
   // NOTE: We keep existing element IDs to avoid HTML edits.
   el.diversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
   el.obsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.overlapSignal.innerHTML = `<span class="signal-label-outside">${streamStickerLabel}</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
+  el.overlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}<br>${streamsValue}</span></span>`;
 
   el.listenerStyle.textContent = copy.listenerStyle;
   el.notedUse.innerHTML = stylizeNoted(copy.notedUse);
@@ -1347,7 +1353,7 @@ function renderPersona(model) {
   el.shareTopArtist.textContent = topArtistName;
   el.shareDiversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
   el.shareObsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">${streamStickerLabel}</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
+  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}<br>${streamsValue}</span></span>`;
   el.shareDataSummary.textContent = formatDataSummary(model.stats);
   el.shareListenerStyle.textContent = copy.listenerStyle;
   el.shareNotedUse.innerHTML = stylizeNoted(copy.notedUse);
@@ -1407,6 +1413,7 @@ async function ensureShareCardDataUrl() {
     return "";
   }
   if (!latestCardDataUrl) latestCardDataUrl = await captureShareCard();
+  if (latestCardDataUrl) setGenerateCardButtonMode("save");
   return latestCardDataUrl;
 }
 
@@ -1516,6 +1523,7 @@ async function generatePersona(username, source = "lastfm") {
 
     latestCardDataUrl = "";
     el.previewWrap.hidden = true;
+    setGenerateCardButtonMode("generate");
 
     renderPersona(currentModel);
   } finally {
@@ -1577,19 +1585,19 @@ document.addEventListener("keydown", (e) => {
 });
 
 el.generateCardBtn?.addEventListener("click", async () => {
+  if (el.generateCardBtn?.dataset.mode === "save" && latestCardDataUrl) {
+    const link = document.createElement("a");
+    link.download = "notedfm-persona-card.png";
+    link.href = latestCardDataUrl;
+    link.click();
+    return;
+  }
+
   latestCardDataUrl = await ensureShareCardDataUrl();
   if (!latestCardDataUrl) return;
   el.previewImage.src = latestCardDataUrl;
   el.previewWrap.hidden = false;
-});
-
-el.saveBtn?.addEventListener("click", async () => {
-  latestCardDataUrl = await ensureShareCardDataUrl();
-  if (!latestCardDataUrl) return;
-  const link = document.createElement("a");
-  link.download = "notedfm-persona-card.png";
-  link.href = latestCardDataUrl;
-  link.click();
+  setGenerateCardButtonMode("save");
 });
 
 el.shareBtn?.addEventListener("click", async () => {
@@ -1665,3 +1673,4 @@ el.shareInstagramBtn?.addEventListener("click", async () => {
 
 el.dataSourceSelect?.addEventListener("change", updateDataSourceUi);
 setDataSource("spotify");
+setGenerateCardButtonMode("generate");
