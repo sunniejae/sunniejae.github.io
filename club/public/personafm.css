@@ -1043,3 +1043,19 @@ body.phone-notebook .share-period {
     --share-sticker-min: 150px;
   }
 }
+
+
+.link-button {
+  appearance: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.link-button:hover {
+  opacity: 0.85;
+}

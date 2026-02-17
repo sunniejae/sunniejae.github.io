@@ -20,7 +20,9 @@ const TOP_ARTIST_TAG_FETCH_LIMIT = 5;
 const SHARE_DESTINATION_URL = "https://sunniejae.com/notedpersona";
 const SHARE_POST_TEXT = "my Noted Persona";
 const SPOTIFY_CLIENT_ID = "5800fdaeacbc4f6dad4670772ead5790";
+const SPOTIFY_REDIRECT_URI = "https://sunniejae.com/notedpersona";
 const SPOTIFY_SCOPES = "user-top-read user-read-recently-played";
+const SPOTIFY_TOP_LIMIT = 50;
 const SPOTIFY_TOKEN_STORAGE_KEY = "notedpersona_spotify_token";
 const SPOTIFY_VERIFIER_STORAGE_KEY = "notedpersona_spotify_pkce_verifier";
 const SPOTIFY_STATE_STORAGE_KEY = "notedpersona_spotify_oauth_state";
@@ -479,19 +481,31 @@ function selectedDataSource() {
   return el.dataSourceSelect?.value === "spotify" ? "spotify" : "lastfm";
 }
 
+function setDataSource(source) {
+  if (!el.dataSourceSelect) return;
+  el.dataSourceSelect.value = source === "lastfm" ? "lastfm" : "spotify";
+  updateDataSourceUi();
+}
+
 function updateDataSourceUi() {
   const source = selectedDataSource();
   const isSpotify = source === "spotify";
   if (el.usernameInput) {
-    el.usernameInput.placeholder = isSpotify
-      ? "Spotify generation uses OAuth (username not required)"
-      : "Enter Last.fm username";
+    el.usernameInput.placeholder = "Enter Last.fm username";
     el.usernameInput.disabled = isSpotify;
+    el.usernameInput.hidden = isSpotify;
   }
   if (el.dataSourceNote) {
-    el.dataSourceNote.textContent = isSpotify
-      ? "Spotify generation uses secure OAuth access to your account data."
-      : "Uses public Last.fm data only.";
+    el.dataSourceNote.innerHTML = isSpotify
+      ? 'Using Spotify OAuth. <button id="useLastfmBtn" type="button" class="link-button">Use public Last.fm data instead.</button>'
+      : 'Using public Last.fm data. <button id="useSpotifyBtn" type="button" class="link-button">Use Spotify OAuth instead.</button>';
+
+    const swapBtn = el.dataSourceNote.querySelector("button");
+    if (swapBtn) {
+      swapBtn.addEventListener("click", () => {
+        setDataSource(isSpotify ? "lastfm" : "spotify");
+      });
+    }
   }
 }
 
@@ -785,7 +799,7 @@ function randomString(length = 64) {
 }
 
 function spotifyRedirectUri() {
-  return `${window.location.origin}${window.location.pathname}`;
+  return SPOTIFY_REDIRECT_URI || `${window.location.origin}${window.location.pathname}`;
 }
 
 function readSpotifyToken() {
@@ -838,7 +852,10 @@ async function exchangeSpotifyCodeForToken(code) {
   });
   const data = await res.json();
   if (!res.ok || !data?.access_token) {
-    throw new Error(data?.error_description || "Spotify OAuth token exchange failed.");
+    throw new Error(
+      data?.error_description
+      || `Spotify OAuth token exchange failed. Confirm redirect URI is allowlisted in Spotify Dashboard: ${spotifyRedirectUri()}`
+    );
   }
 
   writeSpotifyToken({
@@ -927,9 +944,9 @@ async function spotifyApi(path, token) {
 
 async function fetchSpotifyBundle(token) {
   const [topTracks, recentTracks, topArtists] = await Promise.all([
-    spotifyApi(`me/top/tracks?time_range=short_term&limit=${TOP_LIMIT}`, token),
+    spotifyApi(`me/top/tracks?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token),
     spotifyApi(`me/player/recently-played?limit=${RECENT_LIMIT}`, token),
-    spotifyApi(`me/top/artists?time_range=short_term&limit=${TOP_LIMIT}`, token)
+    spotifyApi(`me/top/artists?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token)
   ]);
 
   if (!Array.isArray(topTracks?.items) || !topTracks.items.length) {
