@@ -26,6 +26,8 @@ const SPOTIFY_TOP_LIMIT = 50;
 const SPOTIFY_TOKEN_STORAGE_KEY = "notedpersona_spotify_token";
 const SPOTIFY_VERIFIER_STORAGE_KEY = "notedpersona_spotify_pkce_verifier";
 const SPOTIFY_STATE_STORAGE_KEY = "notedpersona_spotify_oauth_state";
+const SPOTIFY_VERIFIER_FALLBACK_STORAGE_KEY = "notedpersona_spotify_pkce_verifier_fallback";
+const SPOTIFY_STATE_FALLBACK_STORAGE_KEY = "notedpersona_spotify_oauth_state_fallback";
 
 const GENRE_RULES = [
   { label: "hip hop", keys: ["hip hop", "rap", "trap", "drill", "boom bap"] },
@@ -412,6 +414,7 @@ const ASSETS_REGISTRY = {
    DOM
 ======================= */
 const el = {
+  sourceHeader: document.getElementById("sourceHeader"),
   dataSourceSelect: document.getElementById("dataSourceSelect"),
   dataSourceNote: document.getElementById("dataSourceNote"),
   usernameInput: document.getElementById("usernameInput"),
@@ -490,6 +493,11 @@ function setDataSource(source) {
 function updateDataSourceUi() {
   const source = selectedDataSource();
   const isSpotify = source === "spotify";
+  if (el.sourceHeader) {
+    el.sourceHeader.innerHTML = isSpotify
+      ? '<span class="noted-word">Noted</span> x Spotify'
+      : '<span class="noted-word">Noted</span> x Last.fm';
+  }
   if (el.usernameInput) {
     el.usernameInput.placeholder = "Enter Last.fm username";
     el.usernameInput.disabled = isSpotify;
@@ -814,13 +822,27 @@ function writeSpotifyToken(token) {
   localStorage.setItem(SPOTIFY_TOKEN_STORAGE_KEY, JSON.stringify(token));
 }
 
+function setSpotifyOAuthValue(sessionKey, fallbackKey, value) {
+  sessionStorage.setItem(sessionKey, value);
+  localStorage.setItem(fallbackKey, value);
+}
+
+function getSpotifyOAuthValue(sessionKey, fallbackKey) {
+  return sessionStorage.getItem(sessionKey) || localStorage.getItem(fallbackKey) || "";
+}
+
+function clearSpotifyOAuthValue(sessionKey, fallbackKey) {
+  sessionStorage.removeItem(sessionKey);
+  localStorage.removeItem(fallbackKey);
+}
+
 async function beginSpotifyOAuth() {
   const codeVerifier = randomString(96);
   const state = randomString(24);
   const codeChallenge = base64UrlEncode(await sha256(codeVerifier));
 
-  sessionStorage.setItem(SPOTIFY_VERIFIER_STORAGE_KEY, codeVerifier);
-  sessionStorage.setItem(SPOTIFY_STATE_STORAGE_KEY, state);
+  setSpotifyOAuthValue(SPOTIFY_VERIFIER_STORAGE_KEY, SPOTIFY_VERIFIER_FALLBACK_STORAGE_KEY, codeVerifier);
+  setSpotifyOAuthValue(SPOTIFY_STATE_STORAGE_KEY, SPOTIFY_STATE_FALLBACK_STORAGE_KEY, state);
 
   const auth = new URL("https://accounts.spotify.com/authorize");
   auth.searchParams.set("response_type", "code");
@@ -835,7 +857,7 @@ async function beginSpotifyOAuth() {
 }
 
 async function exchangeSpotifyCodeForToken(code) {
-  const codeVerifier = sessionStorage.getItem(SPOTIFY_VERIFIER_STORAGE_KEY);
+  const codeVerifier = getSpotifyOAuthValue(SPOTIFY_VERIFIER_STORAGE_KEY, SPOTIFY_VERIFIER_FALLBACK_STORAGE_KEY);
   if (!codeVerifier) throw new Error("Spotify login session expired. Please try again.");
 
   const body = new URLSearchParams();
@@ -864,8 +886,8 @@ async function exchangeSpotifyCodeForToken(code) {
     expiresAt: Date.now() + (Number(data.expires_in || 0) * 1000)
   });
 
-  sessionStorage.removeItem(SPOTIFY_VERIFIER_STORAGE_KEY);
-  sessionStorage.removeItem(SPOTIFY_STATE_STORAGE_KEY);
+  clearSpotifyOAuthValue(SPOTIFY_VERIFIER_STORAGE_KEY, SPOTIFY_VERIFIER_FALLBACK_STORAGE_KEY);
+  clearSpotifyOAuthValue(SPOTIFY_STATE_STORAGE_KEY, SPOTIFY_STATE_FALLBACK_STORAGE_KEY);
 }
 
 async function refreshSpotifyAccessToken(refreshToken) {
@@ -904,9 +926,13 @@ async function handleSpotifyOAuthCallback() {
     throw new Error(`Spotify login failed: ${error}`);
   }
 
-  const expectedState = sessionStorage.getItem(SPOTIFY_STATE_STORAGE_KEY);
+  const expectedState = getSpotifyOAuthValue(SPOTIFY_STATE_STORAGE_KEY, SPOTIFY_STATE_FALLBACK_STORAGE_KEY);
   if (!expectedState || state !== expectedState) {
-    throw new Error("Spotify login failed state validation.");
+    clearSpotifyOAuthValue(SPOTIFY_VERIFIER_STORAGE_KEY, SPOTIFY_VERIFIER_FALLBACK_STORAGE_KEY);
+    clearSpotifyOAuthValue(SPOTIFY_STATE_STORAGE_KEY, SPOTIFY_STATE_FALLBACK_STORAGE_KEY);
+    history.replaceState({}, "", spotifyRedirectUri());
+    await beginSpotifyOAuth();
+    return;
   }
 
   await exchangeSpotifyCodeForToken(code);
@@ -1542,4 +1568,4 @@ el.shareInstagramBtn?.addEventListener("click", async () => {
 
 
 el.dataSourceSelect?.addEventListener("change", updateDataSourceUi);
-updateDataSourceUi();
+setDataSource("spotify");
