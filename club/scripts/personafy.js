@@ -1,18 +1,11 @@
-/* ============================================================================
-   personafy.js — Noted.fm (Last.fm persona notebook)
-   Signals renamed to psychological terms:
-   - Range (was Diversity)
-   - Intensity (was Obsession)
-   - Streams (display metric for listening volume)
-   Includes optional tier words aligned to each signal spectrum
-============================================================================ */
+
 
 /* =======================
    CONFIG
 ======================= */
 const LASTFM_API_KEY = "5d8fee243f5e5315900f1a8efad7fb21";
 const TOP_LIMIT = 50;
-const RECENT_LIMIT = 100;
+const RECENT_LIMIT = 50;
 const ARTIST_IMAGE_FALLBACK = "/assets/noted/artistfallback.png";
 const LASTFM_PLACEHOLDER_ID = "2a96cbd8b46e442fc41c2b86b821562f";
 const ARTIST_TINT_ALPHA = 0.3;
@@ -630,7 +623,7 @@ function pct(v) { return `${Math.round(clamp01(v) * 100)}%`; }
 
 function stylizeNoted(text) {
   return String(text || "").replace(/\bNoted\b|\bnoted\b/g, (m) => {
-    const casing = m === "Noted" ? "Noted" : "noted";
+    const casing = m === "Noted" ? "Noted": "noted";
     return `<span class="noted-word">${casing}</span>`;
   });
 }
@@ -663,7 +656,7 @@ function tierRange(v) {
 
 function tierIntensity(v) {
   if (v < 0.21) return "lowkey fan";
-  if (v < 0.46) return "Loyal to songs over artists";
+  if (v < 0.46) return "stan behavior";
   return "Stan behavior";
 }
 
