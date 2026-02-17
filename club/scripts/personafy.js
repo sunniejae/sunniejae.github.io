@@ -3,7 +3,7 @@
    Signals renamed to psychological terms:
    - Range (was Diversity)
    - Intensity (was Obsession)
-   - Drift (was Overlap)
+   - Streams (display metric for listening volume)
    Includes optional tier words aligned to each signal spectrum
 ============================================================================ */
 
@@ -16,7 +16,6 @@ const RECENT_LIMIT = 50;
 const ARTIST_IMAGE_FALLBACK = "/assets/noted/artistfallback.png";
 const LASTFM_PLACEHOLDER_ID = "2a96cbd8b46e442fc41c2b86b821562f";
 const ARTIST_TINT_ALPHA = 0.3;
-const TOP_ARTIST_TAG_FETCH_LIMIT = 5;
 const SHARE_DESTINATION_URL = "https://sunniejae.com/notedpersona";
 const SHARE_POST_TEXT = "my Noted Persona";
 const SPOTIFY_CLIENT_ID = "5800fdaeacbc4f6dad4670772ead5790";
@@ -86,6 +85,15 @@ const PERSONA_ORDER = [
   "main character energy",
   "doodler",
   "notes app is good enough"
+];
+
+const STREAM_PERSONA_ORDER = [
+  "casual journaler",
+  "notes app is good enough",
+  "doodler",
+  "note taker",
+  "main character energy",
+  "archivist"
 ];
 
 /* =======================
@@ -624,37 +632,38 @@ function stylizeNoted(text) {
    SIGNALS (psychological)
    Range     = uniqueArtists / totalTracks
    Intensity = topArtistPlays / totalPlays
-   Drift     = 1 - recentOverlap (so higher = more changing)
-   (We display Drift based on recentOverlap but word it as “Drift”)
+   Streams   = totalPlays (displayed as listening volume)
 ======================= */
 function computeSignals(stats) {
   const range = clamp01(safeDivide(stats.uniqueArtists, stats.totalTracks));
   const intensity = clamp01(safeDivide(stats.topArtistPlays, stats.totalPlays));
+  const streams = Math.max(0, Number(stats.totalPlays || 0));
 
   // recentOverlap: 0..1 where higher means more consistent with favorites
   const overlap = clamp01(stats.recentOverlap);
   const drift = clamp01(1 - overlap); // higher drift = more evolving right now
 
   const exploratory = overlap < 0.3;
-  return { range, intensity, overlap, drift, exploratory };
+  return { range, intensity, streams, overlap, drift, exploratory };
 }
 
 function tierRange(v) {
-  if (v < 0.36) return "Creature of comfort";
-  if (v < 0.66) return "Between comfort and exploration";
-  return "Exploratory ear";
+  if (v < 0.5) return "liked songs";
+  return "discover weekly";
 }
 
 function tierIntensity(v) {
-  if (v < 0.21) return "Loyal to the sound, not the artist";
-  if (v < 0.46) return "Loyal to songs over artists";
+  if (v < 0.21) return "lowkey fan";
+  if (v < 0.46) return "stan behavior";
   return "Stan behavior";
 }
 
-function tierDrift(v) {
-  if (v < 0.26) return "You know what you like";
-  if (v < 0.56) return "Trying some new sounds";
-  return "Experimenting with sound";
+function tierStreams(totalStreams) {
+  const value = Math.max(0, Number(totalStreams || 0));
+  const logVolume = Math.log10(value + 1);
+  if (logVolume < 2.2) return "Light rotation";
+  if (logVolume < 3.1) return "Steady replay";
+  return "Heavy rotation";
 }
 
 /* =======================
@@ -727,6 +736,30 @@ function pickPersonaFromLoadout(notebook, pen) {
   return "casual journaler";
 }
 
+function pickPersonaFromStreams(totalStreams) {
+  const value = Math.max(0, Number(totalStreams || 0));
+  const logVolume = Math.log10(value + 1);
+  if (logVolume < 2.0) return STREAM_PERSONA_ORDER[0];
+  if (logVolume < 2.35) return STREAM_PERSONA_ORDER[1];
+  if (logVolume < 2.7) return STREAM_PERSONA_ORDER[2];
+  if (logVolume < 3.0) return STREAM_PERSONA_ORDER[3];
+  if (logVolume < 3.35) return STREAM_PERSONA_ORDER[4];
+  return STREAM_PERSONA_ORDER[5];
+}
+
+function pickPersona(stats, notebook, pen) {
+  const loadoutPersona = pickPersonaFromLoadout(notebook, pen);
+  if (loadoutPersona === "archivist") return "archivist";
+
+  const streamPersona = pickPersonaFromStreams(stats?.totalPlays || 0);
+  const loadoutIndex = STREAM_PERSONA_ORDER.indexOf(loadoutPersona);
+  const streamIndex = STREAM_PERSONA_ORDER.indexOf(streamPersona);
+
+  if (loadoutIndex < 0) return streamPersona;
+  const blendedIndex = Math.round((loadoutIndex + streamIndex) / 2);
+  return STREAM_PERSONA_ORDER[blendedIndex];
+}
+
 /* =======================
    LAST.FM NORMALIZER
 ======================= */
@@ -767,6 +800,12 @@ function lastfmToNormalizedStats(raw) {
   });
 
   const recentOverlap = recentArtistSet.size ? overlapCount / recentArtistSet.size : 0;
+  const recentTrackCandidates = recent
+    .map((t) => ({
+      track: String(t?.name || "").trim(),
+      artist: String(t?.artist?.["#text"] || "").trim()
+    }))
+    .filter((t) => t.track);
 
   return {
     totalTracks,
@@ -777,11 +816,7 @@ function lastfmToNormalizedStats(raw) {
     recentOverlap,
     topGenres: [],
     topEmotionTags: [],
-    topArtistCandidates:
-      (raw.topartists?.artist || [])
-        .slice(0, TOP_ARTIST_TAG_FETCH_LIMIT)
-        .map((a) => a?.name)
-        .filter(Boolean),
+    recentTrackCandidates,
     periodLabel: "Last 30 Days",
     topTrackName: tracks[0]?.name || "Unknown Song",
     topTrackArtist: tracks[0]?.artist?.name || "Unknown Artist"
@@ -1011,6 +1046,12 @@ function spotifyToNormalizedStats(raw) {
 
   const recentOverlap = recentArtistSet.size ? overlapCount / recentArtistSet.size : 0;
   const spotifyTopArtist = artists.find((a) => a?.name === topArtistName) || artists[0];
+  const recentTrackCandidates = recent
+    .map((t) => ({
+      track: String(t?.track?.name || "").trim(),
+      artist: String(t?.track?.artists?.[0]?.name || "").trim()
+    }))
+    .filter((t) => t.track);
 
   return {
     totalTracks,
@@ -1019,9 +1060,9 @@ function spotifyToNormalizedStats(raw) {
     topArtistName,
     topArtistPlays,
     recentOverlap,
-    topGenres: classifyTags((artists || []).flatMap((a) => a?.genres || []), GENRE_RULES),
+    topGenres: [],
     topEmotionTags: [],
-    topArtistCandidates: artists.slice(0, TOP_ARTIST_TAG_FETCH_LIMIT).map((a) => a?.name).filter(Boolean),
+    recentTrackCandidates,
     periodLabel: "Last ~4 Weeks",
     topTrackName: tracks[0]?.name || "Unknown Song",
     topTrackArtist: tracks[0]?.artists?.[0]?.name || "Unknown Artist",
@@ -1034,7 +1075,7 @@ function spotifyToNormalizedStats(raw) {
    FETCH
 ======================= */
 async function fetchLastFmBundle(username) {
-  const [topRes, recentRes, topArtistsRes] = await Promise.all([
+  const [topRes, recentRes] = await Promise.all([
     fetch(
       `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${encodeURIComponent(
         username
@@ -1044,17 +1085,11 @@ async function fetchLastFmBundle(username) {
       `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(
         username
       )}&api_key=${LASTFM_API_KEY}&format=json&limit=${RECENT_LIMIT}`
-    ),
-    fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${encodeURIComponent(
-        username
-      )}&api_key=${LASTFM_API_KEY}&format=json&limit=${TOP_ARTIST_TAG_FETCH_LIMIT}&period=1month`
     )
   ]);
 
   const topData = await topRes.json();
   const recentData = await recentRes.json();
-  const topArtistsData = await topArtistsRes.json();
 
   if (!topData?.toptracks?.track?.length) {
     throw new Error("Could not load top tracks. Check username and profile visibility.");
@@ -1062,19 +1097,21 @@ async function fetchLastFmBundle(username) {
 
   return {
     toptracks: topData.toptracks,
-    recenttracks: recentData.recenttracks,
-    topartists: topArtistsData.topartists
+    recenttracks: recentData.recenttracks
   };
 }
 
-async function fetchArtistTags(artistName) {
-  if (!artistName) return [];
+async function fetchTrackTags(trackName, artistName) {
+  if (!trackName) return [];
+  const query = new URLSearchParams({
+    method: "track.gettoptags",
+    track: trackName,
+    api_key: LASTFM_API_KEY,
+    format: "json"
+  });
+  if (artistName) query.set("artist", artistName);
   try {
-    const res = await fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=${encodeURIComponent(
-        artistName
-      )}&api_key=${LASTFM_API_KEY}&format=json`
-    );
+    const res = await fetch(`https://ws.audioscrobbler.com/2.0/?${query.toString()}`);
     const data = await res.json();
     const tags = Array.isArray(data?.toptags?.tag) ? data.toptags.tag : [];
     return tags
@@ -1087,14 +1124,28 @@ async function fetchArtistTags(artistName) {
 }
 
 async function enrichGenreAndEmotionTags(stats) {
-  const artistNames =
-    (Array.isArray(stats.topArtistCandidates) && stats.topArtistCandidates.length
-      ? stats.topArtistCandidates
-      : [stats.topArtistName]
-    ).filter(Boolean);
+  const recentTracksRaw = Array.isArray(stats.recentTrackCandidates) ? stats.recentTrackCandidates : [];
+  const seen = new Set();
+  const recentTracks = recentTracksRaw
+    .map((entry) => ({
+      track: String(entry?.track || "").trim(),
+      artist: String(entry?.artist || "").trim()
+    }))
+    .filter((entry) => entry.track)
+    .filter((entry) => {
+      const key = `${entry.track.toLowerCase()}|${entry.artist.toLowerCase()}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 12);
+  const fallbackTrack = stats?.topTrackName ? [{ track: String(stats.topTrackName), artist: String(stats.topTrackArtist || "") }] : [];
+  const lookupTracks = recentTracks.length ? recentTracks : fallbackTrack;
 
-  const tagsByArtist = await Promise.all(artistNames.map((name) => fetchArtistTags(name)));
-  const flatTags = tagsByArtist.flat();
+  const tagsByTrack = await Promise.all(
+    lookupTracks.map((entry) => fetchTrackTags(entry.track, entry.artist))
+  );
+  const flatTags = tagsByTrack.flat();
 
   const topGenres = classifyTags(flatTags, GENRE_RULES);
   const topEmotionTags = classifyTags(flatTags, EMOTION_RULES);
@@ -1228,12 +1279,12 @@ function renderPersona(model) {
   // Psychological signal labels + tiers
   const rangeTier = tierRange(model.signals.range);
   const intensityTier = tierIntensity(model.signals.intensity);
-  const driftTier = tierDrift(model.signals.drift);
+  const streamsValue = Number(model.signals.streams || 0).toLocaleString();
 
   // NOTE: We keep existing element IDs to avoid HTML edits.
-  el.diversitySignal.innerHTML = `Range ${pct(model.signals.range)}<br>${rangeTier}`;
-  el.obsessionSignal.innerHTML = `Intensity ${pct(model.signals.intensity)}<br>${intensityTier}`;
-  el.overlapSignal.innerHTML = `Drift ${pct(model.signals.drift)}<br>${driftTier}`;
+  el.diversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
+  el.obsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
+  el.overlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
 
   el.listenerStyle.textContent = copy.listenerStyle;
   el.notedUse.innerHTML = stylizeNoted(copy.notedUse);
@@ -1266,9 +1317,9 @@ function renderPersona(model) {
 
   el.shareTopSong.textContent = `"${topSongName}" by ${topSongArtist}`;
   el.shareTopArtist.textContent = topArtistName;
-  el.shareDiversitySignal.innerHTML = `Range ${pct(model.signals.range)}<br>${rangeTier}`;
-  el.shareObsessionSignal.innerHTML = `Intensity ${pct(model.signals.intensity)}<br>${intensityTier}`;
-  el.shareOverlapSignal.innerHTML = `Drift ${pct(model.signals.drift)}<br>${driftTier}`;
+  el.shareDiversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
+  el.shareObsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
+  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
   el.shareDataSummary.textContent = formatDataSummary(model.stats);
   el.shareListenerStyle.textContent = copy.listenerStyle;
   el.shareNotedUse.innerHTML = stylizeNoted(copy.notedUse);
@@ -1411,7 +1462,7 @@ async function generatePersona(username, source = "lastfm") {
     const signals = computeSignals(stats);
     const notebook = pickNotebook(stats);
     const pen = pickPen(stats);
-    const persona = pickPersonaFromLoadout(notebook, pen);
+    const persona = pickPersona(stats, notebook, pen);
 
     currentModel = {
       username,

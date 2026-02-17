@@ -377,18 +377,41 @@ button:active {
 .signals {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 14px;
   margin: 12px 0 0;
   font-family: 'Noted';
+  justify-content: center;
 }
 
-.signals span {
+.signals > span {
+  width: 84px;
+  min-width: 84px;
+  text-align: center;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  line-height: 1.15;
+}
+
+.signals > span .signal-label-outside {
+  font-size: 1.2em;
+}
+
+.signals > span .signal-value {
+  font-size: 0.92em;
+}
+
+.signals > span .signal-circle {
   border: 1px solid var(--noted-darkest);
   border-radius: 999px;
-  padding: 9px 9px;
+  width: 78px;
+  min-width: 78px;
+  height: 78px;
+  padding: 6px;
   color: rgba(16, 45, 73);
   background: var(--note-b);
-  text-align: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -978,15 +1001,45 @@ button:active {
 
 .share-signals {
   margin: 0;
-  gap: 6px;
-  justify-content: center;
+  gap: 12px;
   align-items: center;
+  justify-content: space-evenly;
 }
 
-.share-signals span {
-  padding: 3px 8px;
+.share-signals > span {
+  width: 78px;
+  min-width: 78px;
+  text-align: center;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
   font-size: clamp(10px, 1.1vw, 12px);
   font-family: 'Noted';
+  line-height: 1.15;
+}
+
+.share-signals > span .signal-label-outside {
+  font-size: 1.22em;
+}
+
+.share-signals > span .signal-value {
+  font-size: 0.9em;
+}
+
+.share-signals > span .signal-circle {
+  border: 1px solid var(--noted-darkest);
+  border-radius: 999px;
+  width: 70px;
+  min-width: 70px;
+  height: 70px;
+  padding: 5px;
+  color: rgba(16, 45, 73);
+  background: var(--note-b);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .found-on--share {

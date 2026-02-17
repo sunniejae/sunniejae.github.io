@@ -8,6 +8,8 @@
   <meta name="p:domain_verify" content="282c1149f313f61846925d7d39577f4d">
   <link rel="stylesheet" href="/club/public/personafm.css">
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link rel="icon" type="image/png" href="assets/noted/logosticker.png">
+
 </head>
 
 <body>
@@ -151,6 +153,7 @@
 
           <div class="sticker sticker-artist share-sticker">
             <p class="sticker-label">Favorite Artist</p>
+            <img id="shareTopArtistImage" class="sticker-avatar" alt="Top artist image on share card" hidden>
             <p class="sticker-icon" aria-hidden="true"></p>
             <p id="shareTopArtist" class="sticker-value"></p>
           </div>
@@ -218,11 +221,12 @@
       <p id="signalsModalTitle" class="signals-modal__title">How your result was chosen</p>
 
       <div class="signals-modal__body">
-        <p><strong>Paper:</strong><br> chosen from emotion tags found in your top artists.</p>
-        <p><strong>Pen:</strong><br> chosen from genre tags found in your top artists.</p>
-        <p><strong>Range:</strong><br> creature of comfort to exploratory ear</p>
-        <p><strong>Intensity:</strong><br> stan behavior to loyal to the sound, not the artist</p>
-        <p><strong>Drift:</strong><br> you know what you like to experimenting with sound</p>
+        <p><strong>Data pulled:</strong><br> your top tracks, your recent streams, and artist/track metadata from Last.fm or Spotify.</p>
+        <p><strong>Notebook + pen:</strong><br> picked from emotion + genre tags found in your recent streams (track-level tags), then mapped to notebook/pen styles.</p>
+        <p><strong>Range:</strong><br> based on artist variety in your top tracks (unique artists vs total tracks).</p>
+        <p><strong>Intensity:</strong><br> based on artist concentration in your top tracks (top artist share of total listens).</p>
+        <p><strong>Listens:</strong><br> your stream volume count for the analyzed period.</p>
+        <p><strong>Final persona:</strong><br> combines your notebook+pen match with stream-frequency behavior ranking.</p>
         <hr class="signals-modal__divider" />
         <p id="paperReason"></p>
         <p id="penReason"></p>
