@@ -623,7 +623,7 @@ function pct(v) { return `${Math.round(clamp01(v) * 100)}%`; }
 
 function stylizeNoted(text) {
   return String(text || "").replace(/\bNoted\b|\bnoted\b/g, (m) => {
-    const casing = m === "Noted" ? "Noted" : "noted";
+    const casing = m === "Noted" ? "Noted": "noted";
     return `<span class="noted-word">${casing}</span>`;
   });
 }
@@ -656,7 +656,7 @@ function tierRange(v) {
 
 function tierIntensity(v) {
   if (v < 0.21) return "lowkey fan";
-  if (v < 0.46) return "Loyal to songs over artists";
+  if (v < 0.46) return "stan behavior";
   return "Stan behavior";
 }
 
@@ -1305,12 +1305,12 @@ function renderPersona(model) {
   // Psychological signal labels + tiers
   const rangeTier = tierRange(model.signals.range);
   const intensityTier = tierIntensity(model.signals.intensity);
-  const streamStickerLabel = model.stats?.dataSource === "spotify" ? "top" : "latest";
+  const streamStickerLabel = model.stats?.dataSource === "spotify" ? "top 50": "recent";
 
   // NOTE: We keep existing element IDs to avoid HTML edits.
   el.diversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
   el.obsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.overlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}</span></span>`;
+  el.overlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}${pct(model.signals.plays)}</span></span>`;
 
   el.listenerStyle.textContent = copy.listenerStyle;
   el.notedUse.innerHTML = stylizeNoted(copy.notedUse);
