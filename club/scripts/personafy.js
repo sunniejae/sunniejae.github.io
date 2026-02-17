@@ -11,8 +11,8 @@
    CONFIG
 ======================= */
 const LASTFM_API_KEY = "5d8fee243f5e5315900f1a8efad7fb21";
-const TOP_LIMIT = 100;
-const RECENT_LIMIT = 50;
+const TOP_LIMIT = 50;
+const RECENT_LIMIT = 100;
 const ARTIST_IMAGE_FALLBACK = "/assets/noted/artistfallback.png";
 const LASTFM_PLACEHOLDER_ID = "2a96cbd8b46e442fc41c2b86b821562f";
 const ARTIST_TINT_ALPHA = 0.3;
@@ -1312,7 +1312,7 @@ function renderPersona(model) {
   // Psychological signal labels + tiers
   const rangeTier = tierRange(model.signals.range);
   const intensityTier = tierIntensity(model.signals.intensity);
-  const streamStickerLabel = model.stats?.dataSource === "spotify" ? "top 50" : "latest";
+  const streamStickerLabel = model.stats?.dataSource === "spotify" ? "top" : "latest";
 
   // NOTE: We keep existing element IDs to avoid HTML edits.
   el.diversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
