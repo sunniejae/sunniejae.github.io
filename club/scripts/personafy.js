@@ -11,8 +11,8 @@
    CONFIG
 ======================= */
 const LASTFM_API_KEY = "5d8fee243f5e5315900f1a8efad7fb21";
-const TOP_LIMIT = 50;
-const RECENT_LIMIT = 100;
+const TOP_LIMIT = 100;
+const RECENT_LIMIT = 50;
 const ARTIST_IMAGE_FALLBACK = "/assets/noted/artistfallback.png";
 const LASTFM_PLACEHOLDER_ID = "2a96cbd8b46e442fc41c2b86b821562f";
 const ARTIST_TINT_ALPHA = 0.3;
