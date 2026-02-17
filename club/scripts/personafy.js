@@ -1013,8 +1013,10 @@ async function fetchSpotifyBundle(token) {
     spotifyApi(`me/top/artists?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token)
   ]);
 
-  if (!Array.isArray(topTracks?.items) || !topTracks.items.length) {
-    throw new Error("Could not load top tracks from Spotify. Check account permissions.");
+  const hasTop = Array.isArray(topTracks?.items) && topTracks.items.length > 0;
+  const hasRecent = Array.isArray(recentTracks?.items) && recentTracks.items.length > 0;
+  if (!hasTop && !hasRecent) {
+    throw new Error("Could not load Spotify listening data. Try playing a few tracks and retry.");
   }
 
   return { topTracks, recentTracks, topArtists };
@@ -1024,6 +1026,7 @@ function spotifyToNormalizedStats(raw) {
   const tracks = raw.topTracks?.items || [];
   const recent = raw.recentTracks?.items || [];
   const artists = raw.topArtists?.items || [];
+  const topLikeTrack = tracks[0] || recent[0]?.track || null;
 
   const topTrackArtistMap = {};
   tracks.forEach((t) => {
@@ -1076,8 +1079,8 @@ function spotifyToNormalizedStats(raw) {
     topEmotionTags: [],
     recentTrackCandidates,
     periodLabel: "Last ~4 Weeks",
-    topTrackName: tracks[0]?.name || "Unknown Song",
-    topTrackArtist: tracks[0]?.artists?.[0]?.name || "Unknown Artist",
+    topTrackName: topLikeTrack?.name || "Unknown Song",
+    topTrackArtist: topLikeTrack?.artists?.[0]?.name || "Unknown Artist",
     topArtistImage: spotifyTopArtist?.images?.[0]?.url || "",
     dataSource: "spotify"
   };
