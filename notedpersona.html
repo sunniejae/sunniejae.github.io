@@ -106,12 +106,17 @@
         </div>
       </article>
 
-      <div class="actions">
-        <button id="generateCardBtn" type="button">Generate Share Card</button>
-        <button id="shareBtn" type="button">Share</button>
-        <button id="socialShareBtn" type="button">Post</button>
-        <button id="signalsInfoBtn" type="button">Why?</button>
-        <button id="saveBtn" type="button">Save PNG</button>
+      <div class="actions result-actions">
+        <div class="action-row action-row-top">
+          <button id="startNotebookBtn" type="button" hidden>Start your notebook</button>
+          <button id="signalsInfoBtn" type="button">Why?</button>
+        </div>
+        <div class="action-row action-row-bottom">
+          <button id="generateCardBtn" type="button">Generate Share Card</button>
+          <button id="shareBtn" type="button">Share</button>
+          <button id="socialShareBtn" type="button">Post</button>
+          <button id="saveBtn" type="button">Save PNG</button>
+        </div>
       </div>
 
       <section id="previewWrap" class="preview-wrap" hidden>
@@ -226,7 +231,7 @@
         <p><strong>Range:</strong><br> based on artist variety in your top tracks (unique artists vs total tracks).</p>
         <p><strong>Intensity:</strong><br> based on artist concentration in your top tracks (top artist share of total listens).</p>
         <p><strong>Listens:</strong><br> your stream volume count for the analyzed period.</p>
-        <p><strong>Final persona:</strong><br> combines your notebook+pen match with stream-frequency behavior ranking.</p>
+        <p><strong>Final persona:</strong><br> Spotify uses your notebook+pen match. Last.fm combines notebook+pen with stream-frequency behavior ranking.</p>
         <hr class="signals-modal__divider" />
         <p id="paperReason"></p>
         <p id="penReason"></p>

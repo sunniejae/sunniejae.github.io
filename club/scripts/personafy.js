@@ -455,6 +455,7 @@ const el = {
   shareBtn: document.getElementById("shareBtn"),
   socialShareBtn: document.getElementById("socialShareBtn"),
   saveBtn: document.getElementById("saveBtn"),
+  startNotebookBtn: document.getElementById("startNotebookBtn"),
   previewWrap: document.getElementById("previewWrap"),
   previewImage: document.getElementById("previewImage"),
   shareCard: document.getElementById("shareCard"),
@@ -752,6 +753,7 @@ function pickPersonaFromStreams(totalStreams) {
 function pickPersona(stats, notebook, pen) {
   const loadoutPersona = pickPersonaFromLoadout(notebook, pen);
   if (loadoutPersona === "archivist") return "archivist";
+  if (stats?.dataSource === "spotify") return loadoutPersona;
 
   const streamPersona = pickPersonaFromStreams(stats?.totalPlays || 0);
   const loadoutIndex = STREAM_PERSONA_ORDER.indexOf(loadoutPersona);
@@ -858,6 +860,10 @@ function readSpotifyToken() {
 
 function writeSpotifyToken(token) {
   localStorage.setItem(SPOTIFY_TOKEN_STORAGE_KEY, JSON.stringify(token));
+}
+
+function clearSpotifyToken() {
+  localStorage.removeItem(SPOTIFY_TOKEN_STORAGE_KEY);
 }
 
 function setSpotifyOAuthValue(sessionKey, fallbackKey, value) {
@@ -1350,6 +1356,9 @@ function renderPersona(model) {
   if (el.penReason) el.penReason.textContent = reasons.penReason;
 
   el.result.hidden = false;
+  if (el.startNotebookBtn) {
+    el.startNotebookBtn.hidden = false;
+  }
   if (el.signalsInfoBtn) {
     el.signalsInfoBtn.hidden = false;
     el.signalsInfoBtn.disabled = false;
@@ -1463,6 +1472,7 @@ async function shareToInstagramStory() {
 async function generatePersona(username, source = "lastfm") {
   el.loading.hidden = false;
   el.result.hidden = true;
+  if (el.startNotebookBtn) el.startNotebookBtn.hidden = true;
   closeSignalsModal();
   if (el.signalsInfoBtn) {
     el.signalsInfoBtn.hidden = true;
@@ -1470,9 +1480,13 @@ async function generatePersona(username, source = "lastfm") {
   }
 
   try {
-    const stats = source === "spotify"
-      ? spotifyToNormalizedStats(await fetchSpotifyBundle(await getValidSpotifyAccessToken()))
-      : lastfmToNormalizedStats(await fetchLastFmBundle(username));
+    let stats;
+    if (source === "spotify") {
+      clearSpotifyToken();
+      stats = spotifyToNormalizedStats(await fetchSpotifyBundle(await getValidSpotifyAccessToken()));
+    } else {
+      stats = lastfmToNormalizedStats(await fetchLastFmBundle(username));
+    }
     const enrichedTags = await enrichGenreAndEmotionTags(stats);
     stats.topGenres = enrichedTags.topGenres;
     stats.topEmotionTags = enrichedTags.topEmotionTags;
@@ -1594,6 +1608,10 @@ el.shareBtn?.addEventListener("click", async () => {
   }
 
   window.open(latestCardDataUrl, "_blank", "noopener,noreferrer");
+});
+
+el.startNotebookBtn?.addEventListener("click", () => {
+  window.open("https://noted.sunniejae.com", "_blank", "noopener,noreferrer");
 });
 
 el.socialShareBtn?.addEventListener("click", async () => {
