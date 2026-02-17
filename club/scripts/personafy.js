@@ -656,7 +656,7 @@ function tierRange(v) {
 
 function tierIntensity(v) {
   if (v < 0.21) return "lowkey fan";
-  if (v < 0.46) return "stan behavior";
+  if (v < 0.46) return "Loyal to songs over artists";
   return "Stan behavior";
 }
 
@@ -1025,21 +1025,29 @@ function spotifyToNormalizedStats(raw) {
   const recent = raw.recentTracks?.items || [];
   const artists = raw.topArtists?.items || [];
 
-  const totalTracks = tracks.length;
-  const totalPlays = tracks.reduce((sum, t) => sum + Number(t?.popularity || 0), 0);
-
-  const artistPlayMap = {};
+  const topTrackArtistMap = {};
   tracks.forEach((t) => {
     const primaryArtist = t?.artists?.[0]?.name || "Unknown Artist";
-    artistPlayMap[primaryArtist] = (artistPlayMap[primaryArtist] || 0) + Number(t?.popularity || 0);
+    topTrackArtistMap[primaryArtist] = (topTrackArtistMap[primaryArtist] || 0) + 1;
   });
 
-  const uniqueArtists = Object.keys(artistPlayMap).length;
-  const topArtistEntry = Object.entries(artistPlayMap).sort((a, b) => b[1] - a[1])[0] || ["Unknown Artist", 0];
+  const recentArtistCounts = {};
+  recent.forEach((item) => {
+    const name = item?.track?.artists?.[0]?.name || "Unknown Artist";
+    recentArtistCounts[name] = (recentArtistCounts[name] || 0) + 1;
+  });
+
+  const totalTracks = recent.length || tracks.length;
+  const totalPlays = recent.length;
+  const uniqueArtists = Object.keys(recentArtistCounts).length || Object.keys(topTrackArtistMap).length;
+  const topArtistEntry =
+    Object.entries(recentArtistCounts).sort((a, b) => b[1] - a[1])[0]
+    || Object.entries(topTrackArtistMap).sort((a, b) => b[1] - a[1])[0]
+    || ["Unknown Artist", 0];
   const topArtistName = topArtistEntry[0];
   const topArtistPlays = topArtistEntry[1];
 
-  const topArtistSet = new Set(Object.keys(artistPlayMap).map((n) => n.toLowerCase()));
+  const topArtistSet = new Set(Object.keys(topTrackArtistMap).map((n) => n.toLowerCase()));
   const recentArtistSet = new Set(recent.map((t) => t?.track?.artists?.[0]?.name?.toLowerCase()).filter(Boolean));
 
   let overlapCount = 0;
@@ -1288,7 +1296,7 @@ function renderPersona(model) {
   // NOTE: We keep existing element IDs to avoid HTML edits.
   el.diversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
   el.obsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.overlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
+  el.overlapSignal.innerHTML = `<span class="signal-label-outside">listens</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
 
   el.listenerStyle.textContent = copy.listenerStyle;
   el.notedUse.innerHTML = stylizeNoted(copy.notedUse);
@@ -1323,7 +1331,7 @@ function renderPersona(model) {
   el.shareTopArtist.textContent = topArtistName;
   el.shareDiversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
   el.shareObsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
+  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">listens</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
   el.shareDataSummary.textContent = formatDataSummary(model.stats);
   el.shareListenerStyle.textContent = copy.listenerStyle;
   el.shareNotedUse.innerHTML = stylizeNoted(copy.notedUse);
