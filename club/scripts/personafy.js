@@ -1007,10 +1007,11 @@ async function spotifyApi(path, token) {
 }
 
 async function fetchSpotifyBundle(token) {
-  const [topTracks, recentTracks, topArtists] = await Promise.all([
+  const [topTracks, recentTracks, topArtists, profile] = await Promise.all([
     spotifyApi(`me/top/tracks?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token),
     spotifyApi(`me/player/recently-played?limit=${RECENT_LIMIT}`, token),
-    spotifyApi(`me/top/artists?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token)
+    spotifyApi(`me/top/artists?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token),
+    spotifyApi("me", token)
   ]);
 
   const hasTop = Array.isArray(topTracks?.items) && topTracks.items.length > 0;
@@ -1019,7 +1020,7 @@ async function fetchSpotifyBundle(token) {
     throw new Error("Could not load Spotify listening data. Try playing a few tracks and retry.");
   }
 
-  return { topTracks, recentTracks, topArtists };
+  return { topTracks, recentTracks, topArtists, profile };
 }
 
 function spotifyToNormalizedStats(raw) {
@@ -1082,6 +1083,7 @@ function spotifyToNormalizedStats(raw) {
     topTrackName: topLikeTrack?.name || "Unknown Song",
     topTrackArtist: topLikeTrack?.artists?.[0]?.name || "Unknown Artist",
     topArtistImage: spotifyTopArtist?.images?.[0]?.url || "",
+    sourceUsername: raw?.profile?.display_name || raw?.profile?.id || "",
     dataSource: "spotify"
   };
 }
@@ -1483,8 +1485,13 @@ async function generatePersona(username, source = "lastfm") {
     const pen = pickPen(stats);
     const persona = pickPersona(stats, notebook, pen);
 
+    const displayUsername =
+      source === "spotify"
+        ? (String(stats?.sourceUsername || "").trim() || username || "spotify-user")
+        : username;
+
     currentModel = {
-      username,
+      username: displayUsername,
       persona,
       notebook,
       pen,
