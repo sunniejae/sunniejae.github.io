@@ -20,11 +20,15 @@
       <p class="subsubtitle">A listening persona, right out of your notebook.</p>
 
       <div class="intro-actions">
+        <select id="dataSourceSelect" aria-label="Select listening data source">
+          <option value="lastfm" selected>Last.fm</option>
+          <option value="spotify">Spotify</option>
+        </select>
         <input id="usernameInput" type="text" placeholder="Enter Last.fm username" autocomplete="off" />
         <button id="generateBtn" type="button">Generate</button>
       </div>
 
-      <p class="small-note">Uses public Last.fm data only.</p>
+      <p id="dataSourceNote" class="small-note">Uses public Last.fm data only.</p>
     </section>
 
     <section id="loading" class="loading" hidden>Taking note of your listening patterns...</section>
