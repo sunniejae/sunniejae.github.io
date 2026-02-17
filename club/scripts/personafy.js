@@ -1253,8 +1253,12 @@ function formatShareDate(date = new Date()) {
   return `${d}-${m}-${y}`;
 }
 
+function displayedNotebookLabel(model) {
+  return model?.persona === "notes app is good enough" ? "notes app" : model?.notebook;
+}
+
 function buildChoiceReasons(model) {
-  const paper = model.notebook;
+  const paper = displayedNotebookLabel(model);
   const pen = model.pen;
   const emotionLabels = Array.from(new Set(model.stats.topEmotionTags || []));
   const genreLabels = Array.from(new Set(model.stats.topGenres || []));
@@ -1296,7 +1300,7 @@ function renderPersona(model) {
   // NOTE: We keep existing element IDs to avoid HTML edits.
   el.diversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
   el.obsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.overlapSignal.innerHTML = `<span class="signal-label-outside">listens</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
+  el.overlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
 
   el.listenerStyle.textContent = copy.listenerStyle;
   el.notedUse.innerHTML = stylizeNoted(copy.notedUse);
@@ -1331,7 +1335,7 @@ function renderPersona(model) {
   el.shareTopArtist.textContent = topArtistName;
   el.shareDiversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
   el.shareObsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">listens</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
+  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamsValue}</span></span>`;
   el.shareDataSummary.textContent = formatDataSummary(model.stats);
   el.shareListenerStyle.textContent = copy.listenerStyle;
   el.shareNotedUse.innerHTML = stylizeNoted(copy.notedUse);
