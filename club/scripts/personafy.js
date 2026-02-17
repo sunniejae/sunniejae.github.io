@@ -19,6 +19,11 @@ const ARTIST_TINT_ALPHA = 0.3;
 const TOP_ARTIST_TAG_FETCH_LIMIT = 5;
 const SHARE_DESTINATION_URL = "https://sunniejae.com/notedpersona";
 const SHARE_POST_TEXT = "my Noted Persona";
+const SPOTIFY_CLIENT_ID = "5800fdaeacbc4f6dad4670772ead5790";
+const SPOTIFY_SCOPES = "user-top-read user-read-recently-played";
+const SPOTIFY_TOKEN_STORAGE_KEY = "notedpersona_spotify_token";
+const SPOTIFY_VERIFIER_STORAGE_KEY = "notedpersona_spotify_pkce_verifier";
+const SPOTIFY_STATE_STORAGE_KEY = "notedpersona_spotify_oauth_state";
 
 const GENRE_RULES = [
   { label: "hip hop", keys: ["hip hop", "rap", "trap", "drill", "boom bap"] },
@@ -405,6 +410,8 @@ const ASSETS_REGISTRY = {
    DOM
 ======================= */
 const el = {
+  dataSourceSelect: document.getElementById("dataSourceSelect"),
+  dataSourceNote: document.getElementById("dataSourceNote"),
   usernameInput: document.getElementById("usernameInput"),
   generateBtn: document.getElementById("generateBtn"),
   loading: document.getElementById("loading"),
@@ -466,6 +473,27 @@ const el = {
 
 let currentModel = null;
 let latestCardDataUrl = "";
+
+
+function selectedDataSource() {
+  return el.dataSourceSelect?.value === "spotify" ? "spotify" : "lastfm";
+}
+
+function updateDataSourceUi() {
+  const source = selectedDataSource();
+  const isSpotify = source === "spotify";
+  if (el.usernameInput) {
+    el.usernameInput.placeholder = isSpotify
+      ? "Spotify generation uses OAuth (username not required)"
+      : "Enter Last.fm username";
+    el.usernameInput.disabled = isSpotify;
+  }
+  if (el.dataSourceNote) {
+    el.dataSourceNote.textContent = isSpotify
+      ? "Spotify generation uses secure OAuth access to your account data."
+      : "Uses public Last.fm data only.";
+  }
+}
 
 if (el.signalsInfoBtn) {
   el.signalsInfoBtn.hidden = true;
@@ -738,6 +766,227 @@ function lastfmToNormalizedStats(raw) {
   };
 }
 
+async function sha256(input) {
+  const data = new TextEncoder().encode(input);
+  return crypto.subtle.digest("SHA-256", data);
+}
+
+function base64UrlEncode(buffer) {
+  const bytes = new Uint8Array(buffer);
+  let binary = "";
+  bytes.forEach((b) => { binary += String.fromCharCode(b); });
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
+function randomString(length = 64) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const random = crypto.getRandomValues(new Uint8Array(length));
+  return Array.from(random).map((i) => chars[i % chars.length]).join("");
+}
+
+function spotifyRedirectUri() {
+  return `${window.location.origin}${window.location.pathname}`;
+}
+
+function readSpotifyToken() {
+  try {
+    return JSON.parse(localStorage.getItem(SPOTIFY_TOKEN_STORAGE_KEY) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function writeSpotifyToken(token) {
+  localStorage.setItem(SPOTIFY_TOKEN_STORAGE_KEY, JSON.stringify(token));
+}
+
+async function beginSpotifyOAuth() {
+  const codeVerifier = randomString(96);
+  const state = randomString(24);
+  const codeChallenge = base64UrlEncode(await sha256(codeVerifier));
+
+  sessionStorage.setItem(SPOTIFY_VERIFIER_STORAGE_KEY, codeVerifier);
+  sessionStorage.setItem(SPOTIFY_STATE_STORAGE_KEY, state);
+
+  const auth = new URL("https://accounts.spotify.com/authorize");
+  auth.searchParams.set("response_type", "code");
+  auth.searchParams.set("client_id", SPOTIFY_CLIENT_ID);
+  auth.searchParams.set("scope", SPOTIFY_SCOPES);
+  auth.searchParams.set("redirect_uri", spotifyRedirectUri());
+  auth.searchParams.set("state", state);
+  auth.searchParams.set("code_challenge_method", "S256");
+  auth.searchParams.set("code_challenge", codeChallenge);
+
+  window.location.href = auth.toString();
+}
+
+async function exchangeSpotifyCodeForToken(code) {
+  const codeVerifier = sessionStorage.getItem(SPOTIFY_VERIFIER_STORAGE_KEY);
+  if (!codeVerifier) throw new Error("Spotify login session expired. Please try again.");
+
+  const body = new URLSearchParams();
+  body.set("grant_type", "authorization_code");
+  body.set("code", code);
+  body.set("redirect_uri", spotifyRedirectUri());
+  body.set("client_id", SPOTIFY_CLIENT_ID);
+  body.set("code_verifier", codeVerifier);
+
+  const res = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body
+  });
+  const data = await res.json();
+  if (!res.ok || !data?.access_token) {
+    throw new Error(data?.error_description || "Spotify OAuth token exchange failed.");
+  }
+
+  writeSpotifyToken({
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token || "",
+    expiresAt: Date.now() + (Number(data.expires_in || 0) * 1000)
+  });
+
+  sessionStorage.removeItem(SPOTIFY_VERIFIER_STORAGE_KEY);
+  sessionStorage.removeItem(SPOTIFY_STATE_STORAGE_KEY);
+}
+
+async function refreshSpotifyAccessToken(refreshToken) {
+  const body = new URLSearchParams();
+  body.set("grant_type", "refresh_token");
+  body.set("refresh_token", refreshToken);
+  body.set("client_id", SPOTIFY_CLIENT_ID);
+
+  const res = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body
+  });
+  const data = await res.json();
+  if (!res.ok || !data?.access_token) {
+    throw new Error(data?.error_description || "Failed to refresh Spotify token.");
+  }
+
+  const token = readSpotifyToken() || {};
+  writeSpotifyToken({
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token || token.refreshToken || refreshToken,
+    expiresAt: Date.now() + (Number(data.expires_in || 0) * 1000)
+  });
+}
+
+async function handleSpotifyOAuthCallback() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  const state = params.get("state");
+  const error = params.get("error");
+  if (!code && !error) return;
+
+  if (error) {
+    history.replaceState({}, "", spotifyRedirectUri());
+    throw new Error(`Spotify login failed: ${error}`);
+  }
+
+  const expectedState = sessionStorage.getItem(SPOTIFY_STATE_STORAGE_KEY);
+  if (!expectedState || state !== expectedState) {
+    throw new Error("Spotify login failed state validation.");
+  }
+
+  await exchangeSpotifyCodeForToken(code);
+  history.replaceState({}, "", spotifyRedirectUri());
+}
+
+async function getValidSpotifyAccessToken() {
+  await handleSpotifyOAuthCallback();
+
+  const token = readSpotifyToken();
+  const now = Date.now();
+  if (token?.accessToken && Number(token?.expiresAt || 0) > now + 60000) {
+    return token.accessToken;
+  }
+
+  if (token?.refreshToken) {
+    await refreshSpotifyAccessToken(token.refreshToken);
+    return readSpotifyToken()?.accessToken || "";
+  }
+
+  await beginSpotifyOAuth();
+  return "";
+}
+
+async function spotifyApi(path, token) {
+  const res = await fetch(`https://api.spotify.com/v1/${path}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err?.error?.message || `Spotify request failed (${res.status})`);
+  }
+  return res.json();
+}
+
+async function fetchSpotifyBundle(token) {
+  const [topTracks, recentTracks, topArtists] = await Promise.all([
+    spotifyApi(`me/top/tracks?time_range=short_term&limit=${TOP_LIMIT}`, token),
+    spotifyApi(`me/player/recently-played?limit=${RECENT_LIMIT}`, token),
+    spotifyApi(`me/top/artists?time_range=short_term&limit=${TOP_LIMIT}`, token)
+  ]);
+
+  if (!Array.isArray(topTracks?.items) || !topTracks.items.length) {
+    throw new Error("Could not load top tracks from Spotify. Check account permissions.");
+  }
+
+  return { topTracks, recentTracks, topArtists };
+}
+
+function spotifyToNormalizedStats(raw) {
+  const tracks = raw.topTracks?.items || [];
+  const recent = raw.recentTracks?.items || [];
+  const artists = raw.topArtists?.items || [];
+
+  const totalTracks = tracks.length;
+  const totalPlays = tracks.reduce((sum, t) => sum + Number(t?.popularity || 0), 0);
+
+  const artistPlayMap = {};
+  tracks.forEach((t) => {
+    const primaryArtist = t?.artists?.[0]?.name || "Unknown Artist";
+    artistPlayMap[primaryArtist] = (artistPlayMap[primaryArtist] || 0) + Number(t?.popularity || 0);
+  });
+
+  const uniqueArtists = Object.keys(artistPlayMap).length;
+  const topArtistEntry = Object.entries(artistPlayMap).sort((a, b) => b[1] - a[1])[0] || ["Unknown Artist", 0];
+  const topArtistName = topArtistEntry[0];
+  const topArtistPlays = topArtistEntry[1];
+
+  const topArtistSet = new Set(Object.keys(artistPlayMap).map((n) => n.toLowerCase()));
+  const recentArtistSet = new Set(recent.map((t) => t?.track?.artists?.[0]?.name?.toLowerCase()).filter(Boolean));
+
+  let overlapCount = 0;
+  recentArtistSet.forEach((name) => {
+    if (topArtistSet.has(name)) overlapCount += 1;
+  });
+
+  const recentOverlap = recentArtistSet.size ? overlapCount / recentArtistSet.size : 0;
+  const spotifyTopArtist = artists.find((a) => a?.name === topArtistName) || artists[0];
+
+  return {
+    totalTracks,
+    totalPlays,
+    uniqueArtists,
+    topArtistName,
+    topArtistPlays,
+    recentOverlap,
+    topGenres: classifyTags((artists || []).flatMap((a) => a?.genres || []), GENRE_RULES),
+    topEmotionTags: [],
+    topArtistCandidates: artists.slice(0, TOP_ARTIST_TAG_FETCH_LIMIT).map((a) => a?.name).filter(Boolean),
+    periodLabel: "Last ~4 Weeks",
+    topTrackName: tracks[0]?.name || "Unknown Song",
+    topTrackArtist: tracks[0]?.artists?.[0]?.name || "Unknown Artist",
+    topArtistImage: spotifyTopArtist?.images?.[0]?.url || "",
+    dataSource: "spotify"
+  };
+}
+
 /* =======================
    FETCH
 ======================= */
@@ -817,8 +1066,8 @@ function formatDataSummary(stats) {
   const tracks = Number(stats?.totalTracks || 0).toLocaleString();
   const plays = Number(stats?.totalPlays || 0).toLocaleString();
   const artists = Number(stats?.uniqueArtists || 0).toLocaleString();
-  const topArtist = stats?.topArtistName || "Unknown Artist";
-  return `Listened to your ${tracks} top tracks from the past 30 days and found ${plays} plays by ${artists} artists`;
+  const source = stats?.dataSource === "spotify" ? "Spotify" : "Last.fm";
+  return `${source}: analyzed ${tracks} top tracks and found ${plays} weighted plays by ${artists} artists.`;
 }
 
 async function fetchTopArtistImage(artistName) {
@@ -1096,7 +1345,7 @@ async function shareToInstagramStory() {
 /* =======================
    GENERATE FLOW
 ======================= */
-async function generatePersona(username) {
+async function generatePersona(username, source = "lastfm") {
   el.loading.hidden = false;
   el.result.hidden = true;
   closeSignalsModal();
@@ -1106,12 +1355,15 @@ async function generatePersona(username) {
   }
 
   try {
-    const raw = await fetchLastFmBundle(username);
-    const stats = lastfmToNormalizedStats(raw);
+    const stats = source === "spotify"
+      ? spotifyToNormalizedStats(await fetchSpotifyBundle(await getValidSpotifyAccessToken()))
+      : lastfmToNormalizedStats(await fetchLastFmBundle(username));
     const enrichedTags = await enrichGenreAndEmotionTags(stats);
     stats.topGenres = enrichedTags.topGenres;
     stats.topEmotionTags = enrichedTags.topEmotionTags;
-    stats.topArtistImage = await fetchTopArtistImage(stats.topArtistName);
+    if (!stats.topArtistImage) {
+      stats.topArtistImage = await fetchTopArtistImage(stats.topArtistName);
+    }
 
     const signals = computeSignals(stats);
     const notebook = pickNotebook(stats);
@@ -1141,12 +1393,14 @@ async function generatePersona(username) {
 ======================= */
 el.generateBtn?.addEventListener("click", async () => {
   const username = el.usernameInput?.value?.trim();
-  if (!username) {
+  const source = selectedDataSource();
+  if (source === "lastfm" && !username) {
     alert("Enter a Last.fm username first.");
     return;
   }
+
   try {
-    await generatePersona(username);
+    await generatePersona(username || "spotify-user", source);
   } catch (err) {
     console.error(err);
     alert(err?.message || "Failed to generate persona.");
@@ -1268,3 +1522,7 @@ el.shareInstagramBtn?.addEventListener("click", async () => {
   closeSocialShareModal();
   await shareToInstagramStory();
 });
+
+
+el.dataSourceSelect?.addEventListener("change", updateDataSourceUi);
+updateDataSourceUi();
