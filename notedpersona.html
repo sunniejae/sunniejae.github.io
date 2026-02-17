@@ -225,12 +225,12 @@
       <p id="signalsModalTitle" class="signals-modal__title">How your result was chosen</p>
 
       <div class="signals-modal__body">
-        <p><strong>Data pulled:</strong><br> your top tracks, your recent streams, and artist/track metadata from Last.fm or Spotify.</p>
-        <p><strong>Notebook + pen:</strong><br> picked from emotion + genre tags found in your recent streams (track-level tags), then mapped to notebook/pen styles.</p>
-        <p><strong>Playlist:</strong><br> based on artist variety in your found streams (unique artists vs total tracks).</p>
-        <p><strong>Fan Behavior:</strong><br> based on artist concentration in your top tracks (top artist share of total listens).</p>
-        <p><strong>Streams:</strong><br> your stream volume count for the analyzed period.</p>
-        <p><strong>Final Persona:</strong><br> Spotify uses your notebook+pen match. Last.fm combines notebook+pen with stream-frequency behavior ranking.</p>
+        <p><strong>Data pulled:</strong><br> top tracks, recent streams, and track/artist tags from Last.fm or Spotify.</p>
+        <p><strong>Playlist sticker math:</strong><br> unique artists / total found tracks. Your ratio is <span id="playlistRatioInline"></span>. If ratio is 0.50 or higher, label is <em>discover</em>; otherwise <em>liked songs</em>.</p>
+        <p><strong>Fan style sticker math:</strong><br> top artist streams / total found streams. Your ratio is <span id="fanStyleRatioInline"></span>. If ratio is below 0.50, label is <em>lowkey</em>; otherwise <em>stan</em>.</p>
+        <p><strong>Songs/Streams found:</strong><br> Spotify uses top 50 songs this month. Last.fm uses total streams fetched in the last 30 days.</p>
+        <p><strong>Notebook + pen:</strong><br> chosen from emotion and genre tags found in recent listening.</p>
+        <p><strong>Final persona:</strong><br> Spotify uses notebook+pen mapping. Last.fm blends notebook+pen with stream-volume behavior ranking.</p>
         <hr class="signals-modal__divider" />
         <p id="paperReason"></p>
         <p id="penReason"></p>
@@ -268,3 +268,4 @@
   <script src="/club/scripts/personafy.js"></script>
 </body>
 </html>
+

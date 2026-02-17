@@ -384,16 +384,16 @@ button:active {
 /* ===== SIGNALS / BLOCKS ===== */
 .signals {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  flex-wrap: nowrap;
+  gap: 18px;
   margin: 12px 0 0;
   font-family: 'Noted';
   justify-content: center;
 }
 
 .signals > span {
-  width: 84px;
-  min-width: 84px;
+  width: 118px;
+  min-width: 118px;
   text-align: center;
   display: inline-flex;
   flex-direction: column;
@@ -404,19 +404,23 @@ button:active {
 }
 
 .signals > span .signal-label-outside {
-  font-size: 1.2em;
+  font-size: 1.34em;
+  white-space: nowrap;
+  min-height: 1.2em;
 }
 
 .signals > span .signal-value {
-  font-size: 0.92em;
+  font-size: 1.06em;
+  white-space: nowrap;
+  min-height: 1.2em;
 }
 
 .signals > span .signal-circle {
   border: 1px solid var(--noted-darkest);
   border-radius: 999px;
-  width: 78px;
-  min-width: 78px;
-  height: 78px;
+  width: 86px;
+  min-width: 86px;
+  height: 86px;
   padding: 6px;
   color: rgba(16, 45, 73);
   background: var(--note-b);
@@ -456,7 +460,7 @@ button:active {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  font-family: "Spotify";
+  font-family: "Noted", serif;
 }
 
 .signals-modal__backdrop {
@@ -479,7 +483,7 @@ button:active {
 .signals-modal__title {
   margin: 0 0 8px;
   color: rgba(16, 45, 73, 0.95);
-  font-family: "Spotify", sans-serif;
+  font-family: "Noted", serif;
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 0.08em;
@@ -488,7 +492,7 @@ button:active {
 .signals-modal__body p {
   margin: 0 0 8px;
   color: var(--entry-ink);
-  font-family: var(--entry-font);
+  font-family: "Noted", serif;
   font-size: clamp(14px, 2.4vw, calc(20px + var(--regular-font-boost)));
   line-height: 1.35;
 }
@@ -510,7 +514,7 @@ button:active {
   background: var(--ui-button-bg);
   color: var(--ui-button-text);
   padding: 8px 12px;
-  font-family: "Spotify", sans-serif;
+  font-family: "Noted", serif;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1022,16 +1026,23 @@ button:active {
   word-break: break-word;
 }
 
+.share-note-copy .data-summary-label {
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
 .share-signals {
   margin: 0;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  flex-wrap: nowrap;
 }
 
 .share-signals > span {
-  width: 78px;
-  min-width: 78px;
+  width: 106px;
+  min-width: 106px;
   text-align: center;
   display: inline-flex;
   flex-direction: column;
@@ -1044,19 +1055,23 @@ button:active {
 }
 
 .share-signals > span .signal-label-outside {
-  font-size: 1.22em;
+  font-size: 1.34em;
+  white-space: nowrap;
+  min-height: 1.2em;
 }
 
 .share-signals > span .signal-value {
-  font-size: 0.9em;
+  font-size: 1.02em;
+  white-space: nowrap;
+  min-height: 1.2em;
 }
 
 .share-signals > span .signal-circle {
   border: 1px solid var(--noted-darkest);
   border-radius: 999px;
-  width: 70px;
-  min-width: 70px;
-  height: 70px;
+  width: 78px;
+  min-width: 78px;
+  height: 78px;
   padding: 5px;
   color: rgba(16, 45, 73);
   background: var(--note-b);
@@ -1135,3 +1150,4 @@ body.phone-notebook .share-period {
 .link-button:hover {
   opacity: 0.85;
 }
+

@@ -6,6 +6,8 @@
 const LASTFM_API_KEY = "5d8fee243f5e5315900f1a8efad7fb21";
 const TOP_LIMIT = 50;
 const RECENT_LIMIT = 50;
+const LASTFM_RECENT_PAGE_LIMIT = 200;
+const LASTFM_RECENT_WINDOW_DAYS = 30;
 const ARTIST_IMAGE_FALLBACK = "/assets/noted/artistfallback.png";
 const LASTFM_PLACEHOLDER_ID = "2a96cbd8b46e442fc41c2b86b821562f";
 const ARTIST_TINT_ALPHA = 0.3;
@@ -442,6 +444,8 @@ const el = {
   signalsModal: document.getElementById("signalsModal"),
   signalsModalBackdrop: document.getElementById("signalsModalBackdrop"),
   signalsModalCloseBtn: document.getElementById("signalsModalCloseBtn"),
+  playlistRatioInline: document.getElementById("playlistRatioInline"),
+  fanStyleRatioInline: document.getElementById("fanStyleRatioInline"),
   paperReason: document.getElementById("paperReason"),
   penReason: document.getElementById("penReason"),
   generateCardBtn: document.getElementById("generateCardBtn"),
@@ -655,9 +659,8 @@ function tierRange(v) {
 }
 
 function tierIntensity(v) {
-  if (v < 0.21) return "lowkey fan";
-  if (v < 0.46) return "stan behavior";
-  return "Stan behavior";
+  if (v < 0.5) return "lowkey fan";
+  return "stan behavior";
 }
 
 function tierStreams(totalStreams) {
@@ -754,7 +757,7 @@ function pickPersona(stats, notebook, pen) {
   if (loadoutPersona === "archivist") return "archivist";
   if (stats?.dataSource === "spotify") return loadoutPersona;
 
-  const streamPersona = pickPersonaFromStreams(stats?.totalPlays || 0);
+  const streamPersona = pickPersonaFromStreams(stats?.streamCount ?? stats?.totalPlays ?? 0);
   const loadoutIndex = STREAM_PERSONA_ORDER.indexOf(loadoutPersona);
   const streamIndex = STREAM_PERSONA_ORDER.indexOf(streamPersona);
 
@@ -770,9 +773,9 @@ function lastfmToNormalizedStats(raw) {
   const tracks = raw.toptracks?.track || [];
   const recent = raw.recenttracks?.track || [];
   const recentListens = recent.filter((t) => String(t?.["@attr"]?.nowplaying || "").toLowerCase() !== "true").length;
-
-  const totalTracks = tracks.length;
-  const totalPlays = tracks.reduce((sum, t) => sum + Number(t.playcount || 0), 0);
+  const totalStreams = recentListens;
+  const totalTracks = totalStreams || tracks.length;
+  const totalPlays = totalStreams;
 
   const artistPlayMap = {};
   tracks.forEach((t) => {
@@ -780,10 +783,20 @@ function lastfmToNormalizedStats(raw) {
     artistPlayMap[artistName] = (artistPlayMap[artistName] || 0) + Number(t.playcount || 0);
   });
 
-  const uniqueArtists = Object.keys(artistPlayMap).length;
+  const recentArtistCounts = {};
+  recent.forEach((t) => {
+    const isNowPlaying = String(t?.["@attr"]?.nowplaying || "").toLowerCase() === "true";
+    if (isNowPlaying) return;
+    const artistName = String(t?.artist?.["#text"] || "").trim() || "Unknown Artist";
+    recentArtistCounts[artistName] = (recentArtistCounts[artistName] || 0) + 1;
+  });
+
+  const uniqueArtists = Object.keys(recentArtistCounts).length || Object.keys(artistPlayMap).length;
 
   const topArtistEntry =
-    Object.entries(artistPlayMap).sort((a, b) => b[1] - a[1])[0] || ["Unknown Artist", 0];
+    Object.entries(recentArtistCounts).sort((a, b) => b[1] - a[1])[0]
+    || Object.entries(artistPlayMap).sort((a, b) => b[1] - a[1])[0]
+    || ["Unknown Artist", 0];
   const topArtistName = topArtistEntry[0];
   const topArtistPlays = topArtistEntry[1];
 
@@ -814,7 +827,7 @@ function lastfmToNormalizedStats(raw) {
   return {
     totalTracks,
     totalPlays,
-    streamCount: totalPlays,
+    streamCount: totalStreams,
     recentListens,
     uniqueArtists,
     topArtistName,
@@ -1101,21 +1114,51 @@ function spotifyToNormalizedStats(raw) {
    FETCH
 ======================= */
 async function fetchLastFmBundle(username) {
-  const [topRes, recentRes] = await Promise.all([
+  const nowUnix = Math.floor(Date.now() / 1000);
+  const windowStartUnix = nowUnix - (LASTFM_RECENT_WINDOW_DAYS * 24 * 60 * 60);
+
+  const fetchAllRecentTracks = async () => {
+    const allTracks = [];
+    let page = 1;
+    let totalPages = 1;
+
+    do {
+      const recentRes = await fetch(
+        `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(
+          username
+        )}&api_key=${LASTFM_API_KEY}&format=json&limit=${LASTFM_RECENT_PAGE_LIMIT}&page=${page}&from=${windowStartUnix}&to=${nowUnix}`
+      );
+      const recentData = await recentRes.json();
+      const pageTracks = Array.isArray(recentData?.recenttracks?.track)
+        ? recentData.recenttracks.track
+        : [];
+      allTracks.push(...pageTracks);
+
+      const metaPages = Number(recentData?.recenttracks?.["@attr"]?.totalPages);
+      totalPages = Number.isFinite(metaPages) && metaPages > 0 ? metaPages : totalPages;
+      page += 1;
+    } while (page <= totalPages);
+
+    return {
+      track: allTracks,
+      "@attr": {
+        total: String(allTracks.length),
+        from: String(windowStartUnix),
+        to: String(nowUnix)
+      }
+    };
+  };
+
+  const [topRes, recenttracks] = await Promise.all([
     fetch(
       `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${encodeURIComponent(
         username
       )}&api_key=${LASTFM_API_KEY}&format=json&limit=${TOP_LIMIT}&period=1month`
     ),
-    fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(
-        username
-      )}&api_key=${LASTFM_API_KEY}&format=json&limit=${RECENT_LIMIT}`
-    )
+    fetchAllRecentTracks()
   ]);
 
   const topData = await topRes.json();
-  const recentData = await recentRes.json();
 
   if (!topData?.toptracks?.track?.length) {
     throw new Error("Could not load top tracks. Check username and profile visibility.");
@@ -1123,7 +1166,7 @@ async function fetchLastFmBundle(username) {
 
   return {
     toptracks: topData.toptracks,
-    recenttracks: recentData.recenttracks
+    recenttracks
   };
 }
 
@@ -1183,11 +1226,22 @@ async function enrichGenreAndEmotionTags(stats) {
    RENDER
 ======================= */
 function formatDataSummary(stats) {
-  const tracks = Number(stats?.totalTracks || 0).toLocaleString();
-  const plays = Number(stats?.totalPlays || 0).toLocaleString();
+  const plays = Number((stats?.streamCount ?? stats?.totalPlays ?? 0)).toLocaleString();
   const artists = Number(stats?.uniqueArtists || 0).toLocaleString();
-  const source = stats?.dataSource === "spotify" ? "Spotify" : "Last.fm";
-  return `${source}: analyzed ${tracks} top tracks and found ${plays} weighted plays by ${artists} artists.`;
+  return [
+    '<span class="data-summary-label">playlist</span>',
+    "--",
+    "discover weekly- found a variety of artists in the found tracks",
+    "liked songs- found streams from mostly familiar artists",
+    "--",
+    '<span class="data-summary-label">fan style</span>',
+    "--",
+    "lowkey fan- your top artist didn't dominate your stream count",
+    "stan behavior- your top artist was found over and over and over and over again",
+    "--",
+    `<span class="data-summary-label">Found Streams:</span> ${plays}`,
+    `<span class="data-summary-label">Found Artists:</span> ${artists}`
+  ].join("<br>");
 }
 
 async function fetchTopArtistImage(artistName) {
@@ -1277,10 +1331,11 @@ function buildChoiceReasons(model) {
   const emotionLabels = Array.from(new Set(model.stats.topEmotionTags || []));
   const genreLabels = Array.from(new Set(model.stats.topGenres || []));
 
-  const emotionText = emotionLabels.length ? emotionLabels.join(", ") : "your listening mood profile";
   const genreText = genreLabels.length ? genreLabels.join(", ") : "your genre profile";
 
-  const paperReason = `Your Notebook (${paper}) was chosen from the most common vibes in your recent listening (${emotionText}).`;
+  const paperReason = emotionLabels.length
+    ? `Your Notebook (${paper}) was chosen from the most common vibes in your recent listening. Listening mood tags: ${emotionLabels.join(", ")}.`
+    : `Your Notebook (${paper}) was chosen from the most common vibes in your recent listening.`;
   const penReason = `Your pen (${pen}) was chosen based on your most common genres (${genreText}).`;
 
   return { paperReason, penReason };
@@ -1307,18 +1362,18 @@ function renderPersona(model) {
   el.penImage.src = ASSETS_REGISTRY.pens[model.pen];
 
   // Psychological signal labels + tiers
-  const rangeTier = tierRange(model.signals.range);
-  const intensityTier = tierIntensity(model.signals.intensity);
+  const playlistLabel = model.signals.range < 0.5 ? "liked<br>songs" : "discover<br>weekly";
+  const fanStyleLabel = model.signals.intensity < 0.5 ? "lowkey" : "stan";
   const totalStreams = Math.max(0, Number(model.stats?.streamCount ?? model.stats?.totalPlays ?? 0));
-  const recentListens = Math.max(0, Number(model.stats?.recentListens ?? model.stats?.recentTrackCandidates?.length ?? 0));
+  const streamsLabel = model.stats?.dataSource === "spotify" ? "" : "streams";
   const streamStickerLabel = model.stats?.dataSource === "spotify"
-    ? "top"
-    : `${totalStreams.toLocaleString()}<br><span style="font-size:.48em; line-height:1.1;">(recent ${recentListens.toLocaleString()})</span>`;
+    ? `<span style="font-size:.9em; line-height:1.05; font-weight:700;">${totalStreams.toLocaleString()}</span>`
+    : `<span style="font-size:.9em; line-height:1.05; font-weight:700;">${totalStreams.toLocaleString()}</span>`;
 
   // NOTE: We keep existing element IDs to avoid HTML edits.
-  el.diversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
-  el.obsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.overlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}</span></span>`;
+  el.diversitySignal.innerHTML = `<span class="signal-label-outside">playlist</span><span class="signal-circle"><span class="signal-value">${playlistLabel}</span></span>`;
+  el.obsessionSignal.innerHTML = `<span class="signal-label-outside">fan style</span><span class="signal-circle"><span class="signal-value">${fanStyleLabel}</span></span>`;
+  el.overlapSignal.innerHTML = `<span class="signal-label-outside">${streamsLabel}</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}</span></span>`;
 
   el.listenerStyle.textContent = copy.listenerStyle;
   el.notedUse.innerHTML = stylizeNoted(copy.notedUse);
@@ -1351,14 +1406,18 @@ function renderPersona(model) {
 
   el.shareTopSong.textContent = `"${topSongName}" by ${topSongArtist}`;
   el.shareTopArtist.textContent = topArtistName;
-  el.shareDiversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
-  el.shareObsessionSignal.innerHTML = `<span class="signal-label-outside">${intensityTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.intensity)}</span></span>`;
-  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">streams found</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}</span></span>`;
-  el.shareDataSummary.textContent = formatDataSummary(model.stats);
+  el.shareDiversitySignal.innerHTML = `<span class="signal-label-outside">playlist</span><span class="signal-circle"><span class="signal-value">${playlistLabel}</span></span>`;
+  el.shareObsessionSignal.innerHTML = `<span class="signal-label-outside">fan style</span><span class="signal-circle"><span class="signal-value">${fanStyleLabel}</span></span>`;
+  el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">${streamsLabel}</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}</span></span>`;
+  el.shareDataSummary.innerHTML = formatDataSummary(model.stats);
   el.shareListenerStyle.textContent = copy.listenerStyle;
   el.shareNotedUse.innerHTML = stylizeNoted(copy.notedUse);
   el.shareLovesAboutNoted.innerHTML = stylizeNoted(copy.lovesAboutNoted);
   const reasons = buildChoiceReasons(model);
+  const playlistPct = pct(model.signals.range);
+  const fanStylePct = pct(model.signals.intensity);
+  if (el.playlistRatioInline) el.playlistRatioInline.textContent = playlistPct;
+  if (el.fanStyleRatioInline) el.fanStyleRatioInline.textContent = fanStylePct;
   if (el.paperReason) el.paperReason.textContent = reasons.paperReason;
   if (el.penReason) el.penReason.textContent = reasons.penReason;
 
@@ -1413,7 +1472,6 @@ async function ensureShareCardDataUrl() {
     return "";
   }
   latestCardDataUrl = await captureShareCard();
-  if (latestCardDataUrl) setGenerateCardButtonMode("save");
   return latestCardDataUrl;
 }
 
@@ -1585,10 +1643,9 @@ document.addEventListener("keydown", (e) => {
 });
 
 el.generateCardBtn?.addEventListener("click", async () => {
-  latestCardDataUrl = await ensureShareCardDataUrl();
-  if (!latestCardDataUrl) return;
-
   if (el.generateCardBtn?.dataset.mode === "save") {
+    latestCardDataUrl = await ensureShareCardDataUrl();
+    if (!latestCardDataUrl) return;
     const link = document.createElement("a");
     link.download = "notedfm-persona-card.png";
     link.href = latestCardDataUrl;
@@ -1596,6 +1653,8 @@ el.generateCardBtn?.addEventListener("click", async () => {
     return;
   }
 
+  latestCardDataUrl = await ensureShareCardDataUrl();
+  if (!latestCardDataUrl) return;
   el.previewImage.src = latestCardDataUrl;
   el.previewWrap.hidden = false;
   setGenerateCardButtonMode("save");
@@ -1675,3 +1734,4 @@ el.shareInstagramBtn?.addEventListener("click", async () => {
 el.dataSourceSelect?.addEventListener("change", updateDataSourceUi);
 setDataSource("spotify");
 setGenerateCardButtonMode("generate");
+
