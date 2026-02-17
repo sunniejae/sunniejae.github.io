@@ -776,6 +776,7 @@ function pickPersona(stats, notebook, pen) {
 function lastfmToNormalizedStats(raw) {
   const tracks = raw.toptracks?.track || [];
   const recent = raw.recenttracks?.track || [];
+  const recentListens = recent.filter((t) => String(t?.["@attr"]?.nowplaying || "").toLowerCase() !== "true").length;
 
   const totalTracks = tracks.length;
   const totalPlays = tracks.reduce((sum, t) => sum + Number(t.playcount || 0), 0);
@@ -821,6 +822,7 @@ function lastfmToNormalizedStats(raw) {
     totalTracks,
     totalPlays,
     streamCount: totalPlays,
+    recentListens,
     uniqueArtists,
     topArtistName,
     topArtistPlays,
@@ -830,7 +832,8 @@ function lastfmToNormalizedStats(raw) {
     recentTrackCandidates,
     periodLabel: "Last 30 Days",
     topTrackName: tracks[0]?.name || "Unknown Song",
-    topTrackArtist: tracks[0]?.artist?.name || "Unknown Artist"
+    topTrackArtist: tracks[0]?.artist?.name || "Unknown Artist",
+    dataSource: "lastfm"
   };
 }
 
@@ -1084,6 +1087,7 @@ function spotifyToNormalizedStats(raw) {
     totalTracks,
     totalPlays,
     streamCount: recent.length,
+    recentListens: recent.length,
     uniqueArtists,
     topArtistName,
     topArtistPlays,
@@ -1312,7 +1316,11 @@ function renderPersona(model) {
   // Psychological signal labels + tiers
   const rangeTier = tierRange(model.signals.range);
   const intensityTier = tierIntensity(model.signals.intensity);
-  const streamStickerLabel = model.stats?.dataSource === "spotify" ? "top" : "latest";
+  const totalStreams = Math.max(0, Number(model.stats?.streamCount ?? model.stats?.totalPlays ?? 0));
+  const recentListens = Math.max(0, Number(model.stats?.recentListens ?? model.stats?.recentTrackCandidates?.length ?? 0));
+  const streamStickerLabel = model.stats?.dataSource === "spotify"
+    ? "top"
+    : `${totalStreams.toLocaleString()}<br><span style="font-size:.48em; line-height:1.1;">(recent ${recentListens.toLocaleString()})</span>`;
 
   // NOTE: We keep existing element IDs to avoid HTML edits.
   el.diversitySignal.innerHTML = `<span class="signal-label-outside">${rangeTier}</span><span class="signal-circle"><span class="signal-value">${pct(model.signals.range)}</span></span>`;
