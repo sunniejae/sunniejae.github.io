@@ -794,15 +794,20 @@ function lastfmToNormalizedStats(raw) {
     artistPlayMap[artistName] = (artistPlayMap[artistName] || 0) + Number(t.playcount || 0);
   });
 
+  const recentTrackCandidates = recent
+    .map((t) => ({
+      track: String(t?.name || "").trim(),
+      artist: String(t?.artist?.["#text"] || "").trim()
+    }))
+    .filter((t) => t.track);
   const recentArtistCounts = {};
-  recent.forEach((t) => {
-    const isNowPlaying = String(t?.["@attr"]?.nowplaying || "").toLowerCase() === "true";
-    if (isNowPlaying) return;
-    const artistName = String(t?.artist?.["#text"] || "").trim() || "Unknown Artist";
+  recentTrackCandidates.forEach((t) => {
+    const artistName = t.artist || "Unknown Artist";
     recentArtistCounts[artistName] = (recentArtistCounts[artistName] || 0) + 1;
   });
 
-  const uniqueArtists = Object.keys(recentArtistCounts).length || Object.keys(artistPlayMap).length;
+  const uniqueArtistsRaw = Object.keys(recentArtistCounts).length || Object.keys(artistPlayMap).length;
+  const uniqueArtists = Math.min(totalStreams, uniqueArtistsRaw);
 
   const topArtistEntry =
     Object.entries(recentArtistCounts).sort((a, b) => b[1] - a[1])[0]
@@ -819,7 +824,7 @@ function lastfmToNormalizedStats(raw) {
   );
 
   const recentArtistSet = new Set(
-    recent.map((t) => (t?.artist?.["#text"] || "").toLowerCase()).filter(Boolean)
+    recentTrackCandidates.map((t) => t.artist.toLowerCase()).filter(Boolean)
   );
 
   let overlapCount = 0;
@@ -828,12 +833,6 @@ function lastfmToNormalizedStats(raw) {
   });
 
   const recentOverlap = recentArtistSet.size ? overlapCount / recentArtistSet.size : 0;
-  const recentTrackCandidates = recent
-    .map((t) => ({
-      track: String(t?.name || "").trim(),
-      artist: String(t?.artist?.["#text"] || "").trim()
-    }))
-    .filter((t) => t.track);
 
   return {
     totalTracks,
@@ -1099,13 +1098,19 @@ function spotifyToNormalizedStats(raw) {
       artist: String(t?.track?.artists?.[0]?.name || "").trim()
     }))
     .filter((t) => t.track);
+  const foundArtistsFromCandidates = new Set(
+    recentTrackCandidates
+      .map((t) => t.artist.toLowerCase())
+      .filter(Boolean)
+  ).size;
+  const safeUniqueArtists = Math.min(totalPlays, foundArtistsFromCandidates || uniqueArtists);
 
   return {
     totalTracks,
     totalPlays,
     streamCount: recent.length,
     recentListens: recent.length,
-    uniqueArtists,
+    uniqueArtists: safeUniqueArtists,
     topArtistName,
     topArtistPlays,
     recentOverlap,
@@ -1237,8 +1242,16 @@ async function enrichGenreAndEmotionTags(stats) {
    RENDER
 ======================= */
 function formatDataSummary(stats) {
-  const plays = Number((stats?.streamCount ?? stats?.totalPlays ?? 0)).toLocaleString();
-  const artists = Number(stats?.uniqueArtists || 0).toLocaleString();
+  const streamCount = Math.max(0, Number(stats?.streamCount ?? stats?.totalPlays ?? 0));
+  const candidateArtists = new Set(
+    (Array.isArray(stats?.recentTrackCandidates) ? stats.recentTrackCandidates : [])
+      .map((entry) => String(entry?.artist || "").trim().toLowerCase())
+      .filter(Boolean)
+  ).size;
+  const uniqueArtistsRaw = Number(stats?.uniqueArtists || 0);
+  const foundArtists = Math.max(0, Math.min(streamCount, candidateArtists || uniqueArtistsRaw));
+  const plays = streamCount.toLocaleString();
+  const artists = foundArtists.toLocaleString();
   return [
     '<span class="data-summary-label">playlist</span>',
     "--",
@@ -1250,8 +1263,8 @@ function formatDataSummary(stats) {
     "lowkey fan- your top artist didn't dominate your stream count",
     "stan behavior- your top artist was found over and over and over and over again",
     "--",
-    `<span class="data-summary-label">Found Streams:</span> ${plays}`,
-    `<span class="data-summary-label">Found Artists:</span> ${artists}`
+    `<span class="data-summary-label data-summary-metric">Found Streams:</span> <span class="data-summary-metric">${plays}</span>`,
+    `<span class="data-summary-label data-summary-metric">Found Artists:</span> <span class="data-summary-metric">${artists}</span>`
   ].join("<br>");
 }
 
@@ -1330,6 +1343,72 @@ function formatShareDate(date = new Date()) {
   const m = String(date.getMonth() + 1).padStart(2, "0");
   const y = String(date.getFullYear());
   return `${d}-${m}-${y}`;
+}
+
+function clearNumberSpacing(container) {
+  if (!container) return;
+  container.querySelectorAll("span.number-spaced").forEach((span) => {
+    span.replaceWith(document.createTextNode(span.textContent || ""));
+  });
+  container.normalize();
+}
+
+function applyNumberSpacing(container) {
+  if (!container) return;
+  clearNumberSpacing(container);
+
+  const walker = document.createTreeWalker(
+    container,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode(node) {
+        const text = node?.nodeValue || "";
+        if (!/\d/.test(text)) return NodeFilter.FILTER_REJECT;
+        const parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        if (parent.closest(".number-spaced")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }
+  );
+
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  const numberPattern = /\d[\d,.:%-]*/g;
+  textNodes.forEach((node) => {
+    const text = node.nodeValue || "";
+    let match;
+    let lastIdx = 0;
+    let hasMatch = false;
+    const frag = document.createDocumentFragment();
+
+    while ((match = numberPattern.exec(text)) !== null) {
+      hasMatch = true;
+      if (match.index > lastIdx) {
+        frag.appendChild(document.createTextNode(text.slice(lastIdx, match.index)));
+      }
+      const span = document.createElement("span");
+      span.className = "number-spaced";
+      span.textContent = match[0];
+      frag.appendChild(span);
+      lastIdx = numberPattern.lastIndex;
+    }
+
+    if (!hasMatch) return;
+    if (lastIdx < text.length) {
+      frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+    }
+    node.parentNode?.replaceChild(frag, node);
+  });
+}
+
+function stickerFontSizeByLength(text, { shortLength, longLength, maxPx, minPx }) {
+  const length = String(text || "").trim().length;
+  if (length <= shortLength) return maxPx;
+  if (length >= longLength) return minPx;
+  const ratio = (length - shortLength) / (longLength - shortLength);
+  return maxPx - ((maxPx - minPx) * ratio);
 }
 
 function displayedNotebookLabel(model) {
@@ -1417,6 +1496,22 @@ function renderPersona(model) {
 
   el.shareTopSong.textContent = `"${topSongName}" by ${topSongArtist}`;
   el.shareTopArtist.textContent = topArtistName;
+  const shareSongFontPx = stickerFontSizeByLength(el.shareTopSong.textContent, {
+    shortLength: 34,
+    longLength: 92,
+    maxPx: 28,
+    minPx: 15
+  });
+  const shareArtistFontPx = stickerFontSizeByLength(el.shareTopArtist.textContent, {
+    shortLength: 16,
+    longLength: 44,
+    maxPx: 34,
+    minPx: 18
+  });
+  el.shareTopSong.style.fontSize = `${shareSongFontPx.toFixed(1)}px`;
+  el.shareTopArtist.style.fontSize = `${shareArtistFontPx.toFixed(1)}px`;
+  const shareArtistIcon = document.querySelector(".share-sticker-row--hero .sticker-artist .sticker-icon");
+  if (shareArtistIcon) shareArtistIcon.hidden = model.stats?.dataSource === "lastfm";
   el.shareDiversitySignal.innerHTML = `<span class="signal-label-outside">playlist</span><span class="signal-circle"><span class="signal-value">${playlistLabel}</span></span>`;
   el.shareObsessionSignal.innerHTML = `<span class="signal-label-outside">fan style</span><span class="signal-circle"><span class="signal-value">${fanStyleLabel}</span></span>`;
   el.shareOverlapSignal.innerHTML = `<span class="signal-label-outside">${streamsLabel}</span><span class="signal-circle"><span class="signal-value">${streamStickerLabel}</span></span>`;
@@ -1431,6 +1526,9 @@ function renderPersona(model) {
   if (el.fanStyleRatioInline) el.fanStyleRatioInline.textContent = fanStylePct;
   if (el.paperReason) el.paperReason.textContent = reasons.paperReason;
   if (el.penReason) el.penReason.textContent = reasons.penReason;
+  applyNumberSpacing(el.result);
+  applyNumberSpacing(el.shareCard);
+  applyNumberSpacing(el.signalsModal);
 
   el.result.hidden = false;
   if (el.startNotebookBtn) {
