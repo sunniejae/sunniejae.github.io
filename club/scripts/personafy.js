@@ -1038,27 +1038,24 @@ async function spotifyApi(path, token) {
 }
 
 async function fetchSpotifyBundle(token) {
-  const [topTracks, recentTracks, topArtists, profile] = await Promise.all([
+  const [topTracks, topArtists, profile] = await Promise.all([
     spotifyApi(`me/top/tracks?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token),
-    spotifyApi(`me/player/recently-played?limit=${RECENT_LIMIT}`, token),
     spotifyApi(`me/top/artists?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token),
     spotifyApi("me", token)
   ]);
 
   const hasTop = Array.isArray(topTracks?.items) && topTracks.items.length > 0;
-  const hasRecent = Array.isArray(recentTracks?.items) && recentTracks.items.length > 0;
-  if (!hasTop && !hasRecent) {
+  if (!hasTop) {
     throw new Error("Could not load Spotify listening data. Try playing a few tracks and retry.");
   }
 
-  return { topTracks, recentTracks, topArtists, profile };
+  return { topTracks, topArtists, profile };
 }
 
 function spotifyToNormalizedStats(raw) {
   const tracks = raw.topTracks?.items || [];
-  const recent = raw.recentTracks?.items || [];
   const artists = raw.topArtists?.items || [];
-  const topLikeTrack = tracks[0] || recent[0]?.track || null;
+  const topLikeTrack = tracks[0] || null;
 
   const topTrackArtistMap = {};
   tracks.forEach((t) => {
@@ -1066,24 +1063,17 @@ function spotifyToNormalizedStats(raw) {
     topTrackArtistMap[primaryArtist] = (topTrackArtistMap[primaryArtist] || 0) + 1;
   });
 
-  const recentArtistCounts = {};
-  recent.forEach((item) => {
-    const name = item?.track?.artists?.[0]?.name || "Unknown Artist";
-    recentArtistCounts[name] = (recentArtistCounts[name] || 0) + 1;
-  });
-
-  const totalTracks = recent.length || tracks.length;
-  const totalPlays = recent.length;
-  const uniqueArtists = Object.keys(recentArtistCounts).length || Object.keys(topTrackArtistMap).length;
+  const totalTracks = tracks.length;
+  const totalPlays = tracks.length;
+  const uniqueArtists = Object.keys(topTrackArtistMap).length;
   const topArtistEntry =
-    Object.entries(recentArtistCounts).sort((a, b) => b[1] - a[1])[0]
-    || Object.entries(topTrackArtistMap).sort((a, b) => b[1] - a[1])[0]
+    Object.entries(topTrackArtistMap).sort((a, b) => b[1] - a[1])[0]
     || ["Unknown Artist", 0];
   const topArtistName = topArtistEntry[0];
   const topArtistPlays = topArtistEntry[1];
 
   const topArtistSet = new Set(Object.keys(topTrackArtistMap).map((n) => n.toLowerCase()));
-  const recentArtistSet = new Set(recent.map((t) => t?.track?.artists?.[0]?.name?.toLowerCase()).filter(Boolean));
+  const recentArtistSet = new Set(topArtistSet);
 
   let overlapCount = 0;
   recentArtistSet.forEach((name) => {
@@ -1092,10 +1082,10 @@ function spotifyToNormalizedStats(raw) {
 
   const recentOverlap = recentArtistSet.size ? overlapCount / recentArtistSet.size : 0;
   const spotifyTopArtist = artists.find((a) => a?.name === topArtistName) || artists[0];
-  const recentTrackCandidates = recent
+  const recentTrackCandidates = tracks
     .map((t) => ({
-      track: String(t?.track?.name || "").trim(),
-      artist: String(t?.track?.artists?.[0]?.name || "").trim()
+      track: String(t?.name || "").trim(),
+      artist: String(t?.artists?.[0]?.name || "").trim()
     }))
     .filter((t) => t.track);
   const foundArtistsFromCandidates = new Set(
@@ -1108,8 +1098,8 @@ function spotifyToNormalizedStats(raw) {
   return {
     totalTracks,
     totalPlays,
-    streamCount: recent.length,
-    recentListens: recent.length,
+    streamCount: tracks.length,
+    recentListens: tracks.length,
     uniqueArtists: safeUniqueArtists,
     topArtistName,
     topArtistPlays,
@@ -1474,7 +1464,7 @@ function renderPersona(model) {
   const topArtistName = model.stats.topArtistName || "Unknown Artist";
   const topArtistImage = model.stats.topArtistImage || ARTIST_IMAGE_FALLBACK;
 
-  el.topSongWeek.innerHTML = `"${topSongName}"<br>by<br>${topSongArtist}`;
+  el.topSongWeek.innerHTML = `${topSongName}<br>by<br>${topSongArtist}`;
   el.topArtistWeek.textContent = topArtistName;
   const artistImages = [el.topArtistImage, el.shareTopArtistImage].filter(Boolean);
   resolveArtistImageForRender(topArtistImage).then((resolvedImage) => {
