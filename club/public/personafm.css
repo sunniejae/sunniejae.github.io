@@ -1037,6 +1037,7 @@ button:active {
   font-size: 1.2em;
   font-weight: 700;
   line-height: 1.15;
+  font-family: "Spotify", sans-serif;
 }
 
 .share-note-copy .data-summary-metric {
@@ -1070,15 +1071,16 @@ button:active {
 }
 
 .share-signals > span .signal-label-outside {
-  font-size: 1.34em;
+  font-size: 1.5em;
   white-space: nowrap;
   min-height: 1.2em;
   width: auto;
   text-align: center;
+  font-family: "Spotify", sans-serif;
 }
 
 .share-signals > span .signal-value {
-  font-size: 1.02em;
+  font-size: 1.16em;
   white-space: nowrap;
   min-height: 1.2em;
 }

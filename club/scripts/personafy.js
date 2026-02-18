@@ -147,7 +147,7 @@ const PERSONA_COPY = {
     listenerStyle:
       "You don’t put music on — you step into it. Every song is a scene, and you always know exactly what part of the story you’re in.",
     notedUse:
-      "Your notebook entries always ends in an autograph. Your entries read like the novel of your life, or like you're talking to a dear friend. You take notes with intention, expression, and because you care.",
+      "Your notebook entries always end in an autograph. Your entries read like the novel of your life, or like you're talking to a dear friend. You take notes with intention, expression, and because you care.",
     lovesAboutNoted:
       "Somewhere that understands your life was never background noise.",
     blurb: "Dear Diary...",
@@ -171,7 +171,7 @@ const PERSONA_COPY = {
     listenerStyle:
       "Your taste runs on curiosity. You follow whatever pulls at you, and half the time you don’t even know where you’re headed until you’re already there.",
     notedUse:
-      "Your notebook is more abstract than a diary. You love the idea of a written journal, but you just end up sketching out your thoughts instead. Sometimes those scribbles say more than you could say in letters",
+      "Your notebook is more abstract than a diary. You love the idea of a written journal, but you just end up sketching out your thoughts instead. Sometimes those scribbles say more than ever could in letters",
     lovesAboutNoted:
       "You don't need to pour your heart out. Just express what feels right. ",
     blurb: "A doodle says a million words",
@@ -1233,6 +1233,8 @@ async function enrichGenreAndEmotionTags(stats) {
 ======================= */
 function formatDataSummary(stats) {
   const streamCount = Math.max(0, Number(stats?.streamCount ?? stats?.totalPlays ?? 0));
+  const totalTracks = Math.max(0, Number(stats?.totalTracks ?? streamCount));
+  const topArtistPlays = Math.max(0, Number(stats?.topArtistPlays ?? 0));
   const candidateArtists = new Set(
     (Array.isArray(stats?.recentTrackCandidates) ? stats.recentTrackCandidates : [])
       .map((entry) => String(entry?.artist || "").trim().toLowerCase())
@@ -1240,19 +1242,15 @@ function formatDataSummary(stats) {
   ).size;
   const uniqueArtistsRaw = Number(stats?.uniqueArtists || 0);
   const foundArtists = Math.max(0, Math.min(streamCount, candidateArtists || uniqueArtistsRaw));
+  const playlistRatio = safeDivide(foundArtists, totalTracks);
+  const fanStyleRatio = safeDivide(topArtistPlays, streamCount);
+  const playlistResult = playlistRatio >= 0.5 ? "discover weekly" : "liked songs";
+  const fanStyleResult = fanStyleRatio < 0.5 ? "lowkey fan" : "stan behavior";
   const plays = streamCount.toLocaleString();
   const artists = foundArtists.toLocaleString();
   return [
-    '<span class="data-summary-label">playlist</span>',
-    "--",
-    "discover weekly- found a variety of artists in the found tracks",
-    "liked songs- found streams from mostly familiar artists",
-    "--",
-    '<span class="data-summary-label">fan style</span>',
-    "--",
-    "lowkey fan- your top artist didn't dominate your stream count",
-    "stan behavior- your top artist was found over and over and over and over again",
-    "--",
+    `<span class="data-summary-label">playlist:</span> ${playlistResult}`,
+    `<span class="data-summary-label">fan style:</span> ${fanStyleResult}`,
     `<span class="data-summary-label data-summary-metric">Found Streams:</span> <span class="data-summary-metric">${plays}</span>`,
     `<span class="data-summary-label data-summary-metric">Found Artists:</span> <span class="data-summary-metric">${artists}</span>`
   ].join("<br>");
