@@ -48,10 +48,21 @@ const EMOTION_RULES = [
 /* Canonical notebook+pen combos => fixed persona */
 const PERSONA_BY_LOADOUT = {
   "locked diary|calligraphy": "archivist",
+  "locked diary|red ink": "archivist",
+  "composition notebook|calligraphy": "archivist",
+  "leather|calligraphy": "archivist",
   "composition notebook|ballpoint pen": "note taker",
+  "composition notebook|pencil": "note taker",
+  "spiral notebook|ballpoint pen": "note taker",
   "bullet journal|sparkle gel pen": "casual journaler",
+  "bullet journal|pencil": "casual journaler",
+  "spiral notebook|sparkle gel pen": "casual journaler",
   "leather|red ink": "main character energy",
+  "leather|sparkle gel pen": "main character energy",
+  "bullet journal|red ink": "main character energy",
   "sketchbook|charcoal": "doodler",
+  "sketchbook|pencil": "doodler",
+  "sketchbook|ballpoint pen": "doodler",
   "spiral notebook|pencil": "notes app is good enough"
 };
 
