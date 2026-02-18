@@ -1365,7 +1365,7 @@ function renderPersona(model) {
   const playlistLabel = model.signals.range < 0.5 ? "liked<br>songs" : "discover<br>weekly";
   const fanStyleLabel = model.signals.intensity < 0.5 ? "lowkey" : "stan";
   const totalStreams = Math.max(0, Number(model.stats?.streamCount ?? model.stats?.totalPlays ?? 0));
-  const streamsLabel = model.stats?.dataSource === "spotify" ? "" : "streams";
+  const streamsLabel = model.stats?.dataSource === "spotify" ? "songs" : "streams";
   const streamStickerLabel = model.stats?.dataSource === "spotify"
     ? `<span style="font-size:.9em; line-height:1.05; font-weight:700;">${totalStreams.toLocaleString()}</span>`
     : `<span style="font-size:.9em; line-height:1.05; font-weight:700;">${totalStreams.toLocaleString()}</span>`;
