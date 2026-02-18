@@ -1246,13 +1246,19 @@ function formatDataSummary(stats) {
   const fanStyleRatio = safeDivide(topArtistPlays, streamCount);
   const playlistResult = playlistRatio >= 0.5 ? "discover weekly" : "liked songs";
   const fanStyleResult = fanStyleRatio < 0.5 ? "lowkey fan" : "stan behavior";
+  const playlistWhy = playlistRatio >= 0.5
+    ? "your streams are full of variety"
+    : "your streams lean toward familiar artists";
+  const fanStyleWhy = fanStyleRatio < 0.5
+    ? "your top artist did not dominate your stream count"
+    : "your top artist was found over and over and over again";
   const plays = streamCount.toLocaleString();
   const artists = foundArtists.toLocaleString();
   return [
-    `<span class="data-summary-label">playlist:</span> ${playlistResult}`,
-    `<span class="data-summary-label">fan style:</span> ${fanStyleResult}`,
-    `<span class="data-summary-label data-summary-metric">Found Streams:</span> <span class="data-summary-metric">${plays}</span>`,
-    `<span class="data-summary-label data-summary-metric">Found Artists:</span> <span class="data-summary-metric">${artists}</span>`
+    `<span class="data-summary-label">Playlist:</span><br><span class="data-summary-result">${playlistResult} - ${playlistWhy}</span>`,
+    `<span class="data-summary-label">Fan Style:</span><br><span class="data-summary-result">${fanStyleResult} - ${fanStyleWhy}</span>`,
+    `<span class="data-summary-label data-summary-metric">Found Streams:</span><br><span class="data-summary-result data-summary-metric">${plays}</span>`,
+    `<span class="data-summary-label data-summary-metric">Found Artists:</span><br><span class="data-summary-result data-summary-metric">${artists}</span>`
   ].join("<br>");
 }
 
