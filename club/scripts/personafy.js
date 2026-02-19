@@ -15,7 +15,7 @@ const SHARE_DESTINATION_URL = "https://sunniejae.com/notedpersona";
 const SHARE_POST_TEXT = "my Noted Persona";
 const SPOTIFY_CLIENT_ID = "5800fdaeacbc4f6dad4670772ead5790";
 const SPOTIFY_REDIRECT_URI = "https://sunniejae.com/notedpersona";
-const SPOTIFY_SCOPES = "user-top-read user-read-recently-played";
+const SPOTIFY_SCOPES = "user-top-read user-read-recently-played user-read-private user-read-email";
 const SPOTIFY_TOP_LIMIT = 50;
 const SPOTIFY_TOKEN_STORAGE_KEY = "notedpersona_spotify_token";
 const SPOTIFY_VERIFIER_STORAGE_KEY = "notedpersona_spotify_pkce_verifier";
@@ -891,6 +891,11 @@ function clearSpotifyToken() {
   localStorage.removeItem(SPOTIFY_TOKEN_STORAGE_KEY);
 }
 
+function hasRequiredSpotifyScopes(scopeString = "") {
+  const granted = new Set(String(scopeString).split(/\s+/).filter(Boolean));
+  return SPOTIFY_SCOPES.split(/\s+/).every((scope) => granted.has(scope));
+}
+
 function setSpotifyOAuthValue(sessionKey, fallbackKey, value) {
   sessionStorage.setItem(sessionKey, value);
   localStorage.setItem(fallbackKey, value);
@@ -952,6 +957,7 @@ async function exchangeSpotifyCodeForToken(code) {
   writeSpotifyToken({
     accessToken: data.access_token,
     refreshToken: data.refresh_token || "",
+    scope: data.scope || "",
     expiresAt: Date.now() + (Number(data.expires_in || 0) * 1000)
   });
 
@@ -979,6 +985,7 @@ async function refreshSpotifyAccessToken(refreshToken) {
   writeSpotifyToken({
     accessToken: data.access_token,
     refreshToken: data.refresh_token || token.refreshToken || refreshToken,
+    scope: data.scope || token.scope || "",
     expiresAt: Date.now() + (Number(data.expires_in || 0) * 1000)
   });
 }
@@ -1012,6 +1019,12 @@ async function getValidSpotifyAccessToken() {
   await handleSpotifyOAuthCallback();
 
   const token = readSpotifyToken();
+  if (token && !hasRequiredSpotifyScopes(token.scope)) {
+    clearSpotifyToken();
+    await beginSpotifyOAuth();
+    return "";
+  }
+
   const now = Date.now();
   if (token?.accessToken && Number(token?.expiresAt || 0) > now + 60000) {
     return token.accessToken;
@@ -1028,6 +1041,7 @@ async function getValidSpotifyAccessToken() {
 
 async function spotifyApi(path, token) {
   const res = await fetch(`https://api.spotify.com/v1/${path}`, {
+    cache: "no-store",
     headers: { Authorization: `Bearer ${token}` }
   });
   if (!res.ok) {
@@ -1132,7 +1146,8 @@ async function fetchLastFmBundle(username) {
       const recentRes = await fetch(
         `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(
           username
-        )}&api_key=${LASTFM_API_KEY}&format=json&limit=${LASTFM_RECENT_PAGE_LIMIT}&page=${page}&from=${windowStartUnix}&to=${nowUnix}`
+        )}&api_key=${LASTFM_API_KEY}&format=json&limit=${LASTFM_RECENT_PAGE_LIMIT}&page=${page}&from=${windowStartUnix}&to=${nowUnix}`,
+        { cache: "no-store" }
       );
       const recentData = await recentRes.json();
       const pageTracks = Array.isArray(recentData?.recenttracks?.track)
@@ -1159,7 +1174,8 @@ async function fetchLastFmBundle(username) {
     fetch(
       `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${encodeURIComponent(
         username
-      )}&api_key=${LASTFM_API_KEY}&format=json&limit=${TOP_LIMIT}&period=1month`
+      )}&api_key=${LASTFM_API_KEY}&format=json&limit=${TOP_LIMIT}&period=1month`,
+      { cache: "no-store" }
     ),
     fetchAllRecentTracks()
   ]);
@@ -1186,7 +1202,7 @@ async function fetchTrackTags(trackName, artistName) {
   });
   if (artistName) query.set("artist", artistName);
   try {
-    const res = await fetch(`https://ws.audioscrobbler.com/2.0/?${query.toString()}`);
+    const res = await fetch(`https://ws.audioscrobbler.com/2.0/?${query.toString()}`, { cache: "no-store" });
     const data = await res.json();
     const tags = Array.isArray(data?.toptags?.tag) ? data.toptags.tag : [];
     return tags
@@ -1651,7 +1667,6 @@ async function generatePersona(username, source = "lastfm") {
   try {
     let stats;
     if (source === "spotify") {
-      clearSpotifyToken();
       stats = spotifyToNormalizedStats(await fetchSpotifyBundle(await getValidSpotifyAccessToken()));
     } else {
       stats = lastfmToNormalizedStats(await fetchLastFmBundle(username));
@@ -1837,4 +1852,3 @@ el.shareInstagramBtn?.addEventListener("click", async () => {
 el.dataSourceSelect?.addEventListener("change", updateDataSourceUi);
 setDataSource("spotify");
 setGenerateCardButtonMode("generate");
-
