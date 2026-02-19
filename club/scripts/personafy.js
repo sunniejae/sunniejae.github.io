@@ -926,6 +926,7 @@ async function beginSpotifyOAuth() {
   auth.searchParams.set("state", state);
   auth.searchParams.set("code_challenge_method", "S256");
   auth.searchParams.set("code_challenge", codeChallenge);
+  auth.searchParams.set("show_dialog", "true");
 
   window.location.href = auth.toString();
 }
@@ -1046,21 +1047,49 @@ async function spotifyApi(path, token) {
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err?.error?.message || `Spotify request failed (${res.status})`);
+    const baseMessage = err?.error?.message || `Spotify request failed (${res.status})`;
+    let message = baseMessage;
+
+    if (res.status === 403) {
+      message = `${baseMessage}. If this persists, verify Spotify Dashboard settings for client ${SPOTIFY_CLIENT_ID}: app is not restricted to unapproved users, this account is added in User Management (dev mode), and redirect URI matches exactly (${spotifyRedirectUri()}).`;
+    } else if (res.status === 401) {
+      message = `${baseMessage}. Spotify authorization expired or is invalid; please reconnect Spotify.`;
+    }
+
+    const error = new Error(message);
+    error.status = res.status;
+    throw error;
   }
   return res.json();
 }
 
 async function fetchSpotifyBundle(token) {
-  const [topTracks, topArtists, profile] = await Promise.all([
-    spotifyApi(`me/top/tracks?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token),
-    spotifyApi(`me/top/artists?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, token),
-    spotifyApi("me", token)
+  const loadBundle = async (activeToken) => Promise.all([
+    spotifyApi(`me/top/tracks?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, activeToken),
+    spotifyApi(`me/top/artists?time_range=short_term&limit=${SPOTIFY_TOP_LIMIT}`, activeToken),
+    spotifyApi("me", activeToken)
   ]);
+
+  let topTracks;
+  let topArtists;
+  let profile;
+
+  try {
+    [topTracks, topArtists, profile] = await loadBundle(token);
+  } catch (error) {
+    if (error?.status === 401 || error?.status === 403) {
+      clearSpotifyToken();
+      const refreshedToken = await getValidSpotifyAccessToken();
+      if (!refreshedToken) return { topTracks: { items: [] }, topArtists: { items: [] }, profile: {} };
+      [topTracks, topArtists, profile] = await loadBundle(refreshedToken);
+    } else {
+      throw error;
+    }
+  }
 
   const hasTop = Array.isArray(topTracks?.items) && topTracks.items.length > 0;
   if (!hasTop) {
-    throw new Error("Could not load Spotify listening data. Try playing a few tracks and retry.");
+    throw new Error("Could not load Spotify listening data. Try reconnecting Spotify and playing a few tracks, then retry.");
   }
 
   return { topTracks, topArtists, profile };
