@@ -109,9 +109,9 @@ const PERSONA_COPY = {
   archivist: {
     title: "The Archivist",
     listenerStyle:
-      "You don’t just replay songs — you keep them. Your favorites feel like artifacts, and every listen is a little note to the future.",
+      "You don’t just save songs to your library— you save them to your identity. Your favorites leave an impression, and every listen is a little note to the future.",
     notedUse:
-      "Your notebook resembles an encyclopedia of You. You write to preserve, not just express. Permanence is important. You keep notes for the future, not just for you.",
+      "Your notebook resembles an encyclopedia of You. You write to preserve, not just express. Permanence is important. You keep notes for the future, not just for the moment.",
     lovesAboutNoted:
       "A safe space to leave it all behind.",
     blurb: "Today is already tomorrow's yesterday",
@@ -121,7 +121,7 @@ const PERSONA_COPY = {
   "note taker": {
     title: "The Note Taker",
     listenerStyle:
-      "You catch the small things. A lyric, a rhythm shift, the exact moment a song changes your mood — that’s where the story is.",
+      "You notice the little things. You hear the instruments in the background, the subtle key changes, and you know a great bridge when you hear one. You understand that every piece of a song was created with intention. Producers everywhere thank you for your appreciation.",
     notedUse:
       "Your notebook reads like minutes after a board meeting. The devil is in the details? Not for you. The details are the intrigue. You keep notes as a way of keeping memories.",
     lovesAboutNoted:
@@ -133,7 +133,7 @@ const PERSONA_COPY = {
   "casual journaler": {
     title: "The Casual Journaler",
     listenerStyle:
-      "You follow the feeling. You’ll replay what hits, but you’re always drifting toward something new — only the best songs earn a second page.",
+      "You love smart shuffle and algorithmic playlists. You’ll replay and save what hits, but you’re always open to a new artist or sound.",
     notedUse:
       "Your notebook has gaps between entries that last from days to years. Consistency isn't as important as safety and accessibility. You keep notes because the moment calls for it, not out of devotion.",
     lovesAboutNoted:
@@ -145,7 +145,7 @@ const PERSONA_COPY = {
   "main character energy": {
     title: "Main Character Energy",
     listenerStyle:
-      "You don’t put music on — you step into it. Every song is a scene, and you always know exactly what part of the story you’re in.",
+      "You listen to music like it's the soundtrack to your life. When you're sad, you put on a dramatic playlist and pretend you're living the music video. You appreciate the lyrics and the art of the music you listen to.",
     notedUse:
       "Your notebook entries always end in an autograph. Your entries read like the novel of your life, or like you're talking to a dear friend. You take notes with intention, expression, and because you care.",
     lovesAboutNoted:
