@@ -1324,7 +1324,29 @@ async function fetchTopArtistImage(artistName) {
       if (isUsableArtistImage(url)) return String(url).replace(/^http:\/\//i, "https://");
     }
     const any = images.find((img) => isUsableArtistImage(img?.["#text"]))?.["#text"];
-    return any ? String(any).replace(/^http:\/\//i, "https://") : "";
+    if (any) return String(any).replace(/^http:\/\//i, "https://");
+  } catch {
+    // Fall through to secondary source.
+  }
+
+  // Last.fm often omits artist image data; use TheAudioDB as a backup.
+  try {
+    const res = await fetch(
+      `https://theaudiodb.com/api/v1/json/2/search.php?s=${encodeURIComponent(artistName)}`,
+      { cache: "no-store" }
+    );
+    const data = await res.json();
+    const artist = Array.isArray(data?.artists) ? data.artists[0] : null;
+    const candidates = [
+      artist?.strArtistThumb,
+      artist?.strArtistFanart,
+      artist?.strArtistWideThumb,
+      artist?.strArtistFanart2,
+      artist?.strArtistFanart3,
+      artist?.strArtistFanart4
+    ].filter(Boolean);
+    const chosen = candidates.find((url) => isUsableArtistImage(url));
+    return chosen ? String(chosen).replace(/^http:\/\//i, "https://") : "";
   } catch {
     return "";
   }
@@ -1370,11 +1392,19 @@ async function tintImageToColor(url, color) {
 async function resolveArtistImageForRender(url) {
   if (!url) return ARTIST_IMAGE_FALLBACK;
   const normalized = String(url).replace(/^http:\/\//i, "https://");
-  if (!isLastFmPlaceholderUrl(normalized)) return normalized;
+  const corsSafe = toCorsSafeImageUrl(normalized);
+  if (!isLastFmPlaceholderUrl(normalized)) return corsSafe;
 
   const ink =
     getComputedStyle(document.documentElement).getPropertyValue("--entry-ink").trim() || "#2a2621";
-  return tintImageToColor(normalized, ink);
+  return tintImageToColor(corsSafe, ink);
+}
+
+function toCorsSafeImageUrl(url) {
+  if (!url || /^data:/i.test(url) || url.startsWith("/")) return url;
+  // Proxy external artwork through a CORS-enabled image transformer so html2canvas can render it.
+  const withoutProtocol = String(url).replace(/^https?:\/\//i, "");
+  return `https://images.weserv.nl/?url=${encodeURIComponent(withoutProtocol)}&w=640&h=640&fit=cover&output=jpg`;
 }
 
 function formatShareDate(date = new Date()) {
