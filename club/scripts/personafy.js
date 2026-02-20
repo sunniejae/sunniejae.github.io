@@ -22,6 +22,7 @@ const SPOTIFY_VERIFIER_STORAGE_KEY = "notedpersona_spotify_pkce_verifier";
 const SPOTIFY_STATE_STORAGE_KEY = "notedpersona_spotify_oauth_state";
 const SPOTIFY_VERIFIER_FALLBACK_STORAGE_KEY = "notedpersona_spotify_pkce_verifier_fallback";
 const SPOTIFY_STATE_FALLBACK_STORAGE_KEY = "notedpersona_spotify_oauth_state_fallback";
+const SPOTIFY_OAUTH_RETRY_STORAGE_KEY = "notedpersona_spotify_oauth_retry";
 
 const GENRE_RULES = [
   { label: "hip hop", keys: ["hip hop", "rap", "trap", "drill", "boom bap"] },
@@ -991,20 +992,28 @@ async function handleSpotifyOAuthCallback() {
   if (!code && !error) return;
 
   if (error) {
+    sessionStorage.removeItem(SPOTIFY_OAUTH_RETRY_STORAGE_KEY);
     history.replaceState({}, "", spotifyRedirectUri());
     throw new Error(`Spotify login failed: ${error}`);
   }
 
   const expectedState = getSpotifyOAuthValue(SPOTIFY_STATE_STORAGE_KEY, SPOTIFY_STATE_FALLBACK_STORAGE_KEY);
   if (!expectedState || state !== expectedState) {
+    const alreadyRetried = sessionStorage.getItem(SPOTIFY_OAUTH_RETRY_STORAGE_KEY) === "1";
     clearSpotifyOAuthValue(SPOTIFY_VERIFIER_STORAGE_KEY, SPOTIFY_VERIFIER_FALLBACK_STORAGE_KEY);
     clearSpotifyOAuthValue(SPOTIFY_STATE_STORAGE_KEY, SPOTIFY_STATE_FALLBACK_STORAGE_KEY);
     history.replaceState({}, "", spotifyRedirectUri());
-    await beginSpotifyOAuth();
-    return;
+    if (!alreadyRetried) {
+      sessionStorage.setItem(SPOTIFY_OAUTH_RETRY_STORAGE_KEY, "1");
+      await beginSpotifyOAuth();
+      return;
+    }
+    sessionStorage.removeItem(SPOTIFY_OAUTH_RETRY_STORAGE_KEY);
+    throw new Error("Spotify login could not be verified. Please allow storage/cookies for this site and try again.");
   }
 
   await exchangeSpotifyCodeForToken(code);
+  sessionStorage.removeItem(SPOTIFY_OAUTH_RETRY_STORAGE_KEY);
   history.replaceState({}, "", spotifyRedirectUri());
 }
 
@@ -1651,7 +1660,6 @@ async function generatePersona(username, source = "lastfm") {
   try {
     let stats;
     if (source === "spotify") {
-      clearSpotifyToken();
       stats = spotifyToNormalizedStats(await fetchSpotifyBundle(await getValidSpotifyAccessToken()));
     } else {
       stats = lastfmToNormalizedStats(await fetchLastFmBundle(username));
