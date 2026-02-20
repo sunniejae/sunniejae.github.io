@@ -1029,7 +1029,7 @@ async function getValidSpotifyAccessToken() {
   await handleSpotifyOAuthCallback();
 
   const token = readSpotifyToken();
-  if (token && !hasRequiredSpotifyScopes(token.scope)) {
+  if (token?.scope && !hasRequiredSpotifyScopes(token.scope)) {
     clearSpotifyToken();
     await beginSpotifyOAuth();
     return "";
@@ -1086,11 +1086,15 @@ async function fetchSpotifyBundle(token) {
   try {
     [topTracks, topArtists, profile] = await loadBundle(token);
   } catch (error) {
-    if (error?.status === 401 || error?.status === 403) {
+    if (error?.status === 401) {
       clearSpotifyToken();
       const refreshedToken = await getValidSpotifyAccessToken();
       if (!refreshedToken) return { topTracks: { items: [] }, topArtists: { items: [] }, profile: {} };
       [topTracks, topArtists, profile] = await loadBundle(refreshedToken);
+    } else if (error?.status === 403) {
+      throw new Error(
+        `${error?.message || "Spotify request failed (403)"}. Re-authorizing will not fix this if the app/account permissions are blocked.`
+      );
     } else {
       throw error;
     }
