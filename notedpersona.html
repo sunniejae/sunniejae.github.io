@@ -15,7 +15,7 @@
 <body>
   <main class="page">
     <section class="intro">
-      <p id="sourceHeader" class="eyebrow"><span class="noted-word">Noted</span> x Spotify</p>
+      <p id="sourceHeader" class="eyebrow"><span class="noted-word">Noted</span> x Last.fm</p>
 
       <h1 class="title">Noted.fm</h1>
       <p class="subtitle">Your music already knows what your notebook looks like.</p>
@@ -23,14 +23,14 @@
 
       <div class="intro-actions">
         <select id="dataSourceSelect" aria-label="Select listening data source" hidden>
-          <option value="lastfm">Last.fm</option>
-          <option value="spotify" selected>Spotify</option>
+          <option value="lastfm" selected>Last.fm</option>
+          <option value="spotify">Spotify</option>
         </select>
         <input id="usernameInput" type="text" placeholder="Enter Last.fm username" autocomplete="off" hidden />
         <button id="generateBtn" type="button">Generate</button>
       </div>
 
-      <p id="dataSourceNote" class="small-note">Using Spotify OAuth. <button id="useLastfmBtn" type="button" class="link-button">Use public Last.fm data instead.</button></p>
+      <p id="dataSourceNote" class="small-note">Using public Last.fm data. Spotify integration coming soon.</p>
     </section>
 
     <section id="loading" class="loading" hidden>Taking note of your listening patterns...</section>

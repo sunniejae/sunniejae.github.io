@@ -498,39 +498,26 @@ let latestCardDataUrl = "";
 
 
 function selectedDataSource() {
-  return el.dataSourceSelect?.value === "spotify" ? "spotify" : "lastfm";
+  return "lastfm";
 }
 
 function setDataSource(source) {
   if (!el.dataSourceSelect) return;
-  el.dataSourceSelect.value = source === "lastfm" ? "lastfm" : "spotify";
+  el.dataSourceSelect.value = "lastfm";
   updateDataSourceUi();
 }
 
 function updateDataSourceUi() {
-  const source = selectedDataSource();
-  const isSpotify = source === "spotify";
   if (el.sourceHeader) {
-    el.sourceHeader.innerHTML = isSpotify
-      ? '<span class="noted-word">Noted</span> x Spotify'
-      : '<span class="noted-word">Noted</span> x Last.fm';
+    el.sourceHeader.innerHTML = '<span class="noted-word">Noted</span> x Last.fm';
   }
   if (el.usernameInput) {
     el.usernameInput.placeholder = "Enter Last.fm username";
-    el.usernameInput.disabled = isSpotify;
-    el.usernameInput.hidden = isSpotify;
+    el.usernameInput.disabled = false;
+    el.usernameInput.hidden = false;
   }
   if (el.dataSourceNote) {
-    el.dataSourceNote.innerHTML = isSpotify
-      ? 'Using Spotify OAuth. <button id="useLastfmBtn" type="button" class="link-button">Use public Last.fm data instead.</button>'
-      : 'Using public Last.fm data. <button id="useSpotifyBtn" type="button" class="link-button">Use Spotify OAuth instead.</button>';
-
-    const swapBtn = el.dataSourceNote.querySelector("button");
-    if (swapBtn) {
-      swapBtn.addEventListener("click", () => {
-        setDataSource(isSpotify ? "lastfm" : "spotify");
-      });
-    }
+    el.dataSourceNote.textContent = "Using public Last.fm data. Spotify integration coming soon.";
   }
 }
 
@@ -1892,5 +1879,5 @@ el.shareInstagramBtn?.addEventListener("click", async () => {
 
 
 el.dataSourceSelect?.addEventListener("change", updateDataSourceUi);
-setDataSource("spotify");
+setDataSource("lastfm");
 setGenerateCardButtonMode("generate");
