@@ -1857,7 +1857,7 @@ el.shareBtn?.addEventListener("click", async () => {
 });
 
 el.startNotebookBtn?.addEventListener("click", () => {
-  window.open("https://noted.sunniejae.com", "_blank", "noopener,noreferrer");
+  window.open("https://noted.web.app", "_blank", "noopener,noreferrer");
 });
 
 el.socialShareBtn?.addEventListener("click", async () => {
