@@ -12,7 +12,7 @@ const app = initializeApp({
   measurementId: "G-4HP970S5XM"
 });
 export const db = getFirestore(app);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 export async function loadProducts() {
   const snapshot = await getDocs(collection(db, "products"));

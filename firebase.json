@@ -11,6 +11,7 @@
       "**/node_modules/**",
       "**/*debug.log*",
       "**/*.md",
+      "tests/**",
       "staticwebapp.config.json",
       "CNAME"
     ]

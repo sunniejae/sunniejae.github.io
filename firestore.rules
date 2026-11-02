@@ -1,6 +1,102 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function admin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    function bounded(value, maximum) {
+      return value is number && value >= 0 && value <= maximum;
+    }
+    function whole(value) {
+      return value is int && bounded(value, 1000000000);
+    }
+    function text(value, maximum) {
+      return value is string && value.size() <= maximum;
+    }
+    function recipeAmountAt(values, index) {
+      return values.size() <= index
+        || (values[index] is number && values[index] > 0 && values[index] <= 1000000);
+    }
+    function validRecipe(recipe) {
+      return recipe is map && recipe.size() <= 20
+        && recipeAmountAt(recipe.values(), 0)
+        && recipeAmountAt(recipe.values(), 1)
+        && recipeAmountAt(recipe.values(), 2)
+        && recipeAmountAt(recipe.values(), 3)
+        && recipeAmountAt(recipe.values(), 4)
+        && recipeAmountAt(recipe.values(), 5)
+        && recipeAmountAt(recipe.values(), 6)
+        && recipeAmountAt(recipe.values(), 7)
+        && recipeAmountAt(recipe.values(), 8)
+        && recipeAmountAt(recipe.values(), 9)
+        && recipeAmountAt(recipe.values(), 10)
+        && recipeAmountAt(recipe.values(), 11)
+        && recipeAmountAt(recipe.values(), 12)
+        && recipeAmountAt(recipe.values(), 13)
+        && recipeAmountAt(recipe.values(), 14)
+        && recipeAmountAt(recipe.values(), 15)
+        && recipeAmountAt(recipe.values(), 16)
+        && recipeAmountAt(recipe.values(), 17)
+        && recipeAmountAt(recipe.values(), 18)
+        && recipeAmountAt(recipe.values(), 19)
+        ;
+    }
+    function validProduct(data) {
+      return data.keys().hasOnly(['title', 'price', 'image', 'description', 'type', 'link', 'available'])
+        && data.keys().hasAll(['title', 'price', 'image', 'description', 'type', 'link', 'available'])
+        && text(data.title, 200) && data.title.size() > 0
+        && text(data.price, 100) && data.price.size() > 0
+        && text(data.image, 2000) && text(data.description, 4000)
+        && data.type in ['exclusive', 'direct'] && text(data.link, 2000)
+        && (data.type != 'direct' || data.link.size() > 0)
+        && data.available is bool;
+    }
+    function validSupply(data) {
+      return data.keys().hasOnly(['name', 'unit', 'unitCost', 'supplier', 'notes', 'reorderLevel', 'quantity', 'active', 'updatedAt'])
+        && data.keys().hasAll(['name', 'unit', 'unitCost', 'supplier', 'notes', 'reorderLevel', 'quantity', 'active', 'updatedAt'])
+        && text(data.name, 200) && data.name.size() > 0
+        && text(data.unit, 30) && data.unit.size() > 0
+        && text(data.supplier, 200) && text(data.notes, 2000)
+        && bounded(data.unitCost, 1000000000) && bounded(data.reorderLevel, 1000000000)
+        && bounded(data.quantity, 1000000000) && data.active is bool
+        && data.updatedAt == request.time;
+    }
+    match /admins/{uid} {
+      // Only an owner using Firebase console/IAM can grant staff access.
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow list, write: if false;
+    }
+    match /supplies/{supplyId} {
+      allow read: if admin();
+      allow create, update: if admin() && validSupply(request.resource.data);
+      allow delete: if false;
+    }
+    match /productInventory/{productId} {
+      allow read: if admin();
+      allow create, update: if admin()
+        && request.resource.data.keys().hasOnly(['sku', 'stock', 'reorderLevel', 'recipe', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['sku', 'stock', 'reorderLevel', 'recipe', 'updatedAt'])
+        && text(request.resource.data.sku, 100)
+        && whole(request.resource.data.stock) && whole(request.resource.data.reorderLevel)
+        && validRecipe(request.resource.data.recipe)
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+    match /inventoryMovements/{movementId} {
+      allow read: if admin();
+      allow create: if admin()
+        && request.resource.data.keys().hasOnly(['kind', 'itemId', 'delta', 'reason', 'createdBy', 'createdAt'])
+        && request.resource.data.keys().hasAll(['kind', 'itemId', 'delta', 'reason', 'createdBy', 'createdAt'])
+        && request.resource.data.kind in ['product-adjustment', 'supply-adjustment', 'production']
+        && text(request.resource.data.itemId, 200) && request.resource.data.itemId.size() > 0
+        && request.resource.data.delta is number && request.resource.data.delta != 0
+        && request.resource.data.delta >= -1000000000 && request.resource.data.delta <= 1000000000
+        && text(request.resource.data.reason, 400) && request.resource.data.reason.size() > 0
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
     function validItem(item) {
       return item is map && item.keys().hasOnly(['productId', 'title', 'quantity'])
         && item.keys().hasAll(['productId', 'title', 'quantity'])
@@ -13,11 +109,15 @@ service cloud.firestore {
     }
     match /products/{productId} {
       allow read: if true;
-      // Manage products through the authenticated Firebase console, not the public website.
-      allow write: if false;
+      allow create, update: if admin() && validProduct(request.resource.data);
+      allow delete: if false;
     }
     match /saleRequests/{requestId} {
-      allow read, update, delete: if false;
+      allow read: if admin();
+      allow update: if admin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in ['new', 'contacted', 'accepted', 'fulfilled', 'cancelled'];
+      allow delete: if false;
       allow create: if request.auth != null
         && request.resource.data.keys().hasOnly(['name', 'email', 'message', 'items', 'customerId', 'status', 'createdAt'])
         && request.resource.data.keys().hasAll(['name', 'email', 'message', 'items', 'customerId', 'status', 'createdAt'])
