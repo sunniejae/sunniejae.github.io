@@ -9,25 +9,6 @@
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="stylesheet" href="styles.css">
 
-  <!-- ================= HUBSPOT LOADER ================= -->
-
-  <script
-    type="text/javascript"
-    id="hs-script-loader"
-    async
-    defer
-    src="//js-na2.hs-scripts.com/244738582.js">
-  </script>
-
-  <!-- ================= HUBSPOT FORMS ================= -->
-
-  <script
-    charset="utf-8"
-    type="text/javascript"
-    src="//js-na2.hsforms.net/forms/embed/v2.js"
-    defer>
-  </script>
-
 </head>
 
 <body>
@@ -69,6 +50,7 @@
   <!-- ================= MAIN ================= -->
 
   <main>
+<p id="catalogStatus" role="status"></p>
 
 <section>
   <h2 class="section-title">Exclusive to Order</h2>
@@ -100,8 +82,15 @@
 
   <div class="wishlist-items" id="wishlistItems"></div>
 
-  <!-- HubSpot form mount point -->
-  <div id="hubspotForm"></div>
+  <form id="saleRequestForm" class="request-form">
+    <h3>Request these products</h3>
+    <label>Your name <input name="customerName" autocomplete="name" required maxlength="100"></label>
+    <label>Email <input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+    <label>Details or customization <textarea name="message" maxlength="2000" rows="4"></textarea></label>
+    <p>Your contact details and wishlist will be saved so we can respond. This is a request, not a purchase.</p>
+    <button type="submit" class="btn btn-wishlist">Send sale request</button>
+    <p id="requestStatus" role="status" aria-live="polite"></p>
+  </form>
 
 </div>
 
@@ -146,28 +135,12 @@
   </div>
 
 </div>
-```
 
   </div>
 
-  <!-- ================= HUBSPOT FORM INIT ================= -->
-
-  <script defer>
-    window.addEventListener("DOMContentLoaded", function () {
-      if (window.hbspt) {
-        hbspt.forms.create({
-          portalId: "244738582",
-          formId: "329eca18-e280-4e1a-bde5-a6053e4fade8",
-          region: "na2",
-          target: "#hubspotForm"
-        });
-      }
-    });
-  </script>
-
   <!-- ================= SHOP LOGIC ================= -->
 
-  <script src="shophome.js" defer></script>
+  <script type="module" src="shophome.js"></script>
 
 </body>
 </html>

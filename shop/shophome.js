@@ -1,80 +1,11 @@
+import { fallbackProducts } from "./products.js";
+
+let products = fallbackProducts;
+let firebaseClient;
+
 /* ======================================================
    PRODUCT DATA
 ====================================================== */
-
-const products = {
-  exclusive: [
-    {
-      id: 1,
-      title: "Astrology Planner: 2026",
-      price: "$50",
-      image: "https://sunniejae.blob.core.windows.net/sunniejae/assets/shop/journalsigns.png",
-      type: "exclusive",
-      description: "A guided astrology planner designed for journaling based on transits, and reflection."
-    },
-    {
-      id: 2,
-      title: "Personalized Album Keychain",
-      price: "$25",
-      image: "https://sunniejae.blob.core.windows.net/sunniejae/assets/shop/comingsoon.png",
-      type: "exclusive",
-      description: "Custom keychain inspired by your favorite album or artist."
-    },
-    {
-      id: 3,
-      title: "Tarot Reading",
-      price: "TBD",
-      image: "https://sunniejae.blob.core.windows.net/sunniejae/assets/shop/tarotreading.png",
-      type: "exclusive",
-      description: "One-on-one intuitive tarot reading tailored to your question."
-    },
-    {
-      id: 4,
-      title: "But Just One - Sakura Meme Shirt",
-      price: "$30",
-      image: "https://sunniejae.blob.core.windows.net/sunniejae/assets/shop/JUSTONE.png",
-      type: "exclusive"
-    }
-  ],
-  direct: [
-    {
-      id: 5,
-      title: "Going Mental: A Tour Through the Mind of a Girl Named Lisa",
-      price: "$3.33 on Kindle | $5.55 in Paperback",
-      image: "https://sunniejae.blob.core.windows.net/sunniejae/assets/shop/goingmental2.png",
-      type: "direct",
-      description: "A surreal, introspective poetry collection.",
-      link: "https://www.amazon.com/dp/B0GB5KCGRJ/"
-    },
-    {
-      id: 6,
-      title: "Sunnie Jae PopSocket",
-      price: "$9.99",
-      image: "https://sunniejae.blob.core.windows.net/sunniejae/assets/shop/sunniejaepopsocket.png",
-      type: "direct",
-      description: "Official Pop Socket Brand - Sunnie Jae Logo.",
-      link: "https://www.amazon.com/dp/B0FJKGT8YN"
-    },
-    {
-      id: 7,
-      title: "Girl Dinner T Shirt",
-      price: "$20",
-      image: "https://sunniejae.blob.core.windows.net/sunniejae/assets/shop/girldinnershirt.png",
-      type: "direct",
-      description: "Comfort tee inspired by the Girl Dinner phenomenon.",
-      link: "https://amzn.to/4smpp8z"
-    },
-    {
-      id: 8,
-      title: "Spaghetti Le Sserafim Sticker Pack",
-      price: "$8.99",
-      image: "https://sunniejae.blob.core.windows.net/sunniejae/assets/shop/spaghetti- EUNCHAE.png",
-      type: "direct",
-      description: "K-pop inspired sticker pack.",
-      link: "https://www.redbubble.com/shop/ap/176087573"
-    }
-  ]
-};
 
 /* ======================================================
    STATE
@@ -92,56 +23,34 @@ function saveWishlist() {
 
 function loadWishlist() {
   const saved = localStorage.getItem("sj_wishlist");
-  wishlist = saved ? JSON.parse(saved) : [];
+  try { wishlist = saved ? JSON.parse(saved) : []; } catch { wishlist = []; }
+  if (!Array.isArray(wishlist)) wishlist = [];
 
-  wishlist = wishlist.map(item => ({
+  wishlist = wishlist.filter(item => item && typeof item.title === "string" && ["string", "number"].includes(typeof item.id)).map(item => ({
     ...item,
-    qty: Number(item.qty) || 1
+    qty: Math.max(1, Math.min(99, Math.floor(Number(item.qty)) || 1))
   }));
-}
-
-/* ======================================================
-   HUBSPOT SYNC
-====================================================== */
-
-function getWishlistText() {
-  if (!wishlist.length) return '';
-
-  return wishlist
-    .map(item => `${item.title} (x${item.qty})`)
-    .join(" | ");
-}
-
-function syncWishlistToHubSpot() {
-  const iframe = document.querySelector("#hubspotForm iframe");
-  if (!iframe) return;
-
-  const value = getWishlistText();
-
-  const interval = setInterval(() => {
-    try {
-      const doc = iframe.contentWindow.document;
-      const field = doc.querySelector('input[name="wishlist_items"]');
-
-      if (field) {
-        field.value = value;
-        clearInterval(interval);
-      }
-    } catch {
-      // iframe not ready yet
-    }
-  }, 100);
 }
 
 /* ======================================================
    INIT
 ====================================================== */
 
-function init() {
+async function init() {
   loadWishlist();
   renderProducts();
   updateWishlistCount();
   attachEventListeners();
+  document.getElementById("saleRequestForm").addEventListener("submit", submitSaleRequest);
+  try {
+    firebaseClient = await import("./firebase.js");
+    const saved = await firebaseClient.loadProducts();
+    products = saved;
+    renderProducts();
+  } catch (error) {
+    document.getElementById("catalogStatus").textContent = "Showing our standard catalog. Contact us to confirm availability.";
+    console.warn("Firebase catalog unavailable", error.code);
+  }
 }
 
 /* ======================================================
@@ -164,11 +73,11 @@ function createProductCard(product) {
   card.className = "product-card";
 
   card.innerHTML = `
-    <img class="product-image" src="${product.image}" alt="${product.title}">
+    <img class="product-image" src="${escapeHTML(safeURL(product.image))}" alt="${escapeHTML(product.title)}">
     <div class="product-info">
-      <div class="product-title">${product.title}</div>
-      <div class="product-price">${product.price}</div>
-      ${product.description ? `<div class="product-description">${product.description}</div>` : ''}
+      <div class="product-title">${escapeHTML(product.title)}</div>
+      <div class="product-price">${escapeHTML(product.price)}</div>
+      ${product.description ? `<div class="product-description">${escapeHTML(product.description)}</div>` : ''}
       <div class="product-type">
         ${product.type === "exclusive" ? "Exclusive to Order" : "Direct Order"}
       </div>
@@ -188,7 +97,8 @@ function createProductCard(product) {
     const link = document.createElement("a");
     link.className = "btn btn-secondary";
     link.textContent = "Order Now";
-    link.href = product.link;
+    link.href = safeURL(product.link);
+    link.rel = "noopener noreferrer";
     link.target = "_blank";
     actions.appendChild(link);
   }
@@ -201,17 +111,17 @@ function createProductCard(product) {
 ====================================================== */
 
 function addToWishlist(product) {
-  const existing = wishlist.find(item => item.id === product.id);
+  const existing = wishlist.find(item => String(item.id) === String(product.id));
 
   if (existing) {
-    existing.qty += 1;
+    existing.qty = Math.min(99, existing.qty + 1);
   } else {
     wishlist.push({ ...product, qty: 1 });
   }
 
   saveWishlist();
   updateWishlistCount();
-  syncWishlistToHubSpot();
+
 }
 
 function removeFromWishlist(id) {
@@ -219,7 +129,7 @@ function removeFromWishlist(id) {
   saveWishlist();
   updateWishlistCount();
   renderWishlist();
-  syncWishlistToHubSpot();
+
 }
 
 function updateWishlistCount() {
@@ -253,21 +163,26 @@ function renderWishlist() {
     div.className = "wishlist-item";
 
     div.innerHTML = `
-      <img src="${item.image}" class="wishlist-item-image" alt="${item.title}">
+      <img src="${escapeHTML(safeURL(item.image))}" class="wishlist-item-image" alt="${escapeHTML(item.title)}">
       <div class="wishlist-item-info">
-        <div class="wishlist-item-title">${item.title}</div>
-        <div class="wishlist-item-price">${item.price}</div>
-        <div class="wishlist-item-description">${item.description}</div>
+        <div class="wishlist-item-title">${escapeHTML(item.title)}</div>
+        <div class="wishlist-item-price">${escapeHTML(item.price)}</div>
+        <div class="wishlist-item-description">${escapeHTML(item.description || "")}</div>
 
         <div class="qty-controls">
-          <button onclick="updateQty(${item.id}, -1)">−</button>
+          <button data-action="decrease">−</button>
           <span>${item.qty}</span>
-          <button onclick="updateQty(${item.id}, 1)">+</button>
-          <button class="remove-btn" onclick="removeFromWishlist(${item.id})">Remove</button>
+          <button data-action="increase">+</button>
+          <button class="remove-btn" data-action="remove">Remove</button>
         </div>
       </div>
     `;
 
+    div.querySelectorAll("[data-action]").forEach(button => button.addEventListener("click", () => {
+      if (button.dataset.action === "remove") return removeFromWishlist(item.id);
+      item.qty = Math.max(1, Math.min(99, item.qty + (button.dataset.action === "increase" ? 1 : -1)));
+      saveWishlist(); renderWishlist();
+    }));
     wishlistContainer.appendChild(div);
   });
 }
@@ -278,15 +193,17 @@ function renderWishlist() {
 
 function openModal(id) {
   document.getElementById(id).classList.add("active");
+  document.getElementById(id).setAttribute("aria-hidden", "false");
 
   if (id === "wishlistModal") {
     renderWishlist();
-    syncWishlistToHubSpot();
+
   }
 }
 
 function closeModal(id) {
   document.getElementById(id).classList.remove("active");
+  document.getElementById(id).setAttribute("aria-hidden", "true");
 }
 
 /* ======================================================
@@ -316,3 +233,36 @@ if (document.readyState === "loading") {
 } else {
   init();
 }
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+}
+function safeURL(value) {
+  try { const url = new URL(value, location.href); return ["http:", "https:"].includes(url.protocol) ? url.href : ""; } catch { return ""; }
+}
+async function submitSaleRequest(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const status = document.getElementById("requestStatus");
+  if (!wishlist.length) { status.textContent = "Add a product to your wishlist first."; return; }
+  if (wishlist.length > 20) { status.textContent = "Please request at most 20 different products."; return; }
+  const button = form.querySelector("button[type=submit]");
+  button.disabled = true;
+  status.textContent = "Sending your request…";
+  try {
+    firebaseClient ||= await import("./firebase.js");
+    await firebaseClient.saveSaleRequest({
+      name: form.elements.customerName.value.trim(),
+      email: form.elements.email.value.trim(),
+      message: form.elements.message.value.trim(),
+      items: wishlist.map(item => ({ productId: String(item.id), title: String(item.title).slice(0, 200), quantity: item.qty }))
+    });
+    status.textContent = "Your request was saved! We’ll email you with next steps. No payment has been taken.";
+    form.reset();
+    wishlist = []; saveWishlist(); updateWishlistCount(); renderWishlist();
+  } catch (error) {
+    status.textContent = "Your request could not be saved. Please try again or email orders@sunniejae.com. Your wishlist is still here.";
+    console.warn("Sale request failed", error.code);
+  } finally { button.disabled = false; }
+}
+window.openModal = openModal;

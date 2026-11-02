@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function validItem(item) {
+      return item is map && item.keys().hasOnly(['productId', 'title', 'quantity'])
+        && item.keys().hasAll(['productId', 'title', 'quantity'])
+        && item.productId is string && item.productId.size() > 0 && item.productId.size() <= 200
+        && item.title is string && item.title.size() > 0 && item.title.size() <= 200
+        && item.quantity is int && item.quantity >= 1 && item.quantity <= 99;
+    }
+    function validAt(items, index) {
+      return items.size() <= index || validItem(items[index]);
+    }
+    match /products/{productId} {
+      allow read: if true;
+      // Manage products through the authenticated Firebase console, not the public website.
+      allow write: if false;
+    }
+    match /saleRequests/{requestId} {
+      allow read, update, delete: if false;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['name', 'email', 'message', 'items', 'customerId', 'status', 'createdAt'])
+        && request.resource.data.keys().hasAll(['name', 'email', 'message', 'items', 'customerId', 'status', 'createdAt'])
+        && request.resource.data.customerId == request.auth.uid
+        && request.resource.data.status == 'new'
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
+        && request.resource.data.email is string && request.resource.data.email.size() <= 254
+        && request.resource.data.email.matches('[^ @]+@[^ @]+[.][^ @]+')
+        && request.resource.data.message is string && request.resource.data.message.size() <= 2000
+        && request.resource.data.items is list && request.resource.data.items.size() >= 1 && request.resource.data.items.size() <= 20
+        && validAt(request.resource.data.items, 0)
+        && validAt(request.resource.data.items, 1)
+        && validAt(request.resource.data.items, 2)
+        && validAt(request.resource.data.items, 3)
+        && validAt(request.resource.data.items, 4)
+        && validAt(request.resource.data.items, 5)
+        && validAt(request.resource.data.items, 6)
+        && validAt(request.resource.data.items, 7)
+        && validAt(request.resource.data.items, 8)
+        && validAt(request.resource.data.items, 9)
+        && validAt(request.resource.data.items, 10)
+        && validAt(request.resource.data.items, 11)
+        && validAt(request.resource.data.items, 12)
+        && validAt(request.resource.data.items, 13)
+        && validAt(request.resource.data.items, 14)
+        && validAt(request.resource.data.items, 15)
+        && validAt(request.resource.data.items, 16)
+        && validAt(request.resource.data.items, 17)
+        && validAt(request.resource.data.items, 18)
+        && validAt(request.resource.data.items, 19)
+        ;
+    }
+  }
+}
