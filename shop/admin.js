@@ -1,11 +1,12 @@
 import { auth } from "./firebase.js";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import * as store from "./admin-data.js";
-import { quantity, parseRecipe } from "./inventory-model.mjs";
+import { quantity, parseRecipe, collectionTrail, inCollection } from "./inventory-model.mjs";
 
 const $ = id => document.getElementById(id);
 const states = ["new", "contacted", "accepted", "fulfilled", "cancelled"];
-let data = { products: [], inventory: [], supplies: [], requests: [], movements: [] };
+let data = { products: [], inventory: [], supplies: [], requests: [], movements: [], collections: [] };
+let selectedCollection = "*";
 let session = 0;
 let refreshVersion = 0;
 let authorized = false;
@@ -70,7 +71,7 @@ async function refresh() {
   const version = ++refreshVersion;
   const loaded = await withDeadline(store.loadDashboard(), "Signed in, but shop data did not load. Check your connection, then use Refresh data to try again.");
   if (!authorized || session !== current || version !== refreshVersion) return;
-  data = loaded;
+  data = { ...loaded, collections: loaded.collections || [] };
   render();
 }
 
@@ -103,7 +104,45 @@ function render() {
     metric.append(element("span", label), element("strong", value));
     $("metrics").append(metric);
   }
-  renderProducts(); renderSupplies(); renderRequests(); renderMovements();
+  renderCollections(); renderProducts(); renderSupplies(); renderRequests(); renderMovements();
+}
+
+function collectionName(id) {
+  return collectionTrail(data.collections, id).map(item => item.name).join(" / ") || "Unfiled";
+}
+function chooseCollection(id) {
+  selectedCollection = id;
+  renderCollections(); renderProducts(); renderSupplies();
+}
+function renderCollections() {
+  const parentId = selectedCollection === "*" ? "" : selectedCollection;
+  const breadcrumbs = $("collectionBreadcrumbs"); breadcrumbs.replaceChildren();
+  const root = button("Unfiled / root", () => chooseCollection(""));
+  if (selectedCollection === "") root.setAttribute("aria-current", "location");
+  breadcrumbs.append(root);
+  for (const group of collectionTrail(data.collections, parentId)) {
+    const link = button(group.name, () => chooseCollection(group.id));
+    if (group.id === parentId) link.setAttribute("aria-current", "location");
+    breadcrumbs.append(element("span", "/"), link);
+  }
+  $("allStock").setAttribute("aria-pressed", String(selectedCollection === "*"));
+  const children = $("collectionChildren"); children.replaceChildren();
+  for (const group of data.collections.filter(item => item.parentId === parentId).sort((a, b) => a.name.localeCompare(b.name))) {
+    children.append(button(`▸ ${group.name}`, () => chooseCollection(group.id)));
+  }
+  if (!children.children.length) children.append(element("p", "No subcollections here yet.", "muted"));
+  $("collectionNameLabel").textContent = parentId ? "New subcollection" : "New collection";
+  $("renameCollectionForm").hidden = !parentId;
+  $("renameCollectionForm").elements.name.value = data.collections.find(item => item.id === parentId)?.name || "";
+  const options = [...data.collections].sort((a, b) => collectionName(a.id).localeCompare(collectionName(b.id)));
+  for (const formId of ["productForm", "supplyForm"]) {
+    const select = $(formId).elements.collectionId;
+    const saved = select.value;
+    select.replaceChildren();
+    const unfiled = element("option", "Unfiled"); unfiled.value = ""; select.append(unfiled);
+    for (const group of options) { const option = element("option", collectionName(group.id)); option.value = group.id; select.append(option); }
+    select.value = saved;
+  }
 }
 
 function renderProducts() {
@@ -111,12 +150,14 @@ function renderProducts() {
   const search = $("productSearch").value.toLowerCase();
   for (const product of [...data.products].sort((a, b) => a.title.localeCompare(b.title))) {
     const inventory = data.inventory.find(item => item.id === product.id);
+    if (!inCollection(data.collections, inventory?.collectionId, selectedCollection, $("includeSubcollections").checked)) continue;
     if (!`${product.title} ${inventory?.sku || ""}`.toLowerCase().includes(search)) continue;
     const item = element("article", undefined, "item");
     const heading = element("div", undefined, "item-header");
     heading.append(element("h3", product.title), element("span", product.available === false ? "Hidden" : "Visible", "badge"));
     item.append(heading, element("p", `${product.price} · ${inventory?.sku || "No SKU"}`, "muted"));
-    item.append(element("p", inventory ? `${inventory.stock} in stock` : "Inventory not set up", "stock"));
+    item.append(element("p", inventory ? inventory.stock : "Inventory not set up", "stock"));
+    item.append(element("p", collectionName(inventory?.collectionId), "muted"));
     if (inventory && inventory.stock <= inventory.reorderLevel) item.append(element("span", "Low stock", "badge low"));
     const actions = element("div", undefined, "item-actions");
     actions.append(button("Edit product", () => editProduct(product.id)), button("Duplicate", () => editProduct(product.id, true)), button("Adjust stock", () => openStock("product", product.id, product.title)));
@@ -130,11 +171,13 @@ function renderSupplies() {
   const list = $("supplyList"); list.replaceChildren();
   const search = $("supplySearch").value.toLowerCase();
   for (const supply of [...data.supplies].sort((a, b) => a.name.localeCompare(b.name))) {
+    if (!inCollection(data.collections, supply.collectionId, selectedCollection, $("includeSubcollections").checked)) continue;
     if (!`${supply.name} ${supply.supplier}`.toLowerCase().includes(search)) continue;
     const item = element("article", undefined, "item");
     const heading = element("div", undefined, "item-header");
     heading.append(element("h3", supply.name), element("span", supply.active ? "Active" : "Archived", "badge"));
-    item.append(heading, element("p", `${supply.quantity} ${supply.unit}`, "stock"));
+    item.append(heading, element("p", supply.quantity, "stock"));
+    item.append(element("p", collectionName(supply.collectionId), "muted"));
     item.append(element("p", `${new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(supply.unitCost)} / ${supply.unit} · ${supply.supplier || "No supplier"}`, "muted"));
     if (supply.active && supply.quantity <= supply.reorderLevel) item.append(element("span", "Low stock", "badge low"));
     const actions = element("div", undefined, "item-actions");
@@ -188,6 +231,7 @@ function editProduct(id = "", duplicate = false) {
   for (const key of ["title", "price", "image", "description", "type", "link"]) if (product?.[key] !== undefined) form.elements[key].value = product[key];
   form.elements.available.checked = product?.available !== false;
   form.elements.sku.value = inventory?.sku || "";
+  form.elements.collectionId.value = inventory?.collectionId || (id || selectedCollection === "*" ? "" : selectedCollection);
   form.elements.reorderLevel.value = inventory?.reorderLevel || 0;
   form.elements.recipe.value = Object.entries(inventory?.recipe || {}).map(([id, amount]) => `${id} = ${amount}`).join("\n");
   $("recipeRows").replaceChildren();
@@ -234,6 +278,7 @@ function editSupply(id = "", duplicate = false) {
   $("supplyHeading").textContent = supply ? "Edit supply" : "New supply";
   for (const key of ["name", "unit", "unitCost", "supplier", "notes", "reorderLevel"]) if (supply?.[key] !== undefined) form.elements[key].value = supply[key];
   form.elements.active.checked = supply?.active !== false;
+  form.elements.collectionId.value = supply?.collectionId || (id || selectedCollection === "*" ? "" : selectedCollection);
   if (duplicate && supply) {
     form.elements.id.value = "";
     form.elements.name.value = `${supply.name} (copy)`.slice(0, 200);
@@ -267,7 +312,7 @@ $("productForm").addEventListener("submit", event => {
     product.available = form.elements.available.checked;
     if (product.type === "direct" && !product.link) throw new Error("A retailer link is required for direct-order products.");
     const id = await store.saveProduct(form.elements.id.value, product, {
-      sku: textField(form, "sku"), reorderLevel: quantity(form.elements.reorderLevel.value, "Threshold", true), recipe: parseRecipe(form.elements.recipe.value)
+      sku: textField(form, "sku"), reorderLevel: quantity(form.elements.reorderLevel.value, "Threshold", true), recipe: parseRecipe(form.elements.recipe.value), collectionId: form.elements.collectionId.value
     });
     form.elements.id.value = id;
     $("productHeading").textContent = "Edit product";
@@ -282,6 +327,7 @@ $("supplyForm").addEventListener("submit", event => {
     values.unitCost = quantity(form.elements.unitCost.value, "Unit cost");
     values.reorderLevel = quantity(form.elements.reorderLevel.value, "Threshold");
     values.active = form.elements.active.checked;
+    values.collectionId = form.elements.collectionId.value;
     const id = await store.saveSupply(form.elements.id.value, values);
     form.elements.id.value = id;
     $("supplyHeading").textContent = "Edit supply";
@@ -307,11 +353,27 @@ $("newSupply").addEventListener("click", () => editSupply());
 $("productSearch").addEventListener("input", renderProducts);
 $("supplySearch").addEventListener("input", renderSupplies);
 $("requestFilter").addEventListener("change", renderRequests);
+$("allStock").addEventListener("click", () => chooseCollection("*"));
+$("includeSubcollections").addEventListener("change", () => { renderProducts(); renderSupplies(); });
+$("collectionForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  action(async () => {
+    selectedCollection = await store.saveCollection("", textField(form, "name"), selectedCollection === "*" ? "" : selectedCollection);
+    form.reset();
+  }, "Collection created. Add items here or create another subcollection.");
+});
+$("renameCollectionForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  action(() => store.saveCollection(selectedCollection, textField(form, "name")), "Collection renamed.");
+});
 $("importCatalog").addEventListener("click", () => action(() => store.importCatalog(), "Original catalog imported. Existing products were preserved."));
 $("refresh").addEventListener("click", () => action(async () => {}, "Data refreshed."));
 document.querySelectorAll("[data-panel]").forEach(tab => tab.addEventListener("click", () => {
   for (const name of ["products", "supplies", "requests", "movements"]) $(`${name}Panel`).hidden = name !== tab.dataset.panel;
   document.querySelectorAll("[data-panel]").forEach(button => button.setAttribute("aria-pressed", String(button === tab)));
+  $("collectionBrowser").hidden = !["products", "supplies"].includes(tab.dataset.panel);
 }));
 
 $("loginForm").addEventListener("submit", async event => {
@@ -341,7 +403,8 @@ $("signOut").addEventListener("click", async () => {
 async function synchronizeUser(user) {
   const current = ++session;
   authorized = false;
-  data = { products: [], inventory: [], supplies: [], requests: [], movements: [] };
+  data = { products: [], inventory: [], supplies: [], requests: [], movements: [], collections: [] };
+  selectedCollection = "*";
   render(); editProduct(); editSupply();
   if ($("stockDialog").open) $("stockDialog").close();
   $("dashboard").hidden = true; $("loginPanel").hidden = false;

@@ -57,6 +57,29 @@ are shared references to the existing supplies, not new supply records. Use
 active setting with a new name and zero stock. No copy is written until you save;
 the original item and its stock remain unchanged.
 
+### Collections and subcollections
+
+The Collections browser organizes both product inventory and supplies. Create a
+root collection from **All stock** or **Unfiled / root**, open it, then use
+**Create collection here** to add a subcollection. Repeat at any level; there is
+no fixed application nesting limit. Collections are stored as private parent-linked
+records in `stockCollections`, not deeply nested Firestore paths.
+
+Use the **Collection** selector in a product or supply editor to move that item.
+New items default to the collection you are viewing. Items without an assignment
+remain **Unfiled**; **All stock** shows everything. Breadcrumbs navigate back up,
+and **Include stock from subcollections** includes descendants of the selected
+collection. Search works within the selected collection. Duplicates inherit the
+original item's collection. Collection names can be changed. Parent links are
+fixed after creation, and collections cannot be deleted, preventing circular
+trees and orphaned stock. These are organizational collections; they do not
+create new stock balances or duplicate items.
+
+Stock numbers omit their unit labels. Unit information is retained in the supply
+editor, cost-per-unit details, and recipes for accurate production calculations.
+Existing stock records do not require a migration. Deploy **both rules and
+Hosting** for this update, because loading the dashboard now reads stock collections.
+
 ### Deploy from VS Code
 
 From the repository root after signing into the Firebase CLI:

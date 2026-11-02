@@ -22,6 +22,7 @@ async function setup(allowed = true) {
   let listener;
   Object.assign(dom.window, {
     auth: {}, quantity: model.quantity, parseRecipe: model.parseRecipe,
+    collectionTrail: model.collectionTrail, inCollection: model.inCollection,
     browserSessionPersistence: {}, setPersistence: async () => {},
     signInWithEmailAndPassword: async () => ({ user: { uid: "staff", email: "staff@example.com" } }),
     onAuthStateChanged: (auth, callback) => { listener = callback; },
@@ -42,6 +43,50 @@ async function setup(allowed = true) {
   await listener({ uid: "staff", email: "staff@example.com" });
   return { dom, calls, listener, sample };
 }
+
+test("stock numbers omit units while supply metadata retains its unit", async () => {
+  const { dom } = await setup(); const d = dom.window.document;
+  assert.equal(d.querySelector("#supplyList .stock").textContent, "8");
+  assert.equal(d.querySelector("#productList .stock").textContent, "2");
+  d.querySelector("#supplyList button").click();
+  assert.equal(d.getElementById("supplyForm").elements.unit.value, "sheets");
+  dom.window.close();
+});
+
+test("collection navigation filters both stock lists and assigns new products to the current subcollection", async () => {
+  const { dom, sample } = await setup(); const d = dom.window.document;
+  sample.collections = [{ id: "a", name: "Crafts", parentId: "" }, { id: "b", name: "Paper", parentId: "a" }];
+  sample.inventory[0].collectionId = "b"; sample.supplies[0].collectionId = "b";
+  d.getElementById("refresh").click(); await tick();
+  [...d.querySelectorAll("#collectionChildren button")].find(button => button.textContent.includes("Crafts")).click();
+  assert.equal(d.querySelectorAll("#productList .item").length, 0);
+  d.getElementById("includeSubcollections").checked = true;
+  d.getElementById("includeSubcollections").dispatchEvent(new dom.window.Event("change"));
+  assert.equal(d.querySelectorAll("#productList .item").length, 1);
+  assert.equal(d.querySelectorAll("#supplyList .item").length, 1);
+  d.querySelector("#collectionChildren button").click();
+  d.getElementById("newProduct").click();
+  assert.equal(d.getElementById("productForm").elements.collectionId.value, "b");
+  assert.match(d.getElementById("collectionBreadcrumbs").textContent, /Crafts.*Paper/);
+  d.getElementById("allStock").click();
+  assert.equal(d.querySelectorAll("#productList .item").length, 1);
+  dom.window.close();
+});
+
+test("new subcollections are created under the selected collection", async () => {
+  const { dom, sample, calls } = await setup(); const d = dom.window.document;
+  sample.collections = [{ id: "a", name: "Crafts", parentId: "" }];
+  dom.window.store.saveCollection = async (...args) => {
+    calls.push(["collection", ...args]); sample.collections.push({ id: "b", name: args[1], parentId: args[2] }); return "b";
+  };
+  d.getElementById("refresh").click(); await tick();
+  d.querySelector("#collectionChildren button").click();
+  const form = d.getElementById("collectionForm"); form.elements.name.value = "Paper";
+  form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
+  assert.deepEqual(calls[0], ["collection", "", "Paper", "a"]);
+  assert.match(d.getElementById("collectionBreadcrumbs").textContent, /Crafts.*Paper/);
+  dom.window.close();
+});
 
 test("unapproved accounts cannot open the admin dashboard", async () => {
   const { dom } = await setup(false);

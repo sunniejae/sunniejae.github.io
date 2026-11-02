@@ -1,6 +1,27 @@
 // Pure inventory calculations shared by the admin client and tests.
 export const MAX_QUANTITY = 1_000_000_000;
 
+export function collectionTrail(collections, id) {
+  const byId = new Map(collections.map(item => [item.id, item]));
+  const seen = new Set();
+  const trail = [];
+  while (id) {
+    if (seen.has(id)) throw new Error("This collection contains a circular parent link.");
+    seen.add(id);
+    const item = byId.get(id);
+    if (!item) break;
+    trail.push(item);
+    id = item.parentId;
+  }
+  return trail.reverse();
+}
+
+export function inCollection(collections, itemId, selectedId, includeChildren = false) {
+  if (selectedId === "*") return true;
+  if ((itemId || "") === selectedId) return true;
+  return !!selectedId && includeChildren && collectionTrail(collections, itemId).some(item => item.id === selectedId);
+}
+
 export function quantity(value, label = "Quantity", integer = false) {
   if (value === "" || value == null) throw new Error(`${label} is required.`);
   const number = Number(value);

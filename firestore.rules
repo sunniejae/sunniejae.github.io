@@ -14,6 +14,27 @@ service cloud.firestore {
     function text(value, maximum) {
       return value is string && value.size() <= maximum;
     }
+    function validCollection(data) {
+      let id = data.get('collectionId', '');
+      return text(id, 200) && (id == ''
+        || (request.method == 'update' && id == resource.data.get('collectionId', ''))
+        || exists(/databases/$(database)/documents/stockCollections/$(id)));
+    }
+    match /stockCollections/{collectionId} {
+      allow read: if admin();
+      allow create: if admin()
+        && request.resource.data.keys().hasOnly(['name', 'parentId', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['name', 'parentId', 'updatedAt'])
+        && text(request.resource.data.name, 100) && request.resource.data.name.size() > 0
+        && text(request.resource.data.parentId, 200) && request.resource.data.parentId != collectionId
+        && (request.resource.data.parentId == '' || exists(/databases/$(database)/documents/stockCollections/$(request.resource.data.parentId)))
+        && request.resource.data.updatedAt == request.time;
+      allow update: if admin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'updatedAt'])
+        && text(request.resource.data.name, 100) && request.resource.data.name.size() > 0
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
     function recipeAmountAt(values, index) {
       return values.size() <= index
         || (values[index] is number && values[index] > 0 && values[index] <= 1000000);
@@ -53,14 +74,14 @@ service cloud.firestore {
         && data.available is bool;
     }
     function validSupply(data) {
-      return data.keys().hasOnly(['name', 'unit', 'unitCost', 'supplier', 'notes', 'reorderLevel', 'quantity', 'active', 'updatedAt'])
+      return data.keys().hasOnly(['name', 'unit', 'unitCost', 'supplier', 'notes', 'reorderLevel', 'quantity', 'active', 'updatedAt', 'collectionId'])
         && data.keys().hasAll(['name', 'unit', 'unitCost', 'supplier', 'notes', 'reorderLevel', 'quantity', 'active', 'updatedAt'])
         && text(data.name, 200) && data.name.size() > 0
         && text(data.unit, 30) && data.unit.size() > 0
         && text(data.supplier, 200) && text(data.notes, 2000)
         && bounded(data.unitCost, 1000000000) && bounded(data.reorderLevel, 1000000000)
         && bounded(data.quantity, 1000000000) && data.active is bool
-        && data.updatedAt == request.time;
+        && data.updatedAt == request.time && validCollection(data);
     }
     match /admins/{uid} {
       // Only an owner using Firebase console/IAM can grant staff access.
@@ -75,12 +96,12 @@ service cloud.firestore {
     match /productInventory/{productId} {
       allow read: if admin();
       allow create, update: if admin()
-        && request.resource.data.keys().hasOnly(['sku', 'stock', 'reorderLevel', 'recipe', 'updatedAt'])
+        && request.resource.data.keys().hasOnly(['sku', 'stock', 'reorderLevel', 'recipe', 'updatedAt', 'collectionId'])
         && request.resource.data.keys().hasAll(['sku', 'stock', 'reorderLevel', 'recipe', 'updatedAt'])
         && text(request.resource.data.sku, 100)
         && whole(request.resource.data.stock) && whole(request.resource.data.reorderLevel)
         && validRecipe(request.resource.data.recipe)
-        && request.resource.data.updatedAt == request.time;
+        && request.resource.data.updatedAt == request.time && validCollection(request.resource.data);
       allow delete: if false;
     }
     match /inventoryMovements/{movementId} {

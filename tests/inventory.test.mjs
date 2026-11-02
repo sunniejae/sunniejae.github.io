@@ -1,6 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { quantity, adjustedStock, parseRecipe, planProduction } from "../shop/inventory-model.mjs";
+import { quantity, adjustedStock, parseRecipe, planProduction, collectionTrail, inCollection } from "../shop/inventory-model.mjs";
+
+test("collection hierarchy supports thousands of levels without recursion or a fixed depth limit", () => {
+  const groups = Array.from({ length: 2000 }, (_, i) => ({ id: `g${i}`, name: `Level ${i}`, parentId: i ? `g${i - 1}` : "" }));
+  assert.equal(collectionTrail(groups, "g1999").length, 2000);
+  assert.equal(inCollection(groups, "g1999", "g0", true), true);
+  assert.equal(inCollection(groups, "g1999", "g0", false), false);
+  assert.equal(inCollection(groups, undefined, ""), true);
+  assert.equal(inCollection(groups, "g1999", "*"), true);
+  assert.throws(() => collectionTrail([{ id: "a", parentId: "b" }, { id: "b", parentId: "a" }], "a"), /circular/);
+});
 
 test("adjustments enforce finite, nonnegative stock and whole products", () => {
   assert.equal(adjustedStock(5, -2, true), 3);

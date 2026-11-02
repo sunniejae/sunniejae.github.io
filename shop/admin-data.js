@@ -12,13 +12,33 @@ export async function isAdmin(user) {
 
 const rows = snapshot => snapshot.docs.map(item => ({ ...item.data(), id: item.id }));
 export async function loadDashboard() {
-  const [products, inventory, supplies, requests, movements] = await Promise.all([
+  const [products, inventory, supplies, requests, movements, groups] = await Promise.all([
     getDocs(collection(db, "products")), getDocs(collection(db, "productInventory")),
     getDocs(collection(db, "supplies")),
     getDocs(query(collection(db, "saleRequests"), orderBy("createdAt", "desc"), limit(100))),
-    getDocs(query(collection(db, "inventoryMovements"), orderBy("createdAt", "desc"), limit(30)))
+    getDocs(query(collection(db, "inventoryMovements"), orderBy("createdAt", "desc"), limit(30))),
+    getDocs(collection(db, "stockCollections"))
   ]);
-  return { products: rows(products), inventory: rows(inventory), supplies: rows(supplies), requests: rows(requests), movements: rows(movements) };
+  return { products: rows(products), inventory: rows(inventory), supplies: rows(supplies), requests: rows(requests), movements: rows(movements), collections: rows(groups) };
+}
+
+async function checkCollection(transaction, id) {
+  if (id && !(await transaction.get(doc(db, "stockCollections", id))).exists()) throw new Error("The selected collection no longer exists.");
+}
+
+// Parent links are immutable: collections cannot form cycles or orphan their children.
+export async function saveCollection(id, name, parentId = "") {
+  name = name.trim();
+  if (!name || name.length > 100) throw new Error("Enter a collection name of 1 to 100 characters.");
+  const ref = id ? doc(db, "stockCollections", id) : doc(collection(db, "stockCollections"));
+  await runTransaction(db, async transaction => {
+    const existing = await transaction.get(ref);
+    if (id && !existing.exists()) throw new Error("This collection no longer exists.");
+    const parent = existing.exists() ? existing.data().parentId : parentId;
+    await checkCollection(transaction, parent);
+    transaction.set(ref, { name, parentId: parent, updatedAt: serverTimestamp() });
+  });
+  return ref.id;
 }
 
 function movement(transaction, kind, itemId, delta, reason) {
@@ -32,6 +52,7 @@ export async function saveProduct(id, product, settings) {
   const inventoryRef = doc(db, "productInventory", ref.id);
   await runTransaction(db, async transaction => {
     const inventory = await transaction.get(inventoryRef);
+    await checkCollection(transaction, settings.collectionId);
     const supplySnapshots = await Promise.all(Object.keys(settings.recipe).map(supplyId => transaction.get(doc(db, "supplies", supplyId))));
     if (supplySnapshots.some(item => !item.exists() || item.data().active === false)) throw new Error("Every recipe supply must exist and be active.");
     transaction.set(ref, product);
@@ -46,6 +67,7 @@ export async function saveSupply(id, values) {
   const ref = id ? doc(db, "supplies", id) : doc(collection(db, "supplies"));
   await runTransaction(db, async transaction => {
     const existing = await transaction.get(ref);
+    await checkCollection(transaction, values.collectionId);
     transaction.set(ref, { ...values, quantity: existing.exists() ? existing.data().quantity : 0, updatedAt: serverTimestamp() });
   });
   return ref.id;

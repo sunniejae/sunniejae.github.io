@@ -100,3 +100,18 @@ test("copies create separate product and supply records with zero stock", async 
   assert.deepEqual(records.get("productInventory/p"), originalInventory);
   assert.deepEqual(records.get("supplies/paper"), originalSupply);
 });
+
+test("collections can nest and rename; assignment preserves quantities and rejects missing destinations", async () => {
+  const { records, api } = await setup();
+  const parent = await api.saveCollection("", "Materials");
+  const child = await api.saveCollection("", "Paper", parent);
+  await api.saveCollection(child, "Colored paper");
+  assert.equal(records.get(`stockCollections/${child}`).parentId, parent);
+  await api.saveSupply("paper", { name: "Paper", unit: "sheets", active: true, collectionId: child });
+  assert.equal(records.get("supplies/paper").quantity, 3);
+  assert.equal(records.get("supplies/paper").collectionId, child);
+  const before = structuredClone(records);
+  await assert.rejects(api.saveSupply("paper", { name: "Paper", collectionId: "missing" }));
+  await assert.rejects(api.saveCollection("", "Orphan", "missing"));
+  assert.deepEqual(records, before);
+});

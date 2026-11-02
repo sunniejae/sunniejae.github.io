@@ -39,12 +39,28 @@ test("public catalog is readable; private records and customer requests are not"
   for (const context of [environment.unauthenticatedContext(), environment.authenticatedContext("customer")]) {
     const db = context.firestore();
     await assertSucceeds(getDoc(doc(db, "products", "p")));
-    for (const name of ["supplies", "productInventory", "saleRequests", "inventoryMovements", "admins"]) {
+    for (const name of ["supplies", "productInventory", "saleRequests", "inventoryMovements", "admins", "stockCollections"]) {
       await assertFails(getDocs(collection(db, name)));
     }
     await assertFails(setDoc(doc(db, "products", "bad"), product));
     await assertFails(setDoc(doc(db, "admins", "customer"), { role: "owner" }));
   }
+});
+
+test("collections stay private and reject missing parents, reparenting, deletion, and invalid assignments", async () => {
+  const db = staffDB();
+  const group = (name, parentId = "") => ({ name, parentId, updatedAt: serverTimestamp() });
+  await assertSucceeds(setDoc(doc(db, "stockCollections", "root"), group("Materials")));
+  await assertSucceeds(setDoc(doc(db, "stockCollections", "child"), group("Paper", "root")));
+  await assertSucceeds(setDoc(doc(db, "stockCollections", "deep"), group("Blue", "child")));
+  await assertFails(setDoc(doc(db, "stockCollections", "bad"), group("Orphan", "missing")));
+  await assertFails(setDoc(doc(db, "stockCollections", "self"), group("Self", "self")));
+  await assertFails(updateDoc(doc(db, "stockCollections", "root"), { parentId: "deep", updatedAt: serverTimestamp() }));
+  await assertSucceeds(updateDoc(doc(db, "stockCollections", "child"), { name: "Cardstock", updatedAt: serverTimestamp() }));
+  await assertFails(deleteDoc(doc(db, "stockCollections", "child")));
+  await assertSucceeds(updateDoc(doc(db, "supplies", "paper"), { collectionId: "deep", updatedAt: serverTimestamp() }));
+  await assertFails(updateDoc(doc(db, "supplies", "paper"), { collectionId: "missing", updatedAt: serverTimestamp() }));
+  await assertSucceeds(updateDoc(doc(db, "productInventory", "p"), { collectionId: "deep", updatedAt: serverTimestamp() }));
 });
 
 test("requests require authentication, owner identity, valid items, and a server timestamp", async () => {
