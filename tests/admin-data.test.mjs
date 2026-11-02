@@ -86,3 +86,17 @@ test("invalid recipe references cannot partially create a product", async () => 
   await assert.rejects(api.saveProduct("new", { title: "New item" }, { sku: "", reorderLevel: 0, recipe: { missing: 1 } }));
   assert.deepEqual(records, before);
 });
+
+test("copies create separate product and supply records with zero stock", async () => {
+  const { records, api } = await setup();
+  const originalInventory = structuredClone(records.get("productInventory/p"));
+  const originalSupply = structuredClone(records.get("supplies/paper"));
+  const productId = await api.saveProduct("", { title: "Planner variation", price: "$25", type: "exclusive" }, { sku: "", reorderLevel: 1, recipe: { paper: 2 } });
+  assert.notEqual(productId, "p");
+  assert.equal(records.get(`productInventory/${productId}`).stock, 0);
+  assert.deepEqual(records.get(`productInventory/${productId}`).recipe, { paper: 2 });
+  const supplyId = await api.saveSupply("", { name: "Blue paper", unit: "sheets", active: true });
+  assert.notEqual(supplyId, "paper"); assert.equal(records.get(`supplies/${supplyId}`).quantity, 0);
+  assert.deepEqual(records.get("productInventory/p"), originalInventory);
+  assert.deepEqual(records.get("supplies/paper"), originalSupply);
+});

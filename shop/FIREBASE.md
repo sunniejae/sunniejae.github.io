@@ -49,6 +49,14 @@ it never overwrites saved products. Use **New product** and **New supply** for n
 items. Add supplies first, receive their stock, and then select them in a product's
 recipe. **Make a batch** is available for products with a saved recipe.
 
+Use **Duplicate** on a product to reuse its catalog details, low-stock threshold,
+and supply recipe. Enter a new product name in the editor and click **Save product**.
+The copy receives a new ID, zero stock, and a blank SKU. Supply IDs in the recipe
+are shared references to the existing supplies, not new supply records. Use
+**Duplicate** on a supply to reuse its unit, cost, supplier, notes, threshold, and
+active setting with a new name and zero stock. No copy is written until you save;
+the original item and its stock remain unchanged.
+
 ### Deploy from VS Code
 
 From the repository root after signing into the Firebase CLI:

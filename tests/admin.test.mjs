@@ -22,7 +22,8 @@ async function setup(allowed = true) {
   let listener;
   Object.assign(dom.window, {
     auth: {}, quantity: model.quantity, parseRecipe: model.parseRecipe,
-    browserSessionPersistence: {}, setPersistence: async () => {}, signInWithEmailAndPassword: async () => {},
+    browserSessionPersistence: {}, setPersistence: async () => {},
+    signInWithEmailAndPassword: async () => ({ user: { uid: "staff", email: "staff@example.com" } }),
     onAuthStateChanged: (auth, callback) => { listener = callback; },
     signOut: async () => listener(null),
     store: {
@@ -101,5 +102,104 @@ test("sign-out removes customer and inventory data from the interface", async ()
   assert.equal(d.getElementById("dashboard").hidden, true);
   assert.doesNotMatch(d.getElementById("requestList").textContent, /customer@example.com/);
   assert.doesNotMatch(d.getElementById("supplyList").textContent, /Paper/);
+  dom.window.close();
+});
+
+test("duplicating a product keeps its supply recipe but saves a new name and blank SKU", async () => {
+  const { dom, calls, sample } = await setup(); const d = dom.window.document;
+  [...d.querySelectorAll("#productList button")].find(button => button.textContent === "Duplicate").click();
+  const form = d.getElementById("productForm");
+  assert.equal(form.elements.id.value, ""); assert.equal(form.elements.sku.value, "");
+  assert.equal(form.elements.price.value, "$25");
+  assert.equal(form.elements.recipe.value, "s = 2");
+  assert.equal(form.elements.reorderLevel.value, "3");
+  assert.equal(calls.length, 0, "Duplicating is a draft until Save");
+  form.elements.title.value = "New planner variation";
+  form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
+  assert.equal(calls[0][0], "product"); assert.equal(calls[0][1], "");
+  assert.equal(calls[0][2].title, "New planner variation");
+  assert.deepEqual(calls[0][3].recipe, { s: 2 });
+  assert.equal(sample.inventory[0].stock, 2);
+  assert.equal(sample.products[0].title, "<script>bad</script>");
+  dom.window.close();
+});
+
+test("duplicating a supply preserves its settings without updating the original record", async () => {
+  const { dom, calls, sample } = await setup(); const d = dom.window.document;
+  [...d.querySelectorAll("#supplyList button")].find(button => button.textContent === "Duplicate").click();
+  const form = d.getElementById("supplyForm");
+  assert.equal(form.elements.id.value, ""); assert.equal(form.elements.unit.value, "sheets");
+  assert.equal(form.elements.unitCost.value, "1"); assert.equal(form.elements.reorderLevel.value, "2");
+  assert.equal(calls.length, 0);
+  form.elements.name.value = "Blue paper";
+  form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
+  assert.equal(calls[0][0], "supply"); assert.equal(calls[0][1], "");
+  assert.equal(calls[0][2].name, "Blue paper");
+  assert.equal(sample.supplies[0].name, "Paper"); assert.equal(sample.supplies[0].quantity, 8);
+  dom.window.close();
+});
+
+function submitLogin(dom) {
+  const form = dom.window.document.getElementById("loginForm");
+  form.elements.email.value = "staff@example.com";
+  form.elements.password.value = "test-only-password";
+  form.dispatchEvent(new dom.window.Event("submit", { cancelable: true }));
+  return form;
+}
+function fastDeadlines(dom) {
+  const schedule = dom.window.setTimeout.bind(dom.window);
+  dom.window.setTimeout = (callback, delay) => schedule(callback, Math.min(delay, 5));
+}
+const waitForDeadline = () => new Promise(resolve => setTimeout(resolve, 30));
+
+test("an existing login rechecks newly granted staff access without an auth-change event", async () => {
+  const { dom } = await setup(false); const d = dom.window.document;
+  dom.window.store.isAdmin = async () => true;
+  // The mocked sign-in returns the same user and deliberately emits no auth event.
+  const form = submitLogin(dom); await tick();
+  assert.equal(d.getElementById("dashboard").hidden, false);
+  assert.match(d.getElementById("status").textContent, /Inventory loaded/);
+  assert.equal(form.querySelector("button").disabled, false);
+  assert.equal(form.elements.password.value, "");
+  dom.window.close();
+});
+
+test("an unresponsive sign-in times out and restores the retry button", async () => {
+  const { dom } = await setup(false); fastDeadlines(dom);
+  dom.window.signInWithEmailAndPassword = () => new Promise(() => {});
+  const form = submitLogin(dom); await waitForDeadline();
+  assert.match(dom.window.document.getElementById("status").textContent, /Firebase sign-in did not respond/);
+  assert.equal(form.querySelector("button").disabled, false);
+  assert.equal(dom.window.document.getElementById("dashboard").hidden, true);
+  dom.window.close();
+});
+
+test("blocked session storage stops sign-in with an actionable message", async () => {
+  const { dom } = await setup(false); fastDeadlines(dom);
+  dom.window.setPersistence = () => new Promise(() => {});
+  let signInCalls = 0;
+  dom.window.signInWithEmailAndPassword = async () => { signInCalls++; };
+  const form = submitLogin(dom); await waitForDeadline();
+  assert.match(dom.window.document.getElementById("status").textContent, /Allow site storage/);
+  assert.equal(signInCalls, 0); assert.equal(form.querySelector("button").disabled, false);
+  dom.window.close();
+});
+
+test("an unresponsive staff lookup cannot leave sign-in pending forever", async () => {
+  const { dom } = await setup(false); fastDeadlines(dom);
+  dom.window.store.isAdmin = () => new Promise(() => {});
+  const form = submitLogin(dom); await waitForDeadline();
+  assert.match(dom.window.document.getElementById("status").textContent, /staff access could not be checked/);
+  assert.equal(form.querySelector("button").disabled, false);
+  assert.equal(dom.window.document.getElementById("dashboard").hidden, true);
+  dom.window.close();
+});
+
+test("Firebase authentication failures identify the disabled sign-in provider", async () => {
+  const { dom } = await setup(false);
+  dom.window.signInWithEmailAndPassword = async () => { throw { code: "auth/operation-not-allowed" }; };
+  const form = submitLogin(dom); await tick();
+  assert.match(dom.window.document.getElementById("status").textContent, /Email\/Password sign-in is disabled/);
+  assert.equal(form.querySelector("button").disabled, false);
   dom.window.close();
 });

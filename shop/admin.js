@@ -25,9 +25,29 @@ function status(message, error = false) {
 }
 function errorMessage(error) {
   if (error.code === "permission-denied") return "Access denied. Publish the inventory rules and check your staff access in Firebase.";
-  if (error.code?.startsWith("auth/")) return "Unable to sign in. Check your credentials and that Email/Password sign-in is enabled in Firebase.";
+  const authErrors = {
+    "auth/operation-not-allowed": "Email/Password sign-in is disabled. Enable it in Firebase Authentication → Sign-in method.",
+    "auth/invalid-credential": "The email or password is incorrect. Check your Firebase Authentication user and try again.",
+    "auth/user-not-found": "The email or password is incorrect. Check your Firebase Authentication user and try again.",
+    "auth/wrong-password": "The email or password is incorrect. Check your Firebase Authentication user and try again.",
+    "auth/network-request-failed": "Firebase sign-in could not connect. Check your connection and whether a browser extension is blocking Firebase.",
+    "auth/too-many-requests": "Firebase temporarily limited sign-in attempts. Wait a few minutes before trying again.",
+    "auth/web-storage-unsupported": "Your browser is blocking sign-in storage. Allow site storage, then reload and try again.",
+    "auth/user-disabled": "This login has been disabled in Firebase Authentication. Contact the shop owner.",
+    "auth/invalid-api-key": "Firebase rejected the app configuration. Check the project's web app API key and its restrictions.",
+    "auth/unauthorized-domain": "This website's domain is not authorized. Add it in Firebase Authentication → Settings → Authorized domains."
+  };
+  if (authErrors[error.code]) return authErrors[error.code];
+  if (error.code?.startsWith("auth/")) return `Unable to sign in (${error.code}). Check your Firebase Authentication settings.`;
   if (["unavailable", "deadline-exceeded"].includes(error.code)) return "Firebase is unavailable. Check your connection and try again.";
   return error.message || "The update failed. Try again.";
+}
+function withDeadline(promise, message) {
+  let timer;
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => { timer = setTimeout(() => reject(new Error(message)), 15000); })
+  ]).finally(() => clearTimeout(timer));
 }
 function button(text, action) {
   const node = element("button", text);
@@ -48,7 +68,7 @@ function httpURL(value, label) {
 async function refresh() {
   const current = session;
   const version = ++refreshVersion;
-  const loaded = await store.loadDashboard();
+  const loaded = await withDeadline(store.loadDashboard(), "Signed in, but shop data did not load. Check your connection, then use Refresh data to try again.");
   if (!authorized || session !== current || version !== refreshVersion) return;
   data = loaded;
   render();
@@ -99,7 +119,7 @@ function renderProducts() {
     item.append(element("p", inventory ? `${inventory.stock} in stock` : "Inventory not set up", "stock"));
     if (inventory && inventory.stock <= inventory.reorderLevel) item.append(element("span", "Low stock", "badge low"));
     const actions = element("div", undefined, "item-actions");
-    actions.append(button("Edit product", () => editProduct(product.id)), button("Adjust stock", () => openStock("product", product.id, product.title)));
+    actions.append(button("Edit product", () => editProduct(product.id)), button("Duplicate", () => editProduct(product.id, true)), button("Adjust stock", () => openStock("product", product.id, product.title)));
     if (inventory && Object.keys(inventory.recipe || {}).length) actions.append(button("Make a batch", () => openStock("production", product.id, product.title)));
     item.append(actions); list.append(item);
   }
@@ -118,7 +138,7 @@ function renderSupplies() {
     item.append(element("p", `${new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(supply.unitCost)} / ${supply.unit} · ${supply.supplier || "No supplier"}`, "muted"));
     if (supply.active && supply.quantity <= supply.reorderLevel) item.append(element("span", "Low stock", "badge low"));
     const actions = element("div", undefined, "item-actions");
-    actions.append(button("Edit supply", () => editSupply(supply.id)), button("Adjust stock", () => openStock("supply", supply.id, supply.name)));
+    actions.append(button("Edit supply", () => editSupply(supply.id)), button("Duplicate", () => editSupply(supply.id, true)), button("Adjust stock", () => openStock("supply", supply.id, supply.name)));
     item.append(actions); list.append(item);
   }
   if (!list.children.length) empty(list, "No supplies found. Add your first material to start tracking it.");
@@ -159,7 +179,7 @@ function renderMovements() {
   if (!list.children.length) { const row = element("tr"); const cell = element("td", "No stock movements yet."); cell.colSpan = 5; row.append(cell); list.append(row); }
 }
 
-function editProduct(id = "") {
+function editProduct(id = "", duplicate = false) {
   const form = $("productForm"); form.reset();
   const product = data.products.find(item => item.id === id);
   const inventory = data.inventory.find(item => item.id === id);
@@ -172,6 +192,16 @@ function editProduct(id = "") {
   form.elements.recipe.value = Object.entries(inventory?.recipe || {}).map(([id, amount]) => `${id} = ${amount}`).join("\n");
   $("recipeRows").replaceChildren();
   for (const [id, amount] of Object.entries(inventory?.recipe || {})) addRecipeRow(id, amount);
+  if (duplicate && product) {
+    form.elements.id.value = "";
+    form.elements.title.value = `${product.title} (copy)`.slice(0, 200);
+    form.elements.sku.value = "";
+    $("productHeading").textContent = "Duplicate product";
+    status("Product settings copied. Enter the new product name, then Save product. The copy starts with zero stock and a blank SKU; the original is unchanged.");
+    form.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    form.elements.title.focus({ preventScroll: true });
+    form.elements.title.select();
+  }
 }
 function addRecipeRow(id = "", amount = 1) {
   if ($("recipeRows").children.length >= 20) { status("A product can use at most 20 different supplies.", true); return; }
@@ -197,13 +227,22 @@ function addRecipeRow(id = "", amount = 1) {
   const remove = button("×", () => { row.remove(); syncRecipe(); }); remove.setAttribute("aria-label", "Remove supply from recipe");
   row.append(select, input, remove); $("recipeRows").append(row);
 }
-function editSupply(id = "") {
+function editSupply(id = "", duplicate = false) {
   const form = $("supplyForm"); form.reset();
   const supply = data.supplies.find(item => item.id === id);
   form.elements.id.value = id;
   $("supplyHeading").textContent = supply ? "Edit supply" : "New supply";
   for (const key of ["name", "unit", "unitCost", "supplier", "notes", "reorderLevel"]) if (supply?.[key] !== undefined) form.elements[key].value = supply[key];
   form.elements.active.checked = supply?.active !== false;
+  if (duplicate && supply) {
+    form.elements.id.value = "";
+    form.elements.name.value = `${supply.name} (copy)`.slice(0, 200);
+    $("supplyHeading").textContent = "Duplicate supply";
+    status("Supply settings copied. Enter the new name, then Save supply. The copy starts with zero stock; the original is unchanged.");
+    form.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    form.elements.name.focus({ preventScroll: true });
+    form.elements.name.select();
+  }
 }
 function openStock(kind, id, title) {
   stockAction = { kind, id };
@@ -278,19 +317,28 @@ document.querySelectorAll("[data-panel]").forEach(tab => tab.addEventListener("c
 $("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
   const form = event.currentTarget;
-  const submit = form.querySelector("button"); submit.disabled = true;
-  status("Signing in…");
+  const submit = form.querySelector("button");
+  if (submit.disabled) return;
+  submit.disabled = true;
+  status("Preparing sign-in…");
   try {
-    await setPersistence(auth, browserSessionPersistence);
-    await signInWithEmailAndPassword(auth, textField(form, "email"), form.elements.password.value);
+    await withDeadline(setPersistence(auth, browserSessionPersistence), "Your browser did not finish preparing sign-in. Allow site storage, then reload and try again.");
+    status("Signing in…");
+    const credential = await withDeadline(
+      signInWithEmailAndPassword(auth, textField(form, "email"), form.elements.password.value),
+      "Firebase sign-in did not respond. Check your connection or browser blockers, then try again."
+    );
     form.elements.password.value = "";
+    // Signing in as the current user does not always emit onAuthStateChanged.
+    // Always recheck access, including after an owner adds a missing admin record.
+    await synchronizeUser(credential.user);
   } catch (error) { status(errorMessage(error), true); }
   finally { submit.disabled = false; }
 });
 $("signOut").addEventListener("click", async () => {
   try { await signOut(auth); } catch (error) { status(errorMessage(error), true); }
 });
-onAuthStateChanged(auth, async user => {
+async function synchronizeUser(user) {
   const current = ++session;
   authorized = false;
   data = { products: [], inventory: [], supplies: [], requests: [], movements: [] };
@@ -302,7 +350,7 @@ onAuthStateChanged(auth, async user => {
   if (!user || user.isAnonymous) { status(""); return; }
   status("Checking staff access…");
   try {
-    const allowed = await store.isAdmin(user);
+    const allowed = await withDeadline(store.isAdmin(user), "Signed in, but staff access could not be checked. Check your connection and Firebase database setup, then reload and try again.");
     if (current !== session) return;
     if (!allowed) { status("This account does not have staff access. Ask the shop owner to add your Firebase UID to the admins collection.", true); return; }
     authorized = true;
@@ -310,4 +358,5 @@ onAuthStateChanged(auth, async user => {
     await refresh();
     if (current === session) status("Inventory loaded. Stock changes are saved to Firebase.");
   } catch (error) { if (current === session) status(errorMessage(error), true); }
-}, error => status(errorMessage(error), true));
+}
+onAuthStateChanged(auth, synchronizeUser, error => status(errorMessage(error), true));
