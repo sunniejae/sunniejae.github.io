@@ -53,6 +53,11 @@ export async function loadMyRequests() {
   return snapshot.docs.map(item => ({ ...item.data(), id: item.id }));
 }
 
+export async function loadShopCategories() {
+  const snapshot = await getDocs(collection(db, "shopCategories"));
+  return snapshot.docs.map(item => ({ ...item.data(), id: item.id }));
+}
+
 export async function customerAccount() {
   await authDeadline(auth.authStateReady());
   const user = auth.currentUser;

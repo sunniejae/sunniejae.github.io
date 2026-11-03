@@ -6,24 +6,31 @@
   <title>Sunnie Jae Shop</title>
   <meta name="description" content="Shop custom creations, send a request, and follow its progress right here.">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=shop-brands-1">
 </head>
 <body>
   <header class="site-header"><div class="header-inner">
-    <div class="logo"><a href="/">Shop Sunnie Jae</a></div>
+    <div class="logo"><a href="/" id="shopBrand">Shop Sunnie Jae</a></div>
     <nav class="header-nav" aria-label="Shop navigation">
       <button class="nav-btn" id="infoBtn" type="button">How it works</button>
       <button class="nav-btn" id="requestsBtn" type="button">My requests</button>
       <button class="nav-btn" id="wishlistBtn" type="button">Cart <span id="wishlistCount" class="wishlist-count">0</span></button>
+      <button class="nav-btn" id="switchShop" type="button">Shop Studio Ken</button>
       <a class="nav-btn" href="/index.html">Home</a>
     </nav>
   </div></header>
   <main>
     <section class="shop-intro">
-      <p class="shop-eyebrow">THE SUNNIE JAE SHOP</p>
-      <h1>Something a little more you.</h1>
-      <p>Find a favorite, make it personal, and send your request right here.</p>
+      <p class="shop-eyebrow" id="shopEyebrow">THE SUNNIE JAE SHOP</p>
+      <h1 id="shopTitle">Something a little more you.</h1>
+      <p id="shopDescription">Find a favorite, make it personal, and send your request right here.</p>
       <ol class="shopping-steps"><li>Choose your items</li><li>Review &amp; request</li><li>Follow along in My requests</li></ol>
+    </section>
+    <section class="catalog-filters" aria-label="Filter products">
+      <label>Search the shop<input id="shopSearch" type="search" placeholder="Search products, descriptions, or categories"></label>
+      <div id="categoryFilters" class="category-filters"></div>
+      <button id="clearShopFilters" type="button">Clear filters</button>
+      <p id="catalogResults" role="status" aria-live="polite"></p>
     </section>
     <div class="catalog-notice"><p id="catalogStatus" role="status" aria-live="polite">Loading the shop…</p><button type="button" id="retryCatalog" hidden>Try again</button></div>
     <p id="cartNotice" class="cart-notice" role="status" aria-live="polite"></p>
@@ -109,6 +116,6 @@
       <h3>Questions or order issues?</h3><p>Email <a href="mailto:shop@sunniejae.com">shop@sunniejae.com</a> for order updates, issues, and inquiries. Include your request reference if you have one.</p>
     </div>
   </dialog>
-  <script type="module" src="shophome.js?v=customer-account-1"></script>
+  <script type="module" src="shophome.js?v=shop-brands-1"></script>
 </body>
 </html>

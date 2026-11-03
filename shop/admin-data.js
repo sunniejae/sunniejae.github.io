@@ -6,6 +6,7 @@ import {
 import { adjustedStock, planProduction } from "./inventory-model.mjs";
 import { fallbackProducts } from "./products.js";
 import { selectedKpopVariants } from "./kpop-import.mjs";
+import { productShop } from "./catalog-model.mjs";
 
 export async function isAdmin(user) {
   return !!user && (await getDoc(doc(db, "admins", user.uid))).exists();
@@ -13,14 +14,31 @@ export async function isAdmin(user) {
 
 const rows = snapshot => snapshot.docs.map(item => ({ ...item.data(), id: item.id }));
 export async function loadDashboard() {
-  const [products, inventory, supplies, requests, movements, groups] = await Promise.all([
+  const [products, inventory, supplies, requests, movements, groups, categories] = await Promise.all([
     getDocs(collection(db, "products")), getDocs(collection(db, "productInventory")),
     getDocs(collection(db, "supplies")),
     getDocs(query(collection(db, "saleRequests"), orderBy("createdAt", "desc"), limit(100))),
     getDocs(query(collection(db, "inventoryMovements"), orderBy("createdAt", "desc"), limit(30))),
-    getDocs(collection(db, "stockCollections"))
+    getDocs(collection(db, "stockCollections")), getDocs(collection(db, "shopCategories"))
   ]);
-  return { products: rows(products), inventory: rows(inventory), supplies: rows(supplies), requests: rows(requests), movements: rows(movements), collections: rows(groups) };
+  return { products: rows(products), inventory: rows(inventory), supplies: rows(supplies), requests: rows(requests), movements: rows(movements), collections: rows(groups), categories: rows(categories) };
+}
+
+export async function saveShopCategory(id, name, shop, parentId = "") {
+  name = name.trim();
+  if (!name || name.length > 100 || !["sunnie-jae", "studio-ken"].includes(shop)) throw new Error("Choose a shop and enter a category name of 1 to 100 characters.");
+  const ref = id ? doc(db, "shopCategories", id) : doc(collection(db, "shopCategories"));
+  return runTransaction(db, async transaction => {
+    const existing = await transaction.get(ref);
+    if (id && !existing.exists()) throw new Error("This category no longer exists.");
+    if (existing.exists()) { shop = existing.data().shop; parentId = existing.data().parentId; }
+    if (parentId) {
+      const parent = await transaction.get(doc(db, "shopCategories", parentId));
+      if (!parent.exists() || parent.data().shop !== shop) throw new Error("The parent category must belong to the same shop.");
+    }
+    transaction.set(ref, { name, shop, parentId, updatedAt: serverTimestamp() });
+    return ref.id;
+  });
 }
 
 async function checkCollection(transaction, id) {
@@ -55,6 +73,10 @@ export async function saveProduct(id, product, settings) {
     const inventory = await transaction.get(inventoryRef);
     if (id && !(await transaction.get(ref)).exists()) throw new Error("This product was deleted. Refresh before editing.");
     await checkCollection(transaction, settings.collectionId);
+    if (product.categoryId) {
+      const category = await transaction.get(doc(db, "shopCategories", product.categoryId));
+      if (!category.exists() || category.data().shop !== productShop(product)) throw new Error("Choose a category belonging to this product’s shop.");
+    }
     const supplySnapshots = await Promise.all(Object.keys(settings.recipe).map(supplyId => transaction.get(doc(db, "supplies", supplyId))));
     if (supplySnapshots.some(item => !item.exists() || item.data().active === false)) throw new Error("Every recipe supply must exist and be active.");
     // Coordinate recipe creation with supply deletion through the supply document.

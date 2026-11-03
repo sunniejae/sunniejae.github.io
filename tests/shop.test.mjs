@@ -3,11 +3,12 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { JSDOM } from "jsdom";
 import { fallbackProducts } from "../shop/products.js";
+import { productShop, categoryPath, catalogMatches } from "../shop/catalog-model.mjs";
 
 const html = await fs.readFile(new URL("../shop/home.html", import.meta.url), "utf8");
 const source = (await fs.readFile(new URL("../shop/shophome.js", import.meta.url), "utf8"))
-  .replace('import { fallbackProducts } from "./products.js";', "")
-  .replace('import("./firebase.js?v=customer-account-1")', 'Promise.resolve(window.shopAPI)');
+  .replace(/^import .*;$/gm, "")
+  .replace('import("./firebase.js?v=shop-brands-1")', 'Promise.resolve(window.shopAPI)');
 const tick = () => new Promise(resolve => setTimeout(resolve, 15));
 const product = { id: "p", title: "Custom planner", price: "$25", type: "exclusive", image: "https://example.com/planner.png" };
 
@@ -15,8 +16,10 @@ async function setup(overrides = {}, storedCart) {
   const dom = new JSDOM(html, { runScripts: "outside-only", url: "https://example.com/shop/home.html" });
   const calls = [];
   dom.window.fallbackProducts = fallbackProducts;
+  Object.assign(dom.window, { productShop, categoryPath, catalogMatches });
   dom.window.shopAPI = {
     loadProducts: async () => ({ exclusive: [product], direct: [] }),
+    loadShopCategories: async () => [],
     saveSaleRequest: async request => { calls.push(request); return { id: "request-123" }; },
     loadMyRequests: async () => [],
     customerAccount: async () => ({ user: null, emailEnabled: false, emailUpdates: false }), ...overrides
@@ -164,5 +167,35 @@ test("account errors retain guest checkout and existing sign-in explains guest h
   d.getElementById("accountMode").click();
   assert.equal(d.getElementById("existingAccountNote").hidden, false);
   assert.match(d.getElementById("existingAccountNote").textContent, /aren’t transferred/);
+  dom.window.close();
+});
+
+test("Studio Ken switching changes branding and products while keeping a shared cart", async () => {
+  const ken = { ...product, id: "ken", title: "Ken art print", shop: "studio-ken" };
+  const { dom, d } = await setup({ loadProducts: async () => ({ exclusive: [product, ken], direct: [] }) });
+  d.querySelector("#exclusiveProducts .btn").click();
+  d.getElementById("switchShop").click();
+  assert.equal(d.body.dataset.shop, "studio-ken"); assert.equal(d.title, "Studio Ken Shop");
+  assert.match(d.getElementById("exclusiveProducts").textContent, /Ken art print/);
+  assert.doesNotMatch(d.getElementById("exclusiveProducts").textContent, /Custom planner/);
+  d.querySelector("#exclusiveProducts .btn").click(); d.getElementById("wishlistBtn").click();
+  assert.equal(d.querySelectorAll(".wishlist-item").length, 2);
+  assert.match(dom.window.location.search, /shop=studio-ken/);
+  dom.window.close();
+});
+
+test("nested categories and text search combine and can be cleared", async () => {
+  const categories = [{ id: "gifts", name: "Gifts", parentId: "", shop: "sunnie-jae" }, { id: "paper", name: "Paper", parentId: "gifts", shop: "sunnie-jae" }];
+  const { dom, d } = await setup({
+    loadProducts: async () => ({ exclusive: [{ ...product, categoryId: "paper" }, { ...product, id: "other", title: "Keychain", categoryId: "" }], direct: [] }),
+    loadShopCategories: async () => categories
+  });
+  let select = d.querySelector("#categoryFilters select"); select.value = "gifts"; select.dispatchEvent(new dom.window.Event("change"));
+  assert.equal(d.querySelectorAll(".product-card").length, 1);
+  assert.equal(d.querySelectorAll("#categoryFilters select").length, 2);
+  const search = d.getElementById("shopSearch"); search.value = "missing"; search.dispatchEvent(new dom.window.Event("input"));
+  assert.equal(d.querySelectorAll(".product-card").length, 0);
+  assert.match(d.getElementById("catalogResults").textContent, /0 products/);
+  d.getElementById("clearShopFilters").click(); assert.equal(d.querySelectorAll(".product-card").length, 2);
   dom.window.close();
 });

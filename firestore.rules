@@ -85,14 +85,38 @@ service cloud.firestore {
         ;
     }
     function validProduct(data) {
-      return data.keys().hasOnly(['title', 'price', 'image', 'description', 'type', 'link', 'available'])
+      return data.keys().hasOnly(['title', 'price', 'image', 'description', 'type', 'link', 'available', 'shop', 'categoryId'])
         && data.keys().hasAll(['title', 'price', 'image', 'description', 'type', 'link', 'available'])
         && text(data.title, 200) && data.title.size() > 0
         && text(data.price, 100) && data.price.size() > 0
         && text(data.image, 2000) && text(data.description, 4000)
         && data.type in ['exclusive', 'direct'] && text(data.link, 2000)
         && (data.type != 'direct' || data.available == false || data.link.size() > 0)
-        && data.available is bool;
+        && data.available is bool
+        && data.get('shop', 'sunnie-jae') in ['sunnie-jae', 'studio-ken']
+        && validProductCategory(data);
+    }
+    function validProductCategory(data) {
+      let id = data.get('categoryId', '');
+      return text(id, 200) && (id == '' || (exists(/databases/$(database)/documents/shopCategories/$(id))
+        && get(/databases/$(database)/documents/shopCategories/$(id)).data.shop == data.get('shop', 'sunnie-jae')));
+    }
+    match /shopCategories/{categoryId} {
+      allow read: if true;
+      allow create: if admin()
+        && request.resource.data.keys().hasOnly(['name', 'shop', 'parentId', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['name', 'shop', 'parentId', 'updatedAt'])
+        && text(request.resource.data.name, 100) && request.resource.data.name.size() > 0
+        && request.resource.data.shop in ['sunnie-jae', 'studio-ken']
+        && text(request.resource.data.parentId, 200) && request.resource.data.parentId != categoryId
+        && (request.resource.data.parentId == '' || (exists(/databases/$(database)/documents/shopCategories/$(request.resource.data.parentId))
+          && get(/databases/$(database)/documents/shopCategories/$(request.resource.data.parentId)).data.shop == request.resource.data.shop))
+        && request.resource.data.updatedAt == request.time;
+      allow update: if admin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'updatedAt'])
+        && text(request.resource.data.name, 100) && request.resource.data.name.size() > 0
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
     }
     function validSupply(data) {
       return data.keys().hasOnly(['name', 'unit', 'unitCost', 'supplier', 'notes', 'reorderLevel', 'quantity', 'active', 'updatedAt', 'collectionId'])

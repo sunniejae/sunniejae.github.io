@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import { JSDOM } from "jsdom";
 import * as model from "../shop/inventory-model.mjs";
 import { kpopGroupOptions, kpopVariants } from "../shop/kpop-import.mjs";
+import { productShop, categoryPath, shopOptions } from "../shop/catalog-model.mjs";
 
 const html = await fs.readFile(new URL("../shop/admin.html", import.meta.url), "utf8");
 const source = (await fs.readFile(new URL("../shop/admin.js", import.meta.url), "utf8"))
@@ -25,6 +26,7 @@ async function setup(allowed = true) {
     auth: {}, quantity: model.quantity, parseRecipe: model.parseRecipe,
     collectionTrail: model.collectionTrail, inCollection: model.inCollection,
     kpopGroupOptions, kpopVariants,
+    productShop, categoryPath, shopOptions,
     browserSessionPersistence: {}, setPersistence: async () => {},
     signInWithEmailAndPassword: async () => ({ user: { uid: "staff", email: "staff@example.com" } }),
     onAuthStateChanged: (auth, callback) => { listener = callback; },
@@ -37,6 +39,7 @@ async function setup(allowed = true) {
       makeProducts: async (...args) => { calls.push(["make", ...args]); },
       setRequestStatus: async (...args) => { calls.push(["request", ...args]); },
       saveRequestReply: async (...args) => { calls.push(["reply", ...args]); },
+      saveShopCategory: async (...args) => { calls.push(["category", ...args]); },
       importKpopProducts: async (...args) => { calls.push(["kpop", ...args]); },
       deleteProduct: async id => { calls.push(["delete-product", id]); sample.products = sample.products.filter(item => item.id !== id); },
       deleteSupply: async id => { calls.push(["delete-supply", id]); sample.supplies = sample.supplies.filter(item => item.id !== id); },
@@ -163,6 +166,34 @@ test("staff can save a reply for the customer's in-shop request history", async 
   form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
   assert.deepEqual(calls[0], ["reply", "r", "Your custom colors are available."]);
   assert.match(d.getElementById("status").textContent, /customer can see it in My requests/);
+  dom.window.close();
+});
+
+test("Studio Ken is a product inventory option while supplies remain shared", async () => {
+  const { dom, sample, calls } = await setup(); const d = dom.window.document;
+  sample.categories = [{ id: "art", name: "Art", shop: "studio-ken", parentId: "" }];
+  sample.products.push({ id: "ken", title: "Ken artwork", price: "$20", type: "exclusive", shop: "studio-ken", categoryId: "art", available: true });
+  d.getElementById("refresh").click(); await tick();
+  const filter = d.getElementById("inventoryShopFilter"); filter.value = "studio-ken"; filter.dispatchEvent(new dom.window.Event("change"));
+  assert.equal(d.querySelectorAll("#productList .item").length, 1);
+  d.querySelector("#productList button").click();
+  const form = d.getElementById("productForm"); assert.equal(form.elements.shop.value, "studio-ken"); assert.equal(form.elements.categoryId.value, "art");
+  form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
+  assert.equal(calls[0][2].shop, "studio-ken"); assert.equal(calls[0][2].categoryId, "art");
+  assert.equal(d.getElementById("supplyForm").elements.shop, undefined);
+  assert.equal(d.querySelectorAll("#supplyList .item").length, 1);
+  dom.window.close();
+});
+
+test("staff can create a Studio Ken subcategory in the public taxonomy", async () => {
+  const { dom, sample, calls } = await setup(); const d = dom.window.document;
+  sample.categories = [{ id: "art", name: "Art", shop: "studio-ken", parentId: "" }];
+  d.getElementById("refresh").click(); await tick();
+  const form = d.getElementById("shopCategoryForm"); form.elements.shop.value = "studio-ken";
+  form.elements.shop.dispatchEvent(new dom.window.Event("change"));
+  form.elements.parentId.value = "art"; form.elements.name.value = "Prints";
+  form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
+  assert.deepEqual(calls[0], ["category", "", "Prints", "studio-ken", "art"]);
   dom.window.close();
 });
 

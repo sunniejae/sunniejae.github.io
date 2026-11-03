@@ -32,6 +32,40 @@ before that setup. Authentication verification/password-reset emails are separat
 
 ## Shop office: products, supplies, and inventory
 
+### Studio Ken storefront and public categories
+
+The storefront's **Shop Studio Ken** / **Shop Sunnie Jae** button switches theme
+and product listings. `/shop/home.html?shop=studio-ken` opens Studio Ken directly;
+the existing Studio Ken portfolio's Shop link uses that URL. Studio Ken products
+must be assigned in inventory before they appear. No portfolio artwork or prices
+are automatically turned into sale listings.
+
+In the Products editor, choose **Shop** and **Public category**, then save. The
+inventory list has an **Inventory shop** filter. Products with no `shop` field,
+including original and K-pop imports, default to Sunnie Jae. Duplicates keep the
+original shop and category. Supplies have no shop field or brand filter: they
+remain shared and can be used in either shop's recipes. Stock quantities and
+private inventory collections stay unchanged when you change a product's shop.
+
+Use the admin **Shop categories** tab to create root categories and nested
+subcategories for each shop, then assign them to products. Parent categories must
+belong to the same shop; a product cannot use another shop's category. Categories
+can be renamed, but shop/parent links stay fixed after creation. They live in the
+public `shopCategories` collection; do not put private stock/supply labels there.
+The private `stockCollections` tree is separate and is never sent to shoppers.
+
+Shoppers can filter by category and successive subcategories, including all items
+under the selected parent. Search combines with shop/category filters and matches
+product titles, descriptions, and category names, ignoring case and accents.
+Clear filters resets category/search while keeping the shop. The URL records shop,
+category, and search for sharing. Both shops share one cart and customer account;
+cart items show their shop. Switching shops does not remove other items or make
+their availability depend on the current search filter.
+
+Deploy Firestore rules and Hosting together for public category access and the
+new product fields. No extra composite index is required for these client-side
+catalog filters. Existing products remain valid without a migration.
+
 Open `/shop/admin.html` on your deployed website. The shop office includes:
 
 - Public product details and visibility, plus private SKUs, stock, and reorder thresholds.

@@ -452,5 +452,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 #customerAccountStatus:not(:empty) { padding: .6rem; background: var(--silver); border-radius: 6px; }
 .shop-footer { max-width: 1400px; margin: 2rem auto; padding: 1rem 2rem 2rem; border-top: 1px solid var(--gray); }
 .shop-footer a, .shop-dialog a[href^="mailto:"] { color: var(--dark-purple); text-decoration: underline; overflow-wrap: anywhere; }
+.catalog-filters { display: grid; gap: 1rem; padding: 1.2rem; margin: 1rem 0; border: 1px solid var(--gray); border-radius: 10px; background: var(--white); }
+.catalog-filters label { display: grid; gap: .4rem; }
+.catalog-filters input, .catalog-filters select { width: 100%; min-width: 0; font: inherit; padding: .65rem; border: 1px solid var(--gray); border-radius: 6px; background: var(--white); color: var(--black); }
+.category-filters { display: flex; flex-wrap: wrap; gap: 1rem; }
+.category-filters label { flex: 1 1 180px; min-width: 0; }
+#clearShopFilters { justify-self: start; padding: .5rem .8rem; background: var(--white); color: var(--dark-purple); border: 1px solid var(--gray); border-radius: 5px; }
+body[data-shop="studio-ken"] { --silver: #121317; --white: #202126; --black: #f1e9d7; --gray: #565650; --dark-gray: #d3d0c5; --dark-purple: #d9b775; --pink: #d9b775; --secondary: #e3a293; --accent: #76c5bf; --teal: #a4e1da; --primary: #8a5d2f; background: #121317; color: #f1e9d7; }
+body[data-shop="studio-ken"] .site-header { background: #16171b; }
+body[data-shop="studio-ken"] .nav-btn { color: #f1e9d7; background: #202126; }
+body[data-shop="studio-ken"] .shop-intro h1 { font-family: 'Pixel', monospace; font-size: clamp(1.3rem, 3vw, 2.1rem); line-height: 1.7; }
+body[data-shop="studio-ken"] .btn-wishlist { color: #171511; }
+body[data-shop="studio-ken"] .shop-dialog { background: var(--white); }
+body[data-shop="studio-ken"] .request-form input, body[data-shop="studio-ken"] .request-form textarea { background: #17181d; color: #f1e9d7; }
+body[data-shop="studio-ken"] .cart-notice:not(:empty), body[data-shop="studio-ken"] .catalog-notice:has(p:not(:empty)) { background: #322b1f; }
+body[data-shop="studio-ken"] .request-confirmation { background: #243a31; }
+body[data-shop="studio-ken"] .qty-controls button { background: #17181d; color: #f1e9d7; }
 #requestStatus:not(:empty), #requestsStatus:not(:empty) { margin-top: 1rem; }
 @media (max-width: 600px) { .header-inner { padding: .8rem 1rem; } .header-nav { gap: .4rem; } .nav-btn { padding: .5rem .65rem; font-size: .8rem; } .shop-intro h1 { font-size: 1.8rem; } .shop-dialog { padding: 1.3rem; } .wishlist-item { gap: .7rem; } .wishlist-item-image { width: 56px; height: 56px; } }

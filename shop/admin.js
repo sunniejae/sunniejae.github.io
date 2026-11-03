@@ -1,12 +1,13 @@
 import { auth } from "./firebase.js";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import * as store from "./admin-data.js?v=inventory-delete-1";
+import * as store from "./admin-data.js?v=shop-brands-1";
 import { quantity, parseRecipe, collectionTrail, inCollection } from "./inventory-model.mjs";
 import { kpopGroupOptions, kpopVariants } from "./kpop-import.mjs";
+import { productShop, categoryPath, shopOptions } from "./catalog-model.mjs";
 
 const $ = id => document.getElementById(id);
 const states = ["new", "contacted", "accepted", "fulfilled", "cancelled"];
-let data = { products: [], inventory: [], supplies: [], requests: [], movements: [], collections: [] };
+let data = { products: [], inventory: [], supplies: [], requests: [], movements: [], collections: [], categories: [] };
 let selectedCollection = "*";
 let kpopSelection = new Set();
 let session = 0;
@@ -73,7 +74,7 @@ async function refresh() {
   const version = ++refreshVersion;
   const loaded = await withDeadline(store.loadDashboard(), "Signed in, but shop data did not load. Check your connection, then use Refresh data to try again.");
   if (!authorized || session !== current || version !== refreshVersion) return;
-  data = { ...loaded, collections: loaded.collections || [] };
+  data = { ...loaded, collections: loaded.collections || [], categories: loaded.categories || [] };
   render();
 }
 
@@ -94,6 +95,7 @@ async function action(callback, message) {
     busy = false;
     document.querySelectorAll("#dashboard button, #dashboard input, #dashboard select, #dashboard textarea, #stockForm button, #stockForm input").forEach(node => node.disabled = false);
     updateKpopSelection();
+    categoryEditorLocks();
   }
 }
 
@@ -107,7 +109,43 @@ function render() {
     metric.append(element("span", label), element("strong", value));
     $("metrics").append(metric);
   }
-  renderCollections(); renderProducts(); renderSupplies(); renderRequests(); renderMovements(); renderKpopCatalog();
+  renderCollections(); renderProductCategories(); renderShopCategories(); renderProducts(); renderSupplies(); renderRequests(); renderMovements(); renderKpopCatalog();
+}
+
+function categoryLabel(id, shop) { return categoryPath(data.categories, id, shop).map(item => item.name).join(" / "); }
+function categorySelect(select, shop, placeholder) {
+  const saved = select.value; select.replaceChildren();
+  const root = element("option", placeholder); root.value = ""; select.append(root);
+  for (const category of data.categories.filter(item => item.shop === shop).sort((a, b) => categoryLabel(a.id, shop).localeCompare(categoryLabel(b.id, shop)))) {
+    const option = element("option", categoryLabel(category.id, shop)); option.value = category.id; select.append(option);
+  }
+  select.value = [...select.options].some(option => option.value === saved) ? saved : "";
+}
+function renderProductCategories() {
+  const form = $("productForm"); categorySelect(form.elements.categoryId, form.elements.shop.value, "Uncategorized");
+}
+function renderShopCategories() {
+  const form = $("shopCategoryForm"); categorySelect(form.elements.parentId, form.elements.shop.value, "Top-level category");
+  const list = $("shopCategoryList"); list.replaceChildren();
+  for (const shop of shopOptions) {
+    list.append(element("h3", shop.name));
+    const categories = data.categories.filter(item => item.shop === shop.id).sort((a, b) => categoryLabel(a.id, shop.id).localeCompare(categoryLabel(b.id, shop.id)));
+    if (!categories.length) list.append(element("p", "No categories yet.", "muted"));
+    for (const category of categories) {
+      const card = element("article", undefined, "item"); card.append(element("p", categoryLabel(category.id, shop.id)), button("Rename category", () => {
+        form.elements.id.value = category.id; form.elements.shop.value = category.shop;
+        categorySelect(form.elements.parentId, category.shop, "Top-level category"); form.elements.parentId.value = category.parentId;
+        form.elements.name.value = category.name; $("shopCategoryHeading").textContent = "Rename category";
+        categoryEditorLocks();
+      })); list.append(card);
+    }
+  }
+  categoryEditorLocks();
+}
+function categoryEditorLocks() {
+  const form = $("shopCategoryForm");
+  form.elements.shop.disabled = busy || !!form.elements.id.value;
+  form.elements.parentId.disabled = busy || !!form.elements.id.value;
 }
 
 function collectionName(id) {
@@ -196,6 +234,7 @@ function renderProducts() {
   const list = $("productList"); list.replaceChildren();
   const search = $("productSearch").value.toLowerCase();
   for (const product of [...data.products].sort((a, b) => a.title.localeCompare(b.title))) {
+    if ($("inventoryShopFilter").value && productShop(product) !== $("inventoryShopFilter").value) continue;
     const inventory = data.inventory.find(item => item.id === product.id);
     if (!inCollection(data.collections, inventory?.collectionId, selectedCollection, $("includeSubcollections").checked)) continue;
     if (!`${product.title} ${inventory?.sku || ""}`.toLowerCase().includes(search)) continue;
@@ -203,6 +242,7 @@ function renderProducts() {
     const heading = element("div", undefined, "item-header");
     heading.append(element("h3", product.title), element("span", product.available === false ? "Hidden" : "Visible", "badge"));
     item.append(heading, element("p", `${product.price} · ${inventory?.sku || "No SKU"}`, "muted"));
+    item.append(element("p", `${productShop(product) === "studio-ken" ? "Studio Ken" : "Sunnie Jae"} · ${categoryLabel(product.categoryId, productShop(product)) || "Uncategorized"}`, "muted"));
     item.append(element("p", inventory ? inventory.stock : "Inventory not set up", "stock"));
     item.append(element("p", collectionName(inventory?.collectionId), "muted"));
     if (inventory && inventory.stock <= inventory.reorderLevel) item.append(element("span", "Low stock", "badge low"));
@@ -299,6 +339,8 @@ function editProduct(id = "", duplicate = false) {
   for (const key of ["title", "price", "image", "description", "type", "link"]) if (product?.[key] !== undefined) form.elements[key].value = product[key];
   form.elements.available.checked = product?.available !== false;
   form.elements.sku.value = inventory?.sku || "";
+  form.elements.shop.value = product ? productShop(product) : $("inventoryShopFilter").value || "sunnie-jae";
+  renderProductCategories(); form.elements.categoryId.value = product?.categoryId || "";
   form.elements.collectionId.value = inventory?.collectionId || (id || selectedCollection === "*" ? "" : selectedCollection);
   form.elements.reorderLevel.value = inventory?.reorderLevel || 0;
   form.elements.recipe.value = Object.entries(inventory?.recipe || {}).map(([id, amount]) => `${id} = ${amount}`).join("\n");
@@ -373,7 +415,7 @@ $("productForm").addEventListener("submit", event => {
   event.preventDefault();
   action(async () => {
     const form = event.currentTarget;
-    const product = Object.fromEntries(["title", "price", "description", "type"].map(key => [key, textField(form, key)]));
+    const product = Object.fromEntries(["title", "price", "description", "type", "shop", "categoryId"].map(key => [key, textField(form, key)]));
     if (!product.title || !product.price) throw new Error("Title and display price are required.");
     product.image = httpURL(textField(form, "image"), "Image URL");
     product.link = httpURL(textField(form, "link"), "Retailer URL");
@@ -416,6 +458,17 @@ $("stockForm").addEventListener("submit", event => {
 $("cancelStock").addEventListener("click", () => $("stockDialog").close());
 $("stockDialog").addEventListener("cancel", event => { if (busy) event.preventDefault(); });
 $("newProduct").addEventListener("click", () => editProduct());
+$("productForm").elements.shop.addEventListener("change", () => { $("productForm").elements.categoryId.value = ""; renderProductCategories(); });
+$("inventoryShopFilter").addEventListener("change", renderProducts);
+$("shopCategoryForm").elements.shop.addEventListener("change", () => { $("shopCategoryForm").elements.parentId.value = ""; renderShopCategories(); });
+$("newShopCategory").addEventListener("click", () => { $("shopCategoryForm").reset(); $("shopCategoryForm").elements.id.value = ""; $("shopCategoryHeading").textContent = "New category"; renderShopCategories(); });
+$("shopCategoryForm").addEventListener("submit", event => {
+  event.preventDefault(); const form = event.currentTarget;
+  action(async () => {
+    await store.saveShopCategory(form.elements.id.value, textField(form, "name"), form.elements.shop.value, form.elements.parentId.value);
+    form.elements.id.value = ""; form.elements.name.value = ""; $("shopCategoryHeading").textContent = "New category";
+  }, "Shop category saved. Assign it to products in the product editor.");
+});
 $("addRecipeSupply").addEventListener("click", () => addRecipeRow());
 $("newSupply").addEventListener("click", () => editSupply());
 for (const group of kpopGroupOptions) { const option = element("option", group.name); option.value = group.id; $("kpopGroup").append(option); }
@@ -448,7 +501,7 @@ $("renameCollectionForm").addEventListener("submit", event => {
 $("importCatalog").addEventListener("click", () => action(() => store.importCatalog(), "Original catalog imported. Existing products were preserved."));
 $("refresh").addEventListener("click", () => action(async () => {}, "Data refreshed."));
 document.querySelectorAll("[data-panel]").forEach(tab => tab.addEventListener("click", () => {
-  for (const name of ["products", "supplies", "kpop", "requests", "movements"]) $(`${name}Panel`).hidden = name !== tab.dataset.panel;
+  for (const name of ["products", "categories", "supplies", "kpop", "requests", "movements"]) $(`${name}Panel`).hidden = name !== tab.dataset.panel;
   document.querySelectorAll("[data-panel]").forEach(button => button.setAttribute("aria-pressed", String(button === tab)));
   $("collectionBrowser").hidden = !["products", "supplies", "kpop"].includes(tab.dataset.panel);
   if (tab.dataset.panel === "kpop") renderKpopCatalog();
@@ -481,7 +534,8 @@ $("signOut").addEventListener("click", async () => {
 async function synchronizeUser(user) {
   const current = ++session;
   authorized = false;
-  data = { products: [], inventory: [], supplies: [], requests: [], movements: [], collections: [] };
+  data = { products: [], inventory: [], supplies: [], requests: [], movements: [], collections: [], categories: [] };
+  $("shopCategoryForm").reset(); $("shopCategoryForm").elements.id.value = "";
   selectedCollection = "*";
   kpopSelection.clear();
   render(); editProduct(); editSupply();

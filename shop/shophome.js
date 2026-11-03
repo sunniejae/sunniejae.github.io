@@ -1,4 +1,5 @@
 import { fallbackProducts } from "./products.js";
+import { productShop, categoryPath, catalogMatches } from "./catalog-model.mjs";
 
 const $ = id => document.getElementById(id);
 let products = fallbackProducts;
@@ -13,6 +14,9 @@ let accountMode = "signup";
 let accountState = { user: null, emailEnabled: false, emailUpdates: false };
 let autoEmail = "";
 let accountLoad = 0;
+let activeShop = new URLSearchParams(location.search).get("shop") === "studio-ken" ? "studio-ken" : "sunnie-jae";
+let categories = [];
+let selectedCategory = new URLSearchParams(location.search).get("category") || "";
 const stateLabels = { new: "Received", contacted: "In review", accepted: "Accepted", fulfilled: "Completed", cancelled: "Cancelled" };
 
 function element(tag, text, className) {
@@ -34,7 +38,7 @@ function image(src, title, className) {
   node.alt = title || ""; node.loading = "lazy"; return node;
 }
 function client() {
-  clientPromise ||= import("./firebase.js?v=customer-account-1").catch(error => { clientPromise = undefined; throw error; });
+  clientPromise ||= import("./firebase.js?v=shop-brands-1").catch(error => { clientPromise = undefined; throw error; });
   return clientPromise;
 }
 function deadline(promise) {
@@ -62,10 +66,48 @@ function updateCart() {
   renderCart();
 }
 function currentProduct(id) { return products.exclusive.find(product => String(product.id) === String(id)); }
+function filterURL() {
+  const url = new URL(location.href);
+  url.searchParams.set("shop", activeShop);
+  if (selectedCategory) url.searchParams.set("category", selectedCategory); else url.searchParams.delete("category");
+  if ($("shopSearch").value.trim()) url.searchParams.set("q", $("shopSearch").value.trim()); else url.searchParams.delete("q");
+  history.replaceState(null, "", url);
+}
+function renderShop() {
+  const ken = activeShop === "studio-ken";
+  document.body.dataset.shop = activeShop;
+  document.title = ken ? "Studio Ken Shop" : "Sunnie Jae Shop";
+  $("shopBrand").textContent = ken ? "Shop Studio Ken" : "Shop Sunnie Jae";
+  $("shopBrand").href = ken ? "/studio%20ken/home.html" : "/";
+  $("shopEyebrow").textContent = ken ? "THE STUDIO KEN SHOP" : "THE SUNNIE JAE SHOP";
+  $("shopTitle").textContent = ken ? "Art with a little edge." : "Something a little more you.";
+  $("shopDescription").textContent = ken ? "Explore Studio Ken creations. Choose a piece and make your request here." : "Find a favorite, make it personal, and send your request right here.";
+  $("switchShop").textContent = ken ? "Shop Sunnie Jae" : "Shop Studio Ken";
+  document.querySelector('link[rel="icon"]').href = ken ? "/studio%20ken/assets/favicon.png" : "/assets/favicon.png";
+}
+function renderCategoryFilters() {
+  const path = categoryPath(categories, selectedCategory, activeShop);
+  if (catalogReady && selectedCategory && !path.length) selectedCategory = "";
+  const area = $("categoryFilters"); area.replaceChildren();
+  for (let depth = 0; depth <= path.length; depth++) {
+    const parent = depth ? path[depth - 1].id : "";
+    const children = categories.filter(item => item.shop === activeShop && item.parentId === parent).sort((a, b) => a.name.localeCompare(b.name));
+    if (depth && !children.length) break;
+    const label = element("label", depth ? "Subcategory" : "Category"); const select = element("select");
+    const all = element("option", depth ? "All subcategories" : "All categories"); all.value = parent; select.append(all);
+    for (const item of children) { const option = element("option", item.name); option.value = item.id; select.append(option); }
+    select.value = path[depth]?.id || parent;
+    select.addEventListener("change", () => { selectedCategory = select.value; renderCategoryFilters(); renderCatalog(); filterURL(); });
+    label.append(select); area.append(label);
+  }
+}
 function renderCatalog() {
+  let count = 0;
   for (const [kind, gridId] of [["exclusive", "exclusiveProducts"], ["direct", "directProducts"]]) {
     const grid = $(gridId); grid.replaceChildren();
     for (const product of products[kind]) {
+      if (!catalogMatches(product, { shop: activeShop, categoryId: selectedCategory, search: $("shopSearch").value, categories })) continue;
+      count++;
       const card = element("article", undefined, "product-card");
       const info = element("div", undefined, "product-info");
       card.append(image(product.image, product.title, "product-image"), info);
@@ -80,13 +122,17 @@ function renderCatalog() {
       }
       grid.append(card);
     }
-    if (!grid.children.length) grid.append(element("p", "New items are on their way. Check back soon.", "muted"));
+    if (!grid.children.length) grid.append(element("p", selectedCategory || $("shopSearch").value.trim() ? "No products match these filters." : "New items are on their way. Check back soon.", "muted"));
   }
+  $("catalogResults").textContent = `${count} ${count === 1 ? "product" : "products"} in ${activeShop === "studio-ken" ? "Studio Ken" : "Sunnie Jae"}`;
 }
 async function loadCatalog() {
   $("catalogStatus").textContent = "Checking the latest shop selections…"; $("retryCatalog").hidden = true;
   try {
-    products = await deadline(client().then(api => api.loadProducts())); catalogReady = true;
+    const loaded = await deadline(client().then(async api => Promise.all([api.loadProducts(), api.loadShopCategories()])));
+    products = loaded[0]; categories = loaded[1]; catalogReady = true;
+    renderCategoryFilters();
+    filterURL();
     $("catalogStatus").textContent = "";
     for (const item of cart) { const latest = currentProduct(item.id); if (latest) Object.assign(item, latest, { id: String(latest.id) }); }
     persistCart();
@@ -116,6 +162,7 @@ function renderCart() {
     const row = element("article", undefined, "wishlist-item"); const info = element("div", undefined, "wishlist-item-info");
     row.append(image(item.image, item.title, "wishlist-item-image"), info);
     info.append(element("h3", item.title, "wishlist-item-title"), element("p", latest?.price || item.price, "wishlist-item-price"));
+    info.append(element("p", productShop(item) === "studio-ken" ? "Studio Ken" : "Sunnie Jae", "muted"));
     if (catalogReady && !latest) info.append(element("p", "This item is no longer available. Remove it to continue.", "unavailable"));
     const controls = element("div", undefined, "qty-controls");
     for (const [label, change] of [["−", -1], ["+", 1]]) {
@@ -258,7 +305,15 @@ async function loadRequests() {
   finally { if (version === requestLoad) $("refreshRequests").disabled = false; }
 }
 function init() {
-  loadCart(); renderCatalog(); updateCart();
+  $("shopSearch").value = new URLSearchParams(location.search).get("q") || "";
+  renderShop(); renderCategoryFilters(); loadCart(); renderCatalog(); updateCart();
+  $("switchShop").addEventListener("click", () => {
+    activeShop = activeShop === "studio-ken" ? "sunnie-jae" : "studio-ken";
+    selectedCategory = ""; $("shopSearch").value = "";
+    renderShop(); renderCategoryFilters(); renderCatalog(); filterURL();
+  });
+  $("shopSearch").addEventListener("input", () => { renderCatalog(); filterURL(); });
+  $("clearShopFilters").addEventListener("click", () => { selectedCategory = ""; $("shopSearch").value = ""; renderCategoryFilters(); renderCatalog(); filterURL(); });
   $("wishlistBtn").addEventListener("click", () => openModal("wishlistModal"));
   $("requestsBtn").addEventListener("click", () => openModal("requestsModal"));
   $("infoBtn").addEventListener("click", () => openModal("infoModal"));

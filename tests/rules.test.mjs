@@ -112,6 +112,19 @@ test("retailer drafts may omit links but publishing requires a link", async () =
   await assertSucceeds(updateDoc(doc(db, "products", "draft"), { available: true, link: "https://www.redbubble.com/people/sunniejae/shop" }));
 });
 
+test("public categories are readable but staff-only, brand-scoped, and immutable in hierarchy", async () => {
+  const db = staffDB(); const guest = environment.unauthenticatedContext().firestore();
+  const category = { name: "Art", shop: "studio-ken", parentId: "", updatedAt: serverTimestamp() };
+  await assertSucceeds(setDoc(doc(db, "shopCategories", "art"), category));
+  await assertSucceeds(getDoc(doc(guest, "shopCategories", "art")));
+  await assertFails(setDoc(doc(guest, "shopCategories", "bad"), category));
+  await assertFails(setDoc(doc(db, "shopCategories", "cross"), { ...category, shop: "sunnie-jae", parentId: "art" }));
+  await assertFails(updateDoc(doc(db, "shopCategories", "art"), { parentId: "art", updatedAt: serverTimestamp() }));
+  await assertSucceeds(setDoc(doc(db, "products", "ken"), { ...product, shop: "studio-ken", categoryId: "art" }));
+  await assertFails(setDoc(doc(db, "products", "cross"), { ...product, shop: "sunnie-jae", categoryId: "art" }));
+  await assertFails(updateDoc(doc(db, "supplies", "paper"), { shop: "studio-ken", updatedAt: serverTimestamp() }));
+});
+
 test("account preferences are private, bound to the authenticated email, and cannot grant email sending access", async () => {
   const customer = environment.authenticatedContext("buyer", { email: "buyer@example.com" }).firestore();
   const other = environment.authenticatedContext("other", { email: "other@example.com" }).firestore();
@@ -134,7 +147,8 @@ async function backend() {
     .replace('"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js"', JSON.stringify(import.meta.resolve("firebase/firestore")))
     .replace('"./inventory-model.mjs"', JSON.stringify(new URL("../shop/inventory-model.mjs", import.meta.url).href))
     .replace('"./products.js"', JSON.stringify(new URL("../shop/products.js", import.meta.url).href))
-    .replace('"./kpop-import.mjs"', JSON.stringify(new URL("../shop/kpop-import.mjs", import.meta.url).href));
+    .replace('"./kpop-import.mjs"', JSON.stringify(new URL("../shop/kpop-import.mjs", import.meta.url).href))
+    .replace('"./catalog-model.mjs"', JSON.stringify(new URL("../shop/catalog-model.mjs", import.meta.url).href));
   return { db, api: await import(`data:text/javascript;base64,${Buffer.from(source + `\n// ${Math.random()}`).toString("base64")}`) };
 }
 

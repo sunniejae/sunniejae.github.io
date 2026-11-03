@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow">
   <title>Shop office · Sunnie Jae</title>
   <link rel="icon" href="/assets/favicon.png">
-  <link rel="stylesheet" href="admin.css?v=inventory-delete-1">
+  <link rel="stylesheet" href="admin.css?v=shop-brands-1">
 </head>
 <body>
   <header class="topbar">
@@ -34,6 +34,7 @@
       <div class="metrics" id="metrics"></div>
       <nav class="tabs" aria-label="Shop management">
         <button data-panel="products" aria-pressed="true">Products</button>
+        <button data-panel="categories" aria-pressed="false">Shop categories</button>
         <button data-panel="supplies" aria-pressed="false">Supplies</button>
         <button data-panel="kpop" aria-pressed="false">K-pop catalog</button>
         <button data-panel="requests" aria-pressed="false">Sale requests</button>
@@ -57,6 +58,7 @@
       <section id="productsPanel">
         <div class="section-heading"><h2>Product inventory</h2><div><button id="importCatalog">Import original catalog</button> <button id="newProduct" class="primary">New product</button></div></div>
         <label class="search">Find a product<input id="productSearch" type="search" placeholder="Search title or SKU"></label>
+        <label class="search">Inventory shop<select id="inventoryShopFilter"><option value="">All shops</option><option value="sunnie-jae">Sunnie Jae</option><option value="studio-ken">Studio Ken</option></select></label>
         <div class="split">
           <div id="productList" class="item-list"></div>
           <form id="productForm" class="card editor">
@@ -64,6 +66,7 @@
             <input name="id" type="hidden">
             <label>Collection<select name="collectionId"><option value="">Unfiled</option></select></label>
             <label>Title<input name="title" required maxlength="200"></label>
+            <div class="field-pair"><label>Shop<select name="shop"><option value="sunnie-jae">Sunnie Jae</option><option value="studio-ken">Studio Ken</option></select></label><label>Public category<select name="categoryId"><option value="">Uncategorized</option></select></label></div>
             <div class="field-pair"><label>Display price<input name="price" required maxlength="100" placeholder="$25"></label><label>SKU<input name="sku" maxlength="100"></label></div>
             <label>Image URL<input name="image" type="url" maxlength="2000" placeholder="https://…"></label>
             <label>Description<textarea name="description" maxlength="4000" rows="3"></textarea></label>
@@ -74,6 +77,24 @@
             <textarea name="recipe" hidden></textarea>
             <p class="muted">Choose the amount used for one finished product, in each supply's unit. Making a batch consumes these supplies. Leave empty for purchased finished goods.</p>
             <button type="submit" class="primary">Save product</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="categoriesPanel" hidden>
+        <h2>Shop categories &amp; subcategories</h2>
+        <p class="muted">These categories are visible to shoppers. They are separate from private stock collections and apply only to products; supplies stay shared. Create subcategories at any level by choosing a parent.</p>
+        <div class="split">
+          <div id="shopCategoryList" class="item-list"></div>
+          <form id="shopCategoryForm" class="card editor">
+            <h3 id="shopCategoryHeading">New category</h3>
+            <input name="id" type="hidden">
+            <label>Shop<select name="shop"><option value="sunnie-jae">Sunnie Jae</option><option value="studio-ken">Studio Ken</option></select></label>
+            <label>Parent category<select name="parentId"><option value="">Top-level category</option></select></label>
+            <label>Category name<input name="name" maxlength="100" required></label>
+            <p class="muted">Existing categories can be renamed. Shop and parent stay fixed after creation.</p>
+            <button type="submit" class="primary">Save category</button>
+            <button type="button" id="newShopCategory">New category</button>
           </form>
         </div>
       </section>
@@ -140,6 +161,6 @@
       <div class="dialog-actions"><button type="button" id="cancelStock">Cancel</button><button class="primary" type="submit">Save stock change</button></div>
     </form>
   </dialog>
-  <script type="module" src="admin.js?v=inventory-delete-1"></script>
+  <script type="module" src="admin.js?v=shop-brands-1"></script>
 </body>
 </html>

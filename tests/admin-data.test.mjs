@@ -46,7 +46,8 @@ async function setup() {
       (_, names) => `const {${names}} = globalThis.${key}.sdk;`)
     .replace('"./inventory-model.mjs"', JSON.stringify(new URL("../shop/inventory-model.mjs", import.meta.url).href))
     .replace('"./products.js"', JSON.stringify(new URL("../shop/products.js", import.meta.url).href))
-    .replace('"./kpop-import.mjs"', JSON.stringify(new URL("../shop/kpop-import.mjs", import.meta.url).href));
+    .replace('"./kpop-import.mjs"', JSON.stringify(new URL("../shop/kpop-import.mjs", import.meta.url).href))
+    .replace('"./catalog-model.mjs"', JSON.stringify(new URL("../shop/catalog-model.mjs", import.meta.url).href));
   const api = await import(`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`);
   delete globalThis[key];
   return { records, api };
@@ -183,4 +184,18 @@ test("supplies used in recipes cannot be deleted, but unreferenced supplies can"
   assert.equal(records.has("supplies/paper"), false);
   assert.equal(records.has("inventoryMovements/m"), true);
   await assert.rejects(api.saveSupply("paper", { name: "Old edit" }), /deleted/);
+});
+
+test("public categories are shop-scoped and product assignment cannot cross brands", async () => {
+  const { records, api } = await setup();
+  const art = await api.saveShopCategory("", "Art", "studio-ken");
+  const prints = await api.saveShopCategory("", "Prints", "studio-ken", art);
+  await assert.rejects(api.saveShopCategory("", "Wrong shop", "sunnie-jae", art));
+  const before = structuredClone(records);
+  await assert.rejects(api.saveProduct("p", { title: "Wrong brand", shop: "sunnie-jae", categoryId: prints }, { sku: "", recipe: {}, reorderLevel: 0 }));
+  assert.deepEqual(records, before);
+  await api.saveProduct("p", { title: "Ken art", shop: "studio-ken", categoryId: prints }, { sku: "", recipe: {}, reorderLevel: 0 });
+  assert.equal(records.get("products/p").shop, "studio-ken");
+  assert.equal(records.get("productInventory/p").stock, 4);
+  assert.equal(Object.hasOwn(records.get("supplies/paper"), "shop"), false);
 });
