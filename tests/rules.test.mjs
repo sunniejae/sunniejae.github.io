@@ -103,6 +103,13 @@ test("staff can edit inventory and request status but cannot grant access or alt
   await assertFails(setDoc(doc(db, "products", "private"), { ...product, supplierCost: 1 }));
 });
 
+test("retailer drafts may omit links but publishing requires a link", async () => {
+  const db = staffDB();
+  await assertSucceeds(setDoc(doc(db, "products", "draft"), { ...product, type: "direct", available: false, link: "" }));
+  await assertFails(updateDoc(doc(db, "products", "draft"), { available: true }));
+  await assertSucceeds(updateDoc(doc(db, "products", "draft"), { available: true, link: "https://www.redbubble.com/people/sunniejae/shop" }));
+});
+
 async function backend() {
   const db = staffDB();
   globalThis.inventoryTestContext = { db, auth: { currentUser: { uid: "staff" } } };
@@ -110,7 +117,8 @@ async function backend() {
     .replace('import { db, auth } from "./firebase.js";', 'const { db, auth } = globalThis.inventoryTestContext;')
     .replace('"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js"', JSON.stringify(import.meta.resolve("firebase/firestore")))
     .replace('"./inventory-model.mjs"', JSON.stringify(new URL("../shop/inventory-model.mjs", import.meta.url).href))
-    .replace('"./products.js"', JSON.stringify(new URL("../shop/products.js", import.meta.url).href));
+    .replace('"./products.js"', JSON.stringify(new URL("../shop/products.js", import.meta.url).href))
+    .replace('"./kpop-import.mjs"', JSON.stringify(new URL("../shop/kpop-import.mjs", import.meta.url).href));
   return { db, api: await import(`data:text/javascript;base64,${Buffer.from(source + `\n// ${Math.random()}`).toString("base64")}`) };
 }
 

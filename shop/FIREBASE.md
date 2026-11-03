@@ -93,6 +93,36 @@ included Hosting configuration excludes tests and development dependencies.
 Run the tests in `tests/README.md` before deploying the new rules. Deployment,
 staff creation, and live production requests were not performed by this change.
 
+## K-pop transfers in the shop office
+
+Open **K-pop catalog** in `/shop/admin.html`, choose a group, and select the design
+versions you want. The catalog is shared with the original `/kpop/shop.html` page:
+six product types across seven groups, with 127 group/design variants. Fixed IZNA
+collage images appear only for IZNA; group placeholders are resolved for each
+other gallery. Image filename capitalization and version order are preserved.
+
+Choose a destination collection in the collections browser, then:
+
+- **Transfer selected as drafts** adds hidden product and inventory records.
+- **Transfer selected to live shop** creates visible products that appear at
+  `/shop/home.html`, plus zero-stock inventory records.
+- **Edit saved product** opens that record's editor on the same admin page. Set
+  its price, retailer link, supply recipe, visibility, and other details there.
+
+The original K-pop catalog did not specify prices. Imported custom designs use
+`Price on request`; retailer designs use `See retailer`. Two original retailer
+links contain `YOUR-SHOP` placeholders. These designs can only transfer as drafts
+until you add a real URL and enable visibility in the product editor. Hidden
+retailer drafts may have an empty link; visible retailer products require a link.
+
+Each image/design version becomes its own product, with a stable `kpop-…` ID and
+SKU, so it does not collide with the original products numbered 1–8. Repeating
+a transfer never overwrites edited details, visibility, collections, or existing
+stock. Existing records are marked **Already transferred**. Transfers do not
+deduct supplies or create stock; use adjustments and production batches afterward.
+This changes inventory and the main live shop; the original K-pop page keeps its
+existing browsing and wishlist workflow.
+
 ## Required Firebase console steps
 
 1. Create the default Cloud Firestore database in production mode.

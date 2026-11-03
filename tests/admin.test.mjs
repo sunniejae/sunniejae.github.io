@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { JSDOM } from "jsdom";
 import * as model from "../shop/inventory-model.mjs";
+import { kpopGroupOptions, kpopVariants } from "../shop/kpop-import.mjs";
 
 const html = await fs.readFile(new URL("../shop/admin.html", import.meta.url), "utf8");
 const source = (await fs.readFile(new URL("../shop/admin.js", import.meta.url), "utf8"))
@@ -23,6 +24,7 @@ async function setup(allowed = true) {
   Object.assign(dom.window, {
     auth: {}, quantity: model.quantity, parseRecipe: model.parseRecipe,
     collectionTrail: model.collectionTrail, inCollection: model.inCollection,
+    kpopGroupOptions, kpopVariants,
     browserSessionPersistence: {}, setPersistence: async () => {},
     signInWithEmailAndPassword: async () => ({ user: { uid: "staff", email: "staff@example.com" } }),
     onAuthStateChanged: (auth, callback) => { listener = callback; },
@@ -35,6 +37,7 @@ async function setup(allowed = true) {
       makeProducts: async (...args) => { calls.push(["make", ...args]); },
       setRequestStatus: async (...args) => { calls.push(["request", ...args]); },
       saveRequestReply: async (...args) => { calls.push(["reply", ...args]); },
+      importKpopProducts: async (...args) => { calls.push(["kpop", ...args]); },
       importCatalog: async () => calls.push(["import"])
     }
   });
@@ -158,6 +161,46 @@ test("staff can save a reply for the customer's in-shop request history", async 
   form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
   assert.deepEqual(calls[0], ["reply", "r", "Your custom colors are available."]);
   assert.match(d.getElementById("status").textContent, /customer can see it in My requests/);
+  dom.window.close();
+});
+
+test("staff can select K-pop designs and transfer directly to the live shop", async () => {
+  const { dom, calls } = await setup(); const d = dom.window.document;
+  d.querySelector('[data-panel="kpop"]').click();
+  assert.equal(d.querySelectorAll(".kpop-design").length, 17);
+  const select = d.querySelector('[data-kpop-id="kpop-oneus-1-v1"]');
+  select.checked = true; select.dispatchEvent(new dom.window.Event("change"));
+  assert.equal(d.getElementById("importKpopLive").disabled, false);
+  d.getElementById("importKpopLive").click(); await tick();
+  assert.equal(calls[0][0], "kpop");
+  assert.deepEqual(Array.from(calls[0][1]), ["kpop-oneus-1-v1"]);
+  assert.equal(calls[0][2].available, true);
+  assert.match(d.getElementById("status").textContent, /live shop/);
+  dom.window.close();
+});
+
+test("placeholder retailer designs can transfer as drafts but not publish", async () => {
+  const { dom, calls } = await setup(); const d = dom.window.document;
+  d.querySelector('[data-panel="kpop"]').click();
+  const select = d.querySelector('[data-kpop-id="kpop-oneus-5-v1"]');
+  select.checked = true; select.dispatchEvent(new dom.window.Event("change"));
+  assert.equal(d.getElementById("importKpopLive").disabled, true);
+  assert.equal(d.getElementById("importKpopDrafts").disabled, false);
+  assert.match(d.getElementById("kpopPublishHint").textContent, /real links/);
+  d.getElementById("importKpopDrafts").click(); await tick();
+  assert.equal(calls[0][2].available, false);
+  dom.window.close();
+});
+
+test("already transferred K-pop variants open the saved product editor on the same page", async () => {
+  const { dom, sample } = await setup(); const d = dom.window.document;
+  sample.products.push({ id: "kpop-oneus-1-v1", title: "Saved K-pop product", price: "$15", type: "exclusive", available: false });
+  d.getElementById("refresh").click(); await tick();
+  d.querySelector('[data-panel="kpop"]').click();
+  assert.equal(d.querySelector('[data-kpop-id="kpop-oneus-1-v1"]'), null);
+  [...d.querySelectorAll("#kpopList button")].find(button => button.textContent === "Edit saved product").click();
+  assert.equal(d.getElementById("productsPanel").hidden, false);
+  assert.equal(d.getElementById("productForm").elements.title.value, "Saved K-pop product");
   dom.window.close();
 });
 

@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow">
   <title>Shop office · Sunnie Jae</title>
   <link rel="icon" href="/assets/favicon.png">
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin.css?v=kpop-transfer-1">
 </head>
 <body>
   <header class="topbar">
@@ -35,6 +35,7 @@
       <nav class="tabs" aria-label="Shop management">
         <button data-panel="products" aria-pressed="true">Products</button>
         <button data-panel="supplies" aria-pressed="false">Supplies</button>
+        <button data-panel="kpop" aria-pressed="false">K-pop catalog</button>
         <button data-panel="requests" aria-pressed="false">Sale requests</button>
         <button data-panel="movements" aria-pressed="false">Stock history</button>
       </nav>
@@ -98,6 +99,24 @@
         </div>
       </section>
 
+      <section id="kpopPanel" hidden>
+        <div class="section-heading"><h2>Transfer K-pop designs</h2><a href="home.html" target="_blank" rel="noopener">Open live shop ↗</a></div>
+        <p class="muted">Choose a group and select design versions from the original K-pop shop. Transfers start with zero stock; existing products and quantities are preserved. Prices were not listed in the original catalog, so custom items use “Price on request” and retailer items use “See retailer”. You can edit these after transfer.</p>
+        <label class="search">Group<select id="kpopGroup"></select></label>
+        <p id="kpopDestination" class="muted"></p>
+        <div class="kpop-toolbar">
+          <button id="selectKpop" type="button">Select all new designs</button>
+          <button id="clearKpop" type="button">Clear selection</button>
+          <span id="kpopSelectionCount" role="status">0 selected</span>
+        </div>
+        <div class="kpop-toolbar">
+          <button id="importKpopDrafts" type="button">Transfer selected as drafts</button>
+          <button id="importKpopLive" type="button" class="primary">Transfer selected to live shop</button>
+        </div>
+        <p id="kpopPublishHint" class="muted"></p>
+        <div id="kpopList" class="kpop-list"></div>
+      </section>
+
       <section id="requestsPanel" hidden>
         <div class="section-heading"><h2>Sale requests</h2><label>Status<select id="requestFilter"><option value="">All statuses</option><option>new</option><option>contacted</option><option>accepted</option><option>fulfilled</option><option>cancelled</option></select></label></div>
         <p class="muted">Latest 100 requests. Status changes do not move stock or take payment. Use a product stock adjustment when an order leaves your inventory.</p>
@@ -121,6 +140,6 @@
       <div class="dialog-actions"><button type="button" id="cancelStock">Cancel</button><button class="primary" type="submit">Save stock change</button></div>
     </form>
   </dialog>
-  <script type="module" src="admin.js"></script>
+  <script type="module" src="admin.js?v=kpop-transfer-1"></script>
 </body>
 </html>

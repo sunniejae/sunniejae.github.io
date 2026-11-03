@@ -28,8 +28,9 @@ async function setup() {
         set: (ref, values) => writes.push([ref, values, false]),
         update: (ref, values) => writes.push([ref, values, true])
       };
-      await callback(transaction);
+      const result = await callback(transaction);
       for (const [ref, values, merge] of writes) records.set(ref.path, { ...(merge ? records.get(ref.path) : {}), ...structuredClone(values) });
+      return result;
     }
   };
   const key = `inventoryTest${Math.random().toString().slice(2)}`;
@@ -39,7 +40,8 @@ async function setup() {
     .replace(/import \{([\s\S]*?)\} from "https:\/\/www.gstatic.com\/firebasejs\/12.0.0\/firebase-firestore.js";/,
       (_, names) => `const {${names}} = globalThis.${key}.sdk;`)
     .replace('"./inventory-model.mjs"', JSON.stringify(new URL("../shop/inventory-model.mjs", import.meta.url).href))
-    .replace('"./products.js"', JSON.stringify(new URL("../shop/products.js", import.meta.url).href));
+    .replace('"./products.js"', JSON.stringify(new URL("../shop/products.js", import.meta.url).href))
+    .replace('"./kpop-import.mjs"', JSON.stringify(new URL("../shop/kpop-import.mjs", import.meta.url).href));
   const api = await import(`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`);
   delete globalThis[key];
   return { records, api };
@@ -122,4 +124,33 @@ test("staff replies change only the shop message and preserve the original reque
   await api.saveRequestReply("r", "  Your colors are available.  ");
   assert.deepEqual(records.get("saleRequests/r"), { name: "Guest", customerId: "guest", status: "accepted", message: "Blue please", shopMessage: "Your colors are available." });
   await assert.rejects(api.saveRequestReply("r", "x".repeat(2001)));
+});
+
+test("K-pop transfers create drafts with separate stable IDs and preserve edits and stock on repeat", async () => {
+  const { records, api } = await setup();
+  const id = "kpop-oneus-1-v1";
+  assert.equal(await api.importKpopProducts([id, id]), 1);
+  assert.equal(records.get(`products/${id}`).available, false);
+  assert.equal(records.get(`productInventory/${id}`).stock, 0);
+  assert.equal(records.get("products/p").title, "Planner");
+  records.get(`products/${id}`).title = "Edited name";
+  records.get(`productInventory/${id}`).stock = 5;
+  assert.equal(await api.importKpopProducts([id], { available: true }), 0);
+  assert.equal(records.get(`products/${id}`).title, "Edited name");
+  assert.equal(records.get(`products/${id}`).available, false);
+  assert.equal(records.get(`productInventory/${id}`).stock, 5);
+});
+
+test("live K-pop transfers publish valid selections and reject placeholder retailer links atomically", async () => {
+  const { records, api } = await setup();
+  records.set("stockCollections/kpop", { name: "K-pop", parentId: "" });
+  await api.importKpopProducts(["kpop-oneus-1-v1", "kpop-oneus-6-v1"], { available: true, collectionId: "kpop" });
+  assert.equal(records.get("products/kpop-oneus-1-v1").available, true);
+  assert.equal(records.get("productInventory/kpop-oneus-6-v1").collectionId, "kpop");
+  const before = structuredClone(records);
+  await assert.rejects(api.importKpopProducts(["kpop-oneus-2-v1", "kpop-oneus-5-v1"], { available: true }), /real retailer link/);
+  assert.deepEqual(records, before);
+  await api.importKpopProducts(["kpop-oneus-5-v1"]);
+  assert.equal(records.get("products/kpop-oneus-5-v1").link, "");
+  assert.equal(records.get("products/kpop-oneus-5-v1").available, false);
 });

@@ -5,6 +5,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 import { adjustedStock, planProduction } from "./inventory-model.mjs";
 import { fallbackProducts } from "./products.js";
+import { selectedKpopVariants } from "./kpop-import.mjs";
 
 export async function isAdmin(user) {
   return !!user && (await getDoc(doc(db, "admins", user.uid))).exists();
@@ -142,5 +143,27 @@ export async function importCatalog() {
         transaction.set(inventoryRefs[index], { sku: "", stock: 0, reorderLevel: 0, recipe: {}, updatedAt: serverTimestamp() });
       }
     });
+  });
+}
+
+export async function importKpopProducts(ids, { collectionId = "", available = false } = {}) {
+  const variants = selectedKpopVariants(ids);
+  if (available && variants.some(item => !item.canPublish)) throw new Error("Some designs need a real retailer link. Transfer them as drafts, then add the link before publishing.");
+  return runTransaction(db, async transaction => {
+    await checkCollection(transaction, collectionId);
+    const refs = variants.map(item => doc(db, "products", item.id));
+    const inventoryRefs = variants.map(item => doc(db, "productInventory", item.id));
+    const snapshots = await Promise.all([...refs, ...inventoryRefs].map(ref => transaction.get(ref)));
+    let imported = 0;
+    variants.forEach((item, index) => {
+      if (!snapshots[index].exists()) {
+        transaction.set(refs[index], { ...item.product, available });
+        imported++;
+      }
+      if (!snapshots[variants.length + index].exists()) transaction.set(inventoryRefs[index], {
+        sku: item.sku, stock: 0, reorderLevel: 0, recipe: {}, collectionId, updatedAt: serverTimestamp()
+      });
+    });
+    return imported;
   });
 }

@@ -1,12 +1,14 @@
 import { auth } from "./firebase.js";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import * as store from "./admin-data.js";
+import * as store from "./admin-data.js?v=kpop-transfer-1";
 import { quantity, parseRecipe, collectionTrail, inCollection } from "./inventory-model.mjs";
+import { kpopGroupOptions, kpopVariants } from "./kpop-import.mjs";
 
 const $ = id => document.getElementById(id);
 const states = ["new", "contacted", "accepted", "fulfilled", "cancelled"];
 let data = { products: [], inventory: [], supplies: [], requests: [], movements: [], collections: [] };
 let selectedCollection = "*";
+let kpopSelection = new Set();
 let session = 0;
 let refreshVersion = 0;
 let authorized = false;
@@ -91,6 +93,7 @@ async function action(callback, message) {
   } finally {
     busy = false;
     document.querySelectorAll("#dashboard button, #dashboard input, #dashboard select, #dashboard textarea, #stockForm button, #stockForm input").forEach(node => node.disabled = false);
+    updateKpopSelection();
   }
 }
 
@@ -104,7 +107,7 @@ function render() {
     metric.append(element("span", label), element("strong", value));
     $("metrics").append(metric);
   }
-  renderCollections(); renderProducts(); renderSupplies(); renderRequests(); renderMovements();
+  renderCollections(); renderProducts(); renderSupplies(); renderRequests(); renderMovements(); renderKpopCatalog();
 }
 
 function collectionName(id) {
@@ -143,6 +146,50 @@ function renderCollections() {
     for (const group of options) { const option = element("option", collectionName(group.id)); option.value = group.id; select.append(option); }
     select.value = saved;
   }
+  $("kpopDestination").textContent = `Transfer destination: ${collectionName(selectedCollection === "*" ? "" : selectedCollection)}. Choose a collection above to change it.`;
+}
+
+function updateKpopSelection() {
+  const chosen = kpopVariants($("kpopGroup").value).filter(item => kpopSelection.has(item.id));
+  $("kpopSelectionCount").textContent = `${chosen.length} selected`;
+  $("importKpopDrafts").disabled = busy || !chosen.length;
+  $("importKpopLive").disabled = busy || !chosen.length || chosen.some(item => !item.canPublish);
+  $("kpopPublishHint").textContent = chosen.some(item => !item.canPublish)
+    ? "Some selected designs have placeholder retailer links. Transfer them as drafts and add real links in the product editor before publishing."
+    : "Drafts stay hidden. Live transfers appear in the main shop immediately after they save.";
+}
+function renderKpopCatalog() {
+  const list = $("kpopList"); list.replaceChildren();
+  if (!authorized || $("kpopPanel").hidden) return;
+  for (const item of kpopVariants($("kpopGroup").value)) {
+    const existing = data.products.some(product => product.id === item.id);
+    if (existing) kpopSelection.delete(item.id);
+    const card = element("article", undefined, "card kpop-design");
+    const image = element("img"); image.src = item.product.image; image.alt = item.product.title; image.loading = "lazy";
+    card.append(image, element("h3", item.product.title), element("p", item.product.price, "muted"));
+    if (existing) {
+      card.append(element("p", "Already transferred", "badge"), button("Edit saved product", () => {
+        document.querySelector('[data-panel="products"]').click(); editProduct(item.id);
+        $("productForm").scrollIntoView?.({ behavior: "smooth", block: "start" });
+      }));
+    } else {
+      const label = element("label", undefined, "check"); const checkbox = element("input"); checkbox.type = "checkbox";
+      checkbox.checked = kpopSelection.has(item.id); checkbox.dataset.kpopId = item.id;
+      checkbox.addEventListener("change", () => { if (checkbox.checked) kpopSelection.add(item.id); else kpopSelection.delete(item.id); updateKpopSelection(); });
+      label.append(checkbox, element("span", "Select design")); card.append(label);
+      if (!item.canPublish) card.append(element("p", "Needs a real retailer link before publishing.", "muted"));
+    }
+    list.append(card);
+  }
+  updateKpopSelection();
+}
+function transferKpop(available) {
+  if (!kpopSelection.size) { status("Select a K-pop design first.", true); return; }
+  const ids = [...kpopSelection];
+  action(async () => {
+    await store.importKpopProducts(ids, { available, collectionId: selectedCollection === "*" ? "" : selectedCollection });
+    kpopSelection.clear();
+  }, available ? "K-pop designs transferred to inventory and the live shop. Existing products were preserved." : "K-pop drafts added to inventory. Use Edit saved product to set prices, add supply recipes, and publish.");
 }
 
 function renderProducts() {
@@ -321,7 +368,7 @@ $("productForm").addEventListener("submit", event => {
     product.image = httpURL(textField(form, "image"), "Image URL");
     product.link = httpURL(textField(form, "link"), "Retailer URL");
     product.available = form.elements.available.checked;
-    if (product.type === "direct" && !product.link) throw new Error("A retailer link is required for direct-order products.");
+    if (product.type === "direct" && product.available && !product.link) throw new Error("A retailer link is required before making a direct-order product visible.");
     const id = await store.saveProduct(form.elements.id.value, product, {
       sku: textField(form, "sku"), reorderLevel: quantity(form.elements.reorderLevel.value, "Threshold", true), recipe: parseRecipe(form.elements.recipe.value), collectionId: form.elements.collectionId.value
     });
@@ -361,6 +408,15 @@ $("stockDialog").addEventListener("cancel", event => { if (busy) event.preventDe
 $("newProduct").addEventListener("click", () => editProduct());
 $("addRecipeSupply").addEventListener("click", () => addRecipeRow());
 $("newSupply").addEventListener("click", () => editSupply());
+for (const group of kpopGroupOptions) { const option = element("option", group.name); option.value = group.id; $("kpopGroup").append(option); }
+$("kpopGroup").addEventListener("change", () => { kpopSelection.clear(); renderKpopCatalog(); });
+$("selectKpop").addEventListener("click", () => {
+  kpopSelection = new Set(kpopVariants($("kpopGroup").value).filter(item => !data.products.some(product => product.id === item.id)).map(item => item.id));
+  renderKpopCatalog();
+});
+$("clearKpop").addEventListener("click", () => { kpopSelection.clear(); renderKpopCatalog(); });
+$("importKpopDrafts").addEventListener("click", () => transferKpop(false));
+$("importKpopLive").addEventListener("click", () => transferKpop(true));
 $("productSearch").addEventListener("input", renderProducts);
 $("supplySearch").addEventListener("input", renderSupplies);
 $("requestFilter").addEventListener("change", renderRequests);
@@ -382,9 +438,10 @@ $("renameCollectionForm").addEventListener("submit", event => {
 $("importCatalog").addEventListener("click", () => action(() => store.importCatalog(), "Original catalog imported. Existing products were preserved."));
 $("refresh").addEventListener("click", () => action(async () => {}, "Data refreshed."));
 document.querySelectorAll("[data-panel]").forEach(tab => tab.addEventListener("click", () => {
-  for (const name of ["products", "supplies", "requests", "movements"]) $(`${name}Panel`).hidden = name !== tab.dataset.panel;
+  for (const name of ["products", "supplies", "kpop", "requests", "movements"]) $(`${name}Panel`).hidden = name !== tab.dataset.panel;
   document.querySelectorAll("[data-panel]").forEach(button => button.setAttribute("aria-pressed", String(button === tab)));
-  $("collectionBrowser").hidden = !["products", "supplies"].includes(tab.dataset.panel);
+  $("collectionBrowser").hidden = !["products", "supplies", "kpop"].includes(tab.dataset.panel);
+  if (tab.dataset.panel === "kpop") renderKpopCatalog();
 }));
 
 $("loginForm").addEventListener("submit", async event => {
@@ -416,6 +473,7 @@ async function synchronizeUser(user) {
   authorized = false;
   data = { products: [], inventory: [], supplies: [], requests: [], movements: [], collections: [] };
   selectedCollection = "*";
+  kpopSelection.clear();
   render(); editProduct(); editSupply();
   if ($("stockDialog").open) $("stockDialog").close();
   $("dashboard").hidden = true; $("loginPanel").hidden = false;

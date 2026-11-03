@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test --test-isolation=none inventory.test.mjs admin.test.mjs admin-data.test.mjs shop.test.mjs customer-data.test.mjs",
+    "test": "node --test --test-isolation=none inventory.test.mjs admin.test.mjs admin-data.test.mjs shop.test.mjs customer-data.test.mjs kpop.test.mjs",
     "test:rules": "node --test --test-isolation=none rules.test.mjs"
   },
   "devDependencies": {

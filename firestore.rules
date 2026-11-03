@@ -70,7 +70,7 @@ service cloud.firestore {
         && text(data.price, 100) && data.price.size() > 0
         && text(data.image, 2000) && text(data.description, 4000)
         && data.type in ['exclusive', 'direct'] && text(data.link, 2000)
-        && (data.type != 'direct' || data.link.size() > 0)
+        && (data.type != 'direct' || data.available == false || data.link.size() > 0)
         && data.available is bool;
     }
     function validSupply(data) {
