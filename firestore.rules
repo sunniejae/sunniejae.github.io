@@ -20,6 +20,27 @@ service cloud.firestore {
         || (request.method == 'update' && id == resource.data.get('collectionId', ''))
         || exists(/databases/$(database)/documents/stockCollections/$(id)));
     }
+    match /customers/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow list, delete: if false;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.auth.token.email != null
+        && request.resource.data.keys().hasOnly(['email', 'orderEmailUpdates', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['email', 'orderEmailUpdates', 'updatedAt'])
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.orderEmailUpdates is bool
+        && request.resource.data.updatedAt == request.time;
+    }
+    match /shopSettings/notifications {
+      allow get: if true;
+      allow list, delete: if false;
+      allow create, update: if admin()
+        && request.resource.data.keys().hasOnly(['emailUpdatesEnabled'])
+        && request.resource.data.emailUpdatesEnabled is bool;
+    }
+    match /mail/{emailId} {
+      allow read, write: if false;
+    }
     match /stockCollections/{collectionId} {
       allow read: if admin();
       allow create: if admin()

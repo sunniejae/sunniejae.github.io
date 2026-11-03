@@ -8,6 +8,11 @@ let sending = false;
 let clientPromise;
 let requestLoad = 0;
 let lastTrigger;
+let accountBusy = false;
+let accountMode = "signup";
+let accountState = { user: null, emailEnabled: false, emailUpdates: false };
+let autoEmail = "";
+let accountLoad = 0;
 const stateLabels = { new: "Received", contacted: "In review", accepted: "Accepted", fulfilled: "Completed", cancelled: "Cancelled" };
 
 function element(tag, text, className) {
@@ -29,7 +34,7 @@ function image(src, title, className) {
   node.alt = title || ""; node.loading = "lazy"; return node;
 }
 function client() {
-  clientPromise ||= import("./firebase.js").catch(error => { clientPromise = undefined; throw error; });
+  clientPromise ||= import("./firebase.js?v=customer-account-1").catch(error => { clientPromise = undefined; throw error; });
   return clientPromise;
 }
 function deadline(promise) {
@@ -128,18 +133,20 @@ function renderCart() {
   if (!cart.length) list.append(element("p", "Your cart is empty. Add something you love to get started.", "empty-wishlist"));
   $("saleRequestForm").hidden = !cart.length;
   $("checkoutFields").disabled = sending || !catalogReady || cart.some(item => !currentProduct(item.id));
+  if (accountBusy) $("checkoutFields").disabled = true;
+  updateAccountControls();
 }
 function openModal(id) {
   document.querySelectorAll("dialog[open]").forEach(dialog => dialog.close());
   lastTrigger = document.activeElement;
   $(id).showModal();
-  if (id === "wishlistModal") renderCart();
+  if (id === "wishlistModal") { renderCart(); loadAccount(); }
   if (id === "requestsModal") loadRequests();
 }
 function closeModal(id) { $(id).close(); lastTrigger?.focus?.(); }
 async function submitRequest(event) {
   event.preventDefault();
-  if (sending || !cart.length || !catalogReady) return;
+  if (sending || accountBusy || !cart.length || !catalogReady) return;
   const form = event.currentTarget;
   if (!form.reportValidity()) return;
   sending = true; $("requestConfirmation").hidden = true; $("requestStatus").textContent = "Checking your items…";
@@ -170,6 +177,62 @@ async function submitRequest(event) {
       ? "An item is no longer available. Remove it from your cart to continue."
       : "Your request could not be confirmed. Your cart is saved. Check My requests before trying again.";
   } finally { clearTimeout(waiting); sending = false; renderCatalog(); renderCart(); }
+}
+function updateAccountControls() {
+  const locked = accountBusy || sending;
+  $("accountFields").disabled = locked;
+  $("customerAccountForm").elements.emailUpdates.disabled = locked || !accountState.emailEnabled;
+  for (const id of ["saveCustomerPreference", "verifyCustomerEmail", "refreshCustomerAccount", "logoutCustomer"]) $(id).disabled = locked;
+  $("customerEmailPreference").disabled = locked || (!accountState.emailEnabled && !accountState.emailUpdates);
+}
+function renderAccount() {
+  const signedIn = !!accountState.user;
+  $("cartAccount").querySelector("summary").textContent = signedIn ? "Your account · saved requests & email updates" : "Sign up to save your order and get email updates";
+  $("customerAccountForm").hidden = signedIn; $("signedInAccount").hidden = !signedIn;
+  $("emailAvailability").textContent = accountState.emailEnabled
+    ? "Email updates are optional and require a verified email address."
+    : "Email updates aren’t available yet. You can still save your requests to an account.";
+  $("customerEmailPreference").checked = accountState.emailUpdates;
+  if (!accountState.emailEnabled) $("customerAccountForm").elements.emailUpdates.checked = false;
+  $("customerAccountIdentity").textContent = signedIn ? `Signed in as ${accountState.user.email}` : "";
+  $("customerVerificationNote").textContent = signedIn && !accountState.user.verified ? "Verify your email before receiving order updates. Then use Refresh account." : "";
+  $("verifyCustomerEmail").hidden = !signedIn || accountState.user.verified;
+  $("checkoutIdentityNote").textContent = signedIn ? "Your requests are saved to your account. Sign in on another device to find them in My requests." : "Guest requests are linked to this browser. Sign up above to keep them across devices, or continue as a guest.";
+  const field = $("saleRequestForm").elements.email;
+  if (autoEmail && field.value === autoEmail) field.value = "";
+  autoEmail = signedIn ? accountState.user.email : "";
+  if (!field.value && autoEmail) field.value = autoEmail;
+  updateAccountControls();
+}
+async function loadAccount() {
+  const version = ++accountLoad;
+  try {
+    const loaded = await deadline(client().then(api => api.customerAccount()));
+    if (version !== accountLoad) return false;
+    accountState = loaded; renderAccount(); return true;
+  } catch { if (version === accountLoad) $("customerAccountStatus").textContent = "Account options could not load. Check your connection; you can still browse and request as a guest."; return false; }
+}
+function accountError(error) {
+  const messages = {
+    "auth/email-already-in-use": "That email already has an account. Use Sign in instead. Guest requests are kept when creating a new account, not when switching to an existing one.",
+    "auth/credential-already-in-use": "That email already has an account. Use Sign in instead.",
+    "auth/invalid-credential": "The email or password is incorrect.",
+    "auth/weak-password": "Choose a stronger password (at least six characters).",
+    "auth/operation-not-allowed": "Account sign-up is unavailable right now. You can continue as a guest.",
+    "auth/too-many-requests": "Too many attempts. Please wait a few minutes and try again.",
+    "auth/network-request-failed": "Could not connect. Check your connection and try again."
+  };
+  return messages[error.code] || error.message || "The account update could not be completed.";
+}
+async function accountAction(operation, success) {
+  if (accountBusy || sending) return;
+  accountBusy = true; accountLoad++; renderCart(); $("customerAccountStatus").textContent = "Working…";
+  try {
+    const api = await deadline(client()); await deadline(operation(api));
+    requestLoad++; $("myRequestsList").replaceChildren();
+    const refreshed = await loadAccount(); $("customerAccountStatus").textContent = refreshed ? success : `${success} Account details could not refresh; try Refresh account or reload.`;
+  } catch (error) { await loadAccount(); $("customerAccountStatus").textContent = accountError(error); }
+  finally { accountBusy = false; $("customerAccountForm").elements.accountPassword.value = ""; renderCart(); }
 }
 async function loadRequests() {
   const version = ++requestLoad;
@@ -208,6 +271,36 @@ function init() {
   $("refreshRequests").addEventListener("click", loadRequests);
   $("viewSavedRequest").addEventListener("click", () => openModal("requestsModal"));
   $("continueShopping").addEventListener("click", () => closeModal("wishlistModal"));
+  $("customerAccountForm").addEventListener("submit", event => {
+    event.preventDefault(); const form = event.currentTarget;
+    if (!form.reportValidity()) return;
+    const email = form.elements.accountEmail.value.trim(); const password = form.elements.accountPassword.value;
+    const updates = accountState.emailEnabled && form.elements.emailUpdates.checked;
+    accountAction(api => accountMode === "signup" ? api.registerCustomer(email, password, updates) : api.loginCustomer(email, password),
+      accountMode === "signup" ? "Account created! Your guest requests are saved. Check your inbox to verify your email." : "Signed in. Find your account’s saved requests in My requests.");
+  });
+  $("accountMode").addEventListener("click", () => {
+    accountMode = accountMode === "signup" ? "signin" : "signup";
+    $("accountHeading").textContent = accountMode === "signup" ? "Create your shop account" : "Sign in to your shop account";
+    $("accountSubmit").textContent = accountMode === "signup" ? "Sign up & save my requests" : "Sign in";
+    $("accountMode").textContent = accountMode === "signup" ? "Already have an account? Sign in" : "New here? Sign up";
+    $("existingAccountNote").hidden = accountMode !== "signin"; $("resetCustomerPassword").hidden = accountMode !== "signin";
+    $("customerAccountForm").elements.emailUpdates.closest("label").hidden = accountMode !== "signup";
+    $("customerAccountForm").elements.accountPassword.autocomplete = accountMode === "signup" ? "new-password" : "current-password";
+  });
+  $("saveCustomerPreference").addEventListener("click", () => {
+    const enabled = $("customerEmailPreference").checked;
+    accountAction(api => api.saveEmailPreference(enabled), enabled ? "Email preference saved. Verify your address to receive order updates when available." : "Order email updates turned off.");
+  });
+  $("verifyCustomerEmail").addEventListener("click", () => accountAction(api => api.verifyCustomerEmail(), "Verification email sent. Check your inbox, then Refresh account."));
+  $("refreshCustomerAccount").addEventListener("click", () => accountAction(api => api.refreshCustomerAccount(), "Account refreshed."));
+  $("logoutCustomer").addEventListener("click", () => accountAction(async api => {
+    await api.logoutCustomer(); accountState = { user: null, emailEnabled: accountState.emailEnabled, emailUpdates: false }; renderAccount();
+  }, "Signed out. Sign in again to see your account’s requests."));
+  $("resetCustomerPassword").addEventListener("click", () => {
+    const email = $("customerAccountForm").elements.accountEmail.value;
+    accountAction(api => api.resetCustomerPassword(email), "If an account exists for that email, a password reset email has been sent.");
+  });
   loadCatalog();
 }
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();

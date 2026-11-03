@@ -2,7 +2,33 @@
 
 The site uses Firebase project `sunniejaeshop`. The static website can run on
 GitHub Pages or Firebase Hosting. Firebase supplies Firestore and Authentication;
-there is no custom server or payment processing in this implementation.
+Firebase Cloud Functions can queue optional order emails; there is no payment processing.
+
+## Cart accounts and email updates
+
+The customer contact address is `shop@sunniejae.com` for order updates, issues,
+and inquiries. It appears in the storefront footer, cart, My requests, help,
+and order notification text. Listing this address does not configure SMTP delivery.
+
+The cart offers **Sign up to save your order and get email updates**. New accounts
+link Email/Password credentials to the current anonymous Firebase user, preserving
+the UID and access to that browser's earlier guest requests. The cart is retained.
+Signing in later restores saved requests on another device. Creating a new account
+preserves guest history; signing in to an existing account does not merge a different
+guest identity. That distinction is shown before existing-account sign-in.
+
+The cart includes sign-in/out, password reset, verification email/resend, account
+refresh, and order-email preferences. Passwords go only to Firebase Authentication;
+they are never written to Firestore or browser cart storage. Customer accounts do
+not gain staff privileges. Email preference documents live at `customers/{uid}`.
+
+Email delivery remains **off** until an SMTP sender is configured. The cart says
+that order email updates are unavailable until the public availability flag is
+enabled; it does not silently opt customers in. When enabled, opt-in is unchecked
+by default and delivery requires a verified email. See `functions/README.md` for
+the Firebase Trigger Email extension, SMTP, billing, queue producer deployment,
+and end-to-end delivery checks. Do not enable `shopSettings/notifications.emailUpdatesEnabled`
+before that setup. Authentication verification/password-reset emails are separate.
 
 ## Shop office: products, supplies, and inventory
 
@@ -181,7 +207,7 @@ supported; transactions need a live Firebase connection.
 
 ## Sale requests
 
-The storefront flow is **Add to cart → Review → Send request → My requests**.
+The storefront flow is **Add to cart → Optional account → Review → Send request → My requests**.
 There is no external form or required email. Name and email are optional; unnamed
 customers are saved as `Guest customer` with an empty email string. Notes and
 customization can be added during review. Saved requests contain the customer ID,
@@ -195,14 +221,16 @@ user, with status and the current `shopMessage`. Anonymous sign-in is automatic
 and waits for restored sessions before creating a new guest identity. The query
 filters by `customerId`, orders by `createdAt`, and uses the composite index in
 `firestore.indexes.json`. Deploy the index with the rules; its first build may take
-time. Refresh My requests to retrieve later updates. No automatic email messages
-are sent.
+time. Refresh My requests to retrieve later updates. Verified accounts that opt in
+can receive order emails after the optional sender pipeline is activated.
 
 Guest history is tied to the same browser profile, website origin, and Firebase
 identity. Clearing site data, changing device/domain, signing out, or replacing
 the anonymous session with a different login can remove access to that history.
-The request reference is a reference only, not an access credential. Cross-device
-account linking/recovery and automated payments are not part of this flow.
+The request reference is a reference only, not an access credential. Automated
+payments are not part of this flow. Sign up through the cart before discarding a
+guest session to preserve its history. Existing-account sign-in does not merge
+another guest UID's requests.
 
 Staff use the shop office's Sale requests tab to change status and save a customer-
 visible shop message (up to 2,000 characters). It is one current message, not a

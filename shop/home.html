@@ -30,12 +30,41 @@
     <section><h2 class="section-title">Made for you</h2><p class="section-description">Add custom items to your cart. We’ll review availability and any personal touches before you purchase.</p><div class="product-grid" id="exclusiveProducts"></div></section>
     <section><h2 class="section-title">Shop with our retailers</h2><p class="section-description">These items open a retailer’s website, where you can check out directly.</p><div class="product-grid" id="directProducts"></div></section>
   </main>
+  <footer class="shop-footer"><p>Order updates, issues, or inquiries? Contact <a href="mailto:shop@sunniejae.com">shop@sunniejae.com</a>.</p></footer>
 
   <dialog id="wishlistModal" class="shop-dialog" aria-labelledby="cartHeading">
     <button class="modal-close" id="closeWishlist" type="button" aria-label="Close cart">×</button>
     <h2 class="modal-title" id="cartHeading">Your cart</h2>
     <p class="muted">Review your selections. Sending a request won’t charge you or reserve stock.</p>
+    <p class="muted">Need help with an order? <a href="mailto:shop@sunniejae.com">shop@sunniejae.com</a></p>
     <div class="wishlist-items" id="wishlistItems"></div>
+    <details id="cartAccount" class="cart-account">
+      <summary>Sign up to save your order and get email updates</summary>
+      <p>Keep your requests across devices. Signing up here also saves requests already placed as a guest in this browser.</p>
+      <p id="emailAvailability" class="muted"></p>
+      <form id="customerAccountForm" class="request-form">
+        <fieldset id="accountFields">
+          <legend id="accountHeading">Create your shop account</legend>
+          <label>Email<input name="accountEmail" type="email" autocomplete="email" maxlength="254" required></label>
+          <label>Password<input name="accountPassword" type="password" autocomplete="new-password" minlength="6" required></label>
+          <label class="email-check"><input name="emailUpdates" type="checkbox"> Email me updates about my order requests. No marketing emails.</label>
+          <p id="existingAccountNote" class="muted" hidden>Signing in shows that account’s saved requests. Guest requests from this browser are preserved when you sign up, but aren’t transferred to an existing account.</p>
+          <button id="accountSubmit" class="btn btn-wishlist" type="submit">Sign up &amp; save my requests</button>
+          <button id="accountMode" type="button">Already have an account? Sign in</button>
+          <button id="resetCustomerPassword" type="button" hidden>Reset password</button>
+        </fieldset>
+      </form>
+      <div id="signedInAccount" hidden>
+        <p id="customerAccountIdentity"></p>
+        <p id="customerVerificationNote" class="muted"></p>
+        <label class="email-check"><input id="customerEmailPreference" type="checkbox"> Email updates about my order requests</label>
+        <button id="saveCustomerPreference" type="button">Save email preference</button>
+        <button id="verifyCustomerEmail" type="button">Send verification email</button>
+        <button id="refreshCustomerAccount" type="button">Refresh account</button>
+        <button id="logoutCustomer" type="button">Sign out</button>
+      </div>
+      <p id="customerAccountStatus" role="status" aria-live="polite"></p>
+    </details>
     <form id="saleRequestForm" class="request-form">
       <fieldset id="checkoutFields">
         <legend>Make it yours</legend>
@@ -45,7 +74,7 @@
           <label>Email <input name="email" type="email" autocomplete="email" maxlength="254"></label>
           <p class="muted">You can follow your request here without providing an email address.</p>
         </details>
-        <p class="guest-note">Your requests are linked to this browser. Use My requests to see progress and messages from the shop. Clearing browser data or switching browsers can remove access.</p>
+        <p id="checkoutIdentityNote" class="guest-note">Guest requests are linked to this browser. Sign up above to keep them across devices, or continue as a guest.</p>
         <button type="submit" class="btn btn-wishlist">Send request</button>
       </fieldset>
     </form>
@@ -61,7 +90,8 @@
   <dialog id="requestsModal" class="shop-dialog" aria-labelledby="requestsHeading">
     <button class="modal-close" id="closeRequests" type="button" aria-label="Close my requests">×</button>
     <h2 class="modal-title" id="requestsHeading">My requests</h2>
-    <p class="muted">The latest 25 requests from this browser. Refresh to check for shop updates.</p>
+    <p class="muted">Your latest 25 requests. Sign in through the cart to see your account’s requests across devices. Guest requests stay in this browser.</p>
+    <p class="muted">For order updates or issues, email <a href="mailto:shop@sunniejae.com">shop@sunniejae.com</a> and include your request reference.</p>
     <button id="refreshRequests" type="button">Refresh requests</button>
     <p id="requestsStatus" role="status" aria-live="polite"></p>
     <div id="myRequestsList" class="my-requests"></div>
@@ -75,9 +105,10 @@
       <ol><li>Add items to your cart and adjust quantities.</li><li>Add any customization notes and send your request.</li><li>Open My requests to follow its status and read shop messages.</li></ol>
       <p>No separate contact form or email is needed. We’ll review your request before confirming the details. Sending a request is not a payment or stock reservation.</p>
       <h3>Retailer orders</h3><p>Retailer links open a separate website. Their checkout, payment, and order tracking happen there.</p>
-      <h3>Your requests</h3><p>Guest requests are linked to this browser. Contact details are optional; this shop does not automatically send email confirmations. Keep browser data to retain access.</p>
+      <h3>Your requests</h3><p>Continue as a guest, or sign up through the cart to save requests across devices. Order email updates require opt-in, a verified address, and availability from the shop. Guest requests stay linked to this browser.</p>
+      <h3>Questions or order issues?</h3><p>Email <a href="mailto:shop@sunniejae.com">shop@sunniejae.com</a> for order updates, issues, and inquiries. Include your request reference if you have one.</p>
     </div>
   </dialog>
-  <script type="module" src="shophome.js"></script>
+  <script type="module" src="shophome.js?v=customer-account-1"></script>
 </body>
 </html>

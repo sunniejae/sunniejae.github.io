@@ -7,7 +7,7 @@ import { fallbackProducts } from "../shop/products.js";
 const html = await fs.readFile(new URL("../shop/home.html", import.meta.url), "utf8");
 const source = (await fs.readFile(new URL("../shop/shophome.js", import.meta.url), "utf8"))
   .replace('import { fallbackProducts } from "./products.js";', "")
-  .replace('import("./firebase.js")', 'Promise.resolve(window.shopAPI)');
+  .replace('import("./firebase.js?v=customer-account-1")', 'Promise.resolve(window.shopAPI)');
 const tick = () => new Promise(resolve => setTimeout(resolve, 15));
 const product = { id: "p", title: "Custom planner", price: "$25", type: "exclusive", image: "https://example.com/planner.png" };
 
@@ -18,7 +18,8 @@ async function setup(overrides = {}, storedCart) {
   dom.window.shopAPI = {
     loadProducts: async () => ({ exclusive: [product], direct: [] }),
     saveSaleRequest: async request => { calls.push(request); return { id: "request-123" }; },
-    loadMyRequests: async () => [], ...overrides
+    loadMyRequests: async () => [],
+    customerAccount: async () => ({ user: null, emailEnabled: false, emailUpdates: false }), ...overrides
   };
   dom.window.HTMLDialogElement.prototype.showModal = function () { this.open = true; };
   dom.window.HTMLDialogElement.prototype.close = function () { this.open = false; };
@@ -118,5 +119,50 @@ test("old wishlist entries migrate into the cart and product HTML cannot execute
   assert.equal(d.querySelector(".wishlist-item-title").textContent, unsafe.title);
   assert.equal(d.querySelectorAll("[onerror]").length, 0);
   assert.equal(d.querySelector(".product-image").hasAttribute("src"), false);
+  dom.window.close();
+});
+
+test("cart sign-up is optional, saves email consent only when available, and preserves the cart", async () => {
+  let state = { user: null, emailEnabled: true, emailUpdates: false };
+  const registrations = [];
+  const { dom, d } = await setup({
+    customerAccount: async () => state,
+    registerCustomer: async (email, password, updates) => {
+      registrations.push({ email, password, updates });
+      state = { user: { email, verified: false }, emailEnabled: true, emailUpdates: updates };
+    }
+  });
+  addAndOpen(dom); await tick();
+  const form = d.getElementById("customerAccountForm");
+  assert.equal(form.elements.emailUpdates.checked, false);
+  form.elements.accountEmail.value = "buyer@example.com"; form.elements.accountPassword.value = "test-password"; form.elements.emailUpdates.checked = true;
+  submit(dom, form); await tick();
+  assert.deepEqual(registrations, [{ email: "buyer@example.com", password: "test-password", updates: true }]);
+  assert.equal(form.hidden, true); assert.equal(d.getElementById("signedInAccount").hidden, false);
+  assert.match(d.getElementById("customerVerificationNote").textContent, /Verify your email/);
+  assert.equal(JSON.parse(dom.window.localStorage.getItem("sj_wishlist")).length, 1);
+  assert.equal(form.elements.accountPassword.value, "");
+  dom.window.close();
+});
+
+test("unconfigured email delivery is shown honestly and never silently opts in", async () => {
+  const { dom, d } = await setup(); addAndOpen(dom); await tick();
+  assert.match(d.getElementById("emailAvailability").textContent, /aren’t available yet/);
+  assert.equal(d.getElementById("customerAccountForm").elements.emailUpdates.disabled, true);
+  assert.equal(d.getElementById("customerAccountForm").elements.emailUpdates.checked, false);
+  assert.equal(d.getElementById("checkoutFields").disabled, false);
+  dom.window.close();
+});
+
+test("account errors retain guest checkout and existing sign-in explains guest history", async () => {
+  const { dom, d } = await setup({ registerCustomer: async () => { throw { code: "auth/email-already-in-use" }; } });
+  addAndOpen(dom); await tick();
+  const form = d.getElementById("customerAccountForm"); form.elements.accountEmail.value = "buyer@example.com"; form.elements.accountPassword.value = "test-password";
+  submit(dom, form); await tick();
+  assert.match(d.getElementById("customerAccountStatus").textContent, /already has an account/);
+  assert.equal(d.getElementById("checkoutFields").disabled, false);
+  d.getElementById("accountMode").click();
+  assert.equal(d.getElementById("existingAccountNote").hidden, false);
+  assert.match(d.getElementById("existingAccountNote").textContent, /aren’t transferred/);
   dom.window.close();
 });

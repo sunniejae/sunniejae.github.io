@@ -443,5 +443,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .request-reference { font-size: .85rem; overflow-wrap: anywhere; }
 .shop-reply { background: var(--silver); border-radius: 6px; padding: .8rem; margin-top: .8rem; white-space: pre-wrap; }
 .unavailable { color: #9b2445; font-size: .85rem; }
+.cart-account { padding: 1rem; border: 1px solid var(--gray); border-radius: 8px; margin: 1rem 0; }
+.cart-account summary { font-weight: bold; color: var(--dark-purple); }
+.cart-account p { margin: .6rem 0; }
+.cart-account button { padding: .5rem .7rem; margin: .3rem 0; }
+.email-check { display: flex !important; align-items: flex-start; gap: .5rem; font-size: .9rem; }
+.email-check input { width: auto !important; margin-top: .3rem; }
+#customerAccountStatus:not(:empty) { padding: .6rem; background: var(--silver); border-radius: 6px; }
+.shop-footer { max-width: 1400px; margin: 2rem auto; padding: 1rem 2rem 2rem; border-top: 1px solid var(--gray); }
+.shop-footer a, .shop-dialog a[href^="mailto:"] { color: var(--dark-purple); text-decoration: underline; overflow-wrap: anywhere; }
 #requestStatus:not(:empty), #requestsStatus:not(:empty) { margin-top: 1rem; }
 @media (max-width: 600px) { .header-inner { padding: .8rem 1rem; } .header-nav { gap: .4rem; } .nav-btn { padding: .5rem .65rem; font-size: .8rem; } .shop-intro h1 { font-size: 1.8rem; } .shop-dialog { padding: 1.3rem; } .wishlist-item { gap: .7rem; } .wishlist-item-image { width: 56px; height: 56px; } }

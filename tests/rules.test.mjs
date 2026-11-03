@@ -112,6 +112,20 @@ test("retailer drafts may omit links but publishing requires a link", async () =
   await assertSucceeds(updateDoc(doc(db, "products", "draft"), { available: true, link: "https://www.redbubble.com/people/sunniejae/shop" }));
 });
 
+test("account preferences are private, bound to the authenticated email, and cannot grant email sending access", async () => {
+  const customer = environment.authenticatedContext("buyer", { email: "buyer@example.com" }).firestore();
+  const other = environment.authenticatedContext("other", { email: "other@example.com" }).firestore();
+  const profile = { email: "buyer@example.com", orderEmailUpdates: true, updatedAt: serverTimestamp() };
+  await assertSucceeds(setDoc(doc(customer, "customers", "buyer"), profile));
+  await assertSucceeds(getDoc(doc(customer, "customers", "buyer")));
+  await assertFails(getDoc(doc(other, "customers", "buyer")));
+  await assertFails(setDoc(doc(customer, "customers", "buyer"), { ...profile, email: "victim@example.com" }));
+  await assertFails(setDoc(doc(customer, "customers", "buyer"), { ...profile, role: "admin" }));
+  await assertFails(setDoc(doc(customer, "mail", "spam"), { to: ["victim@example.com"], message: { text: "spam" } }));
+  await assertFails(setDoc(doc(customer, "shopSettings", "notifications"), { emailUpdatesEnabled: true }));
+  await assertSucceeds(setDoc(doc(staffDB(), "shopSettings", "notifications"), { emailUpdatesEnabled: false }));
+});
+
 async function backend() {
   const db = staffDB();
   globalThis.inventoryTestContext = { db, auth: { currentUser: { uid: "staff" } } };

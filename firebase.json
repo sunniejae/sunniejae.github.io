@@ -3,6 +3,7 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+  "functions": { "source": "functions", "codebase": "shop-notifications", "runtime": "nodejs22" },
   "hosting": {
     "public": ".",
     "ignore": [
@@ -14,6 +15,7 @@
       "**/*debug.log*",
       "**/*.md",
       "tests/**",
+      "functions/**",
       "staticwebapp.config.json",
       "CNAME"
     ]
