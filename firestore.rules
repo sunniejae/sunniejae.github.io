@@ -91,7 +91,7 @@ service cloud.firestore {
     match /supplies/{supplyId} {
       allow read: if admin();
       allow create, update: if admin() && validSupply(request.resource.data);
-      allow delete: if false;
+      allow delete: if admin();
     }
     match /productInventory/{productId} {
       allow read: if admin();
@@ -102,7 +102,7 @@ service cloud.firestore {
         && whole(request.resource.data.stock) && whole(request.resource.data.reorderLevel)
         && validRecipe(request.resource.data.recipe)
         && request.resource.data.updatedAt == request.time && validCollection(request.resource.data);
-      allow delete: if false;
+      allow delete: if admin();
     }
     match /inventoryMovements/{movementId} {
       allow read: if admin();
@@ -131,7 +131,7 @@ service cloud.firestore {
     match /products/{productId} {
       allow read: if true;
       allow create, update: if admin() && validProduct(request.resource.data);
-      allow delete: if false;
+      allow delete: if admin();
     }
     match /saleRequests/{requestId} {
       allow read: if admin() || (request.auth != null && resource.data.customerId == request.auth.uid);

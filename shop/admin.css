@@ -10,6 +10,7 @@ a { color: var(--accent); } button, input, textarea, select { font: inherit; }
 button { border: 1px solid var(--border); background: white; color: var(--ink); padding: .6rem .9rem; border-radius: 8px; cursor: pointer; }
 button:hover { border-color: var(--accent); } button:disabled { opacity: .5; cursor: wait; }
 button.primary { background: var(--accent); border-color: var(--accent); color: white; }
+button.danger { color: #9a2540; border-color: #e6b4c1; }
 button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #b8a5f1; outline-offset: 3px; }
 .topbar { background: white; border-bottom: 1px solid var(--border); padding: 1.2rem max(1rem, calc((100vw - 1320px)/2)); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .brand { text-decoration: none; color: var(--ink); font-weight: 800; font-size: 1.15rem; }

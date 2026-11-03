@@ -43,6 +43,8 @@ test("public catalog is readable; private records and customer requests are not"
       await assertFails(getDocs(collection(db, name)));
     }
     await assertFails(setDoc(doc(db, "products", "bad"), product));
+    await assertFails(deleteDoc(doc(db, "products", "p")));
+    await assertFails(deleteDoc(doc(db, "supplies", "paper")));
     await assertFails(setDoc(doc(db, "admins", "customer"), { role: "owner" }));
   }
 });
@@ -149,4 +151,24 @@ test("metadata saves preserve stock, imports preserve existing products, and fai
   await updateDoc(doc(db, "products", "1"), { title: "Custom title" });
   await api.importCatalog();
   assert.equal((await getDoc(doc(db, "products", "1"))).data().title, "Custom title");
+});
+
+test("product deletion is atomic with inventory and preserves requests", async () => {
+  const { db, api } = await backend();
+  await api.deleteProduct("p");
+  assert.equal((await getDoc(doc(db, "products", "p"))).exists(), false);
+  assert.equal((await getDoc(doc(db, "productInventory", "p"))).exists(), false);
+  assert.equal((await getDoc(doc(db, "saleRequests", "request"))).exists(), true);
+});
+
+test("concurrent recipe creation and supply deletion cannot leave a dangling recipe", async () => {
+  const { db, api } = await backend();
+  await updateDoc(doc(db, "productInventory", "p"), { recipe: {}, updatedAt: serverTimestamp() });
+  await Promise.allSettled([
+    api.saveProduct("p", product, { sku: "P1", reorderLevel: 1, recipe: { paper: 2 } }),
+    api.deleteSupply("paper")
+  ]);
+  const remaining = await getDoc(doc(db, "supplies", "paper"));
+  const inventory = await getDoc(doc(db, "productInventory", "p"));
+  assert.ok(remaining.exists() || !Object.hasOwn(inventory.data().recipe, "paper"));
 });

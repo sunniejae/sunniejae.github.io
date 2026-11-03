@@ -20,16 +20,21 @@ async function setup() {
     serverTimestamp: () => "server-time",
     getDoc: async ref => snapshot(ref),
     getDocs: async ref => ({ docs: [...records.keys()].filter(path => path.startsWith(ref.path + "/")).map(path => snapshot(reference(path))) }),
+    getDocsFromServer: async ref => ({ docs: [...records.keys()].filter(path => path.startsWith(ref.path + "/")).map(path => snapshot(reference(path))) }),
     query: ref => ref, orderBy: () => {}, limit: () => {},
     runTransaction: async (db, callback) => {
       const writes = [];
       const transaction = {
         get: async ref => { assert.equal(writes.length, 0, "Transactions must finish reading before writing"); return snapshot(ref); },
         set: (ref, values) => writes.push([ref, values, false]),
-        update: (ref, values) => writes.push([ref, values, true])
+        update: (ref, values) => writes.push([ref, values, true]),
+        delete: ref => writes.push([ref, null, false])
       };
       const result = await callback(transaction);
-      for (const [ref, values, merge] of writes) records.set(ref.path, { ...(merge ? records.get(ref.path) : {}), ...structuredClone(values) });
+      for (const [ref, values, merge] of writes) {
+        if (values === null) records.delete(ref.path);
+        else records.set(ref.path, { ...(merge ? records.get(ref.path) : {}), ...structuredClone(values) });
+      }
       return result;
     }
   };
@@ -100,7 +105,7 @@ test("copies create separate product and supply records with zero stock", async 
   const supplyId = await api.saveSupply("", { name: "Blue paper", unit: "sheets", active: true });
   assert.notEqual(supplyId, "paper"); assert.equal(records.get(`supplies/${supplyId}`).quantity, 0);
   assert.deepEqual(records.get("productInventory/p"), originalInventory);
-  assert.deepEqual(records.get("supplies/paper"), originalSupply);
+  assert.deepEqual(records.get("supplies/paper"), { ...originalSupply, updatedAt: "server-time" });
 });
 
 test("collections can nest and rename; assignment preserves quantities and rejects missing destinations", async () => {
@@ -153,4 +158,29 @@ test("live K-pop transfers publish valid selections and reject placeholder retai
   await api.importKpopProducts(["kpop-oneus-5-v1"]);
   assert.equal(records.get("products/kpop-oneus-5-v1").link, "");
   assert.equal(records.get("products/kpop-oneus-5-v1").available, false);
+});
+
+test("product deletion removes both records, keeps history, and cannot be undone by stale edits", async () => {
+  const { records, api } = await setup();
+  records.set("saleRequests/r", { items: [{ productId: "p", title: "Planner" }] });
+  records.set("inventoryMovements/m", { itemId: "p", delta: 1 });
+  await api.deleteProduct("p");
+  assert.equal(records.has("products/p"), false);
+  assert.equal(records.has("productInventory/p"), false);
+  assert.equal(records.has("saleRequests/r"), true);
+  assert.equal(records.has("inventoryMovements/m"), true);
+  await assert.rejects(api.saveProduct("p", { title: "Old edit" }, { recipe: {}, sku: "", reorderLevel: 0 }), /deleted/);
+  assert.equal(records.has("products/p"), false);
+});
+
+test("supplies used in recipes cannot be deleted, but unreferenced supplies can", async () => {
+  const { records, api } = await setup();
+  await assert.rejects(api.deleteSupply("paper"), /used in a product recipe/);
+  assert.equal(records.has("supplies/paper"), true);
+  records.get("productInventory/p").recipe = {};
+  records.set("inventoryMovements/m", { itemId: "paper", delta: 3 });
+  await api.deleteSupply("paper");
+  assert.equal(records.has("supplies/paper"), false);
+  assert.equal(records.has("inventoryMovements/m"), true);
+  await assert.rejects(api.saveSupply("paper", { name: "Old edit" }), /deleted/);
 });

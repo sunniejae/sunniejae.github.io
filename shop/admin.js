@@ -1,6 +1,6 @@
 import { auth } from "./firebase.js";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import * as store from "./admin-data.js?v=kpop-transfer-1";
+import * as store from "./admin-data.js?v=inventory-delete-1";
 import { quantity, parseRecipe, collectionTrail, inCollection } from "./inventory-model.mjs";
 import { kpopGroupOptions, kpopVariants } from "./kpop-import.mjs";
 
@@ -209,6 +209,11 @@ function renderProducts() {
     const actions = element("div", undefined, "item-actions");
     actions.append(button("Edit product", () => editProduct(product.id)), button("Duplicate", () => editProduct(product.id, true)), button("Adjust stock", () => openStock("product", product.id, product.title)));
     if (inventory && Object.keys(inventory.recipe || {}).length) actions.append(button("Make a batch", () => openStock("production", product.id, product.title)));
+    const remove = button("Delete product", () => {
+      if (!window.confirm(`Delete “${product.title}”?\nCurrent stock: ${inventory?.stock || 0}.\nThis permanently removes the product and its inventory. Past requests and stock history are kept.`)) return;
+      action(async () => { await store.deleteProduct(product.id); if ($("productForm").elements.id.value === product.id) editProduct(); }, "Product and inventory deleted. Past requests and stock history were kept.");
+    });
+    remove.className = "danger"; actions.append(remove);
     item.append(actions); list.append(item);
   }
   if (!list.children.length) empty(list, "No products found. Add a product or import your original catalog.");
@@ -229,6 +234,11 @@ function renderSupplies() {
     if (supply.active && supply.quantity <= supply.reorderLevel) item.append(element("span", "Low stock", "badge low"));
     const actions = element("div", undefined, "item-actions");
     actions.append(button("Edit supply", () => editSupply(supply.id)), button("Duplicate", () => editSupply(supply.id, true)), button("Adjust stock", () => openStock("supply", supply.id, supply.name)));
+    const remove = button("Delete supply", () => {
+      if (!window.confirm(`Delete “${supply.name}”?\nCurrent stock: ${supply.quantity}.\nThis permanently removes the supply. Stock history is kept. Supplies used in recipes cannot be deleted.`)) return;
+      action(async () => { await store.deleteSupply(supply.id); if ($("supplyForm").elements.id.value === supply.id) editSupply(); }, "Supply deleted. Stock history was kept.");
+    });
+    remove.className = "danger"; actions.append(remove);
     item.append(actions); list.append(item);
   }
   if (!list.children.length) empty(list, "No supplies found. Add your first material to start tracking it.");

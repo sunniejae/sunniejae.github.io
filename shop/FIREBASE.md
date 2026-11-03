@@ -20,11 +20,30 @@ balances, and insufficient stock rejects the whole operation. Supply and product
 metadata edits preserve their current quantities. New items start at zero;
 receive stock with **Adjust stock**. Finished-product quantities must be whole
 numbers; supplies can use fractions (calculations round to six decimal places).
-Archive supplies instead of deleting them, and hide products instead of deleting
-their history. Product visibility and stock are independent: zero-stock products
+Supplies can be archived and products hidden when you want to retain their records.
+Product visibility and stock are independent: zero-stock products
 may still accept custom requests. Requests do not reserve or deduct inventory;
 record a negative product adjustment when shipping or selling an item. Changing
 a request status alone does not move stock or take payment.
+
+### Deleting products and supplies
+
+Use **Delete product** or **Delete supply** on an inventory card, then confirm the
+name and current stock in the browser confirmation. Cancelling makes no change.
+Product deletion removes both the public catalog record and its private inventory
+record in a transaction; customers cannot add it after a catalog refresh. Existing
+sale requests and stock movement records are retained. Supply deletion is blocked
+while any product recipe references it. Remove those recipe entries or delete the
+associated products first. Stale open editors cannot silently recreate a deleted
+item; refresh and use New product/New supply to create a new one.
+
+These deletes are permanent and may discard nonzero current stock. Use Hide or
+Archive instead if you only want to stop using an item. Deleted original/K-pop
+catalog products can be imported again, starting with zero stock. Recipe saves
+update referenced supply timestamps to coordinate with concurrent deletion. The
+website's recipe reference check is a business safeguard; trusted admins using
+the console or raw SDK must maintain references themselves. Movement history and
+customer requests still cannot be deleted through the website.
 
 ### First staff account (required)
 

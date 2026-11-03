@@ -1,6 +1,6 @@
 import { db, auth } from "./firebase.js";
 import {
-  collection, doc, getDoc, getDocs, query, orderBy, limit,
+  collection, doc, getDoc, getDocs, getDocsFromServer, query, orderBy, limit,
   runTransaction, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 import { adjustedStock, planProduction } from "./inventory-model.mjs";
@@ -53,9 +53,12 @@ export async function saveProduct(id, product, settings) {
   const inventoryRef = doc(db, "productInventory", ref.id);
   await runTransaction(db, async transaction => {
     const inventory = await transaction.get(inventoryRef);
+    if (id && !(await transaction.get(ref)).exists()) throw new Error("This product was deleted. Refresh before editing.");
     await checkCollection(transaction, settings.collectionId);
     const supplySnapshots = await Promise.all(Object.keys(settings.recipe).map(supplyId => transaction.get(doc(db, "supplies", supplyId))));
     if (supplySnapshots.some(item => !item.exists() || item.data().active === false)) throw new Error("Every recipe supply must exist and be active.");
+    // Coordinate recipe creation with supply deletion through the supply document.
+    for (const supply of supplySnapshots) transaction.update(supply.ref, { updatedAt: serverTimestamp() });
     transaction.set(ref, product);
     transaction.set(inventoryRef, {
       ...settings, stock: inventory.exists() ? inventory.data().stock : 0, updatedAt: serverTimestamp()
@@ -68,10 +71,39 @@ export async function saveSupply(id, values) {
   const ref = id ? doc(db, "supplies", id) : doc(collection(db, "supplies"));
   await runTransaction(db, async transaction => {
     const existing = await transaction.get(ref);
+    if (id && !existing.exists()) throw new Error("This supply was deleted. Refresh before editing.");
     await checkCollection(transaction, values.collectionId);
     transaction.set(ref, { ...values, quantity: existing.exists() ? existing.data().quantity : 0, updatedAt: serverTimestamp() });
   });
   return ref.id;
+}
+
+export async function deleteProduct(id) {
+  await runTransaction(db, async transaction => {
+    const productRef = doc(db, "products", id);
+    const inventoryRef = doc(db, "productInventory", id);
+    const product = await transaction.get(productRef);
+    await transaction.get(inventoryRef);
+    if (!product.exists()) throw new Error("This product was already deleted. Refresh the inventory.");
+    transaction.delete(productRef);
+    transaction.delete(inventoryRef);
+  });
+}
+
+export async function deleteSupply(id) {
+  await runTransaction(db, async transaction => {
+    const ref = doc(db, "supplies", id);
+    const supply = await transaction.get(ref);
+    if (!supply.exists()) throw new Error("This supply was already deleted. Refresh the inventory.");
+    // Query again on every retry. Recipe saves touch the supply so a concurrent
+    // addition forces this transaction to retry and inspect the new reference.
+    const inventory = await getDocsFromServer(collection(db, "productInventory"));
+    const current = await Promise.all(inventory.docs.map(item => transaction.get(item.ref)));
+    if (current.some(item => item.exists() && Object.hasOwn(item.data().recipe || {}, id))) {
+      throw new Error("This supply is used in a product recipe. Remove it from every recipe before deleting it.");
+    }
+    transaction.delete(ref);
+  });
 }
 
 export async function adjustInventory(kind, id, delta, reason) {

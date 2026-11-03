@@ -38,6 +38,8 @@ async function setup(allowed = true) {
       setRequestStatus: async (...args) => { calls.push(["request", ...args]); },
       saveRequestReply: async (...args) => { calls.push(["reply", ...args]); },
       importKpopProducts: async (...args) => { calls.push(["kpop", ...args]); },
+      deleteProduct: async id => { calls.push(["delete-product", id]); sample.products = sample.products.filter(item => item.id !== id); },
+      deleteSupply: async id => { calls.push(["delete-supply", id]); sample.supplies = sample.supplies.filter(item => item.id !== id); },
       importCatalog: async () => calls.push(["import"])
     }
   });
@@ -161,6 +163,23 @@ test("staff can save a reply for the customer's in-shop request history", async 
   form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
   assert.deepEqual(calls[0], ["reply", "r", "Your custom colors are available."]);
   assert.match(d.getElementById("status").textContent, /customer can see it in My requests/);
+  dom.window.close();
+});
+
+test("delete actions require confirmation and reset the deleted item's editor", async () => {
+  const { dom, calls } = await setup(); const d = dom.window.document;
+  dom.window.confirm = () => false;
+  [...d.querySelectorAll("#productList button")].find(item => item.textContent === "Delete product").click(); await tick();
+  assert.equal(calls.length, 0);
+  d.querySelector("#productList button").click();
+  dom.window.confirm = message => { assert.match(message, /Current stock/); return true; };
+  [...d.querySelectorAll("#productList button")].find(item => item.textContent === "Delete product").click(); await tick();
+  assert.deepEqual(calls[0], ["delete-product", "p"]);
+  assert.equal(d.getElementById("productForm").elements.id.value, "");
+  d.querySelector("#supplyList button").click();
+  [...d.querySelectorAll("#supplyList button")].find(item => item.textContent === "Delete supply").click(); await tick();
+  assert.deepEqual(calls[1], ["delete-supply", "s"]);
+  assert.equal(d.getElementById("supplyForm").elements.id.value, "");
   dom.window.close();
 });
 
