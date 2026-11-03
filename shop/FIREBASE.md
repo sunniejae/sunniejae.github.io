@@ -85,7 +85,7 @@ Hosting** for this update, because loading the dashboard now reads stock collect
 From the repository root after signing into the Firebase CLI:
 
 ```sh
-npx firebase-tools@15.34.2 deploy --only firestore:rules,hosting --project sunniejaeshop
+npx firebase-tools@15.34.2 deploy --only firestore,hosting --project sunniejaeshop
 ```
 
 Review rules for any other apps sharing the project before replacing them. The
@@ -99,7 +99,7 @@ staff creation, and live production requests were not performed by this change.
 2. In Authentication → Sign-in method, enable **Anonymous**.
 3. Publish the contents of the repository's `firestore.rules` in Firestore → Rules.
    Alternatively, sign in with the Firebase CLI and run
-   `npx firebase-tools@15.34.2 deploy --only firestore:rules --project sunniejaeshop`
+   `npx firebase-tools@15.34.2 deploy --only firestore --project sunniejaeshop`
    from the repository root. This replaces the project's Firestore rules; review
    existing rules first if other apps share this database.
 4. Follow the staff setup above and import or add products in the shop office.
@@ -132,16 +132,38 @@ supported; transactions need a live Firebase connection.
 
 ## Sale requests
 
-The wishlist form saves the name, email, message, product IDs/titles/quantities,
-anonymous customer ID, server timestamp, and status `new` in `saleRequests`.
-It preserves the wishlist on failure, and clears it only after Firestore confirms
-success. Requests are not payments or binding prices. Confirm product availability
-and pricing before fulfilling them. No email notifications are configured;
-check the Firebase console for new requests.
+The storefront flow is **Add to cart → Review → Send request → My requests**.
+There is no external form or required email. Name and email are optional; unnamed
+customers are saved as `Guest customer` with an empty email string. Notes and
+customization can be added during review. Saved requests contain the customer ID,
+items, server timestamp, and status `new`. Checkout rechecks catalog visibility
+and clears the cart only after Firestore confirms a save. The confirmation shows
+the request reference. Requests are not payments, price quotes, or stock reservations.
+Retailer products still link to the retailer's own checkout and tracking.
 
-The included rules deny public reads, updates, and deletes of requests, allow
-staff to read requests and update only their status, and validate authenticated
-submissions and each item. Anonymous authentication does
+**My requests** shows the latest 25 requests belonging to the current Firebase
+user, with status and the current `shopMessage`. Anonymous sign-in is automatic
+and waits for restored sessions before creating a new guest identity. The query
+filters by `customerId`, orders by `createdAt`, and uses the composite index in
+`firestore.indexes.json`. Deploy the index with the rules; its first build may take
+time. Refresh My requests to retrieve later updates. No automatic email messages
+are sent.
+
+Guest history is tied to the same browser profile, website origin, and Firebase
+identity. Clearing site data, changing device/domain, signing out, or replacing
+the anonymous session with a different login can remove access to that history.
+The request reference is a reference only, not an access credential. Cross-device
+account linking/recovery and automated payments are not part of this flow.
+
+Staff use the shop office's Sale requests tab to change status and save a customer-
+visible shop message (up to 2,000 characters). It is one current message, not a
+chat thread. Customer email may be absent, so use that message for next steps.
+Do not put internal staff notes or secrets in request documents: their owners can
+read the entire document. Public visitors cannot browse other customers' requests.
+
+The rules allow owners to read only their own requests, require authenticated and
+validated submissions, and allow staff to update only status and `shopMessage`.
+Customers cannot edit requests or impersonate shop replies. Anonymous authentication does
 not prevent spam. Before promoting the form widely, configure Firebase App Check
 with a web provider and enforce it for Firestore after registering the web client,
 or route submissions through a rate-limited backend. Set retention and deletion
@@ -149,8 +171,9 @@ practices for customer contact data. Do not use open test-mode rules.
 
 ## Validation
 
-`npm --prefix tests ci` then `npm --prefix tests test` runs inventory calculation
-and admin interface tests with mocked Firebase. The separate emulator suite covers
+`npm --prefix tests ci` then `npm --prefix tests test` runs inventory calculation,
+admin interface, customer data access, and storefront checkout tests with mocked
+Firebase. The separate emulator suite covers
 database permissions and concurrent stock transactions; it requires the official
 Firestore emulator download. See `tests/README.md`. Live requests require the
 console steps above; the Firebase web config alone does not authorize database

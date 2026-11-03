@@ -115,3 +115,11 @@ test("collections can nest and rename; assignment preserves quantities and rejec
   await assert.rejects(api.saveCollection("", "Orphan", "missing"));
   assert.deepEqual(records, before);
 });
+
+test("staff replies change only the shop message and preserve the original request", async () => {
+  const { records, api } = await setup();
+  records.set("saleRequests/r", { name: "Guest", customerId: "guest", status: "accepted", message: "Blue please" });
+  await api.saveRequestReply("r", "  Your colors are available.  ");
+  assert.deepEqual(records.get("saleRequests/r"), { name: "Guest", customerId: "guest", status: "accepted", message: "Blue please", shopMessage: "Your colors are available." });
+  await assert.rejects(api.saveRequestReply("r", "x".repeat(2001)));
+});

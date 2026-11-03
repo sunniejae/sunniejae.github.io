@@ -49,6 +49,7 @@ textarea { resize: vertical; } input[type=checkbox] { width: auto; }
 .collection-form { display: flex; flex-wrap: wrap; align-items: end; gap: .7rem; margin-top: 1rem; }
 .collection-form label { flex: 1; min-width: 160px; }
 .collection-breadcrumbs button[aria-current=location] { background: var(--pale); color: var(--accent); }
+.request-reply-form { display: grid; gap: .7rem; margin-top: 1rem; }
 .search { max-width: 480px; margin-bottom: 1.3rem; }
 #status:not(:empty) { background: var(--pale); padding: 1rem; border-radius: 8px; overflow-wrap: anywhere; }
 #status[data-error=true] { background: #fde9ea; color: #8c2334; }

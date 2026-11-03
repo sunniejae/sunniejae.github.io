@@ -115,6 +115,17 @@ export async function setRequestStatus(id, status) {
   });
 }
 
+export async function saveRequestReply(id, message) {
+  const shopMessage = message.trim();
+  if (shopMessage.length > 2000) throw new Error("Shop messages can contain at most 2,000 characters.");
+  await runTransaction(db, async transaction => {
+    const ref = doc(db, "saleRequests", id);
+    const request = await transaction.get(ref);
+    if (!request.exists()) throw new Error("This request no longer exists.");
+    transaction.update(ref, { shopMessage });
+  });
+}
+
 // Explicit import creates missing records only; it never replaces saved products.
 export async function importCatalog() {
   const products = [...fallbackProducts.exclusive, ...fallbackProducts.direct];

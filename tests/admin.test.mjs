@@ -34,6 +34,7 @@ async function setup(allowed = true) {
       adjustInventory: async (...args) => { calls.push(["adjust", ...args]); },
       makeProducts: async (...args) => { calls.push(["make", ...args]); },
       setRequestStatus: async (...args) => { calls.push(["request", ...args]); },
+      saveRequestReply: async (...args) => { calls.push(["reply", ...args]); },
       importCatalog: async () => calls.push(["import"])
     }
   });
@@ -147,6 +148,16 @@ test("sign-out removes customer and inventory data from the interface", async ()
   assert.equal(d.getElementById("dashboard").hidden, true);
   assert.doesNotMatch(d.getElementById("requestList").textContent, /customer@example.com/);
   assert.doesNotMatch(d.getElementById("supplyList").textContent, /Paper/);
+  dom.window.close();
+});
+
+test("staff can save a reply for the customer's in-shop request history", async () => {
+  const { dom, calls } = await setup(); const d = dom.window.document;
+  const form = d.querySelector(".request-reply-form");
+  form.querySelector("textarea").value = "Your custom colors are available.";
+  form.dispatchEvent(new dom.window.Event("submit", { cancelable: true })); await tick();
+  assert.deepEqual(calls[0], ["reply", "r", "Your custom colors are available."]);
+  assert.match(d.getElementById("status").textContent, /customer can see it in My requests/);
   dom.window.close();
 });
 

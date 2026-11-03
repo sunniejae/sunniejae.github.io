@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, serverTimestamp, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 const app = initializeApp({
@@ -13,6 +13,20 @@ const app = initializeApp({
 });
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+let customerSignIn;
+
+function authDeadline(promise) {
+  let timer;
+  return Promise.race([promise, new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error("Shop sign-in did not respond. Please try again.")), 15000);
+  })]).finally(() => clearTimeout(timer));
+}
+async function customer() {
+  await authDeadline(auth.authStateReady());
+  if (auth.currentUser) return auth.currentUser;
+  customerSignIn ||= authDeadline(signInAnonymously(auth)).then(result => result.user).finally(() => { customerSignIn = undefined; });
+  return customerSignIn;
+}
 
 export async function loadProducts() {
   const snapshot = await getDocs(collection(db, "products"));
@@ -26,8 +40,15 @@ export async function loadProducts() {
   return catalog;
 }
 export async function saveSaleRequest(request) {
-  if (!auth.currentUser) await signInAnonymously(auth);
+  const user = await customer();
   return addDoc(collection(db, "saleRequests"), {
-    ...request, customerId: auth.currentUser.uid, status: "new", createdAt: serverTimestamp()
+    ...request, customerId: user.uid, status: "new", createdAt: serverTimestamp()
   });
+}
+
+export async function loadMyRequests() {
+  const user = await customer();
+  const snapshot = await getDocs(query(collection(db, "saleRequests"),
+    where("customerId", "==", user.uid), orderBy("createdAt", "desc"), limit(25)));
+  return snapshot.docs.map(item => ({ ...item.data(), id: item.id }));
 }

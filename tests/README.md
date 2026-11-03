@@ -7,8 +7,9 @@ npm --prefix tests ci
 npm --prefix tests test
 ```
 
-This runs inventory calculations, admin DOM tests, and backend write orchestration
-using an in-memory transactional adapter. These mocks do not prove deployed
+This runs inventory calculations, admin and storefront DOM tests, customer session
+and query tests, and backend write orchestration using an in-memory transactional
+adapter. These mocks do not prove deployed
 database access, security rule correctness, or Firestore's real retry behavior.
 
 For rules, real Firestore transactions, concurrent batch consumption, and audit

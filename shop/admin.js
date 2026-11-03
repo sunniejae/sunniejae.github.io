@@ -192,7 +192,7 @@ function renderRequests() {
   for (const request of data.requests) {
     if ($("requestFilter").value && request.status !== $("requestFilter").value) continue;
     const item = element("article", undefined, "request");
-    item.append(element("h3", request.name), element("p", request.email), element("p", timestamp(request.createdAt), "muted"));
+    item.append(element("h3", request.name), element("p", request.email || "No email provided · customer follows updates in My requests"), element("p", `Reference: ${request.id}`, "muted"), element("p", timestamp(request.createdAt), "muted"));
     const items = element("ul");
     for (const product of request.items || []) items.append(element("li", `${product.title} × ${product.quantity} (ID: ${product.productId})`));
     item.append(items, element("p", request.message));
@@ -205,7 +205,18 @@ function renderRequests() {
       select.value = request.status;
       action(() => store.setRequestStatus(request.id, next), "Request status saved. Stock was not changed.");
     });
-    label.append(select); item.append(label); list.append(item);
+    label.append(select); item.append(label);
+    const replyForm = element("form", undefined, "request-reply-form");
+    const replyLabel = element("label", "Message to customer (visible in My requests)");
+    const reply = element("textarea"); reply.maxLength = 2000; reply.rows = 3; reply.value = request.shopMessage || "";
+    replyLabel.append(reply);
+    const save = element("button", "Save shop message"); save.type = "submit";
+    replyForm.append(replyLabel, save);
+    replyForm.addEventListener("submit", event => {
+      event.preventDefault();
+      action(() => store.saveRequestReply(request.id, reply.value), "Shop message saved. The customer can see it in My requests.");
+    });
+    item.append(replyForm); list.append(item);
   }
   if (!list.children.length) empty(list, "No matching sale requests.");
 }

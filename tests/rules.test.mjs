@@ -2,7 +2,7 @@ import { test, before, beforeEach, after } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { initializeTestEnvironment, assertSucceeds, assertFails } from "@firebase/rules-unit-testing";
-import { doc, getDoc, getDocs, collection, setDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, getDocs, collection, setDoc, updateDoc, deleteDoc, serverTimestamp, query, where, orderBy, limit } from "firebase/firestore";
 
 let environment;
 const product = { title: "Planner", price: "$25", image: "", description: "", link: "", type: "exclusive", available: true };
@@ -68,12 +68,27 @@ test("requests require authentication, owner identity, valid items, and a server
   const customer = environment.authenticatedContext("customer").firestore();
   await assertFails(setDoc(doc(guest, "saleRequests", "guest"), request()));
   await assertSucceeds(setDoc(doc(customer, "saleRequests", "valid"), request()));
+  await assertSucceeds(setDoc(doc(customer, "saleRequests", "no-email"), { ...request(), email: "", name: "Guest customer" }));
   for (const [name, values] of Object.entries({
     wrongOwner: { customerId: "staff" }, wrongStatus: { status: "fulfilled" },
     invalidItems: { items: [{ productId: "p", title: "Planner", quantity: -1 }] },
     emptyItems: { items: [] }, noEmail: { email: "bad" },
     extraField: { privateNote: "unexpected" }, fakeTime: { createdAt: new Date(0) }
   })) await assertFails(setDoc(doc(customer, "saleRequests", name), { ...request(), ...values }));
+});
+
+test("customers can read only their own history and cannot set status or shop replies", async () => {
+  const customer = environment.authenticatedContext("customer").firestore();
+  const other = environment.authenticatedContext("other-customer").firestore();
+  await assertSucceeds(getDoc(doc(customer, "saleRequests", "request")));
+  await assertFails(getDoc(doc(other, "saleRequests", "request")));
+  await assertSucceeds(getDocs(query(collection(customer, "saleRequests"), where("customerId", "==", "customer"), orderBy("createdAt", "desc"), limit(25))));
+  await assertFails(getDocs(collection(customer, "saleRequests")));
+  await assertFails(updateDoc(doc(customer, "saleRequests", "request"), { status: "accepted" }));
+  await assertFails(updateDoc(doc(customer, "saleRequests", "request"), { shopMessage: "Fake shop message" }));
+  await assertSucceeds(updateDoc(doc(staffDB(), "saleRequests", "request"), { shopMessage: "Your custom color is available." }));
+  assert.equal((await getDoc(doc(customer, "saleRequests", "request"))).data().shopMessage, "Your custom color is available.");
+  await assertFails(updateDoc(doc(staffDB(), "saleRequests", "request"), { shopMessage: "x".repeat(2001) }));
 });
 
 test("staff can edit inventory and request status but cannot grant access or alter customers", async () => {

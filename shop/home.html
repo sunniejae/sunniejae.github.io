@@ -2,145 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sunnie Jae Shop</title>
-  <meta name="description" content="Sunnie Jae Shop – exclusive custom orders, digital creations, and direct merch links.">
-  <meta name="google-adsense-account" content="ca-pub-1997099522384709">
+  <meta name="description" content="Shop custom creations, send a request, and follow its progress right here.">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="stylesheet" href="styles.css">
-
 </head>
-
 <body>
-
-  <!-- ================= HEADER ================= -->
-<header class="site-header">
-  <div class="header-inner">
-    <div class="logo">
-      <a href="/">Shop Sunnie Jae</a>
-    </div>
-<nav class="header-nav">
-  <button class="nav-btn" onclick="openModal('infoModal')">
-    Info
-  </button>
-
-  <button class="nav-btn" onclick="openModal('wishlistModal')">
-    Wishlist
-    <span id="wishlistCount" class="wishlist-count">0</span>
-  </button>
-
-  <a href="/index.html" class="nav-btn">
-    Home
-  </a>
-
-  <a href="/contact.html" class="nav-btn">
-    Contact
-  </a>
-  <a href="/astro/home.html" class="nav-btn">
-    Astrology
-  </a>
-  <a href="/studio ken/home.html" class="nav-btn">
-    Studio Ken
-  </a>
-</nav>
-  </div>
-
-  </header>
-
-  <!-- ================= MAIN ================= -->
-
+  <header class="site-header"><div class="header-inner">
+    <div class="logo"><a href="/">Shop Sunnie Jae</a></div>
+    <nav class="header-nav" aria-label="Shop navigation">
+      <button class="nav-btn" id="infoBtn" type="button">How it works</button>
+      <button class="nav-btn" id="requestsBtn" type="button">My requests</button>
+      <button class="nav-btn" id="wishlistBtn" type="button">Cart <span id="wishlistCount" class="wishlist-count">0</span></button>
+      <a class="nav-btn" href="/index.html">Home</a>
+    </nav>
+  </div></header>
   <main>
-<p id="catalogStatus" role="status"></p>
-
-<section>
-  <h2 class="section-title">Exclusive to Order</h2>
-  <div class="product-grid" id="exclusiveProducts"></div>
-</section>
-
-<section>
-  <h2 class="section-title">Direct Order</h2>
-  <div class="product-grid" id="directProducts"></div>
-</section>
-
-
+    <section class="shop-intro">
+      <p class="shop-eyebrow">THE SUNNIE JAE SHOP</p>
+      <h1>Something a little more you.</h1>
+      <p>Find a favorite, make it personal, and send your request right here.</p>
+      <ol class="shopping-steps"><li>Choose your items</li><li>Review &amp; request</li><li>Follow along in My requests</li></ol>
+    </section>
+    <div class="catalog-notice"><p id="catalogStatus" role="status" aria-live="polite">Loading the shop…</p><button type="button" id="retryCatalog" hidden>Try again</button></div>
+    <p id="cartNotice" class="cart-notice" role="status" aria-live="polite"></p>
+    <section><h2 class="section-title">Made for you</h2><p class="section-description">Add custom items to your cart. We’ll review availability and any personal touches before you purchase.</p><div class="product-grid" id="exclusiveProducts"></div></section>
+    <section><h2 class="section-title">Shop with our retailers</h2><p class="section-description">These items open a retailer’s website, where you can check out directly.</p><div class="product-grid" id="directProducts"></div></section>
   </main>
 
-  <!-- ================= WISHLIST MODAL ================= -->
-
-  <div class="modal" id="wishlistModal" aria-hidden="true">
-    <div class="modal-content">
-
-
-  <button
-    class="modal-close"
-    id="closeWishlist"
-    aria-label="Close wishlist">
-    &times;
-  </button>
-
-  <h2 class="modal-title">Your Wishlist</h2>
-
-  <div class="wishlist-items" id="wishlistItems"></div>
-
-  <form id="saleRequestForm" class="request-form">
-    <h3>Request these products</h3>
-    <label>Your name <input name="customerName" autocomplete="name" required maxlength="100"></label>
-    <label>Email <input name="email" type="email" autocomplete="email" required maxlength="254"></label>
-    <label>Details or customization <textarea name="message" maxlength="2000" rows="4"></textarea></label>
-    <p>Your contact details and wishlist will be saved so we can respond. This is a request, not a purchase.</p>
-    <button type="submit" class="btn btn-wishlist">Send sale request</button>
+  <dialog id="wishlistModal" class="shop-dialog" aria-labelledby="cartHeading">
+    <button class="modal-close" id="closeWishlist" type="button" aria-label="Close cart">×</button>
+    <h2 class="modal-title" id="cartHeading">Your cart</h2>
+    <p class="muted">Review your selections. Sending a request won’t charge you or reserve stock.</p>
+    <div class="wishlist-items" id="wishlistItems"></div>
+    <form id="saleRequestForm" class="request-form">
+      <fieldset id="checkoutFields">
+        <legend>Make it yours</legend>
+        <label>Details or customization <textarea name="message" maxlength="2000" rows="3" placeholder="Colors, personalization, or anything we should know (optional)"></textarea></label>
+        <details><summary>Add contact details (optional)</summary>
+          <label>Your name <input name="customerName" autocomplete="name" maxlength="100"></label>
+          <label>Email <input name="email" type="email" autocomplete="email" maxlength="254"></label>
+          <p class="muted">You can follow your request here without providing an email address.</p>
+        </details>
+        <p class="guest-note">Your requests are linked to this browser. Use My requests to see progress and messages from the shop. Clearing browser data or switching browsers can remove access.</p>
+        <button type="submit" class="btn btn-wishlist">Send request</button>
+      </fieldset>
+    </form>
     <p id="requestStatus" role="status" aria-live="polite"></p>
-  </form>
+    <section id="requestConfirmation" class="request-confirmation" hidden tabindex="-1">
+      <h3>Request received!</h3><p id="confirmationReference"></p>
+      <p>Find your selections, status, and shop updates in My requests. Nothing has been charged.</p>
+      <button type="button" class="btn btn-secondary" id="viewSavedRequest">View my requests</button>
+      <button type="button" id="continueShopping">Continue shopping</button>
+    </section>
+  </dialog>
 
-</div>
+  <dialog id="requestsModal" class="shop-dialog" aria-labelledby="requestsHeading">
+    <button class="modal-close" id="closeRequests" type="button" aria-label="Close my requests">×</button>
+    <h2 class="modal-title" id="requestsHeading">My requests</h2>
+    <p class="muted">The latest 25 requests from this browser. Refresh to check for shop updates.</p>
+    <button id="refreshRequests" type="button">Refresh requests</button>
+    <p id="requestsStatus" role="status" aria-live="polite"></p>
+    <div id="myRequestsList" class="my-requests"></div>
+  </dialog>
 
-
-  </div>
-
-  <!-- ================= INFO MODAL ================= -->
-
-  <div class="modal" id="infoModal" aria-hidden="true">
-    <div class="modal-content">
-
-
-  <button
-    class="modal-close"
-    id="closeInfo"
-    aria-label="Close info">
-    &times;
-  </button>
-
-  <h2 class="modal-title">How to Order</h2>
-
-  <div class="info-content">
-    <h3>Exclusive to Order</h3>
-    <ol>
-      <li>Add items to your wishlist</li>
-      <li>Open the wishlist (♡)</li>
-      <li>Fill out the contact form and verify the wishlist looks correct.</li>
-      <li>Submit!</li>
-      <li>We’ll email you with next steps</li>
-    </ol>
-
-    <h3>Direct Order</h3>
-    <p>
-      Direct order items link straight to the retailer for immediate checkout.
-    </p>
-
-    <h3>Questions?</h3>
-    <p>
-      Email
-      <a href="mailto:orders@sunniejae.com">orders@sunniejae.com</a>
-    </p>
-  </div>
-
-</div>
-
-  </div>
-
-  <!-- ================= SHOP LOGIC ================= -->
-
+  <dialog id="infoModal" class="shop-dialog" aria-labelledby="infoHeading">
+    <button class="modal-close" id="closeInfo" type="button" aria-label="Close ordering information">×</button>
+    <h2 class="modal-title" id="infoHeading">How it works</h2>
+    <div class="info-content">
+      <h3>Custom requests</h3>
+      <ol><li>Add items to your cart and adjust quantities.</li><li>Add any customization notes and send your request.</li><li>Open My requests to follow its status and read shop messages.</li></ol>
+      <p>No separate contact form or email is needed. We’ll review your request before confirming the details. Sending a request is not a payment or stock reservation.</p>
+      <h3>Retailer orders</h3><p>Retailer links open a separate website. Their checkout, payment, and order tracking happen there.</p>
+      <h3>Your requests</h3><p>Guest requests are linked to this browser. Contact details are optional; this shop does not automatically send email confirmations. Keep browser data to retain access.</p>
+    </div>
+  </dialog>
   <script type="module" src="shophome.js"></script>
-
 </body>
 </html>
