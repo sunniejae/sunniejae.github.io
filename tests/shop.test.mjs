@@ -8,13 +8,15 @@ import { productShop, categoryPath, catalogMatches } from "../shop/catalog-model
 const html = await fs.readFile(new URL("../shop/home.html", import.meta.url), "utf8");
 const source = (await fs.readFile(new URL("../shop/shophome.js", import.meta.url), "utf8"))
   .replace(/^import .*;$/gm, "")
-  .replace('import("./firebase.js?v=shop-brands-1")', 'Promise.resolve(window.shopAPI)');
+  .replace('import("./firebase.js?v=catalog-resilience-1")', 'Promise.resolve(window.shopAPI)');
 const tick = () => new Promise(resolve => setTimeout(resolve, 15));
 const product = { id: "p", title: "Custom planner", price: "$25", type: "exclusive", image: "https://example.com/planner.png" };
 
 async function setup(overrides = {}, storedCart) {
   const dom = new JSDOM(html, { runScripts: "outside-only", url: "https://example.com/shop/home.html" });
   const calls = [];
+  const errors = [];
+  dom.window.console.error = (...args) => errors.push(args);
   dom.window.fallbackProducts = fallbackProducts;
   Object.assign(dom.window, { productShop, categoryPath, catalogMatches });
   dom.window.shopAPI = {
@@ -28,7 +30,7 @@ async function setup(overrides = {}, storedCart) {
   dom.window.HTMLDialogElement.prototype.close = function () { this.open = false; };
   if (storedCart !== undefined) dom.window.localStorage.setItem("sj_wishlist", JSON.stringify(storedCart));
   dom.window.eval(source); await tick();
-  return { dom, calls, d: dom.window.document };
+  return { dom, calls, errors, d: dom.window.document };
 }
 function addAndOpen(dom) {
   const d = dom.window.document;
@@ -197,5 +199,29 @@ test("nested categories and text search combine and can be cleared", async () =>
   assert.equal(d.querySelectorAll(".product-card").length, 0);
   assert.match(d.getElementById("catalogResults").textContent, /0 products/);
   d.getElementById("clearShopFilters").click(); assert.equal(d.querySelectorAll(".product-card").length, 2);
+  dom.window.close();
+});
+
+test("category permission failure leaves products and checkout available and logs the cause", async () => {
+  const { dom, d, errors } = await setup({ loadShopCategories: async () => { throw { code: "permission-denied", message: "Missing category read rule" }; } });
+  assert.equal(d.querySelectorAll(".product-card").length, 1);
+  assert.equal(d.querySelector("#exclusiveProducts .btn").disabled, false);
+  assert.match(d.getElementById("catalogStatus").textContent, /still shop and search/);
+  assert.equal(d.querySelector("#categoryFilters select").disabled, true);
+  assert.equal(errors[0][1].code, "permission-denied");
+  addAndOpen(dom); assert.equal(d.getElementById("checkoutFields").disabled, false);
+  dom.window.shopAPI.loadShopCategories = async () => [];
+  d.getElementById("retryCatalog").click(); await tick();
+  assert.equal(d.getElementById("catalogStatus").textContent, "");
+  assert.equal(d.querySelector("#categoryFilters select").disabled, false);
+  dom.window.close();
+});
+
+test("product loading errors are logged and keep checkout disabled", async () => {
+  const { dom, d, errors } = await setup({ loadProducts: async () => { throw { code: "unavailable", message: "Connection failed" }; } });
+  assert.match(d.getElementById("catalogStatus").textContent, /shop is temporarily unavailable/);
+  assert.equal(errors[0][0], "Shop products could not load");
+  assert.equal(errors[0][1].code, "unavailable");
+  assert.equal(d.querySelector("#exclusiveProducts .btn").disabled, true);
   dom.window.close();
 });

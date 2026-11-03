@@ -17,6 +17,8 @@ let accountLoad = 0;
 let activeShop = new URLSearchParams(location.search).get("shop") === "studio-ken" ? "studio-ken" : "sunnie-jae";
 let categories = [];
 let selectedCategory = new URLSearchParams(location.search).get("category") || "";
+let categoriesAvailable = true;
+let catalogLoad = 0;
 const stateLabels = { new: "Received", contacted: "In review", accepted: "Accepted", fulfilled: "Completed", cancelled: "Cancelled" };
 
 function element(tag, text, className) {
@@ -38,7 +40,7 @@ function image(src, title, className) {
   node.alt = title || ""; node.loading = "lazy"; return node;
 }
 function client() {
-  clientPromise ||= import("./firebase.js?v=shop-brands-1").catch(error => { clientPromise = undefined; throw error; });
+  clientPromise ||= import("./firebase.js?v=catalog-resilience-1").catch(error => { clientPromise = undefined; throw error; });
   return clientPromise;
 }
 function deadline(promise) {
@@ -94,6 +96,7 @@ function renderCategoryFilters() {
     const children = categories.filter(item => item.shop === activeShop && item.parentId === parent).sort((a, b) => a.name.localeCompare(b.name));
     if (depth && !children.length) break;
     const label = element("label", depth ? "Subcategory" : "Category"); const select = element("select");
+    select.disabled = !categoriesAvailable;
     const all = element("option", depth ? "All subcategories" : "All categories"); all.value = parent; select.append(all);
     for (const item of children) { const option = element("option", item.name); option.value = item.id; select.append(option); }
     select.value = path[depth]?.id || parent;
@@ -127,21 +130,35 @@ function renderCatalog() {
   $("catalogResults").textContent = `${count} ${count === 1 ? "product" : "products"} in ${activeShop === "studio-ken" ? "Studio Ken" : "Sunnie Jae"}`;
 }
 async function loadCatalog() {
+  const version = ++catalogLoad;
   $("catalogStatus").textContent = "Checking the latest shop selections…"; $("retryCatalog").hidden = true;
   try {
-    const loaded = await deadline(client().then(async api => Promise.all([api.loadProducts(), api.loadShopCategories()])));
-    products = loaded[0]; categories = loaded[1]; catalogReady = true;
+    const api = await deadline(client());
+    const [catalog, categoryResult] = await Promise.allSettled([
+      deadline(api.loadProducts()), deadline(Promise.resolve().then(() => api.loadShopCategories()))
+    ]);
+    if (version !== catalogLoad) return;
+    categoriesAvailable = categoryResult.status === "fulfilled";
+    if (!categoriesAvailable) reportCatalogError("categories", categoryResult.reason);
+    if (catalog.status === "rejected") throw catalog.reason;
+    products = catalog.value; categories = categoriesAvailable ? categoryResult.value : []; catalogReady = true;
     renderCategoryFilters();
     filterURL();
-    $("catalogStatus").textContent = "";
+    $("catalogStatus").textContent = categoriesAvailable ? "" : "Category filters are temporarily unavailable. You can still shop and search all products in this shop.";
+    $("retryCatalog").hidden = categoriesAvailable;
     for (const item of cart) { const latest = currentProduct(item.id); if (latest) Object.assign(item, latest, { id: String(latest.id) }); }
     persistCart();
-  } catch {
+  } catch (error) {
+    if (version !== catalogLoad) return;
+    reportCatalogError("products", error);
     catalogReady = false;
     $("catalogStatus").textContent = "The shop is temporarily unavailable. Your cart is saved; try again to check availability.";
     $("retryCatalog").hidden = false;
   }
   renderCatalog(); updateCart();
+}
+function reportCatalogError(stage, error) {
+  console.error(`Shop ${stage} could not load`, { code: error?.code || "unknown", message: error?.message || String(error) });
 }
 function addToCart(product) {
   if (!catalogReady || sending) return;
