@@ -3,6 +3,7 @@ import { productShop, categoryPath, catalogMatches } from "./catalog-model.mjs";
 
 const $ = id => document.getElementById(id);
 let products = fallbackProducts;
+let selectedOrderType = "all";
 let cart = [];
 let catalogReady = false;
 let sending = false;
@@ -104,10 +105,18 @@ function renderCategoryFilters() {
     label.append(select); area.append(label);
   }
 }
+function renderOrderFilters() {
+  for (const control of document.querySelectorAll("[data-order-type]")) {
+    control.setAttribute("aria-pressed", String(control.dataset.orderType === selectedOrderType));
+  }
+}
 function renderCatalog() {
   let count = 0;
   for (const [kind, gridId] of [["exclusive", "exclusiveProducts"], ["direct", "directProducts"]]) {
     const grid = $(gridId); grid.replaceChildren();
+    const visible = selectedOrderType === "all" || selectedOrderType === kind;
+    grid.closest("section").hidden = !visible;
+    if (!visible) continue;
     for (const product of products[kind]) {
       if (!catalogMatches(product, { shop: activeShop, categoryId: selectedCategory, search: $("shopSearch").value, categories })) continue;
       count++;
@@ -322,6 +331,12 @@ async function loadRequests() {
   finally { if (version === requestLoad) $("refreshRequests").disabled = false; }
 }
 function init() {
+  for (const control of document.querySelectorAll("[data-order-type]")) {
+    control.addEventListener("click", () => {
+      selectedOrderType = control.dataset.orderType;
+      renderOrderFilters(); renderCatalog();
+    });
+  }
   $("shopSearch").value = new URLSearchParams(location.search).get("q") || "";
   renderShop(); renderCategoryFilters(); loadCart(); renderCatalog(); updateCart();
   $("switchShop").addEventListener("click", () => {
@@ -330,7 +345,7 @@ function init() {
     renderShop(); renderCategoryFilters(); renderCatalog(); filterURL();
   });
   $("shopSearch").addEventListener("input", () => { renderCatalog(); filterURL(); });
-  $("clearShopFilters").addEventListener("click", () => { selectedCategory = ""; $("shopSearch").value = ""; renderCategoryFilters(); renderCatalog(); filterURL(); });
+  $("clearShopFilters").addEventListener("click", () => { selectedOrderType = "all"; renderOrderFilters(); selectedCategory = ""; $("shopSearch").value = ""; renderCategoryFilters(); renderCatalog(); filterURL(); });
   $("wishlistBtn").addEventListener("click", () => openModal("wishlistModal"));
   $("requestsBtn").addEventListener("click", () => openModal("requestsModal"));
   $("infoBtn").addEventListener("click", () => openModal("infoModal"));

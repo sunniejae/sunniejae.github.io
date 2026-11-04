@@ -6,7 +6,7 @@
   <title>Sunnie Jae Shop</title>
   <meta name="description" content="Shop custom creations, send a request, and follow its progress right here.">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
-  <link rel="stylesheet" href="styles.css?v=catalog-resilience-1">
+  <link rel="stylesheet" href="styles.css?v=order-filters-1">
 </head>
 <body>
   <header class="site-header"><div class="header-inner">
@@ -28,14 +28,19 @@
     </section>
     <section class="catalog-filters" aria-label="Filter products">
       <label>Search the shop<input id="shopSearch" type="search" placeholder="Search products, descriptions, or categories"></label>
+      <div class="order-filters" role="group" aria-label="Filter by order type">
+        <button type="button" class="nav-btn" data-order-type="all" aria-pressed="true">All</button>
+        <button type="button" class="nav-btn" data-order-type="exclusive" aria-pressed="false">Made for you</button>
+        <button type="button" class="nav-btn" data-order-type="direct" aria-pressed="false">Shop with our retailers</button>
+      </div>
       <div id="categoryFilters" class="category-filters"></div>
       <button id="clearShopFilters" type="button">Clear filters</button>
       <p id="catalogResults" role="status" aria-live="polite"></p>
     </section>
     <div class="catalog-notice"><p id="catalogStatus" role="status" aria-live="polite">Loading the shop…</p><button type="button" id="retryCatalog" hidden>Try again</button></div>
     <p id="cartNotice" class="cart-notice" role="status" aria-live="polite"></p>
-    <section><h2 class="section-title">Made for you</h2><p class="section-description">Add custom items to your cart. We’ll review availability and any personal touches before you purchase.</p><div class="product-grid" id="exclusiveProducts"></div></section>
-    <section><h2 class="section-title">Shop with our retailers</h2><p class="section-description">These items open a retailer’s website, where you can check out directly.</p><div class="product-grid" id="directProducts"></div></section>
+    <section data-product-category="exclusive"><h2 class="section-title">Made for you</h2><p class="section-description">Add custom items to your cart. We’ll review availability and any personal touches before you purchase.</p><div class="product-grid" id="exclusiveProducts"></div></section>
+    <section data-product-category="direct"><h2 class="section-title">Shop with our retailers</h2><p class="section-description">These items open a retailer’s website, where you can check out directly.</p><div class="product-grid" id="directProducts"></div></section>
   </main>
   <footer class="shop-footer"><p>Order updates, issues, or inquiries? Contact <a href="mailto:shop@sunniejae.com">shop@sunniejae.com</a>.</p></footer>
 
@@ -116,6 +121,6 @@
       <h3>Questions or order issues?</h3><p>Email <a href="mailto:shop@sunniejae.com">shop@sunniejae.com</a> for order updates, issues, and inquiries. Include your request reference if you have one.</p>
     </div>
   </dialog>
-  <script type="module" src="shophome.js?v=catalog-resilience-1"></script>
+  <script type="module" src="shophome.js?v=order-filters-1"></script>
 </body>
 </html>
