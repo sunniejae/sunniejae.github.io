@@ -470,3 +470,7 @@ body[data-shop="studio-ken"] .request-confirmation { background: #243a31; }
 body[data-shop="studio-ken"] .qty-controls button { background: #17181d; color: #f1e9d7; }
 #requestStatus:not(:empty), #requestsStatus:not(:empty) { margin-top: 1rem; }
 @media (max-width: 600px) { .header-inner { padding: .8rem 1rem; } .header-nav { gap: .4rem; } .nav-btn { padding: .5rem .65rem; font-size: .8rem; } .shop-intro h1 { font-size: 1.8rem; } .shop-dialog { padding: 1.3rem; } .wishlist-item { gap: .7rem; } .wishlist-item-image { width: 56px; height: 56px; } }
+
+.order-filters { display: flex; flex-wrap: wrap; gap: .6rem; }
+.order-filters .nav-btn { background: var(--white); color: var(--dark-purple); }
+body .order-filters .nav-btn[aria-pressed="true"] { background: var(--dark-purple); color: var(--white); border-color: var(--dark-purple); }

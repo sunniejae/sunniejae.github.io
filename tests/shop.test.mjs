@@ -225,3 +225,23 @@ test("product loading errors are logged and keep checkout disabled", async () =>
   assert.equal(d.querySelector("#exclusiveProducts .btn").disabled, true);
   dom.window.close();
 });
+
+
+test("order filters compose with search and reset through Clear filters", async () => {
+  const { dom, d } = await setup({ loadProducts: async () => ({ exclusive: [product], direct: [{ ...product, id: "retailer", type: "direct", title: "Retailer planner", link: "https://example.com" }] }) });
+  const section = kind => d.querySelector(`[data-product-category="${kind}"]`);
+  d.querySelector('[data-order-type="direct"]').click();
+  assert.equal(section("exclusive").hidden, true);
+  assert.equal(section("direct").hidden, false);
+  assert.equal(d.querySelector('[data-order-type="direct"]').getAttribute("aria-pressed"), "true");
+  assert.match(d.getElementById("catalogResults").textContent, /1 product/);
+  d.getElementById("shopSearch").value = "missing";
+  d.getElementById("shopSearch").dispatchEvent(new dom.window.Event("input"));
+  assert.match(d.getElementById("catalogResults").textContent, /0 products/);
+  d.getElementById("clearShopFilters").click();
+  assert.equal(section("exclusive").hidden, false);
+  assert.equal(section("direct").hidden, false);
+  assert.match(d.getElementById("catalogResults").textContent, /2 products/);
+  assert.equal(d.querySelector('[data-order-type="all"]').getAttribute("aria-pressed"), "true");
+  dom.window.close();
+});
