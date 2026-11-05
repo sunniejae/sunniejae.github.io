@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 720 720">
+  <defs>
+    <linearGradient id="background" x2="1" y2="1">
+      <stop stop-color="#f0f0f5"/>
+      <stop offset="1" stop-color="#ffb3d6"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#9a9ad4" stroke-opacity=".25"/>
+    </pattern>
+  </defs>
+  <path fill="url(#background)" d="M0 0h720v720H0z"/>
+  <path fill="url(#grid)" d="M0 0h720v720H0z"/>
+  <rect x="256" y="156" width="208" height="156" rx="4" fill="#f0f0f5" stroke="#3f3d7a" stroke-width="4"/>
+  <circle cx="405" cy="199" r="16" fill="#ffb3d6"/>
+  <path d="m268 298 62-74 48 52 33-34 41 56" fill="#9a9ad4"/>
+  <g text-anchor="middle" fill="#3f3d7a" font-family="Tahoma, sans-serif">
+    <text x="360" y="383" font-size="38" font-weight="bold">Your image here</text>
+    <text x="360" y="427" font-size="22">A little window shopping?</text>
+  </g>
+</svg>

@@ -371,6 +371,52 @@
             padding: 2px 0;
             word-wrap: break-word;
         }
+
+        #store-window {
+            position: fixed;
+            left: max(12px, calc(50% - 180px));
+            top: max(12px, calc(50% - 160px));
+            width: min(360px, calc(100vw - 24px));
+            min-width: 0;
+            max-height: calc(100dvh - 74px);
+            overflow: auto;
+        }
+
+        .store-promo {
+            padding: 0;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .store-image-link { display: block; position: relative; }
+        .store-promo img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+
+        .store-link {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            display: inline-block;
+            align-self: center;
+            padding: 10px 22px;
+            border: 2px outset var(--gray);
+            background: var(--gray);
+            color: var(--black);
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .store-link:hover { background: var(--pink); }
+        .store-link:active { border-style: inset; }
+        #store-window :focus-visible { outline: 2px solid var(--dark-purple); outline-offset: 2px; }
     </style>
 </head>
 <body>
@@ -418,6 +464,23 @@
     </div>
 
     <!-- Windows -->
+    <section class="window minimized" id="store-window" role="region" aria-labelledby="store-window-title">
+        <div class="window-header">
+            <span id="store-window-title">Shop Sunnie Jae</span>
+            <div class="window-controls">
+                <button type="button" class="window-button minimize-btn" aria-label="Minimize store window">_</button>
+                <button type="button" class="window-button close-btn" aria-label="Close store window">×</button>
+            </div>
+        </div>
+        <div class="window-content store-promo">
+            <a class="store-image-link" href="shop/home.html" aria-label="Visit the Sunnie Jae store">
+                <!-- Replace this image src with your store artwork. Square images fill the window best. -->
+                <img src="assets/home/store-promo.svg" alt="Shop Sunnie Jae">
+                <span class="store-link">Visit the store →</span>
+            </a>
+        </div>
+    </section>
+
     <div class="window" id="header-window" style="left: 50%; top: 50%; width: 750px; height: 300px; transform: translate(-50%, -50%);">
         <div class="window-header">
             <span>Welcome</span>
@@ -562,6 +625,7 @@
             setTimeout(() => {
                 openWindow('header-window');
                 openWindow('chat-window');
+                openWindow('store-window');
                 
                 // Start chat after a delay
                 setTimeout(() => {
