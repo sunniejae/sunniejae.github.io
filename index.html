@@ -417,6 +417,10 @@
         .store-link:hover { background: var(--pink); }
         .store-link:active { border-style: inset; }
         #store-window :focus-visible { outline: 2px solid var(--dark-purple); outline-offset: 2px; }
+
+        /* Leave room to scroll when the three starting windows cannot fit vertically. */
+        body { overflow-y: auto; }
+        #store-window { position: absolute; }
     </style>
 </head>
 <body>
@@ -621,7 +625,9 @@
             setInterval(updateClock, 1000);
             updateTaskbar();
             
-            // Open default windows - header window and chat window
+            arrangeHomeWindows();
+
+            // Open the welcome, chat, and store windows in separate positions.
             setTimeout(() => {
                 openWindow('header-window');
                 openWindow('chat-window');
@@ -634,6 +640,40 @@
                 }, 2000);
             }, 500);
         });
+
+        function arrangeHomeWindows() {
+            const gap = 16;
+            // Keep the desktop icon column clear on larger screens.
+            const left = window.innerWidth >= 800 ? 112 : 12;
+            const available = Math.max(1, window.innerWidth - left - 12);
+            const header = document.getElementById('header-window');
+            const store = document.getElementById('store-window');
+            const chat = document.getElementById('chat-window');
+            const headerHeight = Math.min(300, Math.round(available * 0.4) + 38);
+
+            function place(element, x, y, width, height) {
+                Object.assign(element.style, {
+                    left: `${x}px`, top: `${y}px`, width: `${width}px`,
+                    height: `${height}px`, transform: 'none',
+                    minWidth: '0', minHeight: '0', maxHeight: 'none'
+                });
+            }
+
+            place(header, left, 20, Math.min(750, available), headerHeight);
+            const storeWidth = Math.min(360, available);
+            const storeHeight = storeWidth + 30;
+            const secondRow = 20 + headerHeight + gap;
+            place(store, left, secondRow, storeWidth, storeHeight);
+
+            const sideBySide = available >= storeWidth + gap + 300;
+            const chatTop = sideBySide ? secondRow : secondRow + storeHeight + gap;
+            place(chat, sideBySide ? left + storeWidth + gap : left,
+                chatTop, Math.min(300, available), 400);
+            document.getElementById('desktop').style.minHeight =
+                `${Math.max(secondRow + storeHeight, chatTop + 400) + 70}px`;
+        }
+
+        window.addEventListener('resize', arrangeHomeWindows);
 
         // Clock
         function updateClock() {
